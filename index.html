@@ -1,23 +1,156 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>سایت من</title>
-  <style>
-    body {
-      font-family: Tahoma, sans-serif;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      text-align: center;
-      padding: 4rem 2rem;
-      min-height: 100vh;
-      margin: 0;
-    }
-    h1 { font-size: 2.5rem; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>سامانه مشاوره آموزشی</title>
+  <meta name="description" content="سامانه اطلاع‌رسانی و دانلود فایل‌های آموزشی" />
+
+  <!-- فونت وزیرمتن -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <!-- آیکون‌ها -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- استایل -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>سایت من</h1>
-  <p>سایت با موفقیت راه‌اندازی شد!</p>
+
+  <!-- ===== هدر ===== -->
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo">
+        <span>سامانه مشاوره</span>
+      </div>
+
+      <nav class="nav" id="nav">
+        <a href="#" class="nav-link active" data-page="home">خانه</a>
+        <a href="#" class="nav-link" data-page="files">دانلود فایل‌ها</a>
+        <a href="#" class="nav-link" data-page="news">بخشنامه‌ها</a>
+        <a href="#" class="nav-link" data-page="about">درباره ما</a>
+        <a href="#" class="nav-link" data-page="contact">تماس با ما</a>
+      </nav>
+
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== محتوای اصلی ===== -->
+  <main class="container">
+
+    <!-- صفحه خانه -->
+    <section class="page active" id="home">
+      <!-- اسلایدر -->
+      <div class="slider" id="slider">
+        <div class="slide active" style="background: linear-gradient(135deg,#667eea,#764ba2)">
+          <div class="slide-content">
+            <h2>به سامانه مشاوره خوش آمدید</h2>
+            <p>منابع، بخشنامه‌ها و فایل‌های آموزشی در یک جا</p>
+          </div>
+        </div>
+        <div class="slide" style="background: linear-gradient(135deg,#f093fb,#f5576c)">
+          <div class="slide-content">
+            <h2>دانلود فایل‌های آموزشی</h2>
+            <p>جدیدترین منابع مشاوره‌ای را دریافت کنید</p>
+          </div>
+        </div>
+        <div class="slide" style="background: linear-gradient(135deg,#4facfe,#00f2fe)">
+          <div class="slide-content">
+            <h2>آخرین بخشنامه‌ها</h2>
+            <p>همیشه به‌روز بمانید</p>
+          </div>
+        </div>
+
+        <button class="slider-btn prev" onclick="changeSlide(-1)">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        <button class="slider-btn next" onclick="changeSlide(1)">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <div class="dots" id="dots"></div>
+      </div>
+
+      <!-- کارت‌های سریع -->
+      <div class="cards">
+        <div class="card" onclick="showPage('files')">
+          <i class="fa-solid fa-download"></i>
+          <h3>دانلود فایل</h3>
+          <p>دسترسی سریع به منابع</p>
+        </div>
+        <div class="card" onclick="showPage('news')">
+          <i class="fa-solid fa-bullhorn"></i>
+          <h3>بخشنامه‌ها</h3>
+          <p>اطلاعیه‌های رسمی</p>
+        </div>
+        <div class="card" onclick="showPage('contact')">
+          <i class="fa-solid fa-headset"></i>
+          <h3>پشتیبانی</h3>
+          <p>ارتباط با ما</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- صفحه دانلود فایل‌ها -->
+    <section class="page" id="files">
+      <h1 class="page-title">دانلود فایل‌های آموزشی</h1>
+      <div class="file-list" id="fileList">
+        <!-- فایل‌ها با JS بارگذاری می‌شوند -->
+      </div>
+    </section>
+
+    <!-- صفحه بخشنامه‌ها -->
+    <section class="page" id="news">
+      <h1 class="page-title">بخشنامه‌ها و اطلاعیه‌ها</h1>
+      <div class="news-list" id="newsList">
+        <!-- اخبار با JS بارگذاری می‌شوند -->
+      </div>
+    </section>
+
+    <!-- صفحه درباره ما -->
+    <section class="page" id="about">
+      <h1 class="page-title">درباره ما</h1>
+      <div class="content-box">
+        <p>
+          این سامانه با هدف اطلاع‌رسانی و ارائه منابع آموزشی به مشاوران و دانش‌آموزان طراحی شده است.
+          تمامی فایل‌ها و بخشنامه‌ها به صورت منظم به‌روزرسانی می‌شوند.
+        </p>
+      </div>
+    </section>
+
+    <!-- صفحه تماس با ما -->
+    <section class="page" id="contact">
+      <h1 class="page-title">تماس با ما</h1>
+      <div class="content-box">
+        <form class="contact-form" onsubmit="sendMessage(event)">
+          <input type="text" placeholder="نام شما" required />
+          <input type="email" placeholder="ایمیل" required />
+          <textarea placeholder="پیام شما" rows="5" required></textarea>
+          <button type="submit" class="btn-primary">ارسال پیام</button>
+        </form>
+        <div class="contact-info">
+          <p><i class="fa-solid fa-phone"></i> ۰۳۴-۱۲۳۴۵۶۷۸</p>
+          <p><i class="fa-solid fa-envelope"></i> info@example.ir</p>
+          <p><i class="fa-solid fa-location-dot"></i> کرمان، خیابان ...</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== فوتر ===== -->
+  <footer class="footer">
+    <div class="container">
+      <p>© ۱۴۰۴ سامانه مشاوره — تمامی حقوق محفوظ است.</p>
+    </div>
+  </footer>
+
+  <!-- دکمه بازگشت به بالا -->
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script src="script.js"></script>
 </body>
 </html>
