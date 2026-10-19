@@ -3,13 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>سامانه مشاوره آموزشی</title>
-  <meta name="description" content="سامانه اطلاع‌رسانی و دانلود فایل‌های آموزشی" />
+  
+  <title>مستر پلنر | ابزار برنامه ریزی و مطالعه</title>
+  <meta name="description" content="مستر پلنر، ابزار هوشمند برنامه ریزی، دانلود منابع رایگان و محصولات تخصصی با رویکرد ساخت شناختی." />
 
-  <!-- فونت وزیرمتن -->
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <!-- فونت‌های فارسی و انگلیسی -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+  
   <!-- آیکون‌ها -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
   <!-- استایل -->
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -19,15 +22,17 @@
   <header class="header">
     <div class="container header-inner">
       <div class="logo">
-        <span>سامانه مشاوره</span>
+        <span class="logo-fa">مستر پلنر</span>
+        <span class="logo-en">Mesterplanner</span>
       </div>
 
       <nav class="nav" id="nav">
         <a href="#" class="nav-link active" data-page="home">خانه</a>
-        <a href="#" class="nav-link" data-page="files">دانلود فایل‌ها</a>
-        <a href="#" class="nav-link" data-page="news">بخشنامه‌ها</a>
+        <a href="#" class="nav-link" data-page="downloads">دانلود رایگان</a>
+        <a href="#" class="nav-link" data-page="tips">نکات آموزشی</a>
+        <a href="#" class="nav-link" data-page="products">محصولات</a>
         <a href="#" class="nav-link" data-page="about">درباره ما</a>
-        <a href="#" class="nav-link" data-page="contact">تماس با ما</a>
+        <a href="#" class="nav-link" data-page="contact">ارتباط با ما</a>
       </nav>
 
       <button class="menu-toggle" id="menuToggle">
@@ -39,26 +44,34 @@
   <!-- ===== محتوای اصلی ===== -->
   <main class="container">
 
-    <!-- صفحه خانه -->
+    <!-- 1. صفحه خانه -->
     <section class="page active" id="home">
+      <!-- بنر بالا -->
+      <div class="hero">
+        <h1 class="hero-title">ابزار برنامه ریزی و مطالعه</h1>
+        <h2 class="hero-title-en">Mesterplanner</h2>
+        <p class="hero-subtitle">با رویکرد ساخت شناختی، یادگیری را برای خود هموار کنید.</p>
+        <button class="btn-primary" onclick="showPage('products')">مشاهده محصولات <i class="fa-solid fa-arrow-left"></i></button>
+      </div>
+
       <!-- اسلایدر -->
       <div class="slider" id="slider">
-        <div class="slide active" style="background: linear-gradient(135deg,#667eea,#764ba2)">
+        <div class="slide active" style="background: linear-gradient(135deg, #0f172a, #10b981)">
           <div class="slide-content">
-            <h2>به سامانه مشاوره خوش آمدید</h2>
-            <p>منابع، بخشنامه‌ها و فایل‌های آموزشی در یک جا</p>
+            <h2>برنامه‌ریزی هوشمند</h2>
+            <p>با پلن‌های درسی ما، مسیر مطالعه را دقیق مشخص کنید</p>
           </div>
         </div>
-        <div class="slide" style="background: linear-gradient(135deg,#f093fb,#f5576c)">
+        <div class="slide" style="background: linear-gradient(135deg, #0f172a, #fbbf24)">
           <div class="slide-content">
-            <h2>دانلود فایل‌های آموزشی</h2>
-            <p>جدیدترین منابع مشاوره‌ای را دریافت کنید</p>
+            <h2>یادگیری ساخت‌شناختی</h2>
+            <p>دانش را با مهارت پیوند دهید</p>
           </div>
         </div>
-        <div class="slide" style="background: linear-gradient(135deg,#4facfe,#00f2fe)">
+        <div class="slide" style="background: linear-gradient(135deg, #0f172a, #3b82f6)">
           <div class="slide-content">
-            <h2>آخرین بخشنامه‌ها</h2>
-            <p>همیشه به‌روز بمانید</p>
+            <h2>منابع و ابزارهای تخصصی</h2>
+            <p>جعبه ابزار فرا شناختی در انتظار شماست</p>
           </div>
         </div>
 
@@ -74,66 +87,93 @@
 
       <!-- کارت‌های سریع -->
       <div class="cards">
-        <div class="card" onclick="showPage('files')">
+        <div class="card" onclick="showPage('downloads')">
           <i class="fa-solid fa-download"></i>
-          <h3>دانلود فایل</h3>
-          <p>دسترسی سریع به منابع</p>
+          <h3>دانلود فایل‌های رایگان</h3>
+          <p>دسترسی به برنامه‌ریزی و روش مطالعه</p>
         </div>
-        <div class="card" onclick="showPage('news')">
-          <i class="fa-solid fa-bullhorn"></i>
-          <h3>بخشنامه‌ها</h3>
-          <p>اطلاعیه‌های رسمی</p>
+        <div class="card" onclick="showPage('tips')">
+          <i class="fa-solid fa-lightbulb"></i>
+          <h3>نکات آموزشی</h3>
+          <p>معماها و تکنیک‌های طلایی</p>
         </div>
-        <div class="card" onclick="showPage('contact')">
-          <i class="fa-solid fa-headset"></i>
-          <h3>پشتیبانی</h3>
-          <p>ارتباط با ما</p>
+        <div class="card" onclick="showPage('products')">
+          <i class="fa-solid fa-box-open"></i>
+          <h3>محصولات تخصصی</h3>
+          <p>پلن‌های درسی و جعبه ابزار</p>
         </div>
       </div>
     </section>
 
-    <!-- صفحه دانلود فایل‌ها -->
-    <section class="page" id="files">
-      <h1 class="page-title">دانلود فایل‌های آموزشی</h1>
-      <div class="file-list" id="fileList">
-        <!-- فایل‌ها با JS بارگذاری می‌شوند -->
+    <!-- 2. صفحه دانلودها -->
+    <section class="page" id="downloads">
+      <h1 class="page-title">دانلود فایل‌های رایگان</h1>
+      <div class="grid-container" id="downloadsList">
+        <!-- با JS پر می‌شود -->
       </div>
     </section>
 
-    <!-- صفحه بخشنامه‌ها -->
-    <section class="page" id="news">
-      <h1 class="page-title">بخشنامه‌ها و اطلاعیه‌ها</h1>
-      <div class="news-list" id="newsList">
-        <!-- اخبار با JS بارگذاری می‌شوند -->
+    <!-- 3. صفحه نکات آموزشی -->
+    <section class="page" id="tips">
+      <h1 class="page-title">نکات آموزشی</h1>
+      <div class="grid-container" id="tipsList">
+        <!-- با JS پر می‌شود -->
       </div>
     </section>
 
-    <!-- صفحه درباره ما -->
+    <!-- 4. صفحه محصولات -->
+    <section class="page" id="products">
+      <h1 class="page-title">معرفی محصولات</h1>
+      <div class="grid-container" id="productsList">
+        <!-- با JS پر می‌شود -->
+      </div>
+    </section>
+
+    <!-- 5. صفحه درباره ما -->
     <section class="page" id="about">
-      <h1 class="page-title">درباره ما</h1>
+      <h1 class="page-title">درباره مستر پلنر</h1>
       <div class="content-box">
-        <p>
-          این سامانه با هدف اطلاع‌رسانی و ارائه منابع آموزشی به مشاوران و دانش‌آموزان طراحی شده است.
-          تمامی فایل‌ها و بخشنامه‌ها به صورت منظم به‌روزرسانی می‌شوند.
+        <p class="lead-text">
+          ما گروهی از مشاوران مدارس هستیم که دغدغه پیوند دانش و مهارت با رویکرد ساخت شناختی و یادگیری را داریم.
         </p>
+        <p>
+          هدف ما در «مستر پلنر» این است که به دانش‌آموزان کمک کنیم تا نه تنها مطالب درسی را حفظ کنند، بلکه بتوانند ساختار ذهنی خود را برای درک عمیق و ماندگار مفاهیم شکل دهند. ما باور داریم هر دانش‌آموزی با ابزارهای صحیح، قادر به ساختن آینده درخشان خود است.
+        </p>
+        <div class="rubika-promo">
+          <i class="fa-solid fa-paper-plane"></i>
+          <h3>به کانال مستر پلنر بپیوندید</h3>
+          <p>جدیدترین نکات آموزشی و اطلاعیه‌ها را در روبیکا دنبال کنید.</p>
+          <a href="https://rubika.ir/mesterplanner" target="_blank" class="btn-primary mt-2">ورود به کانال عمومی مستر پلنر</a>
+        </div>
       </div>
     </section>
 
-    <!-- صفحه تماس با ما -->
+    <!-- 6. صفحه ارتباط با ما -->
     <section class="page" id="contact">
-      <h1 class="page-title">تماس با ما</h1>
-      <div class="content-box">
-        <form class="contact-form" onsubmit="sendMessage(event)">
-          <input type="text" placeholder="نام شما" required />
-          <input type="email" placeholder="ایمیل" required />
-          <textarea placeholder="پیام شما" rows="5" required></textarea>
-          <button type="submit" class="btn-primary">ارسال پیام</button>
-        </form>
-        <div class="contact-info">
-          <p><i class="fa-solid fa-phone"></i> ۰۳۴-۱۲۳۴۵۶۷۸</p>
-          <p><i class="fa-solid fa-envelope"></i> info@example.ir</p>
-          <p><i class="fa-solid fa-location-dot"></i> کرمان، خیابان ...</p>
+      <h1 class="page-title">ارتباط با ما</h1>
+      <div class="contact-grid">
+        
+        <div class="contact-card">
+          <i class="fa-solid fa-user-tie"></i>
+          <h3>مدیریت سایت</h3>
+          <p><strong>احسان روحانی راوری</strong></p>
+          <a href="tel:09137583008" class="contact-link"><i class="fa-solid fa-phone"></i> ۰۹۱۳۷۵۸۳۰۰۸</a>
         </div>
+
+        <div class="contact-card">
+          <i class="fa-solid fa-headset"></i>
+          <h3>ارتباط با مشتری و خرید</h3>
+          <p>برای ارتباط مستقیم و خرید فایل‌ها در روبیکا پیام دهید.</p>
+          <a href="https://rubika.ir/Alfanet2828" target="_blank" class="btn-secondary mt-2">پشتیبانی در روبیکا</a>
+        </div>
+
+        <div class="contact-card">
+          <i class="fa-solid fa-bullhorn"></i>
+          <h3>کانال عمومی</h3>
+          <p>مشاهده مطالب و نکات آموزشی روزانه</p>
+          <a href="https://rubika.ir/mesterplanner" target="_blank" class="btn-secondary mt-2">کانال مستر پلنر</a>
+        </div>
+
       </div>
     </section>
 
@@ -142,7 +182,8 @@
   <!-- ===== فوتر ===== -->
   <footer class="footer">
     <div class="container">
-      <p>© ۱۴۰۴ سامانه مشاوره — تمامی حقوق محفوظ است.</p>
+      <p>© ۱۴۰۴ مستر پلنر — تمامی حقوق محفوظ است.</p>
+      <p class="designer">طراحی و مدیریت: <strong>احسان روحانی راوری</strong></p>
     </div>
   </footer>
 
