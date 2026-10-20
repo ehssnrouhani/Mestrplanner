@@ -2,13 +2,13 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #0f172a;          /* پس‌زمینه اصلی (آبی نفتی تیره) */
-  --surface: #1e293b;     /* پس‌زمینه کارت‌ها */
-  --primary: #10b981;     /* سبز زمردی */
-  --gold: #fbbf24;        /* طلایی */
-  --text: #f8fafc;        /* متن اصلی */
-  --text-muted: #94a3b8;  /* متن فرعی */
-  --border: #334155;      /* خطوط جداکننده */
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --primary: #10b981;
+  --gold: #fbbf24;
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+  --border: #334155;
   --radius: 16px;
   --shadow: 0 8px 30px rgba(0,0,0,0.3);
 }
@@ -81,9 +81,8 @@ body {
   cursor: pointer;
 }
 
-/* ===== ساختار صفحات (بدون شناور شدن) ===== */
+/* ===== ساختار صفحات ===== */
 main { flex: 1; padding: 2rem 1rem; }
-
 .page { display: none; animation: fadeIn 0.4s ease; }
 .page.active { display: block; }
 
@@ -108,7 +107,7 @@ main { flex: 1; padding: 2rem 1rem; }
   border-radius: 3px;
 }
 
-/* ===== بخش هیرو (صفحه اصلی) ===== */
+/* ===== بخش هیرو ===== */
 .hero {
   text-align: center;
   padding: 3rem 1rem;
@@ -233,7 +232,7 @@ main { flex: 1; padding: 2rem 1rem; }
 .card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
 .card p { color: var(--text-muted); font-size: 0.9rem; }
 
-/* ===== گریدهای محتوا (محصولات، دانلودها) ===== */
+/* ===== گریدهای محتوا ===== */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -263,10 +262,12 @@ main { flex: 1; padding: 2rem 1rem; }
   text-decoration: none;
   font-size: 0.9rem;
   transition: 0.3s;
+  cursor: pointer;
+  font-family: inherit;
 }
 .item-btn:hover { background: var(--primary); color: var(--bg); }
 
-/* ===== درباره ما ===== */
+/* ===== درباره ما و مقالات ===== */
 .content-box {
   background: var(--surface);
   padding: 2rem;
@@ -275,6 +276,14 @@ main { flex: 1; padding: 2rem 1rem; }
 }
 .lead-text { font-size: 1.1rem; color: var(--gold); margin-bottom: 1rem; font-weight: 600; }
 .content-box p { color: var(--text-muted); margin-bottom: 1rem; text-align: justify; }
+
+/* استایل صفحه مقاله */
+.article-header { display: flex; flex-direction: column; align-items: flex-start; }
+.article-content { line-height: 2; font-size: 1.05rem; color: var(--text-muted); }
+.article-content h3 { color: var(--primary); margin-top: 1.5rem; margin-bottom: 0.5rem; }
+.article-content p { margin-bottom: 1rem; text-align: justify; }
+.article-content ul { margin-right: 1.5rem; margin-bottom: 1rem; }
+.article-content li { margin-bottom: 0.5rem; }
 
 .rubika-promo {
   background: rgba(16, 185, 129, 0.05);

@@ -21,7 +21,7 @@
   <!-- ===== هدر ===== -->
   <header class="header">
     <div class="container header-inner">
-      <div class="logo">
+      <div class="logo" onclick="showPage('home')" style="cursor: pointer;">
         <span class="logo-fa">مستر پلنر</span>
         <span class="logo-en">Mesterplanner</span>
       </div>
@@ -46,7 +46,6 @@
 
     <!-- 1. صفحه خانه -->
     <section class="page active" id="home">
-      <!-- بنر بالا -->
       <div class="hero">
         <h1 class="hero-title">ابزار برنامه ریزی و مطالعه</h1>
         <h2 class="hero-title-en">Mesterplanner</h2>
@@ -54,7 +53,6 @@
         <button class="btn-primary" onclick="showPage('products')">مشاهده محصولات <i class="fa-solid fa-arrow-left"></i></button>
       </div>
 
-      <!-- اسلایدر -->
       <div class="slider" id="slider">
         <div class="slide active" style="background: linear-gradient(135deg, #0f172a, #10b981)">
           <div class="slide-content">
@@ -81,11 +79,9 @@
         <button class="slider-btn next" onclick="changeSlide(1)">
           <i class="fa-solid fa-chevron-left"></i>
         </button>
-
         <div class="dots" id="dots"></div>
       </div>
 
-      <!-- کارت‌های سریع -->
       <div class="cards">
         <div class="card" onclick="showPage('downloads')">
           <i class="fa-solid fa-download"></i>
@@ -108,25 +104,19 @@
     <!-- 2. صفحه دانلودها -->
     <section class="page" id="downloads">
       <h1 class="page-title">دانلود فایل‌های رایگان</h1>
-      <div class="grid-container" id="downloadsList">
-        <!-- با JS پر می‌شود -->
-      </div>
+      <div class="grid-container" id="downloadsList"></div>
     </section>
 
     <!-- 3. صفحه نکات آموزشی -->
     <section class="page" id="tips">
       <h1 class="page-title">نکات آموزشی</h1>
-      <div class="grid-container" id="tipsList">
-        <!-- با JS پر می‌شود -->
-      </div>
+      <div class="grid-container" id="tipsList"></div>
     </section>
 
     <!-- 4. صفحه محصولات -->
     <section class="page" id="products">
       <h1 class="page-title">معرفی محصولات</h1>
-      <div class="grid-container" id="productsList">
-        <!-- با JS پر می‌شود -->
-      </div>
+      <div class="grid-container" id="productsList"></div>
     </section>
 
     <!-- 5. صفحه درباره ما -->
@@ -152,28 +142,37 @@
     <section class="page" id="contact">
       <h1 class="page-title">ارتباط با ما</h1>
       <div class="contact-grid">
-        
         <div class="contact-card">
           <i class="fa-solid fa-user-tie"></i>
           <h3>مدیریت سایت</h3>
           <p><strong>احسان روحانی راوری</strong></p>
           <a href="tel:09137583008" class="contact-link"><i class="fa-solid fa-phone"></i> ۰۹۱۳۷۵۸۳۰۰۸</a>
         </div>
-
         <div class="contact-card">
           <i class="fa-solid fa-headset"></i>
           <h3>ارتباط با مشتری و خرید</h3>
           <p>برای ارتباط مستقیم و خرید فایل‌ها در روبیکا پیام دهید.</p>
           <a href="https://rubika.ir/Alfanet2828" target="_blank" class="btn-secondary mt-2">پشتیبانی در روبیکا</a>
         </div>
-
         <div class="contact-card">
           <i class="fa-solid fa-bullhorn"></i>
           <h3>کانال عمومی</h3>
           <p>مشاهده مطالب و نکات آموزشی روزانه</p>
           <a href="https://rubika.ir/mesterplanner" target="_blank" class="btn-secondary mt-2">کانال مستر پلنر</a>
         </div>
+      </div>
+    </section>
 
+    <!-- 7. صفحه نمایش مقاله (جدید) -->
+    <section class="page" id="article">
+      <div class="article-header">
+        <button class="btn-secondary" onclick="goBack()" style="margin-bottom: 1rem; padding: 0.4rem 1rem;">
+          <i class="fa-solid fa-arrow-right"></i> بازگشت
+        </button>
+        <h1 class="page-title" id="articleTitle">عنوان مقاله</h1>
+      </div>
+      <div class="content-box article-content" id="articleContent">
+        <!-- متن مقاله با JS در اینجا قرار می‌گیرد -->
       </div>
     </section>
 
@@ -187,7 +186,6 @@
     </div>
   </footer>
 
-  <!-- دکمه بازگشت به بالا -->
   <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
