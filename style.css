@@ -1,4 +1,4 @@
-/* ===== ریست و متغیرهای رنگی (تم لوکس) ===== */
+/* ===== ریست و متغیرها ===== */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -20,7 +20,7 @@ body {
   background: var(--bg);
   color: var(--text);
   direction: rtl;
-  line-height: 1.7;
+  line-height: 1.8;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -212,7 +212,7 @@ main { flex: 1; padding: 2rem 1rem; }
 }
 .dot.active { background: var(--primary); width: 24px; border-radius: 6px; }
 
-/* ===== کارت‌های خانه ===== */
+/* ===== کارت‌ها ===== */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -280,10 +280,11 @@ main { flex: 1; padding: 2rem 1rem; }
 /* استایل صفحه مقاله */
 .article-header { display: flex; flex-direction: column; align-items: flex-start; }
 .article-content { line-height: 2; font-size: 1.05rem; color: var(--text-muted); }
-.article-content h3 { color: var(--primary); margin-top: 1.5rem; margin-bottom: 0.5rem; }
+.article-content h3 { color: var(--primary); margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.2rem;}
 .article-content p { margin-bottom: 1rem; text-align: justify; }
 .article-content ul { margin-right: 1.5rem; margin-bottom: 1rem; }
 .article-content li { margin-bottom: 0.5rem; }
+.article-content strong { color: var(--text); }
 
 .rubika-promo {
   background: rgba(16, 185, 129, 0.05);
