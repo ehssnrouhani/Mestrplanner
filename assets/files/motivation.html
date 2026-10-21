@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>انگیزه، تعلل و عادت‌سازی | مستر پلنر</title>
+<meta name="description" content="چرا به تعویق می‌اندازیم و چگونه عادت مطالعه بسازیم: حلقهٔ عادت، نیّت اجرایی، قاعدهٔ دو دقیقه و طراحی محیط. طراح: احسان روحانی راوری">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
+  --tip-bg:#eaf7ef; --tip-line:#2fbf71;
+  --warn-bg:#fff7e6; --warn-line:#e0a800;
+  --danger-bg:#fdeceb; --danger-line:#e05252;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;position:sticky;top:0;z-index:10;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand:hover{text-decoration:none}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:20px}
+.brand-text{display:flex;flex-direction:column;line-height:1.4}
+.brand-text strong{font-size:17px}
+.brand-text small{font-size:11px;opacity:.85}
+main{max-width:900px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px}
+.hero{background:linear-gradient(140deg,var(--brand-dark),var(--brand) 70%,var(--accent));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset-inline-start:-40px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.hero h1{margin:6px 0 10px;font-size:clamp(22px,3.4vw,30px);line-height:1.5}
+.hero .lede{margin:0;opacity:.92;font-size:15px;max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:999px}
+.sheet{background:var(--card);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow);border:1px solid var(--line)}
+h2{font-size:20px;margin:34px 0 12px;padding-inline-start:14px;border-inline-start:4px solid var(--accent);line-height:1.6}
+h2:first-child{margin-top:0}
+h3{font-size:17px;margin:24px 0 8px;color:var(--brand-dark)}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 14px;padding-inline-start:22px}
+li{margin-bottom:6px}
+strong{color:var(--brand-dark)}
+.small{font-size:13px;color:var(--muted)}
+.box{border-radius:12px;padding:14px 16px;margin:16px 0;border-inline-start:5px solid var(--tip-line);background:var(--tip-bg);font-size:14.5px}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.box .box-title{display:block;font-weight:700;margin-bottom:4px;color:var(--brand-dark)}
+.box.warn{background:var(--warn-bg);border-color:var(--warn-line)}
+.box.danger{background:var(--danger-bg);border-color:var(--danger-line)}
+.box.note{background:var(--brand-soft);border-color:var(--brand)}
+.table-wrap{overflow-x:auto;margin:16px 0;border-radius:12px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+thead th{background:var(--brand-dark);color:#fff;text-align:right;padding:11px 13px;font-weight:600;font-size:13.5px}
+tbody td{padding:10px 13px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7fbf8}
+ul.check{list-style:none;padding:0}
+ul.check li{position:relative;padding-inline-start:30px;margin-bottom:9px}
+ul.check li::before{content:"✓";position:absolute;inset-inline-start:0;top:2px;width:20px;height:20px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:12px;font-weight:800}
+.site-footer{background:var(--brand-dark);color:#dbe8e1;text-align:center;padding:26px 18px;font-size:13.5px;line-height:1.9}
+.site-footer .credit{font-size:15px;color:#fff;margin-bottom:6px}
+.site-footer strong{color:var(--accent)}
+.site-footer a{color:#bfe8d1}
+.site-footer .dot{opacity:.5;margin:0 6px}
+@media print{body{background:#fff}.site-header{display:none}.hero{box-shadow:none}.sheet{box-shadow:none;border:none;padding:0}.table-wrap{overflow:visible}table{min-width:0}}
+@media (max-width:560px){.sheet{padding:20px 16px}.hero{padding:22px 18px}.brand-text small{display:none}table{font-size:13px}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../index.html">
+      <span class="brand-badge">م</span>
+      <span class="brand-text"><strong>مستر پلنر</strong><small>ساخت شناختی یادگیری</small></span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="kicker"><i class="fa-solid fa-fire"></i> مجموعه دانلود رایگان · انگیزه</span>
+    <h1>انگیزه، تعلل و عادت‌سازی: چرا نمی‌شود، و چگونه می‌شود</h1>
+    <p class="lede">انگیزه، منبع قابل اتکایی نیست؛ یک روز هست، یک روز نیست. چیزی که واقعاً کار را پیش می‌برد، سیستم است، نه شور و شوق.</p>
+    <div class="meta">
+      <span><i class="fa-solid fa-pen-nib"></i> طراح و تدوین: <strong style="color:#fff">احسان روحانی راوری</strong></span>
+      <span><i class="fa-regular fa-clock"></i> زمان مطالعه: ۸ دقیقه</span>
+      <span><i class="fa-solid fa-layer-group"></i> سطح: متوسطه</span>
+    </div>
+  </section>
+
+  <article class="sheet">
+
+    <h2>تعلل، مشکل مدیریت زمان نیست؛ مشکل تنظیم هیجان است</h2>
+    <p>وقتی از کاری فرار می‌کنیم، معمولاً به این دلیل نیست که وقت نداریم؛ به این دلیل است که آن کار احساس ناخوشایندی در ما ایجاد می‌کند: اضطراب، ترس از شکست، کمال‌گرایی یا حتی بی‌حوصلگی. تعویق، یک مکانیزم دفاعی کوتاه‌مدت است که ناراحتی را فوری کم می‌کند، ولی بعداً بیشترش می‌کند.</p>
+    <p>پس راه‌حل، «بیشتر تلاش کردن» نیست. راه‌حل، <strong>کم کردن اصطکاک شروع</strong> و <strong>ساختن سیستم</strong> است.</p>
+
+    <div class="box note">
+      <span class="box-title"><i class="fa-solid fa-lightbulb"></i> قاعدهٔ کلیدی</span>
+      هرگز به انگیزه تکیه نکن. به «آیین شروع» و «برنامهٔ از پیش تعیین‌شده» تکیه کن. وقتی تصمیم گرفته‌ای چه بخوانی و کِی بخوانی، دیگر در لحظهٔ عمل به انگیزه نیازی نداری.
+    </div>
+
+    <h2>حلقهٔ عادت: چطور عادت‌ها ساخته می‌شوند</h2>
+    <p>هر عادت از سه بخش تشکیل می‌شود. اگر یکی از این سه را طراحی کنی، عادت خودش شکل می‌گیرد.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>بخش</th><th>چیست</th><th>مثال در مطالعه</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>نشانه (Cue)</strong></td>
+            <td>چیزی که عادت را فعال می‌کند</td>
+            <td>بعد از شام، کیف را روی میز گذاشتن</td>
+          </tr>
+          <tr>
+            <td><strong>روال (Routine)</strong></td>
+            <td>خودِ رفتار</td>
+            <td>نشستن و شروع مطالعه طبق برنامه</td>
+          </tr>
+          <tr>
+            <td><strong>پاداش (Reward)</strong></td>
+            <td>چیزی که به مغز سیگنال «این کار خوب بود» می‌دهد</td>
+            <td>تیک زدن در چک‌لیست، یک استراحت کوتاه، یک خوراکی سالم</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>برای ساختن عادت مطالعه، نشانه را <strong>ثابت</strong> و <strong>قابل پیش‌بینی</strong> کن، روال را <strong>کوچک</strong> شروع کن، و پاداش را <strong>فوری</strong> بده.</p>
+
+    <h2>پنج ابزار عملی برای شکستن تعلل</h2>
+
+    <h3>۱. نیّت اجرایی (Implementation Intention)</h3>
+    <p>به‌جای جملهٔ کلی «باید بیشتر بخوانم»، این قالب را پر کن: <strong>«در [زمان]، در [مکان]، [کار مشخص] را انجام می‌دهم.»</strong> مثلاً: «امروز ساعت ۵، در اتاق مطالعه، ۱۵ مسئلهٔ مشتق حل می‌کنم.» مغز به این نوع جمله‌بندی بهتر پاسخ می‌دهد، چون شروع را از لحظهٔ تصمیم جدا می‌کند.</p>
+
+    <h3>۲. قاعدهٔ دو دقیقه</h3>
+    <p>اگر کاری را به تعویق می‌اندازی، فقط <strong>دو دقیقه</strong> انجامش بده. کتاب را باز کن، دفتر را بردار، یک صفحه بخوان. مغز، شروعِ کوچک را راحت‌تر می‌پذیرد و اغلب بعد از دو دقیقه ادامه می‌دهد.</p>
+
+    <h3>۳. کوچک‌سازی شروع</h3>
+    <p>اگر کل کار بزرگ به نظر می‌رسد، آن را به کوچک‌ترین قدم ممکن تقسیم کن. «حل ۱۰ تست فیزیک» به «حل تست اول» تبدیل می‌شود. شروع، ترسناک نیست؛ ادامه، خودش می‌آید.</p>
+
+    <h3>۴. بسته‌بندی وسوسه (Temptation Bundling)</h3>
+    <p>یک لذت کوچک را به کار سخت گره بزن: «فقط وقتی مطالعه می‌کنم، آن چای خاص را می‌خورم.» یا «فقط سر میز مطالعه، آن موسیقی بی‌کلام را گوش می‌دهم.» این کار، پاداش را به رفتار گره می‌زند.</p>
+
+    <h3>۵. زنجیره‌سازی عادت (Habit Stacking)</h3>
+    <p>عادت جدید را بعد از یک عادت موجود قرار بده: «بعد از مسواک صبح، ۵ دقیقه فلش‌کارت مرور می‌کنم.» یا «بعد از شام، ۱۰ دقیقه مرور درس امروز.» عادت موجود، نشانهٔ عادت جدید می‌شود.</p>
+
+    <h2>طراحی محیط: نگذار اراده درگیر شود</h2>
+    <ul>
+      <li>کتاب و دفتر را روی میز بگذار، درست قبل از خواب شب قبل.</li>
+      <li>گوشی را در اتاق دیگر شارژ کن، نه کنار تختت.</li>
+      <li>برای شروع روز، اولین کارت را از قبل مشخص کن.</li>
+      <li>محیط مطالعه را فقط برای مطالعه استفاده کن؛ تخت، جای مطالعه نیست.</li>
+      <li>برای وسوسه‌ها اصطکاک ایجاد کن: اپلیکیشن‌ها را از صفحهٔ اول گوشی بردار، اعلان‌ها را خاموش کن.</li>
+    </ul>
+
+    <h2>چرا انگیزه‌های بزرگ کار نمی‌کنند؟</h2>
+    <p>«باید رتبهٔ خوبی بیاورم»، «باید درسم را تمام کنم»، «خانواده‌ام انتظار دارند» — این‌ها انگیزه‌های بزرگی هستند که در لحظهٔ عمل، هیچ کمکی نمی‌کنند، چون <strong>خیلی دور</strong> و <strong>خیلی کلی</strong> هستند. مغز برای پاداش فوری و مشخص طراحی شده، نه برای هدف‌های انتزاعی چندماهه.</p>
+    <p>راه‌حل: هدف بزرگ را به هدف‌های هفتگی و روزانه ترجمه کن، و بعد به <strong>عمل مشخص</strong>. «رتبهٔ خوب» به «این هفته ۵۰ تست ریاضی با تحلیل» تبدیل می‌شود، و «این هفته» به «امروز، ساعت ۵، ۱۵ تست».</p>
+
+    <div class="box warn">
+      <span class="box-title"><i class="fa-solid fa-triangle-exclamation"></i> تلهٔ کمال‌گرایی</span>
+      اگر تا «کامل» آماده نشوی، هرگز شروع نمی‌کنی. اولین نسخه همیشه ناقص است. «به اندازهٔ کافی خوب» را بپذیر، بعد اصلاح کن. کامل‌گرایی، دشمن پیشرفت است.
+    </div>
+
+    <h2>وقتی انگیزه نیست، چه کنیم؟</h2>
+    <ol>
+      <li><strong>قدم کوچک‌تر:</strong> کار را به دو دقیقهٔ اولش تجزیه کن.</li>
+      <li><strong>نیّت اجرایی:</strong> زمان و مکان مشخص را از قبل تعیین کن.</li>
+      <li><strong>تغییر محیط:</strong> اصطکاک کار را کم کن، اصطکاک حواس‌پرتی را بیشتر.</li>
+      <li><strong>پاداش فوری:</strong> بعد از هر جلسه، یک تیک بزن یا به خودت یک استراحت کوتاه بده.</li>
+      <li><strong>ترکیب با لذت:</strong> بسته‌بندی وسوسه را امتحان کن.</li>
+      <li><strong>شریک مطالعه:</strong> با یک دوست قرار بگذار و پیشرفت را گزارش بده.</li>
+    </ol>
+
+    <h2>چک‌لیست عادت‌سازی</h2>
+    <ul class="check">
+      <li>برای هر روز، نیّت اجرایی نوشته‌ام (زمان + مکان + کار مشخص).</li>
+      <li>عادت‌های جدیدم را به عادت‌های موجود گره زده‌ام.</li>
+      <li>برای هر جلسه، پاداش کوچک و فوری دارم.</li>
+      <li>محیطم را طوری چیده‌ام که شروع آسان باشد.</li>
+      <li>وسوسه‌ها را با اصطکاک بیشتری احاطه کرده‌ام.</li>
+      <li>به انگیزه تکیه نمی‌کنم؛ به برنامه و آیین تکیه می‌کنم.</li>
+      <li>پیشرفت را ثبت می‌کنم، حتی اگر کوچک باشد.</li>
+    </ul>
+
+    <div class="box">
+      <span class="box-title"><i class="fa-solid fa-arrow-right"></i> قدم بعدی</span>
+      عادت را با <a href="planning.html">برنامه‌ریزی</a> ساختار بده و با <a href="focus.html">تمرکز</a> عمقش را بیشتر کن.
+    </div>
+
+  </article>
+</main>
+
+<footer class="site-footer">
+  <p class="credit">طراحی و تدوین: <strong>احسان روحانی راوری</strong></p>
+  <p>مستر پلنر <span class="dot">·</span> یادگیری بر پایهٔ ساخت شناختی</p>
+  <p><a href="../../index.html">ehssnrouhani.github.io/Mestrplanner</a></p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>خلاصه‌نویسی و یادداشت‌برداری مؤثر | مستر پلنر</title>
+<meta name="description" content="روش‌های یادداشت‌برداری: کورنل، نقشهٔ ذهنی، چارچوب، و تکنیک فاینمن. از رونویسی تا تفکر. طراح: احسان روحانی راوری">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
+  --tip-bg:#eaf7ef; --tip-line:#2fbf71;
+  --warn-bg:#fff7e6; --warn-line:#e0a800;
+  --danger-bg:#fdeceb; --danger-line:#e05252;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;position:sticky;top:0;z-index:10;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand:hover{text-decoration:none}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:20px}
+.brand-text{display:flex;flex-direction:column;line-height:1.4}
+.brand-text strong{font-size:17px}
+.brand-text small{font-size:11px;opacity:.85}
+main{max-width:900px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px}
+.hero{background:linear-gradient(140deg,var(--brand-dark),var(--brand) 70%,var(--accent));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset-inline-start:-40px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.hero h1{margin:6px 0 10px;font-size:clamp(22px,3.4vw,30px);line-height:1.5}
+.hero .lede{margin:0;opacity:.92;font-size:15px;max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:999px}
+.sheet{background:var(--card);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow);border:1px solid var(--line)}
+h2{font-size:20px;margin:34px 0 12px;padding-inline-start:14px;border-inline-start:4px solid var(--accent);line-height:1.6}
+h2:first-child{margin-top:0}
+h3{font-size:17px;margin:24px 0 8px;color:var(--brand-dark)}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 14px;padding-inline-start:22px}
+li{margin-bottom:6px}
+strong{color:var(--brand-dark)}
+.small{font-size:13px;color:var(--muted)}
+.box{border-radius:12px;padding:14px 16px;margin:16px 0;border-inline-start:5px solid var(--tip-line);background:var(--tip-bg);font-size:14.5px}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.box .box-title{display:block;font-weight:700;margin-bottom:4px;color:var(--brand-dark)}
+.box.warn{background:var(--warn-bg);border-color:var(--warn-line)}
+.box.danger{background:var(--danger-bg);border-color:var(--danger-line)}
+.box.note{background:var(--brand-soft);border-color:var(--brand)}
+.table-wrap{overflow-x:auto;margin:16px 0;border-radius:12px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+thead th{background:var(--brand-dark);color:#fff;text-align:right;padding:11px 13px;font-weight:600;font-size:13.5px}
+tbody td{padding:10px 13px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7fbf8}
+ul.check{list-style:none;padding:0}
+ul.check li{position:relative;padding-inline-start:30px;margin-bottom:9px}
+ul.check li::before{content:"✓";position:absolute;inset-inline-start:0;top:2px;width:20px;height:20px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:12px;font-weight:800}
+.site-footer{background:var(--brand-dark);color:#dbe8e1;text-align:center;padding:26px 18px;font-size:13.5px;line-height:1.9}
+.site-footer .credit{font-size:15px;color:#fff;margin-bottom:6px}
+.site-footer strong{color:var(--accent)}
+.site-footer a{color:#bfe8d1}
+.site-footer .dot{opacity:.5;margin:0 6px}
+@media print{body{background:#fff}.site-header{display:none}.hero{box-shadow:none}.sheet{box-shadow:none;border:none;padding:0}.table-wrap{overflow:visible}table{min-width:0}}
+@media (max-width:560px){.sheet{padding:20px 16px}.hero{padding:22px 18px}.brand-text small{display:none}table{font-size:13px}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../index.html">
+      <span class="brand-badge">م</span>
+      <span class="brand-text"><strong>مستر پلنر</strong><small>ساخت شناختی یادگیری</small></span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="kicker"><i class="fa-solid fa-pen-to-square"></i> مجموعه دانلود رایگان · یادداشت‌برداری</span>
+    <h1>خلاصه‌نویسی و یادداشت‌برداری مؤثر: از رونویسی تا تفکر</h1>
+    <p class="lede">یادداشت خوب، رونویسی از کتاب نیست؛ بازسازی مفهوم با کلمات خودت است. اگر نتوانی چیزی را با جمله‌های خودت بنویسی، هنوز آن را نفهمیده‌ای.</p>
+    <div class="meta">
+      <span><i class="fa-solid fa-pen-nib"></i> طراح و تدوین: <strong style="color:#fff">احسان روحانی راوری</strong></span>
+      <span><i class="fa-regular fa-clock"></i> زمان مطالعه: ۹ دقیقه</span>
+      <span><i class="fa-solid fa-layer-group"></i> سطح: متوسطه</span>
+    </div>
+  </section>
+
+  <article class="sheet">
+
+    <h2>چرا بیشتر یادداشت‌ها بی‌فایده‌اند؟</h2>
+    <p>بیشتر دانش‌آموزان موقع مطالعه، متن کتاب را کلمه‌به‌کلمه یا جمله‌به‌جمله رونویسی می‌کنند. این کار حس خوبی دارد — «دارم تلاش می‌کنم» — ولی مغز را درگیر نمی‌کند. رونویسی، فعالیتی مکانیکی است که توجه را از فهم به انتقال حروف می‌برد.</p>
+    <p>یادداشت خوب سه ویژگی دارد: <strong>کوتاه</strong> است، <strong>بازسازی‌شده</strong> است (با کلمات خودت)، و <strong>قابل مرور</strong> است (ساختار و سلسله‌مراتب دارد). بقیهٔ یادداشت‌ها فقط کاغذ را پر می‌کنند.</p>
+
+    <div class="box danger">
+      <span class="box-title"><i class="fa-solid fa-circle-exclamation"></i> تست ساده</span>
+      اگر یک هفته بعد، به یادداشتت نگاه کنی و نتوانی بفهمی چه چیزی را یاد گرفته‌ای، آن یادداشت شکست خورده. هدف یادداشت، «جایگزین کتاب» نیست؛ «پل به حافظه» است.
+    </div>
+
+    <h2>سه روش اصلی یادداشت‌برداری</h2>
+
+    <h3>۱. روش کورنل (Cornell Notes)</h3>
+    <p>یک صفحه را به سه بخش تقسیم کن: ستون باریک سمت راست (یا چپ، در RTL) برای کلیدواژه‌ها و سؤال‌ها، بخش بزرگ وسط برای یادداشت اصلی، و نوار پایین برای خلاصه. این ساختار، مرور را آسان می‌کند.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>بخش</th><th>چیست</th><th>چه زمانی پر می‌شود</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>ستون کلیدواژه</strong></td><td>سؤال، کلمهٔ کلیدی، مفهوم اصلی</td><td>حین یا بعد از مطالعه</td></tr>
+          <tr><td><strong>بخش اصلی</strong></td><td>توضیح، مثال، نمودار</td><td>حین مطالعه</td></tr>
+          <tr><td><strong>خلاصهٔ پایین</strong></td><td>۲ تا ۳ جمله از کل صفحه</td><td>پایان جلسه، با کلمات خودت</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>مزیت کورنل: هنگام مرور، ستون کلیدواژه را می‌پوشانی و از خودت می‌پرسی «این سؤال چه جوابی داشت؟» — یعنی یادداشت، خودش به یک ابزار بازیابی فعال تبدیل می‌شود.</p>
+
+    <h3>۲. نقشهٔ ذهنی (Mind Map)</h3>
+    <p>مفهوم مرکزی را در وسط بگذار و شاخه‌ها را به اطراف بکش. هر شاخه، یک زیرمفهوم یا ارتباط. مناسب برای:</p>
+    <ul>
+      <li>دروس مفهومی و ساختاردار (زیست، تاریخ، علوم اجتماعی).</li>
+      <li>جمع‌بندی یک فصل کامل در یک صفحه.</li>
+      <li>دیدن ارتباط بین مفاهیم که در متن خطی دیده نمی‌شود.</li>
+    </ul>
+    <p class="small">نکته: نقشهٔ ذهنی باید با کلمات کلیدی ساخته شود، نه جمله‌های کامل. اگر پر از جمله شود، فقط یک متن درهم است.</p>
+
+    <h3>۳. چارچوب (Outline)</h3>
+    <p>ساختار سلسله‌مراتبی: عنوان اصلی، زیرعنوان، نکته، زیرنکته. ساده‌ترین و سریع‌ترین روش. مناسب برای:</p>
+    <ul>
+      <li>دروسی که ساختار رسمی دارند (ریاضی، فیزیک، شیمی).</li>
+      <li>یادداشت سریع در کلاس.</li>
+      <li>خلاصه‌نویسی از یک متن طولانی.</li>
+    </ul>
+
+    <div class="box note">
+      <span class="box-title"><i class="fa-solid fa-lightbulb"></i> کدام روش را انتخاب کنم؟</span>
+      به‌جای انتخاب یک روش ثابت، بر اساس نوع محتوا انتخاب کن: ساختاردار → چارچوب، مفهومی → نقشهٔ ذهنی، ترکیبی → کورنل. مهم این است که یادداشت، <strong>قابل مرور</strong> باشد، نه زیبا.
+    </div>
+
+    <h2>تکنیک فاینمن: بهترین روش برای فهمیدن</h2>
+    <p>ریچارد فاینمن، فیزیک‌دان برندهٔ نوبل، روشی برای فهمیدن هر چیزی داشت. چهار قدم:</p>
+    <ol>
+      <li><strong>مفهوم را انتخاب کن</strong> و آن را بالای یک صفحهٔ سفید بنویس.</li>
+      <li><strong>آن را با زبان ساده توضیح بده</strong>، انگار به یک دانش‌آموز ۱۲ ساله. بدون اصطلاح تخصصی، بدون پنهان شدن پشت کلمات قشنگ.</li>
+      <li><strong>جایی که گیر کردی را پیدا کن</strong> — همان‌جا که نمی‌توانی ساده توضیح بدهی، هنوز نفهمیده‌ای. برگرد به متن.</li>
+      <li><strong>ساده‌تر کن و تکرار کن</strong> تا توضیح روان شود.</li>
+    </ol>
+    <p>این تکنیک، هم یادداشت می‌سازد، هم فهم را تست می‌کند، هم حافظه را تثبیت می‌کند. سه کار با یک تیر.</p>
+
+    <h2>قواعد طلایی یادداشت‌برداری</h2>
+    <ul>
+      <li><strong>با کلمات خودت بنویس:</strong> رونویسی نکن. اگر مجبوری جملهٔ کتاب را بنویسی، در پرانتز توضیح بده چرا مهم است.</li>
+      <li><strong>کمتر بنویس، بیشتر فکر کن:</strong> یادداشت خوب، فشرده است. هر جمله باید ارزش مرور داشته باشد.</li>
+      <li><strong>ساختار بده:</strong> عنوان، شماره، فلش، رنگ (اگر دوست داری) — هر چیزی که مرور را سریع کند.</li>
+      <li><strong>سؤال بنویس:</strong> کنار هر بخش، یک سؤال بگذار. بعداً همان سؤال، ابزار بازیابی می‌شود.</li>
+      <li><strong>خلاصهٔ پایانی:</strong> در پایان هر جلسه، سه جمله بنویس: «امروز چه یاد گرفتم؟ چه چیزی هنوز روشن نیست؟ قدم بعدی چیست؟»</li>
+      <li><strong>بلافاصله بعد از مطالعه مرور کن:</strong> ۵ دقیقه مرور یادداشت در همان روز، ارزشش از یک ساعت مرور بعدی بیشتر است.</li>
+    </ul>
+
+    <div class="box warn">
+      <span class="box-title"><i class="fa-solid fa-triangle-exclamation"></i> تلهٔ «یادداشت زیبا»</span>
+      هایلایت کردن با هفت رنگ، طراحی حاشیه، و بازنویسی مرتب، حس پیشرفت می‌دهد ولی یادگیری نمی‌آورد. یادداشت، ابزار کار است، نه اثر هنری. ساده و کاربردی بنویس.
+    </div>
+
+    <h2>از یادداشت به حافظه: پل زدن</h2>
+    <p>یادداشت، به‌تنهایی یادگیری نیست. برای اینکه یادداشت به حافظه برود:</p>
+    <ol>
+      <li><strong>بلافاصله</strong> بعد از مطالعه، ۵ دقیقه یادداشت را مرور کن و سه جملهٔ خلاصه بنویس.</li>
+      <li><strong>۲۴ ساعت بعد</strong>، بدون نگاه به یادداشت، بازسازی کن. سپس مقایسه کن.</li>
+      <li><strong>هفتهٔ بعد</strong>، از روی ستون کلیدواژه (در کورنل) یا شاخه‌های نقشه، از خودت سؤال بپرس.</li>
+      <li>یادداشت را با <a href="memory.html">برنامهٔ تکرار فاصله‌دار</a> هم‌تراز کن — مرورهای ۱، ۳، ۷ و ۱۴ روز.</li>
+    </ol>
+
+    <h2>چک‌لیست یادداشت‌برداری</h2>
+    <ul class="check">
+      <li>با کلمات خودم می‌نویسم، نه با رونویسی.</li>
+      <li>برای هر جلسه، ساختار مشخصی انتخاب می‌کنم (کورنل، نقشه، چارچوب).</li>
+      <li>کنار هر بخش، یک سؤال برای مرور آینده می‌گذارم.</li>
+      <li>پایان هر جلسه، سه جملهٔ خلاصه می‌نویسم.</li>
+      <li>بلافاصله بعد از مطالعه، ۵ دقیقه یادداشت را مرور می‌کنم.</li>
+      <li>یادداشت‌ها را در برنامهٔ مرور فاصله‌دار می‌گنجانم.</li>
+      <li>از تکنیک فاینمن برای مفاهیم سخت استفاده می‌کنم.</li>
+    </ul>
+
+    <div class="box">
+      <span class="box-title"><i class="fa-solid fa-arrow-right"></i> قدم بعدی</span>
+      یادداشت را با <a href="study-methods.html">روش مطالعهٔ درس‌به‌درس</a> ترکیب کن و برای تثبیت، سراغ <a href="memory.html">حافظه و تثبیت اطلاعات</a> برو.
+    </div>
+
+  </article>
+</main>
+
+<footer class="site-footer">
+  <p class="credit">طراحی و تدوین: <strong>احسان روحانی راوری</strong></p>
+  <p>مستر پلنر <span class="dot">·</span> یادگیری بر پایهٔ ساخت شناختی</p>
+  <p><a href="../../index.html">ehssnrouhani.github.io/Mestrplanner</a></p>
+</footer>
+
+</body>
+</html>

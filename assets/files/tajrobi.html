@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>راهبرد گروه علوم تجربی | مستر پلنر</title>
+<meta name="description" content="تحلیل کنکور تجربی ۱۴۰۵ و امتحانات نهایی: زیست ترکیبی، شیمی محاسباتی و نقشه راه برای درصدهای بالا. طراح: احسان روحانی راوری">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
+  --tip-bg:#eaf7ef; --tip-line:#2fbf71;
+  --warn-bg:#fff7e6; --warn-line:#e0a800;
+  --danger-bg:#fdeceb; --danger-line:#e05252;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;position:sticky;top:0;z-index:10;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand:hover{text-decoration:none}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:20px}
+.brand-text{display:flex;flex-direction:column;line-height:1.4}
+.brand-text strong{font-size:17px}
+.brand-text small{font-size:11px;opacity:.85}
+main{max-width:900px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px}
+.hero{background:linear-gradient(140deg,var(--brand-dark),var(--brand) 70%,var(--accent));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset-inline-start:-40px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.hero h1{margin:6px 0 10px;font-size:clamp(22px,3.4vw,30px);line-height:1.5}
+.hero .lede{margin:0;opacity:.92;font-size:15px;max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:999px}
+.sheet{background:var(--card);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow);border:1px solid var(--line)}
+h2{font-size:20px;margin:34px 0 12px;padding-inline-start:14px;border-inline-start:4px solid var(--accent);line-height:1.6}
+h2:first-child{margin-top:0}
+h3{font-size:17px;margin:24px 0 8px;color:var(--brand-dark)}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 14px;padding-inline-start:22px}
+li{margin-bottom:6px}
+strong{color:var(--brand-dark)}
+.small{font-size:13px;color:var(--muted)}
+.box{border-radius:12px;padding:14px 16px;margin:16px 0;border-inline-start:5px solid var(--tip-line);background:var(--tip-bg);font-size:14.5px}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.box .box-title{display:block;font-weight:700;margin-bottom:4px;color:var(--brand-dark)}
+.box.warn{background:var(--warn-bg);border-color:var(--warn-line)}
+.box.danger{background:var(--danger-bg);border-color:var(--danger-line)}
+.box.note{background:var(--brand-soft);border-color:var(--brand)}
+.table-wrap{overflow-x:auto;margin:16px 0;border-radius:12px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+thead th{background:var(--brand-dark);color:#fff;text-align:right;padding:11px 13px;font-weight:600;font-size:13.5px}
+tbody td{padding:10px 13px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7fbf8}
+ul.check{list-style:none;padding:0}
+ul.check li{position:relative;padding-inline-start:30px;margin-bottom:9px}
+ul.check li::before{content:"✓";position:absolute;inset-inline-start:0;top:2px;width:20px;height:20px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:12px;font-weight:800}
+.site-footer{background:var(--brand-dark);color:#dbe8e1;text-align:center;padding:26px 18px;font-size:13.5px;line-height:1.9}
+.site-footer .credit{font-size:15px;color:#fff;margin-bottom:6px}
+.site-footer strong{color:var(--accent)}
+.site-footer a{color:#bfe8d1}
+.site-footer .dot{opacity:.5;margin:0 6px}
+@media print{body{background:#fff}.site-header{display:none}.hero{box-shadow:none}.sheet{box-shadow:none;border:none;padding:0}.table-wrap{overflow:visible}table{min-width:0}}
+@media (max-width:560px){.sheet{padding:20px 16px}.hero{padding:22px 18px}.brand-text small{display:none}table{font-size:13px}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../index.html">
+      <span class="brand-badge">م</span>
+      <span class="brand-text"><strong>مستر پلنر</strong><small>ساخت شناختی یادگیری</small></span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="kicker"><i class="fa-solid fa-dna"></i> تحلیل و راهبرد · گروه علوم تجربی</span>
+    <h1>گروه تجربی: زیست ترکیبی، شیمی محاسباتی و مدیریت درصدها</h1>
+    <p class="lede">کنکور تجربی ۱۴۰۵ نشان داد که حفظ کردن متن کتاب، دیگر کافی نیست. زیست امسال ترکیبی‌تر و مفهومی‌تر از همیشه بود و شیمی، پل بین فهم و محاسبه را می‌آزمود.</p>
+    <div class="meta">
+      <span><i class="fa-solid fa-pen-nib"></i> طراح و تدوین: <strong style="color:#fff">احسان روحانی راوری</strong></span>
+      <span><i class="fa-regular fa-clock"></i> زمان مطالعه: ۱۰ دقیقه</span>
+      <span><i class="fa-solid fa-layer-group"></i> ویژه: کنکور ۱۴۰۵ و امتحانات نهایی</span>
+    </div>
+  </section>
+
+  <article class="sheet">
+
+    <h2>تصویر کلی کنکور تجربی ۱۴۰۵</h2>
+    <p>تحلیل‌ها نشان می‌دهد که کنکور تجربی ۱۴۰۵ بر <strong>درک مفاهیم، دقت، ارتباط دادن مطالب و مدیریت زمان</strong> تأکید داشت.[reference:12] زیست‌شناسی امسال «جدیدترین و متفاوت‌ترین سبک کنکور در چند سال اخیر» توصیف شد و توزیع سطح دشواری آن به‌گونه‌ای بود که بخش قابل‌توجهی از سؤالات، سخت ارزیابی شدند.[reference:13] توزیع تقریبی سطح دشواری دروس تجربی به این شکل گزارش شده است:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>درس</th><th>آسان</th><th>متوسط</th><th>دشوار</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>زیست‌شناسی</strong></td><td>~۲۵٪</td><td>~۳۵٪</td><td>~۴۰٪</td></tr>
+          <tr><td><strong>شیمی</strong></td><td>~۳۰٪</td><td>~۳۵٪</td><td>~۳۵٪</td></tr>
+          <tr><td><strong>ریاضی</strong></td><td>~۲۰٪</td><td>~۵۰٪</td><td>~۳۰٪</td></tr>
+          <tr><td><strong>فیزیک</strong></td><td>~۱۰٪</td><td>~۵۵٪</td><td>~۳۵٪</td></tr>
+          <tr><td><strong>زمین‌شناسی</strong></td><td>~۲۰٪</td><td>~۶۰٪</td><td>~۲۰٪</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small">بر اساس تحلیل سؤالات کنکور تجربی ۱۴۰۵.[reference:14]</p>
+
+    <div class="box note">
+      <span class="box-title"><i class="fa-solid fa-lightbulb"></i> پیام کلیدی</span>
+      در هیچ‌کدام از دروس، نمی‌توان انتظار داشت که همهٔ سؤالات در یک سطح ثابت باشند. مهارت اصلی، <strong>تشخیص سریع سؤال قابل پاسخ</strong> در جلسهٔ آزمون است.[reference:15]
+    </div>
+
+    <h2>زیست‌شناسی: از حفظ به ترکیب</h2>
+    <p>زیست امسال ترکیبی‌تر و مفهومی‌تر بود. حدود ۶۰ درصد سؤالات با مطالب کتاب درسی ارتباط داشتند و حدود ۶۰ درصد نیز با سؤالات سال‌های قبل شباهت داشتند — اما نه عیناً، بلکه در منطق و مفهوم.[reference:16] این یعنی:</p>
+    <ul>
+      <li>کتاب درسی همچنان مرجع اصلی است، اما <strong>خواندن خطی</strong> کافی نیست؛ باید ارتباط بین فصل‌ها را دید.</li>
+      <li>تست‌های سال‌های قبل مفیدند، اما برای <strong>یادگیری منطق سؤال</strong>، نه حفظ شکل آن.[reference:17]</li>
+      <li>سؤالات ترکیبی (مثلاً اتصال فصل گوارش به فصل تنفس) را جدا تمرین کن.</li>
+      <li>برای درصدهای بالا (مثلاً ۵۰٪+ برای سه‌رقمی‌شدن)، باید روی مفاهیم عمیق و شکل‌های کتاب تسلط داشته باشی.[reference:18]</li>
+    </ul>
+
+    <h3>روش مطالعهٔ زیست برای کنکور ۱۴۰۶</h3>
+    <ol>
+      <li><strong>پیش‌خوانی فعال:</strong> قبل از خواندن هر فصل، تیترها و شکل‌ها را نگاه کن و حدس بزن چه ارتباطی بین آن‌ها وجود دارد.</li>
+      <li><strong>خواندن با سؤال:</strong> بعد از هر پاراگراف، یک سؤال بساز و بدون نگاه به متن جواب بده.</li>
+      <li><strong>ترسیم فرایندها:</strong> چرخه‌ها و فرایندها (مثل تنفس سلولی، فتوسنتز، گردش خون) را به‌صورت نمودار بازسازی کن.</li>
+      <li><strong>تست ترکیبی:</strong> بعد از تسلط بر هر فصل، تست‌هایی بزن که آن فصل را با فصل‌های دیگر ترکیب می‌کنند.</li>
+      <li><strong>مرور فاصله‌دار:</strong> مرورهای ۱، ۳، ۷ و ۱۴ روز را برای هر فصل اجرا کن (به <a href="memory.html">مقالهٔ حافظه</a> مراجعه کن).</li>
+    </ol>
+
+    <h2>شیمی: پل بین فهم و محاسبه</h2>
+    <p>شیمی تجربی نیز ترکیبی از سؤالات مفهومی و محاسباتی بود. برای درصدهای خوب، باید هم روی مطالب کتاب مسلط بود و هم سرعت مناسبی در حل مسائل داشت.[reference:19]</p>
+    <ul>
+      <li><strong>بخش مفهومی:</strong> جدول تناوبی، پیوند، محلول‌ها و الکتروشیمی را با کتاب درسی عمیق بخوان.</li>
+      <li><strong>بخش محاسباتی:</strong> استوکیومتری، غلظت و pH را با تمرین روزانه و بدون ماشین‌حساب تقویت کن.</li>
+      <li><strong>فلش‌کارت:</strong> برای واکنش‌ها، قواعد و استثناها، همراه با مرور فاصله‌دار.</li>
+    </ul>
+
+    <div class="box warn">
+      <span class="box-title"><i class="fa-solid fa-triangle-exclamation"></i> تلهٔ رایج در تجربی</span>
+      تمرکز بیش از حد روی زیست و غفلت از ریاضی و فیزیک. در کنکور تجربی، ریاضی و فیزیک می‌توانند تفاوت بین رتبهٔ دو‌رقمی و سه‌رقمی را بسازند، حتی اگر زیست بالا باشد. تعادل را حفظ کن.
+    </div>
+
+    <h2>امتحانات نهایی و تأثیر آن</h2>
+    <p>امتحانات نهایی برای گروه تجربی، به‌ویژه در دروس زیست و شیمی، اهمیت مضاعف دارد. سؤالات نهایی معمولاً <strong>تشریحی و بر اساس کتاب درسی</strong> هستند و به دقت در نوشتن و استدلال نیاز دارند. برای هماهنگی بین نهایی و کنکور:</p>
+    <ul>
+      <li>برای نهایی، تمرین نوشتن پاسخ‌های کامل و مرتب را جدی بگیر.</li>
+      <li>برای کنکور، همان مطالب را با تست زمان‌سنجی تمرین کن.</li>
+      <li>از نمونه‌سؤال‌های نهایی سال‌های قبل استفاده کن؛ ساختار سؤالات نهایی معمولاً قابل پیش‌بینی است.</li>
+    </ul>
+
+    <h2>مدیریت درصدها: چه درصدی کافی است؟</h2>
+    <p>بر اساس تحلیل‌ها، برای کسب رتبهٔ سه‌رقمی در تجربی، درصدهایی در محدودهٔ <strong>۴۵٪ تا ۵۰٪+</strong> در دروس مختلف می‌تواند کافی باشد، به شرط تعادل و عدم صفر بودن هیچ درسی.[reference:20] اما برای رتبه‌های بهتر، نیاز به درصدهای بالاتر و تعادل دقیق‌تر است.</p>
+
+    <div class="box danger">
+      <span class="box-title"><i class="fa-solid fa-circle-exclamation"></i> صفر شدن، سم است</span>
+      یک درس صفر، تراز کل را به‌شدت پایین می‌کشد. حتی درصدهای متوسط (۳۰–۴۰٪) در همهٔ دروس، بهتر از درصدهای بالا در بعضی و صفر در بعضی دیگر است. <strong>تعادل، کلید تراز است.</strong>
+    </div>
+
+    <h2>چک‌لیست آمادگی گروه تجربی</h2>
+    <ul class="check">
+      <li>ارتباط بین فصل‌های زیست را می‌بینم و تمرین می‌کنم.</li>
+      <li>تست‌های ترکیبی زیست را جداگانه تمرین می‌کنم.</li>
+      <li>شیمی را هم مفهومی و هم محاسباتی تقویت می‌کنم.</li>
+      <li>ریاضی و فیزیک را رها نکرده‌ام.</li>
+      <li>برای هر درس، برنامهٔ مرور فاصله‌دار دارم.</li>
+      <li>نمونه‌سؤال‌های نهایی زیست و شیمی را حل کرده‌ام.</li>
+      <li>درصدهای آزمون‌های آزمایشی را رصد می‌کنم و تعادل را حفظ می‌کنم.</li>
+      <li>هیچ درسی را صفر نمی‌گذارم.</li>
+    </ul>
+
+    <div class="box">
+      <span class="box-title"><i class="fa-solid fa-arrow-right"></i> قدم بعدی</span>
+      برای ساخت ساختار مطالعه، <a href="study-methods.html">روش مطالعهٔ درس‌به‌درس</a> را ببین و برای تحلیل عملکرد، <a href="exam-review.html">تحلیل آزمون</a> را به کار ببند.
+    </div>
+
+  </article>
+</main>
+
+<footer class="site-footer">
+  <p class="credit">طراحی و تدوین: <strong>احسان روحانی راوری</strong></p>
+  <p>مستر پلنر <span class="dot">·</span> یادگیری بر پایهٔ ساخت شناختی</p>
+  <p><a href="../../index.html">ehssnrouhani.github.io/Mestrplanner</a></p>
+</footer>
+
+</body>
+</html>

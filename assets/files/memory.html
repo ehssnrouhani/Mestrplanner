@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حافظه و تثبیت اطلاعات | مستر پلنر</title>
+<meta name="description" content="چگونه اطلاعات را به حافظهٔ بلندمدت منتقل کنیم: تکرار فاصله‌دار، بازیابی فعال، جعبه لایتنر و تکنیک‌های رمزگذاری. طراح: احسان روحانی راوری">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
+  --tip-bg:#eaf7ef; --tip-line:#2fbf71;
+  --warn-bg:#fff7e6; --warn-line:#e0a800;
+  --danger-bg:#fdeceb; --danger-line:#e05252;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;position:sticky;top:0;z-index:10;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand:hover{text-decoration:none}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:20px}
+.brand-text{display:flex;flex-direction:column;line-height:1.4}
+.brand-text strong{font-size:17px}
+.brand-text small{font-size:11px;opacity:.85}
+main{max-width:900px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px}
+.hero{background:linear-gradient(140deg,var(--brand-dark),var(--brand) 70%,var(--accent));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset-inline-start:-40px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.hero h1{margin:6px 0 10px;font-size:clamp(22px,3.4vw,30px);line-height:1.5}
+.hero .lede{margin:0;opacity:.92;font-size:15px;max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:999px}
+.sheet{background:var(--card);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow);border:1px solid var(--line)}
+h2{font-size:20px;margin:34px 0 12px;padding-inline-start:14px;border-inline-start:4px solid var(--accent);line-height:1.6}
+h2:first-child{margin-top:0}
+h3{font-size:17px;margin:24px 0 8px;color:var(--brand-dark)}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 14px;padding-inline-start:22px}
+li{margin-bottom:6px}
+strong{color:var(--brand-dark)}
+.small{font-size:13px;color:var(--muted)}
+.box{border-radius:12px;padding:14px 16px;margin:16px 0;border-inline-start:5px solid var(--tip-line);background:var(--tip-bg);font-size:14.5px}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.box .box-title{display:block;font-weight:700;margin-bottom:4px;color:var(--brand-dark)}
+.box.warn{background:var(--warn-bg);border-color:var(--warn-line)}
+.box.danger{background:var(--danger-bg);border-color:var(--danger-line)}
+.box.note{background:var(--brand-soft);border-color:var(--brand)}
+.table-wrap{overflow-x:auto;margin:16px 0;border-radius:12px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+thead th{background:var(--brand-dark);color:#fff;text-align:right;padding:11px 13px;font-weight:600;font-size:13.5px}
+tbody td{padding:10px 13px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7fbf8}
+ul.check{list-style:none;padding:0}
+ul.check li{position:relative;padding-inline-start:30px;margin-bottom:9px}
+ul.check li::before{content:"✓";position:absolute;inset-inline-start:0;top:2px;width:20px;height:20px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:12px;font-weight:800}
+.site-footer{background:var(--brand-dark);color:#dbe8e1;text-align:center;padding:26px 18px;font-size:13.5px;line-height:1.9}
+.site-footer .credit{font-size:15px;color:#fff;margin-bottom:6px}
+.site-footer strong{color:var(--accent)}
+.site-footer a{color:#bfe8d1}
+.site-footer .dot{opacity:.5;margin:0 6px}
+@media print{body{background:#fff}.site-header{display:none}.hero{box-shadow:none}.sheet{box-shadow:none;border:none;padding:0}.table-wrap{overflow:visible}table{min-width:0}}
+@media (max-width:560px){.sheet{padding:20px 16px}.hero{padding:22px 18px}.brand-text small{display:none}table{font-size:13px}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../index.html">
+      <span class="brand-badge">م</span>
+      <span class="brand-text"><strong>مستر پلنر</strong><small>ساخت شناختی یادگیری</small></span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="kicker"><i class="fa-solid fa-brain"></i> مجموعه دانلود رایگان · حافظه</span>
+    <h1>حافظه و تثبیت اطلاعات: از خواندن تا به‌یاد آوردن</h1>
+    <p class="lede">هدف مطالعه، «دیدنِ دوباره» نیست؛ «به‌یاد آوردنِ مستقل» است. حافظه با خواندن بیشتر قوی نمی‌شود، با بازیابی بیشتر.</p>
+    <div class="meta">
+      <span><i class="fa-solid fa-pen-nib"></i> طراح و تدوین: <strong style="color:#fff">احسان روحانی راوری</strong></span>
+      <span><i class="fa-regular fa-clock"></i> زمان مطالعه: ۹ دقیقه</span>
+      <span><i class="fa-solid fa-layer-group"></i> سطح: متوسطه</span>
+    </div>
+  </section>
+
+  <article class="sheet">
+
+    <h2>منحنی فراموشی: چرا مطالب را زود فراموش می‌کنیم؟</h2>
+    <p>هرمان ابینگهاوس، روان‌شناس آلمانی، در آزمایش‌های معروفش نشان داد که انسان در همان ۲۴ ساعت اول، بخش زیادی از مطالب جدید را فراموش می‌کند — اگر مروری در کار نباشد. این «منحنی فراموشی» خبر بدی نیست؛ خبر خوبی است: نشان می‌دهد مغز کار می‌کند و اطلاعات کم‌اهمیت را کنار می‌گذارد. کار ما این است که به مغز بفهمانیم این اطلاعات مهم است.</p>
+    <p>تنها راه این کار، دو چیز است: <strong>بازیابی فعال</strong> و <strong>تکرار در فواصل فاصله‌دار</strong>. بقیهٔ تکنیک‌ها، اگر این دو را نداشته باشند، تزئین‌اند.</p>
+
+    <div class="box danger">
+      <span class="box-title"><i class="fa-solid fa-circle-exclamation"></i> تلهٔ «خواندن دوباره»</span>
+      خواندن دوباره حس آشنایی می‌دهد، و مغز این حس را با «دانستن» اشتباه می‌گیرد. اگر کتاب را ببندی و نتوانی مفهوم را توضیح بدهی، هنوز آن را نمی‌دانی. فقط دیده‌ای.
+    </div>
+
+    <h2>دو ستون تثبیت: بازیابی فعال و تکرار فاصله‌دار</h2>
+    <h3>۱. بازیابی فعال (Active Recall)</h3>
+    <p>به‌جای خواندن دوباره، از خودت بپرس. کتاب را ببند و:</p>
+    <ul>
+      <li>روی کاغذ سفید، هرچه از مبحث یادت هست بنویس.</li>
+      <li>به سؤالاتی که از قبل نوشته‌ای پاسخ بده.</li>
+      <li>مفهوم را با صدای بلند توضیح بده، انگار به یک دوست.</li>
+      <li>فلش‌کارت استفاده کن و قبل از دیدن پاسخ، جواب بده.</li>
+    </ul>
+    <p>هر بار که تلاش می‌کنی چیزی را به‌یاد بیاوری، مسیر عصبی مربوط به آن قوی‌تر می‌شود. حتی وقتی اشتباه به‌یاد می‌آوری، یادگیری رخ می‌دهد.</p>
+
+    <h3>۲. تکرار فاصله‌دار (Spaced Repetition)</h3>
+    <p>مرور را در فواصل زمانی گسترده کن. مرور پشت‌سرهم مؤثر نیست؛ مرور در فاصله‌های ۱، ۳، ۷ و ۱۴ روز، حافظه را پایدار می‌کند.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>مرور</th><th>زمان</th><th>مدت</th><th>تمرکز بر</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>مرور اول</td><td>پایان همان جلسه</td><td>۵ دقیقه</td><td>خلاصهٔ کلیدی، بدون کتاب</td></tr>
+          <tr><td>مرور دوم</td><td>۲۴ ساعت بعد</td><td>۱۰ دقیقه</td><td>بازسازی مفهوم با کلمات خودت</td></tr>
+          <tr><td>مرور سوم</td><td>۳ روز بعد</td><td>۱۵ دقیقه</td><td>حل سؤال/تست از مبحث</td></tr>
+          <tr><td>مرور چهارم</td><td>۷ روز بعد</td><td>۱۵ دقیقه</td><td>ترکیب با مفاهیم مرتبط</td></tr>
+          <tr><td>مرور پنجم</td><td>۱۴ روز بعد</td><td>۲۰ دقیقه</td><td>آزمون از خودت، بدون هیچ کمک</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box note">
+      <span class="box-title"><i class="fa-solid fa-lightbulb"></i> قاعدهٔ مرور</span>
+      مرور باید <strong>سخت</strong> باشد تا مؤثر باشد. اگر مرور برایت خیلی راحت است، فاصله‌ها را بیشتر کن. اگر خیلی سخت است، فاصله‌ها را کمتر. هدف، مرز بین «فراموش کرده بودم» و «به‌یاد آوردم» است.
+    </div>
+
+    <h2>جعبهٔ لایتنر: سیستم آمادهٔ تکرار فاصله‌دار</h2>
+    <p>ساده‌ترین سیستم برای پیاده‌سازی تکرار فاصله‌دار روی فلش‌کارت:</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>جعبه</th><th>بازهٔ مرور</th><th>اگر درست جواب دادی</th><th>اگر اشتباه جواب دادی</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>جعبهٔ ۱</td><td>هر روز</td><td>برو جعبهٔ ۲</td><td>بمون جعبهٔ ۱</td></tr>
+          <tr><td>جعبهٔ ۲</td><td>هر ۳ روز</td><td>برو جعبهٔ ۳</td><td>برگرد جعبهٔ ۱</td></tr>
+          <tr><td>جعبهٔ ۳</td><td>هر ۷ روز</td><td>برو جعبهٔ ۴</td><td>برگرد جعبهٔ ۱</td></tr>
+          <tr><td>جعبهٔ ۴</td><td>هر ۱۴ روز</td><td>برو جعبهٔ ۵</td><td>برگرد جعبهٔ ۱</td></tr>
+          <tr><td>جعبهٔ ۵</td><td>هر ۳۰ روز</td><td>تقریباً تثبیت شده</td><td>برگرد جعبهٔ ۲</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small">می‌توانی با کارت‌های کاغذی، یک جعبه با ۵ بخش، یا اپلیکیشن‌هایی مثل Anki پیاده‌اش کنی. هر روز فقط کارت‌های جعبهٔ امروز را مرور کن — نه همه را.</p>
+
+    <h2>تکنیک‌های رمزگذاری: چسبی برای حافظه</h2>
+    <p>رمزگذاری خوب، بازیابی را آسان‌تر می‌کند. چهار تکنیک پرکاربرد:</p>
+
+    <h3>۱. قطعه‌بندی (Chunking)</h3>
+    <p>به‌جای حفظ ۱۰ رقم جدا، آن‌ها را در گروه‌های ۳ یا ۴ تایی حفظ کن. مغز با «واحدهای معنادار» راحت‌تر کار می‌کند. مثلاً فرمول‌های فیزیک را در دسته‌های «حرکت، نیرو، انرژی» دسته‌بندی کن، نه به‌صورت پراکنده.</p>
+
+    <h3>۲. قصر حافظه (Method of Loci)</h3>
+    <p>اطلاعات را به مکان‌های آشنایی در خانه یا مسیر مدرسه وصل کن. برای حفظ فهرست دلایل یک پدیده، هر دلیل را به یک نقطه از مسیر خانه تا مدرسه وصل کن و در ذهن قدم بزن. این تکنیک برای فهرست‌ها و ترتیب‌ها فوق‌العاده است.</p>
+
+    <h3>۳. کلمهٔ اختصاری و جمله‌سازی</h3>
+    <p>حرف اول هر آیتم را بردار و یک جمله یا کلمه بساز. مثلاً برای مراحل یک فرایند زیستی، یک کلمهٔ ساختگی بساز که ترتیب را به تو یادآوری کند.</p>
+
+    <h3>۴. داستان‌سازی</h3>
+    <p>اطلاعات پراکنده را در قالب یک داستان کوتاه بریز. مغز داستان را بهتر از فهرست حفظ می‌کند، چون علت و معلول و روابط را می‌فهمد.</p>
+
+    <div class="box warn">
+      <span class="box-title"><i class="fa-solid fa-triangle-exclamation"></i> رمزگذاری جای فهم را نمی‌گیرد</span>
+      این تکنیک‌ها برای <strong>تثبیت</strong> مطالبِ فهمیده‌شده‌اند، نه جایگزین فهم. اگر مفهومی را نمی‌فهمی، اول با <a href="study-methods.html">روش مطالعه</a> و <a href="notes.html">یادداشت‌برداری</a> فهمش را بساز، بعد رمزگذاری کن.
+    </div>
+
+    <h2>خواب و تثبیت حافظه</h2>
+    <p>بخشی از تثبیت حافظه در خواب رخ می‌دهد؛ مغز در خواب اطلاعات روز را بازپخش و سازماندهی می‌کند. کم‌خوابی، ساعت مطالعه را بالا می‌برد ولی بازدهی را پایین می‌آورد. برای تثبیت بهتر:</p>
+    <ul>
+      <li>۷ تا ۹ ساعت خواب شبانه، با ساعت منظم.</li>
+      <li>مرور کوتاه قبل از خواب (۵ دقیقه) — به تثبیت شبانه کمک می‌کند.</li>
+      <li>پرهیز از گوشی ۳۰ دقیقهٔ آخر بیداری.</li>
+      <li>خواب کافی شب قبل از آزمون، بهتر از بیداری طولانی است.</li>
+    </ul>
+
+    <h2>چک‌لیست تثبیت اطلاعات</h2>
+    <ul class="check">
+      <li>پایان هر جلسه، بدون کتاب از خودم آزمون گرفته‌ام.</li>
+      <li>برای هر مبحث جدید، برنامهٔ مرور فاصله‌دار ریخته‌ام.</li>
+      <li>برای مفاهیم کلیدی فلش‌کارت یا جعبهٔ لایتنر دارم.</li>
+      <li>مرورهایم سخت است، نه راحت و تکراری.</li>
+      <li>خواب شبانه‌ام منظم و کافی است.</li>
+      <li>رمزگذاری‌ها را روی مطالبِ فهمیده‌شده اعمال می‌کنم.</li>
+    </ul>
+
+    <div class="box">
+      <span class="box-title"><i class="fa-solid fa-arrow-right"></i> قدم بعدی</span>
+      حافظه بدون <a href="focus.html">تمرکز</a> ساخته نمی‌شود و بدون <a href="exam-review.html">تحلیل آزمون</a> سنجیده نمی‌شود. این دو را به چرخه اضافه کن.
+    </div>
+
+  </article>
+</main>
+
+<footer class="site-footer">
+  <p class="credit">طراحی و تدوین: <strong>احسان روحانی راوری</strong></p>
+  <p>مستر پلنر <span class="dot">·</span> یادگیری بر پایهٔ ساخت شناختی</p>
+  <p><a href="../../index.html">ehssnrouhani.github.io/Mestrplanner</a></p>
+</footer>
+
+</body>
+</html>

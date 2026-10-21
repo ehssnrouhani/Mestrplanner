@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تمرکز و مدیریت حواس‌پرتی | مستر پلنر</title>
+<meta name="description" content="چگونه تمرکز عمیق بسازیم و از حواس‌پرتی دیجیتال رها شویم. راهبردهای علمی برای دانش‌آموزان متوسطه. طراح: احسان روحانی راوری">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
+  --tip-bg:#eaf7ef; --tip-line:#2fbf71;
+  --warn-bg:#fff7e6; --warn-line:#e0a800;
+  --danger-bg:#fdeceb; --danger-line:#e05252;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;position:sticky;top:0;z-index:10;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand:hover{text-decoration:none}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:20px}
+.brand-text{display:flex;flex-direction:column;line-height:1.4}
+.brand-text strong{font-size:17px}
+.brand-text small{font-size:11px;opacity:.85}
+main{max-width:900px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px}
+.hero{background:linear-gradient(140deg,var(--brand-dark),var(--brand) 70%,var(--accent));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset-inline-start:-40px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.hero h1{margin:6px 0 10px;font-size:clamp(22px,3.4vw,30px);line-height:1.5}
+.hero .lede{margin:0;opacity:.92;font-size:15px;max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:999px}
+.sheet{background:var(--card);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow);border:1px solid var(--line)}
+h2{font-size:20px;margin:34px 0 12px;padding-inline-start:14px;border-inline-start:4px solid var(--accent);line-height:1.6}
+h2:first-child{margin-top:0}
+h3{font-size:17px;margin:24px 0 8px;color:var(--brand-dark)}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 14px;padding-inline-start:22px}
+li{margin-bottom:6px}
+strong{color:var(--brand-dark)}
+.small{font-size:13px;color:var(--muted)}
+.box{border-radius:12px;padding:14px 16px;margin:16px 0;border-inline-start:5px solid var(--tip-line);background:var(--tip-bg);font-size:14.5px}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.box .box-title{display:block;font-weight:700;margin-bottom:4px;color:var(--brand-dark)}
+.box.warn{background:var(--warn-bg);border-color:var(--warn-line)}
+.box.danger{background:var(--danger-bg);border-color:var(--danger-line)}
+.box.note{background:var(--brand-soft);border-color:var(--brand)}
+.table-wrap{overflow-x:auto;margin:16px 0;border-radius:12px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+thead th{background:var(--brand-dark);color:#fff;text-align:right;padding:11px 13px;font-weight:600;font-size:13.5px}
+tbody td{padding:10px 13px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7fbf8}
+ul.check{list-style:none;padding:0}
+ul.check li{position:relative;padding-inline-start:30px;margin-bottom:9px}
+ul.check li::before{content:"✓";position:absolute;inset-inline-start:0;top:2px;width:20px;height:20px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:12px;font-weight:800}
+.site-footer{background:var(--brand-dark);color:#dbe8e1;text-align:center;padding:26px 18px;font-size:13.5px;line-height:1.9}
+.site-footer .credit{font-size:15px;color:#fff;margin-bottom:6px}
+.site-footer strong{color:var(--accent)}
+.site-footer a{color:#bfe8d1}
+.site-footer .dot{opacity:.5;margin:0 6px}
+@media print{body{background:#fff}.site-header{display:none}.hero{box-shadow:none}.sheet{box-shadow:none;border:none;padding:0}.table-wrap{overflow:visible}table{min-width:0}}
+@media (max-width:560px){.sheet{padding:20px 16px}.hero{padding:22px 18px}.brand-text small{display:none}table{font-size:13px}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../index.html">
+      <span class="brand-badge">م</span>
+      <span class="brand-text"><strong>مستر پلنر</strong><small>ساخت شناختی یادگیری</small></span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="kicker"><i class="fa-solid fa-crosshairs"></i> مجموعه دانلود رایگان · تمرکز</span>
+    <h1>تمرکز و مدیریت حواس‌پرتی: چگونه ذهن را در زمان حال نگه داریم</h1>
+    <p class="lede">تمرکز، یک استعداد ذاتی نیست؛ مهارتی است که با طراحی محیط و تمرین ساخته می‌شود. تفاوت بین «ساعت‌ها پشت میز نشستن» و «یادگیری واقعی» در همین مهارت است.</p>
+    <div class="meta">
+      <span><i class="fa-solid fa-pen-nib"></i> طراح و تدوین: <strong style="color:#fff">احسان روحانی راوری</strong></span>
+      <span><i class="fa-regular fa-clock"></i> زمان مطالعه: ۸ دقیقه</span>
+      <span><i class="fa-solid fa-layer-group"></i> سطح: متوسطه</span>
+    </div>
+  </section>
+
+  <article class="sheet">
+
+    <h2>چرا تمرکز در دنیای امروز کمیاب شده است؟</h2>
+    <p>مغز ما برای شکار، فرار و ارتباط اجتماعی طراحی شده، نه برای دو ساعت خیره شدن به یک صفحه. هر اعلان، هر پیام و هر تب باز مرورگر، مغز را به‌سمت «چیز جدید» می‌کشد چون سیستم پاداش ما برای تازگی ارزش قائل است. نتیجه؟ تو نه در حال مطالعه‌ای، نه در حال استراحت؛ در یک برزخ شناختی گرفتاری که هیچ‌کدام از دو کار را خوب انجام نمی‌دهد.</p>
+    <p>این پدیده در روان‌شناسی «هزینهٔ جابه‌جایی توجه» (Attention Switching Cost) نامیده می‌شود. هر بار که از کتاب به گوشی نگاه می‌کنی و برمی‌گردی، ده‌ها ثانیه طول می‌کشد تا ذهنت دوباره در همان عمق قبلی فرو برود. اگر ده بار این اتفاق در یک جلسه بیفتد، عملاً یک‌سوم جلسه را از دست داده‌ای — بدون اینکه متوجه شوی.</p>
+
+    <div class="box note">
+      <span class="box-title"><i class="fa-solid fa-lightbulb"></i> یک قاعدهٔ سرانگشتی</span>
+      اگر نمی‌توانی در پایان جلسه، خلاصهٔ سه جمله‌ای از آنچه خواندی بنویسی، احتمالاً آن جلسه «حضور ذهنی» نداشته. مدت مطالعه مهم نیست؛ <strong>کیفیت حضور</strong> مهم است.
+    </div>
+
+    <h2>سه دشمن تمرکز و راه‌حل هرکدام</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>دشمن</th><th>نشانه</th><th>راه‌حل عملی</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>حواس‌پرتی بیرونی</strong></td>
+            <td>گوشی، اعلان، صدای محیط، افراد اطراف</td>
+            <td>حذف محرک: گوشی در اتاق دیگر، هدفون، اعلان‌های خاموش، قرارداد با خانواده</td>
+          </tr>
+          <tr>
+            <td><strong>حواس‌پرتی درونی</strong></td>
+            <td>فکر به کارهای دیگر، خیال‌بافی، برنامه‌ریزی ذهنی وسط مطالعه</td>
+            <td>«دفتر پارک افکار»: هر فکر مزاحم را یک‌خطی بنویس و برگرد؛ بعداً رسیدگی می‌کنی</td>
+          </tr>
+          <tr>
+            <td><strong>حواس‌پرتی ساختاری</strong></td>
+            <td>خستگی، کم‌خوابی، گرسنگی، بی‌نظمی برنامه</td>
+            <td>خواب منظم، تغذیهٔ سبک، شروع جلسه با خروجی مشخص، استراحت واقعی بین بلوک‌ها</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>پروتکل تمرکز عمیق: یک الگوی ۹۰ دقیقه‌ای</h2>
+    <p>مغز برای تمرکز پیوسته حدود ۶۰ تا ۹۰ دقیقه ظرفیت دارد. بین این بلوک‌ها، به استراحت واقعی نیاز دارد — نه استراحت با گوشی که خودش نوعی بار شناختی است.</p>
+    <ol>
+      <li><strong>۵ دقیقه آماده‌سازی:</strong> خروجی جلسه را بنویس، گوشی را بیرون اتاق بگذار، آب کنار دستت بگذار.</li>
+      <li><strong>۲۵ دقیقه بلوک اول:</strong> فقط یک کار. اگر فکری مزاحم شد، در دفتر پارک افکار ثبت کن و برگرد.</li>
+      <li><strong>۵ دقیقه استراحت:</strong> بلند شو، حرکت کن، به دور نگاه کن. بدون گوشی، بدون شبکهٔ اجتماعی.</li>
+      <li><strong>۲۵ دقیقه بلوک دوم:</strong> ادامهٔ کار یا تمرین فعال.</li>
+      <li><strong>۵ دقیقه استراحت:</strong> همان قاعده.</li>
+      <li><strong>۲۰ دقیقه بلوک سوم:</strong> بازیابی فعال از آنچه یاد گرفتی + جمع‌بندی.</li>
+      <li><strong>۵ دقیقه استراحت طولانی‌تر:</strong> ۱۵ تا ۲۰ دقیقه واقعی، بعد جلسهٔ بعدی.</li>
+    </ol>
+
+    <div class="box">
+      <span class="box-title"><i class="fa-solid fa-clock"></i> تکنیک پومودورو، نسخهٔ دانش‌آموزی</span>
+      اگر ۲۵ دقیقه برایت طولانی است، با ۱۵ دقیقه شروع کن. اگر راحت است، به ۳۰ یا ۴۵ دقیقه برو. هدف، رسیدن به بلوک‌های ۴۵ تا ۹۰ دقیقه‌ای است، اما پله‌پله. عجله نکن.
+    </div>
+
+    <h2>طراحی محیط: بزرگ‌ترین اهرم تمرکز</h2>
+    <p>اراده منبع محدودی است. اگر به محیط تکیه کنی، اراده‌ات را برای یادگیری نگه می‌داری، نه برای مقاومت در برابر گوشی.</p>
+    <ul>
+      <li><strong>گوشی:</strong> در اتاق دیگر، در کیف، خاموش. نه روی میز، نه در جیب، نه زیر بالش.</li>
+      <li><strong>میز:</strong> فقط کتاب و دفتر و لوازم همان جلسه. هر چیز دیگر، حواس‌پرتی بالقوه است.</li>
+      <li><strong>اعلان‌ها:</strong> در تمام دستگاه‌ها خاموش. حتی اعلان‌های «بی‌صدا» هم بار شناختی دارند.</li>
+      <li><strong>مکان:</strong> یک مکان ثابت برای مطالعه؛ مغز به‌سرعت بین «اینجا = تمرکز» و «آنجا = استراحت» تمایز می‌گذارد.</li>
+      <li><strong>صدا:</strong> اگر محیط شلوغ است، هدفون با صدای سفید یا موسیقی بدون کلام.</li>
+      <li><strong>نور و دما:</strong> نور طبیعی، دمای متعادل، هوای تازه. محیط خفه، ذهن را خفه می‌کند.</li>
+    </ul>
+
+    <h2>آیین شروع: چطور در ۲ دقیقه وارد حالت تمرکز شوی</h2>
+    <p>ذهن به آیین‌ها پاسخ می‌دهد. یک «آیین شروع» ۲ دقیقه‌ای بساز و همیشه همان را تکرار کن:</p>
+    <ol>
+      <li>گوشی را بیرون بگذار و روی میز فقط وسایل جلسه را بچین.</li>
+      <li>یک نفس عمیق، یک لیوان آب، صاف نشستن.</li>
+      <li>یک جمله بنویس: «در این جلسه، خروجی من ... است.»</li>
+      <li>تایمر را روشن کن، شروع کن.</li>
+    </ol>
+    <p>پس از یک هفته، این آیین خودش به مغز سیگنال می‌دهد: «حالا وقت تمرکز است».</p>
+
+    <div class="box danger">
+      <span class="box-title"><i class="fa-solid fa-circle-exclamation"></i> تلهٔ «چندکاره‌گی» (Multitasking)</span>
+      هیچ‌کس واقعاً چندکاره نیست؛ مغز فقط سریع بین کارها سوئیچ می‌کند و هر سوئیچ، هزینه دارد. «همزمان گوش دادن به موسیقی با کلام، چت کردن و مطالعه» یعنی هیچ‌کدام. یک کار، یک زمان.
+    </div>
+
+    <h2>وقتی تمرکز از دست رفت، چه کنیم؟</h2>
+    <p>تمرکز مثل عضله است؛ گاهی خسته می‌شود. مهم، بازگشت سریع است، نه سرزنش خود.</p>
+    <ul>
+      <li><strong>قاعدهٔ ۱۰ ثانیه:</strong> وقتی متوجه شدی حواست پرت شده، ۱۰ ثانیه به نفس‌هایت توجه کن، سپس بدون قضاوت به کار برگرد.</li>
+      <li><strong>دفتر پارک افکار:</strong> هر فکر مزاحم را یک‌خطی بنویس. مغز وقتی مطمئن شود «ثبت شد»، رهایش می‌کند.</li>
+      <li><strong>حرکت کوتاه:</strong> اگر بیش از ۵ دقیقه است گیر کرده‌ای، بلند شو، ۲۰ قدم برو، برگرد.</li>
+      <li><strong>تغییر نوع کار:</strong> اگر خواندن خسته‌ات کرده، به تست یا خلاصه‌نویسی سوییچ کن؛ توجه را تازه می‌کند.</li>
+    </ul>
+
+    <h2>چک‌لیست تمرکز</h2>
+    <ul class="check">
+      <li>قبل از شروع، خروجی جلسه را نوشته‌ام.</li>
+      <li>گوشی در اتاق دیگر یا خاموش است.</li>
+      <li>اعلان‌های همهٔ دستگاه‌ها خاموش است.</li>
+      <li>روی میز فقط وسایل همین جلسه است.</li>
+      <li>دفتر پارک افکار کنار دستم است.</li>
+      <li>بین بلوک‌ها استراحت واقعی بدون گوشی داشته‌ام.</li>
+      <li>در پایان جلسه، خلاصهٔ سه جمله‌ای نوشته‌ام.</li>
+    </ul>
+
+    <div class="box">
+      <span class="box-title"><i class="fa-solid fa-arrow-right"></i> قدم بعدی</span>
+      حالا که تمرکز را ساختی، نوبت <a href="memory.html">حافظه و تثبیت اطلاعات</a> است و بعد <a href="planning.html">برنامه‌ریزی</a> را به این چرخه اضافه کن.
+    </div>
+
+  </article>
+</main>
+
+<footer class="site-footer">
+  <p class="credit">طراحی و تدوین: <strong>احسان روحانی راوری</strong></p>
+  <p>مستر پلنر <span class="dot">·</span> یادگیری بر پایهٔ ساخت شناختی</p>
+  <p><a href="../../index.html">ehssnrouhani.github.io/Mestrplanner</a></p>
+</footer>
+
+</body>
+</html>

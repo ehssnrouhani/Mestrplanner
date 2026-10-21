@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>راهبرد گروه هنر | مستر پلنر</title>
+<meta name="description" content="تحلیل کنکور هنر ۱۴۰۵ و امتحانات نهایی: ضرایب درک عمومی هنر، ریاضی فیزیک و خلاقیت تصویری، و نقش آزمون عملی. طراح: احسان روحانی راوری">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
+  --tip-bg:#eaf7ef; --tip-line:#2fbf71;
+  --warn-bg:#fff7e6; --warn-line:#e0a800;
+  --danger-bg:#fdeceb; --danger-line:#e05252;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;position:sticky;top:0;z-index:10;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand:hover{text-decoration:none}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:20px}
+.brand-text{display:flex;flex-direction:column;line-height:1.4}
+.brand-text strong{font-size:17px}
+.brand-text small{font-size:11px;opacity:.85}
+main{max-width:900px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px}
+.hero{background:linear-gradient(140deg,var(--brand-dark),var(--brand) 70%,var(--accent));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset-inline-start:-40px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.hero h1{margin:6px 0 10px;font-size:clamp(22px,3.4vw,30px);line-height:1.5}
+.hero .lede{margin:0;opacity:.92;font-size:15px;max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:999px}
+.sheet{background:var(--card);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow);border:1px solid var(--line)}
+h2{font-size:20px;margin:34px 0 12px;padding-inline-start:14px;border-inline-start:4px solid var(--accent);line-height:1.6}
+h2:first-child{margin-top:0}
+h3{font-size:17px;margin:24px 0 8px;color:var(--brand-dark)}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 14px;padding-inline-start:22px}
+li{margin-bottom:6px}
+strong{color:var(--brand-dark)}
+.small{font-size:13px;color:var(--muted)}
+.box{border-radius:12px;padding:14px 16px;margin:16px 0;border-inline-start:5px solid var(--tip-line);background:var(--tip-bg);font-size:14.5px}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.box .box-title{display:block;font-weight:700;margin-bottom:4px;color:var(--brand-dark)}
+.box.warn{background:var(--warn-bg);border-color:var(--warn-line)}
+.box.danger{background:var(--danger-bg);border-color:var(--danger-line)}
+.box.note{background:var(--brand-soft);border-color:var(--brand)}
+.table-wrap{overflow-x:auto;margin:16px 0;border-radius:12px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+thead th{background:var(--brand-dark);color:#fff;text-align:right;padding:11px 13px;font-weight:600;font-size:13.5px}
+tbody td{padding:10px 13px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7fbf8}
+ul.check{list-style:none;padding:0}
+ul.check li{position:relative;padding-inline-start:30px;margin-bottom:9px}
+ul.check li::before{content:"✓";position:absolute;inset-inline-start:0;top:2px;width:20px;height:20px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:12px;font-weight:800}
+.site-footer{background:var(--brand-dark);color:#dbe8e1;text-align:center;padding:26px 18px;font-size:13.5px;line-height:1.9}
+.site-footer .credit{font-size:15px;color:#fff;margin-bottom:6px}
+.site-footer strong{color:var(--accent)}
+.site-footer a{color:#bfe8d1}
+.site-footer .dot{opacity:.5;margin:0 6px}
+@media print{body{background:#fff}.site-header{display:none}.hero{box-shadow:none}.sheet{box-shadow:none;border:none;padding:0}.table-wrap{overflow:visible}table{min-width:0}}
+@media (max-width:560px){.sheet{padding:20px 16px}.hero{padding:22px 18px}.brand-text small{display:none}table{font-size:13px}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../index.html">
+      <span class="brand-badge">م</span>
+      <span class="brand-text"><strong>مستر پلنر</strong><small>ساخت شناختی یادگیری</small></span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="kicker"><i class="fa-solid fa-palette"></i> تحلیل و راهبرد · گروه هنر</span>
+    <h1>گروه هنر: درک عمومی، خلاقیت و آزمون عملی — سه ضلع یک رقابت</h1>
+    <p class="lede">کنکور هنر ۱۴۰۵ با ضرایبی برگزار شد که «درک عمومی هنر» را به پادشاه دروس تبدیل می‌کند. اما خلاقیت تصویری و آزمون عملی، بازی را پیچیده‌تر می‌کنند.</p>
+    <div class="meta">
+      <span><i class="fa-solid fa-pen-nib"></i> طراح و تدوین: <strong style="color:#fff">احسان روحانی راوری</strong></span>
+      <span><i class="fa-regular fa-clock"></i> زمان مطالعه: ۹ دقیقه</span>
+      <span><i class="fa-solid fa-layer-group"></i> ویژه: کنکور ۱۴۰۵ و امتحانات نهایی</span>
+    </div>
+  </section>
+
+  <article class="sheet">
+
+    <h2>ساختار و ضرایب کنکور هنر ۱۴۰۵</h2>
+    <p>کنکور هنر، ساختاری متفاوت از سایر گروه‌ها دارد. دروس تخصصی آن شامل سه بخش اصلی است و ضرایب، نقش تعیین‌کننده‌ای در تراز نهایی ایفا می‌کنند:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>درس تخصصی</th><th>تعداد سؤال</th><th>ضریب</th><th>نقش</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>درک عمومی هنر</strong></td><td>۵۰</td><td>۱۲</td><td>پادشاه دروس؛ بیشترین اثر در تراز</td></tr>
+          <tr><td><strong>درک عمومی ریاضی و فیزیک</strong></td><td>۳۰</td><td>۵</td><td>دومین درس تأثیرگذار</td></tr>
+          <tr><td><strong>خلاقیت تصویری و تجسمی</strong></td><td>۲۰</td><td>۳</td><td>مکمل مهارت‌های تصویری</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small">بر اساس ضرایب دروس تخصصی کنکور هنر ۱۴۰۵.[reference:25][reference:26]</p>
+
+    <div class="box note">
+      <span class="box-title"><i class="fa-solid fa-lightbulb"></i> پیام کلیدی</span>
+      <strong>درک عمومی هنر با ضریب ۱۲</strong>، به‌تنهایی می‌تواند مسیر قبولی را تغییر دهد. اما این درس، حفظی نیست؛ ترکیبی از تاریخ هنر، شناخت سبک‌ها، تحلیل آثار و درک زیبایی‌شناسی است.
+    </div>
+
+    <h2>تحلیل درس‌به‌درس</h2>
+
+    <h3>درک عمومی هنر (ضریب ۱۲)</h3>
+    <p>این درس، ستون فقرات کنکور هنر است. سؤالات آن معمولاً شامل:</p>
+    <ul>
+      <li><strong>تاریخ هنر ایران و جهان:</strong> سبک‌ها، دوره‌ها، هنرمندان و آثار شاخص.</li>
+      <li><strong>شناخت مفاهیم:</strong> تعریف‌های پایه در هنرهای تجسمی، موسیقی، نمایش و سینما.</li>
+      <li><strong>تحلیل اثر:</strong> تشخیص سبک، تکنیک و ویژگی‌های بصری آثار.</li>
+    </ul>
+    <p>راهبرد مطالعه:</p>
+    <ul>
+      <li>از <strong>تصویر</strong> استفاده کن؛ تاریخ هنر بدون دیدن آثار، حفظی و شکننده می‌شود.</li>
+      <li>سبک‌ها را با هم مقایسه کن (جدول تفاوت‌ها و شباهت‌ها بساز).</li>
+      <li>برای هر دوره، یک «اثر شاخص» را به‌عنوان لنگر به خاطر بسپار.</li>
+      <li>از فلش‌کارت تصویری و مرور فاصله‌دار استفاده کن.</li>
+    </ul>
+
+    <h3>درک عمومی ریاضی و فیزیک (ضریب ۵)</h3>
+    <p>این درس، اغلب نقطهٔ ضعف داوطلبان هنر است — و دقیقاً به همین دلیل، فرصت طلایی برای ساختن فاصله. سؤالات معمولاً در سطح <strong>مفهومی و پایه</strong> هستند، نه محاسبات پیچیده.</p>
+    <ul>
+      <li>روی مفاهیم پایهٔ ریاضی (نسبت، تناسب، هندسهٔ مقدماتی) و فیزیک (نور، رنگ، اپتیک) تمرکز کن.</li>
+      <li>حل مسئله‌های ساده اما متنوع را تمرین کن.</li>
+      <li>از فرمول‌های پیچیده نترس؛ در هنر، بیشتر «فهمیدن» مهم است تا «محاسبه کردن».</li>
+    </ul>
+
+    <h3>خلاقیت تصویری و تجسمی (ضریب ۳)</h3>
+    <p>این درس، مهارت‌های تصویری و توانایی تحلیل و بازسازی فرم‌ها را می‌آزماید. اگرچه ضریب آن از دو درس دیگر کمتر است، اما رها کردنش منطقی نیست.</p>
+    <ul>
+      <li>تمرین‌های تجسمی (دوران، تقارن، بازسازی شکل) را به‌صورت روزانه انجام بده.</li>
+      <li>با نمونه‌سؤال‌های سال‌های قبل آشنا شو؛ الگوهای سؤال معمولاً تکرار می‌شوند.</li>
+      <li>مهارت طراحی و اسکیس را جداگانه تقویت کن (به‌ویژه اگر آزمون عملی هم داری).</li>
+    </ul>
+
+    <h2>آزمون عملی: ضلع سوم رقابت</h2>
+    <p>برای بسیاری از رشته‌های هنر، <strong>آزمون عملی</strong> نیز برگزار می‌شود و می‌تواند نقش تعیین‌کننده‌ای در پذیرش نهایی داشته باشد.[reference:27] این آزمون، دانش تئوری را به مهارت عملی ترجمه می‌کند. برای آمادگی:</p>
+    <ul>
+      <li>مهارت پایهٔ طراحی (اسکیس، پرسپکتیو، سایه‌روشن) را continuous تمرین کن.</li>
+      <li>با شرایط آزمون عملی (زمان محدود، ابزار مشخص) شبیه‌سازی کن.</li>
+      <li>از نقد دیگران (استاد، هم‌کلاسی) برای بهبود استفاده کن.</li>
+      <li>تعادل بین آمادگی تئوری و عملی را حفظ کن؛ یکی بدون دیگری کافی نیست.</li>
+    </ul>
+
+    <div class="box warn">
+      <span class="box-title"><i class="fa-solid fa-triangle-exclamation"></i> تلهٔ تمرکز صرف روی تئوری</span>
+      بسیاری از داوطلبان هنر، همهٔ انرژی را روی درک عمومی هنر می‌گذارند و آزمون عملی را نادیده می‌گیرند. در حالی که برای رشته‌های عملی، مهارت دستی می‌تواند تفاوت‌ساز باشد. <strong>هر دو جبهه را جدی بگیر.</strong>
+    </div>
+
+    <h2>امتحانات نهایی و سوابق تحصیلی</h2>
+    <p>مانند سایر گروه‌ها، امتحانات نهایی در گروه هنر نیز بخشی از سوابق تحصیلی را می‌سازد. دروس عمومی (فارسی، عربی، دینی) و برخی دروس پایه در نهایی آزمون می‌شوند. برای هماهنگی:</p>
+    <ul>
+      <li>دروس عمومی نهایی را رها نکن؛ نمرات آن‌ها در سوابق ثبت می‌شود.</li>
+      <li>برای نهایی، تشریحی‌نویسی و پاسخ‌های کامل را تمرین کن.</li>
+      <li>بین نهایی و کنکور، مفاهیم مشترک را عمیق بخوان تا هر دو را پوشش دهی.</li>
+    </ul>
+
+    <h2>راهبرد کلی برای گروه هنر</h2>
+    <ol>
+      <li><strong>درک عمومی هنر را محور بگیر</strong> (ضریب ۱۲) و بیشترین زمان را به آن اختصاص بده.</li>
+      <li><strong>ریاضی و فیزیک را تقویت کن</strong> (ضریب ۵)؛ اینجا می‌توانی از رقبا جلو بزنی.</li>
+      <li><strong>خلاقیت تصویری را تمرین روزانه کن</strong> (ضریب ۳).</li>
+      <li><strong>آزمون عملی را شبیه‌سازی کن</strong> و مهارت دستی را زنده نگه دار.</li>
+      <li><strong>امتحانات نهایی را جدی بگیر</strong>؛ سوابق تحصیلی بخشی از نتیجه است.</li>
+    </ol>
+
+    <h2>چک‌لیست آمادگی گروه هنر</h2>
+    <ul class="check">
+      <li>ضرایب دروس تخصصی را می‌دانم و برنامه‌ام را بر اساس آن چیده‌ام.</li>
+      <li>برای درک عمومی هنر، از تصویر و مقایسهٔ سبک‌ها استفاده می‌کنم.</li>
+      <li>ریاضی و فیزیک را رها نکرده‌ام.</li>
+      <li>خلاقیت تصویری را با تمرین روزانه تقویت می‌کنم.</li>
+      <li>برای آزمون عملی، شبیه‌سازی و تمرین مستمر دارم.</li>
+      <li>دروس عمومی نهایی را برای سوابق تحصیلی جدی گرفته‌ام.</li>
+      <li>بین تئوری و عملی تعادل برقرار کرده‌ام.</li>
+    </ul>
+
+    <div class="box">
+      <span class="box-title"><i class="fa-solid fa-arrow-right"></i> قدم بعدی</span>
+      با <a href="planning.html">برنامه‌ریزی</a> ساختار بساز، برای عمق بخشیدن به مطالعهٔ هنر از <a href="focus.html">تمرکز</a> و <a href="memory.html">حافظه</a> کمک بگیر.
+    </div>
+
+  </article>
+</main>
+
+<footer class="site-footer">
+  <p class="credit">طراحی و تدوین: <strong>احسان روحانی راوری</strong></p>
+  <p>مستر پلنر <span class="dot">·</span> یادگیری بر پایهٔ ساخت شناختی</p>
+  <p><a href="../../index.html">ehssnrouhani.github.io/Mestrplanner</a></p>
+</footer>
+
+</body>
+</html>

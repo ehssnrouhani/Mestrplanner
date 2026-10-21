@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>راهبرد گروه ریاضی و فیزیک | مستر پلنر</title>
+<meta name="description" content="تحلیل کنکور ریاضی ۱۴۰۵ و امتحانات نهایی: مدیریت زمان، عمق مفهومی و نقشه راه درس‌به‌درس برای گروه ریاضی و فیزیک. طراح: احسان روحانی راوری">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
+  --tip-bg:#eaf7ef; --tip-line:#2fbf71;
+  --warn-bg:#fff7e6; --warn-line:#e0a800;
+  --danger-bg:#fdeceb; --danger-line:#e05252;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;position:sticky;top:0;z-index:10;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand:hover{text-decoration:none}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:20px}
+.brand-text{display:flex;flex-direction:column;line-height:1.4}
+.brand-text strong{font-size:17px}
+.brand-text small{font-size:11px;opacity:.85}
+main{max-width:900px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px}
+.hero{background:linear-gradient(140deg,var(--brand-dark),var(--brand) 70%,var(--accent));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset-inline-start:-40px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.hero h1{margin:6px 0 10px;font-size:clamp(22px,3.4vw,30px);line-height:1.5}
+.hero .lede{margin:0;opacity:.92;font-size:15px;max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:999px}
+.sheet{background:var(--card);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow);border:1px solid var(--line)}
+h2{font-size:20px;margin:34px 0 12px;padding-inline-start:14px;border-inline-start:4px solid var(--accent);line-height:1.6}
+h2:first-child{margin-top:0}
+h3{font-size:17px;margin:24px 0 8px;color:var(--brand-dark)}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 14px;padding-inline-start:22px}
+li{margin-bottom:6px}
+strong{color:var(--brand-dark)}
+.small{font-size:13px;color:var(--muted)}
+.box{border-radius:12px;padding:14px 16px;margin:16px 0;border-inline-start:5px solid var(--tip-line);background:var(--tip-bg);font-size:14.5px}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.box .box-title{display:block;font-weight:700;margin-bottom:4px;color:var(--brand-dark)}
+.box.warn{background:var(--warn-bg);border-color:var(--warn-line)}
+.box.danger{background:var(--danger-bg);border-color:var(--danger-line)}
+.box.note{background:var(--brand-soft);border-color:var(--brand)}
+.table-wrap{overflow-x:auto;margin:16px 0;border-radius:12px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+thead th{background:var(--brand-dark);color:#fff;text-align:right;padding:11px 13px;font-weight:600;font-size:13.5px}
+tbody td{padding:10px 13px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7fbf8}
+ul.check{list-style:none;padding:0}
+ul.check li{position:relative;padding-inline-start:30px;margin-bottom:9px}
+ul.check li::before{content:"✓";position:absolute;inset-inline-start:0;top:2px;width:20px;height:20px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:12px;font-weight:800}
+.site-footer{background:var(--brand-dark);color:#dbe8e1;text-align:center;padding:26px 18px;font-size:13.5px;line-height:1.9}
+.site-footer .credit{font-size:15px;color:#fff;margin-bottom:6px}
+.site-footer strong{color:var(--accent)}
+.site-footer a{color:#bfe8d1}
+.site-footer .dot{opacity:.5;margin:0 6px}
+@media print{body{background:#fff}.site-header{display:none}.hero{box-shadow:none}.sheet{box-shadow:none;border:none;padding:0}.table-wrap{overflow:visible}table{min-width:0}}
+@media (max-width:560px){.sheet{padding:20px 16px}.hero{padding:22px 18px}.brand-text small{display:none}table{font-size:13px}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../index.html">
+      <span class="brand-badge">م</span>
+      <span class="brand-text"><strong>مستر پلنر</strong><small>ساخت شناختی یادگیری</small></span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="kicker"><i class="fa-solid fa-square-root-variable"></i> تحلیل و راهبرد · گروه ریاضی و فیزیک</span>
+    <h1>گروه ریاضی و فیزیک: از مسابقهٔ سرعت تا عمق مفهومی</h1>
+    <p class="lede">کنکور ریاضی ۱۴۰۵ نشان داد که دانستن فرمول، فقط بلیت ورود است. برنده کسی است که در زمان محدود، مسیر حل را تشخیص دهد و محاسبات را بدون خطا پیش ببرد.</p>
+    <div class="meta">
+      <span><i class="fa-solid fa-pen-nib"></i> طراح و تدوین: <strong style="color:#fff">احسان روحانی راوری</strong></span>
+      <span><i class="fa-regular fa-clock"></i> زمان مطالعه: ۱۰ دقیقه</span>
+      <span><i class="fa-solid fa-layer-group"></i> ویژه: کنکور ۱۴۰۵ و امتحانات نهایی</span>
+    </div>
+  </section>
+
+  <article class="sheet">
+
+    <h2>تصویر کلی کنکور ریاضی ۱۴۰۵</h2>
+    <p>آزمون امسال در مجموع سطحی <strong>متوسط تا متوسط رو به بالا</strong> داشت؛ نه غافلگیرکننده، اما در بعضی سؤالات نیازمند تسلط مفهومی و دقت در محاسبات بود.[reference:0] ساختار آزمون به شکلی بود که <strong>مدیریت زمان</strong> را به اندازهٔ دانش ریاضی مهم کرد. در درس ریاضی، ۴۰ سؤال در ۷۰ دقیقه، یعنی میانگین حدود ۱۰۵ ثانیه برای هر سؤال — در حالی که سؤالات دشوار می‌توانستند ۳ تا ۴ دقیقه زمان ببرند.[reference:1]</p>
+    <p>این یعنی داوطلبی که روی یک سؤال سخت گیر می‌کرد، به‌راحتی سه سؤال بعدی را از دست می‌داد. درس فیزیک اما کمی متفاوت بود: با تکیه بر مفاهیم پایه می‌شد نمره جمع کرد، هرچند بعضی تست‌ها به دقت مفهومی و حل چندمرحله‌ای نیاز داشتند.[reference:2]</p>
+
+    <h2>نقشهٔ درس‌به‌درس و بودجه‌بندی</h2>
+    <p>بر اساس تحلیل سؤالات، توزیع سطح دشواری در دروس اصلی گروه ریاضی به این شکل بوده است:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>درس</th><th>آسان</th><th>متوسط</th><th>دشوار</th><th>نکتهٔ کلیدی</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>ریاضیات</strong></td><td>~۲۵٪</td><td>~۴۵٪</td><td>~۳۰٪</td><td>مسیر حل طولانی، نیازمند سرعت و دقت بالا</td></tr>
+          <tr><td><strong>فیزیک</strong></td><td>~۱۰٪</td><td>~۵۵٪</td><td>~۳۵٪</td><td>حل چندمرحله‌ای، اهمیت رسم شکل و تحلیل واحد</td></tr>
+          <tr><td><strong>شیمی</strong></td><td>~۳۰٪</td><td>~۳۵٪</td><td>~۳۵٪</td><td>ترکیب مفاهیم و محاسبات، تسلط بر کتاب درسی</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small">منبع تحلیل سطح دشواری: بررسی سؤالات کنکور ریاضی ۱۴۰۵.[reference:3]</p>
+
+    <div class="box note">
+      <span class="box-title"><i class="fa-solid fa-lightbulb"></i> درسِ تعیین‌کننده</span>
+      در گروه ریاضی، <strong>ریاضیات (حسابان، هندسه، گسسته)</strong> پرحجم‌ترین و تعیین‌کننده‌ترین درس است و بیشترین سهم را در تراز دارد. فیزیک نیز پرسؤال و نیازمند حل تست زیاد است. این دو درس، ستون‌های اصلی تراز شما هستند.[reference:4]
+    </div>
+
+    <h2>امتحانات نهایی: ریاضی دوازدهم ۱۴۰۵</h2>
+    <p>برخلاف کنکور که سرعت را می‌آزماید، امتحان نهایی ریاضی دوازدهم ۱۴۰۵ آزمونی <strong>استاندارد و قابل پیش‌بینی</strong> بود. سطح سؤالات متوسط رو به آسان (حدود ۵.۵ از ۱۰) ارزیابی شد و بیشترین بارم به مبحث <strong>مشتق و کاربرد مشتق</strong> اختصاص داشت.[reference:5]</p>
+    <p>ساختار آزمون ترکیبی از سؤالات تشریحی، جای خالی، صحیح/غلط و چند سؤال چهارگزینه‌ای بود و سؤال خارج از الگوهای آشنا در آن دیده نمی‌شد.[reference:6] دانش‌آموزانی که کتاب درسی را خوب خوانده و نمونه‌سؤال‌های سال‌های قبل را حل کرده بودند، بدون مشکل خاصی از پس بیشتر سؤالات برآمدند.[reference:7]</p>
+
+    <div class="box warn">
+      <span class="box-title"><i class="fa-solid fa-triangle-exclamation"></i> تفاوت کلیدی نهایی و کنکور</span>
+      در نهایی، <strong>مسیر حل و ارائهٔ تشریحی</strong> مهم است؛ در کنکور، <strong>سرعت رسیدن به گزینه</strong>. برای نهایی، تمرین نوشتن راه‌حل کامل و مرتب را جدی بگیر. برای کنکور، تمرین تشخیص سریع روش و محاسبهٔ ذهنی/تقریبی.
+    </div>
+
+    <h2>راهبرد مطالعه برای گروه ریاضی</h2>
+
+    <h3>۱. ریاضیات: از «حل کردن» به «تشخیص دادن»</h3>
+    <p>در کنکور ۱۴۰۵، تنوع مباحث و ترکیب مفاهیم باعث می‌شد <strong>تشخیص روش حل</strong> اهمیت زیادی پیدا کند.[reference:8] برای سال بعد:</p>
+    <ul>
+      <li>برای هر مبحث، «الگوهای مسئله» را دسته‌بندی کن (نه فقط حل تک‌تک تست‌ها).</li>
+      <li>تمرین زمان‌سنجی با سقف مشخص برای هر سؤال؛ اگر از سقف گذشتی، رها کن و برو جلو.</li>
+      <li>روی محاسبات ذهنی و تقریبی کار کن؛ در کنکور، هر ثانیه ارزش یک تست را دارد.</li>
+      <li>خطاهای محاسباتی را جدا ثبت کن؛ اغلب دانشجو مشکل مفهومی ندارد، مشکل دقت دارد.</li>
+    </ul>
+
+    <h3>۲. فیزیک: مفهوم، شکل، و چند مرحله</h3>
+    <p>فیزیک امسال نشان داد که حفظ فرمول کافی نیست. بعضی تست‌ها در کنار محاسبه، به دقت مفهومی و چند مرحله حل نیاز داشتند.[reference:9]</p>
+    <ul>
+      <li>هر مسئله را با <strong>رسم شکل</strong> شروع کن؛ شکل، نیمی از راه‌حل است.</li>
+      <li>شرایط اعتبار هر فرمول را بدان؛ سؤالات مفهومی از همین‌جا طرح می‌شوند.</li>
+      <li>مسئله‌های ترکیبی (مثلاً حرکت + نیرو + انرژی) را جدا تمرین کن.</li>
+    </ul>
+
+    <h3>۳. شیمی: پل بین مفهوم و محاسبه</h3>
+    <p>شیمی ترکیبی از سؤالات مفهومی و محاسباتی بود؛ داوطلب باید هم بر کتاب مسلط می‌بود و هم سرعت مناسبی در حل مسائل داشت.[reference:10]</p>
+    <ul>
+      <li>بخش مفهومی (جدول تناوبی، پیوند، استوکیومتری) را با کتاب درسی عمیق بخوان.</li>
+      <li>محاسبات را با تمرین روزانه و بدون ماشین‌حساب تقویت کن.</li>
+      <li>فلش‌کارت برای واکنش‌ها و قواعد، همراه با مرور فاصله‌دار.</li>
+    </ul>
+
+    <h2>مدیریت زمان در جلسهٔ آزمون</h2>
+    <p>کنکور ریاضی ۱۴۰۵ یک «مسابقهٔ سرعت» بود که در آن هر ثانیه ارزش یک تست را داشت.[reference:11] برای مدیریت بهتر:</p>
+    <ol>
+      <li><strong>قبل از آزمون،</strong> ترتیب دروس را تمرین کن و در جلسه عوض نکن.</li>
+      <li><strong>در هر درس،</strong> ابتدا سؤالات آسان و مطمئن را بزن؛ سؤالات وقت‌گیر را علامت بزن و بعداً برگرد.</li>
+      <li><strong>سقف زمانی</strong> برای هر سؤال بگذار (مثلاً ۲ دقیقه)؛ اگر گذشت، رها کن.</li>
+      <li><strong>پاسخ‌برگ</strong> را هر چند سؤال یک بار چک کن تا جابه‌جایی رخ ندهد.</li>
+      <li><strong>در پایان،</strong> زمان باقی‌مانده را صرف بازبینی سؤالات علامت‌خورده کن، نه سؤالات سختِ حل‌نشده.</li>
+    </ol>
+
+    <div class="box danger">
+      <span class="box-title"><i class="fa-solid fa-circle-exclamation"></i> تلهٔ بزرگ</span>
+      گیر کردن روی یک سؤال سخت، بزرگ‌ترین خطای راهبردی در کنکور ریاضی است. یک سؤال ۴ دقیقه‌ای می‌تواند چهار سؤال ۱ دقیقه‌ای را از شما بگیرد. <strong>رها کردن، بخشی از مهارت است، نه شکست.</strong>
+    </div>
+
+    <h2>چک‌لیست آمادگی گروه ریاضی</h2>
+    <ul class="check">
+      <li>برای هر مبحث ریاضی، الگوهای مسئله را دسته‌بندی کرده‌ام.</li>
+      <li>تمرین زمان‌سنجی با سقف مشخص را انجام می‌دهم.</li>
+      <li>مسئله‌های فیزیک را با رسم شکل حل می‌کنم.</li>
+      <li>شرایط اعتبار فرمول‌های فیزیک را می‌دانم.</li>
+      <li>محاسبات شیمی را بدون ماشین‌حساب تمرین می‌کنم.</li>
+      <li>خطاهای محاسباتی را جدا ثبت و مرور می‌کنم.</li>
+      <li>ترتیب دروس در آزمون‌های آزمایشی را تثبیت کرده‌ام.</li>
+      <li>نمونه‌سؤال‌های نهایی ریاضی دوازدهم را حل کرده‌ام.</li>
+    </ul>
+
+    <div class="box">
+      <span class="box-title"><i class="fa-solid fa-arrow-right"></i> قدم بعدی</span>
+      پایهٔ این راهبرد را با <a href="planning.html">برنامه‌ریزی</a> و <a href="exam-review.html">تحلیل آزمون</a> بساز؛ برای عمق مفهومی، <a href="focus.html">تمرکز</a> و <a href="memory.html">حافظه</a> را ببین.
+    </div>
+
+  </article>
+</main>
+
+<footer class="site-footer">
+  <p class="credit">طراحی و تدوین: <strong>احسان روحانی راوری</strong></p>
+  <p>مستر پلنر <span class="dot">·</span> یادگیری بر پایهٔ ساخت شناختی</p>
+  <p><a href="../../index.html">ehssnrouhani.github.io/Mestrplanner</a></p>
+</footer>
+
+</body>
+</html>

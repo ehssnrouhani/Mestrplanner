@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>راهبرد گروه زبان‌های خارجی | مستر پلنر</title>
+<meta name="description" content="تحلیل کنکور زبان ۱۴۰۵ و امتحانات نهایی: واژگان، گرامر، ریدینگ و کلوز تست؛ مدیریت ۱۰۵ دقیقه و نقشه راه رتبه تک‌رقمی. طراح: احسان روحانی راوری">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
+  --tip-bg:#eaf7ef; --tip-line:#2fbf71;
+  --warn-bg:#fff7e6; --warn-line:#e0a800;
+  --danger-bg:#fdeceb; --danger-line:#e05252;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;position:sticky;top:0;z-index:10;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand:hover{text-decoration:none}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:20px}
+.brand-text{display:flex;flex-direction:column;line-height:1.4}
+.brand-text strong{font-size:17px}
+.brand-text small{font-size:11px;opacity:.85}
+main{max-width:900px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px}
+.hero{background:linear-gradient(140deg,var(--brand-dark),var(--brand) 70%,var(--accent));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset-inline-start:-40px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.hero h1{margin:6px 0 10px;font-size:clamp(22px,3.4vw,30px);line-height:1.5}
+.hero .lede{margin:0;opacity:.92;font-size:15px;max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:999px}
+.sheet{background:var(--card);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow);border:1px solid var(--line)}
+h2{font-size:20px;margin:34px 0 12px;padding-inline-start:14px;border-inline-start:4px solid var(--accent);line-height:1.6}
+h2:first-child{margin-top:0}
+h3{font-size:17px;margin:24px 0 8px;color:var(--brand-dark)}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 14px;padding-inline-start:22px}
+li{margin-bottom:6px}
+strong{color:var(--brand-dark)}
+.small{font-size:13px;color:var(--muted)}
+.box{border-radius:12px;padding:14px 16px;margin:16px 0;border-inline-start:5px solid var(--tip-line);background:var(--tip-bg);font-size:14.5px}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.box .box-title{display:block;font-weight:700;margin-bottom:4px;color:var(--brand-dark)}
+.box.warn{background:var(--warn-bg);border-color:var(--warn-line)}
+.box.danger{background:var(--danger-bg);border-color:var(--danger-line)}
+.box.note{background:var(--brand-soft);border-color:var(--brand)}
+.table-wrap{overflow-x:auto;margin:16px 0;border-radius:12px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+thead th{background:var(--brand-dark);color:#fff;text-align:right;padding:11px 13px;font-weight:600;font-size:13.5px}
+tbody td{padding:10px 13px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7fbf8}
+ul.check{list-style:none;padding:0}
+ul.check li{position:relative;padding-inline-start:30px;margin-bottom:9px}
+ul.check li::before{content:"✓";position:absolute;inset-inline-start:0;top:2px;width:20px;height:20px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:12px;font-weight:800}
+.site-footer{background:var(--brand-dark);color:#dbe8e1;text-align:center;padding:26px 18px;font-size:13.5px;line-height:1.9}
+.site-footer .credit{font-size:15px;color:#fff;margin-bottom:6px}
+.site-footer strong{color:var(--accent)}
+.site-footer a{color:#bfe8d1}
+.site-footer .dot{opacity:.5;margin:0 6px}
+@media print{body{background:#fff}.site-header{display:none}.hero{box-shadow:none}.sheet{box-shadow:none;border:none;padding:0}.table-wrap{overflow:visible}table{min-width:0}}
+@media (max-width:560px){.sheet{padding:20px 16px}.hero{padding:22px 18px}.brand-text small{display:none}table{font-size:13px}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../index.html">
+      <span class="brand-badge">م</span>
+      <span class="brand-text"><strong>مستر پلنر</strong><small>ساخت شناختی یادگیری</small></span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="kicker"><i class="fa-solid fa-language"></i> تحلیل و راهبرد · گروه زبان‌های خارجی</span>
+    <h1>گروه زبان: ۷۰ سؤال، ۱۰۵ دقیقه و رقابت بر سر هر کلمه</h1>
+    <p class="lede">در گروه زبان، دانش عمومی زبان انگلیسی که در سایر گروه‌ها «درس» است، اینجا «آزمون» است. داوطلب باید در ۱۰۵ دقیقه، ۷۰ سؤال تخصصی را پاسخ دهد؛ میانگین کمتر از ۹۰ ثانیه برای هر سؤال.</p>
+    <div class="meta">
+      <span><i class="fa-solid fa-pen-nib"></i> طراح و تدوین: <strong style="color:#fff">احسان روحانی راوری</strong></span>
+      <span><i class="fa-regular fa-clock"></i> زمان مطالعه: ۹ دقیقه</span>
+      <span><i class="fa-solid fa-layer-group"></i> ویژه: کنکور ۱۴۰۵ و امتحانات نهایی</span>
+    </div>
+  </section>
+
+  <article class="sheet">
+
+    <h2>ساختار آزمون تخصصی زبان</h2>
+    <p>کنکور گروه زبان‌های خارجی، یک آزمون تخصصی ۷۰ سؤالی است که در ۱۰۵ دقیقه برگزار می‌شود[reference:0]. الگوی طراحی سؤالات سازمان سنجش در سال‌های اخیر معمولاً ثابت بوده و بودجه‌بندی پیش‌بینی‌شده برای ۱۴۰۵ به این شکل است:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>مبحث</th><th>تعداد سؤال (پیش‌بینی ۱۴۰۵)</th><th>اهمیت</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>ریدینگ (Reading)</strong></td><td>۱۸</td><td>بالاترین سهم؛ ترکیبی از سرعت و دقت</td></tr>
+          <tr><td><strong>واژگان (Vocabulary)</strong></td><td>۱۶</td><td>پایهٔ ریدینگ و کلوز تست</td></tr>
+          <tr><td><strong>گرامر (Grammar)</strong></td><td>۱۰</td><td>سؤالات ساختاری و کاربردی</td></tr>
+          <tr><td><strong>کلوز تست (Cloze Test)</strong></td><td>۱۰</td><td>ترکیب واژه، گرامر و انسجام متن</td></tr>
+          <tr><td><strong>کاربرد زبان (Language Use)</strong></td><td>۱۰</td><td>تشخیص خطا و کاربرد صحیح</td></tr>
+          <tr><td><strong>ترتیب واژه (Word Order)</strong></td><td>۶</td><td>ساختار جمله</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small">بر اساس بودجه‌بندی پیش‌بینی‌شده برای کنکور زبان ۱۴۰۵[reference:1].</p>
+
+    <div class="box note">
+      <span class="box-title"><i class="fa-solid fa-lightbulb"></i> پیام کلیدی</span>
+      <strong>واژگان + ریدینگ + کلوز تست</strong> روی هم ۴۴ سؤال از ۷۰ سؤال را می‌سازند. هر سه به یک مهارت پایه وابسته‌اند: <strong>دایرهٔ واژگان فعال</strong>. بدون واژه، هیچ‌کدام از این سه بخش قابل مدیریت نیست.
+    </div>
+
+    <h2>تحلیل سطح دشواری</h2>
+    <p>الگوی طراحی سؤالات زبان معمولاً ثابت است، اما سطح دشواری هر سال تغییر می‌کند[reference:2]. در سال‌های اخیر، روند کلی به سمت <strong>متن‌محورتر شدن</strong> سؤالات و افزایش وزن مهارت‌های ترکیبی (ریدینگ و کلوز) بوده است. برای ۱۴۰۵، انتظار می‌رود:</p>
+    <ul>
+      <li><strong>واژگان:</strong> سؤالات از حفظ تعریف خشک فاصله گرفته و بیشتر در بستر جمله و متن طرح شوند.</li>
+      <li><strong>گرامر:</strong> تمرکز بر کاربرد در جمله، نه فقط تشخیص قاعده.</li>
+      <li><strong>ریدینگ:</strong> متن‌های طولانی‌تر و سؤالاتی که نیاز به درک کلی، جزئیات و استنتاج دارند.</li>
+      <li><strong>کلوز تست:</strong> ترکیب واژه، گرامر و انسجام متن؛ دشوارترین بخش برای داوطلبانی که فقط واژه حفظ کرده‌اند.</li>
+    </ul>
+
+    <div class="box warn">
+      <span class="box-title"><i class="fa-solid fa-triangle-exclamation"></i> تلهٔ رایج</span>
+      «من انگلیسی‌ام خوب است، پس زبان را بدون آمادگی می‌دهم.» این جمله، بزرگ‌ترین اشتباه داوطلبان زبان است. انگلیسیِ «خوب» با انگلیسیِ «آزمونی» تفاوت دارد. آزمون، سرعت، دقت و آشنایی با الگوی سؤال می‌خواهد.
+    </div>
+
+    <h2>راهبرد درس‌به‌درس</h2>
+
+    <h3>۱. واژگان: پایهٔ همه‌چیز</h3>
+    <ul>
+      <li>واژه را در <strong>جمله</strong> یاد بگیر، نه در فهرست. برای هر واژهٔ جدید، یک جملهٔ شخصی بساز.</li>
+      <li>از <strong>فلش‌کارت</strong> و <strong>مرور فاصله‌دار</strong> استفاده کن (به <a href="memory.html">مقالهٔ حافظه</a> مراجعه کن).</li>
+      <li>روی <strong>collocations</strong> (ترکیب‌های رایج واژه) تمرکز کن؛ سؤالات زبان اغلب از همین‌جا طرح می‌شوند.</li>
+      <li>واژه‌های پرتکرار سال‌های قبل را در اولویت بگذار.</li>
+    </ul>
+
+    <h3>۲. گرامر: قاعده در خدمت معنا</h3>
+    <ul>
+      <li>هر قاعده را با <strong>مثال‌های متنوع</strong> تمرین کن، نه فقط تعریف.</li>
+      <li>سؤالات گرامر را در بستر جمله حل کن؛ تشخیص «کدام گزینه درست است» با «کدام قاعده را حفظ کرده‌ام» فرق دارد.</li>
+      <li>خطاهای گرامری خودت را در یک دفتر جدا ثبت و مرور کن.</li>
+    </ul>
+
+    <h3>۳. ریدینگ: سرعت + استراتژی</h3>
+    <ul>
+      <li><strong>Skimming</strong> (خواندن سریع برای ایدهٔ کلی) و <strong>Scanning</strong> (جست‌وجوی اطلاعات خاص) را تمرین کن.</li>
+      <li>اول سؤال را بخوان، بعد متن را؛ این کار سرعت را بالا می‌برد.</li>
+      <li>روی <strong>واژه‌های ناشناخته</strong> گیر نکن؛ از بافت جمله معنا را حدس بزن.</li>
+      <li>هر روز یک متن کوتاه بخوان و خلاصهٔ یک‌خطی بنویس.</li>
+    </ul>
+
+    <h3>۴. کلوز تست: آزمون ترکیبی</h3>
+    <ul>
+      <li>قبل از پر کردن جاهای خالی، <strong>کل متن را یک بار سریع بخوان</strong> تا موضوع را بفهمی.</li>
+      <li>گزینه‌ها را از نظر گرامری و معنایی بررسی کن؛ گاهی چند گزینه از نظر گرامری درست‌اند و فقط یکی با بافت متن می‌خواند.</li>
+      <li>بعد از پر کردن، متن را یک بار کامل بخوان تا انسجام را چک کنی.</li>
+    </ul>
+
+    <h2>امتحان نهایی زبان انگلیسی ۱۴۰۵</h2>
+    <p>برخلاف کنکور که سرعت و تست‌زنی را می‌آزماید، امتحان نهایی زبان انگلیسی ۱۴۰۵ آزمونی <strong>استاندارد، مفهومی و با سطح متوسط</strong> بود[reference:3]. اما تغییرات مهمی داشت:</p>
+    <ul>
+      <li><strong>حجم آزمون:</strong> تعداد پاسخ‌برگ از ۵ به ۷ برگ افزایش یافت که نشان‌دهندهٔ حجم بالاتر سؤالات بود[reference:4].</li>
+      <li><strong>لیسنینگ:</strong> از ۴ پارت و ۹ نمره به ۳ پارت و ۷ نمره تغییر کرد؛ پارت سوم از بخش جدید «Further Listening» آمد که بسیاری از دانش‌آموزان بر آن مسلط نبودند[reference:5].</li>
+      <li><strong>واژگان:</strong> بارم از ۶ به ۸ افزایش یافت و سؤالات تستی طولانی‌تر و شبیه‌تر به کنکور شدند[reference:6].</li>
+      <li><strong>گرامر:</strong> بارم به ۸ نمره افزایش یافت و برخی سؤالات (مثل سؤال ۴۱) بسیار چالش‌برانگیز بودند[reference:7].</li>
+      <li><strong>ریدینگ:</strong> متن‌های جامع دشوارتر از سطح کتاب و با واژگان سخت‌تر طراحی شدند[reference:8].</li>
+    </ul>
+
+    <div class="box danger">
+      <span class="box-title"><i class="fa-solid fa-circle-exclamation"></i> هشدار برای نهایی</span>
+      امتحان نهایی زبان ۱۴۰۵ نشان داد که <strong>کتاب درسی تنها منبع کافی نیست</strong>. برای نمرهٔ بالا، باید دایرهٔ واژگان فراتر از کتاب، مهارت شنیداری قوی و تسلط بر ساختارهای پیشرفته داشته باشی. این تغییرات، نهایی را به کنکور نزدیک‌تر کرده است.
+    </div>
+
+    <h2>مدیریت زمان در جلسهٔ آزمون</h2>
+    <p>با ۷۰ سؤال در ۱۰۵ دقیقه، هر سؤال به‌طور میانگین کمتر از ۹۰ ثانیه وقت دارد. استراتژی پیشنهادی:</p>
+    <ol>
+      <li><strong>ترتیب هوشمند:</strong> با بخشی شروع کن که در آن قوی‌تری (مثلاً واژگان یا گرامر) تا اعتماد و زمان بسازی.</li>
+      <li><strong>سقف زمانی:</strong> برای هر بخش سقف بگذار (مثلاً ریدینگ: ۴۰ دقیقه برای ۱۸ سؤال).</li>
+      <li><strong>رها کردن:</strong> اگر روی یک سؤال بیش از ۹۰ ثانیه گیر کردی، علامت بزن و برو؛ در پایان برگرد.</li>
+      <li><strong>پاسخ‌برگ:</strong> هر ۱۰ سؤال یک بار شماره‌ها را چک کن.</li>
+      <li><strong>زمان ذخیره:</strong> ۵ دقیقهٔ آخر را برای بازبینی سؤالات علامت‌خورده نگه دار.</li>
+    </ol>
+
+    <h2>چک‌لیست آمادگی گروه زبان</h2>
+    <ul class="check">
+      <li>دایرهٔ واژگانم را با فلش‌کارت و مرور فاصله‌دار تقویت می‌کنم.</li>
+      <li>هر روز یک متن انگلیسی می‌خوانم و خلاصه می‌نویسم.</li>
+      <li>گرامر را در بستر جمله تمرین می‌کنم، نه فقط حفظ قاعده.</li>
+      <li>کلوز تست را با استراتژی (خواندن کل متن قبل از پر کردن) حل می‌کنم.</li>
+      <li>تمرین زمان‌سنجی با سقف ۹۰ ثانیه برای هر سؤال انجام می‌دهم.</li>
+      <li>برای نهایی، فراتر از کتاب واژه و ساختار یاد می‌گیرم.</li>
+      <li>مهارت شنیداری را جداگانه تقویت می‌کنم (برای نهایی).</li>
+      <li>خطاهای تکرارشونده را در دفتر اشتباهات ثبت و مرور می‌کنم.</li>
+    </ul>
+
+    <div class="box">
+      <span class="box-title"><i class="fa-solid fa-arrow-right"></i> قدم بعدی</span>
+      پایهٔ واژگان را با <a href="memory.html">حافظه و تثبیت</a> بساز، سرعت خواندن را با <a href="focus.html">تمرکز</a> بالا ببر، و برای مدیریت آزمون، <a href="exam-review.html">تحلیل آزمون</a> را به کار ببند.
+    </div>
+
+  </article>
+</main>
+
+<footer class="site-footer">
+  <p class="credit">طراحی و تدوین: <strong>احسان روحانی راوری</strong></p>
+  <p>مستر پلنر <span class="dot">·</span> یادگیری بر پایهٔ ساخت شناختی</p>
+  <p><a href="../../index.html">ehssnrouhani.github.io/Mestrplanner</a></p>
+</footer>
+
+</body>
+</html>
