@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>روش مطالعه درس‌به‌درس | مستر پلنر</title>
+<meta name="description" content="روش مطالعه بر اساس دروس متوسطه: راهبردهای عملی برای ریاضی، فیزیک، شیمی، زیست، ادبیات، عربی، زبان و دروس مفهومی. طراح: احسان روحانی راوری">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
+  --tip-bg:#eaf7ef; --tip-line:#2fbf71;
+  --warn-bg:#fff7e6; --warn-line:#e0a800;
+  --danger-bg:#fdeceb; --danger-line:#e05252;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;position:sticky;top:0;z-index:10;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand:hover{text-decoration:none}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:20px}
+.brand-text{display:flex;flex-direction:column;line-height:1.4}
+.brand-text strong{font-size:17px}
+.brand-text small{font-size:11px;opacity:.85}
+main{max-width:900px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px}
+.hero{background:linear-gradient(140deg,var(--brand-dark),var(--brand) 70%,var(--accent));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset-inline-start:-40px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.hero h1{margin:6px 0 10px;font-size:clamp(22px,3.4vw,30px);line-height:1.5}
+.hero .lede{margin:0;opacity:.92;font-size:15px;max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:999px}
+.sheet{background:var(--card);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow);border:1px solid var(--line)}
+h2{font-size:20px;margin:34px 0 12px;padding-inline-start:14px;border-inline-start:4px solid var(--accent);line-height:1.6}
+h2:first-child{margin-top:0}
+h3{font-size:17px;margin:24px 0 8px;color:var(--brand-dark)}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 14px;padding-inline-start:22px}
+li{margin-bottom:6px}
+strong{color:var(--brand-dark)}
+.small{font-size:13px;color:var(--muted)}
+.box{border-radius:12px;padding:14px 16px;margin:16px 0;border-inline-start:5px solid var(--tip-line);background:var(--tip-bg);font-size:14.5px}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.box .box-title{display:block;font-weight:700;margin-bottom:4px;color:var(--brand-dark)}
+.box.warn{background:var(--warn-bg);border-color:var(--warn-line)}
+.box.danger{background:var(--danger-bg);border-color:var(--danger-line)}
+.box.note{background:var(--brand-soft);border-color:var(--brand)}
+.table-wrap{overflow-x:auto;margin:16px 0;border-radius:12px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+thead th{background:var(--brand-dark);color:#fff;text-align:right;padding:11px 13px;font-weight:600;font-size:13.5px}
+tbody td{padding:10px 13px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7fbf8}
+ul.check{list-style:none;padding:0}
+ul.check li{position:relative;padding-inline-start:30px;margin-bottom:9px}
+ul.check li::before{content:"✓";position:absolute;inset-inline-start:0;top:2px;width:20px;height:20px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:12px;font-weight:800}
+.site-footer{background:var(--brand-dark);color:#dbe8e1;text-align:center;padding:26px 18px;font-size:13.5px;line-height:1.9}
+.site-footer .credit{font-size:15px;color:#fff;margin-bottom:6px}
+.site-footer strong{color:var(--accent)}
+.site-footer a{color:#bfe8d1}
+.site-footer .dot{opacity:.5;margin:0 6px}
+@media print{body{background:#fff}.site-header{display:none}.hero{box-shadow:none}.sheet{box-shadow:none;border:none;padding:0}.table-wrap{overflow:visible}table{min-width:0}}
+@media (max-width:560px){.sheet{padding:20px 16px}.hero{padding:22px 18px}.brand-text small{display:none}table{font-size:13px}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../index.html">
+      <span class="brand-badge">م</span>
+      <span class="brand-text"><strong>مستر پلنر</strong><small>ساخت شناختی یادگیری</small></span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="kicker"><i class="fa-solid fa-book-open-reader"></i> مجموعه دانلود رایگان · روش مطالعه</span>
+    <h1>روش مطالعه درس‌به‌درس: نقشهٔ عملی برای دانش‌آموز متوسطه</h1>
+    <p class="lede">هر درس، ساختار دانشی خودش را دارد. یک روش واحد برای همهٔ درس‌ها، مثل یک کلید برای همهٔ قفل‌هاست؛ گاهی باز می‌کند، بیشتر وقت‌ها نه.</p>
+    <div class="meta">
+      <span><i class="fa-solid fa-pen-nib"></i> طراح و تدوین: <strong style="color:#fff">احسان روحانی راوری</strong></span>
+      <span><i class="fa-regular fa-clock"></i> زمان مطالعه: ۹ دقیقه</span>
+      <span><i class="fa-solid fa-layer-group"></i> سطح: متوسطه</span>
+    </div>
+  </section>
+
+  <article class="sheet">
+
+    <h2>چهار اصل مشترک برای همهٔ درس‌ها</h2>
+    <p>پیش از تفاوت‌ها، این چهار اصل پایهٔ هر مطالعهٔ مؤثرند و در همهٔ دروس صدق می‌کنند:</p>
+    <ul>
+      <li><strong>بازیابی فعال:</strong> به‌جای خواندن دوباره، از خودت بپرس و پاسخ بده. کتاب را ببند و آنچه فهمیده‌ای را بازگو کن.</li>
+      <li><strong>تکرار فاصله‌دار:</strong> مرور در روزهای ۱، ۳، ۷ و ۱۴ به‌جای چند بار پشت‌سرهم.</li>
+      <li><strong>رمزگذاری دوگانه:</strong> ترکیب کلام با تصویر، نمودار، جدول یا خط زمان. مغز اطلاعات را بهتر می‌چسباند.</li>
+      <li><strong>بسط و توضیح:</strong> مفهوم را با کلمات خودت و با مثال روزمره توضیح بده؛ اگر نتوانی، هنوز یاد نگرفته‌ای.</li>
+    </ul>
+
+    <h2>الگوی یک جلسهٔ مطالعهٔ مؤثر</h2>
+    <p>یک جلسهٔ ۹۰ دقیقه‌ای را این‌طور بچین:</p>
+    <ol>
+      <li><strong>۵ دقیقه پیش‌خوانی:</strong> تیترها، شکل‌ها و جمع‌بندی فصل را نگاه کن تا نقشهٔ ذهنی بسازی.</li>
+      <li><strong>۲۵–۳۰ دقیقه یادگیری فعال:</strong> خواندن همراه با یادداشت‌برداری، علامت‌گذاری سؤال و نوشتن خلاصهٔ یک‌خطی هر بخش.</li>
+      <li><strong>۱۰ دقیقه بازیابی بدون کتاب:</strong> آنچه یاد گرفتی را روی کاغذ سفید بازسازی کن.</li>
+      <li><strong>۵ دقیقه استراحت واقعی:</strong> بدون گوشی؛ آب، حرکت، نگاه به دور.</li>
+      <li><strong>۲۵ دقیقه تمرین:</strong> حل تمرین/تست با تمرکز بر انواع مختلف مسئله، نه تکرار یک نوع.</li>
+      <li><strong>۱۰ دقیقه جمع‌بندی:</strong> ثبت خطاها و یک جمله «امروز چه چیزی را واقعاً فهمیدم؟»</li>
+    </ol>
+
+    <h2>نقشهٔ درس‌به‌درس</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>درس</th><th>راهبرد اصلی</th><th>اشتباه رایج</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>ریاضی</strong></td><td>حل مسئلهٔ تدریجی (از نمونهٔ حل‌شده به مسئلهٔ مستقل)، بازسازی راه‌حل بدون نگاه به پاسخ، دسته‌بندی انواع مسئله</td><td>خواندن راه‌حل و احساس «فهمیدم» بدون حل مستقل</td></tr>
+          <tr><td><strong>فیزیک</strong></td><td>اتصال مفهوم به نمودار و مسئله، حل مسئله با رسم شکل، تحلیل واحدها، تمرین مسئله‌های ترکیبی</td><td>حفظ فرمول بدون درک شرایط اعتبار آن</td></tr>
+          <tr><td><strong>شیمی</strong></td><td>ترکیب فهم مفهومی و محاسبات، جدول تناوبی و روندها، فلش‌کارت برای واکنش‌ها و قواعد</td><td>جدا کردن بخش محاسباتی از بخش مفهومی</td></tr>
+          <tr><td><strong>زیست</strong></td><td>تصویرسازی ذهنی از فرایندها، تحلیل شکل‌ها، اتصال مفاهیم به هم، دقت در واژه‌های کلیدی</td><td>خواندن چندبارهٔ متن بدون بازیابی و بدون شکل</td></tr>
+          <tr><td><strong>ادبیات فارسی</strong></td><td>معنی و مفهوم با تکرار فاصله‌دار، آرایه‌ها با مثال شخصی، خط زمان برای تاریخ ادبیات</td><td>حفظ کردن بدون فهم بیت و بدون مثال</td></tr>
+          <tr><td><strong>عربی</strong></td><td>قواعد با مثال‌های متنوع، ترجمهٔ فعال، یادگیری واژه در جمله نه در فهرست</td><td>جدا کردن قواعد از متن و ترجمه</td></tr>
+          <tr><td><strong>زبان انگلیسی</strong></td><td>ورودی قابل فهم (خواندن و شنیدن منظم)، واژه در جمله، تمرین نوشتن کوتاه، مرور فاصله‌دار واژگان</td><td>حفظ فهرست واژه بدون کاربرد و بدون تکرار</td></tr>
+          <tr><td><strong>دین و زندگی</strong></td><td>ساختار مفهومی هر درس، اتصال آیات به پیام، توضیح با زبان خودت</td><td>حفظ جمله‌ها بدون درک ارتباط مفاهیم</td></tr>
+          <tr><td><strong>تاریخ</strong></td><td>خط زمان، رابطهٔ علت و معلول، مقایسهٔ دوره‌ها، خلاصهٔ رویداد در یک جمله</td><td>حفظ تاریخ‌ها به‌صورت جدا از روایت</td></tr>
+          <tr><td><strong>جغرافیا</strong></td><td>کار با نقشه، پرسش «چرا این‌جا؟»، اتصال پدیده به علت طبیعی/انسانی</td><td>حفظ فهرست بدون تحلیل مکانی</td></tr>
+          <tr><td><strong>علوم اجتماعی</strong></td><td>مقایسهٔ مفاهیم، مثال روزمره، جدول تفاوت‌ها و شباهت‌ها</td><td>خواندن سطحی بدون مقایسه و مثال</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>ریاضی و فیزیک: مسئله، نه متن</h3>
+    <p>در این دروس، خواندن بیشتر از حل کردن کمکی نمی‌کند. برای هر مبحث، ابتدا یک نمونهٔ حل‌شده را با دقت دنبال کن، سپس <strong>بدون نگاه به پاسخ</strong> آن را بازسازی کن، و بعد به سراغ مسئله‌های متفاوت برو. خطاها را جدا یادداشت کن؛ الگوی خطاهای تو ارزشمندتر از تعداد مسئله‌های حل‌شده است.</p>
+
+    <h3>شیمی و زیست: مفهوم + تصویر</h3>
+    <p>در شیمی، بخش مفهومی و محاسباتی را به هم وصل کن؛ هر فرمول را با یک پدیدهٔ واقعی پیوند بده. در زیست، شکل‌ها را جدی بگیر و فرایندها را مانند یک فیلم در ذهن مرور کن. واژه‌های کلیدی را با فلش‌کارت و تکرار فاصله‌دار تثبیت کن.</p>
+
+    <h3>ادبیات و عربی: تکرار هوشمند</h3>
+    <p>معنی و آرایه را با مثال و در بستر بیت یاد بگیر. برای تاریخ ادبیات، خط زمان بساز. در عربی، قاعده را در جمله تمرین کن و ترجمه را فعالانه بنویس؛ ترجمهٔ ذهنی بدون نوشتن، خطاها را پنهان می‌کند.</p>
+
+    <h3>زبان انگلیسی: ورودی + واژه در بستر</h3>
+    <p>هر روز مقدار کمی ورودی قابل فهم (متن کوتاه یا شنیداری) + مرور واژه‌ها در جمله. واژه‌ای که فقط در فهرست دیده شود، در آزمون به‌سختی بازیابی می‌شود.</p>
+
+    <div class="box danger">
+      <span class="box-title"><i class="fa-solid fa-circle-exclamation"></i> پرهیز از تلهٔ «آشنایی»</span>
+      دیدن متن و احساس آشنا بودن، با توانایی پاسخ دادن یکی نیست. اگر بدون کتاب نتوانی مفهوم را توضیح بدهی یا مسئله را حل کنی، هنوز یاد نگرفته‌ای؛ فقط آن را دیده‌ای.
+    </div>
+
+    <h2>چک‌لیست جلسهٔ مطالعه</h2>
+    <ul class="check">
+      <li>قبل از شروع، خروجی جلسه را نوشته‌ام.</li>
+      <li>پیش‌خوانی کرده‌ام و نقشهٔ فصل را می‌دانم.</li>
+      <li>دست‌کم یک بار بدون کتاب از خودم آزمون گرفته‌ام.</li>
+      <li>تمرین‌ها را متنوع و مستقل حل کرده‌ام.</li>
+      <li>خطاها را در دفتر اشتباهات ثبت کرده‌ام.</li>
+      <li>مرور فاصله‌دار جلسهٔ امروز را در تقویم گذاشته‌ام.</li>
+    </ul>
+
+    <div class="box">
+      <span class="box-title"><i class="fa-solid fa-arrow-right"></i> قدم بعدی</span>
+      روش مطالعه بدون بازخورد کامل نمی‌شود؛ ادامهٔ مسیر را در <a href="exam-review.html">بررسی و تحلیل آزمون</a> بخوان و برنامه‌ریزی را با <a href="planning.html">مقالهٔ برنامه‌ریزی</a> منظم کن.
+    </div>
+
+  </article>
+</main>
+
+<footer class="site-footer">
+  <p class="credit">طراحی و تدوین: <strong>احسان روحانی راوری</strong></p>
+  <p>مستر پلنر <span class="dot">·</span> یادگیری بر پایهٔ ساخت شناختی</p>
+  <p><a href="../../index.html">ehssnrouhani.github.io/Mestrplanner</a></p>
+</footer>
+
+</body>
+</html>

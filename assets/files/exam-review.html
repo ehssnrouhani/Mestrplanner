@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>بررسی و تحلیل آزمون | مستر پلنر</title>
+<meta name="description" content="از آزمون تا یادگیری: تحلیل خطا، دفتر اشتباهات و نکات ویژه کنکور سراسری. طراح: احسان روحانی راوری">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
+  --tip-bg:#eaf7ef; --tip-line:#2fbf71;
+  --warn-bg:#fff7e6; --warn-line:#e0a800;
+  --danger-bg:#fdeceb; --danger-line:#e05252;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;position:sticky;top:0;z-index:10;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand:hover{text-decoration:none}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:20px}
+.brand-text{display:flex;flex-direction:column;line-height:1.4}
+.brand-text strong{font-size:17px}
+.brand-text small{font-size:11px;opacity:.85}
+main{max-width:900px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px}
+.hero{background:linear-gradient(140deg,var(--brand-dark),var(--brand) 70%,var(--accent));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset-inline-start:-40px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.hero h1{margin:6px 0 10px;font-size:clamp(22px,3.4vw,30px);line-height:1.5}
+.hero .lede{margin:0;opacity:.92;font-size:15px;max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:999px}
+.sheet{background:var(--card);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow);border:1px solid var(--line)}
+h2{font-size:20px;margin:34px 0 12px;padding-inline-start:14px;border-inline-start:4px solid var(--accent);line-height:1.6}
+h2:first-child{margin-top:0}
+h3{font-size:17px;margin:24px 0 8px;color:var(--brand-dark)}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 14px;padding-inline-start:22px}
+li{margin-bottom:6px}
+strong{color:var(--brand-dark)}
+.small{font-size:13px;color:var(--muted)}
+.box{border-radius:12px;padding:14px 16px;margin:16px 0;border-inline-start:5px solid var(--tip-line);background:var(--tip-bg);font-size:14.5px}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.box .box-title{display:block;font-weight:700;margin-bottom:4px;color:var(--brand-dark)}
+.box.warn{background:var(--warn-bg);border-color:var(--warn-line)}
+.box.danger{background:var(--danger-bg);border-color:var(--danger-line)}
+.box.note{background:var(--brand-soft);border-color:var(--brand)}
+.table-wrap{overflow-x:auto;margin:16px 0;border-radius:12px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+thead th{background:var(--brand-dark);color:#fff;text-align:right;padding:11px 13px;font-weight:600;font-size:13.5px}
+tbody td{padding:10px 13px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7fbf8}
+ul.check{list-style:none;padding:0}
+ul.check li{position:relative;padding-inline-start:30px;margin-bottom:9px}
+ul.check li::before{content:"✓";position:absolute;inset-inline-start:0;top:2px;width:20px;height:20px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:12px;font-weight:800}
+.site-footer{background:var(--brand-dark);color:#dbe8e1;text-align:center;padding:26px 18px;font-size:13.5px;line-height:1.9}
+.site-footer .credit{font-size:15px;color:#fff;margin-bottom:6px}
+.site-footer strong{color:var(--accent)}
+.site-footer a{color:#bfe8d1}
+.site-footer .dot{opacity:.5;margin:0 6px}
+@media print{body{background:#fff}.site-header{display:none}.hero{box-shadow:none}.sheet{box-shadow:none;border:none;padding:0}.table-wrap{overflow:visible}table{min-width:0}}
+@media (max-width:560px){.sheet{padding:20px 16px}.hero{padding:22px 18px}.brand-text small{display:none}table{font-size:13px}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../index.html">
+      <span class="brand-badge">م</span>
+      <span class="brand-text"><strong>مستر پلنر</strong><small>ساخت شناختی یادگیری</small></span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="kicker"><i class="fa-solid fa-clipboard-check"></i> مجموعه دانلود رایگان · بررسی آزمون</span>
+    <h1>از آزمون تا یادگیری: چگونه هر آزمون را به نقشهٔ پیشرفت تبدیل کنیم</h1>
+    <p class="lede">ارزش یک آزمون در نمرهٔ آن نیست؛ در اطلاعاتی است که دربارهٔ نقطهٔ دقیق شکست و مسیر بعدی به تو می‌دهد.</p>
+    <div class="meta">
+      <span><i class="fa-solid fa-pen-nib"></i> طراح و تدوین: <strong style="color:#fff">احسان روحانی راوری</strong></span>
+      <span><i class="fa-regular fa-clock"></i> زمان مطالعه: ۹ دقیقه</span>
+      <span><i class="fa-solid fa-layer-group"></i> ویژه: آزمون‌های آزمایشی و سراسری</span>
+    </div>
+  </section>
+
+  <article class="sheet">
+
+    <h2>قبل از آزمون: آزمون را شبیه‌سازی کن</h2>
+    <p>آزمون واقعی، مهارت جداگانه‌ای از مطالعه می‌خواهد: مدیریت زمان، تصمیم‌گیری زیر فشار و انتخاب هوشمندانه. این مهارت‌ها را نمی‌شود در جلسهٔ آزمون اختراع کرد؛ باید تمرین شده باشند.</p>
+    <ul>
+      <li>آزمون را در <strong>شرایط واقعی</strong> برگزار کن: زمان دقیق، پاسخ‌برگ، بدون وقفه و بدون گوشی.</li>
+      <li>ترتیب و زمان هر درس را از قبل تعیین کن و در تمرین‌ها رعایت کن.</li>
+      <li>قبل از آزمون، فهرست کوتاهی از «خطاهای تکرارشوندهٔ آزمون قبلی» را مرور کن؛ این کار بازدهی بالایی دارد.</li>
+    </ul>
+
+    <h2>حین آزمون: مدیریت لحظه</h2>
+    <ul>
+      <li><strong>ترتیب هوشمند:</strong> از سؤال‌های مطمئن‌تر شروع کن تا اعتماد و زمان بسازی؛ سؤال‌های وقت‌گیر را علامت بزن و بگذر.</li>
+      <li><strong>سقف زمانی:</strong> برای هر بخش سقف بگذار؛ اگر از آن گذشتی، بخش را رها کن و بعد برگرد.</li>
+      <li><strong>علامت‌گذاری:</strong> سؤال‌های «شک» و «وقت‌گیر» را جدا علامت بزن تا در بازگشت سریع پیدا شوند.</li>
+      <li><strong>کنترل استرس:</strong> چند نفس عمیق و آهسته (دم ۴ ثانیه، نگه‌داشتن ۴، بازدم ۶) ضربان را آرام می‌کند و تمرکز را برمی‌گرداند.</li>
+      <li><strong>پاسخ‌برگ:</strong> جابه‌جایی پاسخ‌برگ، خطای پرهزینه‌ای است؛ هر چند سؤال، یک بار شماره‌ها را چک کن.</li>
+    </ul>
+
+    <h2>بعد از آزمون: تحلیل خطا، قلب ماجرا</h2>
+    <p>بیشتر دانش‌آموزان بعد از آزمون فقط درصدها را می‌بینند. اما درصد، <em>نتیجه</em> است؛ آنچه باید بررسی شود <em>علت</em> است. هر خطا را در یکی از این دسته‌ها قرار بده:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>نوع خطا</th><th>نشانه</th><th>اقدام اصلاحی</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>دانشی</strong></td><td>مطلب را نمی‌دانستم یا فراموش کرده بودم</td><td>بازگشت به متن، بازسازی مفهوم، مرور فاصله‌دار</td></tr>
+          <tr><td><strong>مهارتی / روشی</strong></td><td>مفهوم را می‌دانستم اما روش حل را نمی‌دانستم</td><td>حل مسئله‌های مشابه با راهنمایی، سپس مستقل</td></tr>
+          <tr><td><strong>محاسباتی</strong></td><td>روش درست بود، عدد اشتباه شد</td><td>تمرین محاسبهٔ دقیق، بازبینی مرحله‌به‌مرحله، کاهش عجله</td></tr>
+          <tr><td><strong>بی‌دقتی</strong></td><td>صورت سؤال را اشتباه خواندم یا گزینه را جابه‌جا زدم</td><td>زیرخط کردن کلیدواژه‌ها، خواندن دوبارهٔ صورت سؤال قبل از پاسخ</td></tr>
+          <tr><td><strong>مدیریت زمان</strong></td><td>سؤال را می‌دانستم اما نرسیدم</td><td>تمرین زمان‌سنجی، تعیین سقف برای هر بخش، رها کردن به‌موقع</td></tr>
+          <tr><td><strong>روانی</strong></td><td>اضطراب، خالی کردن ذهن، تغییر پاسخ درست</td><td>تمرین شبیه‌سازی، تکنیک تنفس، کاهش شرطی‌سازی نتیجه</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box warn">
+      <span class="box-title"><i class="fa-solid fa-magnifying-glass-chart"></i> پرسش کلیدی برای هر خطا</span>
+      «اگر همین سؤال را فردا دوباره ببینم، چه چیزی را باید تغییر داده باشم تا درست پاسخ بدهم؟» پاسخ این پرسش، اقدام اصلاحی توست؛ نه جملهٔ کلی «باید بیشتر بخوانم».
+    </div>
+
+    <h2>دفتر اشتباهات: ابزار اصلی پیشرفت</h2>
+    <p>یک دفتر (یا فایل) بساز و برای هر خطا این ستون‌ها را ثبت کن:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>تاریخ</th><th>درس / مبحث</th><th>شماره سؤال</th><th>نوع خطا</th><th>علت دقیق</th><th>اقدام اصلاحی</th><th>تاریخ مرور</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>—</td><td>—</td><td>—</td><td>دانشی / مهارتی / …</td><td>مثلاً: شرایط اعتبار فرمول را نمی‌دانستم</td><td>مثلاً: حل ۱۰ مسئلهٔ مشابه + خلاصهٔ یک‌صفحه‌ای</td><td>۱، ۳، ۷، ۱۴ روز بعد</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small">نکته: دفتر اشتباهات باید <strong>کوچک و قابل مرور</strong> بماند. اگر پر از رونویسی سؤال شود، دیگر مرور نمی‌شود؛ فقط علت و اقدام را بنویس و به سؤال ارجاع بده.</p>
+
+    <h2>شاخص‌هایی که باید رصد کنی</h2>
+    <ul>
+      <li><strong>درصد هر درس</strong> در سه آزمون متوالی؛ روند مهم‌تر از یک عدد است.</li>
+      <li><strong>نسبت خطاهای دانشی به بی‌دقتی:</strong> اگر بی‌دقتی بالا باشد، مشکل تو مطالعه نیست؛ مهارت آزمون است.</li>
+      <li><strong>نرخ سؤال‌های نرسیده:</strong> نشانهٔ مدیریت زمان، نه کمبود دانش.</li>
+      <li><strong>تکرار خطاهای یک مبحث:</strong> اگر یک مبحث دو بار خطا داد، آن مبحث اولویت برنامهٔ هفتهٔ بعد است.</li>
+    </ul>
+
+    <h2>نکات ویژهٔ کنکور سراسری</h2>
+    <ul>
+      <li><strong>بودجه‌بندی بر اساس ضریب و بازدهی:</strong> زمان را بر اساس اهمیت درس و فاصلهٔ تو از هدف تقسیم کن، نه بر اساس علاقهٔ صرف.</li>
+      <li><strong>آزمون‌های شبیه‌ساز:</strong> با دفترچه و پاسخ‌برگ واقعی تمرین کن؛ شرایط جلسه را بازسازی کن.</li>
+      <li><strong>ترتیب دروس:</strong> ترتیبی را تمرین کن که در آزمون‌های آزمایشی برایت بهترین نتیجه را داده است؛ آن را در جلسهٔ اصلی عوض نکن.</li>
+      <li><strong>تراز و رتبه:</strong> رتبه تابع عملکرد دیگران است؛ تمرکزت را روی روند درصدهای خودت بگذار.</li>
+      <li><strong>مدیریت انرژی:</strong> ساعت خواب شب قبل و صبحانهٔ روز آزمون را در تمرین‌های شبیه‌سازی تکرار کن تا بدنت هم آماده باشد.</li>
+    </ul>
+
+    <h2>چک‌لیست پس از هر آزمون</h2>
+    <ul class="check">
+      <li>همهٔ خطاها را دسته‌بندی کرده‌ام (دانشی، مهارتی، محاسباتی، بی‌دقتی، زمان، روانی).</li>
+      <li>برای هر خطا یک اقدام اصلاحی مشخص نوشته‌ام.</li>
+      <li>خطاها را در دفتر اشتباهات با تاریخ مرور ثبت کرده‌ام.</li>
+      <li>روند درصدها را با آزمون‌های قبل مقایسه کرده‌ام.</li>
+      <li>دو اولویت اصلی هفتهٔ بعد را از تحلیل آزمون استخراج کرده‌ام.</li>
+      <li>برنامهٔ هفتهٔ بعد را بر اساس این اولویت‌ها اصلاح کرده‌ام.</li>
+    </ul>
+
+    <div class="box">
+      <span class="box-title"><i class="fa-solid fa-arrow-right"></i> قدم بعدی</span>
+      تحلیل آزمون را با <a href="planning.html">برنامه‌ریزی هفتگی</a> و <a href="study-methods.html">روش مطالعهٔ درس‌به‌درس</a> ترکیب کن تا چرخهٔ «برنامه → مطالعه → آزمون → اصلاح» کامل شود.
+    </div>
+
+  </article>
+</main>
+
+<footer class="site-footer">
+  <p class="credit">طراحی و تدوین: <strong>احسان روحانی راوری</strong></p>
+  <p>مستر پلنر <span class="dot">·</span> یادگیری بر پایهٔ ساخت شناختی</p>
+  <p><a href="../../index.html">ehssnrouhani.github.io/Mestrplanner</a></p>
+</footer>
+
+</body>
+</html>

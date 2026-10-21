@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>برنامه‌ریزی مطالعه | مستر پلنر</title>
+<meta name="description" content="از نقشه راه تا اجرای روزانه: اصول علمی برنامه‌ریزی مطالعه برای دانش‌آموزان متوسطه. طراح: احسان روحانی راوری">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
+  --tip-bg:#eaf7ef; --tip-line:#2fbf71;
+  --warn-bg:#fff7e6; --warn-line:#e0a800;
+  --danger-bg:#fdeceb; --danger-line:#e05252;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;position:sticky;top:0;z-index:10;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand:hover{text-decoration:none}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:20px}
+.brand-text{display:flex;flex-direction:column;line-height:1.4}
+.brand-text strong{font-size:17px}
+.brand-text small{font-size:11px;opacity:.85}
+main{max-width:900px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px}
+.hero{background:linear-gradient(140deg,var(--brand-dark),var(--brand) 70%,var(--accent));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset-inline-start:-40px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.hero h1{margin:6px 0 10px;font-size:clamp(22px,3.4vw,30px);line-height:1.5}
+.hero .lede{margin:0;opacity:.92;font-size:15px;max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:999px}
+.sheet{background:var(--card);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow);border:1px solid var(--line)}
+h2{font-size:20px;margin:34px 0 12px;padding-inline-start:14px;border-inline-start:4px solid var(--accent);line-height:1.6}
+h2:first-child{margin-top:0}
+h3{font-size:17px;margin:24px 0 8px;color:var(--brand-dark)}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 14px;padding-inline-start:22px}
+li{margin-bottom:6px}
+strong{color:var(--brand-dark)}
+.small{font-size:13px;color:var(--muted)}
+.box{border-radius:12px;padding:14px 16px;margin:16px 0;border-inline-start:5px solid var(--tip-line);background:var(--tip-bg);font-size:14.5px}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.box .box-title{display:block;font-weight:700;margin-bottom:4px;color:var(--brand-dark)}
+.box.warn{background:var(--warn-bg);border-color:var(--warn-line)}
+.box.danger{background:var(--danger-bg);border-color:var(--danger-line)}
+.box.note{background:var(--brand-soft);border-color:var(--brand)}
+.table-wrap{overflow-x:auto;margin:16px 0;border-radius:12px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+thead th{background:var(--brand-dark);color:#fff;text-align:right;padding:11px 13px;font-weight:600;font-size:13.5px}
+tbody td{padding:10px 13px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7fbf8}
+ul.check{list-style:none;padding:0}
+ul.check li{position:relative;padding-inline-start:30px;margin-bottom:9px}
+ul.check li::before{content:"✓";position:absolute;inset-inline-start:0;top:2px;width:20px;height:20px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:12px;font-weight:800}
+.site-footer{background:var(--brand-dark);color:#dbe8e1;text-align:center;padding:26px 18px;font-size:13.5px;line-height:1.9}
+.site-footer .credit{font-size:15px;color:#fff;margin-bottom:6px}
+.site-footer strong{color:var(--accent)}
+.site-footer a{color:#bfe8d1}
+.site-footer .dot{opacity:.5;margin:0 6px}
+@media print{body{background:#fff}.site-header{display:none}.hero{box-shadow:none}.sheet{box-shadow:none;border:none;padding:0}.table-wrap{overflow:visible}table{min-width:0}}
+@media (max-width:560px){.sheet{padding:20px 16px}.hero{padding:22px 18px}.brand-text small{display:none}table{font-size:13px}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../index.html">
+      <span class="brand-badge">م</span>
+      <span class="brand-text"><strong>مستر پلنر</strong><small>ساخت شناختی یادگیری</small></span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="kicker"><i class="fa-solid fa-compass-drafting"></i> مجموعه دانلود رایگان · برنامه‌ریزی</span>
+    <h1>برنامه‌ریزی مطالعه: از نقشه راه تا اجرای روزانه</h1>
+    <p class="lede">برنامه‌ریزی، فهرست بلندبالایی از کارها نیست؛ طراحی یک سیستم است که تصمیم‌گیری را از لحظهٔ خسته و شلوغ به لحظهٔ آرام و آگاهانه منتقل می‌کند.</p>
+    <div class="meta">
+      <span><i class="fa-solid fa-pen-nib"></i> طراح و تدوین: <strong style="color:#fff">احسان روحانی راوری</strong></span>
+      <span><i class="fa-regular fa-clock"></i> زمان مطالعه: ۸ دقیقه</span>
+      <span><i class="fa-solid fa-layer-group"></i> سطح: متوسطه</span>
+    </div>
+  </section>
+
+  <article class="sheet">
+
+    <h2>چرا برنامه‌ریزی مهم‌تر از مقدار مطالعه است؟</h2>
+    <p>ذهن ما ظرفیت محدودی برای تصمیم‌گیری هم‌زمان دارد. اگر هر روز صبح باید از نو تصمیم بگیری «چه بخوانم؟ از کجا شروع کنم؟ چقدر؟»، بخشی از انرژی شناختی‌ات پیش از شروع مطالعه مصرف می‌شود. برنامه‌ریزی این بار را کم می‌کند و به تو اجازه می‌دهد انرژی‌ات را صرف <strong>یادگیری</strong> کنی، نه صرف <strong>انتخاب</strong>.</p>
+    <p>از طرف دیگر، برنامه‌ریزی مانع اصلی تعلل را هم برمی‌دارد: ابهام. وقتی می‌دانی دقیقاً «چه کاری، در چه زمانی، با چه خروجی مشخصی» باید انجام شود، مغزت مقاومت کمتری نشان می‌دهد.</p>
+
+    <h2>سه لایهٔ برنامه‌ریزی</h2>
+    <p>برنامه‌ریزی مؤثر مثل یک ساختمان است؛ اگر طبقهٔ همکف را روی هوا بسازی، بالا رفتن ممکن نیست. سه لایهٔ پیشنهادی:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>لایه</th><th>بازه</th><th>کار اصلی</th><th>خروجی مشخص</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>کلان</strong></td><td>سالانه / فصلی</td><td>هدف‌گذاری، بودجه‌بندی دروس بر اساس ضریب و نقاط ضعف</td><td>یک صفحه هدف + سهم هر درس در هفته</td></tr>
+          <tr><td><strong>میانی</strong></td><td>ماهانه / هفتگی</td><td>تبدیل هدف کلان به حجم قابل اجرا، تعیین اولویت‌ها</td><td>برنامه هفتگی + زمان جبران</td></tr>
+          <tr><td><strong>خرد</strong></td><td>روزانه</td><td>بلوک‌بندی زمانی و تعیین خروجی هر جلسه</td><td>فهرست ۳ تا ۵ کار با خروجی مشخص</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box note">
+      <span class="box-title"><i class="fa-solid fa-lightbulb"></i> قاعدهٔ طلایی</span>
+      در لایهٔ خرد، «مدت مطالعه» را ننویس؛ <strong>خروجی</strong> را بنویس. به‌جای «۲ ساعت ریاضی»، بنویس: «۱۰ مسئلهٔ مشتق + مرور غلط‌های دیروز». زمان‌محوری باعث پر کردن بی‌هدف ساعت‌ها می‌شود؛ خروجی‌محوری باعث پیشرفت قابل اندازه‌گیری.
+    </div>
+
+    <h2>هفت اصل علمی که برنامه را زنده نگه می‌دارد</h2>
+    <ol>
+      <li><strong>تمرین فاصله‌دار:</strong> مرور در فاصله‌های ۱، ۳، ۷ و ۱۴ روز، بسیار مؤثرتر از مرور پشت‌سرهم است. در برنامه هفتگی، جای ثابتی برای «مرور مطالب هفته‌های قبل» باز کن.</li>
+      <li><strong>بازیابی فعال:</strong> هر جلسه باید با یک آزمون کوچک از خودت تمام شود؛ بدون نگاه به کتاب. این کار حافظه را تثبیت می‌کند، نه فقط احساس آشنایی ایجاد کند.</li>
+      <li><strong>بلوک‌های ۹۰ دقیقه‌ای:</strong> مغز برای تمرکز عمیق حدوداً ۶۰ تا ۹۰ دقیقه ظرفیت دارد. بین بلوک‌ها ۱۵ تا ۲۰ دقیقه استراحت واقعی (بدون گوشی) بگذار.</li>
+      <li><strong>قانون پارکینسون:</strong> کار به اندازهٔ زمانی که برایش تعیین می‌کنی کش می‌آید. برای هر بلوک، سقف زمانی بگذار.</li>
+      <li><strong>زمان بافر:</strong> حدود ۲۰٪ از هفته را خالی بگذار. برنامه‌ای که هیچ جای خالی ندارد، با اولین اتفاق پیش‌بینی‌نشده فرو می‌ریزد.</li>
+      <li><strong>درهم‌آمیزی (Interleaving):</strong> در هر روز دو یا سه درس متفاوت را ترکیب کن؛ یادگیری در تنوع، عمیق‌تر می‌شود.</li>
+      <li><strong>خواب و استراحت:</strong> تثبیت حافظه عمدتاً در خواب رخ می‌دهد. کم‌خوابی، ساعت مطالعه را بالا می‌برد و بازدهی را پایین می‌آورد.</li>
+    </ol>
+
+    <h2>یک الگوی هفتگی واقع‌بینانه</h2>
+    <p>این جدول یک <em>الگو</em> است، نه نسخهٔ نهایی. آن را با تعداد دروس، سطح فعلی و امکانات خودت تنظیم کن.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>روز</th><th>بلوک صبح (۹۰′)</th><th>بلوک عصر (۹۰′)</th><th>شب (۴۵′)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>شنبه</td><td>درس جدید ۱ + تمرین</td><td>درس جدید ۲ + تست</td><td>مرور فعال روز</td></tr>
+          <tr><td>یکشنبه</td><td>درس جدید ۳ + تمرین</td><td>مرور درس‌های هفتهٔ قبل</td><td>جمع‌بندی و اشتباهات</td></tr>
+          <tr><td>دوشنبه</td><td>درس جدید ۴ + تمرین</td><td>درس جدید ۱ (عمق بیشتر) + تست</td><td>مرور فعال روز</td></tr>
+          <tr><td>سه‌شنبه</td><td>درس جدید ۵ + تمرین</td><td>مرور فاصله‌دار + آزمون کوچک</td><td>جمع‌بندی و اشتباهات</td></tr>
+          <tr><td>چهارشنبه</td><td>درس‌های ضعیف‌تر</td><td>حل مسئله/تست ترکیبی</td><td>مرور فعال روز</td></tr>
+          <tr><td>پنجشنبه</td><td>آزمون شبیه‌سازی‌شده</td><td>تحلیل آزمون و دفتر اشتباهات</td><td>استراحت فعال</td></tr>
+          <tr><td>جمعه</td><td>مرور هفته + جبران عقب‌ماندگی</td><td>نوشتن برنامهٔ هفتهٔ بعد</td><td>استراحت</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>پنج اشتباه رایج در برنامه‌ریزی</h2>
+    <div class="box warn">
+      <span class="box-title"><i class="fa-solid fa-triangle-exclamation"></i> این‌ها را از برنامه حذف کن</span>
+      <ul style="margin-bottom:0">
+        <li><strong>برنامهٔ آرمانی:</strong> پر کردن تمام ساعات بیداری. نتیجه: فروپاشی در روز سوم.</li>
+        <li><strong>نبود زمان جبران:</strong> بدون بلوک جبران، یک روز عقب‌افتادگی به هفتهٔ بعد سرریز می‌شود.</li>
+        <li><strong>تغییر مداوم برنامه:</strong> برنامه‌ای که هر دو روز عوض شود، دیگر برنامه نیست؛ پیشنهاد است.</li>
+        <li><strong>ننوشتن خروجی:</strong> «مطالعهٔ فصل ۲» خروجی نیست؛ «حل ۱۵ تست فصل ۲ و تحلیل غلط‌ها» خروجی است.</li>
+        <li><strong>حذف مرور:</strong> درس جدید بدون مرور فاصله‌دار، در هفتهٔ بعد تقریباً از صفر شروع می‌شود.</li>
+      </ul>
+    </div>
+
+    <h2>چک‌لیست هفتگی</h2>
+    <ul class="check">
+      <li>هدف این هفته را در یک جمله نوشته‌ام.</li>
+      <li>سهم هر درس و زمان جبران مشخص است.</li>
+      <li>برای هر بلوک، خروجی قابل اندازه‌گیری تعیین کرده‌ام.</li>
+      <li>حداقل دو بلوک مرور فاصله‌دار در هفته دارم.</li>
+      <li>یک آزمون کوچک یا شبیه‌سازی در هفته گنجانده‌ام.</li>
+      <li>حدود ۲۰٪ هفته خالی و انعطاف‌پذیر است.</li>
+      <li>پایان هفته، برنامه را بازبینی و اصلاح می‌کنم.</li>
+    </ul>
+
+    <div class="box">
+      <span class="box-title"><i class="fa-solid fa-arrow-right"></i> قدم بعدی</span>
+      پس از تثبیت برنامه، سراغ <a href="study-methods.html">روش مطالعه درس‌به‌درس</a> برو و بعد <a href="exam-review.html">تحلیل آزمون</a> را به چرخهٔ هفتگی‌ات اضافه کن.
+    </div>
+
+  </article>
+</main>
+
+<footer class="site-footer">
+  <p class="credit">طراحی و تدوین: <strong>احسان روحانی راوری</strong></p>
+  <p>مستر پلنر <span class="dot">·</span> یادگیری بر پایهٔ ساخت شناختی</p>
+  <p><a href="../../index.html">ehssnrouhani.github.io/Mestrplanner</a></p>
+</footer>
+
+</body>
+</html>
