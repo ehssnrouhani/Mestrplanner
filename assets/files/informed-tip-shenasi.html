@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Making an Informed Choice: Personality Types &amp; Academic Guidance | Mesterplanner</title>
+<meta name="description" content="A general guide to personality types in academic guidance: MBTI, Holland RIASEC codes and the Big Five model, what each measures, their strengths and limitations, and how to use them wisely. By Ehsan Rouhani Ravari">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
+  --tip-bg:#eaf7ef; --tip-line:#2fbf71;
+  --warn-bg:#fff7e6; --warn-line:#e0a800;
+  --danger-bg:#fdeceb; --danger-line:#e05252;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;position:sticky;top:0;z-index:10;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand:hover{text-decoration:none}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:20px}
+.brand-text{display:flex;flex-direction:column;line-height:1.4}
+.brand-text strong{font-size:17px}
+.brand-text small{font-size:11px;opacity:.85}
+main{max-width:900px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px}
+.hero{background:linear-gradient(140deg,var(--brand-dark),var(--brand) 70%,var(--accent));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset-inline-start:-40px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.hero h1{margin:6px 0 10px;font-size:clamp(22px,3.4vw,30px);line-height:1.5}
+.hero .lede{margin:0;opacity:.92;font-size:15px;max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:12.5px}
+.meta span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:999px}
+.sheet{background:var(--card);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow);border:1px solid var(--line)}
+h2{font-size:20px;margin:34px 0 12px;padding-inline-start:14px;border-inline-start:4px solid var(--accent);line-height:1.6}
+h2:first-child{margin-top:0}
+h3{font-size:17px;margin:24px 0 8px;color:var(--brand-dark)}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 14px;padding-inline-start:22px}
+li{margin-bottom:6px}
+strong{color:var(--brand-dark)}
+.small{font-size:13px;color:var(--muted)}
+.box{border-radius:12px;padding:14px 16px;margin:16px 0;border-inline-start:5px solid var(--tip-line);background:var(--tip-bg);font-size:14.5px}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.box .box-title{display:block;font-weight:700;margin-bottom:4px;color:var(--brand-dark)}
+.box.warn{background:var(--warn-bg);border-color:var(--warn-line)}
+.box.danger{background:var(--danger-bg);border-color:var(--danger-line)}
+.box.note{background:var(--brand-soft);border-color:var(--brand)}
+.table-wrap{overflow-x:auto;margin:16px 0;border-radius:12px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+thead th{background:var(--brand-dark);color:#fff;text-align:right;padding:11px 13px;font-weight:600;font-size:13.5px}
+tbody td{padding:10px 13px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7fbf8}
+ul.check{list-style:none;padding:0}
+ul.check li{position:relative;padding-inline-start:30px;margin-bottom:9px}
+ul.check li::before{content:"✓";position:absolute;inset-inline-start:0;top:2px;width:20px;height:20px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:12px;font-weight:800}
+.site-footer{background:var(--brand-dark);color:#dbe8e1;text-align:center;padding:26px 18px;font-size:13.5px;line-height:1.9}
+.site-footer .credit{font-size:15px;color:#fff;margin-bottom:6px}
+.site-footer strong{color:var(--accent)}
+.site-footer a{color:#bfe8d1}
+.site-footer .dot{opacity:.5;margin:0 6px}
+@media print{body{background:#fff}.site-header{display:none}.hero{box-shadow:none}.sheet{box-shadow:none;border:none;padding:0}.table-wrap{overflow:visible}table{min-width:0}}
+@media (max-width:560px){.sheet{padding:20px 16px}.hero{padding:22px 18px}.brand-text small{display:none}table{font-size:13px}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../index.html">
+      <span class="brand-badge">م</span>
+      <span class="brand-text"><strong>مستر پلنر</strong><small>ساخت شناختی یادگیری</small></span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="kicker"><i class="fa-solid fa-user-gear"></i> هدایت تحصیلی · تیپ‌های شخصیتی</span>
+    <h1>تیپ شخصیتی و انتخاب رشته: راهنما، نه حکم قطعی</h1>
+    <p class="lede">MBTI، کدهای شغلی هالند و مدل پنج‌عاملی، سه زبان رایج برای توصیف تفاوت‌های فردی‌اند. هیچ‌کدام به‌تنهایی مسیر تحصیلی را تعیین نمی‌کنند، اما می‌توانند نقطهٔ شروع خوبی برای خودشناسی باشند.</p>
+    <div class="meta">
+      <span><i class="fa-solid fa-pen-nib"></i> طراح و تدوین: <strong style="color:#fff">احسان روحانی راوری</strong></span>
+      <span><i class="fa-regular fa-clock"></i> زمان مطالعه: ۱۰ دقیقه</span>
+      <span><i class="fa-solid fa-layer-group"></i> عمومی · MBTI · هالند · پنج‌عاملی</span>
+    </div>
+  </section>
+
+  <article class="sheet">
+
+    <h2>چرا شخصیت در هدایت تحصیلی مطرح می‌شود؟</h2>
+    <p>یکی از اهداف هدایت تحصیلی، شناسایی <strong>ویژگی‌های شخصیتی</strong> دانش‌آموز در کنار استعداد و علاقه است[reference:19]. منطق پشت این کار ساده است: رشته‌ای که با سبک فکری، انرژی اجتماعی و ترجیحات فردی هم‌خوان‌تر باشد، احتمال رضایت و ماندگاری بیشتری دارد.</p>
+    <p>اما این منطق یک شرط مهم دارد: <strong>ابزار شخصیت‌شناسی باید به‌عنوان یک ورودی، نه یک خروجی نهایی، استفاده شود.</strong> در ادامه، سه چارچوب پرکاربرد و محدودیت‌های هرکدام را مرور می‌کنیم.</p>
+
+    <h2>۱. MBTI: شانزده تیپ، چهار محور</h2>
+    <p>شاخص تیپ مایرز–بریگز، افراد را بر پایهٔ چهار محور دوتایی توصیف می‌کند:</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>محور</th><th>دو قطب</th><th>پرسش محوری</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>جهت انرژی</td><td>برون‌گرا (E) / درون‌گرا (I)</td><td>انرژی را از جمع می‌گیرم یا از تنهایی؟</td></tr>
+          <tr><td>نوع اطلاعات</td><td>حسی (S) / شهودی (N)</td><td>به جزئیات تکیه می‌کنم یا به الگوها و احتمالات؟</td></tr>
+          <tr><td>نوع تصمیم</td><td>منطقی (T) / احساسی (F)</td><td>بر پایهٔ تحلیل تصمیم می‌گیرم یا ارزش‌ها و افراد؟</td></tr>
+          <tr><td>سبک زندگی</td><td>قضاوت‌گر (J) / ادراکی (P)</td><td>برنامه‌ریزی‌شده عمل می‌کنم یا انعطاف‌پذیر؟</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>MBTI در مشاورهٔ انتخاب رشته و شغلی بسیار رایج است[reference:20]. برخی مطالعات نشان می‌دهند درون‌گراها بیشتر به حرفه‌های فنی و علمی و برون‌گراها بیشتر به حرفه‌های اجتماعی گرایش دارند[reference:21]. برای مثال، تیپ‌های تحلیل‌گر و ساختارمند (مانند INTJ و ESTJ) در محیط‌های آکادمیک ساختارمند بهتر عمل می‌کنند[reference:22].</p>
+    <div class="box warn">
+      <span class="box-title"><i class="fa-solid fa-triangle-exclamation"></i> محدودیت مهم MBTI</span>
+      اعتبار علمی MBTI هنوز به‌طور کامل تثبیت نشده است[reference:23]. این ابزار بیشتر برای <strong>گفتگو و خودشناسی</strong> مفید است تا پیش‌بینی قطعی موفقیت تحصیلی. توصیهٔ رایج این است که نتیجهٔ MBTI با احتیاط و در کنار سایر اطلاعات تفسیر شود[reference:24].
+    </div>
+
+    <h2>۲. مدل هالند (RIASEC): شش نوع شغلی–شخصیتی</h2>
+    <p>جان هالند، نظریه‌پرداز برجستهٔ علایق شغلی، افراد و محیط‌ها را به شش نوع تقسیم می‌کند[reference:25]. این مدل به‌طور گسترده در هدایت تحصیلی و شغلی استفاده می‌شود[reference:26].</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>نوع</th><th>ویژگی کوتاه</th><th>گرایش تحصیلی/شغلی نمونه</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>واقع‌گرا (R)</strong></td><td>عمل‌گرا، فنی، علاقه‌مند به ابزار و کار یدی</td><td>مهندسی، فنی‌وحرفه‌ای، کشاورزی، عمران[reference:27]</td></tr>
+          <tr><td><strong>پژوهشی (I)</strong></td><td>تحلیل‌گر، کنجکاو، مستقل</td><td>علوم پایه، پزشکی، پژوهش، فناوری[reference:28]</td></tr>
+          <tr><td><strong>هنری (A)</strong></td><td>خلاق، بیانگر، غیرساختاری</td><td>هنر، طراحی، ادبیات، رسانه[reference:29]</td></tr>
+          <tr><td><strong>اجتماعی (S)</strong></td><td>یاری‌گر، همدل، ارتباط‌محور</td><td>آموزش، مشاوره، پرستاری، مددکاری[reference:30]</td></tr>
+          <tr><td><strong>کارآفرین (E)</strong></td><td>متقاعدکننده، رهبر، ریسک‌پذیر</td><td>مدیریت، بازرگانی، حقوق، فروش</td></tr>
+          <tr><td><strong>منظم (C)</strong></td><td>دقیق، ساختارمند، عددی</td><td>حسابداری، مالی، اداری، آمار</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>در عمل، افراد ترکیبی از چند نوع‌اند و کد سه‌حرفی (مثلاً RIA یا SEC) توصیف دقیق‌تری می‌دهد. مدل هالند در مقایسه با MBTI، <strong>پیوند مستقیم‌تری با محیط‌های تحصیلی و شغلی</strong> دارد و پایهٔ بسیاری از آزمون‌های رغبت‌سنجی است.</p>
+
+    <h2>۳. مدل پنج‌عاملی (Big Five): پنج بُعد پیوسته</h2>
+    <p>مدل پنج‌عاملی، شخصیت را روی پنج بُعد <strong>پیوسته</strong> (نه دوتایی) می‌سنجد و در پژوهش‌های دانشگاهی از اعتبار بالاتری برخوردار است[reference:31].</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>بُعد</th><th>معنا</th><th>ارتباط احتمالی با تحصیل</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>گشودگی</strong></td><td>کنجکاوی، خلاقیت، پذیرش ایده‌های نو</td><td>گرایش به علوم انسانی، هنر، پژوهش</td></tr>
+          <tr><td><strong>وجدان‌گرایی</strong></td><td>نظم، پشتکار، مسئولیت‌پذیری</td><td>موفقیت تحصیلی پایدار در بسیاری از رشته‌ها</td></tr>
+          <tr><td><strong>برون‌گرایی</strong></td><td>اجتماعی بودن، انرژی از تعامل</td><td>گرایش به رشته‌های ارتباط‌محور و مدیریتی</td></tr>
+          <tr><td><strong>توافق‌پذیری</strong></td><td>همدلی، همکاری، اعتماد</td><td>گرایش به حرفه‌های یاری‌گر و آموزشی</td></tr>
+          <tr><td><strong>روان‌آزردگی</strong></td><td>حساسیت هیجانی، نوسان خلق</td><td>نیاز به توجه به تاب‌آوری و مدیریت استرس در انتخاب مسیر</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>مدل پنج‌عاملی به‌طور فزاینده‌ای در سیستم‌های توصیهٔ تحصیلی مبتنی بر داده و در کنار علایق هالند به کار می‌رود[reference:32].</p>
+
+    <div class="box note">
+      <span class="box-title"><i class="fa-solid fa-lightbulb"></i> کدام مدل را انتخاب کنیم؟</span>
+      برای <strong>گفتگو و خودشناسی سریع</strong>، MBTI زبان ساده‌تری دارد. برای <strong>پیوند با رشته و شغل</strong>، هالند کاربردی‌تر است. برای <strong>دقت پژوهشی و درک عمیق‌تر تفاوت‌های فردی</strong>، مدل پنج‌عاملی مناسب‌تر است. هیچ‌کدام «بهترین» نیستند؛ هر کدام زاویهٔ متفاوتی را روشن می‌کنند.
+    </div>
+
+    <h2>چگونه از تیپ شخصیتی در انتخاب رشته استفاده کنیم؟</h2>
+    <ol>
+      <li><strong>نتیجه را به‌عنوان فرضیه ببینید، نه حکم.</strong> «من INFP هستم پس نمی‌توانم مهندسی بخوانم» یک نتیجه‌گیری نادرست است.</li>
+      <li><strong>نتیجه را با علاقهٔ واقعی و تجربهٔ عملی بسنجید.</strong> اگر تیپ شما به هنر اشاره دارد اما هرگز طراحی را تجربه نکرده‌اید، آزمون به‌تنهایی کافی نیست.</li>
+      <li><strong>محدودیت‌های ابزار را بشناسید.</strong> MBTI اعتبار علمی بحث‌برانگیزی دارد[reference:33]؛ هالند و پنج‌عاملی پشتوانهٔ پژوهشی قوی‌تری دارند.</li>
+      <li><strong>آن را با گفتگو ترکیب کنید.</strong> نتایج آزمون باید با مشاورهٔ تخصصی و شناخت واقعی رشته‌ها همراه شود، نه جایگزین آن[reference:34].</li>
+    </ol>
+
+    <div class="box danger">
+      <span class="box-title"><i class="fa-solid fa-circle-exclamation"></i> هشدار</span>
+      استفادهٔ <strong>مکانیکی</strong> از تیپ شخصیتی برای حذف رشته‌ها، یکی از رایج‌ترین خطاهای هدایت تحصیلی است. شخصیت، <strong>انعطاف‌پذیر</strong> است و در طول تحصیل تغییر می‌کند. تیپ شخصیتی، <strong>دربارهٔ شماست</strong>، نه <strong>دستورالعمل زندگی شما</strong>.
+    </div>
+
+    <h2>چک‌لیست استفادهٔ آگاهانه از تیپ شخصیتی</h2>
+    <ul class="check">
+      <li>می‌دانم MBTI، هالند و پنج‌عاملی چه چیزی را می‌سنجند و چه چیزی را نه.</li>
+      <li>نتیجهٔ آزمون را به‌عنوان یک فرضیه می‌بینم، نه یک برچسب قطعی.</li>
+      <li>نتیجه را با تجربهٔ عملی و علاقهٔ واقعی‌ام مقایسه کرده‌ام.</li>
+      <li>محدودیت علمی هر ابزار را می‌شناسم.</li>
+      <li>نتیجهٔ آزمون را با مشاوره و اطلاعات مستند دربارهٔ رشته‌ها ترکیب می‌کنم.</li>
+      <li>هیچ رشته‌ای را فقط به دلیل «ناسازگاری با تیپ شخصیتی» حذف نمی‌کنم.</li>
+    </ul>
+
+    <div class="box">
+      <span class="box-title"><i class="fa-solid fa-arrow-right"></i> قدم بعدی</span>
+      اگر می‌خواهی بدانی این آزمون‌ها دقیقاً چه اندازه‌اند و چگونه تفسیر می‌شوند، <a href="informed-azmoon-ravani.html">آزمون‌های روانی در هدایت تحصیلی</a> را بخوان. برای مرور مبانی کلی هدایت تحصیلی نیز <a href="informed-hedayat-mafhum.html">مقالهٔ مفهوم هدایت تحصیلی</a> در دسترس است.
+    </div>
+
+  </article>
+</main>
+
+<footer class="site-footer">
+  <p class="credit">طراحی و تدوین: <strong>احسان روحانی راوری</strong></p>
+  <p>مستر پلنر <span class="dot">·</span> یادگیری بر پایهٔ ساخت شناختی</p>
+  <p><a href="../../index.html">ehssnrouhani.github.io/Mestrplanner</a></p>
+</footer>
+
+</body>
+</html>
