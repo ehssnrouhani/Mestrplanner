@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>کتابخانهٔ مقالات | Mesterplanner</title>
+<meta name="description" content="کتابخانهٔ مقالات مستر پلنر: جستجو و فیلتر در میان مقالات مهارت‌های مطالعه، راهبرد کنکور، انتخاب رشته، هدایت تحصیلی و تیزهوشان.">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+
+  /* رنگ دسته‌ها */
+  --c-skill:#1f7a4d;
+  --c-konkoor:#1f5a9a;
+  --c-reshte:#b45a0e;
+  --c-hedayat:#6b3fa0;
+  --c-tizhooshan:#0e7c7c;
+  --c-other:#5d6f65;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* هدر */
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;position:sticky;top:0;z-index:20;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand:hover{text-decoration:none}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:20px}
+.brand-text{display:flex;flex-direction:column;line-height:1.4}
+.brand-text strong{font-size:17px}
+.brand-text small{font-size:11px;opacity:.85}
+.bar nav{margin-inline-start:auto;display:flex;gap:6px;flex-wrap:wrap}
+.bar nav a{color:#fff;font-size:13.5px;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08)}
+.bar nav a:hover{background:rgba(255,255,255,.18);text-decoration:none}
+
+/* بدنه */
+main{max-width:1100px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px}
+
+/* هیرو */
+.hero{background:linear-gradient(140deg,var(--brand-dark),var(--brand) 70%,var(--accent));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset-inline-start:-40px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px;margin-bottom:12px}
+.hero h1{margin:6px 0 10px;font-size:clamp(22px,3.4vw,30px);line-height:1.5}
+.hero .lede{margin:0;opacity:.92;font-size:15px;max-width:65ch}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;font-size:12.5px}
+.hero-meta span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:999px}
+
+/* نوار ابزار */
+.toolbar{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);display:grid;gap:12px}
+.search-wrap{position:relative;display:flex;align-items:center}
+.search-wrap i{position:absolute;inset-inline-start:14px;color:var(--muted);font-size:14px;pointer-events:none}
+.search-wrap input{width:100%;padding:12px 44px 12px 44px;border:1.5px solid var(--line);border-radius:12px;background:#fbfdfb;font-family:inherit;font-size:15px;color:var(--ink);outline:none;transition:.15s}
+.search-wrap input:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(47,191,113,.15)}
+.search-wrap .clear-btn{position:absolute;inset-inline-end:10px;background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px;padding:6px;border-radius:8px;display:none}
+.search-wrap .clear-btn:hover{background:var(--brand-soft);color:var(--brand)}
+.search-wrap.has-value .clear-btn{display:inline-flex}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:inherit;font-size:13.5px;padding:7px 14px;border-radius:999px;border:1.5px solid var(--line);background:#fbfdfb;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:.15s}
+.chip:hover{border-color:var(--accent);background:var(--brand-soft)}
+.chip .count{font-size:11px;background:rgba(0,0,0,.06);padding:1px 7px;border-radius:999px;color:var(--muted)}
+.chip.active{background:var(--brand-dark);color:#fff;border-color:var(--brand-dark)}
+.chip.active .count{background:rgba(255,255,255,.2);color:#fff}
+
+.counter{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted);padding:0 4px}
+.counter strong{color:var(--brand-dark)}
+
+/* شبکهٔ کارت‌ها */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px 18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;color:inherit;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;overflow:hidden}
+.card::before{content:"";position:absolute;top:0;inset-inline-start:0;width:100%;height:4px;background:var(--c,var(--accent))}
+.card:hover{text-decoration:none;transform:translateY(-3px);box-shadow:0 14px 34px rgba(13,53,36,.14);border-color:var(--c,var(--accent))}
+.card-icon{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--c,var(--accent)) 12%,transparent);color:var(--c,var(--accent));font-size:20px}
+.card-badge{align-self:flex-start;font-size:11.5px;padding:3px 10px;border-radius:999px;background:color-mix(in srgb,var(--c,var(--accent)) 12%,transparent);color:var(--c,var(--accent));border:1px solid color-mix(in srgb,var(--c,var(--accent)) 30%,transparent);font-weight:600}
+.card h3{margin:2px 0 0;font-size:16.5px;line-height:1.6;color:var(--brand-dark)}
+.card p{margin:0;font-size:13.5px;line-height:1.85;color:var(--muted);flex-grow:1}
+.card-cta{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--c,var(--brand));margin-top:4px}
+.card-cta i{transition:transform .15s}
+.card:hover .card-cta i{transform:translateX(-4px)}
+
+/* حالت خالی و لود */
+.state{padding:40px 20px;text-align:center;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);font-size:14.5px}
+.state i{display:block;font-size:34px;color:var(--brand-soft);margin-bottom:10px}
+.state.error{border-color:#f0c2c2;background:#fdf4f4;color:#a33}
+.state.error i{color:#e05252}
+.state a{font-weight:700}
+
+/* فوتر */
+.site-footer{background:var(--brand-dark);color:#dbe8e1;text-align:center;padding:26px 18px;font-size:13.5px;line-height:1.9}
+.site-footer .credit{font-size:15px;color:#fff;margin-bottom:6px}
+.site-footer strong{color:var(--accent)}
+.site-footer a{color:#bfe8d1}
+.site-footer .dot{opacity:.5;margin:0 6px}
+
+@media (max-width:560px){
+  .hero{padding:22px 18px}
+  .bar nav{display:none}
+  .grid{grid-template-columns:1fr}
+  .toolbar{padding:14px}
+  .chip{font-size:12.5px;padding:6px 12px}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="index.html">
+      <span class="brand-badge">م</span>
+      <span class="brand-text"><strong>مستر پلنر</strong><small>ساخت شناختی یادگیری</small></span>
+    </a>
+    <nav>
+      <a href="index.html"><i class="fa-solid fa-house"></i> خانه</a>
+      <a href="downloads.html"><i class="fa-solid fa-list"></i> فهرست ساده</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="kicker"><i class="fa-solid fa-book-bookmark"></i> کتابخانهٔ مقالات</span>
+    <h1>همهٔ مقالات مستر پلنر، یک‌جا و قابل جستجو</h1>
+    <p class="lede">در میان مقالات مهارت‌های مطالعه، راهبرد گروه‌های کنکور، انتخاب رشته، هدایت تحصیلی و تیزهوشان جستجو کنید. با یک کلیک، مقاله در تب جدید باز می‌شود.</p>
+    <div class="hero-meta">
+      <span><i class="fa-solid fa-layer-group"></i> <strong id="heroCount">در حال بارگذاری…</strong></span>
+      <span><i class="fa-solid fa-filter"></i> ۵ دستهٔ موضوعی</span>
+      <span><i class="fa-solid fa-magnifying-glass"></i> جستجوی زنده</span>
+    </div>
+  </section>
+
+  <section class="toolbar" aria-label="فیلتر و جستجو">
+    <div class="search-wrap" id="searchWrap">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input id="searchInput" type="search" placeholder="جستجو در عنوان، توضیح یا دسته…" autocomplete="off" aria-label="جستجو در مقالات">
+      <button class="clear-btn" id="clearBtn" type="button" aria-label="پاک کردن جستجو"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="chips" id="chips" role="tablist" aria-label="فیلتر دسته‌بندی"></div>
+    <div class="counter" aria-live="polite">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>نمایش <strong id="shownCount">۰</strong> از <strong id="totalCount">۰</strong> مقاله</span>
+    </div>
+  </section>
+
+  <section id="content" aria-live="polite">
+    <div class="state" id="loadingState">
+      <i class="fa-solid fa-circle-notch fa-spin"></i>
+      در حال بارگذاری کتابخانه…
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p class="credit">طراحی و تدوین: <strong>احسان روحانی راوری</strong></p>
+  <p>مستر پلنر <span class="dot">·</span> یادگیری بر پایهٔ ساخت شناختی</p>
+  <p><a href="index.html">بازگشت به صفحهٔ اصلی</a></p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  // ===== نگاشت آیکون ← دسته و رنگ =====
+  const CATEGORIES = [
+    { name: "مهارت‌های مطالعه", color: "var(--c-skill)",      icons: ["fa-calendar-check","fa-book-open-reader","fa-clipboard-check","fa-crosshairs","fa-brain","fa-fire","fa-pen-to-square","fa-fire-flame-curved"] },
+    { name: "راهبرد کنکور",     color: "var(--c-konkoor)",    icons: ["fa-dna","fa-square-root-variable","fa-scale-balanced","fa-language","fa-palette","fa-screwdriver-wrench"] },
+    { name: "انتخاب رشته",      color: "var(--c-reshte)",     icons: ["fa-chalkboard-user","fa-calculator","fa-stethoscope","fa-gavel","fa-paintbrush","fa-globe","fa-gears"] },
+    { name: "هدایت تحصیلی",     color: "var(--c-hedayat)",    icons: ["fa-compass","fa-user-gear","fa-clipboard-question"] },
+    { name: "تیزهوشان",         color: "var(--c-tizhooshan)", icons: ["fa-book-open","fa-file-lines","fa-map"] }
+  ];
+  const OTHER = { name: "سایر", color: "var(--c-other)" };
+
+  function categoryFor(icon){
+    for (const c of CATEGORIES){
+      if (c.icons.indexOf(icon) !== -1) return c;
+    }
+    return OTHER;
+  }
+
+  // ===== نرمال‌سازی متن برای جستجو (ی/ک عربی، ZWNJ) =====
+  function norm(s){
+    return String(s || "")
+      .toLowerCase()
+      .replace(/ي/g, "ی")
+      .replace(/ك/g, "ک")
+      .replace(/\u200c/g, " ")   // نیم‌فاصله → فاصله
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  // ===== حالت برنامه =====
+  const state = { items: [], activeCat: "همه", query: "" };
+
+  const els = {
+    content:   document.getElementById("content"),
+    chips:     document.getElementById("chips"),
+    search:    document.getElementById("searchInput"),
+    searchWrap:document.getElementById("searchWrap"),
+    clearBtn:  document.getElementById("clearBtn"),
+    shown:     document.getElementById("shownCount"),
+    total:     document.getElementById("totalCount"),
+    heroCount: document.getElementById("heroCount")
+  };
+
+  const faDigits = n => String(n).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
+
+  // ===== بارگذاری JSON =====
+  fetch("downloads.json", { cache: "no-cache" })
+    .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+    .then(data => {
+      if (!Array.isArray(data)) throw new Error("ساختار نامعتبر");
+      state.items = data.map(item => ({
+        ...item,
+        _cat: categoryFor(item.icon),
+        _search: norm(item.title + " " + item.desc + " " + categoryFor(item.icon).name)
+      }));
+      init();
+    })
+    .catch(err => {
+      console.error(err);
+      els.content.innerHTML =
+        '<div class="state error">' +
+          '<i class="fa-solid fa-triangle-exclamation"></i>' +
+          'بارگذاری کتابخانه ممکن نشد.<br>' +
+          'اگر فایل را مستقیم از دیسک باز کرده‌اید (file://)، این خطا طبیعی است. ' +
+          'از طریق آدرس سایت امتحان کنید یا به ' +
+          '<a href="downloads.html">فهرست ساده</a> بروید.' +
+        '</div>';
+      els.heroCount.textContent = "خطا در بارگذاری";
+    });
+
+  // ===== مقداردهی اولیه =====
+  function init(){
+    els.total.textContent = faDigits(state.items.length);
+    els.heroCount.innerHTML = '<strong>' + faDigits(state.items.length) + '</strong> مقاله در ۵ دسته';
+    buildChips();
+    render();
+  }
+
+  // ===== ساخت دکمه‌های فیلتر =====
+  function buildChips(){
+    const counts = {};
+    state.items.forEach(it => { counts[it._cat.name] = (counts[it._cat.name] || 0) + 1; });
+
+    const items = [{ name: "همه", count: state.items.length }];
+    CATEGORIES.forEach(c => { if (counts[c.name]) items.push({ name: c.name, count: counts[c.name] }); });
+    if (counts[OTHER.name]) items.push({ name: OTHER.name, count: counts[OTHER.name] });
+
+    els.chips.innerHTML = "";
+    items.forEach((it, i) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "chip" + (i === 0 ? " active" : "");
+      btn.dataset.cat = it.name;
+      btn.innerHTML = it.name + ' <span class="count">' + faDigits(it.count) + '</span>';
+      btn.addEventListener("click", () => selectCat(it.name, btn));
+      els.chips.appendChild(btn);
+    });
+  }
+
+  function selectCat(name, btn){
+    state.activeCat = name;
+    els.chips.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c === btn));
+    render();
+  }
+
+  // ===== رندر کارت‌ها =====
+  function render(){
+    const q = norm(state.query);
+    const list = state.items.filter(it => {
+      if (state.activeCat !== "همه" && it._cat.name !== state.activeCat) return false;
+      if (q && it._search.indexOf(q) === -1) return false;
+      return true;
+    });
+
+    els.shown.textContent = faDigits(list.length);
+
+    if (!list.length){
+      els.content.innerHTML =
+        '<div class="state">' +
+          '<i class="fa-solid fa-magnifying-glass"></i>' +
+          'مقاله‌ای با این فیلتر یا عبارت جستجو پیدا نشد.<br>' +
+          'عبارت دیگری امتحان کنید یا فیلتر را بردارید.' +
+        '</div>';
+      return;
+    }
+
+    const grid = document.createElement("div");
+    grid.className = "grid";
+
+    list.forEach(it => {
+      const a = document.createElement("a");
+      a.className = "card";
+      a.href = it.link;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.style.setProperty("--c", it._cat.color);
+
+      a.innerHTML =
+        '<span class="card-badge">' + escapeHtml(it._cat.name) + '</span>' +
+        '<div class="card-icon"><i class="fa-solid ' + escapeHtml(it.icon) + '"></i></div>' +
+        '<h3>' + escapeHtml(it.title) + '</h3>' +
+        '<p>' + escapeHtml(it.desc) + '</p>' +
+        '<span class="card-cta">مطالعهٔ مقاله <i class="fa-solid fa-arrow-left"></i></span>';
+
+      grid.appendChild(a);
+    });
+
+    els.content.innerHTML = "";
+    els.content.appendChild(grid);
+  }
+
+  // ===== محافظت از HTML =====
+  function escapeHtml(s){
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  // ===== جستجوی زنده =====
+  let tmr = null;
+  els.search.addEventListener("input", e => {
+    state.query = e.target.value;
+    els.searchWrap.classList.toggle("has-value", !!state.query);
+    clearTimeout(tmr);
+    tmr = setTimeout(render, 120); // debounce کوچک
+  });
+
+  els.clearBtn.addEventListener("click", () => {
+    state.query = "";
+    els.search.value = "";
+    els.searchWrap.classList.remove("has-value");
+    els.search.focus();
+    render();
+  });
+
+  els.search.addEventListener("keydown", e => {
+    if (e.key === "Escape"){ els.clearBtn.click(); }
+  });
+
+})();
+</script>
+</body>
+</html>
