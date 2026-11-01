@@ -1,0 +1,425 @@
+/* ============================================================
+   Atlas — Independent Stylesheet
+   تمام قواعد زیر .atlas-page اسکوپ شده‌اند تا با سایت اصلی
+   هیچ تداخلی نداشته باشند.
+   ============================================================ */
+
+.atlas-page {
+  --atlas-primary: #1e3a5f;
+  --atlas-primary-light: #2d5a8c;
+  --atlas-accent: #c9a961;
+  --atlas-bg: #f8f9fa;
+  --atlas-card: #ffffff;
+  --atlas-text: #2c3e50;
+  --atlas-text-light: #5a6c7d;
+  --atlas-border: #e1e8ed;
+  --atlas-success: #27ae60;
+  --atlas-warning: #e67e22;
+  --atlas-danger: #c0392b;
+
+  font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+  background: var(--atlas-bg);
+  color: var(--atlas-text);
+  line-height: 1.9;
+  font-size: 15px;
+  padding: 20px;
+  margin: 0;
+}
+
+.atlas-page *,
+.atlas-page *::before,
+.atlas-page *::after {
+  box-sizing: border-box;
+}
+
+.atlas-page .atlas-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: var(--atlas-card);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* ---------- Header ---------- */
+.atlas-page .atlas-header {
+  background: linear-gradient(135deg, var(--atlas-primary) 0%, var(--atlas-primary-light) 100%);
+  color: white;
+  padding: 50px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.atlas-page .atlas-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(201, 169, 97, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.atlas-page .atlas-header h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0 0 12px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.atlas-page .atlas-header .atlas-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  font-weight: 400;
+  position: relative;
+  z-index: 1;
+}
+
+.atlas-page .atlas-header .atlas-meta {
+  margin-top: 24px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  opacity: 0.85;
+  position: relative;
+  z-index: 1;
+}
+
+.atlas-page .atlas-header .atlas-meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---------- Intro ---------- */
+.atlas-page .atlas-intro {
+  padding: 40px;
+  background: #f0f4f8;
+  border-bottom: 1px solid var(--atlas-border);
+}
+
+.atlas-page .atlas-intro h2 {
+  color: var(--atlas-primary);
+  font-size: 1.4rem;
+  margin: 0 0 16px 0;
+  border-right: 4px solid var(--atlas-accent);
+  padding-right: 12px;
+}
+
+.atlas-page .atlas-intro p {
+  color: var(--atlas-text-light);
+  text-align: justify;
+  margin-bottom: 12px;
+}
+
+.atlas-page .atlas-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.atlas-page .atlas-stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid var(--atlas-border);
+  transition: transform 0.2s;
+}
+
+.atlas-page .atlas-stat-card:hover { transform: translateY(-3px); }
+
+.atlas-page .atlas-stat-card .num {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--atlas-primary);
+}
+
+.atlas-page .atlas-stat-card .label {
+  font-size: 0.85rem;
+  color: var(--atlas-text-light);
+  margin-top: 4px;
+}
+
+/* ---------- Section ---------- */
+.atlas-page .atlas-section {
+  padding: 40px;
+  border-bottom: 1px solid var(--atlas-border);
+}
+
+.atlas-page .atlas-section h2 {
+  color: var(--atlas-primary);
+  font-size: 1.5rem;
+  margin: 0 0 24px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.atlas-page .atlas-section h2 .atlas-icon {
+  background: var(--atlas-primary);
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+/* ---------- Table ---------- */
+.atlas-page table.atlas-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.atlas-page table.atlas-table thead {
+  background: linear-gradient(135deg, var(--atlas-primary) 0%, var(--atlas-primary-light) 100%);
+  color: white;
+}
+
+.atlas-page table.atlas-table thead th {
+  padding: 16px 12px;
+  text-align: right;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-bottom: 3px solid var(--atlas-accent);
+}
+
+.atlas-page table.atlas-table tbody tr {
+  border-bottom: 1px solid var(--atlas-border);
+  transition: background 0.15s;
+}
+
+.atlas-page table.atlas-table tbody tr:hover { background: #f5f8fb; }
+.atlas-page table.atlas-table tbody tr:nth-child(even) { background: #fafbfc; }
+.atlas-page table.atlas-table tbody tr:nth-child(even):hover { background: #f5f8fb; }
+
+.atlas-page table.atlas-table tbody td {
+  padding: 16px 12px;
+  vertical-align: top;
+  border-left: 1px solid #f0f0f0;
+}
+
+.atlas-page table.atlas-table tbody td:last-child { border-left: none; }
+
+.atlas-page .atlas-cat-name {
+  font-weight: 700;
+  color: var(--atlas-primary);
+  font-size: 0.95rem;
+}
+
+.atlas-page .atlas-cat-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.atlas-page .badge-productive { background: #e8f5e9; color: #2e7d32; }
+.atlas-page .badge-service    { background: #e3f2fd; color: #1565c0; }
+.atlas-page .badge-risky      { background: #fff3e0; color: #e65100; }
+.atlas-page .badge-danger     { background: #ffebee; color: #c62828; }
+
+.atlas-page .atlas-skills-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin: 2px 2px 2px 0;
+}
+
+.atlas-page .tag-skill     { background: #fff8e1; color: #f57f17; }
+.atlas-page .tag-knowledge { background: #e8eaf6; color: #283593; }
+.atlas-page .tag-both      { background: #f3e5f5; color: #6a1b9a; }
+.atlas-page .tag-anti      { background: #ffebee; color: #c62828; }
+
+.atlas-page .atlas-example-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.atlas-page .atlas-example-list li {
+  padding: 4px 16px 4px 0;
+  position: relative;
+  color: var(--atlas-text-light);
+  font-size: 0.85rem;
+}
+
+.atlas-page .atlas-example-list li::before {
+  content: '◂';
+  position: absolute;
+  right: 0;
+  color: var(--atlas-accent);
+  font-weight: bold;
+}
+
+/* ---------- Analysis ---------- */
+.atlas-page .atlas-analysis {
+  padding: 40px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #eef2f6 100%);
+}
+
+.atlas-page .atlas-analysis h2 {
+  color: var(--atlas-primary);
+  font-size: 1.5rem;
+  margin: 0 0 24px 0;
+  border-right: 4px solid var(--atlas-accent);
+  padding-right: 12px;
+}
+
+.atlas-page .atlas-analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.atlas-page .atlas-analysis-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  border-top: 4px solid var(--atlas-primary);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.atlas-page .atlas-analysis-card.is-warn    { border-top-color: var(--atlas-warning); }
+.atlas-page .atlas-analysis-card.is-danger  { border-top-color: var(--atlas-danger); }
+.atlas-page .atlas-analysis-card.is-success { border-top-color: var(--atlas-success); }
+
+.atlas-page .atlas-analysis-card h3 {
+  color: var(--atlas-primary);
+  font-size: 1.05rem;
+  margin: 0 0 12px 0;
+}
+
+.atlas-page .atlas-analysis-card.is-warn h3    { color: var(--atlas-warning); }
+.atlas-page .atlas-analysis-card.is-danger h3  { color: var(--atlas-danger); }
+.atlas-page .atlas-analysis-card.is-success h3 { color: var(--atlas-success); }
+
+.atlas-page .atlas-analysis-card p {
+  color: var(--atlas-text-light);
+  font-size: 0.9rem;
+  text-align: justify;
+  line-height: 1.85;
+  margin: 0;
+}
+
+.atlas-page .atlas-key-points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.atlas-page .atlas-key-points li {
+  padding: 8px 24px 8px 0;
+  position: relative;
+  color: var(--atlas-text-light);
+  font-size: 0.9rem;
+  border-bottom: 1px dashed #eee;
+}
+
+.atlas-page .atlas-key-points li:last-child { border-bottom: none; }
+
+.atlas-page .atlas-key-points li::before {
+  content: '✓';
+  position: absolute;
+  right: 0;
+  color: var(--atlas-success);
+  font-weight: bold;
+}
+
+/* ---------- Methodology ---------- */
+.atlas-page .atlas-methodology {
+  padding: 30px 40px;
+  background: #2c3e50;
+  color: #bdc3c7;
+  font-size: 0.85rem;
+}
+
+.atlas-page .atlas-methodology h3 {
+  color: white;
+  margin: 0 0 12px 0;
+  font-size: 1rem;
+}
+
+.atlas-page .atlas-methodology p {
+  text-align: justify;
+  line-height: 1.9;
+  margin-bottom: 8px;
+}
+
+/* ---------- Footer ---------- */
+.atlas-page .atlas-footer {
+  padding: 24px 40px;
+  text-align: center;
+  background: var(--atlas-primary);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.82rem;
+}
+
+/* ---------- Loading / Error ---------- */
+.atlas-page .atlas-loading,
+.atlas-page .atlas-error {
+  padding: 60px 40px;
+  text-align: center;
+  color: var(--atlas-text-light);
+}
+
+.atlas-page .atlas-error h2 {
+  color: var(--atlas-danger);
+  margin-bottom: 16px;
+}
+
+.atlas-page .atlas-error code {
+  background: #f0f0f0;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+.atlas-page .atlas-error pre {
+  background: #f5f5f5;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: left;
+  direction: ltr;
+  font-size: 0.8rem;
+  color: var(--atlas-danger);
+  margin-top: 12px;
+  overflow-x: auto;
+}
+
+/* ---------- Print ---------- */
+@media print {
+  .atlas-page { padding: 0; background: white; }
+  .atlas-page .atlas-container { box-shadow: none; border-radius: 0; }
+  .atlas-page table.atlas-table tbody tr { page-break-inside: avoid; }
+  .atlas-page .atlas-header { padding: 30px; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .atlas-page { padding: 8px; }
+  .atlas-page .atlas-header { padding: 30px 20px; }
+  .atlas-page .atlas-header h1 { font-size: 1.5rem; }
+  .atlas-page .atlas-section,
+  .atlas-page .atlas-intro,
+  .atlas-page .atlas-analysis { padding: 24px 16px; }
+  .atlas-page table.atlas-table { font-size: 0.78rem; }
+  .atlas-page table.atlas-table thead th,
+  .atlas-page table.atlas-table tbody td { padding: 10px 6px; }
+}
