@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>آزمون سبک یادگیری کلب | مستر پلنر</title>
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{--brand:#1f7a4d;--brand-dark:#0d3524;--brand-soft:#e8f4ec;--accent:#2fbf71;--bg:#f2f6f3;--card:#fff;--ink:#16241d;--muted:#5d6f65;--line:#dfe9e2;--radius:16px;--shadow:0 10px 30px rgba(13,53,36,.08);--danger:#e05252;--warn:#f59e0b;--safe:#2fbf71;}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2;display:flex;flex-direction:column;min-height:100vh;}
+a{color:var(--brand);text-decoration:none}.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;box-shadow:0 2px 14px rgba(0,0,0,.12)}.bar{max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:10px;color:#fff}.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:20px}.brand-text strong{font-size:17px}.back-btn{color:#fff;font-size:13px;background:rgba(255,255,255,.14);padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.25);transition:0.3s;}.back-btn:hover{background:rgba(255,255,255,.24);text-decoration:none}
+main{flex:1;max-width:800px;margin:26px auto 40px;padding:0 16px;width:100%;}.card{background:var(--card);border-radius:var(--radius);padding:30px 24px;box-shadow:var(--shadow);border:1px solid var(--line);display:none;}.card.active{display:block;animation:fadeIn 0.4s ease;}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}h1{font-size:22px;color:var(--brand-dark);margin:0 0 16px;}p{color:var(--muted);margin:0 0 16px;text-align:justify;}.alert{background:#e0f2fe;border-right:4px solid #0284c7;padding:12px 16px;border-radius:8px;font-size:13px;color:#075985;margin-bottom:20px;}.btn{background:var(--brand);color:#fff;border:none;padding:12px 24px;border-radius:8px;font-family:inherit;font-size:16px;cursor:pointer;transition:0.3s;display:inline-block;}.btn:hover{background:var(--brand-dark);transform:translateY(-2px);}
+.progress-container{background:var(--brand-soft);border-radius:999px;height:8px;margin-bottom:20px;overflow:hidden;}.progress-bar{background:var(--brand);height:100%;width:0%;transition:width 0.3s ease;}.q-num{font-size:13px;color:var(--brand);font-weight:bold;margin-bottom:8px;display:block;}.q-text{font-size:18px;font-weight:700;margin-bottom:20px;color:var(--ink);line-height:1.6;}.options{display:flex;flex-direction:column;gap:12px;}.option{display:block;position:relative;padding:16px 20px;border:2px solid var(--line);border-radius:12px;cursor:pointer;transition:0.2s;font-size:15px;}.option:hover{border-color:var(--brand);background:var(--brand-soft);}.option input{position:absolute;opacity:0;cursor:pointer;}.option.selected{border-color:var(--brand);background:var(--brand-soft);}.option.selected::after{content:"\f00c";font-family:"Font Awesome 6 Free";font-weight:900;position:absolute;left:20px;top:50%;transform:translateY(-50%);color:var(--brand);}
+.result-title{font-size:26px;color:var(--brand-dark);text-align:center;margin-bottom:8px;}.result-sub{text-align:center;color:var(--muted);margin-bottom:24px;}.chart-container{background:#fff;padding:20px;border-radius:12px;border:1px solid var(--line);margin-bottom:24px;}.chart-row{display:flex;align-items:center;margin-bottom:12px;gap:10px;}.chart-label{width:120px;font-size:13px;font-weight:700;text-align:right;}.chart-bar-bg{flex:1;height:14px;background:var(--brand-soft);border-radius:999px;overflow:hidden;direction:ltr;}.chart-bar-fill{height:100%;border-radius:999px;width:0;transition:width 1s ease;}
+.feedback-box{background:#fff;border-right:4px solid var(--brand);padding:20px;border-radius:8px;margin-bottom:20px;box-shadow:0 4px 12px rgba(0,0,0,0.03);}.feedback-box h3{margin:0 0 12px;color:var(--brand-dark);font-size:18px;display:flex;align-items:center;gap:8px;}.feedback-box p{margin-bottom:12px;font-size:15px;}.feedback-box ul{margin:0;padding-right:20px;line-height:2;font-size:15px;}
+@media(max-width:560px){.card{padding:20px 16px}.q-text{font-size:16px}.option{font-size:14px;padding:14px 16px}.chart-label{width:90px;font-size:12px}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="bar"><a class="brand" href="../../index.html"><span class="brand-badge">م</span><span class="brand-text"><strong>مستر پلنر</strong></span></a><a class="back-btn" href="../../index.html"><i class="fa-solid fa-arrow-left"></i> بازگشت به سایت</a></div></header>
+<main>
+  <div class="card active" id="start-screen">
+    <h1>آزمون سبک یادگیری کلب (LSI)</h1>
+    <p>این آزمون بر اساس نظریه یادگیری تجربی دیوید کلب طراحی شده است. با پاسخ به ۱۲ سوال، مشخص می‌شود که شما در کدام مرحله از چرخه یادگیری (تجربه عینی، مشاهده تأملی، مفهوم‌سازی انتزاعی یا آزمایشگری فعال) قوی‌تر هستید و سبک غالب شما (واگرا، جذب‌کننده، همگرا یا انطباق‌یابنده) کدام است.</p>
+    <div class="alert"><i class="fa-solid fa-lightbulb"></i> <strong>توجه:</strong> برای هر سوال، گزینه‌ای را انتخاب کنید که بیشترین تطابق را با نحوه یادگیری شما دارد.</div>
+    <button class="btn" onclick="startQuiz()">شروع آزمون <i class="fa-solid fa-arrow-left"></i></button>
+  </div>
+  <div class="card" id="quiz-screen">
+    <div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
+    <span class="q-num" id="q-num">سوال ۱ از ۱۲</span><div class="q-text" id="q-text"></div><div class="options" id="options-container"></div>
+  </div>
+  <div class="card" id="result-screen">
+    <h2 class="result-title">سبک یادگیری شما</h2><p class="result-sub">نمودار زیر میزان گرایش شما به هر یک از مراحل چرخه یادگیری را نشان می‌دهد:</p>
+    <div class="chart-container" id="chart-container"></div>
+    <div id="results-details"></div>
+    <div style="text-align:center;margin-top:20px;"><button class="btn" onclick="restartQuiz()">شرکت مجدد</button></div>
+  </div>
+</main>
+<script>
+const questions = [
+  { q: "وقتی چیزی را یاد می‌گیرم، بیشتر دوست دارم:", opts: [{t:"به احساسات و تجربه‌های شخصی‌ام تکیه کنم.", type:"CE"},{t:"با دقت مشاهده کنم و به آنچه اتفاق می‌افتد فکر کنم.", type:"RO"},{t:"به تحلیل منطقی و نظریه‌ها بپردازم.", type:"AC"},{t:"فعالانه کار کردن و آزمایش کردن را شروع کنم.", type:"AE"}] },
+  { q: "بهترین راه یادگیری من:", opts: [{t:"دیدن و شنیدن با ذهن باز.", type:"CE"},{t:"فکر کردن به مطالب از زوایای مختلف.", type:"RO"},{t:"درک روابط منطقی بین ایده‌ها.", type:"AC"},{t:"دست به کار شدن و ساختن چیزی.", type:"AE"}] },
+  { q: "وقتی با یک مسئله مواجه می‌شوم، اول:", opts: [{t:"به شهود و احساس خودم اعتماد می‌کنم.", type:"CE"},{t:"با دقت به تمام جوانب آن نگاه می‌کنم.", type:"RO"},{t:"به دنبال یک چارچوب نظری برای تحلیل آن می‌گردم.", type:"AC"},{t:"سریع شروع به آزمون و خطا می‌کنم.", type:"AE"}] },
+  { q: "من فردی هستم که:", opts: [{t:"به تجربه‌های واقعی و احساسات اهمیت می‌دهم.", type:"CE"},{t:"دوست دارم قبل از عمل، خوب فکر کنم.", type:"RO"},{t:"به منطق و استدلال اهمیت می‌دهم.", type:"AC"},{t:"دوست دارم کارها را عملی انجام دهم.", type:"AE"}] },
+  { q: "در یک موقعیت یادگیری جدید، ترجیح می‌دهم:", opts: [{t:"درگیر احساسات و تجربه شخصی شوم.", type:"CE"},{t:"فرصت داشته باشم تا مشاهده و تأمل کنم.", type:"RO"},{t:"مفاهیم انتزاعی را تحلیل کنم.", type:"AC"},{t:"فوراً شروع به انجام کار کنم.", type:"AE"}] },
+  { q: "من بیشتر یاد می‌گیرم از طریق:", opts: [{t:"تجربه کردن و لمس کردن.", type:"CE"},{t:"گوش دادن و تماشا کردن.", type:"RO"},{t:"خواندن و تحلیل کردن.", type:"AC"},{t:"انجام دادن و آزمایش کردن.", type:"AE"}] },
+  { q: "وقتی چیزی را می‌خوانم، بیشتر به:", opts: [{t:"احساس خودم نسبت به آن توجه می‌کنم.", type:"CE"},{t:"دقت در جزئیات و مشاهده دقیق.", type:"RO"},{t:"تحلیل منطقی و نتیجه‌گیری.", type:"AC"},{t:"کاربرد عملی آن فکر می‌کنم.", type:"AE"}] },
+  { q: "در کار گروهی، نقش من بیشتر:", opts: [{t:"ایجاد ارتباط عاطفی و حمایت از دیگران.", type:"CE"},{t:"مشاهده و ارائه بازخورد دقیق.", type:"RO"},{t:"تحلیل و ارائه راه‌حل‌های منطقی.", type:"AC"},{t:"اجرای عملی و پیش بردن کارها.", type:"AE"}] },
+  { q: "بهترین لحظه یادگیری من وقتی است که:", opts: [{t:"احساس می‌کنم به چیزی متصل شدم.", type:"CE"},{t:"فرصت دارم تا عمیقاً فکر کنم.", type:"RO"},{t:"یک نظریه را به طور کامل می‌فهمم.", type:"AC"},{t:"نتیجه کارم را به صورت عملی می‌بینم.", type:"AE"}] },
+  { q: "وقتی با یک ایده جدید مواجه می‌شوم، اول:", opts: [{t:"به آن واکنش احساسی نشان می‌دهم.", type:"CE"},{t:"به دقت به آن گوش می‌دهم و مشاهده می‌کنم.", type:"RO"},{t:"سعی می‌کنم آن را در چارچوب منطقی جای دهم.", type:"AC"},{t:"به کاربردهای عملی آن فکر می‌کنم.", type:"AE"}] },
+  { q: "من ترجیح می‌دهم اطلاعات را:", opts: [{t:"از طریق تجربه مستقیم دریافت کنم.", type:"CE"},{t:"با مشاهده و تأمل پردازش کنم.", type:"RO"},{t:"با تحلیل و استدلال درک کنم.", type:"AC"},{t:"با آزمایش و انجام دادن یاد بگیرم.", type:"AE"}] },
+  { q: "در نهایت، من فردی هستم که:", opts: [{t:"به شهود و احساسات خود اعتماد می‌کنم.", type:"CE"},{t:"قبل از تصمیم‌گیری، خوب فکر می‌کنم.", type:"RO"},{t:"به منطق و عقلانیت اهمیت می‌دهم.", type:"AC"},{t:"دوست دارم کارها را سریع انجام دهم.", type:"AE"}] }
+];
+
+const likertOptions = ["کاملاً مخالفم", "مخالفم", "بی‌نظر", "موافقم", "کاملاً موافقم"];
+const resultsData = {
+  Diverger: { name: "واگرا (Diverger)", icon: "fa-users", desc: "شما در تجربه عینی و مشاهده تأملی قوی هستید. اهل خلاقیت، تصور و احساس هستید. از طوفان فکری و کار گروهی لذت می‌برید.", majors: "هنر، ادبیات، روانشناسی، علوم اجتماعی، طراحی.", jobs: "مشاور، هنرمند، معلم، مددکار اجتماعی." },
+  Assimilator: { name: "جذب‌کننده (Assimilator)", icon: "fa-book", desc: "شما در مفهوم‌سازی انتزاعی و مشاهده تأملی قوی هستید. اهل نظریه‌پردازی، تحلیل و استدلال منطقی هستید. عاشق خواندن و پژوهش هستید.", majors: "ریاضی، فیزیک، فلسفه، اقتصاد، علوم پایه.", jobs: "پژوهشگر، اقتصاددان، برنامه‌نویس، ریاضی‌دان." },
+  Converger: { name: "همگرا (Converger)", icon: "fa-cogs", desc: "شما در مفهوم‌سازی انتزاعی و آزمایشگری فعال قوی هستید. اهل حل مسئله، تصمیم‌گیری عملی و کاربرد نظریه‌ها هستید.", majors: "مهندسی‌ها، پزشکی، فناوری اطلاعات، حقوق.", jobs: "مهندس، جراح، تحلیل‌گر داده، وکیل." },
+  Accommodator: { name: "انطباق‌یابنده (Accommodator)", icon: "fa-hand", desc: "شما در تجربه عینی و آزمایشگری فعال قوی هستید. اهل عمل، ریسک‌پذیری و سازگاری با موقعیت‌های جدید هستید. از یادگیری از طریق انجام دادن لذت می‌برید.", majors: "مدیریت، کارآفرینی، بازاریابی، فنی و حرفه‌ای، تربیت بدنی.", jobs: "کارآفرین، مدیر فروش، بازاریاب، مربی." }
+};
+let currentIndex = 0, scores = { CE: 0, RO: 0, AC: 0, AE: 0 };
+function startQuiz() { currentIndex = 0; scores = { CE: 0, RO: 0, AC: 0, AE: 0 }; document.getElementById('start-screen').classList.remove('active'); document.getElementById('result-screen').classList.remove('active'); document.getElementById('quiz-screen').classList.add('active'); renderQuestion(); }
+function renderQuestion() {
+  const q = questions[currentIndex];
+  document.getElementById('q-num').innerText = `سوال ${currentIndex + 1} از ۱۲`;
+  document.getElementById('q-text').innerText = q.q;
+  document.getElementById('progress-bar').style.width = `${(currentIndex / 12) * 100}%`;
+  const container = document.getElementById('options-container'); container.innerHTML = '';
+  q.opts.forEach(opt => {
+    const label = document.createElement('label'); label.className = 'option';
+    label.innerHTML = `<input type="radio" name="q_opt" value="${opt.type}"> ${opt.t}`;
+    label.addEventListener('click', () => {
+      document.querySelectorAll('.option').forEach(l => l.classList.remove('selected'));
+      label.classList.add('selected');
+      setTimeout(() => {
+        scores[opt.type]++;
+        currentIndex++;
+        if (currentIndex < 12) renderQuestion(); else showResult();
+      }, 250);
+    });
+    container.appendChild(label);
+  });
+}
+function showResult() {
+  document.getElementById('quiz-screen').classList.remove('active'); document.getElementById('result-screen').classList.add('active');
+  const chart = document.getElementById('chart-container'); chart.innerHTML = '';
+  const sorted = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
+  sorted.forEach(type => {
+    const score = scores[type]; const percent = (score / 12) * 100;
+    const row = document.createElement('div'); row.className = 'chart-row';
+    row.innerHTML = `<div class="chart-label">${type}</div><div class="chart-bar-bg"><div class="chart-bar-fill" style="width:${percent}%"></div></div><div>${score}</div>`;
+    chart.appendChild(row);
+  });
+  const details = document.getElementById('results-details'); details.innerHTML = '';
+  let dominantStyle = '';
+  if (scores.AE > scores.RO && scores.AC > scores.CE) dominantStyle = 'Converger';
+  else if (scores.AE > scores.RO && scores.CE > scores.AC) dominantStyle = 'Accommodator';
+  else if (scores.RO > scores.AE && scores.AC > scores.CE) dominantStyle = 'Assimilator';
+  else dominantStyle = 'Diverger';
+  const info = resultsData[dominantStyle];
+  const box = document.createElement('div'); box.className = 'feedback-box';
+  box.innerHTML = `<h3><i class="fa-solid ${info.icon}"></i> سبک غالب شما: ${info.name}</h3><p>${info.desc}</p><p><strong>رشته‌های پیشنهادی:</strong> ${info.majors}</p><p><strong>مشاغل پیشنهادی:</strong> ${info.jobs}</p>`;
+  details.appendChild(box);
+}
+function restartQuiz() { document.getElementById('result-screen').classList.remove('active'); startQuiz(); }
+</script>
+</body>
+  </html>
