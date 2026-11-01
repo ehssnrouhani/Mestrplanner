@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>آزمون انتخاب رشته و شغل هالند | مستر پلنر</title>
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+  /* RIASEC Colors */
+  --c-R:#ef4444; --c-I:#3b82f6; --c-A:#a855f7; --c-S:#10b981; --c-E:#f59e0b; --c-C:#64748b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2;display:flex;flex-direction:column;min-height:100vh;}
+a{color:var(--brand);text-decoration:none}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:20px}
+.brand-text strong{font-size:17px}
+.back-btn{color:#fff;font-size:13px;background:rgba(255,255,255,.14);padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.25);transition:0.3s;}
+.back-btn:hover{background:rgba(255,255,255,.24);text-decoration:none}
+
+main{flex:1;max-width:800px;margin:26px auto 40px;padding:0 16px;width:100%;}
+
+.card{background:var(--card);border-radius:var(--radius);padding:30px 24px;box-shadow:var(--shadow);border:1px solid var(--line);display:none;}
+.card.active{display:block;animation:fadeIn 0.4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+h1{font-size:22px;color:var(--brand-dark);margin:0 0 16px;}
+p{color:var(--muted);margin:0 0 16px;text-align:justify;}
+
+.alert{background:#e0f2fe;border-right:4px solid #0284c7;padding:12px 16px;border-radius:8px;font-size:13px;color:#075985;margin-bottom:20px;}
+
+.btn{background:var(--brand);color:#fff;border:none;padding:12px 24px;border-radius:8px;font-family:inherit;font-size:16px;cursor:pointer;transition:0.3s;display:inline-block;}
+.btn:hover{background:var(--brand-dark);transform:translateY(-2px);}
+
+/* Progress bar */
+.progress-container{background:var(--brand-soft);border-radius:999px;height:8px;margin-bottom:20px;overflow:hidden;}
+.progress-bar{background:var(--brand);height:100%;width:0%;transition:width 0.3s ease;}
+
+/* Question */
+.q-num{font-size:13px;color:var(--brand);font-weight:bold;margin-bottom:8px;display:block;}
+.q-text{font-size:18px;font-weight:700;margin-bottom:20px;color:var(--ink);line-height:1.6;}
+
+.options{display:flex;flex-direction:column;gap:12px;}
+.option{display:block;position:relative;padding:16px 20px;border:2px solid var(--line);border-radius:12px;cursor:pointer;transition:0.2s;font-size:15px;}
+.option:hover{border-color:var(--brand);background:var(--brand-soft);}
+.option input{position:absolute;opacity:0;cursor:pointer;}
+.option.selected{border-color:var(--brand);background:var(--brand-soft);}
+.option.selected::after{content:"\f00c";font-family:"Font Awesome 6 Free";font-weight:900;position:absolute;left:20px;top:50%;transform:translateY(-50%);color:var(--brand);}
+
+/* Result */
+.result-title{font-size:26px;color:var(--brand-dark);text-align:center;margin-bottom:8px;}
+.result-sub{text-align:center;color:var(--muted);margin-bottom:24px;}
+
+.chart-container{background:#fff;padding:20px;border-radius:12px;border:1px solid var(--line);margin-bottom:24px;}
+.chart-row{display:flex;align-items:center;margin-bottom:12px;gap:10px;}
+.chart-label{width:100px;font-size:14px;font-weight:700;color:var(--ink);text-align:left;direction:ltr;}
+.chart-bar-bg{flex:1;height:14px;background:var(--brand-soft);border-radius:999px;overflow:hidden;direction:ltr;}
+.chart-bar-fill{height:100%;border-radius:999px;width:0;transition:width 1s ease;}
+.chart-score{width:30px;font-weight:bold;font-size:14px;}
+
+.feedback-box{background:#fff;border-right:4px solid var(--brand);padding:20px;border-radius:8px;margin-bottom:20px;box-shadow:0 4px 12px rgba(0,0,0,0.03);}
+.feedback-box h3{margin:0 0 12px;color:var(--brand-dark);font-size:18px;display:flex;align-items:center;gap:8px;}
+.feedback-box p{margin-bottom:12px;font-size:15px;color:var(--ink);}
+.feedback-box ul{margin:0;padding-right:20px;color:var(--ink);line-height:1.9;}
+.feedback-box li{margin-bottom:8px;font-size:15px;}
+
+@media (max-width:560px){.card{padding:20px 16px} .q-text{font-size:16px;} .option{font-size:14px; padding:14px 16px;} .chart-label{width:70px;font-size:12px;}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../index.html">
+      <span class="brand-badge">م</span>
+      <span class="brand-text"><strong>مستر پلنر</strong></span>
+    </a>
+    <a class="back-btn" href="../../index.html"><i class="fa-solid fa-arrow-left"></i> بازگشت به سایت</a>
+  </div>
+</header>
+
+<main>
+  <!-- صفحه شروع -->
+  <div class="card active" id="start-screen">
+    <h1>آزمون انتخاب رشته و شغل هالند (RIASEC)</h1>
+    <p>این آزمون بر اساس نظریه معتبر جان هالند طراحی شده است. با پاسخ به ۳۰ سوال، تیپ شخصیتی شغلی شما مشخص می‌شود و بهترین رشته‌های تحصیلی و مسیرهای شغلی به شما پیشنهاد می‌شود.</p>
+    <div class="alert">
+      <i class="fa-solid fa-lightbulb"></i> <strong>توجه:</strong> برای گرفتن بهترین نتیجه، به علایق و توانایی‌های واقعی خود فکر کنید، نه به رشته‌هایی که در جامعه "پرستیژ" دارند.
+    </div>
+    <button class="btn" onclick="startQuiz()">شروع آزمون <i class="fa-solid fa-arrow-left"></i></button>
+  </div>
+
+  <!-- صفحه سوالات -->
+  <div class="card" id="quiz-screen">
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <span class="q-num" id="q-num">سوال ۱ از ۳۰</span>
+    <div class="q-text" id="q-text">متن سوال...</div>
+    <div class="options" id="options-container">
+      <!-- گزینه‌ها با JS اضافه می‌شوند -->
+    </div>
+  </div>
+
+  <!-- صفحه نتیجه -->
+  <div class="card" id="result-screen">
+    <h2 class="result-title">پروفایل شخصیتی شغلی شما</h2>
+    <p class="result-sub">نمودار زیر میزان علاقه شما به ۶ محیط شغلی مختلف را نشان می‌دهد:</p>
+    
+    <div class="chart-container" id="chart-container">
+      <!-- نمودار با JS ساخته می‌شود -->
+    </div>
+
+    <div id="results-details">
+      <!-- جزییات تیپ‌ها با JS ساخته می‌شود -->
+    </div>
+
+    <div style="text-align:center; margin-top:20px;">
+      <button class="btn" onclick="restartQuiz()">شرکت مجدد در آزمون</button>
+    </div>
+  </div>
+</main>
+
+<script>
+// تیپ‌های هالند:
+// R: واقع‌گرا (Realistic) - کار با ابزار، ماشین، طبیعت
+// I: جستجوگر (Investigative) - تحلیل، پژوهش، حل مسئله
+// A: هنری (Artistic) - خلاقیت، طراحی، بیان
+// S: اجتماعی (Social) - کمک به دیگران، آموزش
+// E: متهور (Enterprising) - رهبری، متقاعدسازی، تجارت
+// C: قراردادی (Conventional) - نظم، داده‌ها، قوانین
+
+const questions = [
+  { q: "از کار کردن با ابزار و وسایل مکانیکی لذت می‌برم.", type: "R" },
+  { q: "دوست دارم یاد بگیرم یک وسیله یا دستگاه را تعمیر کنم.", type: "R" },
+  { q: "ترجیح می‌دهم کارهایم را در فضای باز یا طبیعت انجام دهم.", type: "R" },
+  { q: "کارهای عملی و بدنی را به کارهای پشت میزی ترجیح می‌دهم.", type: "R" },
+  { q: "دوست دارم با ماشین‌آلات، ربات‌ها یا تجهیزات کار کنم.", type: "R" },
+
+  { q: "از حل کردن معماهای پیچیده و مسائل ریاضی لذت می‌برم.", type: "I" },
+  { q: "دوست دارم درباره اینکه چیزها چطور کار می‌کنند، تحقیق کنم.", type: "I" },
+  { q: "کار در آزمایشگاه و انجام آزمایش‌های علمی برایم جذاب است.", type: "I" },
+  { q: "ترجیح می‌دهم با نظریه‌ها و مفاهیم انتزاعی سروکار داشته باشم.", type: "I" },
+  { q: "دوست دارم مشکلات را با تحلیل منطقی و داده‌ها حل کنم.", type: "I" },
+
+  { q: "از طراحی کردن، نقاشی کشیدن یا خلق اثر هنری لذت می‌برم.", type: "A" },
+  { q: "دوست دارم کارهایی انجام دهم که نیاز به تخیل و خلاقیت دارد.", type: "A" },
+  { q: "از نوشتن داستان، شعر یا مقاله لذت می‌برم.", type: "A" },
+  { q: "ترجیح می‌دهم در محیطی کار کنم که قوانین سخت‌گیرانه نداشته باشد.", type: "A" },
+  { q: "دوست دارم در کارهایم از رنگ‌ها، فرم‌ها و زیبایی‌شناسی استفاده کنم.", type: "A" },
+
+  { q: "از کمک کردن به دیگران و حل مشکلات آن‌ها لذت می‌برم.", type: "S" },
+  { q: "دوست دارم به دیگران آموزش بدهم یا آن‌ها را راهنمایی کنم.", type: "S" },
+  { q: "کار کردن در تیم و همکاری با دیگران برایم جذاب است.", type: "S" },
+  { q: "به احساسات و مشکلات اطرافیانم توجه زیادی می‌کنم.", type: "S" },
+  { q: "دوست دارم در حرفه‌ای کار کنم که به بهبود زندگی مردم کمک کند.", type: "S" },
+
+  { q: "از رهبری کردن گروه و هدایت دیگران لذت می‌برم.", type: "E" },
+  { q: "دوست دارم در مورد ایده‌هایم با دیگران صحبت کنم و آن‌ها را متقاعد کنم.", type: "E" },
+  { q: "کارهای تجاری و راه‌اندازی کسب‌وکار برایم هیجان‌انگیز است.", type: "E" },
+  { q: "دوست دارم تصمیم‌های مهم را من بگیرم و مسئولیتش را بپذیرم.", type: "E" },
+  { q: "رقابت و پیشی گرفتن از دیگران، به من انرژی می‌دهد.", type: "E" },
+
+  { q: "از مرتب کردن و سازماندهی اطلاعات و داده‌ها لذت می‌برم.", type: "C" },
+  { q: "دوست دارم با اعداد، آمار و جداول کار کنم.", type: "C" },
+  { q: "کارهایی که دارای قوانین و رویه‌های مشخص هستند را ترجیح می‌دهم.", type: "C" },
+  { q: "به جزئیات و دقت در کارها بسیار اهمیت می‌دهم.", type: "C" },
+  { q: "دوست دارم در محیطی کار کنم که نظم و ساختار مشخصی دارد.", type: "C" }
+];
+
+const likertOptions = [
+  "کاملاً مخالفم",
+  "مخالفم",
+  "بی‌نظر",
+  "موافقم",
+  "کاملاً موافقم"
+];
+
+const resultsData = {
+  R: {
+    name: "واقع‌گرا (Realistic)",
+    color: "var(--c-R)",
+    icon: "fa-gears",
+    desc: "شما فردی عمل‌گرا، اهل تکنولوژی و واقع‌بین هستید. از کار با ابزار، ماشین‌آلات و محیط‌های عملی لذت می‌برید. به جای صحبت کردن، ترجیح می‌دهید کارها را انجام دهید.",
+    majors: "مهندسی‌های مکانیک، برق، عمران، مواد، کامپیوتر (سخت‌افزار)، کشاورزی، فنی و حرفه‌ای.",
+    jobs: "مهندس، تکنسین، مکانیک، خلبان، متخصص رباتیک، مدیر کارخانه."
+  },
+  I: {
+    name: "جستجوگر (Investigative)",
+    color: "var(--c-I)",
+    icon: "fa-flask",
+    desc: "شما فردی تحلیل‌گر، کنجکاو و پژوهشگر هستید. از حل مسائل پیچیده، تحلیل داده‌ها و کشف حقایق علمی لذت می‌برید. به منطق و استدلال بیش از احساسات اهمیت می‌دهید.",
+    majors: "پزشکی، داروسازی، علوم پایه (ریاضی، فیزیک، شیمی، زیست)، مهندسی کامپیوتر (نرم‌افزار)، اقتصاد، آمار.",
+    jobs: "پزشک، پژوهشگر، دانشمند داده، برنامه‌نویس، مهندس تحلیل‌گر."
+  },
+  A: {
+    name: "هنری (Artistic)",
+    color: "var(--c-A)",
+    icon: "fa-palette",
+    desc: "شما فردی خلاق، خیال‌پرداز و نوآور هستید. به زیبایی‌شناسی، بیان احساسات و خلق چیزهای جدید اهمیت می‌دهید. از قوانین خشک و کارهای تکراری خوشتان نمی‌آید.",
+    majors: "معماری، گرافیک، طراحی صنعتی، ادبیات، هنرهای تجسمی، موسیقی، سینما، طراحی لباس.",
+    jobs: "طراح گرافیک، معمار، نویسنده، کارگردان، موسیقی‌دان، هنرمند."
+  },
+  S: {
+    name: "اجتماعی (Social)",
+    color: "var(--c-S)",
+    icon: "fa-hands-holding-child",
+    desc: "شما فردی دلسوز، همدل و اهل ارتباط هستید. از کمک به دیگران، آموزش دادن و کار تیمی لذت می‌برید. مهارت‌های ارتباطی شما بسیار قوی است.",
+    majors: "روانشناسی، مشاوره، علوم تربیتی، آموزش ابتدایی، پرستاری، مددکاری اجتماعی، حقوق (وکالت).",
+    jobs: "مشاور، معلم، روان‌شناس، پرستار، مددکار اجتماعی، منابع انسانی."
+  },
+  E: {
+    name: "متهور (Enterprising)",
+    color: "var(--c-E)",
+    icon: "fa-briefcase",
+    desc: "شما فردی پرانرژی، رهبر و اهل ریسک هستید. از متقاعد کردن دیگران، مدیریت پروژه‌ها و رقابت لذت می‌برید. به دنبال قدرت، موفقیت و پیشرفت هستید.",
+    majors: "مدیریت بازرگانی، مدیریت صنعتی، بازاریابی، اقتصاد، حقوق (قضا)، کارآفرینی، MBA.",
+    jobs: "مدیرعامل، کارآفرین، مدیر فروش، مشاور کسب‌وکار، وکیل، سیاستمدار."
+  },
+  C: {
+    name: "قراردادی (Conventional)",
+    color: "var(--c-C)",
+    icon: "fa-file-invoice-dollar",
+    desc: "شما فردی منظم، دقیق و ساختارمند هستید. از کار با داده‌ها، اعداد و رویه‌های مشخص لذت می‌برید. به جزئیات اهمیت زیادی می‌دهید و در محیط‌های با نظم، عملکرد عالی دارید.",
+    majors: "حسابداری، مالی، بانکداری، مدیریت اداری، آمار، مهندسی صنایع (بهینه‌سازی).",
+    jobs: "حسابدار، تحلیل‌گر مالی، مدیر اداری، کارمند بانک، حسابرس."
+  }
+};
+
+let currentIndex = 0;
+let scores = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+
+function startQuiz() {
+  currentIndex = 0;
+  scores = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+  document.getElementById('start-screen').classList.remove('active');
+  document.getElementById('result-screen').classList.remove('active');
+  document.getElementById('quiz-screen').classList.add('active');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[currentIndex];
+  document.getElementById('q-num').innerText = `سوال ${currentIndex + 1} از ${questions.length}`;
+  document.getElementById('q-text').innerText = q.q;
+
+  const progress = ((currentIndex) / questions.length) * 100;
+  document.getElementById('progress-bar').style.width = `${progress}%`;
+
+  const container = document.getElementById('options-container');
+  container.innerHTML = '';
+
+  likertOptions.forEach((opt, i) => {
+    const val = i + 1; 
+    const label = document.createElement('label');
+    label.className = 'option';
+    label.innerHTML = `
+      <input type="radio" name="q_opt" value="${val}">
+      ${opt}
+    `;
+    label.addEventListener('click', () => {
+      document.querySelectorAll('.option').forEach(l => l.classList.remove('selected'));
+      label.classList.add('selected');
+      
+      setTimeout(() => {
+        scores[q.type] += val;
+        currentIndex++;
+        if (currentIndex < questions.length) {
+          renderQuestion();
+        } else {
+          showResult();
+        }
+      }, 250); 
+    });
+    container.appendChild(label);
+  });
+}
+
+function showResult() {
+  document.getElementById('quiz-screen').classList.remove('active');
+  document.getElementById('result-screen').classList.add('active');
+
+  // مرتب‌سازی تیپ‌ها بر اساس نمره از بیشترین به کمترین
+  const sortedTypes = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
+  
+  const chartContainer = document.getElementById('chart-container');
+  chartContainer.innerHTML = '';
+
+  // ساخت نمودار میله‌ای
+  sortedTypes.forEach(type => {
+    const info = resultsData[type];
+    const score = scores[type];
+    const percent = (score / 25) * 100; // حداکثر نمره 25 است (5 سوال * 5 نمره)
+
+    const row = document.createElement('div');
+    row.className = 'chart-row';
+    row.innerHTML = `
+      <div class="chart-label">${info.name.split(' ')[1]}</div>
+      <div class="chart-bar-bg">
+        <div class="chart-bar-fill" style="background:${info.color}; width:${percent}%"></div>
+      </div>
+      <div class="chart-score">${score}</div>
+    `;
+    chartContainer.appendChild(row);
+  });
+
+  // نمایش جزئیات برای ۳ تیپ برتر
+  const detailsContainer = document.getElementById('results-details');
+  detailsContainer.innerHTML = '';
+
+  const top3 = sortedTypes.slice(0, 3);
+
+  top3.forEach((type, index) => {
+    const info = resultsData[type];
+    const box = document.createElement('div');
+    box.className = 'feedback-box';
+    box.style.borderRightColor = info.color;
+    
+    let rankText = index === 0 ? "🥇 تیپ غالب شما" : (index === 1 ? "🥈 تیپ دوم" : "🥉 تیپ سوم");
+
+    box.innerHTML = `
+      <h3 style="color:${info.color}"><i class="fa-solid ${info.icon}"></i> ${rankText}: ${info.name}</h3>
+      <p>${info.desc}</p>
+      <p><strong>رشته‌های تحصیلی پیشنهادی:</strong><br>${info.majors}</p>
+      <p><strong>مشاغل پیشنهادی:</strong><br>${info.jobs}</p>
+    `;
+    detailsContainer.appendChild(box);
+  });
+}
+
+function restartQuiz() {
+  document.getElementById('result-screen').classList.remove('active');
+  startQuiz();
+}
+</script>
+</body>
+  </html>
