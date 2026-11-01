@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>آزمون سنجش انگیزش مطالعه | مستر پلنر</title>
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2;display:flex;flex-direction:column;min-height:100vh;}
+a{color:var(--brand);text-decoration:none}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);font-weight:800;font-size:20px}
+.brand-text strong{font-size:17px}
+.back-btn{color:#fff;font-size:13px;background:rgba(255,255,255,.14);padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.25);transition:0.3s;}
+.back-btn:hover{background:rgba(255,255,255,.24);text-decoration:none}
+
+main{flex:1;max-width:800px;margin:26px auto 40px;padding:0 16px;width:100%;}
+
+.card{background:var(--card);border-radius:var(--radius);padding:30px 24px;box-shadow:var(--shadow);border:1px solid var(--line);display:none;}
+.card.active{display:block;animation:fadeIn 0.4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+h1{font-size:22px;color:var(--brand-dark);margin:0 0 16px;}
+p{color:var(--muted);margin:0 0 16px;text-align:justify;}
+
+.alert{background:#e0f2fe;border-right:4px solid #0284c7;padding:12px 16px;border-radius:8px;font-size:13px;color:#075985;margin-bottom:20px;}
+
+.btn{background:var(--brand);color:#fff;border:none;padding:12px 24px;border-radius:8px;font-family:inherit;font-size:16px;cursor:pointer;transition:0.3s;display:inline-block;}
+.btn:hover{background:var(--brand-dark);transform:translateY(-2px);}
+
+/* Progress bar */
+.progress-container{background:var(--brand-soft);border-radius:999px;height:8px;margin-bottom:20px;overflow:hidden;}
+.progress-bar{background:var(--brand);height:100%;width:0%;transition:width 0.3s ease;}
+
+/* Question */
+.q-num{font-size:13px;color:var(--brand);font-weight:bold;margin-bottom:8px;display:block;}
+.q-text{font-size:18px;font-weight:700;margin-bottom:20px;color:var(--ink);line-height:1.6;}
+
+.options{display:flex;flex-direction:column;gap:12px;}
+.option{display:block;position:relative;padding:16px 20px;border:2px solid var(--line);border-radius:12px;cursor:pointer;transition:0.2s;font-size:15px;}
+.option:hover{border-color:var(--brand);background:var(--brand-soft);}
+.option input{position:absolute;opacity:0;cursor:pointer;}
+.option.selected{border-color:var(--brand);background:var(--brand-soft);}
+.option.selected::after{content:"\f00c";font-family:"Font Awesome 6 Free";font-weight:900;position:absolute;left:20px;top:50%;transform:translateY(-50%);color:var(--brand);}
+
+/* Result */
+.result-title{font-size:26px;color:var(--brand-dark);text-align:center;margin-bottom:8px;}
+.result-sub{text-align:center;color:var(--muted);margin-bottom:24px;}
+
+.score-board{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.score-box{background:#fff;padding:20px;border-radius:12px;text-align:center;border:2px solid var(--line);box-shadow:0 4px 12px rgba(0,0,0,0.03);}
+.score-box i{font-size:28px;margin-bottom:8px;display:block;}
+.score-box.intrinsic i{color:var(--accent);}
+.score-box.extrinsic i{color:#f59e0b;}
+.score-box span{font-size:30px;font-weight:800;display:block;line-height:1;}
+.score-box small{font-size:13px;color:var(--muted);margin-top:4px;display:block;}
+.score-box .bar-bg{width:100%;height:6px;background:var(--line);border-radius:999px;margin-top:12px;overflow:hidden;}
+.score-box .bar-fill{height:100%;border-radius:999px;transition:width 1s ease;}
+.score-box.intrinsic .bar-fill{background:var(--accent);}
+.score-box.extrinsic .bar-fill{background:#f59e0b;}
+
+.feedback-box{background:#fff;border-right:4px solid var(--brand);padding:20px;border-radius:8px;margin-bottom:20px;box-shadow:0 4px 12px rgba(0,0,0,0.03);}
+.feedback-box h3{margin:0 0 12px;color:var(--brand-dark);font-size:18px;display:flex;align-items:center;gap:8px;}
+.feedback-box p{margin-bottom:12px;font-size:15px;color:var(--ink);}
+
+.tips-section{background:var(--brand-soft);padding:20px;border-radius:12px;border:1px dashed var(--brand);margin-bottom:24px;}
+.tips-section h4{margin:0 0 12px;color:var(--brand-dark);font-size:16px;}
+.tips-section ul{margin:0;padding-right:20px;color:var(--ink);line-height:1.9;}
+.tips-section li{margin-bottom:8px;font-size:14.5px;}
+
+@media (max-width:560px){.card{padding:20px 16px} .q-text{font-size:16px;} .option{font-size:14px; padding:14px 16px;} .score-board{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../index.html">
+      <span class="brand-badge">م</span>
+      <span class="brand-text"><strong>مستر پلنر</strong></span>
+    </a>
+    <a class="back-btn" href="../../index.html"><i class="fa-solid fa-arrow-left"></i> بازگشت به سایت</a>
+  </div>
+</header>
+
+<main>
+  <!-- صفحه شروع -->
+  <div class="card active" id="start-screen">
+    <h1>سنجش انگیزش مطالعه</h1>
+    <p>چرا درس می‌خوانید؟ آیا برای لذت بردن از یادگیری است، یا برای فرار از تنبیه و رسیدن به نمره؟ این آزمون ۱۲ سوالی، موتور محرکه شما را کشف می‌کند و نشان می‌دهد چطور می‌توانید انگیزه‌ای پایدار بسازید.</p>
+    <div class="alert">
+      <i class="fa-solid fa-lightbulb"></i> <strong>توجه:</strong> این آزمون برای خودشناسی است. هیچ پاسخ درست یا غلطی وجود ندارد؛ صادقانه پاسخ دهید.
+    </div>
+    <button class="btn" onclick="startQuiz()">شروع آزمون <i class="fa-solid fa-arrow-left"></i></button>
+  </div>
+
+  <!-- صفحه سوالات -->
+  <div class="card" id="quiz-screen">
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <span class="q-num" id="q-num">سوال ۱ از ۱۲</span>
+    <div class="q-text" id="q-text">متن سوال...</div>
+    <div class="options" id="options-container">
+      <!-- گزینه‌ها با JS اضافه می‌شوند -->
+    </div>
+  </div>
+
+  <!-- صفحه نتیجه -->
+  <div class="card" id="result-screen">
+    <h2 class="result-title">پروفایل انگیزشی شما</h2>
+    <p class="result-sub">بر اساس پاسخ‌های شما، ترکیب انگیزه‌های درونی و بیرونی شما مشخص شد:</p>
+    
+    <div class="score-board">
+      <div class="score-box intrinsic">
+        <i class="fa-solid fa-heart"></i>
+        <span id="score-im">0</span>
+        <small>انگیزه درونی (از ۳۰)</small>
+        <div class="bar-bg"><div class="bar-fill" id="bar-im" style="width:0%"></div></div>
+      </div>
+      <div class="score-box extrinsic">
+        <i class="fa-solid fa-medal"></i>
+        <span id="score-em">0</span>
+        <small>انگیزه بیرونی (از ۳۰)</small>
+        <div class="bar-bg"><div class="bar-fill" id="bar-em" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <div class="feedback-box">
+      <h3><i class="fa-solid fa-magnifying-glass-chart"></i> تحلیل پروفایل شما</h3>
+      <p id="analysis-text"></p>
+    </div>
+
+    <div class="tips-section">
+      <h4><i class="fa-solid fa-rocket"></i> راهکارهای بهبود و پایداری انگیزه:</h4>
+      <ul id="tips-list"></ul>
+    </div>
+
+    <div style="text-align:center;">
+      <button class="btn" onclick="restartQuiz()">شرکت مجدد در آزمون</button>
+    </div>
+  </div>
+</main>
+
+<script>
+// 6 سوال انگیزه درونی (I) و 6 سوال انگیزه بیرونی (E)
+// طیف لیکرت 5 گزینه‌ای: کاملاً مخالفم (1) تا کاملاً موافقم (5)
+const questions = [
+  { q: "وقتی مطلب جدیدی یاد می‌گیرم، احساس هیجان و لذت می‌کنم.", type: "IM" },
+  { q: "من فقط زمانی درس می‌خوانم که امتحان یا نمره‌ای در پیش باشد.", type: "EM" },
+  { q: "دوست دارم درباره موضوعاتی که یاد می‌گیرم، بیشتر کاوش کنم.", type: "IM" },
+  { q: "اگر مطمئن باشم کسی نمره‌ام را نمی‌بیند، تلاشم برای مطالعه کمتر می‌شود.", type: "EM" },
+  { q: "حل کردن یک مسئله سخت، به من احساس رضایت عمیقی می‌دهد.", type: "IM" },
+  { q: "بیشتر برای خوشحال کردن خانواده‌ام یا جلوگیری از سرزنش آن‌ها درس می‌خوانم.", type: "EM" },
+  { q: "کنجکاوی، اصلی‌ترین دلیل من برای یادگیری مطالب جدید است.", type: "IM" },
+  { q: "رقابت با همکلاسی‌هایم، انگیزه اصلی من برای درس خواندن است.", type: "EM" },
+  { q: "حتی اگر درس سخت باشد، از اینکه در حال رشد و پیشرفت هستم لذت می‌برم.", type: "IM" },
+  { q: "اگر جایزه یا تشویقی در کار نباشد، انگیزه‌ام برای مطالعه به شدت کم می‌شود.", type: "EM" },
+  { q: "من مطالعه می‌کنم چون می‌خواهم بفهمم دنیا چطور کار می‌کند.", type: "IM" },
+  { q: "احساس می‌کنم باید درس بخوانم، حتی اگر هیچ میلی به آن نداشته باشم (فقط برای انجام وظیفه).", type: "EM" }
+];
+
+const likertOptions = [
+  "کاملاً مخالفم",
+  "مخالفم",
+  "بی‌نظر",
+  "موافقم",
+  "کاملاً موافقم"
+];
+
+let currentIndex = 0;
+let scoreIM = 0;
+let scoreEM = 0;
+
+function startQuiz() {
+  currentIndex = 0;
+  scoreIM = 0;
+  scoreEM = 0;
+  document.getElementById('start-screen').classList.remove('active');
+  document.getElementById('result-screen').classList.remove('active');
+  document.getElementById('quiz-screen').classList.add('active');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[currentIndex];
+  document.getElementById('q-num').innerText = `سوال ${currentIndex + 1} از ${questions.length}`;
+  document.getElementById('q-text').innerText = q.q;
+
+  const progress = ((currentIndex) / questions.length) * 100;
+  document.getElementById('progress-bar').style.width = `${progress}%`;
+
+  const container = document.getElementById('options-container');
+  container.innerHTML = '';
+
+  likertOptions.forEach((opt, i) => {
+    const val = i + 1; // 1 to 5
+    const label = document.createElement('label');
+    label.className = 'option';
+    label.innerHTML = `
+      <input type="radio" name="q_opt" value="${val}">
+      ${opt}
+    `;
+    label.addEventListener('click', () => {
+      document.querySelectorAll('.option').forEach(l => l.classList.remove('selected'));
+      label.classList.add('selected');
+      
+      setTimeout(() => {
+        if (q.type === 'IM') scoreIM += val;
+        else scoreEM += val;
+        
+        currentIndex++;
+        if (currentIndex < questions.length) {
+          renderQuestion();
+        } else {
+          showResult();
+        }
+      }, 250); 
+    });
+    container.appendChild(label);
+  });
+}
+
+function showResult() {
+  document.getElementById('quiz-screen').classList.remove('active');
+  document.getElementById('result-screen').classList.add('active');
+
+  document.getElementById('score-im').innerText = scoreIM;
+  document.getElementById('score-em').innerText = scoreEM;
+  
+  // محاسبه درصد پر شدن نوارها (حداکثر 30)
+  document.getElementById('bar-im').style.width = `${(scoreIM / 30) * 100}%`;
+  document.getElementById('bar-em').style.width = `${(scoreEM / 30) * 100}%`;
+
+  const analysisEl = document.getElementById('analysis-text');
+  const tipsEl = document.getElementById('tips-list');
+
+  // آستانه‌ها: 18 (میانگین 3 در هر سوال)
+  const highIM = scoreIM >= 18;
+  const highEM = scoreEM >= 18;
+
+  if (highIM && highEM) {
+    analysisEl.innerHTML = `
+      <p>شما در هر دو زمینه <strong>انگیزه بالایی</strong> دارید. هم از یادگیری لذت می‌برید (درونی) و هم به نتایج و نمرات اهمیت می‌دهید (بیرونی).</p>
+      <p>این وضعیت می‌تواند بسیار قدرتمند باشد، اما یک <strong>هشدار</strong> هم دارد: اگر فشار بیرونی (مثل نمره یا انتظار خانواده) بیش از حد شود، ممکن است لذت یادگیری (انگیزه درونی) را تحت‌الشعاع قرار دهد و به مرور دچار فرسودگی شوید.</p>
+    `;
+    tipsEl.innerHTML = `
+      <li><strong>مراقب فرسودگی باشید:</strong> حتماً زمانی را برای یادگیری چیزهایی که فقط برای لذت خودتان است (بدون نمره و ارزیابی) اختصاص دهید.</li>
+      <li><strong>تعادل را حفظ کنید:</strong> از فشار آوردن بیش از حد به خودتان برای کسب نمره‌های عالی دست بردارید. گاهی "خوب" کافی است.</li>
+      <li><strong>پذیرش شکست:</strong> اگر در یک آزمون نتیجه نگیرید، ارزش شما به عنوان یک انسان کم نمی‌شود. تمرکز را روی یادگیری بگذارید، نه فقط نتیجه.</li>
+    `;
+  } else if (highIM && !highEM) {
+    analysisEl.innerHTML = `
+      <p>شما یک <strong>یادگیرنده ذاتاً کنجکاو</strong> هستید. انگیزه اصلی شما از درون می‌آید: عشق به فهمیدن، حل مسئله و رشد شخصی. این بهترین و پایدارترین نوع انگیزه است!</p>
+      <p>شما احتمالاً حتی بدون فشار امتحانات هم به مطالعه ادامه می‌دهید. چالش اصلی شما ممکن است این باشد که در سیستم آموزشی که بر نمره تاکید دارد، گاهی انگیزه‌تان برای "درس‌های اجباری" کم شود یا از رقابت‌های بیرونی فاصله بگیرید.</p>
+    `;
+    tipsEl.innerHTML = `
+      <li><strong>پیوند با اهداف بلندمدت:</strong> درس‌هایی که برایتان جذاب نیستند را به علایق درونی خود گره بزنید (مثلاً "چطور این درس به من در درک بهتر جهان کمک می‌کند؟").</li>
+      <li><strong>پاداش‌های کوچک:</strong> برای کارهای خسته‌کننده (مثل حفظیات)، از پاداش‌های بیرونی کوچک (یک استراحت کوتاه یا یک خوراکی) استفاده کنید تا تعادل حفظ شود.</li>
+      <li><strong>به اشتراک‌گذاری:</strong> آنچه یاد می‌گیرید را با دیگران به اشتراک بگذارید. این کار انگیزه درونی شما را تقویت می‌کند.</li>
+    `;
+  } else if (!highIM && highEM) {
+    analysisEl.innerHTML = `
+      <p>انگیزه شما عمدتاً از <strong>عوامل بیرونی</strong> سرچشمه می‌گیرد: نمره، ترس از شکست، رقابت یا انتظارات خانواده. این نوع انگیزه می‌تواند شما را به حرکت درآورد، اما یک مشکل بزرگ دارد: <strong>پایدار نیست و منجر به فرسودگی می‌شود</strong>.</p>
+      <p>احتمالاً وقتی فشارها برداشته می‌شود (مثلاً بعد از امتحانات)، انگیزه شما به شدت افت می‌کند. همچنین ممکن است از یادگیری لذت نبرید و آن را فقط یک "وظیفه سنگین" ببینید.</p>
+    `;
+    tipsEl.innerHTML = `
+      <li><strong>کشف علایق پنهان:</strong> سعی کنید در هر درس، حداقل یک نکته پیدا کنید که واقعاً برایتان جالب است. این نقطه ورود انگیزه درونی است.</li>
+      <li><strong>تعریف مجدد موفقیت:</strong> موفقیت را فقط به نمره محدود نکنید. به جای "نمره ۲۰ گرفتن"، هدف خود را "فهمیدن عمیق ۳ مبحث" بگذارید.</li>
+      <li><strong>یادگیری بدون فشار:</strong> گاهی موضوعی را فقط برای خودتان مطالعه کنید، بدون اینکه قرار باشد امتحان بدهید.</li>
+    `;
+  } else {
+    analysisEl.innerHTML = `
+      <p>نمرات شما نشان می‌دهد که در حال حاضر با <strong>بی‌انگیزگی یا انگیزه بسیار پایین</strong> مواجه هستید. نه از یادگیری لذت می‌برید و نه فشار بیرونی برایتان جذابیت یا ترس ایجاد می‌کند.</p>
+      <p>این وضعیت می‌تواند به دلیل خستگی مزمن، افسردگی خفیف، یا عدم ارتباط با اهداف باشد. <strong>این وضعیت، شکست شما نیست؛</strong> یک علامت است که نیاز دارید مسیرتان را بازنگری کنید.</p>
+    `;
+    tipsEl.innerHTML = `
+      <li><strong>شروع بسیار کوچک:</strong> از کارهای خیلی کوچک شروع کنید. مثلاً ۵ دقیقه مطالعه در روز. هدف فقط "شروع کردن" است، نه یادگیری زیاد.</li>
+      <li><strong>یافتن "چرا":</strong> از خودتان بپرسید "چرا باید درس بخوانم؟" اگر پاسخ واضحی ندارید، با یک مشاور درباره اهدافتان صحبت کنید.</li>
+      <li><strong>تغییر محیط:</strong> گاهی محیط مطالعه (مثل اتاق تاریک یا تنها) باعث بی‌انگیزگی می‌شود. مکان مطالعه خود را تغییر دهید یا با دوستانتان مطالعه کنید.</li>
+      <li><strong>سلامت روان:</strong> اگر بی‌انگیزگی همراه با خستگی شدید، اختلال خواب یا بی‌حسی عاطفی است، حتماً با یک روان‌شناس مشورت کنید.</li>
+    `;
+  }
+}
+
+function restartQuiz() {
+  document.getElementById('result-screen').classList.remove('active');
+  startQuiz();
+}
+</script>
+</body>
+                                                           </html>
