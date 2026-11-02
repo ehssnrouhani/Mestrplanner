@@ -1,33 +1,37 @@
 /* ============================================================
-   Mastery — Practice Calculator (Simple Language)
+   Mastery — Practice Calculator
+   موضوع را کاربر وارد می‌کند؛ ۶ مؤلفه سنجش عمومی ارزیابی می‌شود.
    ============================================================ */
 (function () {
   'use strict';
 
-  const CONFIG = {
-    dataUrl: './data/subjects.json',
+  var CONFIG = {
+    dataUrl: './data/config.json',
     rootId: 'mastery-root'
   };
 
-  let data = null;
-  let currentSubject = null;
-  let ratings = {};
+  var data = null;
+  var ratings = {};
+  var enteredTopic = '';
 
   document.addEventListener('DOMContentLoaded', init);
 
   async function init() {
-    const root = document.getElementById(CONFIG.rootId);
+    var root = document.getElementById(CONFIG.rootId);
     if (!root) return;
     try {
       data = await fetchJson(CONFIG.dataUrl);
+      ratings = {};
+      data.components.forEach(function (c) { ratings[c.id] = 'unknown'; });
       renderApp(root);
+      bindEvents(root);
     } catch (err) {
       root.innerHTML = '<div class="m-error">⚠️ خطا در بارگذاری: ' + escapeHtml(err.message) + '</div>';
     }
   }
 
   async function fetchJson(url) {
-    const res = await fetch(url, { cache: 'no-cache' });
+    var res = await fetch(url, { cache: 'no-cache' });
     if (!res.ok) throw new Error('HTTP ' + res.status + ' — ' + url);
     return res.json();
   }
@@ -42,27 +46,35 @@
 
       + '<div class="m-intro">'
       +   '<h3>🎯 این ابزار چه کار می‌کند؟</h3>'
-      +   '<p>بهت می‌گوید برای تسلط بر یک درس، <strong>چقدر و چه نوع تمرینی</strong> لازم داری.</p>'
+      +   '<p>بهت می‌گوید برای تسلط بر <strong>هر موضوعی</strong>، چقدر و چه نوع تمرینی لازم داری.</p>'
       +   '<ol>'
-      +     '<li>درس را انتخاب کن</li>'
-      +     '<li>برای هر مهارت، بگو الان چقدر بلدی (صادق باش!)</li>'
+      +     '<li>نام موضوع را وارد کن</li>'
+      +     '<li>برای ۶ مؤلفه سنجش، بگو الان چقدر بلدی (صادق باش!)</li>'
       +     '<li>ساعت مطالعه هفتگی‌ات را وارد کن</li>'
       +     '<li>ببین چقدر تمرین و چقدر زمان لازم داری</li>'
       +   '</ol>'
       + '</div>'
 
+      /* Step 1: Topic input */
       + '<section class="m-section">'
-      +   '<h2><span class="m-icon">۱</span> کدام درس؟</h2>'
-      +   '<div class="m-subjects" id="m-subjects"></div>'
+      +   '<h2><span class="m-icon">۱</span> چه چیزی می‌خواهی یاد بگیری؟</h2>'
+      +   '<div class="m-topic-box">'
+      +     '<label for="m-topic">نام موضوع را بنویس</label>'
+      +     '<input type="text" id="m-topic" placeholder="مثلاً: مشتق، تاریخ مشروطه، Present Perfect" maxlength="80">'
+      +   '</div>'
+      +   '<button class="m-btn" id="m-continue" disabled>ادامه</button>'
       + '</section>'
 
-      + '<section class="m-section" id="m-edges-section" style="display:none;">'
+      /* Step 2: Component ratings (hidden initially) */
+      + '<section class="m-section" id="m-step-2" style="display:none;">'
       +   '<h2><span class="m-icon">۲</span> الان چقدر بلدی؟</h2>'
-      +   '<p style="color:var(--m-text-light);font-size:0.88rem;margin-bottom:16px;">'
-      +     'برای هر مهارت، یکی از چهار گزینه را انتخاب کن. اگر صادق باشی، نتیجه دقیق‌تر است.'
-      +   '</p>'
-      +   '<div class="m-edges" id="m-edges"></div>'
-      +   '<h2 style="margin-top:24px;"><span class="m-icon">۳</span> چقدر وقت داری؟</h2>'
+      +   '<p class="m-help">برای هر مورد، یکی از چهار گزینه را انتخاب کن. اگر صادق باشی، نتیجه دقیق‌تر است.</p>'
+      +   '<div class="m-components" id="m-components"></div>'
+      + '</section>'
+
+      /* Step 3: Time inputs (hidden initially) */
+      + '<section class="m-section" id="m-step-3" style="display:none;">'
+      +   '<h2><span class="m-icon">۳</span> چقدر وقت داری؟</h2>'
       +   '<div class="m-inputs">'
       +     '<div class="m-input-group">'
       +       '<label for="m-hours">هفته‌ای چند ساعت برای این درس وقت می‌گذاری؟</label>'
@@ -86,66 +98,30 @@
       +   'ابزار تخمین تمرین · مستر پلنر'
       + '</footer>';
 
-    renderSubjects(root);
+    renderComponents(root);
   }
 
-  function renderSubjects(root) {
-    const wrap = root.querySelector('#m-subjects');
-    wrap.innerHTML = data.subjects.map(function (s) {
-      return ''
-        + '<div class="m-subject-card" data-id="' + escapeHtml(s.id) + '">'
-        +   '<div class="m-icon-lg">' + escapeHtml(s.icon) + '</div>'
-        +   '<div class="m-name">' + escapeHtml(s.name) + '</div>'
-        +   '<div class="m-cat">' + escapeHtml(s.category) + '</div>'
-        +   '<div class="m-summary">' + escapeHtml(s.summary) + '</div>'
-        + '</div>';
-    }).join('');
-
-    wrap.querySelectorAll('.m-subject-card').forEach(function (card) {
-      card.addEventListener('click', function () {
-        wrap.querySelectorAll('.m-subject-card').forEach(function (c) {
-          c.classList.remove('is-active');
-        });
-        card.classList.add('is-active');
-        selectSubject(root, card.getAttribute('data-id'));
-      });
-    });
-  }
-
-  function selectSubject(root, subjectId) {
-    currentSubject = data.subjects.find(function (s) { return s.id === subjectId; });
-    if (!currentSubject) return;
-    ratings = {};
-    currentSubject.edges.forEach(function (e) { ratings[e.id] = 'unknown'; });
-    const section = root.querySelector('#m-edges-section');
-    section.style.display = 'block';
-    renderEdges(root);
-    root.querySelector('#m-result').innerHTML = '';
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  function renderEdges(root) {
-    const wrap = root.querySelector('#m-edges');
-    const keys = ['strong', 'medium', 'weak', 'unknown'];
-    wrap.innerHTML = currentSubject.edges.map(function (e) {
-      const layerMeta = data.layer_meta[e.D];
-      const labelHtml = keys.map(function (k) {
+  /* ---------- رندر ۶ مؤلفه ---------- */
+  function renderComponents(root) {
+    var wrap = root.querySelector('#m-components');
+    var keys = ['strong', 'medium', 'weak', 'unknown'];
+    wrap.innerHTML = data.components.map(function (c) {
+      var lm = data.level_meta[c.level];
+      var labelHtml = keys.map(function (k) {
         return ''
           + '<label class="is-' + k + '">'
-          +   '<input type="radio" name="rate_' + escapeHtml(e.id) + '" value="' + k + '"'
+          +   '<input type="radio" name="rate_' + escapeHtml(c.id) + '" value="' + k + '"'
           +     (k === 'unknown' ? ' checked' : '') + '>'
           +   '<span>' + escapeHtml(data.rating_labels[k]) + '</span>'
           + '</label>';
       }).join('');
       return ''
-        + '<div class="m-edge" data-edge-id="' + escapeHtml(e.id) + '">'
-        +   '<div class="m-edge-label">'
-        +     '<div>' + escapeHtml(e.label) + '</div>'
-        +     '<div class="m-edge-meta">'
-        +       '<span class="m-layer-tag m-layer-' + e.D + '">'
-        +         escapeHtml(layerMeta.label)
-        +       '</span>'
+        + '<div class="m-comp" data-comp-id="' + escapeHtml(c.id) + '">'
+        +   '<div class="m-comp-label">'
+        +     '<div>' + escapeHtml(c.label)
+        +       ' <span class="m-layer-tag m-layer-' + c.level + '">' + escapeHtml(lm.label) + '</span>'
         +     '</div>'
+        +     (c.hint ? '<div class="m-comp-hint">' + escapeHtml(c.hint) + '</div>' : '')
         +   '</div>'
         +   '<div class="m-ratings">' + labelHtml + '</div>'
         + '</div>';
@@ -153,48 +129,80 @@
 
     wrap.querySelectorAll('.m-ratings').forEach(function (group) {
       group.addEventListener('change', function (ev) {
-        const edgeId = group.closest('.m-edge').getAttribute('data-edge-id');
-        ratings[edgeId] = ev.target.value;
+        var compId = group.closest('.m-comp').getAttribute('data-comp-id');
+        ratings[compId] = ev.target.value;
       });
+    });
+  }
+
+  /* ---------- اتصال دکمه‌ها ---------- */
+  function bindEvents(root) {
+    var topicInput = root.querySelector('#m-topic');
+    var continueBtn = root.querySelector('#m-continue');
+
+    topicInput.addEventListener('input', function () {
+      continueBtn.disabled = topicInput.value.trim().length < 2;
+    });
+
+    continueBtn.addEventListener('click', function () {
+      var v = topicInput.value.trim();
+      if (v.length < 2) return;
+      enteredTopic = v;
+      root.querySelector('#m-step-2').style.display = 'block';
+      root.querySelector('#m-step-3').style.display = 'block';
+      root.querySelector('#m-step-2').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    root.querySelector('#m-calc').addEventListener('click', function () {
+      var hours = parseFloat(root.querySelector('#m-hours').value) || 0;
+      var weeks = parseFloat(root.querySelector('#m-weeks').value) || 1;
+      var minutes = parseFloat(root.querySelector('#m-minutes').value) || data.calc.minutes_per_item;
+      if (hours <= 0) {
+        alert('لطفاً ساعت مطالعه هفتگی را وارد کن.');
+        return;
+      }
+      var result = calculate(hours, weeks, minutes);
+      renderResult(root, result);
+      root.querySelector('#m-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
 
   /* ---------- محاسبه ---------- */
   function calculate(hoursPerWeek, weeks, minutesPerItem) {
-    const rw = data.rating_weights;
-    const lm = data.layer_meta;
-    const debt = data.calc.debt_multiplier;
+    var rw = data.rating_weights;
+    var lm = data.level_meta;
+    var debt = data.calc.debt_multiplier;
 
-    let totalRaw = 0;
-    const perLayer = { basic: 0, medium: 0, advanced: 0 };
-    const priority = [];
+    var totalRaw = 0;
+    var perLevel = { basic: 0, medium: 0, advanced: 0 };
+    var priority = [];
 
-    currentSubject.edges.forEach(function (e) {
-      const rating = ratings[e.id] || 'unknown';
-      const w = rw[rating] || 1;
-      const mult = lm[e.D].multiplier || 1;
-      const items = w * mult;
+    data.components.forEach(function (c) {
+      var rating = ratings[c.id] || 'unknown';
+      var w = rw[rating] || 1;
+      var mult = lm[c.level].multiplier || 1;
+      var items = w * mult;
       totalRaw += items;
-      perLayer[e.D] += items;
-      priority.push({ edge: e, rating: rating, items: items });
+      perLevel[c.level] += items;
+      priority.push({ comp: c, rating: rating, items: items });
     });
 
-    const totalItems = Math.max(data.calc.min_items, Math.round(totalRaw * debt));
+    var totalItems = Math.max(data.calc.min_items, Math.round(totalRaw * debt));
 
-    const rawSum = perLayer.basic + perLayer.medium + perLayer.advanced || 1;
-    const distribution = {
-      basic:    Math.max(1, Math.round((perLayer.basic    / rawSum) * totalItems)),
-      medium:   Math.max(1, Math.round((perLayer.medium   / rawSum) * totalItems)),
-      advanced: Math.max(1, Math.round((perLayer.advanced / rawSum) * totalItems))
+    var rawSum = perLevel.basic + perLevel.medium + perLevel.advanced || 1;
+    var distribution = {
+      basic:    Math.max(1, Math.round((perLevel.basic    / rawSum) * totalItems)),
+      medium:   Math.max(1, Math.round((perLevel.medium   / rawSum) * totalItems)),
+      advanced: Math.max(1, Math.round((perLevel.advanced / rawSum) * totalItems))
     };
-    const sumDist = distribution.basic + distribution.medium + distribution.advanced;
+    var sumDist = distribution.basic + distribution.medium + distribution.advanced;
     if (sumDist !== totalItems) distribution.medium += (totalItems - sumDist);
 
-    const minutes = totalItems * minutesPerItem;
-    const hours = minutes / 60;
-    const weeksNeeded = hoursPerWeek > 0 ? hours / hoursPerWeek : Infinity;
+    var minutes = totalItems * minutesPerItem;
+    var hours = minutes / 60;
+    var weeksNeeded = hoursPerWeek > 0 ? hours / hoursPerWeek : Infinity;
 
-    let feasibility;
+    var feasibility;
     if (weeksNeeded <= weeks) {
       feasibility = {
         status: 'ok',
@@ -215,14 +223,14 @@
       };
     }
 
-    const ratingOrder = { weak: 0, unknown: 1, medium: 2, strong: 3 };
-    const layerOrder = { basic: 0, medium: 1, advanced: 2 };
-    const prioritySorted = priority
+    var ratingOrder = { weak: 0, unknown: 1, medium: 2, strong: 3 };
+    var levelOrder = { basic: 0, medium: 1, advanced: 2 };
+    var prioritySorted = priority
       .filter(function (p) { return p.rating !== 'strong'; })
       .sort(function (a, b) {
-        const ra = ratingOrder[a.rating] - ratingOrder[b.rating];
+        var ra = ratingOrder[a.rating] - ratingOrder[b.rating];
         if (ra !== 0) return ra;
-        return layerOrder[a.edge.D] - layerOrder[b.edge.D];
+        return levelOrder[a.comp.level] - levelOrder[b.comp.level];
       });
 
     return {
@@ -243,26 +251,24 @@
 
   /* ---------- رندر نتیجه ---------- */
   function renderResult(root, r) {
-    const wrap = root.querySelector('#m-result');
-    const lm = data.layer_meta;
+    var wrap = root.querySelector('#m-result');
+    var lm = data.level_meta;
 
-    const priorityList = r.prioritySorted.slice(0, 6).map(function (p) {
-      const badge = ratingBadge(p.rating);
+    var priorityList = r.prioritySorted.slice(0, 6).map(function (p) {
+      var badge = ratingBadge(p.rating);
       return ''
         + '<li>'
         +   '<span class="p-badge ' + badge.cls + '">' + badge.text + '</span>'
-        +   escapeHtml(p.edge.label)
-        +   '<span class="m-layer-tag m-layer-' + p.edge.D + '" style="margin-right:6px;">'
-        +     escapeHtml(lm[p.edge.D].label)
-        +   '</span>'
+        +   escapeHtml(p.comp.label)
+        +   ' <span class="m-layer-tag m-layer-' + p.comp.level + '">' + escapeHtml(lm[p.comp.level].label) + '</span>'
         + '</li>';
     }).join('');
 
-    let priorityBlock;
+    var priorityBlock;
     if (priorityList) {
       priorityBlock = ''
         + '<div class="m-priority">'
-        +   '<h3>🔢 از کجا شروع کنی؟</h3>'
+        +   '<h3>🎯 روی این‌ها تمرکز کن</h3>'
         +   '<ol>' + priorityList + '</ol>'
         + '</div>';
     } else {
@@ -277,7 +283,7 @@
 
     wrap.innerHTML = ''
       + '<section class="m-result">'
-      +   '<h2 style="color:var(--m-primary);font-size:1.3rem;margin:0 0 16px;">📊 تخمین تمرین مورد نیاز</h2>'
+      +   '<h2 class="m-result-title">📊 تخمین تمرین برای <span class="topic">«' + escapeHtml(enteredTopic) + '»</span></h2>'
 
       +   '<div class="m-stat-grid">'
       +     '<div class="m-stat"><div class="num">' + r.totalItems + '</div><div class="lbl">تمرین لازم داری</div></div>'
@@ -291,7 +297,7 @@
       +     escapeHtml(r.feasibility.text)
       +   '</div>'
 
-      +   '<h3 style="color:var(--m-primary);font-size:1rem;margin:20px 0 12px;">🎯 تمرین‌ها را چطور تقسیم کنی؟</h3>'
+      +   '<h3 style="color:var(--m-primary);font-size:1rem;margin:20px 0 12px;">🎯 تمرین‌هایت را چطور تقسیم کنی؟</h3>'
       +   '<div class="m-layer-breakdown">'
       +     ['basic', 'medium', 'advanced'].map(function (k) {
             return ''
@@ -308,20 +314,20 @@
       +   '<details>'
       +     '<summary>این عددها از کجا آمد؟</summary>'
       +     '<div style="margin-top:10px;line-height:1.9;">'
-      +       '<p style="margin:0 0 8px;">هر مهارت را بر اساس اینکه چقدر بلدی، وزن‌دهی کردیم:</p>'
+      +       '<p style="margin:0 0 8px;">هر کدام از ۶ سؤالی که جواب دادی، یک وزن گرفت:</p>'
       +       '<ul style="margin:0 0 8px;padding-right:20px;">'
-      +         '<li>«کاملاً بلدم» → فقط ۱ بار مرور</li>'
+      +         '<li>«کاملاً بلدم» → ۱ بار مرور</li>'
       +         '<li>«تا حدی بلدم» → ۲ بار تمرین</li>'
-      +         '<li>«نمی‌دانم یعنی چی» → ۳ بار (اول یادگیری، بعد تمرین)</li>'
+      +         '<li>«نمی‌دانم» → ۳ بار (اول یادگیری، بعد تمرین)</li>'
       +         '<li>«ضعیفم» → ۴ بار (باید از پایه بسازی)</li>'
       +       '</ul>'
-      +       '<p style="margin:0 0 8px;">تمرین‌های سخت‌تر، وزن بیشتری گرفتند:</p>'
+      +       '<p style="margin:0 0 8px;">سؤالات سخت‌تر، وزن بیشتری گرفتند:</p>'
       +       '<ul style="margin:0 0 8px;padding-right:20px;">'
-      +         '<li>پایه → ضریب ۱</li>'
-      +         '<li>متوسط → ضریب ۱٫۵</li>'
-      +         '<li>پیشرفته → ضریب ۲</li>'
+      +         '<li>سطح پایه → ضریب ۱</li>'
+      +         '<li>سطح متوسط → ضریب ۱٫۵</li>'
+      +         '<li>سطح پیشرفته → ضریب ۲</li>'
       +       '</ul>'
-      +       '<p style="margin:0;">در پایان، ۱٫۵ برابر شد تا برای تلاش‌های ناموفق هم جا باشد.</p>'
+      +       '<p style="margin:0;">در پایان، ۱٫۵ برابر شد تا برای تلاش‌های ناموفق و مرور جا باشد.</p>'
       +     '</div>'
       +   '</details>'
 
@@ -329,7 +335,7 @@
   }
 
   function ratingBadge(rating) {
-    const map = {
+    var map = {
       strong:  { cls: 'is-strong',  text: 'بلدم' },
       medium:  { cls: 'is-medium',  text: 'تا حدی' },
       weak:    { cls: 'is-weak',    text: 'ضعیف' },
@@ -337,25 +343,6 @@
     };
     return map[rating] || { cls: '', text: '—' };
   }
-
-  document.addEventListener('click', function (ev) {
-    if (!ev.target || ev.target.id !== 'm-calc') return;
-    const root = document.getElementById(CONFIG.rootId);
-    if (!root || !currentSubject) return;
-
-    const hours = parseFloat(root.querySelector('#m-hours').value) || 0;
-    const weeks = parseFloat(root.querySelector('#m-weeks').value) || 1;
-    const minutes = parseFloat(root.querySelector('#m-minutes').value) || data.calc.minutes_per_item;
-
-    if (hours <= 0) {
-      alert('لطفاً ساعت مطالعه هفتگی را وارد کن.');
-      return;
-    }
-
-    const result = calculate(hours, weeks, minutes);
-    renderResult(root, result);
-    root.querySelector('#m-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
 
   function escapeHtml(s) {
     return s == null ? '' : String(s).replace(/[&<>"']/g, function (c) {
