@@ -1,6 +1,5 @@
 /* ============================================================
-   Mastery — Independent Stylesheet (Simple Language)
-   تمام قواعد زیر .mastery-page اسکوپ شده‌اند.
+   Mastery — Independent Stylesheet
    ============================================================ */
 
 .mastery-page {
@@ -30,7 +29,7 @@
 .mastery-page *::after { box-sizing: border-box; }
 
 .mastery-page .m-container {
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0 auto;
   background: var(--m-card);
   border-radius: 16px;
@@ -67,6 +66,31 @@
   position: relative; z-index: 1;
 }
 
+/* Intro */
+.mastery-page .m-intro {
+  padding: 24px 30px;
+  background: #f0f4f8;
+  border-bottom: 1px solid var(--m-border);
+}
+.mastery-page .m-intro h3 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+  color: var(--m-primary);
+}
+.mastery-page .m-intro p {
+  margin: 0 0 10px;
+  font-size: 0.92rem;
+  color: var(--m-text);
+  line-height: 1.9;
+}
+.mastery-page .m-intro ol {
+  margin: 0;
+  padding-right: 22px;
+  font-size: 0.88rem;
+  color: var(--m-text-light);
+  line-height: 2;
+}
+
 /* Section */
 .mastery-page .m-section {
   padding: 30px;
@@ -89,59 +113,50 @@
   align-items: center; justify-content: center;
   font-size: 0.85rem;
 }
+.mastery-page .m-section .m-help {
+  color: var(--m-text-light);
+  font-size: 0.88rem;
+  margin: 0 0 16px;
+  line-height: 1.8;
+}
 
-/* Subject cards */
-.mastery-page .m-subjects {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
-}
-.mastery-page .m-subject-card {
-  padding: 16px 18px;
+/* Topic input */
+.mastery-page .m-topic-box {
   background: white;
-  border: 2px solid var(--m-border);
+  padding: 20px;
   border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.2s;
+  border: 2px solid var(--m-border);
+  margin-bottom: 16px;
 }
-.mastery-page .m-subject-card:hover {
-  border-color: var(--m-primary-light);
-  transform: translateY(-2px);
-}
-.mastery-page .m-subject-card.is-active {
-  border-color: var(--m-primary);
-  background: #f0f4f8;
-  box-shadow: 0 4px 14px rgba(30,58,95,0.12);
-}
-.mastery-page .m-subject-card .m-icon-lg {
-  font-size: 1.6rem;
-  line-height: 1;
-  margin-bottom: 6px;
-}
-.mastery-page .m-subject-card .m-name {
+.mastery-page .m-topic-box label {
+  display: block;
   font-weight: 700;
   color: var(--m-primary);
+  font-size: 0.92rem;
+  margin-bottom: 10px;
+}
+.mastery-page .m-topic-box input[type="text"] {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--m-border);
+  border-radius: 10px;
+  font-family: inherit;
   font-size: 1rem;
-  margin-bottom: 4px;
+  color: var(--m-text);
+  background: #fafbfc;
 }
-.mastery-page .m-subject-card .m-cat {
-  font-size: 0.75rem;
-  color: var(--m-accent);
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-.mastery-page .m-subject-card .m-summary {
-  font-size: 0.82rem;
-  color: var(--m-text-light);
-  line-height: 1.7;
+.mastery-page .m-topic-box input[type="text"]:focus {
+  outline: none;
+  border-color: var(--m-primary-light);
+  background: white;
 }
 
-/* Edges list */
-.mastery-page .m-edges {
+/* Components list */
+.mastery-page .m-components {
   display: grid;
   gap: 10px;
 }
-.mastery-page .m-edge {
+.mastery-page .m-comp {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -153,16 +168,22 @@
   border-radius: 10px;
   transition: background 0.15s;
 }
-.mastery-page .m-edge:hover { background: #f9fafb; }
-.mastery-page .m-edge .m-edge-label {
+.mastery-page .m-comp:hover { background: #f9fafb; }
+.mastery-page .m-comp .m-comp-label {
   flex: 1;
-  min-width: 180px;
-  font-size: 0.9rem;
+  min-width: 200px;
+  font-size: 0.92rem;
   color: var(--m-text);
-  font-weight: 500;
+  font-weight: 600;
 }
-.mastery-page .m-edge .m-edge-meta { margin-top: 4px; }
-.mastery-page .m-edge .m-layer-tag {
+.mastery-page .m-comp .m-comp-hint {
+  font-size: 0.78rem;
+  color: var(--m-text-light);
+  font-weight: 400;
+  margin-top: 4px;
+  line-height: 1.7;
+}
+.mastery-page .m-comp .m-layer-tag {
   display: inline-block;
   padding: 2px 8px;
   border-radius: 20px;
@@ -206,7 +227,7 @@
   padding: 18px;
   background: #f0f4f8;
   border-radius: 12px;
-  margin: 16px 0;
+  margin-bottom: 16px;
 }
 .mastery-page .m-input-group label {
   display: block;
@@ -224,6 +245,7 @@
   font-size: 0.95rem;
   text-align: center;
   color: var(--m-text);
+  background: white;
 }
 
 /* Button */
@@ -239,14 +261,29 @@
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, opacity 0.2s;
 }
-.mastery-page .m-btn:hover { background: var(--m-primary-light); }
+.mastery-page .m-btn:hover:not(:disabled) { background: var(--m-primary-light); }
+.mastery-page .m-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #95a5a6;
+}
 
 /* Result */
 .mastery-page .m-result {
   padding: 30px;
   background: linear-gradient(135deg, #f8f9fa, #eef2f6);
+}
+.mastery-page .m-result-title {
+  color: var(--m-primary);
+  font-size: 1.25rem;
+  margin: 0 0 16px;
+  line-height: 1.6;
+}
+.mastery-page .m-result-title .topic {
+  color: var(--m-accent);
+  font-weight: 800;
 }
 .mastery-page .m-stat-grid {
   display: grid;
@@ -330,8 +367,9 @@
   font-size: 0.88rem;
 }
 .mastery-page .m-priority ol li {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   padding-right: 6px;
+  line-height: 1.8;
 }
 .mastery-page .p-badge {
   display: inline-block;
@@ -385,31 +423,6 @@
   font-size: 0.82rem;
 }
 
-/* Intro box */
-.mastery-page .m-intro {
-  padding: 24px 30px;
-  background: #f0f4f8;
-  border-bottom: 1px solid var(--m-border);
-}
-.mastery-page .m-intro h3 {
-  margin: 0 0 10px;
-  font-size: 1.05rem;
-  color: var(--m-primary);
-}
-.mastery-page .m-intro p {
-  margin: 0 0 10px;
-  font-size: 0.92rem;
-  color: var(--m-text);
-  line-height: 1.9;
-}
-.mastery-page .m-intro ol {
-  margin: 0;
-  padding-right: 22px;
-  font-size: 0.88rem;
-  color: var(--m-text-light);
-  line-height: 2;
-}
-
 /* Responsive */
 @media (max-width: 640px) {
   .mastery-page { padding: 8px; }
@@ -418,7 +431,7 @@
   .mastery-page .m-section,
   .mastery-page .m-intro,
   .mastery-page .m-result { padding: 20px 16px; }
-  .mastery-page .m-edge { flex-direction: column; align-items: stretch; }
+  .mastery-page .m-comp { flex-direction: column; align-items: stretch; }
   .mastery-page .m-ratings { justify-content: flex-start; }
   .mastery-page .m-ratings label { padding: 5px 10px; font-size: 0.72rem; }
    }
