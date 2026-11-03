@@ -1,20 +1,48 @@
 /* ================= داده‌های سایت ================= */
 
-// 1. دانلودهای رایگان (حالا از فایل downloads.json خوانده می‌شود)
+// 1. دانلودهای رایگان (از فایل downloads.json خوانده می‌شود)
 let downloadsData = [];
 
-// دریافت لیست دانلودها از فایل متنی
-fetch('downloads.json')
-  .then(response => response.json())
-  .then(data => {
-    downloadsData = data;
-    renderCards(downloadsData, 'downloadsList', 'downloads');
-  })
-  .catch(error => {
-    console.error('Error loading downloads:', error);
-    // در صورت خطا، یک کارت پیش‌فرض نمایش داده شود
-    document.getElementById('downloadsList').innerHTML = '<p>خطا در بارگذاری فایل‌ها.</p>';
-  });
+// تابع هوشمند برای رفع خطای 404 (اصلاح خودکار مسیرها)
+function getSafeLink(link) {
+  if (!link) return '#';
+  
+  // اگر لینک با اسلش شروع شده باشد (مثل /assets/...)، اسلش را برمی‌داریم تا نسبی شود
+  if (link.startsWith('/') && !link.startsWith('//')) {
+    link = link.substring(1);
+  }
+  
+  // اگر لینک کامل باشد اما نام Mestrplanner را نداشته باشد، آن را اضافه می‌کنیم
+  if (link.startsWith('https://ehssnrouhani.github.io/') && !link.includes('/Mestrplanner/')) {
+    link = link.replace('https://ehssnrouhani.github.io/', 'https://ehssnrouhani.github.io/Mestrplanner/');
+  }
+  
+  return link;
+}
+
+// دریافت لیست دانلودها
+document.addEventListener("DOMContentLoaded", () => {
+  const downloadsContainer = document.getElementById('downloadsList');
+  if (downloadsContainer) {
+    downloadsContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; padding: 20px; color: #64748b;">در حال بارگذاری کتابخانه...</p>';
+  }
+
+  fetch('./downloads.json')
+    .then(response => {
+      if (!response.ok) throw new Error('Network response was not ok');
+      return response.json();
+    })
+    .then(data => {
+      downloadsData = data;
+      renderCards(downloadsData, 'downloadsList', 'downloads');
+    })
+    .catch(error => {
+      console.error('Error loading downloads:', error);
+      if (downloadsContainer) {
+        downloadsContainer.innerHTML = '<p style="text-align:center; color: #ef4444; grid-column: 1/-1;">خطا در بارگذاری فایل‌ها. لطفاً صفحه را رفرش کنید.</p>';
+      }
+    });
+});
 
 // 2. نکات آموزشی (مقالات)
 const tipsData = [
@@ -251,16 +279,23 @@ function renderCards(dataArray, containerId, pageType) {
   if(!container) return;
   container.innerHTML = ''; 
 
+  if (!dataArray || dataArray.length === 0) {
+    container.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: #64748b;">موردی برای نمایش وجود ندارد.</p>';
+    return;
+  }
+
   dataArray.forEach((item, index) => {
     const card = document.createElement('div');
     card.className = 'item-card';
     
     if (pageType === 'downloads') {
+      // استفاده از getSafeLink برای جلوگیری از خطای 404
+      const safeUrl = getSafeLink(item.link);
       card.innerHTML = `
         <i class="fa-solid ${item.icon} item-icon"></i>
         <h3 class="item-title">${item.title}</h3>
         <p class="item-desc">${item.desc}</p>
-        <a href="${item.link}" target="_blank" class="item-btn">مطالعه آنلاین مقاله <i class="fa-solid fa-eye"></i></a>
+        <a href="${safeUrl}" target="_blank" rel="noopener" class="item-btn">مطالعه آنلاین مقاله <i class="fa-solid fa-eye"></i></a>
       `;
     } else {
       card.innerHTML = `
@@ -275,15 +310,18 @@ function renderCards(dataArray, containerId, pageType) {
 }
 
 // رندر اولیه (نکات و محصولات)
-// (بخش دانلودها به صورت خودکار با fetch در بالای فایل رندر می‌شود)
-renderCards(tipsData, 'tipsList', 'tips');
-renderCards(productsData, 'productsList', 'products');
+document.addEventListener("DOMContentLoaded", () => {
+  renderCards(tipsData, 'tipsList', 'tips');
+  renderCards(productsData, 'productsList', 'products');
+});
 
 // باز کردن مقاله (برای نکات و محصولات)
 function openArticle(index, type) {
   let dataList = type === 'tips' ? tipsData : productsData;
   let item = dataList[index];
   
+  if (!item) return;
+
   previousPage = type === 'tips' ? 'tips' : 'products';
 
   document.getElementById('articleTitle').innerText = item.title;
@@ -299,14 +337,19 @@ function goBack() {
 
 // جابجایی صفحات
 function showPage(id) {
+  const targetPage = document.getElementById(id);
+  if (!targetPage) return;
+
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  targetPage.classList.add('active');
 
   document.querySelectorAll('.nav-link').forEach(l => {
     l.classList.toggle('active', l.dataset.page === id);
   });
 
-  document.getElementById('nav').classList.remove('open');
+  const nav = document.getElementById('nav');
+  if (nav) nav.classList.remove('open');
+  
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -319,16 +362,19 @@ document.querySelectorAll('.nav-link').forEach(link => {
 });
 
 // منوی موبایل
-document.getElementById('menuToggle').addEventListener('click', () => {
-  document.getElementById('nav').classList.toggle('open');
-});
+const menuToggle = document.getElementById('menuToggle');
+if (menuToggle) {
+  menuToggle.addEventListener('click', () => {
+    document.getElementById('nav').classList.toggle('open');
+  });
+}
 
 // اسلایدر
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slide');
 const dotsContainer = document.getElementById('dots');
 
-if (slides.length > 0) {
+if (slides.length > 0 && dotsContainer) {
   slides.forEach((_, i) => {
     const dot = document.createElement('span');
     dot.className = 'dot' + (i === 0 ? ' active' : '');
@@ -344,16 +390,17 @@ if (slides.length > 0) {
     dotsContainer.children[currentSlide].classList.add('active');
   }
 
-  function changeSlide(dir) {
+  window.changeSlide = function(dir) {
     goToSlide(currentSlide + dir);
-  }
-  setInterval(() => changeSlide(1), 5000);
+  };
+  
+  setInterval(() => goToSlide(currentSlide + 1), 5000);
 }
 
 // دکمه بالا
 const backToTop = document.getElementById('backToTop');
-window.addEventListener('scroll', () => {
-  if(backToTop) {
+if (backToTop) {
+  window.addEventListener('scroll', () => {
     backToTop.classList.toggle('show', window.scrollY > 300);
-  }
-});
+  });
+}
