@@ -15,7 +15,6 @@
   --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
   --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
 
-  /* رنگ دسته‌ها */
   --c-skill:#1f7a4d;
   --c-konkoor:#1f5a9a;
   --c-reshte:#b45a0e;
@@ -29,7 +28,6 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system
 a{color:var(--brand);text-decoration:none}
 a:hover{text-decoration:underline}
 
-/* هدر */
 .site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;position:sticky;top:0;z-index:20;box-shadow:0 2px 14px rgba(0,0,0,.12)}
 .bar{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px;color:#fff}
@@ -39,13 +37,13 @@ a:hover{text-decoration:underline}
 .brand-text strong{font-size:17px}
 .brand-text small{font-size:11px;opacity:.85}
 .bar nav{margin-inline-start:auto;display:flex;gap:6px;flex-wrap:wrap}
-.bar nav a{color:#fff;font-size:13.5px;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08)}
+.bar nav a{color:#fff;font-size:13.5px;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);text-decoration:none}
 .bar nav a:hover{background:rgba(255,255,255,.18);text-decoration:none}
+.bar nav a.sales-link{background:linear-gradient(135deg,#e8971f,#f5b041);border-color:rgba(255,200,0,.5);font-weight:700;color:#fff}
+.bar nav a.sales-link:hover{background:linear-gradient(135deg,#c47a10,#e8971f)}
 
-/* بدنه */
 main{max-width:1100px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px}
 
-/* هیرو */
 .hero{background:linear-gradient(140deg,var(--brand-dark),var(--brand) 70%,var(--accent));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
 .hero::after{content:"";position:absolute;inset-inline-start:-40px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
 .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);padding:5px 12px;border-radius:999px;margin-bottom:12px}
@@ -54,7 +52,6 @@ main{max-width:1100px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px
 .hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;font-size:12.5px}
 .hero-meta span{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:999px}
 
-/* نوار ابزار */
 .toolbar{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);display:grid;gap:12px}
 .search-wrap{position:relative;display:flex;align-items:center}
 .search-wrap i{position:absolute;inset-inline-start:14px;color:var(--muted);font-size:14px;pointer-events:none}
@@ -74,7 +71,6 @@ main{max-width:1100px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px
 .counter{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted);padding:0 4px}
 .counter strong{color:var(--brand-dark)}
 
-/* شبکهٔ کارت‌ها */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
 .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px 18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;color:inherit;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;overflow:hidden}
 .card::before{content:"";position:absolute;top:0;inset-inline-start:0;width:100%;height:4px;background:var(--c,var(--accent))}
@@ -87,14 +83,62 @@ main{max-width:1100px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px
 .card-cta i{transition:transform .15s}
 .card:hover .card-cta i{transform:translateX(-4px)}
 
-/* حالت خالی و لود */
 .state{padding:40px 20px;text-align:center;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);font-size:14.5px}
 .state i{display:block;font-size:34px;color:var(--brand-soft);margin-bottom:10px}
 .state.error{border-color:#f0c2c2;background:#fdf4f4;color:#a33}
 .state.error i{color:#e05252}
 .state a{font-weight:700}
 
-/* فوتر */
+/* ===== CTA به ذهن سیستمی ===== */
+.sales-cta{
+  background: linear-gradient(135deg, #0c3846 0%, #1e5a6e 100%);
+  color: #ffffff;
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  margin-top: 8px;
+}
+.sales-cta h2{
+  margin: 0 0 10px;
+  font-size: clamp(20px, 2.6vw, 26px);
+  color: #f5b041;
+  line-height: 1.5;
+}
+.sales-cta p{
+  margin: 0 0 20px;
+  font-size: 15px;
+  line-height: 1.9;
+  color: #dbe8e1;
+  opacity: .92;
+}
+.sales-cta .btn-sales{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #e8971f 0%, #f5b041 100%);
+  color: #ffffff;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 15.5px;
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba(232, 151, 31, 0.35);
+  transition: all 0.2s ease;
+}
+.sales-cta .btn-sales:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(232, 151, 31, 0.5);
+  text-decoration: none;
+  color: #ffffff;
+}
+.sales-cta .subtext{
+  margin-top: 16px;
+  font-size: 12.5px;
+  opacity: .7;
+  color: #bfe8d1;
+}
+
 .site-footer{background:var(--brand-dark);color:#dbe8e1;text-align:center;padding:26px 18px;font-size:13.5px;line-height:1.9}
 .site-footer .credit{font-size:15px;color:#fff;margin-bottom:6px}
 .site-footer strong{color:var(--accent)}
@@ -107,6 +151,7 @@ main{max-width:1100px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px
   .grid{grid-template-columns:1fr}
   .toolbar{padding:14px}
   .chip{font-size:12.5px;padding:6px 12px}
+  .sales-cta{padding:24px 18px}
 }
 </style>
 </head>
@@ -121,6 +166,7 @@ main{max-width:1100px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px
     <nav>
       <a href="index.html"><i class="fa-solid fa-house"></i> خانه</a>
       <a href="downloads.html"><i class="fa-solid fa-list"></i> فهرست ساده</a>
+      <a href="assets/sales/sales.html" class="sales-link"><i class="fa-solid fa-brain"></i> ذهن سیستمی</a>
     </nav>
   </div>
 </header>
@@ -156,19 +202,36 @@ main{max-width:1100px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px
       در حال بارگذاری کتابخانه…
     </div>
   </section>
+
+  <!-- ═══════ CTA به ذهن سیستمی ═══════ -->
+  <section class="sales-cta">
+    <h2>🧠 بعد از خواندن مقالات، آماده‌ای سیستم کامل را داشته باشی؟</h2>
+    <p>
+      مقالات این کتابخانه، فقط شروع کار است.<br>
+      «ذهن سیستمی» — بستهٔ کامل ۴ جلد + ۳۲ تمرین + کاربرگ + اکسل —<br>
+      به تو یک <strong style="color:#f5b041;">سیستم کامل</strong> می‌دهد که با آن، هر تکنیکی را در جای درستش به کار ببری.
+    </p>
+    <a href="assets/sales/sales.html" class="btn-sales">
+      <i class="fa-solid fa-brain"></i>
+      مشاهدهٔ ذهن سیستمی
+      <i class="fa-solid fa-arrow-left"></i>
+    </a>
+    <div class="subtext">
+      ✓ تضمین بازگشت ۷ روزه &nbsp;·&nbsp; ✓ تحویل فوری &nbsp;·&nbsp; ✓ پشتیبانی مستقیم
+    </div>
+  </section>
 </main>
 
 <footer class="site-footer">
   <p class="credit">طراحی و تدوین: <strong>احسان روحانی راوری</strong></p>
   <p>مستر پلنر <span class="dot">·</span> یادگیری بر پایهٔ ساخت شناختی</p>
-  <p><a href="index.html">بازگشت به صفحهٔ اصلی</a></p>
+  <p><a href="index.html">بازگشت به صفحهٔ اصلی</a> <span class="dot">·</span> <a href="assets/sales/sales.html">ذهن سیستمی</a></p>
 </footer>
 
 <script>
 (function(){
   "use strict";
 
-  // ===== نگاشت آیکون ← دسته و رنگ =====
   const CATEGORIES = [
     { name: "مهارت‌های مطالعه", color: "var(--c-skill)",      icons: ["fa-calendar-check","fa-book-open-reader","fa-clipboard-check","fa-crosshairs","fa-brain","fa-fire","fa-pen-to-square","fa-fire-flame-curved"] },
     { name: "راهبرد کنکور",     color: "var(--c-konkoor)",    icons: ["fa-dna","fa-square-root-variable","fa-scale-balanced","fa-language","fa-palette","fa-screwdriver-wrench"] },
@@ -185,18 +248,16 @@ main{max-width:1100px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px
     return OTHER;
   }
 
-  // ===== نرمال‌سازی متن برای جستجو (ی/ک عربی، ZWNJ) =====
   function norm(s){
     return String(s || "")
       .toLowerCase()
       .replace(/ي/g, "ی")
       .replace(/ك/g, "ک")
-      .replace(/\u200c/g, " ")   // نیم‌فاصله → فاصله
+      .replace(/\u200c/g, " ")
       .replace(/\s+/g, " ")
       .trim();
   }
 
-  // ===== حالت برنامه =====
   const state = { items: [], activeCat: "همه", query: "" };
 
   const els = {
@@ -212,7 +273,6 @@ main{max-width:1100px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px
 
   const faDigits = n => String(n).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
 
-  // ===== بارگذاری JSON =====
   fetch("downloads.json", { cache: "no-cache" })
     .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
     .then(data => {
@@ -237,7 +297,6 @@ main{max-width:1100px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px
       els.heroCount.textContent = "خطا در بارگذاری";
     });
 
-  // ===== مقداردهی اولیه =====
   function init(){
     els.total.textContent = faDigits(state.items.length);
     els.heroCount.innerHTML = '<strong>' + faDigits(state.items.length) + '</strong> مقاله در ۵ دسته';
@@ -245,7 +304,6 @@ main{max-width:1100px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px
     render();
   }
 
-  // ===== ساخت دکمه‌های فیلتر =====
   function buildChips(){
     const counts = {};
     state.items.forEach(it => { counts[it._cat.name] = (counts[it._cat.name] || 0) + 1; });
@@ -272,7 +330,6 @@ main{max-width:1100px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px
     render();
   }
 
-  // ===== رندر کارت‌ها =====
   function render(){
     const q = norm(state.query);
     const list = state.items.filter(it => {
@@ -318,20 +375,18 @@ main{max-width:1100px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px
     els.content.appendChild(grid);
   }
 
-  // ===== محافظت از HTML =====
   function escapeHtml(s){
     return String(s == null ? "" : s)
       .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   }
 
-  // ===== جستجوی زنده =====
   let tmr = null;
   els.search.addEventListener("input", e => {
     state.query = e.target.value;
     els.searchWrap.classList.toggle("has-value", !!state.query);
     clearTimeout(tmr);
-    tmr = setTimeout(render, 120); // debounce کوچک
+    tmr = setTimeout(render, 120);
   });
 
   els.clearBtn.addEventListener("click", () => {
@@ -349,4 +404,4 @@ main{max-width:1100px;margin:26px auto 40px;padding:0 16px;display:grid;gap:18px
 })();
 </script>
 </body>
-</html>
+  </html>
