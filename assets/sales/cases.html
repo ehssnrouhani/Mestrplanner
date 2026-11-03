@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>کیس‌های واقعی | ذهن سیستمی</title>
+  <meta name="description" content="داستان‌های واقعی از دانش‌آموزانی که با سیستم ذهن سیستمی، نتیجه‌شان را تغییر دادند. با اعداد، نام‌های مستعار، و درس‌های واقعی." />
+  <meta name="author" content="احسان روحانی راوری" />
+  <link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/assets/sales/cases.html" />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --deep: #0c3846;
+      --deep-2: #1e5a6e;
+      --gold: #e8971f;
+      --gold-2: #f5b041;
+      --ink: #1a2332;
+      --soft: #4a5568;
+      --muted: #6b7c93;
+      --line: #d8e0e5;
+      --line-soft: #edf1f4;
+      --cream: #fff8e6;
+      --mint: #e6f0f2;
+      --bg: #fafcfd;
+      --green: #10b981;
+      --red: #ef4444;
+      --amber: #f59e0b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Vazirmatn', Tahoma, sans-serif;
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--ink);
+      direction: rtl;
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { color: var(--gold-2); }
+
+    .topbar {
+      background: linear-gradient(90deg, var(--deep), var(--deep-2));
+      color: #fff;
+      padding: 10px 20px;
+      text-align: center;
+      font-size: 13px;
+    }
+    .topbar a { color: var(--gold-2); font-weight: 700; }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* هیرو */
+    .hero {
+      text-align: center;
+      padding: 20px 0 48px;
+    }
+    .hero .badge {
+      display: inline-block;
+      background: var(--cream);
+      color: var(--gold);
+      padding: 6px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      border: 1px solid var(--gold);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 4.5vw, 38px);
+      font-weight: 800;
+      color: var(--deep);
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+    .hero .subtitle {
+      font-size: 16.5px;
+      color: var(--soft);
+      line-height: 1.8;
+      max-width: 520px;
+      margin-inline: auto;
+    }
+
+    /* کیس کارت */
+    .case-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 16px rgba(12, 56, 70, 0.06);
+      position: relative;
+      overflow: hidden;
+    }
+    .case-card::before {
+      content: "";
+      position: absolute;
+      top: 0; right: 0;
+      width: 100%; height: 5px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-2));
+    }
+    .case-card.honest::before {
+      background: linear-gradient(90deg, var(--amber), #fbbf24);
+    }
+
+    .case-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .case-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--deep), var(--deep-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+      border: 3px solid var(--mint);
+    }
+    .case-card.honest .case-avatar {
+      background: linear-gradient(135deg, var(--amber), #fbbf24);
+      border-color: var(--cream);
+    }
+    .case-info h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--deep);
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+    .case-info .meta {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* اعداد قبل و بعد */
+    .case-numbers {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 20px;
+      background: linear-gradient(135deg, var(--mint), #f0f7f9);
+      border-radius: 14px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .case-num {
+      text-align: center;
+      flex: 1;
+      min-width: 110px;
+    }
+    .case-num .label {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      display: block;
+    }
+    .case-num .value {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1;
+      display: block;
+    }
+    .case-num.before .value { color: var(--red); }
+    .case-num.after .value { color: var(--green); }
+    .case-num .sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+      display: block;
+    }
+    .case-arrow {
+      font-size: 24px;
+      color: var(--gold);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* بخش‌های محتوا */
+    .case-section {
+      margin-bottom: 18px;
+    }
+    .case-section:last-child { margin-bottom: 0; }
+    .case-section .section-label {
+      display: inline-block;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--gold);
+      background: var(--cream);
+      padding: 3px 12px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+    .case-section p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--soft);
+      margin: 0;
+    }
+    .case-section p strong { color: var(--deep); }
+
+    .case-quote {
+      background: linear-gradient(135deg, #f8fafb, #edf2f5);
+      border-right: 4px solid var(--gold);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 20px;
+      font-family: 'Amiri', 'Vazirmatn', serif;
+      font-size: 16px;
+      line-height: 1.9;
+      color: var(--deep);
+      font-style: italic;
+      position: relative;
+    }
+    .case-quote::before {
+      content: "❝";
+      font-size: 36px;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+      margin-bottom: 4px;
+      font-style: normal;
+    }
+
+    /* حالت صادقانه */
+    .honest-note {
+      background: var(--cream);
+      border-right: 4px solid var(--amber);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 1.9;
+      color: #7c2d12;
+    }
+    .honest-note strong { color: var(--amber); }
+
+    /* CTA */
+    .cta-section {
+      background: linear-gradient(135deg, var(--deep), var(--deep-2));
+      border-radius: 20px;
+      padding: 40px 28px;
+      text-align: center;
+      color: #fff;
+      margin-top: 40px;
+    }
+    .cta-section h2 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--gold-2);
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+    .cta-section p {
+      font-size: 15.5px;
+      color: #d5e4ea;
+      line-height: 1.9;
+      margin-bottom: 24px;
+      max-width: 500px;
+      margin-inline: auto;
+    }
+    .cta-section p strong { color: var(--gold-2); }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 36px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-2));
+      color: #fff;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 10px 28px rgba(232, 151, 31, 0.4);
+      transition: all 0.2s ease;
+    }
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(232, 151, 31, 0.55);
+      color: #fff;
+    }
+
+    footer {
+      background: var(--deep);
+      color: #a8c3cd;
+      text-align: center;
+      padding: 32px 20px;
+      font-size: 13px;
+      line-height: 2;
+    }
+    footer a { color: var(--gold-2); }
+    footer .author {
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 560px) {
+      .container { padding: 24px 16px 60px; }
+      .case-card { padding: 20px; }
+      .case-num .value { font-size: 26px; }
+      .case-arrow { font-size: 20px; }
+      .case-quote { font-size: 15px; padding: 16px 18px; }
+      .cta-section { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="sales.html"><i class="fa-solid fa-brain" style="color:#f5b041;"></i> ذهن سیستمی</a> ·
+    <a href="five-minutes.html">فقط ۵ دقیقه</a> ·
+    <a href="about.html">درباره من</a>
+  </div>
+
+  <div class="container">
+
+    <!-- هیرو -->
+    <section class="hero">
+      <span class="badge">داستان‌های واقعی</span>
+      <h1>کیس‌های ذهن سیستمی</h1>
+      <p class="subtitle">
+        هر داستان، یک درس. هر عدد، یک واقعیت.<br>
+        با اجازهٔ کتبی، و با نام مستعار.
+      </p>
+    </section>
+
+    <!-- کیس ۱: سارا -->
+    <article class="case-card">
+      <div class="case-header">
+        <div class="case-avatar">👩‍🎓</div>
+        <div class="case-info">
+          <h3>سارا، دوازدهم تجربی</h3>
+          <p class="meta">۶ هفته همراهی · هدف: کنکور</p>
+        </div>
+      </div>
+
+      <div class="case-numbers">
+        <div class="case-num before">
+          <span class="label">قبل</span>
+          <span class="value">۴۵٪</span>
+          <span class="sub">میانگین آزمون‌ها</span>
+        </div>
+        <div class="case-arrow">←</div>
+        <div class="case-num after">
+          <span class="label">بعد</span>
+          <span class="value">۶۲٪</span>
+          <span class="sub">+۱۷ واحد</span>
+        </div>
+      </div>
+
+      <div class="case-section">
+        <span class="section-label">مشکل</span>
+        <p>
+          ۲ ساعت مطالعه در روز، ولی نمی‌دانست چقدر یاد گرفته.
+          هر آزمون، نمره‌اش ثابت بود. ۴۵٪. هفته‌ها پشت هم.
+          احساسش: <strong>«شاید من ذاتاً ضعیفم.»</strong>
+        </p>
+      </div>
+
+      <div class="case-section">
+        <span class="section-label">راه‌حل</span>
+        <p>
+          <strong>هفتهٔ ۱-۲:</strong> تمرین «نظارت از بالا» — سارا یاد گرفت هر ۵ دقیقه از خودش بپرسد کجاست.<br>
+          <strong>هفتهٔ ۳-۴:</strong> بازیابی فعال + مرور فاصله‌دار — به جای دوباره‌خواندن، کاغذ سفید.<br>
+          <strong>هفتهٔ ۵-۶:</strong> دفتر خطا + آزمون شبیه‌سازی — خطاها را دسته‌بندی کرد.
+        </p>
+      </div>
+
+      <div class="case-quote">
+        «قبل، فکر می‌کردم مشکل از هوشمه. الان می‌فهمم مشکل از روشم بود. مهم‌ترین چیز، دفتر خطا بود.»
+      </div>
+    </article>
+
+    <!-- کیس ۲: امیر -->
+    <article class="case-card">
+      <div class="case-header">
+        <div class="case-avatar">👨‍🎓</div>
+        <div class="case-info">
+          <h3>امیر، یازدهم ریاضی</h3>
+          <p class="meta">۴ هفته همراهی · هدف: تقویت پایه</p>
+        </div>
+      </div>
+
+      <div class="case-numbers">
+        <div class="case-num before">
+          <span class="label">قبل</span>
+          <span class="value">۳۰٪</span>
+          <span class="sub">ریاضی</span>
+        </div>
+        <div class="case-arrow">←</div>
+        <div class="case-num after">
+          <span class="label">بعد</span>
+          <span class="value">۵۵٪</span>
+          <span class="sub">+۲۵ واحد</span>
+        </div>
+      </div>
+
+      <div class="case-section">
+        <span class="section-label">مشکل</span>
+        <p>
+          در ریاضی، وقتی مسئله را می‌دید، «قفل» می‌کرد. حتی مسئله‌های ساده را نمی‌فهمید.
+          مشکل: پیش‌نیازهای پایه (کسر، معادله، تابع) را کامل نمی‌دانست.
+        </p>
+      </div>
+
+      <div class="case-section">
+        <span class="section-label">راه‌حل</span>
+        <p>
+          <strong>هفتهٔ ۱:</strong> برگشت به پیش‌نیازها — نه فصل جدید.<br>
+          <strong>هفتهٔ ۲:</strong> مثال‌های حل‌شده + مسائل ناتمام — با صدای بلند.<br>
+          <strong>هفتهٔ ۳-۴:</strong> بازیابی روزانه + درهم‌آمیزی مسائل.
+        </p>
+      </div>
+
+      <div class="case-quote">
+        «یک هفتهٔ اول سخت بود. ولی وقتی اولین بار تونستم یک مسئله را از صفر حل کنم، باور کردم که می‌تونم.»
+      </div>
+    </article>
+
+    <!-- کیس ۳: نازنین — صادقانه -->
+    <article class="case-card honest">
+      <div class="case-header">
+        <div class="case-avatar">👩‍🎓</div>
+        <div class="case-info">
+          <h3>نازنین، دوازدهم انسانی</h3>
+          <p class="meta">۸ هفته همراهی · نتیجه: کم</p>
+        </div>
+      </div>
+
+      <div class="case-numbers">
+        <div class="case-num before">
+          <span class="label">قبل</span>
+          <span class="value">۴۰٪</span>
+          <span class="sub">میانگین</span>
+        </div>
+        <div class="case-arrow">←</div>
+        <div class="case-num after">
+          <span class="label">بعد</span>
+          <span class="value">۴۵٪</span>
+          <span class="sub">+۵ واحد</span>
+        </div>
+      </div>
+
+      <div class="case-section">
+        <span class="section-label">چرا نتیجه نداد؟</span>
+        <p>
+          نازنین با وجود اجرای تمرین‌ها، نتوانست برنامه را برای بیش از ۳ روز پیوسته نگه دارد.
+          برنامه، برایش سنگین بود. تمرین‌ها، در سطح ۳۰ دقیقه، ولی او در سطح ۵ دقیقه بود.
+        </p>
+      </div>
+
+      <div class="honest-note">
+        <strong>درس برای من:</strong> تمرین‌ها باید ساده‌تر باشند. الان تمرین‌های ۵ دقیقه‌ای را در نسخهٔ بعدی تقویت می‌کنم. این کیس، به من یاد داد که «سیستم» برای همه یکسان نیست.
+      </div>
+
+      <div class="case-quote">
+        «من فکر می‌کنم این سیستم برای من زود بود. ولی چیزهایی یاد گرفتم که بعداً به کارم می‌آید.»
+      </div>
+    </article>
+
+    <!-- چرا کیس ضعیف را آوردیم -->
+    <article class="case-card honest" style="background: linear-gradient(135deg, #fff, #fef9e7);">
+      <div class="case-section">
+        <span class="section-label">چرا کیس ضعیف را هم آوردیم؟</span>
+        <p>
+          چون می‌خواهیم <strong>صادق</strong> باشیم. «ذهن سیستمی» یک راه‌حل جادویی نیست.
+          یک سیستم است — که برای بعضی‌ها، خیلی خوب کار می‌کند. برای بعضی‌ها، با کمی تغییر.
+          برای بعضی‌ها، اصلاً نه. و این، اشکالی ندارد.
+        </p>
+        <p style="margin-top:12px;">
+          <strong>اگر می‌خواهی بدانی این سیستم برای تو مناسب است یا نه، این‌ها را بپرس:</strong><br>
+          ✓ آیا حاضری روزی ۱۵ دقیقه، به مدت ۳۰ روز، یک تمرین انجام دهی؟<br>
+          ✓ آیا حاضری خطاهایت را ثبت کنی، حتی اگر سخت باشد؟<br>
+          ✓ آیا حاضری با یک سیستم، نه با یک ترفند، شروع کنی؟
+        </p>
+        <p style="margin-top:12px;">
+          اگر جوابت به هر سه، «بله» است — این سیستم برای توست.<br>
+          اگر «نه» — کتاب «فقط ۵ دقیقه» برایت بهتر است.
+        </p>
+      </div>
+    </article>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <h2>داستان بعدی، داستان توست؟</h2>
+      <p>
+        اگر می‌خواهی سیستم را داشته باشی که این تغییرها را ساخت،<br>
+        <strong>«ذهن سیستمی»</strong> را ببین.
+      </p>
+      <a href="sales.html" class="cta">
+        <i class="fa-solid fa-brain"></i>
+        مشاهدهٔ ذهن سیستمی
+      </a>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>مستر پلنر · یادگیری بر پایهٔ ساخت شناختی</p>
+    <p class="author">احسان روحانی راوری</p>
+    <p style="margin-top:12px;">
+      <a href="../../index.html">خانه</a> ·
+      <a href="sales.html">ذهن سیستمی</a> ·
+      <a href="five-minutes.html">فقط ۵ دقیقه</a> ·
+      <a href="about.html">درباره من</a> ·
+      <a href="../../library.html">کتابخانه</a>
+    </p>
+  </footer>
+
+</body>
+  </html>
