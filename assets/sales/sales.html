@@ -403,11 +403,11 @@
             <p style="margin:0 0 8px;">شماره کارت:</p>
             <div class="s-card-number">
               <!-- ⚠️ شماره کارت واقعی را اینجا جایگزین کنید -->
-              <code id="cardNumber">6037-XXXX-XXXX-XXXX</code>
+              <code id="cardNumber">6037-9915-6691-5587</code>
               <button type="button" class="s-copy-btn" onclick="copyCard()">📋 کپی</button>
             </div>
             <!-- ⚠️ نام صاحب حساب را جایگزین کنید -->
-            <p style="margin:8px 0 0;">به نام: <strong>[نام و نام خانوادگی صاحب حساب]</strong></p>
+            <p style="margin:8px 0 0;">به نام: <strong>[احسان روحانی راوری]</strong></p>
             <p style="margin:8px 0 0;">مبلغ: <strong>۹۰۰,۰۰۰ تومان</strong></p>
           </div>
         </div>
@@ -559,17 +559,17 @@
 <script>
   // کپی شماره کارت
   function copyCard() {
-    var cardEl = document.getElementById('cardNumber');
-    var cardText = cardEl.textContent.trim().replace(/-/g, '');
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(cardText).then(function() {
-        alert('✅ شماره کارت کپی شد:\n' + cardEl.textContent.trim());
-      }).catch(function() {
-        fallbackCopy(cardEl.textContent.trim());
-      });
-    } else {
-      fallbackCopy(cardEl.textContent.trim());
-    }
+  var cardText = document.getElementById('cardNumber').textContent.trim();
+  var nameText = document.querySelector('.s-card-info strong').textContent.trim();
+  var fullText = 'شماره کارت: ' + cardText + '\nبه نام: ' + nameText;
+
+  function done() { alert('✅ کپی شد:\n' + fullText); }
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(fullText).then(done).catch(function () { fallbackCopy(fullText); });
+  } else {
+    fallbackCopy(fullText);
+  }
   }
 
   function fallbackCopy(text) {
