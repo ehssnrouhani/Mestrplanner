@@ -56,7 +56,6 @@
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    /* ===== CTA ویژه در نویگیشن ===== */
     .nav-highlight {
       text-decoration: none;
       padding: 8px 16px;
@@ -74,7 +73,6 @@
       text-decoration: none;
     }
 
-    /* ===== نمایش محصولات (کارت‌های استاتیک) ===== */
     .ps-showcase {
       display: grid;
       grid-template-columns: 1fr;
@@ -82,12 +80,8 @@
       margin-top: 20px;
     }
     @media (min-width: 768px) {
-      .ps-showcase {
-        grid-template-columns: 1fr 1fr;
-      }
-      .ps-card--main {
-        grid-column: 1 / -1;
-      }
+      .ps-showcase { grid-template-columns: 1fr 1fr; }
+      .ps-card--main { grid-column: 1 / -1; }
     }
 
     .ps-card {
@@ -120,28 +114,16 @@
       opacity: 0;
       transition: opacity 0.3s ease;
     }
-    .ps-card:hover::before {
-      opacity: 1;
-    }
+    .ps-card:hover::before { opacity: 1; }
     .ps-card--main {
       background: linear-gradient(135deg, #fef9f0 0%, #ffffff 60%);
       border-color: #e8971f;
     }
-    .ps-card--main::before {
-      opacity: 1;
-    }
-    .ps-card--entry {
-      border-color: #10b981;
-    }
-    .ps-card--entry::before {
-      background: linear-gradient(90deg, #10b981, #34d399);
-    }
-    .ps-card--premium {
-      border-color: #6d28d9;
-    }
-    .ps-card--premium::before {
-      background: linear-gradient(90deg, #6d28d9, #8b5cf6);
-    }
+    .ps-card--main::before { opacity: 1; }
+    .ps-card--entry { border-color: #10b981; }
+    .ps-card--entry::before { background: linear-gradient(90deg, #10b981, #34d399); }
+    .ps-card--premium { border-color: #6d28d9; }
+    .ps-card--premium::before { background: linear-gradient(90deg, #6d28d9, #8b5cf6); }
 
     .ps-badge {
       position: absolute;
@@ -153,47 +135,16 @@
       border-radius: 999px;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.3px;
     }
-    .ps-badge--entry {
-      background: #10b981;
-    }
-    .ps-badge--premium {
-      background: #6d28d9;
-    }
+    .ps-badge--entry { background: #10b981; }
+    .ps-badge--premium { background: #6d28d9; }
 
-    .ps-icon {
-      font-size: 52px;
-      margin: 8px 0 16px;
-      line-height: 1;
-    }
-    .ps-card h3 {
-      font-size: 22px;
-      margin: 8px 0 12px;
-      color: #1a2332;
-      font-weight: 800;
-    }
-    .ps-card p {
-      font-size: 14px;
-      color: #64748b;
-      line-height: 1.85;
-      margin-bottom: 18px;
-      flex: 1;
-    }
-    .ps-features {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 20px;
-    }
-    .ps-features li {
-      font-size: 13.5px;
-      color: #334155;
-      padding: 5px 0;
-      line-height: 1.7;
-    }
-    .ps-features li strong {
-      color: #e8971f;
-    }
+    .ps-icon { font-size: 52px; margin: 8px 0 16px; line-height: 1; }
+    .ps-card h3 { font-size: 22px; margin: 8px 0 12px; color: #1a2332; font-weight: 800; }
+    .ps-card p { font-size: 14px; color: #64748b; line-height: 1.85; margin-bottom: 18px; flex: 1; }
+    .ps-features { list-style: none; padding: 0; margin: 0 0 20px; }
+    .ps-features li { font-size: 13.5px; color: #334155; padding: 5px 0; line-height: 1.7; }
+    .ps-features li strong { color: #e8971f; }
 
     .ps-footer {
       display: flex;
@@ -204,16 +155,8 @@
       flex-wrap: wrap;
       gap: 12px;
     }
-    .ps-price {
-      font-size: 19px;
-      font-weight: 800;
-      color: #e8971f;
-    }
-    .ps-price small {
-      font-size: 13px;
-      font-weight: 400;
-      color: #94a3b8;
-    }
+    .ps-price { font-size: 19px; font-weight: 800; color: #e8971f; }
+    .ps-price small { font-size: 13px; font-weight: 400; color: #94a3b8; }
     .ps-cta {
       background: #e8971f;
       color: #ffffff;
@@ -226,23 +169,12 @@
       gap: 6px;
       transition: all 0.2s ease;
     }
-    .ps-card:hover .ps-cta {
-      background: #c47a10;
-    }
-    .ps-card--entry .ps-cta {
-      background: #10b981;
-    }
-    .ps-card--entry:hover .ps-cta {
-      background: #059669;
-    }
-    .ps-card--premium .ps-cta {
-      background: #6d28d9;
-    }
-    .ps-card--premium:hover .ps-cta {
-      background: #5b21b6;
-    }
+    .ps-card:hover .ps-cta { background: #c47a10; }
+    .ps-card--entry .ps-cta { background: #10b981; }
+    .ps-card--entry:hover .ps-cta { background: #059669; }
+    .ps-card--premium .ps-cta { background: #6d28d9; }
+    .ps-card--premium:hover .ps-cta { background: #5b21b6; }
 
-    /* ===== بنر بالای محصولات ===== */
     .ps-intro {
       background: linear-gradient(135deg, #f8fafc, #f1f5f9);
       border-radius: 16px;
@@ -251,19 +183,86 @@
       border: 1px solid #e2e8f0;
       text-align: center;
     }
-    .ps-intro h2 {
+    .ps-intro h2 { font-size: 20px; color: #1a2332; margin: 0 0 8px; }
+    .ps-intro p { font-size: 14px; color: #64748b; margin: 0; line-height: 1.85; }
+
+    /* ✅ جدید: بخش لینک‌های مرتبط */
+    .related-links {
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 2px dashed #e2e8f0;
+    }
+    .related-links h2 {
       font-size: 20px;
       color: #1a2332;
       margin: 0 0 8px;
+      text-align: center;
     }
-    .ps-intro p {
+    .related-links > p {
       font-size: 14px;
       color: #64748b;
-      margin: 0;
+      margin: 0 0 24px;
+      text-align: center;
       line-height: 1.85;
     }
+    .related-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 600px) {
+      .related-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .related-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 22px;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 14px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
+    }
+    .related-card:hover {
+      border-color: #e8971f;
+      background: #fef9f0;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(232, 151, 31, 0.15);
+      text-decoration: none;
+      color: inherit;
+    }
+    .related-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      color: #b45309;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .related-card:nth-child(2) .related-icon {
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      color: #1e40af;
+    }
+    .related-text h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #1a2332;
+      margin: 0 0 6px;
+      line-height: 1.4;
+    }
+    .related-text p {
+      font-size: 13px;
+      color: #64748b;
+      margin: 0;
+      line-height: 1.7;
+    }
 
-    /* ===== CTA در هیرو ===== */
     .hero-ctas {
       display: flex;
       gap: 12px;
@@ -312,7 +311,7 @@
         </a>
         <a href="#" class="nav-link" data-page="downloads">دانلود رایگان</a>
         <a href="#" class="nav-link" data-page="tips">مقالات</a>
-        <a href="#" class="nav-link" data-page="about">درباره ما</a>
+        <a href="assets/sales/about.html" class="nav-link">درباره ما</a>
         <a href="assets/atlas/atlas.html" style="text-decoration:none;color:inherit;padding:8px 12px;font-weight:600;transition:color .2s;" onmouseover="this.style.color='#10b981'" onmouseout="this.style.color=''">اطلس مشاغل</a>
         <a href="assets/mastery/mastery.html" style="text-decoration:none;color:inherit;padding:8px 12px;font-weight:600;transition:color .2s;" onmouseover="this.style.color='#f59e0b'" onmouseout="this.style.color=''">ابزار تمرین</a>
         <a href="#" class="nav-link" data-page="contact">تماس</a>
@@ -455,8 +454,8 @@
           </div>
         </a>
 
-        <!-- کارت نقطه ورود -->
-        <a href="assets/sales/sales.html" class="ps-card ps-card--entry">
+        <!-- ✅ کارت نقطه ورود — لینک اصلاح شد به five-minutes.html -->
+        <a href="assets/sales/five-minutes.html" class="ps-card ps-card--entry">
           <div class="ps-badge ps-badge--entry">شروع از اینجا</div>
           <div class="ps-icon">⏱️</div>
           <h3>فقط ۵ دقیقه</h3>
@@ -503,11 +502,35 @@
 
       </div>
 
+      <!-- ✅ جدید: بخش لینک به about.html و cases.html -->
+      <div class="related-links">
+        <h2>بیشتر بدان</h2>
+        <p>قبل از خرید، با من و نتیجه‌های واقعی آشنا شو.</p>
+
+        <div class="related-grid">
+          <a href="assets/sales/about.html" class="related-card">
+            <div class="related-icon">👨‍🏫</div>
+            <div class="related-text">
+              <h3>داستان من</h3>
+              <p>چرا ذهن سیستمی را نوشتم — از «فکر می‌کردم مشکلم هوشمه» تا امروز.</p>
+            </div>
+          </a>
+
+          <a href="assets/sales/cases.html" class="related-card">
+            <div class="related-icon">📊</div>
+            <div class="related-text">
+              <h3>کیس‌های واقعی</h3>
+              <p>داستان دانش‌آموزانی که نتیجه‌شان را تغییر دادند — با اعداد واقعی.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
       <!-- مخفی: برای اینکه script.js قدیمی خطا ندهد -->
       <div id="productsList" style="display:none;"></div>
     </section>
 
-    <!-- ═══════════ ۵. صفحه درباره ما ═══════════ -->
+    <!-- ═══════════ ۵. صفحه درباره ما (بخش قدیمی) ═══════════ -->
     <section class="page" id="about">
       <h1 class="page-title">درباره مستر پلنر</h1>
       <div class="content-box">
@@ -515,10 +538,14 @@
           ما گروهی از مشاوران مدارس هستیم که دغدغه پیوند دانش و مهارت با رویکرد ساخت شناختی و یادگیری را داریم.
         </p>
         <p>
-          هدف ما در «مستر پلنر» این است که به دانش‌آموزان کمک کنیم تا نه تنها مطالب درسی را حفظ کنند، بلکه بتوانند ساختار ذهنی خود را برای درک عمیق و ماندگار مفاهیم شکل دهند. ما باور داریم هر دانش‌آموزی با ابزارهای صحیح، قادر به ساختن آینده درخشان خود است.
+          هدف ما در «مستر پلنر» این است که به دانش‌آموزان کمک کنیم تا نه تنها مطالب درسی را حفظ کنند، بلکه بتوانند ساختار ذهنی خود را برای درک عمیق و ماندگار مفاهیم شکل دهند.
         </p>
-        <p>
-          <strong>احسان روحانی راوری</strong> — بنیان‌گذار مستر پلنر — با ۲۵ سال تجربهٔ تدریس و مشاوره، سیستمی طراحی کرده که نتیجهٔ آن، تغییر واقعی در عملکرد دانش‌آموزان بوده است.
+        <p style="text-align:center; margin-top:20px;">
+          <a href="assets/sales/about.html" class="btn-primary" style="text-decoration:none; display:inline-flex; align-items:center; gap:.5rem;">
+            <i class="fa-solid fa-user"></i>
+            داستان کامل احسان روحانی راوری
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
         </p>
 
         <div class="rubika-promo">
@@ -572,10 +599,16 @@
     <div class="container">
       <p>© ۱۴۰۴ مستر پلنر — تمامی حقوق محفوظ است.</p>
       <p class="designer">طراحی و مدیریت: <strong>احسان روحانی راوری</strong></p>
-      <p style="margin-top:8px; font-size:13px;">
+      <p style="margin-top:12px; font-size:13px; line-height:2;">
         <a href="assets/sales/sales.html" style="color:#e8971f; font-weight:700; text-decoration:none;">🧠 ذهن سیستمی</a>
         <span style="opacity:.4; margin:0 8px;">·</span>
-        <a href="library.html" style="color:#e8971f; text-decoration:none;">کتابخانهٔ مقالات</a>
+        <a href="assets/sales/five-minutes.html" style="color:#e8971f; text-decoration:none;">⏱️ فقط ۵ دقیقه</a>
+        <span style="opacity:.4; margin:0 8px;">·</span>
+        <a href="assets/sales/about.html" style="color:#e8971f; text-decoration:none;">درباره من</a>
+        <span style="opacity:.4; margin:0 8px;">·</span>
+        <a href="assets/sales/cases.html" style="color:#e8971f; text-decoration:none;">کیس‌ها</a>
+        <span style="opacity:.4; margin:0 8px;">·</span>
+        <a href="library.html" style="color:#e8971f; text-decoration:none;">کتابخانه</a>
       </p>
     </div>
   </footer>
@@ -584,8 +617,7 @@
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
-  <!-- script.js اصلی سایت -->
   <script src="script.js"></script>
 
 </body>
-</html>
+  </html>
