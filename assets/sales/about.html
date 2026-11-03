@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>درباره احسان روحانی راوری | ذهن سیستمی</title>
+  <meta name="description" content="داستان احسان روحانی راوری — چرا ذهن سیستمی را نوشتم و چطور از «فکر می‌کردم مشکلم هوشمه» به یک سیستم کامل آموزشی رسیدم." />
+  <meta name="author" content="احسان روحانی راوری" />
+  <link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/assets/sales/about.html" />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --deep: #0c3846;
+      --deep-2: #1e5a6e;
+      --gold: #e8971f;
+      --gold-2: #f5b041;
+      --ink: #1a2332;
+      --soft: #4a5568;
+      --muted: #6b7c93;
+      --line: #d8e0e5;
+      --line-soft: #edf1f4;
+      --cream: #fff8e6;
+      --mint: #e6f0f2;
+      --bg: #fafcfd;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Vazirmatn', Tahoma, sans-serif;
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--ink);
+      direction: rtl;
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { color: var(--gold-2); }
+
+    .topbar {
+      background: linear-gradient(90deg, var(--deep), var(--deep-2));
+      color: #fff;
+      padding: 10px 20px;
+      text-align: center;
+      font-size: 13px;
+    }
+    .topbar a { color: var(--gold-2); font-weight: 700; }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* هیرو */
+    .hero {
+      text-align: center;
+      padding: 20px 0 40px;
+    }
+    .hero .avatar {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--deep), var(--deep-2));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      margin-bottom: 20px;
+      border: 4px solid var(--gold);
+      box-shadow: 0 12px 32px rgba(232, 151, 31, 0.25);
+    }
+    .hero h1 {
+      font-size: clamp(26px, 4vw, 34px);
+      font-weight: 800;
+      color: var(--deep);
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+    .hero .subtitle {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 500px;
+      margin-inline: auto;
+    }
+
+    /* بخش‌ها */
+    section.section {
+      padding: 36px 0;
+      border-top: 1px solid var(--line-soft);
+    }
+    section.section h2 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--deep);
+      line-height: 1.4;
+      margin-bottom: 20px;
+      padding-right: 16px;
+      border-right: 5px solid var(--gold);
+    }
+    section.section p {
+      font-size: 15.5px;
+      line-height: 2;
+      color: var(--soft);
+      margin-bottom: 16px;
+      text-align: justify;
+    }
+    section.section p strong { color: var(--deep); font-weight: 700; }
+    section.section p em { color: var(--gold); font-style: normal; font-weight: 700; }
+
+    .quote-big {
+      background: linear-gradient(135deg, var(--mint), #d3e5ea);
+      border-right: 5px solid var(--gold);
+      border-radius: 14px;
+      padding: 28px 32px;
+      margin: 28px 0;
+      font-size: 19px;
+      line-height: 1.8;
+      color: var(--deep);
+      font-weight: 700;
+      text-align: center;
+      font-family: 'Amiri', 'Vazirmatn', serif;
+    }
+
+    /* لیست اعتماد */
+    .trust-list {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+    .trust-list li {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--soft);
+      padding: 12px 0 12px 44px;
+      position: relative;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .trust-list li:last-child { border-bottom: none; }
+    .trust-list li::before {
+      content: "✓";
+      position: absolute;
+      right: 0;
+      top: 12px;
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-2));
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    /* فلسفه */
+    .philosophy-cards {
+      display: grid;
+      gap: 14px;
+      margin: 20px 0;
+    }
+    .phil-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-right: 4px solid var(--gold);
+      border-radius: 12px;
+      padding: 20px 24px;
+    }
+    .phil-card h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--deep);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .phil-card p {
+      font-size: 14.5px;
+      color: var(--soft);
+      line-height: 1.9;
+      margin: 0;
+    }
+
+    /* CTA */
+    .cta-section {
+      background: linear-gradient(135deg, var(--deep), var(--deep-2));
+      border-radius: 20px;
+      padding: 40px 28px;
+      text-align: center;
+      color: #fff;
+      margin-top: 40px;
+    }
+    .cta-section h2 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--gold-2);
+      line-height: 1.4;
+      margin-bottom: 16px;
+      border: none;
+      padding: 0;
+      text-align: center;
+    }
+    .cta-section p {
+      font-size: 15.5px;
+      color: #d5e4ea;
+      line-height: 1.9;
+      margin-bottom: 24px;
+      max-width: 500px;
+      margin-inline: auto;
+      text-align: center;
+    }
+    .cta-section p strong { color: var(--gold-2); }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 32px;
+      border-radius: 12px;
+      font-size: 15.5px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-2));
+      color: #fff;
+      box-shadow: 0 10px 28px rgba(232, 151, 31, 0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(232, 151, 31, 0.55);
+      color: #fff;
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      color: #fff;
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: #fff;
+      color: #fff;
+    }
+
+    footer {
+      background: var(--deep);
+      color: #a8c3cd;
+      text-align: center;
+      padding: 32px 20px;
+      font-size: 13px;
+      line-height: 2;
+    }
+    footer a { color: var(--gold-2); }
+    footer .author {
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 560px) {
+      .container { padding: 24px 16px 60px; }
+      .hero .avatar { width: 100px; height: 100px; font-size: 44px; }
+      section.section h2 { font-size: 20px; }
+      .quote-big { font-size: 16px; padding: 20px 24px; }
+      .cta-section { padding: 32px 20px; }
+      .btn { padding: 13px 24px; font-size: 14.5px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="sales.html"><i class="fa-solid fa-brain" style="color:#f5b041;"></i> ذهن سیستمی</a> ·
+    <a href="five-minutes.html">فقط ۵ دقیقه</a> ·
+    <a href="cases.html">کیس‌های واقعی</a>
+  </div>
+
+  <div class="container">
+
+    <!-- هیرو -->
+    <section class="hero">
+      <div class="avatar">👨‍🏫</div>
+      <h1>احسان روحانی راوری</h1>
+      <p class="subtitle">
+        نویسنده، معلم، و سازندهٔ سیستم «ذهن سیستمی»<br>
+        ۲۵ سال تدریس و مشاورهٔ تحصیلی
+      </p>
+    </section>
+
+    <!-- داستان -->
+    <section class="section">
+      <h2>داستان من</h2>
+
+      <p>
+        وقتی خودم دانش‌آموز بودم، فکر می‌کردم مشکل از هوشم است.
+        هر بار نمرهٔ بد می‌گرفتم، به خودم می‌گفتم: «من کم‌هوشم.»
+        هر بار که مطلبی را نمی‌فهمیدم، فکر می‌کردم: «من ذاتاً در این درس ضعیفم.»
+        هر بار که نمی‌توانستم شروع کنم: «من تنبلم.»
+      </p>
+
+      <p>
+        سال‌ها بعد، وقتی معلم شدم و سال‌ها با دانش‌آموزان کار کردم،
+        یک راز ساده را فهمیدم که کسی به من نگفته بود:
+      </p>
+
+      <div class="quote-big">
+        «مشکل، از ما نبود. از نبودن سیستم بود.»
+      </div>
+
+      <p>
+        ما یاد گرفته بودیم که «مطالعه» یعنی نشستن پشت میز و خواندن.
+        یاد گرفته بودیم که «موفق» یعنی نمرهٔ بالا. اما یاد نگرفته بودیم که
+        مطالعه، یک <em>مهارت</em> است، نه یک صفت. مثل شنا. مثل رانندگی.
+        مهارتی که با تمرین، با آگاهی، و با سیستم ساخته می‌شود.
+      </p>
+
+      <p>
+        آن روز، تصمیم گرفتم سیستمی بسازم که آنچه را که خودم سال‌ها دنبالش بودم،
+        به یک دانش‌آموز دیگر بدهد. نه نصیحت. نه شعار. <strong>یک سیستم واقعی.</strong>
+        نتیجه، «ذهن سیستمی» است.
+      </p>
+    </section>
+
+    <!-- چرا به من اعتماد کن -->
+    <section class="section">
+      <h2>چرا به من اعتماد کنی؟</h2>
+
+      <ul class="trust-list">
+        <li>۲۵ سال تجربهٔ تدریس و مشاورهٔ تحصیلی در مقاطع متوسطه و کنکور</li>
+        <li>کار با صدها دانش‌آموز در سطوح مختلف — از دانش‌آموز بحرانی تا نخبه</li>
+        <li>تألیف ۴ جلد کتاب و ۸ جزوهٔ تخصصی در حوزهٔ یادگیری</li>
+        <li>پشتوانهٔ علمی: مدل‌های ریاضی، پژوهش‌های روان‌شناسی شناختی</li>
+        <li>ابزارهای عملی: اکسل، چک‌لیست، کاربرگ — نه فقط تئوری</li>
+        <li>ضمانت بازگشت وجه: اگر راضی نبودی، کل مبلغ برمی‌گردد</li>
+      </ul>
+    </section>
+
+    <!-- فلسفه -->
+    <section class="section">
+      <h2>فلسفهٔ من</h2>
+
+      <div class="philosophy-cards">
+        <div class="phil-card">
+          <h3>یادگیری، یک مهارت است — نه یک استعداد</h3>
+          <p>
+            من معتقدم که یادگیری، یک استعداد ذاتی نیست. یک مهارت است.
+            و هر مهارتی، یاد گرفتنی است. با تمرین، با آگاهی، با سیستم.
+          </p>
+        </div>
+        <div class="phil-card">
+          <h3>بیشتر خواندن کار نمی‌کند — هوشمندانه خواندن کار می‌کند</h3>
+          <p>
+            یک ساعت مطالعهٔ متمرکز، از پنج ساعت خواندن پراکنده ارزشمندتر است.
+            مسئله، کمیت نیست. کیفیت است. و کیفیت، از سیستم می‌آید.
+          </p>
+        </div>
+        <div class="phil-card">
+          <h3>هر دانش‌آموزی، لایق یک فرصت دوم است</h3>
+          <p>
+            فرصت اینکه بفهمد مشکل از او نبوده، از سیستمی بوده که کسی به او یاد نداده.
+            و این، شرم‌آور نیست. نقطهٔ شروع است.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <h2>حالا نوبت توست.</h2>
+      <p>
+        اگر این داستان به دلت نشست،<br>
+        بگذار با هم شروع کنیم.
+      </p>
+      <div class="btn-row">
+        <a href="sales.html" class="btn btn-primary">
+          <i class="fa-solid fa-brain"></i>
+          مشاهدهٔ ذهن سیستمی
+        </a>
+        <a href="five-minutes.html" class="btn btn-secondary">
+          <i class="fa-solid fa-hourglass-start"></i>
+          اول با «فقط ۵ دقیقه» شروع کن
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>مستر پلنر · یادگیری بر پایهٔ ساخت شناختی</p>
+    <p class="author">احسان روحانی راوری</p>
+    <p style="margin-top:12px;">
+      <a href="../../index.html">خانه</a> ·
+      <a href="sales.html">ذهن سیستمی</a> ·
+      <a href="five-minutes.html">فقط ۵ دقیقه</a> ·
+      <a href="cases.html">کیس‌ها</a> ·
+      <a href="../../library.html">کتابخانه</a>
+    </p>
+  </footer>
+
+</body>
+</html>
