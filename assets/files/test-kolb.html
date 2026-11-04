@@ -90,26 +90,73 @@ function renderQuestion() {
   });
 }
 function showResult() {
-  document.getElementById('quiz-screen').classList.remove('active'); document.getElementById('result-screen').classList.add('active');
-  const chart = document.getElementById('chart-container'); chart.innerHTML = '';
+  document.getElementById('quiz-screen').classList.remove('active'); 
+  document.getElementById('result-screen').classList.add('active');
+  
+  const chart = document.getElementById('chart-container'); 
+  chart.innerHTML = '';
   const sorted = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
+  
   sorted.forEach(type => {
-    const score = scores[type]; const percent = (score / 12) * 100;
-    const row = document.createElement('div'); row.className = 'chart-row';
-    row.innerHTML = `<div class="chart-label">${type}</div><div class="chart-bar-bg"><div class="chart-bar-fill" style="width:${percent}%"></div></div><div>${score}</div>`;
+    const score = scores[type]; 
+    const percent = (score / 12) * 100;
+    const row = document.createElement('div'); 
+    row.className = 'chart-row';
+    
+    // اینجا رنگ سبز (background) را مستقیماً به نوار دادیم تا حتماً رنگی شود
+    row.innerHTML = `
+      <div class="chart-label">${type}</div>
+      <div class="chart-bar-bg">
+        <div class="chart-bar-fill" style="width:0%; background:#1f7a4d;"></div>
+      </div>
+      <div class="chart-score">${score}</div>
+    `;
     chart.appendChild(row);
+    
+    // انیمیشن پر شدن نوار
+    setTimeout(() => {
+      row.querySelector('.chart-bar-fill').style.width = `${percent}%`;
+    }, 50);
   });
-  const details = document.getElementById('results-details'); details.innerHTML = '';
+
+  const details = document.getElementById('results-details'); 
+  details.innerHTML = '';
+  
   let dominantStyle = '';
   if (scores.AE > scores.RO && scores.AC > scores.CE) dominantStyle = 'Converger';
   else if (scores.AE > scores.RO && scores.CE > scores.AC) dominantStyle = 'Accommodator';
   else if (scores.RO > scores.AE && scores.AC > scores.CE) dominantStyle = 'Assimilator';
   else dominantStyle = 'Diverger';
+
   const info = resultsData[dominantStyle];
-  const box = document.createElement('div'); box.className = 'feedback-box';
-  box.innerHTML = `<h3><i class="fa-solid ${info.icon}"></i> سبک غالب شما: ${info.name}</h3><p>${info.desc}</p><p><strong>رشته‌های پیشنهادی:</strong> ${info.majors}</p><p><strong>مشاغل پیشنهادی:</strong> ${info.jobs}</p>`;
-  details.appendChild(box);
-}
+
+  // ۱. ساخت باکس تئوری
+  const theoryBox = document.createElement('div');
+  theoryBox.className = 'theory-box';
+  theoryBox.innerHTML = `
+    <h3>📖 نظریه یادگیری تجربی کلب چیست؟</h3>
+    <p>دیوید کلب معتقد است یادگیری یک چرخه است که از چهار مرحله می‌گذرد. هیچ‌کس فقط در یک مرحله نیست، اما معمولاً در دو مرحله قوی‌تر عمل می‌کند. ترکیب این قوت‌ها، سبک یادگیری شما را می‌سازد:</p>
+    <ul>
+      <li><strong>CE (تجربه عینی):</strong> یادگیری از طریق احساسات، شهود و تجربه‌های مستقیم.</li>
+      <li><strong>RO (مشاهده تأملی):</strong> یادگیری از طریق تماشا، دقت و فکر کردن عمیق به موضوع.</li>
+      <li><strong>AC (مفهوم‌سازی انتزاعی):</strong> یادگیری از طریق منطق، تحلیل و درک نظریه‌ها.</li>
+      <li><strong>AE (آزمایشگری فعال):</strong> یادگیری از طریق عمل، آزمایش و انجام دادن.</li>
+    </ul>
+    <p>با نگاه به نمودار بالا، می‌توانید ببینید کدام مراحل در شما قوی‌تر است. در ادامه، تفسیر سبک غالب شما آمده است:</p>
+  `;
+  details.appendChild(theoryBox);
+
+  // ۲. ساخت باکس نتیجه نهایی
+  const resultBox = document.createElement('div'); 
+  resultBox.className = 'feedback-box';
+  resultBox.innerHTML = `
+    <h3><i class="fa-solid ${info.icon}"></i> سبک غالب شما: ${info.name}</h3>
+    <p>${info.desc}</p>
+    <p><strong>رشته‌های پیشنهادی:</strong> ${info.majors}</p>
+    <p><strong>مشاغل پیشنهادی:</strong> ${info.jobs}</p>
+  `;
+  details.appendChild(resultBox);
+  }
 function restartQuiz() { document.getElementById('result-screen').classList.remove('active'); startQuiz(); }
 </script>
 </body>
