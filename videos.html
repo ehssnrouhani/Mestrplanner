@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>آکادمی ویدئویی | مستر پلنر</title>
+<meta name="description" content="ویدئوهای آموزشی دروس تخصصی کنکور، تکنیک‌های تست‌زنی و حل تمرین.">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;position:sticky;top:0;z-index:20;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);font-weight:800;font-size:20px}
+.bar nav{margin-inline-start:auto;display:flex;gap:6px}
+.bar nav a{color:#fff;font-size:13.5px;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);text-decoration:none}
+.bar nav a:hover{background:rgba(255,255,255,.18)}
+
+main{max-width:1100px;margin:26px auto 40px;padding:0 16px}
+
+.hero{background:linear-gradient(140deg,var(--brand-dark),var(--brand) 70%,var(--accent));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);margin-bottom:20px;text-align:center}
+.hero h1{margin:0 0 10px;font-size:26px}
+.hero p{margin:0;opacity:.92;font-size:15px}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;justify-content:center}
+.filter-btn{font-family:inherit;font-size:13.5px;padding:8px 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:.15s}
+.filter-btn:hover{border-color:var(--accent)}
+.filter-btn.active{background:var(--brand-dark);color:#fff;border-color:var(--brand-dark)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.video-card{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);transition:transform .2s;display:flex;flex-direction:column}
+.video-card:hover{transform:translateY(-4px);border-color:var(--accent)}
+.thumb-wrap{position:relative;padding-top:56.25%;background:#000;cursor:pointer}
+.thumb-wrap img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.duration{position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,0.7);color:#fff;font-size:12px;padding:2px 8px;border-radius:6px;direction:ltr}
+.play-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;background:rgba(47,191,113,.9);border-radius:50%;display:grid;place-items:center;color:#fff;font-size:20px;opacity:0;transition:opacity .2s}
+.thumb-wrap:hover .play-icon{opacity:1}
+.video-info{padding:16px;flex-grow:1;display:flex;flex-direction:column}
+.video-tags{display:flex;gap:8px;margin-bottom:10px}
+.tag{font-size:11px;background:var(--brand-soft);color:var(--brand);padding:2px 8px;border-radius:6px;font-weight:600}
+.video-title{font-size:16px;font-weight:800;color:var(--brand-dark);margin:0 0 8px;line-height:1.6}
+.video-desc{font-size:13px;color:var(--muted);margin:0 0 15px;flex-grow:1;line-height:1.7}
+
+/* استایل اتصال اقماری (مقالات مرتبط) */
+.satellite-links{border-top:1px dashed var(--line);padding-top:12px;margin-top:auto}
+.satellite-links span{font-size:12px;color:var(--muted);display:block;margin-bottom:6px}
+.satellite-links a{display:inline-block;font-size:12px;background:var(--brand-soft);color:var(--brand-dark);padding:4px 10px;border-radius:6px;margin-left:5px;margin-bottom:5px;transition:0.2s}
+.satellite-links a:hover{background:var(--brand);color:#fff;text-decoration:none}
+.satellite-links a i{font-size:10px;margin-left:4px}
+
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;display:none;place-items:center;padding:20px;backdrop-filter:blur(5px)}
+.modal.open{display:grid}
+.modal-content{width:100%;max-width:900px;background:#000;border-radius:16px;overflow:hidden;position:relative;box-shadow:0 20px 50px rgba(0,0,0,0.5);aspect-ratio:16/9}
+.modal-content iframe{width:100%;height:100%;border:none}
+.close-btn{position:absolute;top:-40px;right:0;background:none;border:none;color:#fff;font-size:24px;cursor:pointer}
+
+.state{padding:40px;text-align:center;color:var(--muted);font-size:15px;background:var(--card);border-radius:var(--radius);border:1px dashed var(--line)}
+
+@media(max-width:560px){
+  .bar nav{display:none}
+  .grid{grid-template-columns:1fr}
+  .modal-content{border-radius:0}
+  .close-btn{top:10px;right:10px;background:rgba(0,0,0,0.5);width:36px;height:36px;border-radius:50%;display:grid;place-items:center}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="index.html">
+      <span class="brand-badge">م</span>
+      <strong>مستر پلنر</strong>
+    </a>
+    <nav>
+      <a href="index.html"><i class="fa-solid fa-house"></i> خانه</a>
+      <a href="library.html"><i class="fa-solid fa-book-bookmark"></i> کتابخانه</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>آکادمی ویدئویی مستر پلنر</h1>
+    <p>تکنیک‌های تست‌زنی، حل تمرین و مفاهیم درسی را به زبان ساده ببینید.</p>
+  </section>
+
+  <div class="filters" id="filters"></div>
+
+  <div id="videoGrid" class="grid">
+    <div class="state" style="grid-column: 1/-1;"><i class="fa-solid fa-circle-notch fa-spin"></i> در حال بارگذاری ویدئوها...</div>
+  </div>
+</main>
+
+<div class="modal" id="videoModal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div id="playerContainer"></div>
+  </div>
+</div>
+
+<script>
+let videosData = [];
+let currentFilter = 'همه';
+
+// تابع تولید لینک Embed برای یوتیوب و آپارات
+function getEmbedUrl(url) {
+  if (!url) return '';
+  
+  // آپارات
+  if (url.includes('aparat.com/v/')) {
+    const id = url.split('/v/')[1].split('/')[0].split('?')[0];
+    return `https://www.aparat.com/video/video/embed/videohash/${id}/vt/frame`;
+  }
+  // یوتیوب (لینک معمولی)
+  if (url.includes('youtube.com/watch?v=')) {
+    const id = url.split('v=')[1].split('&')[0];
+    return `https://www.youtube.com/embed/${id}`;
+  }
+  // یوتیوب (لینک کوتاه)
+  if (url.includes('youtu.be/')) {
+    const id = url.split('youtu.be/')[1].split('?')[0];
+    return `https://www.youtube.com/embed/${id}`;
+  }
+  // یوتیوب (لینک Embed آماده)
+  if (url.includes('youtube.com/embed/')) {
+    return url;
+  }
+  
+  return url; // اگر چیز دیگری بود
+}
+
+// 1. دریافت داده‌ها
+fetch('videos.json')
+  .then(res => res.json())
+  .then(data => {
+    videosData = data;
+    injectVideoSchema(data); // تزریق اسکیمای گوگل
+    buildFilters();
+    renderVideos();
+  })
+  .catch(err => {
+    document.getElementById('videoGrid').innerHTML = '<div class="state" style="grid-column: 1/-1;">خطا در بارگذاری ویدئوها. فایل videos.json را بررسی کنید.</div>';
+  });
+
+// 2. تزریق اسکیمای VideoObject به هد صفحه برای سئو
+function injectVideoSchema(videos) {
+  const videoObjects = videos.map(v => ({
+    "@type": "VideoObject",
+    "name": v.title,
+    "description": v.desc,
+    "thumbnailUrl": v.thumbnail,
+    "uploadDate": new Date().toISOString().split('T')[0], // تاریخ امروز به عنوان تاریخ آپلود
+    "contentUrl": v.videoUrl,
+    "embedUrl": getEmbedUrl(v.videoUrl)
+  }));
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "آکادمی ویدئویی مستر پلنر",
+    "itemListElement": videoObjects.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": item
+    }))
+  };
+
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.text = JSON.stringify(schema);
+  document.head.appendChild(script);
+}
+
+// 3. ساخت دکمه‌های فیلتر
+function buildFilters() {
+  const subjects = ['همه', ...new Set(videosData.map(v => v.subject))];
+  const container = document.getElementById('filters');
+  container.innerHTML = '';
+  
+  subjects.forEach(sub => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn' + (sub === 'همه' ? ' active' : '');
+    btn.innerText = sub;
+    btn.onclick = () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = sub;
+      renderVideos();
+    };
+    container.appendChild(btn);
+  });
+}
+
+// 4. نمایش کارت‌ها + اتصال اقماری
+function renderVideos() {
+  const grid = document.getElementById('videoGrid');
+  const filtered = currentFilter === 'همه' ? videosData : videosData.filter(v => v.subject === currentFilter);
+  
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="state" style="grid-column: 1/-1;">ویدئویی در این دسته یافت نشد.</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(v => {
+    // ساخت لینک‌های اقماری
+    let satLinks = '';
+    if (v.relatedArticles && v.relatedArticles.length > 0) {
+      satLinks = `
+        <div class="satellite-links">
+          <span><i class="fa-solid fa-link"></i> مقالات مرتبط:</span>
+          ${v.relatedArticles.map(a => `<a href="${a.url}"><i class="fa-solid fa-book-open"></i>${a.title}</a>`).join('')}
+        </div>
+      `;
+    }
+
+    return `
+      <div class="video-card">
+        <div class="thumb-wrap" onclick="openVideo('${v.videoUrl}')">
+          <img src="${v.thumbnail}" alt="${v.title}">
+          <span class="duration">${v.duration}</span>
+          <div class="play-icon"><i class="fa-solid fa-play"></i></div>
+        </div>
+        <div class="video-info">
+          <div class="video-tags">
+            <span class="tag">${v.subject}</span>
+            <span class="tag">${v.grade}</span>
+          </div>
+          <h3 class="video-title">${v.title}</h3>
+          <p class="video-desc">${v.desc}</p>
+          ${satLinks}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// 5. پخش ویدئو
+function openVideo(url) {
+  const modal = document.getElementById('videoModal');
+  const player = document.getElementById('playerContainer');
+  const embedUrl = getEmbedUrl(url);
+
+  if (!embedUrl) {
+    alert('لینک ویدئو نامعتبر است.');
+    return;
+  }
+
+  player.innerHTML = `<iframe src="${embedUrl}" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>`;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const modal = document.getElementById('videoModal');
+  document.getElementById('playerContainer').innerHTML = '';
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') closeModal();
+});
+</script>
+</body>
+  </html>
