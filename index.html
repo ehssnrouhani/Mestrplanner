@@ -1,6 +1,36 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-<head>
+  <!-- اسکیمای سئوی نظرات (Review Schema) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "ذهن سیستمی",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "2"
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "سارا محمدی" },
+        "reviewRating": { "@type": "Rating", "ratingValue": "5" },
+        "reviewBody": "بسته ذهن سیستمی واقعاً عالی بود. من همیشه فکر می‌کردم مشکل از هوشمه، ولی الان می‌فهمم چطور باید بخونم. دفتر خطا بهترین چیز این بسته بود."
+      },
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "علیرضا کریمی" },
+        "reviewRating": { "@type": "Rating", "ratingValue": "4" },
+        "reviewBody": "ابزار آزمونک‌ها خیلی خوب طراحی شده. من آزمون VARK رو دادم و متوجه شدم باید به جای صدا، بیشتر از تصاویر برای یادگیری استفاده کنم."
+      }
+    ]
+  }
+  </script>
+
+</head>
+<body>
+  <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
@@ -774,6 +804,34 @@
   </button>
 
   <script src="script.js"></script>
+  <!-- اسکریپت فرم نظرات -->
+  <script>
+    document.getElementById('reviewForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('revName').value.trim();
+      const text = document.getElementById('revText').value.trim();
+      
+      if(!name || !text) {
+        alert('لطفاً نام و متن نظر را وارد کنید.');
+        return;
+      }
+      
+      const msg = "سلام، من یک بازخورد/نظر برای سایت دارم:\n\n" +
+                  "👤 نام: " + name + "\n" +
+                  "📝 متن نظر: " + text + "\n\n" +
+                  "(لطفاً پس از تایید، این نظر را در سایت قرار دهید.)";
+                  
+      // کپی متن در کلیپ‌بورد و باز کردن روبیکا
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(msg);
+      }
+      
+      alert('متن نظر شما کپی شد. در صفحه روبیکا فقط آن را ارسال (Paste) کنید.');
+      window.open('https://rubika.ir/Alfanet2828', '_blank');
+    });
+  </script>
 
+</body>
+</html>
 </body>
   </html>
