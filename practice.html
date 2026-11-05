@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تمرین‌ساز آنلاین | مستر پلنر</title>
+<meta name="description" content="ابزار آنلاین تمرین محاسبات ریاضی و ذهنی برای دانش‌آموزان">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "تمرین‌ساز محاسبات ذهنی",
+  "description": "ابزار آنلاین تمرین محاسبات ریاضی و ذهنی برای دانش‌آموزان",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "IRR"
+  }
+}
+</script>
+
+<style>
+:root{--brand:#1f7a4d;--brand-dark:#0d3524;--brand-soft:#e8f4ec;--bg:#f2f6f3;--card:#fff;--ink:#16241d;--muted:#5d6f65;--line:#dfe9e2;--radius:16px;--shadow:0 10px 30px rgba(13,53,36,.08);--danger:#e05252;--safe:#2fbf71;}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px}
+.bar{max-width:800px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);font-weight:800;font-size:20px}
+main{max-width:600px;margin:40px auto;padding:0 16px}
+.card{background:var(--card);border-radius:var(--radius);padding:40px 30px;box-shadow:var(--shadow);border:1px solid var(--line);text-align:center;}
+h1{font-size:22px;color:var(--brand-dark);margin:0 0 20px;}
+.q-text{font-size:32px;font-weight:800;color:var(--brand);margin:20px 0;direction:ltr;}
+input[type="number"]{width:120px;padding:12px;font-size:24px;text-align:center;border:2px solid var(--line);border-radius:8px;font-family:inherit;outline:none;direction:ltr;}
+input[type="number"]:focus{border-color:var(--brand);}
+.btn{background:var(--brand);color:#fff;border:none;padding:12px 30px;border-radius:8px;font-family:inherit;font-size:16px;cursor:pointer;margin-top:20px;transition:0.2s;}
+.btn:hover{background:var(--brand-dark);}
+.feedback{margin-top:20px;font-weight:700;font-size:18px;height:30px;}
+.correct{color:var(--safe);}
+.wrong{color:var(--danger);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="index.html"><span class="brand-badge">م</span><strong>مستر پلنر</strong></a>
+  </div>
+</header>
+<main>
+  <div class="card">
+    <h1>تمرین‌ساز محاسبات ذهنی</h1>
+    <p style="color:var(--muted); margin-bottom:20px;">پاسخ صحیح را وارد کنید و دکمه بررسی را بزنید.</p>
+    
+    <div class="q-text" id="question">---</div>
+    <input type="number" id="answer" placeholder="؟">
+    <br>
+    <button class="btn" onclick="checkAnswer()">بررسی <i class="fa-solid fa-check"></i></button>
+    <div class="feedback" id="feedback"></div>
+  </div>
+</main>
+
+<script>
+let currentAnswer = 0;
+
+const questions = [
+  { q: "۱۲ + ۱۵", a: 27 },
+  { q: "۸ × ۷", a: 56 },
+  { q: "۱۰۰ - ۳۴", a: 66 },
+  { q: "۴۵ ÷ ۹", a: 5 },
+  { q: "۱۹ + ۲۱", a: 40 },
+  { q: "۹ × ۹", a: 81 },
+  { q: "۷۲ - ۱۸", a: 54 }
+];
+
+function generateQuestion() {
+  const randomIndex = Math.floor(Math.random() * questions.length);
+  const q = questions[randomIndex];
+  currentAnswer = q.a;
+  
+  document.getElementById('question').innerText = q.q + " =";
+  document.getElementById('answer').value = "";
+  document.getElementById('feedback').innerText = "";
+  document.getElementById('answer').focus();
+}
+
+function checkAnswer() {
+  const userAnswer = parseFloat(document.getElementById('answer').value);
+  const feedback = document.getElementById('feedback');
+  
+  if (isNaN(userAnswer)) {
+    feedback.innerText = "لطفاً یک عدد وارد کنید.";
+    feedback.className = "feedback wrong";
+    return;
+  }
+  
+  if (userAnswer === currentAnswer) {
+    feedback.innerText = "✅ آفرین! پاسخ صحیح است.";
+    feedback.className = "feedback correct";
+    setTimeout(generateQuestion, 1000);
+  } else {
+    feedback.innerText = "❌ متأسفانه اشتباه است. دوباره تلاش کن.";
+    feedback.className = "feedback wrong";
+  }
+}
+
+generateQuestion();
+</script>
+</body>
+      </html>
