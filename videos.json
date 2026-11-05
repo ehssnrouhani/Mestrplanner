@@ -1,0 +1,30 @@
+[
+  {
+    "id": "v1",
+    "title": "سه اشتباه رایج در حل تست‌های ریاضی",
+    "desc": "چرا با اینکه فرمول‌ها را بلدی، در تست‌ها وقت کم می‌آوری؟ در این ویدئو رازهای تست‌زنی را یاد می‌گیری.",
+    "subject": "ریاضی",
+    "grade": "دوازدهم",
+    "duration": "۰۵:۲۰",
+    "thumbnail": "https://via.placeholder.com/400x225/0f172a/D4AF37?text=Math+Video",
+    "videoUrl": "https://www.aparat.com/v/your_video_id",
+    "relatedArticles": [
+      { "title": "راهبرد گروه ریاضی و فیزیک", "url": "assets/files/riazi-physics.html" },
+      { "title": "تحلیل و بررسی آزمون", "url": "assets/files/exam-review.html" }
+    ]
+  },
+  {
+    "id": "v2",
+    "title": "مول و جرم مولی در ۵ دقیقه",
+    "desc": "مبحثی که خیلی‌ها از آن فرار می‌کنند را با یک روش ساده و بدون حفظ کردن یاد بگیرید.",
+    "subject": "شیمی",
+    "grade": "یازدهم",
+    "duration": "۰۴:۵۰",
+    "thumbnail": "https://via.placeholder.com/400x225/0f172a/D4AF37?text=Chemistry+Video",
+    "videoUrl": "https://www.youtube.com/watch?v=your_youtube_id",
+    "relatedArticles": [
+      { "title": "راهبرد گروه علوم تجربی", "url": "assets/files/tajrobi.html" },
+      { "title": "حافظه و تثبیت اطلاعات", "url": "assets/files/memory.html" }
+    ]
+  }
+]
