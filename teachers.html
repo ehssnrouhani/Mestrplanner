@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>دایرکتوری معلمان خصوصی | مستر پلنر</title>
+<meta name="description" content="لیست معلمان متخصص برای دروس مختلف جهت تدریس خصوصی و آنلاین. ارتباط مستقیم با معلم.">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "دایرکتوری معلمان خصوصی مستر پلنر",
+  "description": "لیست معلمان متخصص برای دروس مختلف جهت تدریس خصوصی و آنلاین",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "Person",
+        "name": "مهندس احمدی",
+        "jobTitle": "معلم ریاضی",
+        "description": "۱۲ سال سابقه تدریس ریاضی کنکور، متخصص حسابان و هندسه."
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "Person",
+        "name": "دکتر رضایی",
+        "jobTitle": "معلم فیزیک",
+        "description": "مولف کتاب‌های کمک آموزشی، متخصص فیزیک پیشرفته و حل تست."
+      }
+    }
+  ]
+}
+</script>
+
+<style>
+:root{--brand:#1f7a4d;--brand-dark:#0d3524;--brand-soft:#e8f4ec;--bg:#f2f6f3;--card:#fff;--ink:#16241d;--muted:#5d6f65;--line:#dfe9e2;--radius:16px;--shadow:0 10px 30px rgba(13,53,36,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px;position:sticky;top:0;z-index:10}
+.bar{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);font-weight:800;font-size:20px}
+main{max-width:900px;margin:26px auto 40px;padding:0 16px}
+.hero{background:linear-gradient(140deg,var(--brand-dark),var(--brand));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);margin-bottom:24px;text-align:center}
+.hero h1{margin:0 0 10px;font-size:26px}
+.hero p{margin:0;opacity:.9;font-size:15px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;justify-content:center}
+.filter-btn{background:#fff;border:1px solid var(--line);padding:8px 16px;border-radius:99px;cursor:pointer;font-family:inherit;transition:0.2s;color:var(--ink)}
+.filter-btn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border:1px solid var(--line);text-align:center;transition:0.3s}
+.card:hover{transform:translateY(-4px);border-color:var(--brand)}
+.avatar{width:80px;height:80px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:32px;margin:0 auto 16px}
+.card h3{margin:0 0 8px;font-size:18px;color:var(--brand-dark)}
+.card .subject{font-size:13px;background:var(--brand-soft);color:var(--brand);padding:4px 12px;border-radius:99px;display:inline-block;margin-bottom:12px}
+.card p{font-size:14px;color:var(--muted);margin-bottom:20px;text-align:justify;line-height:1.7}
+.contact-btn{display:inline-block;background:var(--brand);color:#fff;padding:10px 20px;border-radius:8px;font-weight:700;font-size:14px;width:100%}
+.contact-btn:hover{background:var(--brand-dark);text-decoration:none}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="index.html"><span class="brand-badge">م</span><strong>مستر پلنر</strong></a>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <h1>دایرکتوری معلمان خصوصی</h1>
+    <p>معلم متخصص برای هر درس پیدا کنید و مستقیم با آن‌ها در ارتباط باشید.</p>
+  </section>
+  
+  <div class="filters" id="filters">
+    <button class="filter-btn active" onclick="filterTeachers('همه', this)">همه</button>
+    <button class="filter-btn" onclick="filterTeachers('ریاضی', this)">ریاضی</button>
+    <button class="filter-btn" onclick="filterTeachers('فیزیک', this)">فیزیک</button>
+    <button class="filter-btn" onclick="filterTeachers('شیمی', this)">شیمی</button>
+    <button class="filter-btn" onclick="filterTeachers('زیست', this)">زیست</button>
+    <button class="filter-btn" onclick="filterTeachers('ادبیات', this)">ادبیات</button>
+    <button class="filter-btn" onclick="filterTeachers('عربی', this)">عربی</button>
+  </div>
+
+  <div class="grid" id="teacher-grid"></div>
+</main>
+
+<script>
+const teachers = [
+  { name: "مهندس احمدی", subject: "ریاضی", desc: "۱۲ سال سابقه تدریس ریاضی کنکور، متخصص حسابان و هندسه.", contact: "https://rubika.ir/teacher1" },
+  { name: "دکتر رضایی", subject: "فیزیک", desc: "مولف کتاب‌های کمک آموزشی، متخصص فیزیک پیشرفته و حل تست.", contact: "https://rubika.ir/teacher2" },
+  { name: "مهندس کریمی", subject: "شیمی", desc: "تدریس شیمی با روش‌های نوین حفظی و محاسباتی.", contact: "https://rubika.ir/teacher3" },
+  { name: "خانم موسوی", subject: "زیست", desc: "کارشناس ارشد زیست‌شناسی، تدریس مفهومی و ترکیبی.", contact: "https://rubika.ir/teacher4" }
+];
+
+function renderTeachers(list) {
+  const grid = document.getElementById('teacher-grid');
+  grid.innerHTML = '';
+  if(list.length === 0) { grid.innerHTML = '<p style="text-align:center; width:100%;">معلمی با این فیلتر یافت نشد.</p>'; return; }
+  
+  list.forEach(t => {
+    grid.innerHTML += `
+      <div class="card">
+        <div class="avatar"><i class="fa-solid fa-user-tie"></i></div>
+        <h3>${t.name}</h3>
+        <div class="subject">${t.subject}</div>
+        <p>${t.desc}</p>
+        <a href="${t.contact}" target="_blank" class="contact-btn">ارتباط با معلم <i class="fa-solid fa-comments"></i></a>
+      </div>
+    `;
+  });
+}
+
+function filterTeachers(subject, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if(subject === 'همه') renderTeachers(teachers);
+  else renderTeachers(teachers.filter(t => t.subject === subject));
+}
+
+renderTeachers(teachers);
+</script>
+</body>
+</html>
