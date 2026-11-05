@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تصمیم‌ساز تسلط (وب‌اپ) | مستر پلنر</title>
+<meta name="description" content="ابزار وب محاسبه فاصله تا تسلط بر اساس مدل منحنی یادگیری لگاریتمی">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "تصمیم‌ساز تسلط",
+  "description": "ابزار وب محاسبه فاصله تا تسلط بر اساس مدل منحنی یادگیری لگاریتمی",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "IRR"
+  }
+}
+</script>
+
+<style>
+:root{--brand:#1f7a4d;--brand-dark:#0d3524;--brand-soft:#e8f4ec;--bg:#f2f6f3;--card:#fff;--ink:#16241d;--muted:#5d6f65;--line:#dfe9e2;--radius:16px;--shadow:0 10px 30px rgba(13,53,36,.08);}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px}
+.bar{max-width:800px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);font-weight:800;font-size:20px}
+main{max-width:600px;margin:40px auto;padding:0 16px}
+.card{background:var(--card);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);border:1px solid var(--line);}
+h1{font-size:22px;color:var(--brand-dark);margin:0 0 10px;text-align:center;}
+p.sub{text-align:center;color:var(--muted);margin-bottom:24px;font-size:14px;}
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;margin-bottom:6px;font-size:14px;font-weight:700;color:var(--brand-dark);}
+.form-group input{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:16px;outline:none;}
+.form-group input:focus{border-color:var(--brand);}
+.btn{background:var(--brand);color:#fff;border:none;padding:14px;border-radius:8px;font-family:inherit;font-size:16px;cursor:pointer;width:100%;margin-top:10px;}
+.btn:hover{background:var(--brand-dark);}
+.result-box{margin-top:24px;padding:20px;background:var(--brand-soft);border-radius:12px;border-right:4px solid var(--brand);display:none;}
+.result-box.show{display:block;}
+.result-item{display:flex;justify-content:space-between;margin-bottom:10px;border-bottom:1px dashed var(--line);padding-bottom:8px;}
+.result-item:last-child{border:none;margin:0;padding:0;}
+.result-label{color:var(--muted);font-size:14px;}
+.result-value{font-weight:800;color:var(--brand-dark);font-size:16px;}
+.alert{background:#fef3c7;color:#92400e;padding:12px;border-radius:8px;margin-top:16px;font-size:14px;border-right:4px solid #f59e0b;display:none;}
+.alert.show{display:block;}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="index.html"><span class="brand-badge">م</span><strong>مستر پلنر</strong></a>
+  </div>
+</header>
+<main>
+  <div class="card">
+    <h1>تصمیم‌ساز تسلط</h1>
+    <p class="sub">فاصله‌ات تا آستانه تسلط را دقیق اندازه بگیر</p>
+    
+    <div class="form-group">
+      <label>سطح فعلی تسلط (۰ تا ۱۰۰):</label>
+      <input type="number" id="currentLevel" value="35" min="0" max="100">
+    </div>
+    <div class="form-group">
+      <label>آستانه هدف (۰ تا ۱۰۰):</label>
+      <input type="number" id="targetLevel" value="90" min="1" max="100">
+    </div>
+    <div class="form-group">
+      <label>نرخ یادگیری هفتگی (۱ تا ۱۰):</label>
+      <input type="number" id="learningRate" value="4" min="1" max="10" step="0.5">
+    </div>
+    <div class="form-group">
+      <label>ساعت مطالعه هفتگی:</label>
+      <input type="number" id="weeklyHours" value="6" min="1" max="40" step="0.5">
+    </div>
+    
+    <button class="btn" onclick="calculate()">محاسبه فاصله تا تسلط</button>
+    
+    <div class="result-box" id="resultBox">
+      <div class="result-item">
+        <span class="result-label">هفته‌های لازم:</span>
+        <span class="result-value" id="weeksResult">-</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">ساعت مطالعه کل:</span>
+        <span class="result-value" id="hoursResult">-</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">فاصله تا هدف:</span>
+        <span class="result-value" id="gapResult">-</span>
+      </div>
+    </div>
+    <div class="alert" id="alertBox"></div>
+  </div>
+</main>
+
+<script>
+function calculate() {
+  const l0 = parseFloat(document.getElementById('currentLevel').value) / 100;
+  const t = parseFloat(document.getElementById('targetLevel').value) / 100;
+  const k = parseFloat(document.getElementById('learningRate').value) / 10;
+  const hours = parseFloat(document.getElementById('weeklyHours').value);
+  
+  const alertBox = document.getElementById('alertBox');
+  const resultBox = document.getElementById('resultBox');
+  
+  alertBox.classList.remove('show');
+  resultBox.classList.remove('show');
+  
+  if (isNaN(l0) || isNaN(t) || isNaN(k) || isNaN(hours) || l0 >= t || l0 < 0 || t > 100) {
+    alertBox.innerText = 'لطفاً مقادیر معتبر وارد کنید (سطح هدف باید بیشتر از سطح فعلی باشد).';
+    alertBox.classList.add('show');
+    return;
+  }
+  
+  // فرمول: n* = ln((1-L0)/(1-T)) / k
+  const weeks = Math.log((1 - l0) / (1 - t)) / k;
+  const totalHours = Math.round(weeks * hours);
+  
+  document.getElementById('weeksResult').innerText = weeks.toFixed(1) + ' هفته';
+  document.getElementById('hoursResult').innerText = totalHours + ' ساعت';
+  document.getElementById('gapResult').innerText = ((t - l0) * 100).toFixed(0) + ' درصد';
+  
+  resultBox.classList.add('show');
+}
+</script>
+</body>
+</html>
