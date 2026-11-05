@@ -368,3 +368,94 @@ main { flex: 1; padding: 2rem 1rem; }
   .slider { height: 220px; }
   .slide-content h2 { font-size: 1.2rem; }
 }
+/* ====================================================
+   اصلاحات ظاهری برای مرتب‌سازی منو، کارت‌ها و دکمه‌ها
+   ==================================================== */
+
+/* 1. اصلاح منوی موبایل (جلوگیری از به‌هم‌ریختگی) */
+@media (max-width: 992px) {
+  /* پنهان کردن منو تا زمانی که دکمه منو زده شود */
+  .nav {
+    display: none; 
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    background-color: #0f172a; /* رنگ پس‌زمینه هدر */
+    padding: 1rem 0;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.5);
+    z-index: 999;
+  }
+
+  /* نمایش منو وقتی کلاس open به آن اضافه می‌شود */
+  .nav.open {
+    display: flex;
+  }
+
+  .nav-link {
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  /* حذف افکت دایره‌ای زشت دور کلمه "خانه" در موبایل */
+  .nav-link.active {
+    background: rgba(16, 185, 129, 0.15) !important; /* رنگ سبز کم‌رنگ */
+    color: #10b981 !important;
+    border-radius: 0;
+    border-right: 4px solid #10b981;
+  }
+  
+  /* اطمینان از نمایش دکمه همبرگری */
+  .menu-toggle {
+    display: block !important;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+}
+
+/* 2. اصلاح چینش کارت‌های وسط صفحه (شبکه‌بندی) */
+.cards {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+  gap: 1.5rem !important;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+/* 3. اصلاح دکمه‌های هیرو (بخش بالای صفحه) */
+.hero-buttons-container, .hero-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* اگر دکمه‌ها مستقیماً داخل hero هستند */
+.hero a.btn-primary, .hero button.btn-primary {
+  margin: 5px;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+/* 4. اصلاح نوار اسلایدر (جلوگیری از بیرون‌زدگی) */
+.slider {
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+}
+
+.slide-content {
+  padding: 2rem 1.5rem !important;
+      }
