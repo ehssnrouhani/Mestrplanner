@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>محاسبه‌گر تخصصی فیزیک و شیمی | مستر پلنر</title>
-<meta name="description" content="محاسبه‌گر پیشرفته فیزیک و شیمی: حل هر فرمول برای هر متغیر، حل زنجیره‌ای چندفرمولی، کاوشگر ارتباط متغیرها و نمودار شبکهٔ فرمول‌ها.">
+<meta name="description" content="محاسبه‌گر پیشرفته فیزیک و شیمی: حل هر فرمول، حل زنجیره‌ای، کاوشگر متغیر، حالت آزمون و اشتراک‌گذاری مسئله با دانش‌آموز.">
 <link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/calculator.html">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -61,12 +61,46 @@ main{max-width:1000px}
 .rel-item b{display:block;font-size:13px;color:#f8fafc;margin-bottom:4px}
 .rel-item .rel-tex{font-size:12.5px;color:#fbbf24;direction:ltr;text-align:left;margin:4px 0}
 .rel-item .rel-formula{font-size:12px;color:var(--mu);direction:ltr;text-align:left;background:#0b1120;padding:6px 10px;border-radius:6px;font-family:'Courier New',monospace;margin-top:4px}
-.mini-btn{background:#0f172a;border:1px solid var(--bd);border-radius:8px;padding:5px 10px;cursor:pointer;color:#cbd5e1;font-size:11.5px;font-weight:700;margin-top:4px}
+.mini-btn{background:#0f172a;border:1px solid var(--bd);border-radius:8px;padding:5px 12px;cursor:pointer;color:#cbd5e1;font-size:12px;font-weight:700;font-family:inherit}
 .mini-btn:hover{border-color:var(--ac);color:#fbbf24}
+.mini-btn.pr{background:var(--ac);border-color:var(--ac);color:#fff}
 .help-section{background:var(--p);border-radius:14px;padding:18px;margin-bottom:14px;border-right:4px solid var(--ac)}
 .help-section h3{font-size:15px;color:#fbbf24;margin:0 0 8px}
 .help-section p,.help-section li{font-size:13.5px;color:#cbd5e1;line-height:1.9}
 .help-section code{background:#0b1120;padding:2px 8px;border-radius:5px;color:#6ee7b7;font-family:'Courier New',monospace;direction:ltr;display:inline-block}
+/* ── Shared banner ── */
+.share-banner{background:linear-gradient(135deg,rgba(6,182,212,.15),rgba(6,182,212,.05));border:2px solid #06b6d4;border-radius:14px;padding:16px 20px;margin-bottom:14px;color:#cbd5e1;font-size:13.5px;line-height:1.85}
+.share-banner b{color:#06b6d4}
+.share-banner .row{margin-top:10px}
+/* ── Saved list ── */
+.saved-section{margin-top:20px;background:var(--p);border:1px solid var(--bd);border-radius:14px;padding:14px 18px}
+.saved-section h3{font-size:14px;color:#fbbf24;margin:0 0 10px}
+.saved-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:#0f172a;margin-bottom:6px;font-size:12.5px;color:#cbd5e1}
+.saved-item b{flex:1;font-weight:700;color:#f8fafc}
+.saved-item .meta{font-size:11px;color:var(--mu)}
+/* ── Quiz ── */
+.quiz-opt-row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.quiz-opt{background:#0f172a;border:1.5px solid var(--bd);border-radius:10px;padding:9px 16px;cursor:pointer;color:var(--tx);font-weight:700;font-size:13px;font-family:inherit}
+.quiz-opt.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.quiz-input{width:100%;background:#0f172a;border:2px solid var(--bd);border-radius:10px;padding:14px 16px;font-family:'Courier New',monospace;font-size:20px;color:#fff;direction:ltr;text-align:center;font-weight:800;margin:12px 0}
+.quiz-input:focus{outline:2px solid var(--ac);border-color:var(--ac)}
+.quiz-score{display:flex;justify-content:space-between;align-items:center;background:#0b1120;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px}
+.quiz-score b{color:#fbbf24;font-size:16px}
+.quiz-progress{height:6px;background:#0f172a;border-radius:3px;overflow:hidden;margin-bottom:14px}
+.quiz-progress i{display:block;height:100%;background:var(--ac);transition:width .3s}
+.quiz-q{background:#0b1120;border-radius:12px;padding:16px;margin-bottom:14px}
+.quiz-q h3{font-size:15px;color:#fbbf24;margin:0 0 10px}
+.quiz-q .given{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.quiz-q .given span{background:rgba(16,185,129,.12);color:#6ee7b7;border:1px solid #10b981;border-radius:8px;padding:5px 12px;font-size:13px;font-family:'Courier New',monospace;direction:ltr}
+.quiz-feedback{border-radius:14px;padding:18px;margin-bottom:14px;text-align:center}
+.quiz-feedback.ok{background:rgba(16,185,129,.12);border:2px solid #10b981}
+.quiz-feedback.bad{background:rgba(239,68,68,.12);border:2px solid #ef4444}
+.quiz-feedback .big{font-size:26px;margin-bottom:6px}
+.quiz-feedback .txt{font-size:16px;font-weight:800;color:#fff}
+.quiz-feedback .sub{font-size:13px;color:#cbd5e1;margin-top:8px}
+.quiz-final{text-align:center;padding:30px 20px;background:linear-gradient(135deg,#0b1120,#1e293b);border:2px solid var(--ac);border-radius:16px}
+.quiz-final .big{font-size:56px;font-weight:800;color:#fbbf24;direction:ltr;font-variant-numeric:tabular-nums}
+.quiz-final .lbl{font-size:15px;color:#cbd5e1;margin:8px 0}
 @media print{.top,.tabs,.noprint{display:none!important}main{padding:0;max-width:100%}}
 </style>
 </head>
@@ -79,6 +113,7 @@ main{max-width:1000px}
   <div class="tabs" id="tabs">
     <button data-t="calc" class="on">محاسبه</button>
     <button data-t="chain">زنجیره</button>
+    <button data-t="quiz">آزمون</button>
     <button data-t="vars">شبکهٔ متغیر</button>
     <button data-t="help">راهنما</button>
   </div>
@@ -89,7 +124,7 @@ main{max-width:1000px}
 <script>
 /* ═══════════════ پایگاه دانش ═══════════════ */
 const KB = {
-  cats: [
+  cats:[
     {id:'mechanics',label:'مکانیک',icon:'fa-person-running'},
     {id:'electricity',label:'الکتریسیته',icon:'fa-bolt'},
     {id:'magnetism',label:'مغناطیس',icon:'fa-magnet'},
@@ -98,193 +133,70 @@ const KB = {
     {id:'atomic',label:'فیزیک جدید',icon:'fa-atom'},
     {id:'chemistry',label:'شیمی',icon:'fa-flask'}
   ],
-  constants: {
-    g:{v:10,u:'m/s²',l:'گرانش'},
-    k:{v:9e9,u:'N·m²/C²',l:'کولن'},
-    NA:{v:6.022e23,u:'1/mol',l:'آووگادرو'},
-    R:{v:8.314,u:'J/(mol·K)',l:'گازها'},
-    h:{v:6.63e-34,u:'J·s',l:'پلانک'},
-    c:{v:3e8,u:'m/s',l:'نور'},
-    F:{v:96485,u:'C/mol',l:'فارادی'},
-    I0:{v:1e-12,u:'W/m²',l:'شدت مرجع'}
-  },
-  formulas: [
-    // ── مکانیک ──
-    {id:'v_kin',cat:'mechanics',l:'سرعت نهایی (شتاب ثابت)',tex:'v = v_0 + at',
-     vars:{v:'m/s',v0:'m/s',a:'m/s²',t:'s'},
-     solve:{v:'v0+a*t',v0:'v-a*t',a:'(v-v0)/t',t:'(v-v0)/a'}},
-    {id:'x_kin',cat:'mechanics',l:'جابجایی (شتاب ثابت)',tex:'x = v_0 t + \\tfrac{1}{2}at^2',
-     vars:{x:'m',v0:'m/s',a:'m/s²',t:'s'},
-     solve:{x:'v0*t+0.5*a*t*t',v0:'(x-0.5*a*t*t)/t',a:'2*(x-v0*t)/(t*t)',t:'(-v0+Math.sqrt(Math.max(0,v0*v0+2*a*x)))/a'}},
-    {id:'v2_kin',cat:'mechanics',l:'رابطهٔ سرعت و جابجایی',tex:'v^2 = v_0^2 + 2a\\Delta x',
-     vars:{v:'m/s',v0:'m/s',a:'m/s²',dx:'m'},
-     solve:{v:'Math.sqrt(Math.max(0,v0*v0+2*a*dx))',v0:'Math.sqrt(Math.max(0,v*v-2*a*dx))',a:'(v*v-v0*v0)/(2*dx)',dx:'(v*v-v0*v0)/(2*a)'}},
-    {id:'newton2',cat:'mechanics',l:'قانون دوم نیوتن',tex:'F = ma',
-     vars:{F:'N',m:'kg',a:'m/s²'},
-     solve:{F:'m*a',m:'F/a',a:'F/m'}},
-    {id:'weight',cat:'mechanics',l:'وزن',tex:'W = mg',
-     vars:{W:'N',m:'kg',g:'m/s²'},
-     solve:{W:'m*g',m:'W/g',g:'W/m'}},
-    {id:'friction',cat:'mechanics',l:'اصطکاک جنبشی',tex:'f_k = \\mu N',
-     vars:{fk:'N',mu:'-',N:'N'},
-     solve:{fk:'mu*N',mu:'fk/N',N:'fk/mu'}},
-    {id:'circ_ac',cat:'mechanics',l:'شتاب مرکزگرا',tex:'a_c = \\frac{v^2}{r}',
-     vars:{ac:'m/s²',v:'m/s',r:'m'},
-     solve:{ac:'v*v/r',v:'Math.sqrt(ac*r)',r:'v*v/ac'}},
-    {id:'work',cat:'mechanics',l:'کار نیرو',tex:'W = Fd\\cos\\theta',
-     vars:{W:'J',F:'N',d:'m',cos:'-'},defaults:{cos:1},
-     solve:{W:'F*d*cos',F:'W/(d*cos)',d:'W/(F*cos)',cos:'W/(F*d)'}},
-    {id:'kinetic',cat:'mechanics',l:'انرژی جنبشی',tex:'K = \\tfrac{1}{2}mv^2',
-     vars:{K:'J',m:'kg',v:'m/s'},
-     solve:{K:'0.5*m*v*v',m:'2*K/(v*v)',v:'Math.sqrt(2*K/m)'}},
-    {id:'potential',cat:'mechanics',l:'انرژی پتانسیل گرانشی',tex:'U = mgh',
-     vars:{U:'J',m:'kg',g:'m/s²',h:'m'},
-     solve:{U:'m*g*h',m:'U/(g*h)',g:'U/(m*h)',h:'U/(m*g)'}},
-    {id:'power',cat:'mechanics',l:'توان مکانیکی',tex:'P_w = \\frac{W}{t}',
-     vars:{Pw:'W',W:'J',t:'s'},
-     solve:{Pw:'W/t',W:'Pw*t',t:'W/Pw'}},
-    {id:'work_energy',cat:'mechanics',l:'قضیهٔ کار-انرژی',tex:'W_{net} = \\Delta K',
-     vars:{Wnet:'J',dK:'J'},
-     solve:{Wnet:'dK',dK:'Wnet'}},
-    // ── الکتریسیته ──
-    {id:'coulomb',cat:'electricity',l:'قانون کولن',tex:'F = k\\frac{|q_1 q_2|}{r^2}',
-     vars:{F:'N',k:'N·m²/C²',q1:'C',q2:'C',r:'m'},defaults:{k:9e9},
-     solve:{F:'k*q1*q2/(r*r)',k:'F*r*r/(q1*q2)',q1:'F*r*r/(k*q2)',q2:'F*r*r/(k*q1)',r:'Math.sqrt(Math.abs(k*q1*q2/F))'}},
-    {id:'efield',cat:'electricity',l:'میدان ذرهٔ باردار',tex:'E = k\\frac{Q}{r^2}',
-     vars:{E:'N/C',k:'N·m²/C²',Q:'C',r:'m'},defaults:{k:9e9},
-     solve:{E:'k*Q/(r*r)',k:'E*r*r/Q',Q:'E*r*r/k',r:'Math.sqrt(Math.abs(k*Q/E))'}},
-    {id:'vpoint',cat:'electricity',l:'پتانسیل ذرهٔ باردار',tex:'V_p = k\\frac{Q}{r}',
-     vars:{Vp:'V',k:'N·m²/C²',Q:'C',r:'m'},defaults:{k:9e9},
-     solve:{Vp:'k*Q/r',k:'Vp*r/Q',Q:'Vp*r/k',r:'k*Q/Vp'}},
-    {id:'unifield',cat:'electricity',l:'میدان یکنواخت',tex:'V_p = Ed',
-     vars:{Vp:'V',E:'V/m',d:'m'},
-     solve:{Vp:'E*d',E:'Vp/d',d:'Vp/E'}},
-    {id:'capacitor',cat:'electricity',l:'ظرفیت خازن',tex:'C = \\frac{Q}{V_p}',
-     vars:{C:'F',Q:'C',Vp:'V'},
-     solve:{C:'Q/Vp',Q:'C*Vp',Vp:'Q/C'}},
-    {id:'cap_energy',cat:'electricity',l:'انرژی خازن',tex:'U_c = \\tfrac{1}{2}QV_p',
-     vars:{Uc:'J',Q:'C',Vp:'V'},
-     solve:{Uc:'0.5*Q*Vp',Q:'2*Uc/Vp',Vp:'2*Uc/Q'}},
-    {id:'current_def',cat:'electricity',l:'تعریف جریان',tex:'I = \\frac{Q}{t}',
-     vars:{I:'A',Q:'C',t:'s'},
-     solve:{I:'Q/t',Q:'I*t',t:'Q/I'}},
-    {id:'ohm',cat:'electricity',l:'قانون اهم',tex:'V_p = IR',
-     vars:{Vp:'V',I:'A',R:'Ω'},
-     solve:{Vp:'I*R',I:'Vp/R',R:'Vp/I'}},
-    {id:'elec_power',cat:'electricity',l:'توان الکتریکی',tex:'P_e = V_p I',
-     vars:{Pe:'W',Vp:'V',I:'A'},
-     solve:{Pe:'Vp*I',Vp:'Pe/I',I:'Pe/Vp'}},
-    {id:'r_wire',cat:'electricity',l:'مقاومت سیم',tex:'R = \\rho\\frac{L}{A}',
-     vars:{R:'Ω',rho:'Ω·m',L:'m',A:'m²'},
-     solve:{R:'rho*L/A',rho:'R*A/L',L:'R*A/rho',A:'rho*L/R'}},
-    {id:'r_series',cat:'electricity',l:'مقاومت سری',tex:'R_s = R_1 + R_2',
-     vars:{Rs:'Ω',R1:'Ω',R2:'Ω'},
-     solve:{Rs:'R1+R2',R1:'Rs-R2',R2:'Rs-R1'}},
-    // ── مغناطیس ──
-    {id:'mag_charge',cat:'magnetism',l:'نیروی مغناطیسی بر بار',tex:'F = qvB\\sin\\theta',
-     vars:{F:'N',q:'C',v:'m/s',B:'T',sin:'-'},defaults:{sin:1},
-     solve:{F:'q*v*B*sin',q:'F/(v*B*sin)',v:'F/(q*B*sin)',B:'F/(q*v*sin)',sin:'F/(q*v*B)'}},
-    {id:'mag_wire',cat:'magnetism',l:'نیروی مغناطیسی بر سیم',tex:'F = ILB\\sin\\theta',
-     vars:{F:'N',I:'A',L:'m',B:'T',sin:'-'},defaults:{sin:1},
-     solve:{F:'I*L*B*sin',I:'F/(L*B*sin)',L:'F/(I*B*sin)',B:'F/(I*L*sin)',sin:'F/(I*L*B)'}},
-    {id:'mag_radius',cat:'magnetism',l:'شعاع مسیر دایره‌ای',tex:'r = \\frac{mv}{qB}',
-     vars:{r:'m',m:'kg',v:'m/s',q:'C',B:'T'},
-     solve:{r:'m*v/(q*B)',m:'r*q*B/v',v:'r*q*B/m',q:'m*v/(r*B)',B:'m*v/(r*q)'}},
-    // ── موج ──
-    {id:'wave_speed',cat:'waves',l:'سرعت موج',tex:'v = f\\lambda',
-     vars:{v:'m/s',f:'Hz',lam:'m'},
-     solve:{v:'f*lam',f:'v/lam',lam:'v/f'}},
-    {id:'sound_int',cat:'waves',l:'شدت صوت',tex:'I = \\frac{P_s}{4\\pi r^2}',
-     vars:{I:'W/m²',Ps:'W',r:'m'},
-     solve:{I:'Ps/(4*Math.PI*r*r)',Ps:'I*4*Math.PI*r*r',r:'Math.sqrt(Ps/(4*Math.PI*I))'}},
-    {id:'sound_level',cat:'waves',l:'تراز صوت',tex:'\\beta = 10\\log\\frac{I}{I_0}',
-     vars:{beta:'dB',I:'W/m²',I0:'W/m²'},defaults:{I0:1e-12},
-     solve:{beta:'10*Math.log10(I/I0)',I:'I0*Math.pow(10,beta/10)',I0:'I/Math.pow(10,beta/10)'}},
-    {id:'spring_T',cat:'waves',l:'دورهٔ فنر',tex:'T_p = 2\\pi\\sqrt{m/k_s}',
-     vars:{Tp:'s',m:'kg',ks:'N/m'},
-     solve:{Tp:'2*Math.PI*Math.sqrt(m/ks)',m:'ks*Math.pow(Tp/(2*Math.PI),2)',ks:'m*Math.pow(2*Math.PI/Tp,2)'}},
-    {id:'pendulum_T',cat:'waves',l:'دورهٔ آونگ',tex:'T_p = 2\\pi\\sqrt{L/g}',
-     vars:{Tp:'s',L:'m',g:'m/s²'},defaults:{g:10},
-     solve:{Tp:'2*Math.PI*Math.sqrt(L/g)',L:'g*Math.pow(Tp/(2*Math.PI),2)',g:'L*Math.pow(2*Math.PI/Tp,2)'}},
-    // ── گرما ──
-    {id:'pressure',cat:'thermo',l:'فشار',tex:'P = \\frac{F}{A}',
-     vars:{P:'Pa',F:'N',A:'m²'},
-     solve:{P:'F/A',F:'P*A',A:'F/P'}},
-    {id:'fluid_pressure',cat:'thermo',l:'فشار شاره',tex:'P = P_0 + \\rho g h',
-     vars:{P:'Pa',P0:'Pa',rho:'kg/m³',g:'m/s²',h:'m'},defaults:{g:10,P0:1e5},
-     solve:{P:'P0+rho*g*h',P0:'P-rho*g*h',rho:'(P-P0)/(g*h)',g:'(P-P0)/(rho*h)',h:'(P-P0)/(rho*g)'}},
-    {id:'buoyancy',cat:'thermo',l:'نیروی شناوری',tex:'F_b = \\rho g V',
-     vars:{Fb:'N',rho:'kg/m³',g:'m/s²',V:'m³'},defaults:{g:10},
-     solve:{Fb:'rho*g*V',rho:'Fb/(g*V)',g:'Fb/(rho*V)',V:'Fb/(rho*g)'}},
-    {id:'heat',cat:'thermo',l:'گرمای ویژه',tex:'Q = m c \\Delta T',
-     vars:{Q:'J',m:'kg',c:'J/(kg·K)',dT:'K'},
-     solve:{Q:'m*c*dT',m:'Q/(c*dT)',c:'Q/(m*dT)',dT:'Q/(m*c)'}},
-    {id:'ideal_gas',cat:'thermo',l:'گاز آرمانی',tex:'PV = nRT',
-     vars:{P:'Pa',V:'m³',n:'mol',R:'J/(mol·K)',T:'K'},defaults:{R:8.314},
-     solve:{P:'n*R*T/V',V:'n*R*T/P',n:'P*V/(R*T)',R:'P*V/(n*T)',T:'P*V/(n*R)'}},
-    // ── فیزیک جدید ──
-    {id:'bohr_E',cat:'atomic',l:'انرژی تراز بور',tex:'E_n = -\\frac{13.6}{n^2}',
-     vars:{En:'eV',n:'-'},
-     solve:{En:'-13.6/(n*n)',n:'Math.sqrt(-13.6/En)'}},
-    {id:'photon',cat:'atomic',l:'انرژی فوتون',tex:'E = \\frac{hc}{\\lambda}',
-     vars:{E:'J',h:'J·s',c:'m/s',lam:'m'},defaults:{h:6.63e-34,c:3e8},
-     solve:{E:'h*c/lam',h:'E*lam/c',c:'E*lam/h',lam:'h*c/E'}},
-    {id:'photoelec',cat:'atomic',l:'فوتوالکتریک',tex:'K_{max} = hf - W_0',
-     vars:{Kmax:'J',h:'J·s',f:'Hz',W0:'J'},defaults:{h:6.63e-34},
-     solve:{Kmax:'h*f-W0',h:'(Kmax+W0)/f',f:'(Kmax+W0)/h',W0:'h*f-Kmax'}},
-    // ── شیمی ──
-    {id:'mole',cat:'chemistry',l:'تعداد مول',tex:'n = \\frac{m}{M}',
-     vars:{n:'mol',m:'g',M:'g/mol'},
-     solve:{n:'m/M',m:'n*M',M:'m/n'}},
-    {id:'particles',cat:'chemistry',l:'تعداد ذره',tex:'N_p = n N_A',
-     vars:{Np:'-',n:'mol',NA:'1/mol'},defaults:{NA:6.022e23},
-     solve:{Np:'n*NA',n:'Np/NA',NA:'Np/n'}},
-    {id:'molarity',cat:'chemistry',l:'غلظت مولار',tex:'c = \\frac{n}{V}',
-     vars:{c:'mol/L',n:'mol',V:'L'},
-     solve:{c:'n/V',n:'c*V',V:'n/c'}},
-    {id:'ph',cat:'chemistry',l:'pH',tex:'pH = -\\log[H^+]',
-     vars:{pH:'-',H:'mol/L'},
-     solve:{pH:'-Math.log10(H)',H:'Math.pow(10,-pH)'}},
-    {id:'poh',cat:'chemistry',l:'pOH',tex:'pOH = -\\log[OH^-]',
-     vars:{pOH:'-',OH:'mol/L'},
-     solve:{pOH:'-Math.log10(OH)',OH:'Math.pow(10,-pOH)'}},
-    {id:'ph_poh',cat:'chemistry',l:'رابطهٔ pH و pOH',tex:'pH + pOH = 14',
-     vars:{pH:'-',pOH:'-'},
-     solve:{pH:'14-pOH',pOH:'14-pH'}},
-    {id:'ka',cat:'chemistry',l:'ثابت تفکیک اسید',tex:'K_a = \\frac{[H^+][A^-]}{[HA]}',
-     vars:{Ka:'-',H:'mol/L',An:'mol/L',HA:'mol/L'},
-     solve:{Ka:'H*An/HA',H:'Ka*HA/An',An:'Ka*HA/H',HA:'H*An/Ka'}},
-    {id:'enthalpy',cat:'chemistry',l:'آنتالپی واکنش',tex:'\\Delta H = H_p - H_r',
-     vars:{dH:'kJ',Hp:'kJ',Hr:'kJ'},
-     solve:{dH:'Hp-Hr',Hp:'dH+Hr',Hr:'Hp-dH'}},
-    {id:'cell_E',cat:'chemistry',l:'پتانسیل سلول',tex:'E_{cell} = E_c - E_a',
-     vars:{Ecell:'V',Ec:'V',Ea:'V'},
-     solve:{Ecell:'Ec-Ea',Ec:'Ecell+Ea',Ea:'Ec-Ecell'}},
-    {id:'gibbs',cat:'chemistry',l:'انرژی آزاد گیبس',tex:'\\Delta G = -nFE',
-     vars:{dG:'J',n:'mol',F:'C/mol',E:'V'},defaults:{F:96485},
-     solve:{dG:'-n*F*E',n:'-dG/(F*E)',F:'-dG/(n*E)',E:'-dG/(n*F)'}}
+  formulas:[
+    {id:'v_kin',cat:'mechanics',l:'سرعت نهایی (شتاب ثابت)',tex:'v = v_0 + at',vars:{v:'m/s',v0:'m/s',a:'m/s²',t:'s'},solve:{v:'v0+a*t',v0:'v-a*t',a:'(v-v0)/t',t:'(v-v0)/a'}},
+    {id:'x_kin',cat:'mechanics',l:'جابجایی (شتاب ثابت)',tex:'x = v_0 t + \\tfrac{1}{2}at^2',vars:{x:'m',v0:'m/s',a:'m/s²',t:'s'},solve:{x:'v0*t+0.5*a*t*t',v0:'(x-0.5*a*t*t)/t',a:'2*(x-v0*t)/(t*t)'}},
+    {id:'v2_kin',cat:'mechanics',l:'رابطهٔ سرعت و جابجایی',tex:'v^2 = v_0^2 + 2a\\Delta x',vars:{v:'m/s',v0:'m/s',a:'m/s²',dx:'m'},solve:{v:'Math.sqrt(Math.max(0,v0*v0+2*a*dx))',v0:'Math.sqrt(Math.max(0,v*v-2*a*dx))',a:'(v*v-v0*v0)/(2*dx)',dx:'(v*v-v0*v0)/(2*a)'}},
+    {id:'newton2',cat:'mechanics',l:'قانون دوم نیوتن',tex:'F = ma',vars:{F:'N',m:'kg',a:'m/s²'},solve:{F:'m*a',m:'F/a',a:'F/m'}},
+    {id:'weight',cat:'mechanics',l:'وزن',tex:'W = mg',vars:{W:'N',m:'kg',g:'m/s²'},defaults:{g:10},solve:{W:'m*g',m:'W/g',g:'W/m'}},
+    {id:'friction',cat:'mechanics',l:'اصطکاک جنبشی',tex:'f_k = \\mu N',vars:{fk:'N',mu:'-',N:'N'},ranges:{mu:[0.1,0.8]},solve:{fk:'mu*N',mu:'fk/N',N:'fk/mu'}},
+    {id:'circ_ac',cat:'mechanics',l:'شتاب مرکزگرا',tex:'a_c = \\frac{v^2}{r}',vars:{ac:'m/s²',v:'m/s',r:'m'},solve:{ac:'v*v/r',v:'Math.sqrt(ac*r)',r:'v*v/ac'}},
+    {id:'work',cat:'mechanics',l:'کار نیرو',tex:'W = Fd\\cos\\theta',vars:{W:'J',F:'N',d:'m',cos:'-'},defaults:{cos:1},ranges:{cos:[0.5,1]},solve:{W:'F*d*cos',F:'W/(d*cos)',d:'W/(F*cos)',cos:'W/(F*d)'}},
+    {id:'kinetic',cat:'mechanics',l:'انرژی جنبشی',tex:'K = \\tfrac{1}{2}mv^2',vars:{K:'J',m:'kg',v:'m/s'},solve:{K:'0.5*m*v*v',m:'2*K/(v*v)',v:'Math.sqrt(2*K/m)'}},
+    {id:'potential',cat:'mechanics',l:'انرژی پتانسیل گرانشی',tex:'U = mgh',vars:{U:'J',m:'kg',g:'m/s²',h:'m'},defaults:{g:10},solve:{U:'m*g*h',m:'U/(g*h)',g:'U/(m*h)',h:'U/(m*g)'}},
+    {id:'power',cat:'mechanics',l:'توان مکانیکی',tex:'P_w = \\frac{W}{t}',vars:{Pw:'W',W:'J',t:'s'},solve:{Pw:'W/t',W:'Pw*t',t:'W/Pw'}},
+    {id:'work_energy',cat:'mechanics',l:'قضیهٔ کار-انرژی',tex:'W_{net} = \\Delta K',vars:{Wnet:'J',dK:'J'},solve:{Wnet:'dK',dK:'Wnet'}},
+    {id:'coulomb',cat:'electricity',l:'قانون کولن',tex:'F = k\\frac{|q_1 q_2|}{r^2}',vars:{F:'N',k:'N·m²/C²',q1:'C',q2:'C',r:'m'},defaults:{k:9e9},ranges:{q1:[1e-6,1e-3],q2:[1e-6,1e-3],r:[0.1,1]},solve:{F:'k*q1*q2/(r*r)',k:'F*r*r/(q1*q2)',q1:'F*r*r/(k*q2)',q2:'F*r*r/(k*q1)',r:'Math.sqrt(Math.abs(k*q1*q2/F))'}},
+    {id:'efield',cat:'electricity',l:'میدان ذرهٔ باردار',tex:'E = k\\frac{Q}{r^2}',vars:{E:'N/C',k:'N·m²/C²',Q:'C',r:'m'},defaults:{k:9e9},ranges:{Q:[1e-9,1e-6],r:[0.1,1]},solve:{E:'k*Q/(r*r)',k:'E*r*r/Q',Q:'E*r*r/k',r:'Math.sqrt(Math.abs(k*Q/E))'}},
+    {id:'vpoint',cat:'electricity',l:'پتانسیل ذرهٔ باردار',tex:'V_p = k\\frac{Q}{r}',vars:{Vp:'V',k:'N·m²/C²',Q:'C',r:'m'},defaults:{k:9e9},ranges:{Q:[1e-9,1e-6],r:[0.1,1]},solve:{Vp:'k*Q/r',k:'Vp*r/Q',Q:'Vp*r/k',r:'k*Q/Vp'}},
+    {id:'unifield',cat:'electricity',l:'میدان یکنواخت',tex:'V_p = Ed',vars:{Vp:'V',E:'V/m',d:'m'},ranges:{E:[1,500],d:[0.1,2]},solve:{Vp:'E*d',E:'Vp/d',d:'Vp/E'}},
+    {id:'capacitor',cat:'electricity',l:'ظرفیت خازن',tex:'C = \\frac{Q}{V_p}',vars:{C:'F',Q:'C',Vp:'V'},ranges:{C:[1e-9,1e-6],Q:[1e-9,1e-6],Vp:[1,100]},solve:{C:'Q/Vp',Q:'C*Vp',Vp:'Q/C'}},
+    {id:'cap_energy',cat:'electricity',l:'انرژی خازن',tex:'U_c = \\tfrac{1}{2}QV_p',vars:{Uc:'J',Q:'C',Vp:'V'},ranges:{Q:[1e-6,1e-3],Vp:[1,100]},solve:{Uc:'0.5*Q*Vp',Q:'2*Uc/Vp',Vp:'2*Uc/Q'}},
+    {id:'current_def',cat:'electricity',l:'تعریف جریان',tex:'I = \\frac{Q}{t}',vars:{I:'A',Q:'C',t:'s'},solve:{I:'Q/t',Q:'I*t',t:'Q/I'}},
+    {id:'ohm',cat:'electricity',l:'قانون اهم',tex:'V_p = IR',vars:{Vp:'V',I:'A',R:'Ω'},solve:{Vp:'I*R',I:'Vp/R',R:'Vp/I'}},
+    {id:'elec_power',cat:'electricity',l:'توان الکتریکی',tex:'P_e = V_p I',vars:{Pe:'W',Vp:'V',I:'A'},solve:{Pe:'Vp*I',Vp:'Pe/I',I:'Pe/Vp'}},
+    {id:'r_wire',cat:'electricity',l:'مقاومت سیم',tex:'R = \\rho\\frac{L}{A}',vars:{R:'Ω',rho:'Ω·m',L:'m',A:'m²'},ranges:{rho:[1e-8,1e-6],L:[0.5,5],A:[1e-6,1e-3]},solve:{R:'rho*L/A',rho:'R*A/L',L:'R*A/rho',A:'rho*L/R'}},
+    {id:'r_series',cat:'electricity',l:'مقاومت سری',tex:'R_s = R_1 + R_2',vars:{Rs:'Ω',R1:'Ω',R2:'Ω'},solve:{Rs:'R1+R2',R1:'Rs-R2',R2:'Rs-R1'}},
+    {id:'mag_charge',cat:'magnetism',l:'نیروی مغناطیسی بر بار',tex:'F = qvB\\sin\\theta',vars:{F:'N',q:'C',v:'m/s',B:'T',sin:'-'},defaults:{sin:1},ranges:{q:[1e-6,1e-3],v:[1,10],B:[0.1,2]},solve:{F:'q*v*B*sin',q:'F/(v*B*sin)',v:'F/(q*B*sin)',B:'F/(q*v*sin)',sin:'F/(q*v*B)'}},
+    {id:'mag_wire',cat:'magnetism',l:'نیروی مغناطیسی بر سیم',tex:'F = ILB\\sin\\theta',vars:{F:'N',I:'A',L:'m',B:'T',sin:'-'},defaults:{sin:1},ranges:{I:[0.5,10],L:[0.1,2],B:[0.1,2]},solve:{F:'I*L*B*sin',I:'F/(L*B*sin)',L:'F/(I*B*sin)',B:'F/(I*L*sin)',sin:'F/(I*L*B)'}},
+    {id:'mag_radius',cat:'magnetism',l:'شعاع مسیر دایره‌ای',tex:'r = \\frac{mv}{qB}',vars:{r:'m',m:'kg',v:'m/s',q:'C',B:'T'},ranges:{m:[1e-27,1e-25],v:[1e5,1e7],q:[1e-19,1e-18],B:[0.1,2]},solve:{r:'m*v/(q*B)',m:'r*q*B/v',v:'r*q*B/m',q:'m*v/(r*B)',B:'m*v/(r*q)'}},
+    {id:'wave_speed',cat:'waves',l:'سرعت موج',tex:'v = f\\lambda',vars:{v:'m/s',f:'Hz',lam:'m'},ranges:{f:[10,1000],lam:[0.1,10]},solve:{v:'f*lam',f:'v/lam',lam:'v/f'}},
+    {id:'sound_int',cat:'waves',l:'شدت صوت',tex:'I = \\frac{P_s}{4\\pi r^2}',vars:{I:'W/m²',Ps:'W',r:'m'},solve:{I:'Ps/(4*Math.PI*r*r)',Ps:'I*4*Math.PI*r*r',r:'Math.sqrt(Ps/(4*Math.PI*I))'}},
+    {id:'sound_level',cat:'waves',l:'تراز صوت',tex:'\\beta = 10\\log\\frac{I}{I_0}',vars:{beta:'dB',I:'W/m²',I0:'W/m²'},defaults:{I0:1e-12},ranges:{I:[1e-10,1e-3]},solve:{beta:'10*Math.log10(I/I0)',I:'I0*Math.pow(10,beta/10)',I0:'I/Math.pow(10,beta/10)'}},
+    {id:'spring_T',cat:'waves',l:'دورهٔ فنر',tex:'T_p = 2\\pi\\sqrt{m/k_s}',vars:{Tp:'s',m:'kg',ks:'N/m'},solve:{Tp:'2*Math.PI*Math.sqrt(m/ks)',m:'ks*Math.pow(Tp/(2*Math.PI),2)',ks:'m*Math.pow(2*Math.PI/Tp,2)'}},
+    {id:'pendulum_T',cat:'waves',l:'دورهٔ آونگ',tex:'T_p = 2\\pi\\sqrt{L/g}',vars:{Tp:'s',L:'m',g:'m/s²'},defaults:{g:10},solve:{Tp:'2*Math.PI*Math.sqrt(L/g)',L:'g*Math.pow(Tp/(2*Math.PI),2)',g:'L*Math.pow(2*Math.PI/Tp,2)'}},
+    {id:'pressure',cat:'thermo',l:'فشار',tex:'P = \\frac{F}{A}',vars:{P:'Pa',F:'N',A:'m²'},solve:{P:'F/A',F:'P*A',A:'F/P'}},
+    {id:'fluid_pressure',cat:'thermo',l:'فشار شاره',tex:'P = P_0 + \\rho g h',vars:{P:'Pa',P0:'Pa',rho:'kg/m³',g:'m/s²',h:'m'},defaults:{g:10,P0:1e5},ranges:{rho:[500,2000],h:[0.5,10]},solve:{P:'P0+rho*g*h',P0:'P-rho*g*h',rho:'(P-P0)/(g*h)',g:'(P-P0)/(rho*h)',h:'(P-P0)/(rho*g)'}},
+    {id:'buoyancy',cat:'thermo',l:'نیروی شناوری',tex:'F_b = \\rho g V',vars:{Fb:'N',rho:'kg/m³',g:'m/s²',V:'m³'},defaults:{g:10},ranges:{rho:[500,2000],V:[1e-3,0.1]},solve:{Fb:'rho*g*V',rho:'Fb/(g*V)',g:'Fb/(rho*V)',V:'Fb/(rho*g)'}},
+    {id:'heat',cat:'thermo',l:'گرمای ویژه',tex:'Q = m c \\Delta T',vars:{Q:'J',m:'kg',c:'J/(kg·K)',dT:'K'},ranges:{c:[400,4000],dT:[5,100]},solve:{Q:'m*c*dT',m:'Q/(c*dT)',c:'Q/(m*dT)',dT:'Q/(m*c)'}},
+    {id:'ideal_gas',cat:'thermo',l:'گاز آرمانی',tex:'PV = nRT',vars:{P:'Pa',V:'m³',n:'mol',R:'J/(mol·K)',T:'K'},defaults:{R:8.314},ranges:{P:[1e4,1e6],V:[1e-3,0.1],n:[0.5,5],T:[200,500]},solve:{P:'n*R*T/V',V:'n*R*T/P',n:'P*V/(R*T)',R:'P*V/(n*T)',T:'P*V/(n*R)'}},
+    {id:'bohr_E',cat:'atomic',l:'انرژی تراز بور',tex:'E_n = -\\frac{13.6}{n^2}',vars:{En:'eV',n:'-'},ranges:{n:[1,6]},solve:{En:'-13.6/(n*n)',n:'Math.sqrt(-13.6/En)'}},
+    {id:'photon',cat:'atomic',l:'انرژی فوتون',tex:'E = \\frac{hc}{\\lambda}',vars:{E:'J',h:'J·s',c:'m/s',lam:'m'},defaults:{h:6.63e-34,c:3e8},ranges:{lam:[1e-9,1e-6]},solve:{E:'h*c/lam',h:'E*lam/c',c:'E*lam/h',lam:'h*c/E'}},
+    {id:'photoelec',cat:'atomic',l:'فوتوالکتریک',tex:'K_{max} = hf - W_0',vars:{Kmax:'J',h:'J·s',f:'Hz',W0:'J'},defaults:{h:6.63e-34},ranges:{f:[1e14,1e16],W0:[1e-19,1e-18]},solve:{Kmax:'h*f-W0',h:'(Kmax+W0)/f',f:'(Kmax+W0)/h',W0:'h*f-Kmax'}},
+    {id:'mole',cat:'chemistry',l:'تعداد مول',tex:'n = \\frac{m}{M}',vars:{n:'mol',m:'g',M:'g/mol'},ranges:{m:[10,200],M:[10,200]},solve:{n:'m/M',m:'n*M',M:'m/n'}},
+    {id:'particles',cat:'chemistry',l:'تعداد ذره',tex:'N_p = n N_A',vars:{Np:'-',n:'mol',NA:'1/mol'},defaults:{NA:6.022e23},solve:{Np:'n*NA',n:'Np/NA',NA:'Np/n'}},
+    {id:'molarity',cat:'chemistry',l:'غلظت مولار',tex:'c = \\frac{n}{V}',vars:{c:'mol/L',n:'mol',V:'L'},ranges:{c:[0.1,5]},solve:{c:'n/V',n:'c*V',V:'n/c'}},
+    {id:'ph',cat:'chemistry',l:'pH',tex:'pH = -\\log[H^+]',vars:{pH:'-',H:'mol/L'},ranges:{H:[1e-13,1e-2],pH:[1,13]},solve:{pH:'-Math.log10(H)',H:'Math.pow(10,-pH)'}},
+    {id:'poh',cat:'chemistry',l:'pOH',tex:'pOH = -\\log[OH^-]',vars:{pOH:'-',OH:'mol/L'},ranges:{OH:[1e-13,1e-2],pOH:[1,13]},solve:{pOH:'-Math.log10(OH)',OH:'Math.pow(10,-pOH)'}},
+    {id:'ph_poh',cat:'chemistry',l:'رابطهٔ pH و pOH',tex:'pH + pOH = 14',vars:{pH:'-',pOH:'-'},ranges:{pH:[1,13],pOH:[1,13]},solve:{pH:'14-pOH',pOH:'14-pH'}},
+    {id:'ka',cat:'chemistry',l:'ثابت تفکیک اسید',tex:'K_a = \\frac{[H^+][A^-]}{[HA]}',vars:{Ka:'-',H:'mol/L',An:'mol/L',HA:'mol/L'},ranges:{H:[1e-6,1e-2],An:[1e-6,1e-2],HA:[0.01,1]},solve:{Ka:'H*An/HA',H:'Ka*HA/An',An:'Ka*HA/H',HA:'H*An/Ka'}},
+    {id:'enthalpy',cat:'chemistry',l:'آنتالپی واکنش',tex:'\\Delta H = H_p - H_r',vars:{dH:'kJ',Hp:'kJ',Hr:'kJ'},ranges:{dH:[-500,500],Hp:[-500,200],Hr:[-300,300]},solve:{dH:'Hp-Hr',Hp:'dH+Hr',Hr:'Hp-dH'}},
+    {id:'cell_E',cat:'chemistry',l:'پتانسیل سلول',tex:'E_{cell} = E_c - E_a',vars:{Ecell:'V',Ec:'V',Ea:'V'},ranges:{Ecell:[0.1,2],Ec:[0.1,2],Ea:[-2,-0.1]},solve:{Ecell:'Ec-Ea',Ec:'Ecell+Ea',Ea:'Ec-Ecell'}},
+    {id:'gibbs',cat:'chemistry',l:'انرژی آزاد گیبس',tex:'\\Delta G = -nFE',vars:{dG:'J',n:'mol',F:'C/mol',E:'V'},defaults:{F:96485},ranges:{n:[0.5,5],E:[0.1,2]},solve:{dG:'-n*F*E',n:'-dG/(F*E)',F:'-dG/(n*E)',E:'-dG/(n*F)'}}
   ]
 };
 
 /* ═══════════════ ابزارها ═══════════════ */
 const $ = s => document.querySelector(s);
 const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const fa = n => {
-  if (n===undefined||n===null) return '—';
-  const abs = Math.abs(n);
-  if (abs!==0 && (abs<0.001 || abs>=1e6)) return n.toExponential(3).replace(/\.?0+e/,'e').replace('e+','×10^');
-  return Number(n).toLocaleString('fa-IR',{maximumFractionDigits:4});
-};
 const fmt = n => {
   if (!Number.isFinite(n)) return '—';
   const abs = Math.abs(n);
   if (abs!==0 && (abs<0.001 || abs>=1e6)) return n.toExponential(3);
   return Number(n.toLocaleString('fa-IR',{maximumFractionDigits:4}));
 };
-function toast(t){const e=$('#toast');if(!e)return;e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2400)}
-
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2600)}
 function findF(id){return KB.formulas.find(f=>f.id===id)}
-
 function evalExpr(expr, knowns){
   const keys = Object.keys(knowns).filter(k=>/^[A-Za-z_][A-Za-z0-9_]*$/.test(k));
   const vals = keys.map(k=>knowns[k]);
@@ -294,12 +206,20 @@ function evalExpr(expr, knowns){
     return Number.isFinite(r)?r:null;
   }catch(e){return null}
 }
-
-function typeset(){
-  if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise().catch(()=>{});
+function typeset(){if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise().catch(()=>{});}
+async function copyText(text){
+  try{ if(navigator.clipboard){await navigator.clipboard.writeText(text);return true;} }catch(e){}
+  try{
+    const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();return true;
+  }catch(e){return false}
 }
 
 /* ═══════════════ حالت ═══════════════ */
+const SAVE_KEY='mp_calc_saved_v1';
+function getSaved(){try{return JSON.parse(localStorage.getItem(SAVE_KEY)||'[]')}catch{return[]}}
+function setSaved(l){try{localStorage.setItem(SAVE_KEY,JSON.stringify(l))}catch{}}
+
 let S = {
   tab:'calc',
   catId:'mechanics',
@@ -307,38 +227,48 @@ let S = {
   target:null,
   knowns:{},
   qText:'',
-  varSel:null
+  varSel:null,
+  shared:null,
+  saved:getSaved(),
+  quiz:{
+    phase:'idle',
+    category:'all',
+    difficulty:'easy',
+    total:10,
+    questions:[],
+    current:0,
+    score:0,
+    userAnswer:'',
+    correct:null
+  }
 };
 
-/* ═══════════════ حل یک فرمول ═══════════════ */
+/* ═══════════════ حل ═══════════════ */
 function solveOne(fid, target, userKnowns){
   const f = findF(fid); if(!f) return {err:'فرمول پیدا نشد'};
-  if (!f.solve[target]) return {err:'این فرمول برای این متغیر حل نشده است'};
+  if (!f.solve[target]) return {err:'این فرمول برای این متغیر حل نشده'};
   const K = Object.assign({}, f.defaults||{}, userKnowns);
-  const needed = Object.keys(f.vars).filter(v=>v!==target);
-  for (const v of needed){
+  for (const v of Object.keys(f.vars)){
+    if (v===target) continue;
     if (K[v]===undefined || K[v]===null || K[v]==='' || !Number.isFinite(+K[v])){
       return {err:`مقدار «${v}» را وارد کن`};
     }
     K[v] = +K[v];
   }
   const val = evalExpr(f.solve[target], K);
-  if (val===null) return {err:'محاسبه ناموفق (تقسیم بر صفر یا دامنهٔ نامعتبر)'};
-  return {ok:true, val, unit:f.vars[target], expr:f.solve[target], formula:f, K};
+  if (val===null) return {err:'محاسبه ناموفق'};
+  return {ok:true, val, unit:f.vars[target], expr:f.solve[target]};
 }
 
-/* ═══════════════ حل زنجیره‌ای ═══════════════ */
-function chainSolve(userKnowns, target, maxIter=25){
-  let K = {};
-  for (const k in userKnowns){ if (Number.isFinite(+userKnowns[k])) K[k] = +userKnowns[k]; }
-  const steps = [];
-  const used = new Set();
+function chainSolve(userKnowns, target, maxIter=30){
+  let K={};
+  for (const k in userKnowns){ if (Number.isFinite(+userKnowns[k])) K[k]=+userKnowns[k]; }
+  const steps=[]; const used=new Set();
   for (let it=0; it<maxIter; it++){
     if (K[target]!==undefined) break;
-    let progress = false;
+    let progress=false;
     for (const f of KB.formulas){
-      const all = Object.keys(f.vars);
-      const unknown = all.filter(v=>K[v]===undefined);
+      const unknown = Object.keys(f.vars).filter(v=>K[v]===undefined);
       if (unknown.length!==1) continue;
       const t = unknown[0];
       if (!f.solve[t]) continue;
@@ -347,10 +277,9 @@ function chainSolve(userKnowns, target, maxIter=25){
       const localK = Object.assign({}, f.defaults||{}, K);
       const val = evalExpr(f.solve[t], localK);
       if (val===null) continue;
-      K[t] = val;
-      used.add(sig);
+      K[t]=val; used.add(sig);
       steps.push({formula:f, target:t, val, unit:f.vars[t]});
-      progress = true;
+      progress=true;
       if (t===target) return {ok:true, val, steps, knowns:K};
     }
     if (!progress) break;
@@ -358,22 +287,118 @@ function chainSolve(userKnowns, target, maxIter=25){
   return {ok:false, error:K[target]!==undefined?'':'به هدف نرسیدیم — داده‌های بیشتری لازم است', steps, knowns:K};
 }
 
-/* ═══════════════ ورودی سریع ═══════════════ */
+/* ═══════════════ پارس ═══════════════ */
 function parseKnowns(text){
-  const knowns = {}, bad = [];
-  const re = /([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(-?\d*\.?\d+(?:[eE][-+]?\d+)?)/g;
-  let m, matched = '';
-  while ((m=re.exec(text))!==null){
-    knowns[m[1]] = parseFloat(m[2]);
-    matched += m[0];
-  }
-  // تشخیص عبارت‌های نامفهوم
-  const cleaned = text.replace(re,'').replace(/[\s,;]/g,'');
+  const knowns={}, bad=[];
+  const re=/([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(-?\d*\.?\d+(?:[eE][-+]?\d+)?)/g;
+  let m;
+  while((m=re.exec(text))!==null){ knowns[m[1]]=parseFloat(m[2]); }
+  const cleaned = text.replace(re,'').replace(/[\s,;→\-]/g,'');
   if (cleaned) bad.push(cleaned);
   return {knowns, bad};
 }
 
-/* ═══════════════ رندر ═══════════════ */
+/* ═══════════════ تولید سؤال (آزمون) ═══════════════ */
+function getRange(f, v){
+  if (f.ranges && f.ranges[v]) return f.ranges[v];
+  const u = f.vars[v];
+  if (u==='s') return [1,15];
+  if (u==='m/s'||u==='m/s²') return [1,20];
+  if (u==='kg') return [0.5,20];
+  if (u==='N') return [1,200];
+  if (u==='J') return [1,500];
+  if (u==='W') return [10,1000];
+  if (u==='V') return [1,200];
+  if (u==='A') return [0.5,10];
+  if (u==='Ω') return [1,100];
+  if (u==='mol') return [0.5,5];
+  if (u==='g/mol') return [10,200];
+  if (u==='mol/L') return [0.1,5];
+  if (u==='m') return [0.5,10];
+  return [1,10];
+}
+function pickVal(range){
+  const [lo,hi]=range;
+  if (lo>0 && hi/lo>1000){
+    const lMin=Math.log10(lo), lMax=Math.log10(hi);
+    const v = Math.pow(10, lMin+Math.random()*(lMax-lMin));
+    return Number(v.toPrecision(2));
+  }
+  if (hi-lo>100) return Math.round(lo+Math.random()*(hi-lo));
+  if (hi-lo>10) return Math.round((lo+Math.random()*(hi-lo))*10)/10;
+  return Math.round((lo+Math.random()*(hi-lo))*100)/100;
+}
+function generateQuestion(catId, difficulty){
+  const pool = catId==='all' ? KB.formulas : KB.formulas.filter(f=>f.cat===catId);
+  if (difficulty==='easy'){
+    const filtered = pool.filter(f=>Object.keys(f.vars).length<=4);
+    if (filtered.length>0) return _genFromPool(filtered);
+  }
+  return _genFromPool(pool);
+}
+function _genFromPool(pool){
+  for (let attempt=0; attempt<40; attempt++){
+    const f = pool[Math.floor(Math.random()*pool.length)];
+    const vars = Object.keys(f.vars);
+    if (vars.length<2) continue;
+    const target = vars[Math.floor(Math.random()*vars.length)];
+    if (!f.solve[target]) continue;
+    const knowns = {};
+    let ok = true;
+    for (const v of vars){
+      if (v===target) continue;
+      if (f.defaults && f.defaults[v]!==undefined){ knowns[v]=f.defaults[v]; continue; }
+      const range = getRange(f,v);
+      const val = pickVal(range);
+      if (val===0){ok=false;break;}
+      knowns[v]=val;
+    }
+    if (!ok) continue;
+    const res = solveOne(f.id, target, knowns);
+    if (!res.ok) continue;
+    if (!Number.isFinite(res.val) || Math.abs(res.val)<1e-9 || Math.abs(res.val)>1e9) continue;
+    return {formula:f, target, knowns, answer:res.val, unit:res.unit};
+  }
+  return null;
+}
+function checkAnswer(user, correct){
+  if (correct===0) return Math.abs(user)<0.01;
+  return Math.abs((user-correct)/correct)<0.02;
+}
+
+/* ═══════════════ اشتراک ═══════════════ */
+function buildShareStr(fid, target, knowns, answer){
+  const p = new URLSearchParams();
+  p.set('f', fid); p.set('t', target);
+  if (answer!==undefined && answer!==null){ p.set('mode','solution'); p.set('_ans',String(answer)); }
+  else p.set('mode','problem');
+  Object.entries(knowns).forEach(([k,v])=>{ if(Number.isFinite(v)) p.set(k,String(v)); });
+  return p.toString();
+}
+function buildShareURL(fid, target, knowns, answer){
+  return location.origin + location.pathname + '#' + buildShareStr(fid,target,knowns,answer);
+}
+function checkShared(){
+  if (!location.hash) return;
+  try{
+    const p = new URLSearchParams(location.hash.slice(1));
+    const fid = p.get('f');
+    if (!fid || !findF(fid)) return;
+    const f = findF(fid);
+    const target = p.get('t');
+    if (!target || !f.vars[target]) return;
+    const mode = p.get('mode')||'problem';
+    const knowns = {};
+    Object.keys(f.vars).forEach(v=>{ const val=p.get(v); if(val!==null && !isNaN(+val)) knowns[v]=+val; });
+    const ans = p.get('_ans');
+    S.formulaId=fid; S.catId=f.cat; S.target=target;
+    S.knowns[fid]=knowns; S.tab='calc';
+    S.shared={ mode, fid, target, knowns, answer: ans!==null?+ans:null };
+    history.replaceState(null,'',location.pathname);
+  }catch(e){console.warn(e)}
+}
+
+/* ═══════════════ رندرها ═══════════════ */
 function renderCats(){
   return `<div class="cat-bar">${KB.cats.map(c=>`<button class="${S.catId===c.id?'on':''}" data-cat="${c.id}"><i class="fa-solid ${c.icon}"></i> ${c.label}</button>`).join('')}</div>`;
 }
@@ -385,6 +410,20 @@ function renderFormulaList(){
       <div class="tex-mini">\\(${f.tex}\\)</div>
       <small>${Object.keys(f.vars).length} متغیر</small>
     </div>`).join('')}</div>`;
+}
+function renderShareBanner(){
+  if (!S.shared) return '';
+  const f = findF(S.shared.fid);
+  const vals = Object.entries(S.shared.knowns).map(([k,v])=>`${k} = ${fmt(v)} ${f.vars[k]||''}`).join(' · ');
+  const isSol = S.shared.mode==='solution';
+  return `<div class="share-banner">
+    <div><b>🔗 ${isSol?'یک محاسبهٔ اشتراکی':'این مسئله با شما به اشتراک گذاشته شده'}</b></div>
+    <div style="margin-top:6px">${esc(f.l)} — <span style="font-family:'Courier New',monospace;direction:ltr;display:inline-block">${esc(vals)}</span></div>
+    ${isSol
+      ? `<div style="margin-top:6px">نتیجه: <b style="color:#6ee7b7">${S.shared.target} = ${fmt(S.shared.answer)} ${f.vars[S.shared.target]||''}</b></div>`
+      : `<div style="margin-top:6px">مقدار <b>${S.shared.target}</b> را محاسبه کن و پاسخ را وارد کن.</div>`}
+    <div class="row noprint"><button class="mini-btn" data-dismiss-share>بستن</button></div>
+  </div>`;
 }
 function renderFormulaCard(){
   const f = findF(S.formulaId);
@@ -409,135 +448,223 @@ function renderFormulaCard(){
     <div id="resultArea"></div>
   </div>`;
 }
-
-function renderResult(res, target){
+function renderResult(res, target, fid){
   if (!res) return '';
   if (res.err) return `<div class="result-box err"><div class="lbl">خطا</div><div class="val">${esc(res.err)}</div></div>`;
+  const actions = fid ? `<div class="row noprint" style="justify-content:center;margin-top:14px;gap:8px">
+    <button class="mini-btn" data-save="1"><i class="fa-solid fa-bookmark"></i> ذخیره</button>
+    <button class="mini-btn" data-share-problem="1"><i class="fa-solid fa-share-nodes"></i> اشتراک مسئله</button>
+    <button class="mini-btn" data-share-solution="1"><i class="fa-solid fa-check-double"></i> اشتراک حل</button>
+  </div>` : '';
   return `<div class="result-box">
     <div class="lbl">${target} =</div>
     <div class="val">${fmt(res.val)}<span class="unit">${res.unit||''}</span></div>
     <div class="expr">${esc(res.expr)}</div>
+    ${actions}
   </div>`;
+}
+function renderSavedSection(){
+  if (!S.saved.length) return '';
+  return `<div class="saved-section">
+    <h3><i class="fa-solid fa-bookmark"></i> محاسبه‌های ذخیره‌شده (${S.saved.length})</h3>
+    ${S.saved.map(s=>`<div class="saved-item">
+      <b>${esc(s.label||s.fid)}</b>
+      <span class="meta">${esc(s.target)} = ${fmt(s.answer)} ${esc(s.unit||'')}</span>
+      <button class="mini-btn" data-load-saved="${s.id}">بارگذاری</button>
+      <button class="mini-btn" data-share-saved="${s.id}">لینک</button>
+      <button class="mini-btn" data-del-saved="${s.id}" aria-label="حذف">✕</button>
+    </div>`).join('')}
+    <div class="row" style="margin-top:8px"><button class="mini-btn" data-clear-saved>پاک کردن همه</button></div>
+  </div>`;
+}
+function renderCalc(){
+  return renderShareBanner() + renderCats() + renderFormulaList() + renderFormulaCard() + renderSavedSection();
 }
 
 function renderChain(){
   const parsed = parseKnowns(S.qText||'');
-  const chipList = Object.entries(parsed.knowns).map(([k,v])=>`<span>${esc(k)} = ${v}</span>`).join('');
-  const badList = parsed.bad.map(b=>`<span class="bad">${esc(b)}</span>`).join('');
-  const allVars = [...new Set(KB.formulas.flatMap(f=>Object.keys(f.vars)))].sort();
+  const chips = Object.entries(parsed.knowns).map(([k,v])=>`<span>${esc(k)} = ${v}</span>`).join('');
+  const bad = parsed.bad.map(b=>`<span class="bad">${esc(b)}</span>`).join('');
+  const allVars=[...new Set(KB.formulas.flatMap(f=>Object.keys(f.vars)))].sort();
   return `<div class="cd">
     <h2>حل‌کنندهٔ زنجیره‌ای</h2>
     <p class="hn">چیزهایی که می‌دانی را بنویس. سیستم خودش مسیر فرمول‌ها را پیدا می‌کند.</p>
     <input class="qinput" id="qin" placeholder="مثال: v0=0 a=10 t=3 m=2" value="${esc(S.qText||'')}">
-    <div class="parsed">${chipList}${badList}</div>
+    <div class="parsed">${chips}${bad}</div>
     <div class="target-row" style="margin-top:12px">
       <label style="font-size:13px;color:#fbbf24;font-weight:700;white-space:nowrap">هدف:</label>
-      <select id="chainTarget">
-        <option value="">— انتخاب کن —</option>
+      <select id="chainTarget"><option value="">— انتخاب کن —</option>
         ${allVars.map(v=>`<option value="${v}" ${S.chainTarget===v?'selected':''}>${v}</option>`).join('')}
       </select>
       <button class="b pr" data-a="chain" style="white-space:nowrap"><i class="fa-solid fa-diagram-project"></i> حل کن</button>
     </div>
-    <p class="hint">می‌توانی هدف را هم داخل کادر بنویسی: <code>v0=0 a=10 t=3 → K</code>. سیستم هدف را از فلش می‌خواند.</p>
-    <div id="chainResult"></div>
+    <p class="hint">می‌توانی هدف را هم داخل کادر بنویسی: <code>v0=0 a=10 t=3 → K</code></p>
+    <div id="chainResult">${renderChainResult()}</div>
   </div>`;
 }
-
 function renderChainResult(){
   const target = S.chainTarget;
   if (!target) return '';
   const parsed = parseKnowns(S.qText||'');
-  if (parsed.knowns[target]!==undefined){
-    return `<div class="result-box"><div class="lbl">${target} از قبل معلوم است</div><div class="val">${fmt(parsed.knowns[target])}</div></div>`;
-  }
+  if (parsed.knowns[target]!==undefined)
+    return `<div class="result-box"><div class="lbl">${target} از قبل معلوم</div><div class="val">${fmt(parsed.knowns[target])}</div></div>`;
   const res = chainSolve(parsed.knowns, target);
   if (res.ok){
-    const stepsHtml = res.steps.map((st,i)=>`
-      <div class="step-item">
-        <div class="st-h">گام ${i+1}: ${esc(st.formula.l)}</div>
-        <div class="st-b">${esc(st.target)} = <b>${fmt(st.val)}</b> ${st.unit?`<span style="color:#94a3b8">${st.unit}</span>`:''}</div>
-      </div>`).join('');
-    return `<div class="result-box">
-      <div class="lbl">نتیجه</div>
-      <div class="val">${target} = ${fmt(res.val)}</div>
-    </div>
-    <div class="steps">
-      <h4>مسیر حل (${res.steps.length} گام)</h4>
-      ${stepsHtml}
-    </div>`;
+    const steps = res.steps.map((st,i)=>`<div class="step-item">
+      <div class="st-h">گام ${i+1}: ${esc(st.formula.l)}</div>
+      <div class="st-b">${esc(st.target)} = <b>${fmt(st.val)}</b> ${st.unit?`<span style="color:#94a3b8">${st.unit}</span>`:''}</div>
+    </div>`).join('');
+    return `<div class="result-box"><div class="lbl">نتیجه</div><div class="val">${target} = ${fmt(res.val)}</div></div>
+      <div class="steps"><h4>مسیر حل (${res.steps.length} گام)</h4>${steps}</div>`;
   }
-  // اگر هدف نرسید، بگو چه چیزهایی می‌شود حساب کرد
   const reachable = Object.keys(res.knowns).filter(k=>!parsed.knowns[k]);
-  const reachHtml = reachable.length 
-    ? `<p class="hint">با این داده‌ها این‌ها قابل محاسبه‌اند: ${reachable.map(v=>`<code>${v}</code>`).join(' ')}</p>` 
-    : `<p class="hint">با این داده‌ها نمی‌شود چیز بیشتری حساب کرد. داده‌های بیشتری وارد کن.</p>`;
-  return `<div class="result-box err"><div class="lbl">نرسیدیم</div><div class="val">${esc(res.error)}</div></div>${reachHtml}`;
+  return `<div class="result-box err"><div class="lbl">نرسیدیم</div><div class="val">${esc(res.error)}</div></div>
+    ${reachable.length?`<p class="hint">قابل محاسبه با این داده‌ها: ${reachable.map(v=>`<code>${v}</code>`).join(' ')}</p>`:''}`;
 }
 
 function renderVars(){
-  const varMap = {};
-  KB.formulas.forEach(f=>{
-    Object.keys(f.vars).forEach(v=>{
-      if (!varMap[v]) varMap[v] = [];
-      varMap[v].push(f);
-    });
-  });
+  const varMap={};
+  KB.formulas.forEach(f=>Object.keys(f.vars).forEach(v=>{ (varMap[v]=varMap[v]||[]).push(f); }));
   const vars = Object.keys(varMap).sort();
   const sel = S.varSel;
-  let detail = '';
+  let detail='';
   if (sel && varMap[sel]){
     detail = `<h2 style="margin-top:18px">فرمول‌هایی که «${esc(sel)}» دارند</h2>
-      ${varMap[sel].map(f=>`
-        <div class="rel-item">
-          <b>${esc(f.l)}</b>
-          <div class="rel-tex">\\(${f.tex}\\)</div>
-          <div class="rel-formula">${esc(f.solve[sel]||'—')}</div>
-          <button class="mini-btn" data-jump="${f.id}">باز کردن در محاسبه‌گر</button>
-        </div>`).join('')}`;
+      ${varMap[sel].map(f=>`<div class="rel-item">
+        <b>${esc(f.l)}</b>
+        <div class="rel-tex">\\(${f.tex}\\)</div>
+        <div class="rel-formula">${esc(f.solve[sel]||'—')}</div>
+        <button class="mini-btn" data-jump="${f.id}">باز کردن در محاسبه‌گر</button>
+      </div>`).join('')}`;
   }
   return `<div class="cd">
     <h2>کاوشگر متغیر</h2>
-    <p class="hn">یک متغیر را انتخاب کن تا ببینی در کدام فرمول‌ها استفاده می‌شود و چطور حل می‌شود.</p>
-    <div class="var-explorer">
-      ${vars.map(v=>`<button class="${sel===v?'on':''}" data-vsel="${v}">${esc(v)}</button>`).join('')}
-    </div>
+    <p class="hn">یک متغیر را انتخاب کن تا ببینی در کدام فرمول‌ها استفاده می‌شود.</p>
+    <div class="var-explorer">${vars.map(v=>`<button class="${sel===v?'on':''}" data-vsel="${v}">${esc(v)}</button>`).join('')}</div>
     ${detail}
   </div>`;
 }
 
+/* ── آزمون ── */
+function renderQuiz(){
+  const q = S.quiz;
+  if (q.phase==='idle'){
+    const cats=[{id:'all',label:'همه'},...KB.cats];
+    return `<div class="cd">
+      <h2>آزمون سریع</h2>
+      <p class="hn">سؤال‌ها از پایگاه دانش فرمول‌ها تصادفی تولید می‌شوند. پاسخ با خطای ۲٪ پذیرفته می‌شود.</p>
+      <h4>دسته</h4>
+      <div class="quiz-opt-row">${cats.map(c=>`<button class="quiz-opt ${q.category===c.id?'on':''}" data-qcat="${c.id}">${c.label}</button>`).join('')}</div>
+      <h4>دشواری</h4>
+      <div class="quiz-opt-row">
+        <button class="quiz-opt ${q.difficulty==='easy'?'on':''}" data-qdiff="easy">آسان (فرمول ساده)</button>
+        <button class="quiz-opt ${q.difficulty==='medium'?'on':''}" data-qdiff="medium">متوسط (همهٔ فرمول‌ها)</button>
+      </div>
+      <h4>تعداد سؤال</h4>
+      <div class="quiz-opt-row">
+        ${[5,10,15,20].map(n=>`<button class="quiz-opt ${q.total===n?'on':''}" data-qtotal="${n}">${n}</button>`).join('')}
+      </div>
+      <button class="b pr w" data-a="startQuiz" style="margin-top:14px"><i class="fa-solid fa-play"></i> شروع آزمون</button>
+    </div>`;
+  }
+  if (q.phase==='asking'){
+    const qq = q.questions[q.current];
+    if (!qq) return '<div class="cd"><p>سؤالی موجود نیست.</p></div>';
+    const f = qq.formula;
+    const given = Object.entries(qq.knowns).map(([k,v])=>`<span>${esc(k)} = ${fmt(v)} ${f.vars[k]||''}</span>`).join('');
+    const pct = ((q.current)/q.questions.length)*100;
+    return `<div class="cd">
+      <div class="quiz-score"><span>سؤال ${q.current+1} از ${q.questions.length}</span><span>نمره: <b>${q.score}</b></span></div>
+      <div class="quiz-progress"><i style="width:${pct}%"></i></div>
+      <div class="quiz-q">
+        <h3>${esc(f.l)}</h3>
+        <div style="direction:ltr;text-align:center;color:#fbbf24;font-size:16px;margin:8px 0">\\[${f.tex}\\]</div>
+        <div class="given">${given}</div>
+      </div>
+      <h4>مقدار <b style="color:#fbbf24">${qq.target}</b> را محاسبه کن:</h4>
+      <input class="quiz-input" type="number" step="any" id="quizInput" placeholder="پاسخ عددی" value="${esc(q.userAnswer)}" autofocus>
+      <div class="row" style="gap:8px"><button class="b pr w" data-a="checkQuiz"><i class="fa-solid fa-check"></i> بررسی پاسخ</button></div>
+    </div>`;
+  }
+  if (q.phase==='feedback'){
+    const qq = q.questions[q.current];
+    const next = q.current+1 < q.questions.length;
+    return `<div class="cd">
+      <div class="quiz-score"><span>سؤال ${q.current+1} از ${q.questions.length}</span><span>نمره: <b>${q.score}</b></span></div>
+      <div class="quiz-feedback ${q.correct?'ok':'bad'}">
+        <div class="big">${q.correct?'✅':'❌'}</div>
+        <div class="txt">${q.correct?'پاسخ صحیح':'پاسخ درست نیست'}</div>
+        <div class="sub">پاسخ تو: ${esc(q.userAnswer)}${qq.unit?' '+qq.unit:''}${!q.correct?` — پاسخ صحیح: ${fmt(qq.answer)} ${qq.unit||''}`:''}</div>
+      </div>
+      <div class="steps">
+        <h4>مسیر حل</h4>
+        <div class="step-item">
+          <div class="st-h">${esc(qq.formula.l)}</div>
+          <div class="st-b">${esc(qq.target)} = <b>${fmt(qq.answer)}</b> ${qq.unit?`<span style="color:#94a3b8">${qq.unit}</span>`:''}</div>
+        </div>
+        <p class="hint" style="direction:ltr;text-align:left">${esc(qq.formula.solve[qq.target])}</p>
+      </div>
+      <button class="b pr w" data-a="nextQuiz" style="margin-top:14px">
+        ${next?'سؤال بعدی →':'پایان آزمون'}
+      </button>
+    </div>`;
+  }
+  if (q.phase==='done'){
+    const pct = Math.round((q.score/q.questions.length)*100);
+    return `<div class="quiz-final">
+      <div style="font-size:14px;color:#cbd5e1">نتیجهٔ آزمون</div>
+      <div class="big">${q.score}/${q.questions.length}</div>
+      <div class="lbl">${pct}٪ درست</div>
+      <p style="color:#cbd5e1;font-size:13.5px;margin:12px 0">${pct>=80?'🌟 عالی!':pct>=50?'👍 خوب بود.':'💪 نیاز به تمرین بیشتر داری.'}</p>
+      <div class="row" style="justify-content:center;gap:8px">
+        <button class="b pr" data-a="restartQuiz">آزمون جدید</button>
+        <button class="b" data-a="exitQuiz">بازگشت به تنظیمات</button>
+      </div>
+    </div>`;
+  }
+  return '';
+}
+
 function renderHelp(){
   return `<div class="help-section">
-    <h3>این ابزار چیست؟</h3>
-    <p>یک محاسبه‌گر تخصصی فیزیک و شیمی که بر پایهٔ <b>شبکهٔ ارتباط فرمول‌ها</b> کار می‌کند. سه حالت دارد:</p>
+    <h3>محاسبه‌گر چیست؟</h3>
+    <p>یک ابزار تخصصی که بر پایهٔ <b>شبکهٔ ارتباط فرمول‌ها</b> کار می‌کند. پنج حالت دارد:</p>
     <ul>
-      <li><b>محاسبه:</b> یک فرمول انتخاب کن، متغیر هدف را مشخص کن، بقیه را وارد کن.</li>
-      <li><b>زنجیره:</b> فقط داده‌هایی که داری را بنویس و هدف را انتخاب کن؛ سیستم خودش مسیر فرمول‌ها را پیدا می‌کند.</li>
+      <li><b>محاسبه:</b> یک فرمول را انتخاب کن، متغیر هدف را مشخص کن.</li>
+      <li><b>زنجیره:</b> داده‌هایی که داری را وارد کن؛ سیستم مسیر فرمول‌ها را پیدا می‌کند.</li>
+      <li><b>آزمون:</b> سؤال تصادفی از پایگاه دانش، با تصحیح خودکار و نمایش مسیر حل.</li>
       <li><b>شبکهٔ متغیر:</b> ببین هر متغیر در چه فرمول‌هایی استفاده می‌شود.</li>
+      <li><b>ذخیره و اشتراک:</b> هر محاسبه را با لینک کوتاه به معلم یا دانش‌آموز بفرست.</li>
     </ul>
   </div>
   <div class="help-section">
-    <h3>نحو ورودی زنجیره</h3>
-    <p>داده‌ها را با <code>=</code> بنویس و با فاصله یا کاما جدا کن:</p>
-    <p><code>v0=0 a=10 t=3 m=2</code></p>
-    <p>هدف را در کادر «هدف» انتخاب کن یا بعد از یک فلش بنویس:</p>
-    <p><code>v0=0 a=10 t=3 → K</code></p>
-    <p>پشتیبانی از نماد علمی: <code>h=6.63e-34</code> یا <code>NA=6.022e23</code>.</p>
+    <h3>ذخیره و اشتراک‌گذاری</h3>
+    <p>پس از هر محاسبهٔ موفق، سه دکمه ظاهر می‌شود:</p>
+    <ul>
+      <li><b>ذخیره:</b> محاسبه در مرورگر ذخیره می‌شود و در پایین صفحهٔ محاسبه دیده می‌شود.</li>
+      <li><b>اشتراک مسئله:</b> لینکی می‌سازد که گیرنده فقط مقادیر را می‌بیند و باید هدف را حساب کند — مناسب معلم به دانش‌آموز.</li>
+      <li><b>اشتراک حل:</b> لینکی می‌سازد که پاسخ و مقادیر هر دو نمایش داده می‌شوند — مناسب دانش‌آموز به معلم.</li>
+    </ul>
+    <p>هیچ داده‌ای به سرور ارسال نمی‌شود؛ همه‌چیز داخل لینک و مرورگر خودت است.</p>
   </div>
   <div class="help-section">
-    <h3>ثابت‌های آماده</h3>
-    <p>این ثابت‌ها در محاسبات به‌صورت خودکار پر می‌شوند (اگر خودت مقدار دیگری ندهی):</p>
-    <ul>${Object.entries(KB.constants).map(([k,c])=>`<li><code>${k}</code> = ${c.v} ${c.u} — ${c.l}</li>`).join('')}</ul>
+    <h3>نحو ورودی زنجیره</h3>
+    <p>داده‌ها را با <code>=</code> بنویس و با فاصله جدا کن:</p>
+    <p><code>v0=0 a=10 t=3 m=2</code></p>
+    <p>هدف را در کادر «هدف» انتخاب کن یا با فلش بنویس:</p>
+    <p><code>v0=0 a=10 t=3 → K</code></p>
+    <p>پشتیبانی از نماد علمی: <code>h=6.63e-34</code></p>
   </div>
   <div class="help-section">
     <h3>واحدها</h3>
-    <p>همهٔ محاسبات در واحدهای SI انجام می‌شوند. برای هر متغیر، واحد در کنار فیلد نمایش داده می‌شود. در زنجیره، فرض بر یکسانی واحدهاست — اگر واحدها متفاوت‌اند، بهتر است فقط از «محاسبه» استفاده کنی.</p>
+    <p>محاسبات در واحدهای SI انجام می‌شوند. واحد در کنار هر فیلد نمایش داده می‌شود. در آزمون، پاسخ با خطای ۲٪ پذیرفته می‌شود.</p>
   </div>
   <div class="help-section" style="border-right-color:#ef4444">
     <h3>محدودیت‌ها</h3>
     <ul>
-      <li>در زنجیره، اگر یک متغیر در دو زمینهٔ معنایی متفاوت باشد (مثلاً P برای فشار و توان)، ممکن است مسیر اشتباه انتخاب شود. راه‌حل: همهٔ متغیرهای مسئله را صریح وارد کن.</li>
-      <li>فرمول‌هایی که جواب چندگانه دارند (مثل معادلهٔ درجه دوم)، فقط ریشهٔ اصلی را برمی‌گردانند.</li>
-      <li>این ابزار جای معلم و حل مسئلهٔ مفهومی را نمی‌گیرد؛ برای <b>بازبینی و تسریع</b> است.</li>
+      <li>در زنجیره، اگر یک متغیر در دو زمینهٔ معنایی متفاوت باشد، ممکن است مسیر اشتباه انتخاب شود.</li>
+      <li>فرمول‌هایی که جواب چندگانه دارند، فقط ریشهٔ اصلی را برمی‌گردانند.</li>
+      <li>این ابزار جای معلم را نمی‌گیرد؛ برای <b>بازبینی و تسریع</b> است.</li>
     </ul>
   </div>`;
 }
@@ -546,104 +673,201 @@ function renderHelp(){
 function render(){
   document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on', b.dataset.t===S.tab));
   const app = $('#app');
-  if (S.tab==='calc'){
-    app.innerHTML = renderCats() + renderFormulaList() + renderFormulaCard();
-  } else if (S.tab==='chain'){
-    app.innerHTML = renderChain() + renderChainResult();
-  } else if (S.tab==='vars'){
-    app.innerHTML = renderVars();
-  } else {
-    app.innerHTML = renderHelp();
-  }
+  if (S.tab==='calc') app.innerHTML = renderCalc();
+  else if (S.tab==='chain') app.innerHTML = renderChain();
+  else if (S.tab==='quiz') app.innerHTML = renderQuiz();
+  else if (S.tab==='vars') app.innerHTML = renderVars();
+  else app.innerHTML = renderHelp();
   typeset();
+}
+
+/* ═══════════════ ذخیره‌سازی ═══════════════ */
+function saveCurrentCalc(fid, target){
+  const knowns = {};
+  document.querySelectorAll('#app [data-var]').forEach(inp=>{
+    if (inp.value.trim()!=='') knowns[inp.dataset.var]=+inp.value;
+  });
+  const res = solveOne(fid, target, knowns);
+  if (!res.ok){ toast('محاسبه معتبر نیست'); return; }
+  const f = findF(fid);
+  S.saved.unshift({
+    id: Date.now().toString(36)+Math.random().toString(36).slice(2,5),
+    fid, target, knowns, answer:res.val, unit:res.unit,
+    label:f.l, savedAt:new Date().toISOString()
+  });
+  if (S.saved.length>50) S.saved.length=50;
+  setSaved(S.saved);
+  toast('ذخیره شد');
+  render();
+}
+function getCurrentKnowns(){
+  const knowns = {};
+  document.querySelectorAll('#app [data-var]').forEach(inp=>{
+    if (inp.value.trim()!=='') knowns[inp.dataset.var]=+inp.value;
+  });
+  return knowns;
+}
+
+/* ═══════════════ آزمون: شروع/بررسی ═══════════════ */
+function startQuiz(){
+  const q = S.quiz;
+  const arr = [];
+  for (let i=0; i<q.total; i++){
+    const qq = generateQuestion(q.category, q.difficulty);
+    if (qq) arr.push(qq);
+  }
+  if (!arr.length){ toast('تولید سؤال ناموفق'); return; }
+  q.questions=arr; q.current=0; q.score=0; q.userAnswer=''; q.correct=null; q.phase='asking';
+  render();
+}
+function checkQuizAnswer(){
+  const q = S.quiz;
+  const inp = document.getElementById('quizInput');
+  if (inp) q.userAnswer = inp.value;
+  const user = +q.userAnswer;
+  if (!Number.isFinite(user)){ toast('یک عدد وارد کن'); return; }
+  const qq = q.questions[q.current];
+  q.correct = checkAnswer(user, qq.answer);
+  if (q.correct) q.score++;
+  q.phase='feedback';
+  render();
+}
+function nextQuiz(){
+  const q = S.quiz;
+  if (q.current+1>=q.questions.length) q.phase='done';
+  else { q.current++; q.userAnswer=''; q.correct=null; q.phase='asking'; }
+  render();
 }
 
 /* ═══════════════ رویدادها ═══════════════ */
 document.getElementById('tabs').addEventListener('click', e=>{
   const b = e.target.closest('[data-t]');
-  if (b){ S.tab = b.dataset.t; render(); window.scrollTo(0,0); }
+  if (b){ S.tab=b.dataset.t; render(); window.scrollTo(0,0); }
 });
 
-$('#app').addEventListener('click', e=>{
+$('#app').addEventListener('click', async e=>{
   const g = s => e.target.closest(s);
 
-  // انتخاب دسته
+  if (g('[data-dismiss-share]')){ S.shared=null; render(); return; }
+
   if (g('[data-cat]')){
     S.catId = g('[data-cat]').dataset.cat;
     const first = KB.formulas.find(f=>f.cat===S.catId);
-    if (first) S.formulaId = first.id;
-    S.target = null;
-    render(); return;
+    if (first) S.formulaId=first.id;
+    S.target=null; render(); return;
   }
-  // انتخاب فرمول
-  if (g('[data-f]')){
-    S.formulaId = g('[data-f]').dataset.f;
-    S.target = null;
-    render(); return;
-  }
-  // محاسبهٔ یک فرمول
+  if (g('[data-f]')){ S.formulaId=g('[data-f]').dataset.f; S.target=null; render(); return; }
+
   if (g('[data-a="calc"]')){
     const f = findF(S.formulaId);
     const sel = document.getElementById('targetSel');
     const target = sel ? sel.value : null;
     if (!target){ toast('متغیر هدف را انتخاب کن'); return; }
-    // جمع‌آوری مقادیر
-    const vals = {};
-    document.querySelectorAll('#app [data-var]').forEach(inp=>{
-      if (inp.value.trim()!=='') vals[inp.dataset.var] = +inp.value;
-    });
-    // ذخیره
-    if (!S.knowns[f.id]) S.knowns[f.id] = {};
+    const vals = getCurrentKnowns();
+    if (!S.knowns[f.id]) S.knowns[f.id]={};
     Object.assign(S.knowns[f.id], vals);
     const res = solveOne(f.id, target, vals);
     const ra = document.getElementById('resultArea');
-    if (ra) ra.innerHTML = renderResult(res, target);
+    if (ra) ra.innerHTML = renderResult(res, target, f.id);
+    if (res.ok) S.target = target;
     typeset(); return;
   }
-  // حل زنجیره
+
+  // ذخیره
+  if (g('[data-save]')){
+    const target = S.target;
+    if (!target){ toast('ابتدا محاسبه کن'); return; }
+    saveCurrentCalc(S.formulaId, target); return;
+  }
+  // اشتراک مسئله
+  if (g('[data-share-problem]')){
+    const target = S.target;
+    if (!target){ toast('ابتدا محاسبه کن'); return; }
+    const knowns = getCurrentKnowns();
+    const url = buildShareURL(S.formulaId, target, knowns, null);
+    const ok = await copyText(url);
+    toast(ok?'لینک مسئله کپی شد':'کپی نشد، دستی کپی کن');
+    return;
+  }
+  // اشتراک حل
+  if (g('[data-share-solution]')){
+    const target = S.target;
+    if (!target){ toast('ابتدا محاسبه کن'); return; }
+    const knowns = getCurrentKnowns();
+    const res = solveOne(S.formulaId, target, knowns);
+    if (!res.ok){ toast('محاسبه معتبر نیست'); return; }
+    const url = buildShareURL(S.formulaId, target, knowns, res.val);
+    const ok = await copyText(url);
+    toast(ok?'لینک حل کپی شد':'کپی نشد');
+    return;
+  }
+
+  // بارگذاری ذخیره
+  if (g('[data-load-saved]')){
+    const item = S.saved.find(x=>x.id===g('[data-load-saved]').dataset.loadSaved);
+    if (!item) return;
+    S.formulaId=item.fid; S.catId=findF(item.fid).cat;
+    S.target=item.target; S.knowns[item.fid]={...item.knowns};
+    render(); return;
+  }
+  if (g('[data-share-saved]')){
+    const item = S.saved.find(x=>x.id===g('[data-share-saved]').dataset.shareSaved);
+    if (!item) return;
+    const url = buildShareURL(item.fid, item.target, item.knowns, null);
+    const ok = await copyText(url);
+    toast(ok?'لینک مسئله کپی شد':'کپی نشد'); return;
+  }
+  if (g('[data-del-saved]')){
+    S.saved = S.saved.filter(x=>x.id!==g('[data-del-saved]').dataset.delSaved);
+    setSaved(S.saved); render(); return;
+  }
+  if (g('[data-clear-saved]')){
+    if (!confirm('همهٔ ذخیره‌ها پاک شوند؟')) return;
+    S.saved=[]; setSaved(S.saved); render(); return;
+  }
+
+  // زنجیره
   if (g('[data-a="chain"]')){
     const qt = document.getElementById('qin');
     if (qt) S.qText = qt.value;
-    // هدف از طریق فلش در متن
-    const fm = S.qText.match(/[→\-]>?\s*([A-Za-z_][A-Za-z0-9_]*)\s*$/);
     const sel = document.getElementById('chainTarget');
-    if (fm && (!sel || !sel.value)) S.chainTarget = fm[1];
-    else if (sel) S.chainTarget = sel.value;
-    const cr = document.getElementById('chainResult');
-    if (cr) cr.innerHTML = renderChainResult();
-    typeset(); return;
-  }
-  // پرش از کاوشگر به محاسبه
-  if (g('[data-jump]')){
-    const f = findF(g('[data-jump]').dataset.jump);
-    if (f){ S.catId = f.cat; S.formulaId = f.id; S.target = null; S.tab='calc'; render(); window.scrollTo(0,0); }
-    return;
-  }
-  // انتخاب متغیر
-  if (g('[data-vsel]')){
-    S.varSel = g('[data-vsel]').dataset.vsel;
+    if (sel) S.chainTarget = sel.value;
     render(); return;
   }
+
+  // کاوشگر
+  if (g('[data-vsel]')){ S.varSel = g('[data-vsel]').dataset.vsel; render(); return; }
+  if (g('[data-jump]')){
+    const f = findF(g('[data-jump]').dataset.jump);
+    if (f){ S.catId=f.cat; S.formulaId=f.id; S.target=null; S.tab='calc'; render(); window.scrollTo(0,0); }
+    return;
+  }
+
+  // آزمون
+  if (g('[data-qcat]')){ S.quiz.category = g('[data-qcat]').dataset.qcat; render(); return; }
+  if (g('[data-qdiff]')){ S.quiz.difficulty = g('[data-qdiff]').dataset.qdiff; render(); return; }
+  if (g('[data-qtotal]')){ S.quiz.total = +g('[data-qtotal]').dataset.qtotal; render(); return; }
+  if (g('[data-a="startQuiz"]')){ startQuiz(); return; }
+  if (g('[data-a="checkQuiz"]')){ checkQuizAnswer(); return; }
+  if (g('[data-a="nextQuiz"]')){ nextQuiz(); return; }
+  if (g('[data-a="restartQuiz"]')){ startQuiz(); return; }
+  if (g('[data-a="exitQuiz"]')){ S.quiz.phase='idle'; render(); return; }
 });
 
 $('#app').addEventListener('input', e=>{
-  if (e.target.id==='qin'){ S.qText = e.target.value; }
+  if (e.target.id==='qin') S.qText = e.target.value;
+  if (e.target.id==='quizInput') S.quiz.userAnswer = e.target.value;
 });
-
 $('#app').addEventListener('change', e=>{
-  if (e.target.id==='targetSel'){
-    S.target = e.target.value;
-    render(); return;
-  }
-  if (e.target.id==='chainTarget'){
-    S.chainTarget = e.target.value; return;
-  }
+  if (e.target.id==='targetSel'){ S.target = e.target.value; render(); }
+  if (e.target.id==='chainTarget') S.chainTarget = e.target.value;
+});
+$('#app').addEventListener('keydown', e=>{
+  if (e.key==='Enter' && e.target.id==='quizInput'){ e.preventDefault(); checkQuizAnswer(); }
 });
 
-// وقتی target عوض شد، فیلدها بازسازی می‌شوند ولی متغیرهای واردشده حفظ می‌شوند
-// (این کار با render دوباره انجام می‌شود)
-
-/* شروع */
+/* ═══════════════ شروع ═══════════════ */
+checkShared();
 render();
 </script>
 </body>
