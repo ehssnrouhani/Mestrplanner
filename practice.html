@@ -3,20 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>تمرین‌ساز آنلاین | مستر پلنر</title>
-<meta name="description" content="ابزار آنلاین تمرین محاسبات ریاضی و ذهنی برای دانش‌آموزان">
+<meta name="description" content="ماشین حساب پیشرفته ریاضی مستر پلنر؛ محاسبات عددی، توابع، مثلثات، لگاریتم، مشتق، انتگرال، حد و پیوستگی">
 <meta name="author" content="احسان روحانی راوری">
+<title>ماشین حساب پیشرفته ریاضی | مستر پلنر</title>
+
+<!-- فونت و آیکون‌ها -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+<!-- کتابخانه‌های محاسباتی -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/13.2.0/math.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nerdamer/1.1.13/nerdamer.core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nerdamer/1.1.13/Algebra.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nerdamer/1.1.13/Calculus.min.js"></script>
+
+<!-- اسکیمای گوگل (WebApplication) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "تمرین‌ساز محاسبات ذهنی",
-  "description": "ابزار آنلاین تمرین محاسبات ریاضی و ذهنی برای دانش‌آموزان",
+  "name": "ماشین حساب جامع ریاضی مستر پلنر",
+  "description": "ابزار محاسبات پیشرفته ریاضی شامل مشتق، انتگرال، حد، توابع مثلثاتی و لگاریتم",
   "applicationCategory": "EducationalApplication",
   "operatingSystem": "All",
+  "author": {
+    "@type": "Person",
+    "name": "احسان روحانی راوری"
+  },
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -26,90 +39,393 @@
 </script>
 
 <style>
-:root{--brand:#1f7a4d;--brand-dark:#0d3524;--brand-soft:#e8f4ec;--bg:#f2f6f3;--card:#fff;--ink:#16241d;--muted:#5d6f65;--line:#dfe9e2;--radius:16px;--shadow:0 10px 30px rgba(13,53,36,.08);--danger:#e05252;--safe:#2fbf71;}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
-a{color:var(--brand);text-decoration:none}
-.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px}
-.bar{max-width:800px;margin:0 auto;display:flex;align-items:center;gap:12px}
-.brand{display:flex;align-items:center;gap:10px;color:#fff}
-.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);font-weight:800;font-size:20px}
-main{max-width:600px;margin:40px auto;padding:0 16px}
-.card{background:var(--card);border-radius:var(--radius);padding:40px 30px;box-shadow:var(--shadow);border:1px solid var(--line);text-align:center;}
-h1{font-size:22px;color:var(--brand-dark);margin:0 0 20px;}
-.q-text{font-size:32px;font-weight:800;color:var(--brand);margin:20px 0;direction:ltr;}
-input[type="number"]{width:120px;padding:12px;font-size:24px;text-align:center;border:2px solid var(--line);border-radius:8px;font-family:inherit;outline:none;direction:ltr;}
-input[type="number"]:focus{border-color:var(--brand);}
-.btn{background:var(--brand);color:#fff;border:none;padding:12px 30px;border-radius:8px;font-family:inherit;font-size:16px;cursor:pointer;margin-top:20px;transition:0.2s;}
-.btn:hover{background:var(--brand-dark);}
-.feedback{margin-top:20px;font-weight:700;font-size:18px;height:30px;}
-.correct{color:var(--safe);}
-.wrong{color:var(--danger);}
+:root{--green:#16734a;--deep:#0d3524;--gold:#e9a52d;--bg:#f3f6f4;--card:#fff;--ink:#18251e;--muted:#64736a;--line:#dce7df;--red:#c43d3d;--blue:#245ca6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,Tahoma,sans-serif;line-height:1.85}
+header{background:linear-gradient(120deg,#0b2f20,#16734a);color:#fff;padding:17px 20px}
+.header-inner{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-size:20px;font-weight:800}.brand small{display:block;font-size:11px;font-weight:400;opacity:.8}
+.header-tag{font-size:12px;background:#ffffff20;padding:5px 12px;border-radius:30px}
+main{max-width:1100px;margin:25px auto;padding:0 15px 35px}
+.intro{text-align:center;margin:15px 0 22px}.intro h1{font-size:25px;color:var(--deep);margin:0}.intro p{color:var(--muted);margin:5px 0}
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:18px;align-items:start}
+.sidebar,.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 7px 24px #12321d0a}
+.sidebar{padding:12px;position:sticky;top:12px}
+.navbtn{display:block;width:100%;text-align:right;border:0;background:transparent;padding:11px 12px;border-radius:10px;font:inherit;cursor:pointer;color:var(--ink);margin:3px 0}
+.navbtn.active,.navbtn:hover{background:#e8f4ec;color:var(--green);font-weight:700}
+.navbtn span{display:inline-block;width:27px}
+.content{min-width:0}
+.panel{padding:22px;margin-bottom:16px}
+.panel h2{font-size:19px;color:var(--deep);margin:0 0 13px}
+.panel h3{font-size:15px;margin:18px 0 8px;color:var(--deep)}
+label{display:block;font-weight:700;font-size:13px;margin:10px 0 5px}
+input,select,textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px;font:inherit;font-size:15px;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:2px solid #b6ddc6;border-color:var(--green)}
+.ltr{direction:ltr;text-align:left;font-family:Consolas,monospace}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+button.action{border:0;border-radius:9px;padding:10px 17px;font:inherit;cursor:pointer;background:var(--green);color:#fff}
+button.secondary{background:#e9f2ec;color:var(--deep);border:1px solid var(--line)}
+button.gold{background:#fff3d9;color:#78500c;border:1px solid #f0d69b}
+.result{background:#f0f7f2;border:1px solid #d5e9da;border-radius:12px;padding:15px;margin-top:15px;overflow-wrap:anywhere}
+.result .answer{direction:ltr;text-align:left;font:700 23px/1.7 Consolas,monospace;color:var(--green);white-space:pre-wrap}
+.result .explain{border-top:1px solid #d5e5d9;margin-top:10px;padding-top:9px;color:#425349;font-size:14px;white-space:pre-wrap}
+.error{background:#fff0f0;border-color:#f0cccc;color:var(--red)}
+.hint{font-size:12px;color:var(--muted);margin-top:6px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:9px 0}
+.chip{border:1px solid var(--line);background:#f8faf8;border-radius:20px;padding:5px 11px;cursor:pointer;font:inherit;font-size:12px}
+.chip:hover{border-color:var(--green);color:var(--green)}
+.keypad{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px}
+.keypad button{border:1px solid var(--line);background:#f8faf8;border-radius:8px;padding:10px 3px;font:inherit;cursor:pointer;direction:ltr}
+.keypad button:hover{background:#e8f4ec}
+.hidden{display:none!important}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+.note{background:#fff8e8;border:1px solid #f1dfb5;padding:11px;border-radius:10px;font-size:12px;color:#72551b;margin-top:12px}
+
+/* استایل لینک‌های اقماری */
+.satellite-box {max-width:1100px; margin: 0 auto 20px; padding: 0 15px;}
+.satellite-inner {background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 20px; box-shadow: 0 7px 24px #12321d0a;}
+.satellite-inner h3 {margin-top:0; color: var(--deep); font-size: 16px;}
+.satellite-links {display: flex; flex-wrap: wrap; gap: 10px;}
+.satellite-links a {background: #e8f4ec; color: var(--green); padding: 8px 15px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 700; transition: 0.2s;}
+.satellite-links a:hover {background: var(--green); color: #fff;}
+
+@media(max-width:760px){.layout{grid-template-columns:1fr}.sidebar{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px}.navbtn{text-align:center;font-size:12px;padding:8px 4px}.navbtn span{display:none}.panel{padding:16px}.intro h1{font-size:21px}}
+@media(max-width:420px){.row{grid-template-columns:1fr}.keypad{grid-template-columns:repeat(4,1fr)}.header-tag{display:none}}
 </style>
 </head>
 <body>
-<header class="site-header">
-  <div class="bar">
-    <a class="brand" href="index.html"><span class="brand-badge">م</span><strong>مستر پلنر</strong></a>
-  </div>
-</header>
+<header><div class="header-inner"><div class="brand">مستر پلنر<small>MESTERPLANNER · Advanced Math Engine</small></div><div class="header-tag">ابزار محاسبات پیشرفته ریاضی</div></div></header>
 <main>
-  <div class="card">
-    <h1>تمرین‌ساز محاسبات ذهنی</h1>
-    <p style="color:var(--muted); margin-bottom:20px;">پاسخ صحیح را وارد کنید و دکمه بررسی را بزنید.</p>
-    
-    <div class="q-text" id="question">---</div>
-    <input type="number" id="answer" placeholder="؟">
-    <br>
-    <button class="btn" onclick="checkAnswer()">بررسی <i class="fa-solid fa-check"></i></button>
-    <div class="feedback" id="feedback"></div>
-  </div>
+<div class="intro"><h1>ماشین حساب جامع ریاضی</h1><p>محاسبه، تحلیل نمادین و دریافت پاسخ مرحله‌به‌مرحله</p></div>
+<div class="layout">
+<aside class="sidebar" aria-label="دسته‌بندی محاسبات">
+<button class="navbtn active" data-page="basic"><span>▦</span> ماشین حساب عمومی</button>
+<button class="navbtn" data-page="functions"><span>ƒ</span> توابع و مثلثات</button>
+<button class="navbtn" data-page="algebra"><span>√</span> توان، ریشه و لگاریتم</button>
+<button class="navbtn" data-page="derivative"><span>ⅆ</span> مشتق و دیفرانسیل</button>
+<button class="navbtn" data-page="integral"><span>∫</span> انتگرال</button>
+<button class="navbtn" data-page="limit"><span>lim</span> حد و پیوستگی</button>
+<button class="navbtn" data-page="help"><span>ⓘ</span> راهنمای ورود عبارت</button>
+</aside>
+<div class="content">
+
+<section id="page-basic" class="page">
+<div class="panel">
+<h2>ماشین حساب عمومی</h2>
+<label for="basicExpr">عبارت ریاضی</label>
+<input id="basicExpr" class="ltr" placeholder="(12 + 8) * 3 - sqrt(25)" autocomplete="off">
+<div class="hint">نمونه: (12+8)*3 ، 5^3 ، sqrt(81) ، log(100,10)</div>
+<div class="keypad" data-target="basicExpr">
+<button data-insert="7">7</button><button data-insert="8">8</button><button data-insert="9">9</button><button data-insert="/">÷</button><button data-insert="(">(</button>
+<button data-insert="4">4</button><button data-insert="5">5</button><button data-insert="6">6</button><button data-insert="*">×</button><button data-insert=")">)</button>
+<button data-insert="1">1</button><button data-insert="2">2</button><button data-insert="3">3</button><button data-insert="-">−</button><button data-insert="^">xʸ</button>
+<button data-insert="0">0</button><button data-insert=".">.</button><button data-insert="pi">π</button><button data-insert="+">+</button><button data-insert="sqrt(">√</button>
+</div>
+<div class="actions"><button class="action" id="basicCalc">محاسبه</button><button class="action secondary" data-clear="basicExpr">پاک کردن</button></div>
+<div id="basicResult" class="result hidden" aria-live="polite"></div>
+</div>
+</section>
+
+<section id="page-functions" class="page hidden">
+<div class="panel">
+<h2>توابع و محاسبات مثلثاتی</h2>
+<label for="funcExpr">عبارت تابعی یا عددی</label>
+<input id="funcExpr" class="ltr" placeholder="sin(30) + cos(60)" autocomplete="off">
+<div class="row">
+<div><label for="angleMode">واحد زاویه</label><select id="angleMode"><option value="deg">درجه (Degree)</option><option value="rad">رادیان (Radian)</option></select></div>
+<div><label for="funcVariable">مقدار متغیر x (در صورت نیاز)</label><input id="funcVariable" class="ltr" value="2"></div>
+</div>
+<div class="chips">
+<button class="chip" data-fill="funcExpr" data-value="sin(30)">sin</button>
+<button class="chip" data-fill="funcExpr" data-value="cos(60)">cos</button>
+<button class="chip" data-fill="funcExpr" data-value="tan(45)">tan</button>
+<button class="chip" data-fill="funcExpr" data-value="asin(0.5)">asin</button>
+<button class="chip" data-fill="funcExpr" data-value="sinh(1)">sinh</button>
+<button class="chip" data-fill="funcExpr" data-value="abs(-12)">abs</button>
+<button class="chip" data-fill="funcExpr" data-value="exp(2)">exp</button>
+<button class="chip" data-fill="funcExpr" data-value="floor(4.8)">floor</button>
+</div>
+<div class="actions"><button class="action" id="funcCalc">محاسبه تابع</button><button class="action secondary" data-clear="funcExpr">پاک کردن</button></div>
+<div id="funcResult" class="result hidden"></div>
+</div>
+</section>
+
+<section id="page-algebra" class="page hidden">
+<div class="panel">
+<h2>توان، ریشه، لگاریتم و درصد</h2>
+<label for="algExpr">عبارت دلخواه</label>
+<input id="algExpr" class="ltr" placeholder="nthRoot(32,5) + log(1000,10)">
+<div class="chips">
+<button class="chip" data-fill="algExpr" data-value="nthRoot(32,5)">ریشه پنجم ۳۲</button>
+<button class="chip" data-fill="algExpr" data-value="sqrt(144)">ریشه دوم</button>
+<button class="chip" data-fill="algExpr" data-value="log(1000,10)">لگاریتم پایه ۱۰</button>
+<button class="chip" data-fill="algExpr" data-value="log(8,2)">لگاریتم پایه ۲</button>
+<button class="chip" data-fill="algExpr" data-value="ln(e^3)">لگاریتم طبیعی</button>
+<button class="chip" data-fill="algExpr" data-value="5% * 800">پنج درصد ۸۰۰</button>
+<button class="chip" data-fill="algExpr" data-value="factorial(6)">فاکتوریل ۶</button>
+<button class="chip" data-fill="algExpr" data-value="(3+4)^2">توان و پرانتز</button>
+</div>
+<div class="actions"><button class="action" id="algCalc">محاسبه</button><button class="action secondary" data-clear="algExpr">پاک کردن</button></div>
+<div id="algResult" class="result hidden"></div>
+<h3>محاسبه درصد مستقل</h3>
+<div class="row"><div><label>درصد</label><input id="percentValue" class="ltr" type="number" placeholder="مثلاً 15"></div><div><label>عدد پایه</label><input id="percentBase" class="ltr" type="number" placeholder="مثلاً 800"></div></div>
+<div class="actions"><button class="action" id="percentCalc">محاسبه درصد</button></div>
+<div id="percentResult" class="result hidden"></div>
+</div>
+</section>
+
+<section id="page-derivative" class="page hidden">
+<div class="panel">
+<h2>مشتق نمادین و دیفرانسیل</h2>
+<label for="derivExpr">تابع f(x)</label>
+<input id="derivExpr" class="ltr" placeholder="x^3 + 2*x^2 - 5*x + 1">
+<div class="row">
+<div><label for="derivVar">متغیر</label><input id="derivVar" class="ltr" value="x"></div>
+<div><label for="derivOrder">مرتبه مشتق</label><input id="derivOrder" class="ltr" type="number" min="1" max="10" value="1"></div>
+</div>
+<div class="actions"><button class="action" id="deriveBtn">محاسبه مشتق</button><button class="action secondary" data-clear="derivExpr">پاک کردن</button></div>
+<div id="derivResult" class="result hidden"></div>
+<h3>مقدار مشتق در یک نقطه و دیفرانسیل</h3>
+<div class="row"><div><label for="derivAt">نقطه x</label><input id="derivAt" class="ltr" type="number" value="2"></div><div><label for="deltaX">مقدار dx</label><input id="deltaX" class="ltr" type="number" value="0.1" step="any"></div></div>
+<div class="actions"><button class="action" id="diffAtBtn">محاسبه f'(a) و dy</button></div>
+<div id="diffAtResult" class="result hidden"></div>
+<div class="note">مشتق به‌صورت نمادین محاسبه می‌شود. مقدار دیفرانسیل از رابطه dy = f'(a) × dx به دست می‌آید.</div>
+</div>
+</section>
+
+<section id="page-integral" class="page hidden">
+<div class="panel">
+<h2>انتگرال نامعین و معین</h2>
+<label for="intExpr">تابع زیر انتگرال</label>
+<input id="intExpr" class="ltr" placeholder="x^2 + 3*x + 1">
+<div class="row"><div><label for="intVar">متغیر انتگرال</label><input id="intVar" class="ltr" value="x"></div><div><label for="intMode">نوع انتگرال</label><select id="intMode"><option value="indef">نامعین (نمادین)</option><option value="def">معین (کران‌دار)</option></select></div></div>
+<div id="bounds" class="row hidden"><div><label for="lowerBound">کران پایین</label><input id="lowerBound" class="ltr" type="number" value="0"></div><div><label for="upperBound">کران بالا</label><input id="upperBound" class="ltr" type="number" value="2"></div></div>
+<div class="actions"><button class="action" id="integrateBtn">محاسبه انتگرال</button><button class="action secondary" data-clear="intExpr">پاک کردن</button></div>
+<div id="intResult" class="result hidden"></div>
+<div class="note">انتگرال نامعین با روش نمادین محاسبه می‌شود. انتگرال معین با روش عددی سیمپسون محاسبه می‌شود؛ بنابراین پاسخ معین ممکن است تقریبی باشد.</div>
+</div>
+</section>
+
+<section id="page-limit" class="page hidden">
+<div class="panel">
+<h2>حد و بررسی پیوستگی</h2>
+<label for="limitExpr">تابع f(x)</label>
+<input id="limitExpr" class="ltr" placeholder="(x^2 - 1)/(x - 1)">
+<div class="row"><div><label for="limitVar">متغیر</label><input id="limitVar" class="ltr" value="x"></div><div><label for="limitPoint">نقطه موردنظر</label><input id="limitPoint" class="ltr" type="number" value="1" step="any"></div></div>
+<div class="row"><div><label for="limitSide">جهت حد</label><select id="limitSide"><option value="both">دوطرفه</option><option value="left">چپ</option><option value="right">راست</option></select></div><div><label for="limitTask">نوع بررسی</label><select id="limitTask"><option value="limit">محاسبه حد</option><option value="continuity">بررسی پیوستگی</option></select></div></div>
+<div class="actions"><button class="action" id="limitBtn">محاسبه و بررسی</button><button class="action secondary" data-clear="limitExpr">پاک کردن</button></div>
+<div id="limitResult" class="result hidden"></div>
+<div class="note">حد در این ابزار با تقریب عددی از دو سوی نقطه بررسی می‌شود. در نقاط ناپیوستگی، حدهای بی‌نهایت یا توابع بسیار نوسانی، نتیجه عددی باید با تحلیل ریاضی کنترل شود.</div>
+</div>
+</section>
+
+<section id="page-help" class="page hidden">
+<div class="panel">
+<h2>راهنمای نوشتن عبارت‌های ریاضی</h2>
+<p>عبارت‌ها را با حروف و نمادهای استاندارد انگلیسی وارد کنید. موتور محاسباتی اولویت عملیات را رعایت می‌کند.</p>
+<h3>عملگرها</h3>
+<p dir="ltr">+ جمع &nbsp; - تفریق &nbsp; * ضرب &nbsp; / تقسیم &nbsp; ^ توان &nbsp; % باقیمانده</p>
+<h3>ثابت‌ها و توابع</h3>
+<p dir="ltr">pi, e, sqrt(x), nthRoot(x,n), abs(x), exp(x), factorial(n)</p>
+<p dir="ltr">sin(x), cos(x), tan(x), asin(x), acos(x), atan(x)</p>
+<p dir="ltr">sinh(x), cosh(x), tanh(x), log(x), log(x,base), ln(x)</p>
+<p dir="ltr">floor(x), ceil(x), round(x), min(a,b), max(a,b)</p>
+<h3>نمادگذاری مشتق و انتگرال</h3>
+<p>برای مشتق و انتگرال، تابع را برحسب x بنویسید؛ مثلاً <bdi dir="ltr">x^3+2*x</bdi>. متغیر را نیز در کادر مربوط وارد کنید.</p>
+<h3>نمونه‌های آماده</h3>
+<div class="chips">
+<button class="chip" data-fill="basicExpr" data-value="(2+3)*4^2">اولویت عملیات</button>
+<button class="chip" data-fill="basicExpr" data-value="nthRoot(243,5)">ریشه پنجم</button>
+<button class="chip" data-fill="derivExpr" data-value="sin(x)*x^2">مشتق تابع مثلثاتی</button>
+<button class="chip" data-fill="intExpr" data-value="x^2">انتگرال x²</button>
+<button class="chip" data-fill="limitExpr" data-value="(x^2-1)/(x-1)">حد و رفع ناپیوستگی</button>
+</div>
+<div class="note">برای استفاده از کتابخانه‌های محاسباتی، هنگام بارگذاری صفحه اتصال اینترنت لازم است. پس از بارگذاری، محاسبات در مرورگر دستگاه انجام می‌شوند و عبارت‌های شما به سرور ارسال نمی‌شوند.</div>
+</div>
+</section>
+
+</div></div>
 </main>
 
+<!-- لینک‌های اقماری (اتصال به مقالات) -->
+<div class="satellite-box">
+  <div class="satellite-inner">
+    <h3><i class="fa-solid fa-link" style="color: var(--green); margin-left: 8px;"></i> مقالات مرتبط برای مطالعه بیشتر:</h3>
+    <div class="satellite-links">
+      <a href="assets/files/riazi-physics.html">راهبرد مطالعه ریاضی و فیزیک</a>
+      <a href="assets/files/study-methods.html">روش مطالعه درس‌به‌درس</a>
+      <a href="assets/files/exam-review.html">تحلیل و بررسی آزمون</a>
+    </div>
+  </div>
+</div>
+
+<footer>© مستر پلنر — طراحی و مدیریت: احسان روحانی راوری</footer>
+
 <script>
-let currentAnswer = 0;
-
-const questions = [
-  { q: "۱۲ + ۱۵", a: 27 },
-  { q: "۸ × ۷", a: 56 },
-  { q: "۱۰۰ - ۳۴", a: 66 },
-  { q: "۴۵ ÷ ۹", a: 5 },
-  { q: "۱۹ + ۲۱", a: 40 },
-  { q: "۹ × ۹", a: 81 },
-  { q: "۷۲ - ۱۸", a: 54 }
-];
-
-function generateQuestion() {
-  const randomIndex = Math.floor(Math.random() * questions.length);
-  const q = questions[randomIndex];
-  currentAnswer = q.a;
-  
-  document.getElementById('question').innerText = q.q + " =";
-  document.getElementById('answer').value = "";
-  document.getElementById('feedback').innerText = "";
-  document.getElementById('answer').focus();
-}
-
-function checkAnswer() {
-  const userAnswer = parseFloat(document.getElementById('answer').value);
-  const feedback = document.getElementById('feedback');
-  
-  if (isNaN(userAnswer)) {
-    feedback.innerText = "لطفاً یک عدد وارد کنید.";
-    feedback.className = "feedback wrong";
-    return;
+const $ = id => document.getElementById(id);
+const show = (id, html, error=false) => {
+  const el=$(id); el.classList.remove('hidden','error');
+  if(error) el.classList.add('error');
+  el.innerHTML=html;
+};
+const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = n => {
+  if(typeof n==='number' && Number.isFinite(n)){
+    if(Math.abs(n)<1e-12) n=0;
+    return Number(n.toPrecision(12)).toString();
   }
-  
-  if (userAnswer === currentAnswer) {
-    feedback.innerText = "✅ آفرین! پاسخ صحیح است.";
-    feedback.className = "feedback correct";
-    setTimeout(generateQuestion, 1000);
-  } else {
-    feedback.innerText = "❌ متأسفانه اشتباه است. دوباره تلاش کن.";
-    feedback.className = "feedback wrong";
-  }
+  return String(n);
+};
+function mathReady(){
+  if(typeof math==='undefined') throw new Error('کتابخانه محاسباتی بارگذاری نشده است. اتصال اینترنت را بررسی و صفحه را تازه‌سازی کنید.');
 }
-
-generateQuestion();
+function nerdReady(){
+  if(typeof nerdamer==='undefined') throw new Error('موتور محاسبات نمادین بارگذاری نشده است. اتصال اینترنت را بررسی و صفحه را تازه‌سازی کنید.');
+}
+function normalizeFa(s){
+  return String(s).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/٫/g,'.').replace(/٬/g,'').replace(/×/g,'*').replace(/÷/g,'/').replace(/−/g,'-');
+}
+function evaluate(expr, scope={}, angle=false){
+  mathReady();
+  let s=normalizeFa(expr).trim();
+  if(!s) throw new Error('لطفاً عبارت ریاضی را وارد کنید.');
+  if(s.length>500) throw new Error('طول عبارت بیش از حد مجاز است.');
+  if(angle){
+    const mode=$('angleMode').value;
+    if(mode==='deg'){
+      s=s.replace(/\b(sin|cos|tan)\s*\(([^()]*)\)/g,(_,fn,arg)=>fn+'(('+arg+') * pi / 180)');
+      s=s.replace(/\b(asin|acos|atan)\s*\(([^()]*)\)/g,(_,fn,arg)=>'('+fn+'('+arg+') * 180 / pi)');
+    }
+  }
+  const result=math.evaluate(s,scope);
+  if(typeof result==='number' && !Number.isFinite(result)) throw new Error('نتیجه در دامنه اعداد حقیقی تعریف نشده یا بی‌نهایت است.');
+  return result;
+}
+function resultHTML(answer, explanation){
+ return `<div><b>پاسخ:</b></div><div class="answer">${esc(answer)}</div><div class="explain">${esc(explanation)}</div>`;
+}
+function runEval(expr, output, scope={}, angle=false, label='عبارت'){
+ try{
+  const value=evaluate(expr,scope,angle);
+  const answer=(value && typeof value.toString==='function')?value.toString():fmt(value);
+  show(output,resultHTML(answer,`${label}: ${expr}\nاولویت پرانتز، توان، ضرب و تقسیم، سپس جمع و تفریق رعایت شده است.`));
+ }catch(e){show(output,esc(e.message),true);}
+}
+document.querySelectorAll('.navbtn').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('.navbtn').forEach(b=>b.classList.remove('active'));
+ document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
+ btn.classList.add('active'); $('page-'+btn.dataset.page).classList.remove('hidden');
+}));
+document.querySelectorAll('[data-clear]').forEach(b=>b.addEventListener('click',()=>{
+ $(b.dataset.clear).value='';
+ const out=$(b.dataset.clear.replace('Expr','Result'));
+ if(out){out.classList.add('hidden');}
+}));
+document.querySelectorAll('[data-fill]').forEach(b=>b.addEventListener('click',()=>{
+ $(b.dataset.fill).value=b.dataset.value;
+ $(b.dataset.fill).focus();
+}));
+document.querySelectorAll('.keypad button').forEach(b=>b.addEventListener('click',()=>{
+ const input=$(b.closest('.keypad').dataset.target);
+ const start=input.selectionStart??input.value.length, end=input.selectionEnd??input.value.length;
+ input.setRangeText(b.dataset.insert,start,end,'end');input.focus();
+}));
+$('basicCalc').onclick=()=>runEval($('basicExpr').value,'basicResult');
+$('funcCalc').onclick=()=>{
+ const x=Number(normalizeFa($('funcVariable').value));
+ if(!Number.isFinite(x)){show('funcResult','مقدار x معتبر نیست.',true);return;}
+ runEval($('funcExpr').value,'funcResult',{x},true,'تابع');
+};
+$('algCalc').onclick=()=>runEval($('algExpr').value,'algResult');
+$('percentCalc').onclick=()=>{
+ const p=Number($('percentValue').value),b=Number($('percentBase').value);
+ if(!Number.isFinite(p)||!Number.isFinite(b)||$('percentValue').value===''||$('percentBase').value===''){show('percentResult','هر دو مقدار درصد و عدد پایه را وارد کنید.',true);return;}
+ show('percentResult',resultHTML(fmt(p*b/100),`${p}% × ${b} = (${p} ÷ 100) × ${b}`));
+};
+$('intMode').onchange=()=> $('bounds').classList.toggle('hidden',$('intMode').value!=='def');
+function symbolicDiff(expr,v,n){
+ nerdReady(); let out=expr;
+ for(let i=0;i<n;i++) out=nerdamer.diff(out,v).toString();
+ return nerdamer(out).toString();
+}
+$('deriveBtn').onclick=()=>{
+ try{
+  const f=$('derivExpr').value.trim(),v=$('derivVar').value.trim(),n=Number($('derivOrder').value);
+  if(!f||!v)throw new Error('تابع و متغیر را وارد کنید.');
+  if(!Number.isInteger(n)||n<1||n>10)throw new Error('مرتبه مشتق باید عدد صحیح بین ۱ تا ۱۰ باشد.');
+  const d=symbolicDiff(f,v,n);
+  show('derivResult',resultHTML(d,`تابع اولیه: f(${v}) = ${f}\nمرتبه مشتق: ${n}\nمشتق به‌صورت نمادین با ساده‌سازی جبری محاسبه شد.`));
+ }catch(e){show('derivResult',esc(e.message),true);}
+};
+$('diffAtBtn').onclick=()=>{
+ try{
+  const f=$('derivExpr').value.trim(),v=$('derivVar').value.trim();
+  const a=Number($('derivAt').value),dx=Number($('deltaX').value);
+  if(!f)throw new Error('ابتدا تابع را وارد کنید.');
+  const d=symbolicDiff(f,v,1);
+  const scope={};scope[v]=a;
+  const slope=Number(evaluate(d,scope));
+  const y=slope*dx;
+  show('diffAtResult',resultHTML(`f'(${a}) = ${fmt(slope)}\ndy = ${fmt(y)}`,`مشتق: ${d}\nجایگذاری ${v} = ${a}\nدیفرانسیل: dy = f'(${a}) × dx = ${fmt(slope)} × ${dx} = ${fmt(y)}`));
+ }catch(e){show('diffAtResult',esc(e.message),true);}
+};
+function simpson(expr,v,a,b){
+ const N=4000,h=(b-a)/N,scope={};
+ function f(x){scope[v]=x;const z=evaluate(expr,scope);const n=typeof z==='number'?z:Number(z);if(!Number.isFinite(n))throw new Error('تابع در یکی از نقاط بازه تعریف نشده است.');return n;}
+ let sum=f(a)+f(b);
+ for(let i=1;i<N;i++)sum+=(i%2?4:2)*f(a+i*h);
+ return sum*h/3;
+}
+$('integrateBtn').onclick=()=>{
+ try{
+  nerdReady();const f=$('intExpr').value.trim(),v=$('intVar').value.trim();
+  if(!f||!v)throw new Error('تابع و متغیر را وارد کنید.');
+  if($('intMode').value==='indef'){
+   const ans=nerdamer.integrate(f,v).toString();
+   show('intResult',resultHTML(ans+ ' + C',`انتگرال نامعین تابع ${f} نسبت به ${v} محاسبه شد.\nثابت انتگرال‌گیری C است.`));
+  }else{
+   const a=Number($('lowerBound').value),b=Number($('upperBound').value);
+   if(!Number.isFinite(a)||!Number.isFinite(b))throw new Error('کران‌ها معتبر نیستند.');
+   const val=simpson(f,v,a,b);
+   show('intResult',resultHTML(fmt(val),`انتگرال معین تابع ${f} از ${a} تا ${b}\nروش عددی: سیمپسون مرکب با ۴۰۰۰ زیربازه.\nپاسخ تقریبی است.`));
+  }
+ }catch(e){show('intResult',esc(e.message),true);}
+};
+function sampleLimit(expr,v,a,side){
+ const hs=[1e-2,1e-3,1e-4,1e-5,1e-6,1e-7],vals=[],scope={};
+ for(const h of hs){
+  const x=side==='left'?a-h:side==='right'?a+h:(vals.length%2===0?a-h:a+h);
+  try{scope[v]=x;const y=Number(evaluate(expr,scope));if(Number.isFinite(y))vals.push(y);else vals.push(null);}
+  catch(_){vals.push(null);}
+ }
+ const good=vals.filter(x=>x!==null);
+ if(good.length<3)return {value:NaN,vals};
+ const tail=good.slice(-3);
+ const stable=Math.max(...tail)-Math.min(...tail);
+ return {value:tail.reduce((s,x)=>s+x,0)/tail.length,stable,vals};
+}
+$('limitBtn').onclick=()=>{
+ try{
+  const f=$('limitExpr').value.trim(),v=$('limitVar').value.trim(),a=Number($('limitPoint').value),side=$('limitSide').value;
+  if(!f||!v||!Number.isFinite(a))throw new Error('تابع، متغیر و نقطه را کامل وارد کنید.');
+  let left=sampleLimit(f,v,a,'left'),right=sampleLimit(f,v,a,'right');
+  let chosen=side==='left'?left:side==='right'?right:null;
+  const lv=left.value,rv=right.value;
+  const same=Number.isFinite(lv)&&Number.isFinite(rv)&&Math.abs(lv-rv)<1e-4*Math.max(1,Math.abs(lv),Math.abs(rv));
+  const lim=chosen?chosen.value:(same?(lv+rv)/2:NaN);
+  let text;
+  if(side==='both')text=`حد چپ ≈ ${fmt(lv)}\nحد راست ≈ ${fmt(rv)}\nحد دوطرفه: ${Number.isFinite(lim)?'≈ '+fmt(lim):'وجود ندارد یا با روش عددی تعیین نشد'}`;
+  else text=`حد ${side==='left'?'چپ':'راست'} ≈ ${fmt(lim)}`;
+  if($('limitTask').value==='continuity'){
+   let fx=NaN;try{const s={};s[v]=a;fx=Number(evaluate(f,s));}catch(_){}
+   const continuous=Number.isFinite(lim)&&Number.isFinite(fx)&&Math.abs(lim-fx)<1e-5*Math.max(1,Math.abs(lim),Math.abs(fx));
+   text+=`\nمقدار تابع در نقطه: ${fmt(fx)}\nنتیجه: ${continuous?'تابع در این نقطه پیوسته است.':'پیوستگی در این نقطه برقرار نیست یا با تقریب عددی قابل تأیید نیست.'}`;
+  }
+  show('limitResult',resultHTML(text,`تابع: ${f}\nنقطه بررسی: ${v} = ${a}\nمقادیر نزدیک نقطه نمونه‌برداری و مقایسه شدند.`));
+ }catch(e){show('limitResult',esc(e.message),true);}
+};
+[['basicExpr','basicCalc'],['funcExpr','funcCalc'],['algExpr','algCalc'],['derivExpr','deriveBtn'],['intExpr','integrateBtn'],['limitExpr','limitBtn']].forEach(([i,b])=>$(i).addEventListener('keydown',e=>{if(e.key==='Enter')$(b).click();}));
 </script>
 </body>
-      </html>
+  </html>
