@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>شبکهٔ معلمان انسانی | دعوت، اشتراک و دایرکتوری | مستر پلنر</title>
+<meta name="description" content="شبکهٔ معلمان انسانی مستر پلنر: دعوت به آزمایش ابزار، جمع‌آوری بازخورد ساختارمند، طرح‌های اشتراک و دایرکتوری معلمان بر اساس سبک تدریس." />
+<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/teacher-network.html" />
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="mp-tools.css" />
+<style>
+.st{display:flex;align-items:center;gap:10px;background:#0f172a;border:1.5px solid var(--bd);border-radius:12px;padding:8px 14px;margin-bottom:8px}.st b{flex:1}
+.bar{height:10px;background:#0f172a;border-radius:6px;overflow:hidden;margin:6px 0 12px}.bar i{display:block;height:100%;background:var(--gr);transition:width .3s}
+.pl{border-top:4px solid var(--bd)}.pl.hot{border-top-color:var(--ac)}
+.pl ul{padding-right:20px;margin:8px 0 12px;font-size:13.5px;color:#cbd5e1}
+.pr2{font-size:20px;font-weight:800;color:#fbbf24}
+.chip.g.on{background:var(--gr);border-color:var(--gr)}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="th"><a href="index.html"><i class="fa-solid fa-arrow-right"></i> مستر پلنر</a><h1>شبکهٔ معلمان انسانی</h1></div>
+  <div class="tabs"><button data-tab="inv">دعوت و بازخورد</button><button data-tab="plan">اشتراک</button><button data-tab="dir">دایرکتوری</button></div>
+</div>
+<main id="v"></main>
+<div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s),RB='https://rubika.ir/Alfanet2828';
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fa=n=>Number(n).toLocaleString('fa-IR');
+/* ===== این بخش را خودت ویرایش کن ===== */
+const PLANS=[
+ {n:'شروع رایگان',p:'رایگان',f:['دفترچهٔ مشاهدات تا ۳ دانش‌آموز','گزارش والدین ساده','چند کارت اقدام نمونه']},
+ {n:'معلم حرفه‌ای',p:'۰۰۰٬۰۰۰ تومان در ماه',hot:1,f:['دانش‌آموز و گزارش نامحدود','کتابخانهٔ کامل کارت‌های اقدام','Viva و امتیاز صداقت یادگیری','قالب گزارش با نام و لوگوی تو']},
+ {n:'مدرسه و مرکز',p:'توافقی',f:['چند معلم زیر یک حساب','گزارش یکپارچه برای مدیر','همکاری سازمانی (B2B)'],link:'schools.html'}
+];
+// نمونه‌های زیر فرضی‌اند؛ پیش از انتشار با معلمان واقعی جایگزین کن.
+const DIR=[
+ {n:'معلم نمونهٔ ۱',st:'بازی‌محور',lv:'ابتدایی',c:'اصفهان',b:'آموزش ریاضی با اشیا و بازی فیزیکی، بدون صفحه‌نمایش.'},
+ {n:'معلم نمونهٔ ۲',st:'آرام',lv:'ابتدایی',c:'تهران',b:'همراهی کودکان مضطرب با تمرکز بر امنیت عاطفی.'},
+ {n:'معلم نمونهٔ ۳',st:'ساختارمند',lv:'متوسطه',c:'مشهد',b:'آمادگی آزمون با Viva هفتگی و تحلیل خطا.'}
+];
+/* ===================================== */
+const KEY='mp_net_v1';let T=[],tab='inv',F={},df={st:'',lv:''};
+try{T=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
+const saveT=()=>{try{localStorage.setItem(KEY,JSON.stringify(T))}catch(e){}};
+const ST=['دعوت‌شده','در حال استفاده','بازخورد داد'];
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),3000)}
+function send(m){try{navigator.clipboard.writeText(m)}catch(e){}toast('متن کپی شد؛ در روبیکا فقط ارسال (Paste) کن.');open(RB,'_blank')}
+const chips=(k,o,cls='')=>`<div class="chips">${o.map(v=>`<button class="chip ${cls} ${F[k]==v?'on':''}" data-k="${k}" data-v="${esc(v)}">${v}</button>`).join('')}</div>`;
+const inp=(k,ph,a)=>a?`<textarea class="f" rows="2" data-f="${k}" placeholder="${ph}">${esc(F[k]||'')}</textarea>`:`<input class="f" data-f="${k}" value="${esc(F[k]||'')}" placeholder="${ph}">`;
+
+function inviteMsg(){return`سلام ${F.tn||'[نام معلم]'} عزیز 🌿\nمن ${F.me||'[نام تو]'} هستم. یک «دفترچهٔ مشاهدات دیجیتال» ساخته‌ایم که پایان هر جلسه فقط ۳۰ ثانیه وقت می‌گیرد و گزارش هفتگی رشد را برای والدین آماده می‌کند.\nاین ابزار به شما کمک می‌کند به والدین ثابت کنید فرزندشان فقط درس نمی‌خواند، بلکه در حال رشد است.\nاستفاده برای شما رایگان است و فقط یک بازخورد صادقانه می‌خواهم. اگر موافقی، لینک را بفرستم؟`}
+function viewInv(){
+ const n=T.filter(t=>t.s==2).length;
+ return`<div class="cd"><h2>فاز دو: شبکهٔ کوچک (۵ تا ۱۰ معلم)</h2><p class="hn">معلمان آشنا را دعوت کن تا رایگان از ابزار استفاده کنند و بازخورد بدهند.</p>
+ <div class="bar"><i style="width:${Math.min(100,n*10)}%"></i></div><p class="hn">${fa(n)} از ۱۰ معلم بازخورد داده‌اند. وضعیت هر معلم را با یک ضربه عوض کن.</p>
+ ${T.map((t,i)=>`<div class="st"><b>${esc(t.n)}</b><button class="chip ${t.s==2?'on':''}" data-st="${i}">${ST[t.s]}</button><button class="b" data-rm="${i}" aria-label="حذف">✕</button></div>`).join('')}
+ <div class="row"><input class="f" id="nt" placeholder="نام معلم دعوت‌شده" style="flex:1;margin:0"><button class="b pr" data-a="add">افزودن</button></div></div>
+ <div class="cd"><h2>متن دعوت</h2>${inp('tn','نام معلم')}${inp('me','نام تو')}<div class="msg">${esc(inviteMsg())}</div><button class="b pr w" data-a="inv"><i class="fa-solid fa-paper-plane"></i> کپی و باز کردن روبیکا</button></div>
+ <div class="cd"><h2>بازخورد ساختارمند معلم</h2><p class="hn">پرسش‌ها طوری‌اند که ارزش واقعی ابزار را بسنجند، نه تعارف.</p>
+ <h4>ثبت ۳۰ ثانیه‌ای پایان جلسه چقدر راحت بود؟ (۱ سخت تا ۵ بسیار راحت)</h4>${chips('r1',['۱','۲','۳','۴','۵'])}
+ <h4>گزارش والدین چقدر به اثبات ارزش تو کمک کرد؟</h4>${chips('r2',['۱','۲','۳','۴','۵'])}
+ <h4>اگر ماهانه هزینه داشت، پرداخت می‌کردی؟</h4>${chips('pay',['بله','شاید','خیر'],'g')}
+ ${inp('amt','چه مبلغی را منصفانه می‌دانی؟ (اختیاری)')}${inp('best','مفیدترین بخش چه بود؟')}${inp('miss','چه چیزی کم بود یا اذیت کرد؟',1)}
+ <button class="b pr w" data-a="fb"><i class="fa-solid fa-paper-plane"></i> ارسال بازخورد در روبیکا</button></div>`}
+function viewPlan(){
+ return`<div class="cd"><h2>فاز سه: مدل درآمدی</h2><p class="hn">اشتراک ماهانهٔ کم‌هزینه برای معلمان. مبلغ‌ها را در بالای کد (PLANS) بنویس. پرداخت و قفل کردن امکانات به سرور نیاز دارد؛ فعلاً این صفحه فهرست انتظار می‌سازد.</p></div>
+ <div class="grid">${PLANS.map((p,i)=>`<div class="cd pl ${p.hot?'hot':''}"><h3>${p.n}</h3><div class="pr2">${p.p}</div><ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul>${p.link?`<a class="b w" style="display:block;text-align:center;text-decoration:none;color:inherit" href="${p.link}">اطلاعات بیشتر</a>`:`<button class="b ${p.hot?'pr':''} w" data-pl="${i}">${p.hot?'ثبت در فهرست انتظار':'شروع رایگان'}</button>`}</div>`).join('')}</div>`}
+function viewDir(){
+ const L=DIR.filter(d=>(!df.st||d.st==df.st)&&(!df.lv||d.lv==df.lv));
+ return`<div class="cd"><h2>دایرکتوری معلمان انسانی</h2><p class="hn">والدین معلم را بر اساس سبک تدریس پیدا می‌کنند. از معرفی، کمیسیون دریافت می‌شود و توضیح آن باید پیش از ثبت، به معلم گفته شود.</p>
+ <div class="chips">${['','بازی‌محور','آرام','ساختارمند'].map(s=>`<button class="chip ${df.st==s?'on':''}" data-ds="${s}">${s||'همهٔ سبک‌ها'}</button>`).join('')}</div>
+ <div class="chips">${['','ابتدایی','متوسطه'].map(s=>`<button class="chip ${df.lv==s?'on':''}" data-dl="${s}">${s||'همهٔ مقاطع'}</button>`).join('')}</div></div>
+ <div class="grid">${L.map((d,i)=>`<div class="cd"><span class="tag ${d.lv=='ابتدایی'?'p':''}">${d.lv}</span> <span class="tag a">${d.st}</span><h3 style="margin-top:8px">${esc(d.n)}</h3><p class="hn">${esc(d.c)} — ${esc(d.b)}</p><button class="b w" data-req="${esc(d.n)}">درخواست معرفی</button></div>`).join('')||'<div class="cd"><p class="hn">معلمی با این ویژگی ثبت نشده.</p></div>'}</div>
+ <div class="cd"><h2>معلم هستی؟ پروفایلت را ثبت کن</h2>${inp('rn','نام و نام خانوادگی')}${inp('rc','شهر')}${chips('rl',['ابتدایی','متوسطه','هر دو'])}${chips('rs',['بازی‌محور','آرام','ساختارمند'])}${inp('rb','دو جمله دربارهٔ روش تدریست',1)}<button class="b pr w" data-a="reg">ارسال درخواست ثبت‌نام</button></div>`}
+function render(){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab==tab));$('#v').innerHTML=tab=='inv'?viewInv():tab=='plan'?viewPlan():viewDir()}
+document.querySelector('.tabs').onclick=e=>{const b=e.target.closest('[data-tab]');if(b){tab=b.dataset.tab;render();scrollTo(0,0)}};
+$('#v').addEventListener('input',e=>{const f=e.target.dataset.f;if(!f)return;F[f]=e.target.value;if(f=='tn'||f=='me'){const m=document.querySelector('.msg');if(m)m.textContent=inviteMsg()}});
+$('#v').addEventListener('click',e=>{
+ const g=s=>e.target.closest(s);let t;
+ if(t=g('[data-k]')){F[t.dataset.k]=F[t.dataset.k]==t.dataset.v?'':t.dataset.v;render();return}
+ if(t=g('[data-st]')){const x=T[+t.dataset.st];x.s=(x.s+1)%3;saveT();render();return}
+ if(t=g('[data-rm]')){T.splice(+t.dataset.rm,1);saveT();render();return}
+ if(t=g('[data-ds]')){df.st=t.dataset.ds;render();return}
+ if(t=g('[data-dl]')){df.lv=t.dataset.dl;render();return}
+ if(t=g('[data-req]')){send(`سلام، می‌خواهم دربارهٔ «${t.dataset.req}» از دایرکتوری معلمان مستر پلنر اطلاعات بگیرم.\nمقطع و نیاز فرزندم: `);return}
+ if(t=g('[data-pl]')){const p=PLANS[+t.dataset.pl];send(`سلام، به طرح «${p.n}» مستر پلنر علاقه‌مندم و می‌خواهم در فهرست انتظار ثبت شوم.\nنام: ${F.me||''}`);return}
+ if(t=g('[data-a]')){const a=t.dataset.a;
+  if(a=='add'){const n=$('#nt').value.trim();if(!n)return toast('نام معلم را بنویس.');T.push({n,s:0});saveT();render()}
+  if(a=='inv')send(inviteMsg());
+  if(a=='fb'){if(!F.r1&&!F.r2&&!F.pay)return toast('دست‌کم یکی از پرسش‌ها را پاسخ بده.');
+   send(`بازخورد معلم دربارهٔ دفترچهٔ مشاهدات:\nراحتی ثبت: ${F.r1||'—'}/۵\nکمک گزارش به اثبات ارزش: ${F.r2||'—'}/۵\nحاضر به پرداخت: ${F.pay||'—'}${F.amt?' ('+F.amt+')':''}\nمفیدترین بخش: ${F.best||'—'}\nکمبودها: ${F.miss||'—'}`)}
+  if(a=='reg'){if(!F.rn)return toast('نام را بنویس.');send(`درخواست ثبت در دایرکتوری معلمان:\nنام: ${F.rn}\nشهر: ${F.rc||'—'}\nمقطع: ${F.rl||'—'}\nسبک: ${F.rs||'—'}\nمعرفی: ${F.rb||'—'}`)}}});
+render();
+</script>
+</body>
+</html>
