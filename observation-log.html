@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>دفترچهٔ مشاهدات معلم | چک‌لیست انسانی، آزمون شفاهی و گزارش والدین | مستر پلنر</title>
+<meta name="description" content="دفترچهٔ مشاهدات دیجیتال مستر پلنر: ثبت ۳۰ ثانیه‌ای پایان هر جلسه، آزمون شفاهی (Viva) برای متوسطه و ساخت خودکار گزارش رشد برای والدین." />
+<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/observation-log.html" />
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<style>
+*{box-sizing:border-box}
+:root{--bg:#0f172a;--p:#1e293b;--bd:#334155;--tx:#f8fafc;--mu:#94a3b8;--ac:#e8971f;--gr:#10b981}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Vazirmatn,Tahoma,sans-serif;line-height:1.9}
+button,input,textarea,select{font-family:inherit;font-size:14.5px;color:var(--tx)}
+.top{position:sticky;top:0;z-index:10;background:var(--p);border-bottom:1px solid var(--bd)}
+.th{display:flex;align-items:center;gap:10px;padding:10px 16px;max-width:760px;margin:0 auto}
+.th a{color:var(--ac);text-decoration:none;font-weight:700;font-size:13px;white-space:nowrap}
+.th h1{font-size:16px;margin:0;font-weight:800;flex:1}
+.tabs{display:flex;max-width:760px;margin:0 auto}
+.tabs button{flex:1;padding:11px 4px;background:none;border:0;border-bottom:3px solid transparent;color:var(--mu);font-weight:700;cursor:pointer}
+.tabs button.on{color:var(--ac);border-color:var(--ac)}
+main{max-width:760px;margin:0 auto;padding:16px 16px 80px}
+.cd{background:var(--p);border:1px solid var(--bd);border-radius:16px;padding:18px;margin-bottom:14px}
+h2{font-size:17px;margin:0 0 4px}h4{margin:14px 0 6px;font-size:13.5px;color:#fbbf24}
+.hn{font-size:13px;color:var(--mu);margin:0 0 10px}
+.f{width:100%;background:#0f172a;border:1px solid var(--bd);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.chip{border:1.5px solid var(--bd);background:#0f172a;border-radius:999px;padding:7px 16px;cursor:pointer;font-weight:600}
+.chip.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.chip.g.on{background:var(--gr);border-color:var(--gr)}.chip.r.on{background:#ef4444;border-color:#ef4444}
+.b{background:#0f172a;border:1px solid var(--bd);border-radius:10px;padding:9px 16px;cursor:pointer;font-weight:700}
+.b:hover{border-color:var(--ac)}.b.pr{background:var(--ac);border-color:var(--ac);color:#fff}.b.dg{color:#f87171}
+.b.w{width:100%;margin-top:6px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.st{display:flex;align-items:center;gap:10px;background:#0f172a;border:1.5px solid var(--bd);border-radius:12px;padding:10px 14px;margin-bottom:8px;cursor:pointer}
+.st.on{border-color:var(--ac)}.st b{flex:1}
+.tag{font-size:11.5px;font-weight:700;border-radius:999px;padding:1px 10px;background:rgba(59,130,246,.2);color:#93c5fd}
+.tag.p{background:rgba(16,185,129,.2);color:#6ee7b7}
+.hi{border-top:1px solid var(--bd);padding:9px 0;font-size:13.5px;color:#cbd5e1;display:flex;gap:8px}.hi span{flex:1}
+.vt{font-size:30px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--ac);min-width:84px;text-align:center}
+.rep{background:#fff;color:#12222e;border-radius:16px;padding:22px;white-space:pre-wrap;line-height:2;font-size:14.5px}
+.rep b{color:#0a4a44}
+#toast{position:fixed;bottom:22px;right:50%;transform:translateX(50%);background:#0b1120;border:1px solid var(--ac);border-radius:999px;padding:9px 18px;font-size:13px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:30}
+#toast.on{opacity:1}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+@media print{body{background:#fff}.top,.noprint{display:none!important}main{padding:0;max-width:100%}.rep{border-radius:0;padding:0;font-size:12pt}}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="th"><a href="index.html"><i class="fa-solid fa-arrow-right"></i> مستر پلنر</a><h1>دفترچهٔ مشاهدات معلم</h1></div>
+  <div class="tabs">
+    <button data-tab="st">دانش‌آموزان</button>
+    <button data-tab="se">ثبت جلسه</button>
+    <button data-tab="rp">گزارش والدین</button>
+  </div>
+</div>
+<main id="v"></main>
+<div id="toast"></div>
+<input type="file" id="fi" accept=".json" hidden />
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fa=n=>Number(n).toLocaleString('fa-IR',{maximumFractionDigits:1});
+const KEY='mp_observation_v1';
+let D={st:[],se:[],cur:null},tab='st',F={},days=7,vtm=null;
+try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.st)D=o}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const stu=()=>D.st.find(s=>s.id==D.cur);
+const today=()=>new Date().toISOString().slice(0,10);
+const fd=d=>new Date(d).toLocaleDateString('fa-IR');
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2600)}
+
+/* ---------- فیلدها ---------- */
+const OPT={
+ mood:['سرحال','خسته','مضطرب'],
+ effort:['۱','۲','۳','۴','۵'],
+ ai:['بدون کمک هوش مصنوعی','با کمک هوش مصنوعی','نامطمئن'],
+ explain:['به زبان خودش توضیح داد','نیمه‌توضیح داد','نتوانست توضیح دهد'],
+ motive:['بالا','متوسط','پایین'],
+ viva:['فهمید','نیمه‌فهمید','تقلید کرد']
+};
+const chips=(k,cls=[])=>`<div class="chips">${OPT[k].map((o,i)=>`<button type="button" class="chip ${cls[i]||''} ${F[k]==o?'on':''}" data-k="${k}" data-v="${esc(o)}">${o}</button>`).join('')}</div>`;
+
+/* ---------- نماها ---------- */
+function viewSt(){
+ const s=D.st.map(x=>`<div class="st ${x.id==D.cur?'on':''}" data-s="${x.id}"><b>${esc(x.name)}</b><span class="tag ${x.mode=='p'?'p':''}">${x.mode=='p'?'ابتدایی':'متوسطه'}</span><span class="hn" style="margin:0">${fa(D.se.filter(e=>e.sid==x.id).length)} جلسه</span><button class="b dg" data-del="${x.id}" aria-label="حذف">✕</button></div>`).join('');
+ const c=stu(),hs=c?D.se.filter(e=>e.sid==c.id).sort((a,b)=>b.d.localeCompare(a.d)):[];
+ return`<div class="cd"><h2>دانش‌آموز تازه</h2><p class="hn">نام‌ها فقط در همین مرورگر ذخیره می‌شوند و به هیچ سروری فرستاده نمی‌شوند.</p>
+ <input class="f" id="nm" placeholder="نام دانش‌آموز"><div class="row"><select class="f" id="md" style="flex:1;margin:0"><option value="p">حالت ابتدایی: رشد و رابطه</option><option value="s">حالت متوسطه: فهم تأییدشده</option></select><button class="b pr" data-a="add">افزودن</button></div></div>
+ <div class="cd"><h2>فهرست دانش‌آموزان</h2>${s||'<p class="hn">هنوز دانش‌آموزی اضافه نکرده‌ای.</p>'}</div>
+ ${c?`<div class="cd"><h2>سابقهٔ «${esc(c.name)}»</h2>${hs.map(e=>`<div class="hi"><b>${fd(e.d)}</b><span>${esc(sum(e))}</span><button class="b dg" data-ds="${e.id}" aria-label="حذف">✕</button></div>`).join('')||'<p class="hn">جلسه‌ای ثبت نشده.</p>'}</div>`:''}
+ <div class="cd"><h2>پشتیبان‌گیری</h2><div class="row"><button class="b" data-a="exp"><i class="fa-solid fa-download"></i> ذخیره فایل</button><button class="b" data-a="imp"><i class="fa-solid fa-upload"></i> بارگذاری فایل</button></div></div>`}
+function sum(e){const f=e.f;return e.m=='p'?[f.mood,f.win&&'پیروزی: '+f.win,f.block&&'مانع: '+f.block].filter(Boolean).join(' · '):[f.viva&&'Viva: '+f.viva+(f.vc?' ('+f.vc+')':''),f.gap&&'شکاف: '+f.gap].filter(Boolean).join(' · ')}
+function viewSe(){
+ const c=stu();if(!c)return'<div class="cd"><p class="hn">ابتدا در تب «دانش‌آموزان»، یک دانش‌آموز را انتخاب کن.</p></div>';
+ const inp=(k,ph,t='text')=>`<input class="f" data-f="${k}" type="${t}" value="${esc(F[k]||'')}" placeholder="${ph}">`;
+ let h=`<div class="cd"><h2>جلسهٔ «${esc(c.name)}»</h2><p class="hn">ثبت ۳۰ ثانیه‌ای پایان جلسه — ${fd(today())}</p>`;
+ if(c.mode=='p')h+=`<h4>حال عاطفی</h4>${chips('mood',['g','','r'])}<h4>یک پیروزی کوچک</h4>${inp('win','مثلاً: بدون کمک، مسئلهٔ دوم را حل کرد')}<h4>یک مانع مشخص</h4>${inp('block','مثلاً: با کسرها دست‌پاچه می‌شود')}
+  <h4>چند بار پیش از کمک خواستن، خودش تلاش کرد؟</h4><div class="row"><button class="b" data-n="-1">−</button><b style="font-size:20px;min-width:30px;text-align:center">${fa(F.tries||0)}</b><button class="b" data-n="1">+</button></div>
+  <h4>افت تمرکز در چه دقیقه‌ای دیده شد؟ (اختیاری)</h4>${inp('dip','دقیقه، مثلاً ۲۰','number')}`;
+ else h+=`<h4>سیگنال تلاش (۱ کم تا ۵ زیاد)</h4>${chips('effort')}<h4>شکاف مفهومی امروز</h4>${inp('gap','کدام مفهوم هنوز جا نیفتاده؟')}
+  <h4>لحظهٔ صداقت: آیا از هوش مصنوعی کمک گرفت؟</h4>${chips('ai')}<h4>آیا می‌تواند به زبان خودش توضیح دهد؟</h4>${chips('explain',['g','','r'])}<h4>وضعیت انگیزه</h4>${chips('motive')}
+  <h4>آزمون شفاهی کوتاه (Viva)</h4><p class="hn">سه دقیقه، بدون کاغذ و بدون هوش مصنوعی: مفهوم را با صدای بلند توضیح بدهد یا مسئلهٔ تغییریافته را حل کند.</p>
+  <div class="row" style="margin-bottom:8px"><span class="vt" id="vt">۳:۰۰</span><button class="b" data-a="vt"><i class="fa-solid fa-stopwatch"></i> شروع / توقف</button></div>
+  ${inp('vc','مفهومِ پرسیده‌شده')}${chips('viva',['g','','r'])}`;
+ return h+`<button class="b pr w" data-a="save"><i class="fa-solid fa-check"></i> ذخیرهٔ جلسه</button></div>`}
+function toggleTimer(){
+ if(vtm){clearInterval(vtm);vtm=null;return}
+ let t=180;const e=$('#vt');vtm=setInterval(()=>{t--;e.textContent=fa(Math.floor(t/60))+':'+(t%60<10?'۰':'')+fa(t%60);if(t<=0){clearInterval(vtm);vtm=null;toast('زمان تمام شد.');navigator.vibrate&&navigator.vibrate(300)}},1000)}
+function saveSe(){
+ const c=stu(),f={...F};
+ if(c.mode=='p'&&!f.mood)return toast('حال عاطفی را انتخاب کن.');
+ if(c.mode=='s'&&!f.viva&&!f.effort)return toast('دست‌کم سیگنال تلاش یا نتیجهٔ Viva را ثبت کن.');
+ D.se.push({id:uid(),sid:c.id,d:today(),m:c.mode,f});F={};save();toast('جلسه ذخیره شد.');render()}
+
+/* ---------- گزارش ---------- */
+const cnt=(a,k,o)=>o.map(v=>[v,a.filter(e=>e.f[k]==v).length]);
+const avg=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:null;
+const uniq=a=>[...new Set(a)];
+function inWin(sid,from,to){return D.se.filter(e=>e.sid==sid&&e.d>=from&&e.d<=to)}
+function report(c){
+ const to=new Date(),f=new Date(to);f.setDate(f.getDate()-(days||3650));const p=new Date(f);p.setDate(p.getDate()-(days||0));
+ const iso=d=>d.toISOString().slice(0,10),a=inWin(c.id,iso(f),iso(to)),b=days?inWin(c.id,iso(p),iso(f)).filter(e=>e.d<iso(f)):[];
+ if(!a.length)return null;
+ const L=[`<b>گزارش رشد — ${esc(c.name)}</b>`,`بازه: ${days?fd(f)+' تا ':'از ابتدا تا '}${fd(to)}  ·  ${fa(a.length)} جلسه`,''];
+ if(c.mode=='p'){
+  L.push('<b>حال عاطفی</b>',cnt(a,'mood',OPT.mood).map(([v,n])=>`${v}: ${fa(n)} جلسه`).join(' / '));
+  const t=avg(a.map(e=>+e.f.tries||0)),tb=avg(b.map(e=>+e.f.tries||0));
+  L.push('','<b>تلاش مستقل</b>',`${esc(c.name)} در این دوره به‌طور میانگین ${fa(t)} بار پیش از کمک خواستن تلاش کرد`+(tb!=null?` (دورهٔ قبل: ${fa(tb)}).`:'.'));
+  const w=uniq(a.map(e=>e.f.win).filter(Boolean)),k=uniq(a.map(e=>e.f.block).filter(Boolean)),dp=avg(a.map(e=>+e.f.dip).filter(Boolean));
+  if(w.length)L.push('','<b>پیروزی‌های کوچک</b>',...w.map(x=>'• '+esc(x)));
+  if(k.length)L.push('','<b>موانعی که روی آن‌ها کار می‌کنیم</b>',...k.map(x=>'• '+esc(x)));
+  if(dp)L.push('','<b>الگوی تمرکز</b>',`افت تمرکز معمولاً حدود دقیقهٔ ${fa(dp)} جلسه دیده می‌شود؛ زمان استراحت را بر همین اساس تنظیم می‌کنیم.`)}
+ else{
+  const V=a.filter(e=>e.f.viva),vs=OPT.viva.map(v=>[v,V.filter(e=>e.f.viva==v).length]);
+  L.push('<b>آزمون شفاهی (Viva)</b>',V.length?`از ${fa(V.length)} آزمون شفاهی: `+vs.map(([v,n])=>`${v} ${fa(n)}`).join('، '):'در این بازه آزمون شفاهی ثبت نشده.');
+  const sc=[...V.map(e=>[100,50,0][OPT.viva.indexOf(e.f.viva)]),...a.filter(e=>e.f.explain).map(e=>[100,50,0][OPT.explain.indexOf(e.f.explain)])];
+  if(sc.length)L.push('',`<b>امتیاز صداقت یادگیری: ${fa(avg(sc))} از ۱۰۰</b>`,'این امتیاز از میانگین نتیجهٔ Viva و توانایی توضیح شفاهی همین بازه محاسبه شده است.');
+  const ef=avg(a.map(e=>+e.f.effort).filter(Boolean)),eb=avg(b.map(e=>+e.f.effort).filter(Boolean));
+  if(ef)L.push('','<b>تلاش</b>',`میانگین سیگنال تلاش ${fa(ef)} از ۵`+(eb?` (دورهٔ قبل: ${fa(eb)}).`:'.'));
+  const g=uniq(a.map(e=>e.f.gap).filter(Boolean));if(g.length)L.push('','<b>شکاف‌های مفهومی در دست رفع</b>',...g.map(x=>'• '+esc(x)));
+  const ai=a.filter(e=>e.f.ai=='با کمک هوش مصنوعی').length;if(ai)L.push('',`در ${fa(ai)} جلسه، دانش‌آموز از هوش مصنوعی کمک گرفته بود و فهمش با پرسش شفاهی سنجیده شد.`)}
+ L.push('','— ثبت‌شده با مشاهدهٔ مستقیم معلم — مستر پلنر');return L.join('\n')}
+function viewRp(){
+ const c=stu();if(!c)return'<div class="cd"><p class="hn">ابتدا یک دانش‌آموز را انتخاب کن.</p></div>';
+ const r=report(c);
+ return`<div class="cd noprint"><h2>گزارش «${esc(c.name)}»</h2><div class="chips" style="margin-top:8px">${[[7,'۷ روز اخیر'],[30,'۳۰ روز اخیر'],[0,'همهٔ جلسه‌ها']].map(([d,t])=>`<button class="chip ${days==d?'on':''}" data-d="${d}">${t}</button>`).join('')}</div></div>`+
+ (r?`<div class="rep" id="rp">${r}</div><div class="row noprint" style="margin-top:12px"><button class="b pr" data-a="copy"><i class="fa-solid fa-copy"></i> کپی برای ارسال در روبیکا</button><button class="b" onclick="print()"><i class="fa-solid fa-print"></i> چاپ / PDF</button></div>`:'<div class="cd"><p class="hn">در این بازه جلسه‌ای ثبت نشده است.</p></div>')}
+
+/* ---------- رویدادها ---------- */
+function render(){
+ document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab==tab));
+ $('#v').innerHTML=tab=='st'?viewSt():tab=='se'?viewSe():viewRp()}
+document.querySelector('.tabs').onclick=e=>{const b=e.target.closest('[data-tab]');if(b){tab=b.dataset.tab;render();scrollTo(0,0)}};
+$('#v').addEventListener('input',e=>{const f=e.target.dataset.f;if(f)F[f]=e.target.value});
+$('#v').addEventListener('click',e=>{
+ const g=s=>e.target.closest(s);let t;
+ if(t=g('[data-del]')){e.stopPropagation();if(confirm('این دانش‌آموز و همهٔ جلسه‌هایش حذف شود؟')){D.st=D.st.filter(x=>x.id!=t.dataset.del);D.se=D.se.filter(x=>x.sid!=t.dataset.del);if(D.cur==t.dataset.del)D.cur=null;save();render()}return}
+ if(t=g('[data-ds]')){D.se=D.se.filter(x=>x.id!=t.dataset.ds);save();render();return}
+ if(t=g('[data-s]')){D.cur=t.dataset.s;F={};save();tab='se';render();return}
+ if(t=g('[data-k]')){F[t.dataset.k]=F[t.dataset.k]==t.dataset.v?'':t.dataset.v;render();return}
+ if(t=g('[data-n]')){F.tries=Math.max(0,(F.tries||0)+ +t.dataset.n);render();return}
+ if(t=g('[data-d]')){days=+t.dataset.d;render();return}
+ if(t=g('[data-a]')){const a=t.dataset.a;
+  if(a=='add'){const n=$('#nm').value.trim();if(!n)return toast('نام را بنویس.');const s={id:uid(),name:n,mode:$('#md').value};D.st.push(s);D.cur=s.id;save();render();toast('افزوده شد. حالا از کارت او وارد ثبت جلسه شو.')}
+  if(a=='save')saveSe();if(a=='vt')toggleTimer();
+  if(a=='copy')navigator.clipboard.writeText($('#rp').innerText).then(()=>toast('گزارش کپی شد.'),()=>toast('کپی نشد؛ متن را دستی انتخاب کن.'));
+  if(a=='exp'){const l=document.createElement('a');l.href=URL.createObjectURL(new Blob([JSON.stringify(D)],{type:'application/json'}));l.download='observation-log.json';l.click()}
+  if(a=='imp')$('#fi').click()}});
+$('#fi').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();
+ r.onload=()=>{try{const o=JSON.parse(r.result);if(!o.st||!o.se)throw 0;D=o;save();render();toast('بارگذاری شد.')}catch(x){toast('فایل معتبر نیست.')}};r.readAsText(f);e.target.value=''};
+render();
+</script>
+</body>
+</html>
