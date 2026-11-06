@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>کارت‌های اقدام انسانی | جعبه‌ابزار مربی‌گری | مستر پلنر</title>
+<meta name="description" content="کتابخانهٔ کارت‌های اقدام برای معلمان خصوصی: تنظیم هیجان، مکث هفت‌ثانیه‌ای، پرسش سقراطی، پروتکل «حالا به من توضیح بده» و منطقهٔ بدون هوش مصنوعی." />
+<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/action-cards.html" />
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="mp-tools.css" />
+<style>
+.c{border-top:4px solid var(--ac)}.c.s{border-top-color:#3b82f6}.c.p{border-top-color:var(--gr)}
+.c ol{margin:6px 0 8px;padding-right:20px;font-size:13.5px;color:#cbd5e1}.c li{margin-bottom:4px}
+.k{background:rgba(232,151,31,.1);border-right:4px solid var(--ac);border-radius:8px;padding:8px 12px;font-size:13px;margin:8px 0}
+.c small{color:var(--mu)}
+</style>
+</head>
+<body>
+<div class="top"><div class="th"><a href="index.html"><i class="fa-solid fa-arrow-right"></i> مستر پلنر</a><h1>کارت‌های اقدام انسانی</h1></div></div>
+<main>
+  <div class="cd noprint">
+    <p class="hn">کارت‌هایی برای لحظه‌های واقعی جلسه. محتوا را هوش مصنوعی هم می‌تواند بنویسد، اما اجرای آن، با حضور تو انجام می‌شود.</p>
+    <div class="chips" id="fl"></div>
+    <input class="f" id="q" placeholder="جستجو در کارت‌ها: مثلاً تمرکز، توضیح، خطا" style="margin-top:6px">
+    <div class="row"><button class="b pr" id="rnd"><i class="fa-solid fa-shuffle"></i> کارت امروز</button><button class="b" onclick="print()"><i class="fa-solid fa-print"></i> چاپ</button></div>
+  </div>
+  <div class="grid" id="g"></div>
+</main>
+<div id="toast"></div>
+<script>
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const C=[
+{t:'تنظیم هیجان',m:'p',w:'کودک ناامید، عصبی یا در آستانهٔ گریه است.',s:['هم‌قد او شو و کنارش بنشین.','احساس را نام ببر: «انگار خیلی کلافه‌ای».','دو نفس عمیق را با هم بکشید.','فقط یک گام کوچک پیشنهاد بده.'],k:'اول رابطه، بعد تکلیف.'},
+{t:'مکث هفت‌ثانیه‌ای',m:'p',w:'کودک با اولین مشکل می‌گوید «کمک کن».',s:['بعد از درخواست کمک، آرام تا هفت بشمار.','با نگاه و لبخند اطمینان بده.','اگر نشد، فقط یک سرنخ بده، نه جواب.'],k:'سکوتِ تربیتی؛ جایی که کودک تلاش مستقل را تجربه می‌کند.'},
+{t:'بازی فیزیکی',m:'p',w:'تمرکز افت کرده؛ بدن بی‌قرار است.',s:['کار روی میز را سه دقیقه متوقف کن.','مفهوم را به حرکت تبدیل کن: پرش روی عددها، شمارش گام.','با همان مفهوم به میز برگردید.'],k:'بدن هم یاد می‌گیرد؛ استراحت بخشی از درس است.'},
+{t:'آموزش با اشیای واقعی',m:'p',w:'مفهوم انتزاعی است (کسر، شمارش، دسته‌بندی).',s:['وسیلهٔ واقعی بیاور: دکمه، نخود، قاشق.','بگذار خودش جابه‌جا کند و بشمارد.','بعد روی کاغذ نشانش بده.'],k:'بدون صفحه‌نمایش؛ لمس و تجربه، جای هیچ اپی را نمی‌گیرد.'},
+{t:'بازگشت بعد از اشتباه',m:'p',w:'کودک بعد از خطا خجالت‌زده یا ساکت می‌شود.',s:['با کنجکاوی بگو: «جالبه، چطور به اینجا رسیدی؟».','بگذار مسیر فکرش را تعریف کند.','جایی را که درست بود پیدا کن و اول همان را بگو.'],k:'خطا اطلاعات است، نه شکست.'},
+{t:'پیروزی کوچک پایان جلسه',m:'p',w:'دو دقیقهٔ آخر جلسه.',s:['از او بپرس: «امروز چه چیزی سخت بود و چطور حلش کردی؟».','فقط جملهٔ خودش را تکرار کن.','همان را در دفترچهٔ مشاهدات ثبت کن.'],k:'این جمله فردا در گزارش والدین می‌آید.'},
+{t:'پرسش سقراطی',m:'s',w:'دانش‌آموز جواب می‌خواهد، نه فهم.',s:['به جای جواب بپرس: «چرا این‌طور فکر می‌کنی؟».','بپرس: «اگر این عدد یا شرط عوض شود چه می‌شود؟».','بپرس: «یک مثال نقض بیاور».'],k:'هر پرسش، یک لایه از فهم را آشکار می‌کند.'},
+{t:'«حالا به من توضیح بده»',m:'s',w:'پایان بحث؛ می‌خواهی بدانی واقعاً فهمیده یا نه.',s:['کتاب، گوشی و کاغذ را کنار بگذارید.','نود ثانیه مفهوم را با زبان خودش توضیح دهد.','دو پرسش مزاحم بپرس.','نتیجه را ثبت کن: فهمید / نیمه‌فهمید / تقلید کرد.'],k:'فشار رابطه‌ای یک انسان حاضر را هیچ چت‌باتی ندارد.'},
+{t:'منطقهٔ بدون هوش مصنوعی',m:'s',w:'تکلیفی که احتمال تولید با هوش مصنوعی دارد.',s:['بیست دقیقه حل مسئله با کاغذ و قلم.','بعد از آن ابزار را فقط برای بررسی بگذار، نه تولید.','تفاوت پاسخ خودش و ابزار را با هم ببینید.'],k:'ابزار، بعد از تلاش خودش مفید است.'},
+{t:'آزمون فهم سطحی',m:'s',w:'پاسخ درست است، اما شک داری فهم وجود دارد.',s:['مسئلهٔ تغییریافته بده: عدد یا زمینه را عوض کن.','ببین روش را منتقل می‌کند یا فقط الگو را تقلید.','نشانهٔ سطحی بودن: درست حل می‌کند، اما نمی‌تواند بگوید چرا.'],k:'جواب درست، همیشه فهم درست نیست.'},
+{t:'تحلیل خطاهای خودش',m:'s',w:'پایان هفته، مرور خطاها.',s:['سه خطای مهم هفته را کنار هم بگذار.','برای هر کدام علت را بنویسد: دانش، دقت یا استرس.','یک قاعدهٔ پیشگیری شخصی بنویسد.'],k:'تحلیل خطا را فقط خودِ دانش‌آموز می‌تواند عمیق انجام دهد.'},
+{t:'مرور با نقشهٔ مفهومی',m:'b',w:'پایان یک مبحث.',s:['بدون یادداشت، مفهوم مرکزی را بنویسد.','با ابزار «مفهوم‌ساز» ابتدا بسط بدهد، سپس تضاد و رابطهٔ علت‌ومعلول را اضافه کند.','نقشه را با هم مرور کنید و یک پیوند عرضی پیدا کنید.'],k:'<a href="concept-maker.html" style="color:#fbbf24">باز کردن مفهوم‌ساز</a>'}
+];
+const M={p:'ابتدایی',s:'متوسطه',b:'هر دو'};let f='all',q='';
+const U=(()=>{try{return JSON.parse(localStorage.getItem('mp_cards_used')||'{}')}catch(e){return{}}})();
+function render(){
+ $fl.innerHTML=[['all','همه'],['p','ابتدایی'],['s','متوسطه']].map(([k,t])=>`<button class="chip ${f==k?'on':''}" data-f="${k}">${t}</button>`).join('');
+ const L=C.map((c,i)=>[c,i]).filter(([c])=>(f=='all'||c.m==f||c.m=='b')&&(c.t+c.w+c.s.join(' ')).includes(q));
+ $g.innerHTML=L.map(([c,i])=>`<div class="cd c ${c.m}" id="c${i}"><span class="tag ${c.m=='p'?'p':c.m=='b'?'a':''}">${M[c.m]}</span><h3>${c.t}</h3><p class="hn">وقتی: ${c.w}</p><ol>${c.s.map(x=>`<li>${x}</li>`).join('')}</ol><div class="k">${c.k}</div><div class="row noprint"><button class="b" data-u="${i}">اجرا کردم</button><small>${U[i]?'تا امروز '+Number(U[i]).toLocaleString('fa-IR')+' بار':''}</small></div></div>`).join('')||'<div class="cd"><p class="hn">کارتی پیدا نشد.</p></div>'}
+const $fl=document.getElementById('fl'),$g=document.getElementById('g');
+$fl.onclick=e=>{const b=e.target.closest('[data-f]');if(b){f=b.dataset.f;render()}};
+document.getElementById('q').oninput=e=>{q=e.target.value.trim();render()};
+$g.onclick=e=>{const b=e.target.closest('[data-u]');if(!b)return;U[b.dataset.u]=(U[b.dataset.u]||0)+1;try{localStorage.setItem('mp_cards_used',JSON.stringify(U))}catch(x){}render()};
+document.getElementById('rnd').onclick=()=>{const L=C.map((c,i)=>i).filter(i=>f=='all'||C[i].m==f||C[i].m=='b'),i=L[Math.floor(Math.random()*L.length)];q='';document.getElementById('q').value='';render();const e=document.getElementById('c'+i);e.scrollIntoView({behavior:'smooth',block:'center'});e.style.outline='2px solid #e8971f'};
+render();
+</script>
+</body>
+</html>
