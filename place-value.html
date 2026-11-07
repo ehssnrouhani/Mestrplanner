@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ماشین‌حساب ارزش مکانی | چهار عمل اصلی صحیح و اعشاری | مستر پلنر</title>
+<meta name="description" content="یادگیری و تمرین جمع، تفریق، ضرب و تقسیم اعداد صحیح و اعشاری با جدول ارزش مکانی؛ حل گام‌به‌گام، تخمین، امتحان و تمرین بی‌پایان برای دانش‌آموزان دبستانی." />
+<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/place-value.html" />
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="mp-tools.css" />
+<style>
+main{max-width:760px}
+.num{direction:ltr;text-align:center;font-size:22px;font-weight:800;margin:0}
+.ops{display:flex;gap:8px;margin:10px 0}
+.ops .chip{flex:1;font-size:20px;font-weight:800;padding:6px 0;text-align:center}
+.er{color:#f87171;font-size:13.5px;margin:8px 0;min-height:20px}
+.say{background:#0b1120;border-right:4px solid var(--ac);border-radius:10px;padding:12px 14px;margin:10px 0;font-size:15px;line-height:2}
+.tip{background:rgba(16,185,129,.1);border:1px solid var(--gr);border-radius:12px;padding:10px 14px;font-size:13.5px;margin-top:12px}
+.rb{background:linear-gradient(135deg,#0b1120,#1e293b);border:2px solid var(--ac);border-radius:16px;padding:16px;text-align:center;margin-top:12px}
+.rb b{font-size:30px;color:#fff;direction:ltr;display:inline-block}
+.rb p{margin:6px 0 0;font-size:13.5px;color:#cbd5e1}
+.gr{overflow-x:auto;direction:ltr;margin:10px 0}
+.gr table{border-collapse:collapse;margin:0 auto}
+.gr td{min-width:32px;height:40px;text-align:center;font-size:21px;font-weight:700}
+.gr tr.nm td{height:66px;font-size:10.5px;color:var(--mu);font-weight:600;vertical-align:bottom;padding-bottom:4px}
+.gr tr.nm span{writing-mode:vertical-rl;transform:rotate(180deg);display:inline-block}
+.gr td.lb{color:#fbbf24;font-size:16px;padding:0 8px;text-align:right;min-width:48px}
+.gr td.hl{background:rgba(232,151,31,.2)}
+.gr td.pt{color:#fbbf24;min-width:16px}
+.gr td.dim{color:#475569}
+.gr tr.line td{border-top:2px solid var(--tx);height:2px;padding:0}
+.gr tr.cy td{color:#6ee7b7;font-size:15px;height:24px}
+.gr tr.res td{color:#fbbf24;font-size:23px}
+.tb{width:100%;border-collapse:collapse;font-size:14px;text-align:center;direction:rtl}
+.tb th{color:#fbbf24;font-size:12px}.tb th,.tb td{border-bottom:1px solid var(--bd);padding:7px 4px}
+.tb tr:last-child td{background:rgba(232,151,31,.12)}
+.nav{justify-content:space-between;margin-bottom:6px}
+.eq{direction:ltr;text-align:center;font-size:34px;font-weight:800;margin:14px 0;color:#fff}
+.stt{display:flex;gap:8px;font-size:13px;color:var(--mu);margin-bottom:10px}.stt b{color:#fbbf24}
+.ok{background:rgba(16,185,129,.12);border:2px solid var(--gr);border-radius:14px;padding:14px;text-align:center;margin:10px 0}
+.no{background:rgba(239,68,68,.1);border:2px solid #ef4444;border-radius:14px;padding:14px;margin:10px 0;line-height:1.9}
+.pvt{margin-bottom:12px}.pvt h3{font-size:14px;color:#fbbf24}
+.exp{font-size:13.5px;color:#cbd5e1;line-height:2}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="th"><a href="index.html"><i class="fa-solid fa-arrow-right"></i> مستر پلنر</a><h1>ارزش مکانی و چهار عمل اصلی</h1></div>
+  <div class="tabs"><button data-tab="learn">یادگیری</button><button data-tab="prac">تمرین</button></div>
+</div>
+<main id="v"></main>
+<div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const FD='۰۱۲۳۴۵۶۷۸۹';
+const fa=s=>String(s).replace(/\d/g,d=>FD[d]).replace(/\./g,'٫');
+const norm=s=>String(s??'').trim().replace(/[۰-۹]/g,d=>FD.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/٫/g,'.')          // فقط اعشار فارسی به نقطه
+.replace(/[,،٬]/g,'')       // هزارگان حذف شود (فارسی، عربی و لاتین) replace(/\s/g,'');
+const IP=['یکان','دهگان','صدگان','هزار','ده‌هزار','صدهزار','میلیون','ده‌میلیون','صدمیلیون'];
+const FP=['','دهم','صدم','هزارم','ده‌هزارم','صدهزارم','میلیونیم'];
+const SYM={'+':'+','-':'−','*':'×','/':'÷'},NM={'+':'جمع','-':'تفریق','*':'ضرب','/':'تقسیم'};
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2600)}
+
+/* ───── اعداد دقیق (بدون خطای اعشار) ───── */
+function parse(s){
+  s=norm(s);if(!/^\d*\.?\d*$/.test(s)||!/\d/.test(s))return null;
+  let[i,f='']=s.split('.');i=i.replace(/^0+(?=\d)/,'')||'0';f=f.replace(/0+$/,'');return{i,f};
+}
+const str=p=>p.i+(p.f?'.'+p.f:'');
+const toBig=(p,F)=>BigInt(p.i+p.f.padEnd(F,'0'));
+function fromBig(n,F){let s=n.toString();if(!F)return s;s=s.padStart(F+1,'0');return str(parse(s.slice(0,-F)+'.'+s.slice(-F)))}
+function calc(A,B,op){
+  const F=Math.max(A.f.length,B.f.length);
+  if(op==='+')return{ans:fromBig(toBig(A,F)+toBig(B,F),F)};
+  if(op==='-'){const x=toBig(A,F),y=toBig(B,F);return x>=y?{ans:fromBig(x-y,F)}:{ans:'-'+fromBig(y-x,F)}}
+  if(op==='*')return{ans:fromBig(BigInt(A.i+A.f)*BigInt(B.i+B.f),A.f.length+B.f.length)};
+  const den=BigInt(B.i+B.f)*10n**BigInt(A.f.length),num=BigInt(A.i+A.f)*10n**BigInt(B.f.length+3);
+  return{ans:fromBig(num/den,3),approx:num%den!==0n};
+}
+const r1=x=>{if(x===0)return 0;const m=Math.pow(10,Math.floor(Math.log10(Math.abs(x))));return Math.round(x/m)*m};
+function estimate(A,B,op){
+  const a=r1(+str(A)),b=r1(+str(B));
+  const r=op==='+'?a+b:op==='-'?a-b:op==='*'?a*b:(b?a/b:0);
+  return{a,b,r:+r.toPrecision(3)};
+}
+
+/* ───── جدول ارزش مکانی ───── */
+function grid(rows,o={}){
+  const L=Math.max(1,...rows.filter(r=>r.s!==undefined).map(r=>r.s.length),(o.names||'').length);
+  let h='<div class="gr"><table>';
+  if(o.names!==undefined){
+    const t=o.names,pi=t.indexOf('.'),p=pi<0?t.length:pi,off=L-t.length;
+    h+='<tr class="nm"><td></td>';
+    for(let i=0;i<L;i++){const j=i-off;let n='';if(j>=0){if(j<p)n=IP[p-1-j]||'';else if(j>p)n=FP[j-p]||''}
+      h+=`<td${o.hl===L-1-i?' class="hl"':''}><span>${n}</span></td>`}
+    h+='</tr>';
+  }
+  for(const r of rows){
+    if(r.line){h+='<tr class="line"><td></td>'+'<td></td>'.repeat(L)+'</tr>';continue}
+    const s=' '.repeat(L-r.s.length)+r.s,pi=s.indexOf('.'),u=pi<0?L-1:pi-1;
+    let fi=u;for(let i=0;i<=u;i++)if(/[1-9]/.test(s[i])){fi=i;break}
+    h+=`<tr class="${r.cls||''}"><td class="lb">${r.l||''}</td>`;
+    for(let i=0;i<L;i++){
+      const c=s[i];let cl=o.hl===L-1-i?'hl':'';
+      if(c==='.')cl+=' pt';else if(r.dim&&c==='0'&&i<fi)cl+=' dim';
+      h+=`<td class="${cl}">${c===' '?'':c==='.'?'٫':fa(c)}</td>`;
+    }
+    h+='</tr>';
+  }
+  return h+'</table></div>';
+}
+function expand(p){
+  const parts=[],vals=[];
+  [...p.i].forEach((d,k)=>{const pl=p.i.length-1-k;if(d!=='0'){parts.push(`${fa(d)} ${IP[pl]}`);vals.push(d+'0'.repeat(pl))}});
+  [...p.f].forEach((d,k)=>{if(d!=='0'){parts.push(`${fa(d)} ${FP[k+1]}`);vals.push('0.'+'0'.repeat(k)+d)}});
+  return`<div class="exp">${parts.join(' + ')||'۰'}<br><span style="direction:ltr;display:inline-block">${fa(str(p))} = ${vals.map(fa).join(' + ')||'۰'}</span></div>`;
+}
+const pvTable=(p,title)=>`<div class="pvt"><h3>${title}: ${fa(str(p))}</h3>${grid([{s:str(p)}],{names:str(p)})}${expand(p)}</div>`;
+
+/* ───── حل گام‌به‌گام ───── */
+function buildAddSub(A,B,op){
+  const F=Math.max(A.f.length,B.f.length);let a=A,b=B,neg=false;
+  if(op==='-'&&toBig(A,F)<toBig(B,F)){a=B;b=A;neg=true}
+  const I=Math.max(a.i.length,b.i.length)+(op==='+'?1:0);
+  const mk=x=>x.i.padStart(I,'0')+(F?'.'+x.f.padEnd(F,'0'):'');
+  const sa=mk(a),sb=mk(b),L=sa.length,pI=F?I:L;
+  const nameOf=i=>i<pI?IP[pI-1-i]:FP[i-pI];
+  const idx=[];for(let i=L-1;i>=0;i--)if(sa[i]!=='.')idx.push(i);
+  const cols=[];let c=0;
+  idx.forEach((i,k)=>{
+    const da=+sa[i],db=+sb[i],nm=nameOf(i),nx=k+1<idx.length?nameOf(idx[k+1]):'ستون بعدی';let out,co,t;
+    if(op==='+'){
+      const s=da+db+c;out=s%10;co=s>=10?1:0;
+      t=`ستون ${nm}: ${fa(da)} + ${fa(db)}${c?' + ۱ (نقلی)':''} = ${fa(s)}. `+(co?`${fa(out)} را می‌نویسیم و ۱ ${nx} به ستون بعد نقلی می‌دهیم.`:`${fa(out)} را می‌نویسیم.`);
+    }else{
+      const d2=da-c;
+      if(d2<db){out=d2+10-db;co=1;t=`ستون ${nm}: ${fa(d2)}${c?' (بعد از قرض‌دادن)':''} از ${fa(db)} کوچک‌تر است. ۱ ${nx} قرض می‌گیریم و آن را ۱۰ ${nm} حساب می‌کنیم: ${fa(d2+10)} − ${fa(db)} = ${fa(out)}.`}
+      else{out=d2-db;co=0;t=`ستون ${nm}: ${fa(da)}${c?' − ۱ (قرض داده‌ایم)':''} − ${fa(db)} = ${fa(out)}.`}
+    }
+    cols.push({i,out,co,t});c=co;
+  });
+  const rows=k=>{
+    const res=Array(L).fill(' '),cy=Array(L).fill(' ');if(F)res[I]='.';
+    for(let j=0;j<k;j++){const q=cols[j];res[q.i]=String(q.out);if(q.co){let t=q.i-1;if(sa[t]==='.')t--;if(t>=0)cy[t]='1'}}
+    return[{l:op==='+'?'نقلی':'قرض',s:cy.join(''),cls:'cy'},{l:'',s:sa,dim:1},{l:SYM[op],s:sb,dim:1},{line:1},{l:'=',s:res.join(''),cls:'res',dim:1}];
+  };
+  const intro=(F?'ممیزها را دقیقاً زیر هم می‌گذاریم و جای خالی را با صفر پر می‌کنیم (مقدار عدد تغییر نمی‌کند). ':'رقم‌های هم‌ارزش را زیر هم می‌گذاریم: یکان زیر یکان، دهگان زیر دهگان. ')+(neg?'چون عدد اول از دوم کوچک‌تر است، عدد کوچک‌تر را از بزرگ‌تر کم می‌کنیم و در پایان علامت منفی می‌گذاریم. ':'')+'از ستون سمت راست شروع می‌کنیم.';
+  const steps=[{h:grid(rows(0),{names:sa,hl:-1}),t:intro}];
+  cols.forEach((q,k)=>steps.push({h:grid(rows(k+1),{names:sa,hl:L-1-q.i}),t:q.t}));
+  return steps;
+}
+function buildMul(A,B){
+  const fa_=A.f.length,fb_=B.f.length,Ai=BigInt(A.i+A.f),Bi=BigInt(B.i+B.f),as=Ai.toString(),bs=Bi.toString();
+  const parts=[];for(let j=0;j<bs.length;j++){const d=+bs[bs.length-1-j];parts.push({d,j,v:(Ai*BigInt(d)*10n**BigInt(j)).toString()})}
+  const ps=(Ai*Bi).toString();
+  const rows=k=>[{s:as},{l:'×',s:bs},{line:1},...parts.slice(0,k).map(p=>({s:p.v})),...(k>parts.length?[{line:1},{l:'=',s:ps,cls:'res'}]:[])];
+  const steps=[{h:grid(rows(0)),t:(fa_||fb_?`ابتدا ممیزها را کنار می‌گذاریم و دو عدد را صحیح حساب می‌کنیم: ${fa(str(A))} ← ${fa(as)} و ${fa(str(B))} ← ${fa(bs)}. `:'')+'هر رقم عدد پایین را جداگانه در عدد بالا ضرب می‌کنیم.'}];
+  parts.forEach((p,k)=>steps.push({h:grid(rows(k+1)),t:p.d===0?`رقم ${IP[p.j]} صفر است؛ هر عددی ضرب در صفر می‌شود صفر.`:`${fa(as)} × ${fa(p.d)}${p.j?`، و چون این رقم ${IP[p.j]} است ${fa(p.j)} صفر سمت راست می‌گذاریم`:''} ← ${fa(p.v)}`}));
+  steps.push({h:grid(rows(parts.length+1)),t:`حاصل‌ضرب‌های جزئی را با هم جمع می‌کنیم: ${fa(ps)}.`});
+  if(fa_+fb_)steps.push({h:grid(rows(parts.length+1)),t:`جای ممیز: ${fa(str(A))} دارای ${fa(fa_)} رقم اعشار و ${fa(str(B))} دارای ${fa(fb_)} رقم اعشار است. جواب ${fa(fa_)} + ${fa(fb_)} = ${fa(fa_+fb_)} رقم اعشار دارد؛ از سمت راست ${fa(fa_+fb_)} رقم جدا می‌کنیم: ${fa(calc(A,B,'*').ans)}.`});
+  return steps;
+}
+function buildDiv(A,B){
+  const k=B.f.length,dv=BigInt(B.i+B.f),D=A.i+A.f+'0'.repeat(Math.max(k-A.f.length,0)),intLen=A.i.length+k,digs=[...D];
+  const shown=D.slice(0,intLen)+(D.length>intLen?'.'+D.slice(intLen):''),shownC=str(parse(shown));
+  const log=[];let rem=0n,pos=0,fracQ=0;
+  while(true){
+    let dig,extra=false;
+    if(pos<digs.length)dig=+digs[pos];else{if(rem===0n||fracQ>=3)break;dig=0;extra=true}
+    const cur=rem*10n+BigInt(dig),q=cur/dv,pr=q*dv,prev=rem;rem=cur-pr;
+    if(pos>=intLen)fracQ++;
+    log.push({dig,extra,cur,q:Number(q),pr,rem,prev,pos});pos++;
+  }
+  const qs=n=>{const d=log.slice(0,n).map(x=>x.q);let a=d.slice(0,intLen).join('').replace(/^0+(?=.)/,'')||'0';return a+(d.length>intLen?'.'+d.slice(intLen).join(''):'')};
+  const tbl=n=>`<div style="overflow-x:auto"><table class="tb"><tr><th>رقم پایین‌آمده</th><th>عدد فعلی</th><th>${fa(dv)} × ؟</th><th>حاصل</th><th>باقی‌مانده</th></tr>${log.slice(0,n).map(x=>`<tr><td>${x.extra?'۰ (اضافه)':fa(x.dig)}</td><td>${fa(x.cur)}</td><td>${fa(x.q)}</td><td>${fa(x.pr)}</td><td>${fa(x.rem)}</td></tr>`).join('')}</table></div><p class="hn" style="margin-top:8px">خارج‌قسمت تا اینجا: <b style="color:#fbbf24;font-size:18px">${fa(qs(n))}</b></p>`;
+  const steps=[{h:'',t:(k?`ممیز مقسوم‌علیه را ${fa(k)} رقم به راست می‌بریم تا صحیح شود (ضرب در ${fa('1'+'0'.repeat(k))}). ممیز مقسوم را هم به همان اندازه جابه‌جا می‌کنیم؛ پس ${fa(str(A))} ÷ ${fa(str(B))} تبدیل می‌شود به ${fa(shownC)} ÷ ${fa(dv)}. `:`مقسوم‌علیه صحیح است و مستقیم تقسیم می‌کنیم: ${fa(shownC)} ÷ ${fa(dv)}. `)+'رقم به رقم از چپ پایین می‌آوریم.'}];
+  log.forEach((x,i)=>{
+    const place=x.pos<intLen?IP[intLen-1-x.pos]:FP[x.pos-intLen+1];
+    let t=(x.pos===intLen&&intLen<digs.length+(x.extra?1:0)?'به ممیز رسیدیم؛ در خارج‌قسمت هم ممیز می‌گذاریم. ':'')+
+      (x.extra?'باقی‌مانده صفر نشد، پس یک صفر به مقسوم اضافه می‌کنیم (مقدار عدد عوض نمی‌شود). ':'')+
+      `عدد فعلی = ${fa(x.prev)}×۱۰ + ${fa(x.dig)} = ${fa(x.cur)}. `+
+      (x.q===0?`${fa(x.cur)} از ${fa(dv)} کوچک‌تر است، پس رقم ${place} خارج‌قسمت صفر می‌شود.`:`${fa(dv)} × ${fa(x.q)} = ${fa(x.pr)}، رقم ${place} خارج‌قسمت ${fa(x.q)} و باقی‌مانده ${fa(x.rem)} است.`);
+    steps.push({h:tbl(i+1),t});
+  });
+  return steps;
+}
+function build(A,B,op){
+  if(op==='/'&&B.i==='0'&&!B.f)return{err:'تقسیم بر صفر ممکن نیست.'};
+  const steps=op==='+'||op==='-'?buildAddSub(A,B,op):op==='*'?buildMul(A,B):buildDiv(A,B);
+  const r=calc(A,B,op),e=estimate(A,B,op);
+  let chk='';
+  if(op==='+')chk=`امتحان: ${fa(r.ans)} − ${fa(str(B))} باید ${fa(str(A))} شود.`;
+  else if(op==='-')chk=r.ans[0]==='-'?'':`امتحان: ${fa(r.ans)} + ${fa(str(B))} باید ${fa(str(A))} شود.`;
+  else if(op==='*')chk=`امتحان: ${fa(r.ans)} ÷ ${fa(str(B))} باید ${fa(str(A))} شود.`;
+  else chk=r.approx?'جواب با سه رقم اعشار گرد نشده بریده شده است؛ باقی‌مانده صفر نشد.':`امتحان: ${fa(r.ans)} × ${fa(str(B))} باید ${fa(str(A))} شود.`;
+  return{steps,ans:r.ans,approx:r.approx,est:`تخمین: ${fa(nstr(e.a))} ${SYM[op]} ${fa(nstr(e.b))} ≈ ${fa(nstr(e.r))} (هر عدد را به نزدیک‌ترین رقم بزرگ گرد کرده‌ایم؛ جواب باید نزدیک همین باشد).`,chk};
+}
+const nstr=x=>String(+x.toPrecision(10));
+const TIPS={'+':'فقط رقم‌های هم‌ارزش را با هم جمع می‌کنیم؛ دهم با دهم و یکان با یکان. ممیزها باید زیر هم باشند.','-':'فقط رقم‌های هم‌ارزش را از هم کم می‌کنیم. اگر رقم بالا کوچک‌تر بود، از ستون سمت چپ قرض می‌گیریم؛ هر ۱ واحد آنجا ۱۰ واحد اینجاست.','*':'تعداد رقم‌های اعشار جواب برابر است با جمع رقم‌های اعشار دو عدد.','/':'مقسوم‌علیه را با جابه‌جایی ممیز صحیح می‌کنیم و مقسوم را به همان اندازه جابه‌جا می‌کنیم؛ جواب تغییر نمی‌کند.'};
+const resultBox=s=>`<div class="rb"><div style="font-size:13px;color:#fbbf24">جواب</div><b>${fa(s.ans)}</b>${s.approx?'<p>(تقریبی: تا سه رقم اعشار)</p>':''}<p>${esc(s.est)}</p>${s.chk?`<p>${esc(s.chk)}</p>`:''}</div>`;
+
+/* ───── یادگیری ───── */
+let T='learn',L={a:'',b:'',op:'+',sol:null,step:0,all:false,err:'',A:null,B:null};
+const EX=[['34.5','12.78','+'],['500','287.45','-'],['23.4','1.2','*'],['45.6','1.2','/']];
+function solveLearn(){
+  const A=parse(L.a),B=parse(L.b);
+  if(!A||!B){L.err='دو عدد معتبر بنویس (مثلاً ۳۴٫۵).';L.sol=null;return}
+  if(A.i.length>9||B.i.length>9||A.f.length>6||B.f.length>6){L.err='عددها خیلی بلندند: حداکثر ۹ رقم صحیح و ۶ رقم اعشار.';L.sol=null;return}
+  const s=build(A,B,L.op);
+  if(s.err){L.err=s.err;L.sol=null;return}
+  L.err='';L.sol=s;L.A=A;L.B=B;L.step=0;L.all=false;
+}
+function vLearn(){
+  let h=`<div class="cd"><h2>یک محاسبه بنویس</h2><p class="hn">عدد صحیح یا اعشاری بنویس و ببین هر رقم در کدام خانهٔ ارزش مکانی می‌نشیند.</p>
+   <input class="f num" id="a" inputmode="decimal" autocomplete="off" placeholder="عدد اول" value="${esc(L.a)}">
+   <div class="ops">${['+','-','*','/'].map(o=>`<button class="chip ${L.op===o?'on':''}" data-op="${o}" aria-label="${NM[o]}">${SYM[o]}</button>`).join('')}</div>
+   <input class="f num" id="b" inputmode="decimal" autocomplete="off" placeholder="عدد دوم" value="${esc(L.b)}">
+   <div class="er">${esc(L.err)}</div>
+   <button class="b pr w" data-a="go"><i class="fa-solid fa-play"></i> حل گام‌به‌گام</button>
+   <div class="chips" style="margin-top:12px">${EX.map((x,i)=>`<button class="chip" data-ex="${i}">${fa(x[0])} ${SYM[x[2]]} ${fa(x[1])}</button>`).join('')}</div></div>`;
+  const s=L.sol;if(!s)return h;
+  const n=s.steps.length,cur=s.steps[L.step],last=L.step===n-1;
+  h+=`<div class="cd"><h2>جدول ارزش مکانی</h2>${pvTable(L.A,'عدد اول')}${pvTable(L.B,'عدد دوم')}</div>
+   <div class="cd"><h2>حل: ${fa(str(L.A))} ${SYM[L.op]} ${fa(str(L.B))}</h2>
+   <div class="row nav"><button class="b" data-a="prev" ${L.step===0||L.all?'disabled':''}>→ قبلی</button><span class="hn" style="margin:0">گام ${fa(L.step+1)} از ${fa(n)}</span><button class="b pr" data-a="next" ${last||L.all?'disabled':''}>بعدی ←</button></div>`;
+  if(L.all)h+=`${s.steps.at(-1).h}<ol class="exp">${s.steps.map(x=>`<li>${esc(x.t)}</li>`).join('')}</ol>`;
+  else h+=`${cur.h}<div class="say">${esc(cur.t)}</div>`;
+  if(last||L.all)h+=resultBox(s);
+  h+=`<div class="tip">💡 ${TIPS[L.op]}</div><div class="row" style="margin-top:10px"><button class="b" data-a="all">${L.all?'نمایش گام‌به‌گام':'نمایش همهٔ گام‌ها'}</button><button class="b" data-a="reset">از اول</button></div></div>`;
+  return h;
+}
+
+/* ───── تمرین ───── */
+const rd=n=>{let s=String(1+Math.floor(Math.random()*9));for(let i=1;i<n;i++)s+=Math.floor(Math.random()*10);return s};
+const pk=a=>a[Math.floor(Math.random()*a.length)];
+const mkN=(d,f)=>{let s=rd(d+f);if(f){while(s.endsWith('0'))s=s.slice(0,-1)+Math.floor(1+Math.random()*9);return s.slice(0,-f)+'.'+s.slice(-f)}return s};
+function gen(op,type,lv){
+  const dec=type==='dec'||(type==='mix'&&Math.random()<.5),mf={easy:1,medium:2,hard:3}[lv];
+  const fr=()=>dec?1+Math.floor(Math.random()*mf):0;
+  for(let at=0;at<50;at++){
+    let a,b;
+    if(op==='+'||op==='-'){
+      const n={easy:[2,3],medium:[3,4],hard:[4,6]}[lv];
+      const d=()=>dec?Math.max(1,pk(n)-2):pk(n);
+      a=mkN(d(),fr());b=mkN(d(),fr());
+      if(dec&&!a.includes('.')&&!b.includes('.'))a=mkN(d(),1);
+      if(op==='-'){const A=parse(a),B=parse(b),F=Math.max(A.f.length,B.f.length);if(toBig(A,F)<toBig(B,F))[a,b]=[b,a];if(toBig(parse(a),F)===toBig(parse(b),F))continue}
+    }else if(op==='*'){
+      const[x,y]=pk({easy:[[2,1],[3,1]],medium:[[3,2],[2,2]],hard:[[3,3],[4,2]]}[lv]);
+      const dx=dec?Math.max(1,x-1):x,dy=dec?Math.max(1,y-1):y;
+      a=mkN(dx,fr());b=mkN(dy,fr());
+      if(dec&&!a.includes('.')&&!b.includes('.'))a=mkN(dx,1);
+    }else{
+      const[qd,dd]=pk({easy:[[2,1],[3,1]],medium:[[2,2],[3,2]],hard:[[3,2],[4,2],[3,3]]}[lv]);
+      const fq=dec?Math.floor(Math.random()*Math.min(mf,2)+1):0,fd=dec&&Math.random()<.5?1:0;
+      const q=mkN(Math.max(1,dec?qd-1:qd),fq),d=mkN(Math.max(1,dec&&fd?dd-1:dd),fd);
+      const Q=parse(q),Dv=parse(d);if(Dv.i==='0'&&!Dv.f)continue;
+      a=fromBig(BigInt(Q.i+Q.f)*BigInt(Dv.i+Dv.f),Q.f.length+Dv.f.length);b=str(Dv);
+    }
+    const A=parse(a),B=parse(b);if(A.i.length>9||A.f.length>6)continue;
+    const r=calc(A,B,op);if(r.approx||r.ans==='0')continue;
+    return{a:str(A),b:str(B),op,ans:r.ans,A,B};
+  }
+  return null;
+}
+const ld=()=>{try{return JSON.parse(localStorage.getItem('mp_pv_v1'))||{t:0,ok:0,s:0,best:0}}catch(e){return{t:0,ok:0,s:0,best:0}}};
+let P={op:'+',type:'int',lv:'easy',cur:null,val:'',ph:'ask',hint:{},msg:'',st:ld()};
+function nextP(){
+  const op=P.op==='mix'?pk(['+','-','*','/']):P.op;
+  P.cur=gen(op,P.type,P.lv);P.val='';P.ph='ask';P.hint={};P.msg='';
+}
+function wrongHint(u){
+  const c=P.cur,d=x=>x.replace('.','').replace(/^0+/,'').replace(/0+$/,'');
+  if(d(u)===d(c.ans))return{'+':'رقم‌ها درست است ولی جای ممیز اشتباه است. ممیزها باید دقیقاً زیر هم باشند.','-':'رقم‌ها درست است ولی جای ممیز اشتباه است. ممیزها را زیر هم بگذار.','*':'رقم‌ها درست است ولی جای ممیز اشتباه است. رقم‌های اعشار دو عدد را بشمار و جمع کن.','/':'رقم‌ها درست است ولی جای ممیز اشتباه است. ممیز خارج‌قسمت را هنگام رسیدن به ممیز مقسوم بگذار.'}[c.op];
+  for(const o of['+','-','*','/'])if(o!==c.op){const r=calc(c.A,c.B,o).ans;if(r===u)return`این جواب مربوط به عمل ${NM[o]} است؛ علامت سؤال ${SYM[c.op]} است.`}
+  return'درست نیست. یک بار دیگر رقم‌ها را با ارزش مکانی بررسی کن یا «تخمین» را ببین.';
+}
+function vPrac(){
+  const o=(k,cur,v,t)=>`<button class="chip ${cur===v?'on':''}" data-p="${k}" data-v="${v}">${t}</button>`;
+  const st=P.st;
+  let h=`<div class="cd"><h2>تمرین بی‌پایان</h2>
+   <div class="chips">${[['+','جمع'],['-','تفریق'],['*','ضرب'],['/','تقسیم'],['mix','ترکیبی']].map(([v,t])=>o('op',P.op,v,t)).join('')}</div>
+   <div class="chips">${[['int','عدد صحیح'],['dec','اعشاری'],['mix','هر دو']].map(([v,t])=>o('type',P.type,v,t)).join('')}</div>
+   <div class="chips">${[['easy','آسان'],['medium','متوسط'],['hard','سخت']].map(([v,t])=>o('lv',P.lv,v,t)).join('')}</div></div>`;
+  if(!P.cur)nextP();
+  const c=P.cur;if(!c)return h+'<div class="cd"><p class="hn">برای این ترکیب مسئله‌ای ساخته نشد.</p></div>';
+  h+=`<div class="cd"><div class="stt"><span>درست: <b>${fa(st.ok)}</b> از ${fa(st.t)}</span><span>پیاپی: <b>${fa(st.s)}</b></span><span>بهترین: <b>${fa(st.best)}</b></span></div>
+   <div class="eq">${fa(c.a)} ${SYM[c.op]} ${fa(c.b)} = ؟</div>`;
+  if(P.hint.pv)h+=`<div class="pvt">${pvTable(c.A,'عدد اول')}${pvTable(c.B,'عدد دوم')}</div>`;
+  if(P.hint.est){const e=estimate(c.A,c.B,c.op);h+=`<div class="say">تخمین: ${fa(nstr(e.a))} ${SYM[c.op]} ${fa(nstr(e.b))} ≈ <b>${fa(nstr(e.r))}</b>. جواب باید نزدیک همین باشد.</div>`}
+  if(P.ph==='ask'||P.ph==='wrong'){
+    h+=`<input class="f num" id="pa" inputmode="decimal" autocomplete="off" placeholder="جواب" value="${esc(P.val)}">
+     ${P.ph==='wrong'?`<div class="no">❌ ${esc(P.msg)}</div>`:''}
+     <div class="row"><button class="b pr" style="flex:1" data-a="chk"><i class="fa-solid fa-check"></i> بررسی</button><button class="b" data-a="hpv">جدول ارزش مکانی</button><button class="b" data-a="hest">تخمین</button><button class="b" data-a="sol">نمایش حل</button></div>`;
+  }
+  if(P.ph==='right')h+=`<div class="ok"><div style="font-size:28px">✅</div><b>آفرین! جواب ${fa(c.ans)} درست است.</b></div><div class="row"><button class="b pr" style="flex:1" data-a="nx">مسئلهٔ بعدی ←</button><button class="b" data-a="sol">دیدن حل</button></div>`;
+  if(P.ph==='show'){
+    const s=build(c.A,c.B,c.op);
+    h+=`<div class="say">جواب درست: <b style="color:#fbbf24">${fa(c.ans)}</b></div><div class="steps">${s.steps.at(-1).h}<ol class="exp">${s.steps.map(x=>`<li>${esc(x.t)}</li>`).join('')}</ol></div>${resultBox(s)}<button class="b pr w" data-a="nx">مسئلهٔ بعدی ←</button>`;
+  }
+  if(P.ph==='right'&&P.hint.sol){const s=build(c.A,c.B,c.op);h+=`<ol class="exp">${s.steps.map(x=>`<li>${esc(x.t)}</li>`).join('')}</ol>`}
+  return h+'</div>';
+}
+function record(ok){
+  const s=P.st;s.t++;if(ok){s.ok++;s.s++;s.best=Math.max(s.best,s.s)}else s.s=0;
+  try{localStorage.setItem('mp_pv_v1',JSON.stringify(s))}catch(e){}
+}
+function check(){
+  const inp=$('#pa');if(inp)P.val=inp.value;
+  const u=parse(P.val);
+  if(!u){toast('یک عدد بنویس (مثلاً ۱۲٫۵).');return}
+  const us=str(u);
+  if(us===P.cur.ans){if(!P.counted)record(true);P.counted=false;P.ph='right'}
+  else{if(!P.counted){record(false);P.counted=true}P.msg=wrongHint(us);P.ph='wrong'}
+  render();
+}
+
+/* ───── رویدادها ───── */
+function render(){
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab===T));
+  $('#v').innerHTML=T==='learn'?vLearn():vPrac();
+}
+document.querySelector('.tabs').onclick=e=>{const b=e.target.closest('[data-tab]');if(b){T=b.dataset.tab;render();scrollTo(0,0)}};
+$('#v').addEventListener('input',e=>{if(e.target.id==='a')L.a=e.target.value;if(e.target.id==='b')L.b=e.target.value;if(e.target.id==='pa')P.val=e.target.value});
+$('#v').addEventListener('keydown',e=>{if(e.key==='Enter'){if(e.target.id==='pa')check();else if(e.target.id==='a'||e.target.id==='b'){solveLearn();render()}}});
+$('#v').addEventListener('click',e=>{
+  const g=s=>e.target.closest(s);let t;
+  if(t=g('[data-op]')){L.op=t.dataset.op;if(L.sol)solveLearn();render();return}
+  if(t=g('[data-ex]')){const x=EX[+t.dataset.ex];L.a=x[0];L.b=x[1];L.op=x[2];solveLearn();render();return}
+  if(t=g('[data-p]')){P[t.dataset.p]=t.dataset.v;P.cur=null;P.counted=false;render();return}
+  if(t=g('[data-a]')){
+    const a=t.dataset.a;
+    if(a==='go')solveLearn();
+    if(a==='prev'&&L.step>0)L.step--;
+    if(a==='next'&&L.sol&&L.step<L.sol.steps.length-1)L.step++;
+    if(a==='all')L.all=!L.all;
+    if(a==='reset'){L.step=0;L.all=false}
+    if(a==='chk'){check();return}
+    if(a==='hpv'){const i=$('#pa');if(i)P.val=i.value;P.hint.pv=!P.hint.pv}
+    if(a==='hest'){const i=$('#pa');if(i)P.val=i.value;P.hint.est=!P.hint.est}
+    if(a==='sol'){if(!P.counted&&P.ph!=='right'){record(false);P.counted=true}P.hint.sol=true;if(P.ph!=='right')P.ph='show'}
+    if(a==='nx'){nextP();P.counted=false}
+    render();
+  }
+});
+render();
+</script>
+</body>
+</html>
