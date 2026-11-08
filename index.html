@@ -33,7 +33,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
 
-  <!-- اسکیمای سئوی سایت -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -52,7 +51,6 @@
   }
   </script>
 
-  <!-- اسکیمای مجموعه ابزارها (ItemList) — به گوگل می‌گوید این‌ها یک مجموعهٔ ابزار آموزشی هستند -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -64,7 +62,9 @@
       { "@type": "ListItem", "position": 3, "name": "ماشین‌حساب ارزش مکانی", "url": "https://ehssnrouhani.github.io/Mestrplanner/place-value.html" },
       { "@type": "ListItem", "position": 4, "name": "دفترچهٔ مشاهدات معلم", "url": "https://ehssnrouhani.github.io/Mestrplanner/observation-log.html" },
       { "@type": "ListItem", "position": 5, "name": "مفهوم‌ساز", "url": "https://ehssnrouhani.github.io/Mestrplanner/concept-maker.html" },
-      { "@type": "ListItem", "position": 6, "name": "کارت‌های اقدام انسانی", "url": "https://ehssnrouhani.github.io/Mestrplanner/action-cards.html" }
+      { "@type": "ListItem", "position": 6, "name": "کارت‌های اقدام انسانی", "url": "https://ehssnrouhani.github.io/Mestrplanner/action-cards.html" },
+      { "@type": "ListItem", "position": 7, "name": "میزکار راهبرد مطالعه", "url": "https://ehssnrouhani.github.io/Mestrplanner/study-strategies.html" },
+      { "@type": "ListItem", "position": 8, "name": "میزکار تحلیل ارتباطات و روال‌ها", "url": "https://ehssnrouhani.github.io/Mestrplanner/relations-workbench.html" }
     ]
   }
   </script>
@@ -200,11 +200,13 @@
       <a href="teachers.html" style="text-decoration:none;color:inherit;padding:8px 12px;font-weight:600;transition:color .2s;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color=''">دبیران</a>
       <a href="practice.html" style="text-decoration:none;color:inherit;padding:8px 12px;font-weight:600;transition:color .2s;" onmouseover="this.style.color='#f59e0b'" onmouseout="this.style.color=''">تمرین‌ساز</a>
       <a href="decision-maker.html" style="text-decoration:none;color:inherit;padding:8px 12px;font-weight:600;transition:color .2s;" onmouseover="this.style.color='#10b981'" onmouseout="this.style.color=''">تسلط‌ساز</a>
-     <a href="concept-maker.html" style="text-decoration:none;color:inherit;padding:8px 12px;font-weight:600;transition:color .2s;" onmouseover="this.style.color='#e8971f'" onmouseout="this.style.color=''">مفهوم‌ساز</a>
+      <a href="concept-maker.html" style="text-decoration:none;color:inherit;padding:8px 12px;font-weight:600;transition:color .2s;" onmouseover="this.style.color='#e8971f'" onmouseout="this.style.color=''">مفهوم‌ساز</a>
       <a href="calculator.html" style="text-decoration:none;color:inherit;padding:8px 12px;font-weight:600;transition:color .2s;" onmouseover="this.style.color='#06b6d4'" onmouseout="this.style.color=''">محاسبه‌گر</a>
       <a href="observation-log.html" style="text-decoration:none;color:inherit;padding:8px 12px;font-weight:600;transition:color .2s;" onmouseover="this.style.color='#10b981'" onmouseout="this.style.color=''">دفترچهٔ مشاهدات</a>
       <a href="planner.html" style="text-decoration:none;color:inherit;padding:8px 12px;font-weight:600;transition:color .2s;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color=''">برنامه‌ریز چندبعدی</a>
       <a href="place-value.html" style="text-decoration:none;color:inherit;padding:8px 12px;font-weight:600;transition:color .2s;" onmouseover="this.style.color='#f59e0b'" onmouseout="this.style.color=''">ارزش مکانی</a>
+      <a href="study-strategies.html" style="text-decoration:none;color:inherit;padding:8px 12px;font-weight:600;transition:color .2s;" onmouseover="this.style.color='#a78bfa'" onmouseout="this.style.color=''">راهبردهای مطالعه</a>
+      <a href="relations-workbench.html" style="text-decoration:none;color:inherit;padding:8px 12px;font-weight:600;transition:color .2s;" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color=''">تحلیل ارتباطات</a>
       <a href="assets/guides/online-tests-guide.html" style="text-decoration:none;color:inherit;padding:8px 12px;font-weight:600;transition:color .2s;" onmouseover="this.style.color='#8b5cf6'" onmouseout="this.style.color=''">آزمونک‌های روانشناختی رایگان</a>
 
       <a href="#" class="nav-link" data-page="downloads">دانلود رایگان</a>
@@ -224,7 +226,6 @@
 
 <main class="container">
 
-  <!-- ═══════ صفحه خانه ═══════ -->
   <section class="page active" id="home">
     <div class="hero">
       <h1 class="hero-title">ابزار برنامه ریزی و مطالعه</h1>
@@ -313,6 +314,18 @@
         <p>یادگیری و تمرین صحیح و اعشاری</p>
       </a>
 
+      <a href="study-strategies.html" class="card" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <i class="fa-solid fa-clipboard-check" style="color: #a78bfa;"></i>
+        <h3>میزکار راهبرد مطالعه</h3>
+        <p>سنجش ضعف‌ها و برنامهٔ هفتگی</p>
+      </a>
+
+      <a href="relations-workbench.html" class="card" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <i class="fa-solid fa-chart-line" style="color: #38bdf8;"></i>
+        <h3>تحلیل ارتباطات و روال‌ها</h3>
+        <p>همبستگی، تأخیر و چرخهٔ علّی</p>
+      </a>
+
       <a href="assets/guides/online-tests-guide.html" class="card" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center;">
         <i class="fa-solid fa-clipboard-question" style="color: #8b5cf6;"></i>
         <h3>آزمونک‌های روانشناختی</h3>
@@ -328,7 +341,6 @@
     </div>
   </section>
 
-  <!-- ═══════ صفحه دانلودها ═══════ -->
   <section class="page" id="downloads">
     <h1 class="page-title">دانلود فایل‌های رایگان</h1>
     <div style="text-align:center; margin: 1rem 0 1.5rem;">
@@ -340,13 +352,11 @@
     <div class="grid-container" id="downloadsList"></div>
   </section>
 
-  <!-- ═══════ صفحه مقالات ═══════ -->
   <section class="page" id="tips">
     <h1 class="page-title">مقالات علمی</h1>
     <div class="grid-container" id="tipsList"></div>
   </section>
 
-  <!-- ═══════ صفحه محصولات ═══════ -->
   <section class="page" id="products">
     <h1 class="page-title">محصولات و خدمات</h1>
 
@@ -427,7 +437,6 @@
     <div id="productsList" style="display:none;"></div>
   </section>
 
-  <!-- ═══════ صفحه درباره ما ═══════ -->
   <section class="page" id="about">
     <h1 class="page-title">درباره مستر پلنر</h1>
     <div class="content-box">
@@ -448,7 +457,6 @@
     </div>
   </section>
 
-  <!-- ═══════ صفحه تماس ═══════ -->
   <section class="page" id="contact">
     <h1 class="page-title">ارتباط با ما</h1>
     <div class="contact-grid">
@@ -473,7 +481,6 @@
     </div>
   </section>
 
-  <!-- ═══════ صفحه نظرات (فقط یک نسخه) ═══════ -->
   <section class="page" id="reviews" style="padding-top: 20px;">
     <h1 class="page-title">نظرات و بازخوردها</h1>
 
@@ -525,7 +532,6 @@
     </div>
   </section>
 
-  <!-- ═══════ صفحه نمایش مقاله ═══════ -->
   <section class="page" id="article">
     <div class="article-header">
       <button class="btn-secondary" onclick="goBack()" style="margin-bottom: 1rem; padding: 0.4rem 1rem;">
@@ -556,6 +562,10 @@
       <a href="assets/sales/cases.html" style="color:#fbbf24; text-decoration:none;">کیس‌ها</a>
       <span style="opacity:.4; margin:0 8px;">·</span>
       <a href="schools.html" style="color:#fbbf24; text-decoration:none;">همکاری با مدارس (B2B)</a>
+      <span style="opacity:.4; margin:0 8px;">·</span>
+      <a href="study-strategies.html" style="color:#fbbf24; text-decoration:none;">راهبردهای مطالعه</a>
+      <span style="opacity:.4; margin:0 8px;">·</span>
+      <a href="relations-workbench.html" style="color:#fbbf24; text-decoration:none;">تحلیل ارتباطات</a>
       <span style="opacity:.4; margin:0 8px;">·</span>
       <a href="action-cards.html" style="color:#fbbf24; text-decoration:none;">کارت‌های اقدام</a>
       <span style="opacity:.4; margin:0 8px;">·</span>
