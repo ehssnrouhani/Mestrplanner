@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>میزکار مهندسی انتخاب رشته | خودشناسی، محدودیت‌ها و سبد انتخاب | مستر پلنر</title>
+<meta name="description" content="میزکار مهندسی انتخاب رشته: خودشناسی ساختاری، پایگاه رشته‌ها، محدودیت‌های سخت و نرم، تحلیل تطابق، سبد سه‌لایه و تحلیل حساسیت. داده‌ها نمونهٔ آموزشی‌اند و فقط در مرورگر شما می‌مانند.">
+<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/major-selection.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"میزکار مهندسی انتخاب رشته","url":"https://ehssnrouhani.github.io/Mestrplanner/major-selection.html","applicationCategory":"EducationalApplication","operatingSystem":"Web Browser","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"IRR"},"inLanguage":"fa-IR","description":"ابزار خودشناسی ساختاری، پایگاه رشته‌ها، محدودیت‌های سخت و نرم، تحلیل تطابق و سبد سه‌لایه برای انتخاب رشته.","author":{"@type":"Person","name":"احسان روحانی راوری"},"publisher":{"@type":"Organization","name":"مستر پلنر","url":"https://ehssnrouhani.github.io/Mestrplanner/"}}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f1f5f9; --panel:#fff; --ink:#0f172a; --muted:#64748b;
+  --line:#dbe3ec; --line-strong:#b9c5d4; --head:#eaf0f7;
+  --accent:#2563eb; --accent-soft:#e8f0fe;
+  --green:#059669; --red:#dc2626; --amber:#d97706; --purple:#7c3aed; --pink:#db2777;
+  --radius:12px; --shadow:0 1px 2px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.05);
+}
+[data-theme="dark"]{
+  --bg:#0f172a; --panel:#1e293b; --ink:#f1f5f9; --muted:#94a3b8;
+  --line:#334155; --line-strong:#475569; --head:#162033;
+  --accent:#e8971f; --accent-soft:rgba(232,151,31,.14);
+  --green:#34d399; --red:#f87171; --amber:#fbbf24; --purple:#a78bfa; --pink:#f472b6;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:'Vazirmatn',Tahoma,'Segoe UI',system-ui,sans-serif;font-size:13.5px;line-height:1.8}
+h1,h2,h3,h4{margin:0;font-weight:700;line-height:1.5}
+button,select,input,textarea{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer}
+code{font-family:Consolas,monospace;background:var(--head);padding:1px 6px;border-radius:5px;font-size:12px}
+
+/* topbar */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:11px 20px;background:var(--panel);border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:50;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--accent),var(--purple));color:#fff;font-weight:700;font-size:17px}
+.brand h1{font-size:15px}
+.brand p{margin:0;font-size:11.5px;color:var(--muted)}
+.top-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.badge{font-size:10.5px;padding:3px 9px;border-radius:999px;border:1px solid var(--line-strong);
+  color:var(--muted);background:var(--bg);white-space:nowrap}
+
+/* buttons */
+.btn{border:1px solid var(--line-strong);background:var(--panel);color:var(--ink);
+  padding:6px 13px;border-radius:9px;font-size:12.5px;transition:.15s;white-space:nowrap}
+.btn:hover{background:var(--accent-soft);border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent}
+.btn.sm{padding:3px 9px;font-size:11.5px;border-radius:7px}
+.btn.danger:hover{background:#fee2e2;border-color:var(--red);color:var(--red)}
+[data-theme="dark"] .btn.danger:hover{background:#3b1212}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* tabs */
+.tabs{display:flex;gap:2px;padding:0 20px;background:var(--panel);
+  border-bottom:1px solid var(--line);position:sticky;top:58px;z-index:49;overflow-x:auto}
+.tab-btn{border:0;background:transparent;padding:10px 14px;border-bottom:2px solid transparent;
+  color:var(--muted);font-weight:600;font-size:12.5px;white-space:nowrap}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-btn:hover{color:var(--ink)}
+main{padding:16px 20px 60px;max-width:1600px;margin:0 auto}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fade .2s}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* cards & layout */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:15px 18px;box-shadow:var(--shadow);margin-bottom:13px}
+.card h2{font-size:14.5px;margin-bottom:6px}
+.card h3{font-size:12.5px;color:var(--accent);margin:13px 0 6px}
+.muted{color:var(--muted);font-size:12px}
+.split{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:13px;align-items:start}
+@media(max-width:1080px){.split{grid-template-columns:1fr}}
+.panel-box{background:var(--panel);border:1px solid var(--line-strong);border-radius:var(--radius);
+  padding:13px;box-shadow:var(--shadow);position:sticky;top:120px;max-height:80vh;overflow:auto}
+
+/* form controls */
+.field{margin-bottom:10px}
+.field label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:3px;font-weight:600}
+.field input,.field select,.field textarea{width:100%;padding:7px 10px;border:1px solid var(--line-strong);
+  border-radius:8px;background:var(--panel);outline:none;font-size:12.5px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-soft)}
+.field textarea{resize:vertical;min-height:60px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+@media(max-width:700px){.row,.row3{grid-template-columns:1fr}}
+
+/* sliders */
+.slider-row{display:grid;grid-template-columns:150px 1fr 46px;gap:9px;align-items:center;
+  padding:5px 0;font-size:12px}
+@media(max-width:560px){.slider-row{grid-template-columns:110px 1fr 40px;font-size:11px}}
+.slider-row label{font-size:11.5px;color:var(--muted);font-weight:600}
+.slider-row input[type=range]{width:100%;accent-color:var(--accent)}
+.slider-val{font-family:Consolas,monospace;font-size:11.5px;text-align:center;
+  background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 4px}
+
+/* constraint cards */
+.constraint{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 12px;
+  margin-bottom:7px;display:grid;grid-template-columns:1fr auto;gap:9px;align-items:center}
+.constraint.off{opacity:.45}
+.constraint .info b{font-size:12.5px;display:flex;align-items:center;gap:6px}
+.constraint .info .meta{font-size:10.5px;color:var(--muted);margin-top:2px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.constraint .actions{display:flex;gap:4px;align-items:center}
+.tag{font-size:9.5px;padding:1px 7px;border-radius:5px;font-weight:600}
+.tag.hard{background:#fee2e2;color:#991b1b}
+.tag.soft{background:#fef3c7;color:#92400e}
+.tag.cat{background:var(--accent-soft);color:var(--accent)}
+[data-theme="dark"] .tag.hard{background:#3b1212;color:#fca5a5}
+[data-theme="dark"] .tag.soft{background:#3a2a09;color:#fbbf24}
+
+/* tables */
+.table-wrap{background:var(--panel);border:1px solid var(--line-strong);border-radius:var(--radius);
+  overflow:auto;box-shadow:var(--shadow)}
+table.grid{width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px;min-width:700px}
+table.grid thead th{position:sticky;top:0;background:var(--head);color:var(--muted);
+  font-weight:600;font-size:11px;text-align:right;padding:8px;border-bottom:2px solid var(--line-strong);white-space:nowrap;z-index:2}
+table.grid td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.grid tbody tr:hover>td{background:var(--accent-soft)}
+table.grid tbody tr.eliminated>td{opacity:.5;background:var(--bg)}
+.num{font-family:Consolas,monospace;font-size:11.5px;text-align:center;white-space:nowrap}
+
+/* chips */
+.chip{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:999px;
+  background:var(--bg);border:1px solid var(--line);color:var(--muted);margin:1px}
+.chip.g{background:#dcfce7;color:#166534;border-color:#86efac}
+.chip.r{background:#fee2e2;color:#991b1b;border-color:#fca5a5}
+.chip.a{background:#fef3c7;color:#92400e;border-color:#fcd34d}
+.chip.p{background:#ede9fe;color:#5b21b6;border-color:#c4b5fd}
+[data-theme="dark"] .chip.g{background:#0d3320;color:#6ee7a8;border-color:#1d6b45}
+[data-theme="dark"] .chip.r{background:#3b1212;color:#fca5a5;border-color:#7f1d1d}
+[data-theme="dark"] .chip.a{background:#3a2a09;color:#fbbf24;border-color:#7a5a12}
+[data-theme="dark"] .chip.p{background:#1e1b3a;color:#c4b5fd;border-color:#4c1d95}
+
+/* bars */
+.bar{height:7px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--line);min-width:60px}
+.bar>div{height:100%;border-radius:3px}
+
+/* score badges */
+.score-big{font-family:Consolas,monospace;font-weight:700;font-size:14px;
+  padding:3px 10px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:inline-block}
+
+/* majors cards */
+.major-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:11px}
+.major-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:11px 13px;box-shadow:var(--shadow);position:relative}
+.major-card h4{font-size:13px;margin-bottom:4px;display:flex;align-items:center;justify-content:space-between}
+.major-card .cat{font-size:10px;padding:1px 7px;border-radius:5px;background:var(--accent-soft);color:var(--accent)}
+.major-card .stat-row{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:6px}
+.major-card .stat-row b{color:var(--ink);font-family:Consolas,monospace}
+.major-card .content{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.65}
+
+/* portfolio */
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+@media(max-width:800px){.tier-grid{grid-template-columns:1fr}}
+.tier{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px;box-shadow:var(--shadow)}
+.tier h3{font-size:12.5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.tier.reach h3{color:var(--red)}
+.tier.match h3{color:var(--amber)}
+.tier.safe h3{color:var(--green)}
+.tier-list{display:grid;gap:5px;min-height:60px}
+.tier-item{background:var(--bg);border:1px solid var(--line);border-radius:8px;
+  padding:6px 9px;font-size:12px;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.tier-item .rm{border:0;background:none;color:var(--muted);font-size:15px;line-height:1;padding:0 3px}
+.tier-item .rm:hover{color:var(--red)}
+
+/* modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(10,16,24,.55);backdrop-filter:blur(3px);
+  display:grid;place-items:center;z-index:100;padding:18px}
+.modal-backdrop[hidden]{display:none}
+.modal{background:var(--panel);border-radius:14px;max-width:760px;width:100%;max-height:88vh;
+  display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.35);border:1px solid var(--line-strong)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;padding:13px 17px;border-bottom:1px solid var(--line)}
+.modal-head h3{font-size:14px}
+.modal-head button{border:0;background:none;font-size:21px;line-height:1;color:var(--muted)}
+.modal-body{padding:15px 17px;overflow:auto}
+.modal-foot{padding:11px 17px;border-top:1px solid var(--line);display:flex;gap:7px;justify-content:flex-start}
+
+/* textarea data */
+textarea#dataBox{width:100%;min-height:400px;font-family:Consolas,monospace;font-size:11.5px;
+  line-height:1.6;padding:11px;border-radius:10px;border:1px solid var(--line-strong);
+  background:var(--bg);color:var(--ink);resize:vertical;direction:ltr;text-align:left}
+.msg{margin-top:7px;font-size:12px;padding:7px 11px;border-radius:9px;display:none}
+.msg.ok{display:block;background:#dcfce7;color:#166534;border:1px solid #86efac}
+.msg.err{display:block;background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+[data-theme="dark"] .msg.ok{background:#0d3320;color:#6ee7a8;border-color:#1d6b45}
+[data-theme="dark"] .msg.err{background:#3b1212;color:#fca5a5;border-color:#7f1d1d}
+
+/* pareto svg */
+.pareto-wrap{background:var(--panel);border:1px solid var(--line-strong);border-radius:var(--radius);
+  padding:11px;box-shadow:var(--shadow)}
+svg{display:block;width:100%;height:auto;direction:ltr}
+.pareto-label{font-size:9.5px;fill:var(--muted);font-family:'Vazirmatn',sans-serif}
+.pareto-node{font-size:10px;fill:var(--ink);font-family:'Vazirmatn',sans-serif;font-weight:600}
+
+/* toast */
+#toast{position:fixed;bottom:20px;right:50%;transform:translate(50%,20px);opacity:0;
+  background:#111827;color:#fff;padding:9px 18px;border-radius:9px;font-size:12.5px;
+  transition:.25s;z-index:200;pointer-events:none;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+#toast.show{opacity:1;transform:translate(50%,0)}
+
+/* help table */
+table.doc{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+table.doc th,table.doc td{border:1px solid var(--line);padding:6px 9px;text-align:right;vertical-align:top}
+table.doc th{background:var(--head);font-weight:600;font-size:11.5px;color:var(--muted)}
+
+/* weight panel */
+.wpanel{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:11px}
+.wpill{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:11.5px}
+.wpill b{color:var(--accent);font-family:Consolas,monospace;font-size:13px;display:block}
+
+/* empty */
+.empty{color:var(--muted);font-size:12px;text-align:center;padding:20px 8px}
+
+@media print{.topbar,.tabs,.top-actions,.panel-box,.modal-foot{display:none!important}}
+.disclaimer{background:rgba(245,158,11,.12);border-bottom:1px solid rgba(245,158,11,.45);color:var(--amber);padding:8px 20px;font-size:12px;line-height:1.8}
+.disclaimer b{color:var(--ink)}
+.backlink{color:var(--accent);text-decoration:none;font-weight:700;font-size:13px;white-space:nowrap}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙</div>
+    <div>
+      <h1>میزکار مهندسی انتخاب رشته</h1>
+      <p>خودشناسی · پایگاه رشته · موتور محدودیت پویا · تحلیل تطابق · سبد سه‌لایه</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <a class="backlink" href="index.html">← مستر پلنر</a>
+    <span class="badge">مجوز <b style="color:var(--green)">MIT</b></span>
+    <button class="btn ghost" id="btnTheme">◐ تم</button>
+    <button class="btn ghost" id="btnExport">⤓ خروجی</button>
+  </div>
+</header>
+
+<div class="disclaimer" role="note"><b>توجه:</b> امتیازها و داده‌های رشته‌ها در این صفحه <b>نمونهٔ آموزشی و ذهنی</b> هستند، نه آمار رسمی. «شانس پذیرش» و «چشم‌انداز شغلی» فقط تقریب‌های ساده‌اند. رتبه، ظرفیت و ضوابط واقعی را از <b>دفترچهٔ رسمی سازمان سنجش</b> بردارید و این ابزار را جایگزین مشاورهٔ تخصصی نکنید.</div>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="profile">① خودشناسی</button>
+  <button class="tab-btn" data-tab="majors">② پایگاه رشته‌ها</button>
+  <button class="tab-btn" data-tab="constraints">③ محدودیت‌ها</button>
+  <button class="tab-btn" data-tab="match">④ تحلیل تطابق</button>
+  <button class="tab-btn" data-tab="portfolio">⑤ سبد انتخاب</button>
+  <button class="tab-btn" data-tab="sensitivity">⑥ تحلیل حساسیت</button>
+  <button class="tab-btn" data-tab="data">⑦ دادهٔ باز</button>
+  <button class="tab-btn" data-tab="help">؟ راهنما</button>
+</nav>
+
+<main>
+
+<!-- PROFILE -->
+<section class="tab-panel active" id="tab-profile">
+  <div class="card">
+    <h2>خودشناسی ساختاری — نه فقط «علاقه»</h2>
+    <p class="muted">هر مؤلفه را از ۰ تا ۱۰ نمره دهید. صادقانه‌ترین نمره، دقیق‌ترین تحلیل را می‌سازد. این ابزار تشخیص بالینی نیست.</p>
+  </div>
+  <div class="split">
+    <div>
+      <div class="card"><h3>توانش شناختی</h3><div id="abilitySliders"></div></div>
+      <div class="card"><h3>ویژگی‌های شخصیتی</h3><div id="personalitySliders"></div></div>
+      <div class="card"><h3>انگیزه (اهمیت نسبی)</h3><div id="motivationSliders"></div></div>
+    </div>
+    <div class="panel-box">
+      <h3>اطلاعات پایه</h3>
+      <div class="field"><label>جنسیت</label>
+        <select id="profGender"><option value="female">زن</option><option value="male">مرد</option></select></div>
+      <div class="field"><label>استان محل سکونت</label>
+        <select id="profProvince"></select></div>
+      <div class="field"><label>حداکثر شهریهٔ سالانه (میلیون تومان)</label>
+        <input type="number" id="profBudget" value="100" min="0" step="10"></div>
+      <div class="field"><label>قدرت خودارزیابی (۰ تا ۱۰)</label>
+        <input type="range" id="profStrength" min="0" max="10" step="0.5" value="6" style="accent-color:var(--accent)">
+        <div class="muted" style="margin-top:3px">مرز بین «مطمئن» و «خیال» — بر اساس رتبهٔ واقعی</div>
+      </div>
+      <button class="btn primary" id="btnSaveProfile" style="width:100%;margin-top:10px">ذخیرهٔ پروفایل</button>
+    </div>
+  </div>
+</section>
+
+<!-- MAJORS -->
+<section class="tab-panel" id="tab-majors">
+  <div class="card">
+    <h2>پایگاه رشته‌ها</h2>
+    <p class="muted">هر رشته با ۴ لایه توصیف می‌شود: محتوای واقعی، بار شناختی/شخصیتی، پروفایل انگیزشی، و چشم‌انداز شغلی. رقابت‌پذیری را می‌توانید ویرایش کنید. برای ویرایش کامل، تب «دادهٔ باز».</p>
+  </div>
+  <div class="major-grid" id="majorGrid"></div>
+</section>
+
+<!-- CONSTRAINTS -->
+<section class="tab-panel" id="tab-constraints">
+  <div class="split">
+    <div>
+      <div class="card">
+        <h2>محدودیت‌های فعال</h2>
+        <p class="muted">محدودیت‌های «سازمانی» را از دفترچهٔ جدید به‌روز کنید. محدودیت‌های شخصی را آزادانه حذف/اضافه کنید. سخت = حذف‌کننده؛ نرم = جریمهٔ امتیاز.</p>
+        <div id="constraintList"></div>
+      </div>
+    </div>
+    <div class="panel-box">
+      <h3>افزودن / ویرایش محدودیت</h3>
+      <div class="field"><label>نام</label><input id="cName" placeholder="مثلاً حداکثر شهریه"></div>
+      <div class="row">
+        <div class="field"><label>دسته</label>
+          <select id="cCategory">
+            <option>سازمانی</option><option>شخصی</option><option>اقتصادی</option>
+            <option>جغرافیایی</option><option>تحصیلی</option><option>شغلی</option><option>سلامتی</option>
+          </select></div>
+        <div class="field"><label>سطح</label>
+          <select id="cSeverity"><option value="hard">سخت (حذف)</option><option value="soft">نرم (جریمه)</option></select></div>
+      </div>
+      <div class="field"><label>فیلد</label><select id="cField"></select></div>
+      <div class="row">
+        <div class="field"><label>عملگر</label><select id="cOp"></select></div>
+        <div class="field"><label>مقدار</label><input id="cValue" placeholder="مثلاً 50"></div>
+      </div>
+      <div class="field" id="cPenaltyWrap" style="display:none"><label>جریمه (امتیاز ۰ تا ۱۰۰)</label>
+        <input type="number" id="cPenalty" value="20" min="0" max="100"></div>
+      <div class="field"><label>منبع / مرجع</label><input id="cSource" placeholder="دفترچه ۱۴۰۵ فصل ۳"></div>
+      <div class="field"><label>یادداشت</label><textarea id="cNotes"></textarea></div>
+      <div style="display:flex;gap:6px">
+        <button class="btn primary" id="btnAddConstraint" style="flex:1">افزودن</button>
+        <button class="btn ghost" id="btnCancelEdit" style="display:none">لغو</button>
+      </div>
+      <hr style="border:0;border-top:1px dashed var(--line);margin:12px 0">
+      <button class="btn ghost sm" id="btnLoadPresets" style="width:100%">↻ بازیابی محدودیت‌های پیش‌فرض سازمانی</button>
+    </div>
+  </div>
+</section>
+
+<!-- MATCH -->
+<section class="tab-panel" id="tab-match">
+  <div class="card">
+    <h2>وزن ابعاد تحلیل</h2>
+    <div class="wpanel">
+      <div class="wpill">توانش <b id="wAbilLabel">۰٫۳۵</b><input type="range" id="wAbil" min="0" max="1" step="0.05" value="0.35" style="width:100%;accent-color:var(--accent)"></div>
+      <div class="wpill">شخصیت <b id="wPersLabel">۰٫۲۰</b><input type="range" id="wPers" min="0" max="1" step="0.05" value="0.20" style="width:100%;accent-color:var(--accent)"></div>
+      <div class="wpill">انگیزه <b id="wMotLabel">۰٫۲۵</b><input type="range" id="wMot" min="0" max="1" step="0.05" value="0.25" style="width:100%;accent-color:var(--accent)"></div>
+      <div class="wpill">شغل <b id="wCarLabel">۰٫۲۰</b><input type="range" id="wCar" min="0" max="1" step="0.05" value="0.20" style="width:100%;accent-color:var(--accent)"></div>
+    </div>
+  </div>
+  <div class="split">
+    <div>
+      <div class="table-wrap" style="max-height:66vh">
+        <table class="grid"><thead><tr>
+          <th>#</th><th>رشته</th><th>امتیاز کل</th><th>توانش</th><th>شخصیت</th><th>انگیزه</th><th>شغل</th><th>شانس</th><th>برچسب</th><th>اقدام</th>
+        </tr></thead><tbody id="matchBody"></tbody></table>
+      </div>
+    </div>
+    <div class="panel-box">
+      <h3>نمودار پارتو <span class="badge" id="paretoCount">—</span></h3>
+      <div class="pareto-wrap"><svg id="paretoSvg" viewBox="0 0 320 300"></svg></div>
+      <p class="muted" style="margin-top:8px;font-size:10.5px">محور افقی: توانش · محور عمودی: چشم‌انداز شغلی. نقاط <b>غیرمغلوب</b> (پارتو) سبز و بقیه خاکستری.</p>
+      <hr style="border:0;border-top:1px dashed var(--line);margin:10px 0">
+      <h3 style="font-size:12px">ردیابی حذف</h3>
+      <div id="eliminationTrace" style="font-size:11.5px;max-height:200px;overflow:auto"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="tab-panel" id="tab-portfolio">
+  <div class="card">
+    <h2>سبد سه‌لایه</h2>
+    <p class="muted">از جدول تحلیل تطابق، هر رشته را با دکمه‌های سبد به لایهٔ مناسب اضافه کنید. سبد متوازن، ترکیبی از هر سه لایه است.</p>
+  </div>
+  <div class="tier-grid">
+    <div class="tier reach"><h3>خیال‌انگیز (Reach) <span class="badge" id="reachCount">۰</span></h3><div class="tier-list" id="tierReach"></div></div>
+    <div class="tier match"><h3>واقع‌بینانه (Match) <span class="badge" id="matchCount">۰</span></h3><div class="tier-list" id="tierMatch"></div></div>
+    <div class="tier safe"><h3>مطمئن (Safe) <span class="badge" id="safeCount">۰</span></h3><div class="tier-list" id="tierSafe"></div></div>
+  </div>
+</section>
+
+<!-- SENSITIVITY -->
+<section class="tab-panel" id="tab-sensitivity">
+  <div class="card">
+    <h2>تحلیل حساسیت</h2>
+    <p class="muted">وزن هر بُعد را ±۲۰٪ تغییر می‌دهیم و رتبه‌ها را دوباره محاسبه می‌کنیم. رشته‌هایی که رتبه‌شان به‌شدت تغییر می‌کند، «شکننده» هستند: توصیه می‌شود پیش از انتخاب، آن ابعاد را دقیق‌تر بسنجید.</p>
+  </div>
+  <div class="card">
+    <h3>شکنندگی رتبه (تغییر میانگین رتبه در ۸ سناریو)</h3>
+    <div class="table-wrap"><table class="grid"><thead><tr>
+      <th>رشته</th><th>رتبه پایه</th><th>میانگین رتبه در سناریوها</th><th>بیشترین جابه‌جایی</th><th>شکنندگی</th>
+    </tr></thead><tbody id="sensBody"></tbody></table></div>
+  </div>
+  <div class="card">
+    <h3>تغییر رتبه در هر سناریو (۵ رشتهٔ برتر)</h3>
+    <div class="table-wrap"><table class="grid"><thead id="sensHead"></thead><tbody id="sensDetail"></tbody></table></div>
+  </div>
+</section>
+
+<!-- DATA -->
+<section class="tab-panel" id="tab-data">
+  <div class="card">
+    <h2>دادهٔ باز — ویرایش کامل</h2>
+    <p class="muted">کل وضعیت میزکار (پروفایل، رشته‌ها، محدودیت‌ها، وزن‌ها، سبد) به‌صورت یک شیء JSON. پس از ویرایش، دکمهٔ «ذخیره» را بزنید. برای شروع تازه، «بازنشانی به پیش‌فرض».</p>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;margin:10px 0">
+      <button class="btn primary sm" id="btnSaveData">ذخیره و بارگذاری</button>
+      <button class="btn sm" id="btnValidateData">اعتبارسنجی</button>
+      <button class="btn sm" id="btnReloadData">بازخوانی از حافظه</button>
+      <button class="btn sm" id="btnDownloadData">دانلود JSON</button>
+      <button class="btn sm ghost" id="btnLoadSample">بارگذاری نمونه</button>
+      <button class="btn sm danger" id="btnFactoryData">بازنشانی به پیش‌فرض</button>
+    </div>
+    <textarea id="dataBox" spellcheck="false"></textarea>
+    <div class="msg" id="dataMsg"></div>
+  </div>
+</section>
+
+<!-- HELP -->
+<section class="tab-panel" id="tab-help">
+  <div class="card">
+    <h2>روش‌شناسی — چرا این ساختار؟</h2>
+    <p>شرایط و ضوابط سازمان سنجش سالانه تغییر می‌کنند، اما «معماری تصمیم» ثابت است. این میزکار آن معماری را در چهار لایه پیاده می‌کند و محدودیت‌ها را لایه‌ای جدا می‌کند تا با تغییر دفترچه، فقط همان لایه به‌روز شود.</p>
+    <table class="doc">
+      <thead><tr><th>لایه</th><th>چه‌چیزی</th><th>چرا پایدار است</th></tr></thead>
+      <tbody>
+        <tr><td>① خودشناسی</td><td>توانش، شخصیت، انگیزه</td><td>ساختار روان‌شناختی فرد با تغییر دفترچه عوض نمی‌شود</td></tr>
+        <tr><td>② رشته‌شناسی</td><td>محتوای واقعی، بار شناختی، چشم‌انداز</td><td>ماهیت رشته ثابت است، فقط ظرفیت و شرایط دورس عوض می‌شود</td></tr>
+        <tr><td>③ محدودیت</td><td>ضوابط سازمانی + شخصی</td><td>لایهٔ «قابل تغییر» — اینجاست که دفترچهٔ جدید اعمال می‌شود</td></tr>
+        <tr><td>④ تصمیم</td><td>وزن‌دهی، امتیاز، سبد، حساسیت</td><td>روش مهندسی تصمیم، مستقل از داده‌های هر سال</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <h2>فرمول‌های امتیازدهی</h2>
+    <p class="muted"><b>تطابق توانش:</b> <code>Σ(demandᵢ · min(candᵢ, demandᵢ)/demandᵢ) / Σ demandᵢ</code> — نیاز بالای رشته وزن بیشتری دارد؛ «توانش بیش از نیاز» پاداش اضافه نمی‌گیرد.</p>
+    <p class="muted"><b>تطابق انگیزه:</b> <code>Σ(cand_weightᵢ · major_satisfactionᵢ/10)</code> — انگیزه‌های مهم فرد با رضایت رشته از آن انگیزه ضرب می‌شوند.</p>
+    <p class="muted"><b>چشم‌انداز شغلی:</b> <code>0.25·stability + 0.25·growth + 0.25·(10−saturation) + 0.15·(10−techRisk) + 0.10·salary</code></p>
+    <p class="muted"><b>امتیاز کل:</b> <code>w_abil·abilFit + w_pers·persFit + w_mot·motFit + w_car·carFit</code></p>
+  </div>
+  <div class="card">
+    <h2>هشدار مهم</h2>
+    <p class="muted">داده‌های این پایگاه، نمونه‌های آموزشی برای درک ساختار تحلیل هستند. رتبه‌های واقعی، ظرفیت‌ها و ضوابط دقیق را فقط از <b>دفترچهٔ رسمی سازمان سنجش</b> بردارید. این میزکار جایگزین مشاورهٔ تخصصی نیست.</p>
+  </div>
+</section>
+
+</main>
+
+<div id="toast"></div>
+
+<div class="modal-backdrop" id="modal" hidden>
+  <div class="modal">
+    <div class="modal-head"><h3 id="modalTitle">جزئیات</h3><button id="modalClose">×</button></div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-foot"><button class="btn sm ghost" id="modalClose2">بستن</button></div>
+  </div>
+</div>
+
+<script>
+/* ==============================================================
+   ۱) ثابت‌ها
+   ============================================================== */
+const ABIL = ['abstract','verbal','wm','spatial','numerical','creative'];
+const ABIL_L = {abstract:'استدلال انتزاعی',verbal:'استدلال کلامی',wm:'حافظهٔ کاری',
+  spatial:'تجسم فضایی',numerical:'دقت عددی',creative:'خلاقیت'};
+const PERS = ['extraversion','conscientiousness','stability','openness','empathy'];
+const PERS_L = {extraversion:'برونگرایی',conscientiousness:'پشتکار',
+  stability:'تحمل استرس',openness:'گشودگی',empathy:'همدلی'};
+const MOT = ['help','career','intrinsic','income','autonomy','balance'];
+const MOT_L = {help:'کمک به دیگران',career:'امنیت حرفه',intrinsic:'علاقهٔ درونی',
+  income:'درآمد',autonomy:'استقلال',balance:'تعادل کار-زندگی'};
+const CAR_KEYS = ['stability','growth','saturation','techRisk','salaryCeiling','requiresGrad','license'];
+const CATS = ['پزشکی','مهندسی','علوم پایه','انسانی','هنر','کشاورزی'];
+const PROVINCES = ['تهران','البرز','اصفهان','فارس','خراسان رضوی','آذربایجان شرقی',
+  'آذربایجان غربی','خوزستان','گیلان','مازندران','کرمان','کرمانشاه','هرمزگان','یزد',
+  'قم','قزوین','مرکزی','همدان','کردستان','لرستان','گلستان','اردبیل','بوشهر','زنجان','سمنان'];
+const PROVIDX = Object.fromEntries(PROVINCES.map((p,i)=>[p,i]));
+
+const fa = (v,d=2)=> isNaN(v) ? '—' : Number(v).toLocaleString('fa-IR',{maximumFractionDigits:d});
+const fmt = (v,d=2)=> isNaN(v) ? '—' : Number(v).toFixed(d);
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+/* ==============================================================
+   ۲) رشته‌ها — دادهٔ نمونه (dem: 6, per: 5, mot: 6, car: 7)
+   ============================================================== */
+const DEFAULT_MAJORS = [
+  {id:'med',name:'پزشکی عمومی',cat:'پزشکی',prov:'سراسری',tuition:0,gender:'both',comp:10,
+   dem:[7,6,9,5,5,4],per:[6,9,8,5,9],mot:[9,8,6,7,5,2],car:[9,8,2,1,8,1,1],
+   content:'حفظ علوم پایه و بالینی، کار با بیمار، شیفت شبانه، دورهٔ ۷ ساله + تخصص'},
+  {id:'dent',name:'دندانپزشکی',cat:'پزشکی',prov:'سراسری',tuition:0,gender:'both',comp:9,
+   dem:[6,5,8,8,6,5],per:[5,8,7,5,7],mot:[8,7,6,8,6,4],car:[8,7,3,2,9,1,1],
+   content:'کار دستی دقیق، آناتومی دهان، کلینیک، دورهٔ ۶ ساله'},
+  {id:'pharm',name:'داروسازی',cat:'پزشکی',prov:'سراسری',tuition:0,gender:'both',comp:8,
+   dem:[8,6,8,5,8,4],per:[4,8,7,6,6],mot:[7,7,7,7,5,4],car:[8,7,3,3,7,0,1],
+   content:'شیمی دارویی، فارماکولوژی، داروخانه، صنعت دارو'},
+  {id:'nurse',name:'پرستاری',cat:'پزشکی',prov:'سراسری',tuition:0,gender:'both',comp:6,
+   dem:[5,6,7,4,4,4],per:[6,8,8,5,8],mot:[9,7,5,6,4,3],car:[8,8,2,2,5,0,1],
+   content:'مراقبت بیمار، شیفت شبانه، کار تیمی، فشار عاطفی'},
+  {id:'pt',name:'فیزیوتراپی',cat:'پزشکی',prov:'سراسری',tuition:0,gender:'both',comp:7,
+   dem:[5,5,6,6,4,4],per:[6,7,7,5,7],mot:[8,6,5,6,5,6],car:[7,7,3,3,6,0,1],
+   content:'آناتومی حرکتی، توانبخشی، تعامل نزدیک با بیمار، کلینیک'},
+  {id:'cpsych',name:'روانشناسی بالینی',cat:'انسانی',prov:'سراسری',tuition:0,gender:'both',comp:8,
+   dem:[5,8,6,3,3,5],per:[7,8,8,7,9],mot:[9,7,6,7,7,7],car:[6,7,4,3,6,1,1],
+   content:'آسیب‌شناسی روانی، مصاحبهٔ بالینی، کار در درمانگاه، نیاز به ارشد'},
+  {id:'cse',name:'مهندسی کامپیوتر',cat:'مهندسی',prov:'سراسری',tuition:0,gender:'both',comp:8,
+   dem:[9,4,7,4,8,7],per:[3,7,6,7,5],mot:[5,8,7,8,7,6],car:[7,8,3,4,8,0,0],
+   content:'ریاضیات سنگین، برنامه‌نویسی مداوم، پروژه‌محور، یادگیری مستمر'},
+  {id:'elec',name:'مهندسی برق',cat:'مهندسی',prov:'سراسری',tuition:0,gender:'both',comp:7,
+   dem:[9,4,7,6,8,5],per:[3,7,6,6,5],mot:[5,7,7,7,6,6],car:[7,7,4,4,7,0,0],
+   content:'مدار، الکترونیک، کنترل، سیگنال، آزمایشگاه'},
+  {id:'mech',name:'مهندسی مکانیک',cat:'مهندسی',prov:'سراسری',tuition:0,gender:'both',comp:7,
+   dem:[8,4,6,9,7,6],per:[3,7,6,6,5],mot:[5,7,7,7,6,6],car:[7,6,4,4,7,0,0],
+   content:'ترمودینامیک، مکانیک جامدات، طراحی، کارگاه'},
+  {id:'civil',name:'مهندسی عمران',cat:'مهندسی',prov:'سراسری',tuition:0,gender:'both',comp:6,
+   dem:[7,4,6,8,7,5],per:[4,6,6,5,5],mot:[4,6,6,6,6,6],car:[7,6,5,4,6,0,0],
+   content:'سازه، خاک، راه، پروژه‌های میدانی'},
+  {id:'ind',name:'مهندسی صنایع',cat:'مهندسی',prov:'سراسری',tuition:0,gender:'both',comp:7,
+   dem:[8,5,7,6,9,6],per:[4,7,6,6,6],mot:[4,7,6,7,6,6],car:[7,7,3,3,7,0,0],
+   content:'بهینه‌سازی، تحقیق در عملیات، مدیریت پروژه، تحلیل سیستم'},
+  {id:'arch',name:'معماری',cat:'هنر',prov:'سراسری',tuition:0,gender:'both',comp:7,
+   dem:[6,6,5,9,4,9],per:[6,7,6,7,5],mot:[6,7,8,6,6,6],car:[6,7,5,3,6,1,1],
+   content:'طراحی، تاریخ معماری، کارگاه مدل‌سازی، ارائه، شب‌بیداری پروژه'},
+  {id:'math',name:'ریاضی',cat:'علوم پایه',prov:'سراسری',tuition:0,gender:'both',comp:5,
+   dem:[10,6,7,4,9,7],per:[2,7,6,8,5],mot:[5,6,9,5,6,6],car:[6,6,6,3,5,1,0],
+   content:'آنالیز، جبر، هندسه، اثبات‌محور، مسیر پژوهشی یا صنعتی'},
+  {id:'phys',name:'فیزیک',cat:'علوم پایه',prov:'سراسری',tuition:0,gender:'both',comp:5,
+   dem:[10,5,7,6,9,7],per:[2,7,6,8,5],mot:[5,6,9,5,6,6],car:[6,6,6,3,5,1,0],
+   content:'مکانیک، الکترومغناطیس، کوانتوم، آزمایشگاه، مسیر پژوهشی'},
+  {id:'law',name:'حقوق',cat:'انسانی',prov:'سراسری',tuition:0,gender:'both',comp:8,
+   dem:[5,9,7,3,5,5],per:[6,8,7,6,7],mot:[7,8,7,7,5,5],car:[8,7,3,2,7,1,1],
+   content:'حقوق مدنی/جزا، استدلال حقوقی، تحلیل پرونده، وکالت/قضاوت'},
+  {id:'econ',name:'اقتصاد',cat:'انسانی',prov:'سراسری',tuition:0,gender:'both',comp:7,
+   dem:[7,7,6,4,8,5],per:[5,7,6,7,6],mot:[6,7,7,7,6,6],car:[7,8,3,3,7,1,0],
+   content:'خرد/کلان، اقتصادسنجی، ریاضیات، تحلیل بازار و سیاست'},
+  {id:'acct',name:'حسابداری',cat:'انسانی',prov:'سراسری',tuition:0,gender:'both',comp:5,
+   dem:[5,5,6,4,9,3],per:[4,8,6,4,5],mot:[5,7,6,7,5,6],car:[7,6,4,4,6,0,1],
+   content:'دفترداری، حسابرسی، گزارش‌های مالی، دقت عددی بالا'},
+  {id:'mba',name:'مدیریت بازرگانی',cat:'انسانی',prov:'سراسری',tuition:0,gender:'both',comp:5,
+   dem:[4,7,5,4,6,6],per:[7,6,5,5,6],mot:[5,6,6,7,8,6],car:[6,6,5,3,6,1,0],
+   content:'بازاریابی، رفتار سازمانی، مالی، کار تیمی، مهارت ارتباطی'},
+  {id:'psych',name:'روانشناسی',cat:'انسانی',prov:'سراسری',tuition:0,gender:'both',comp:6,
+   dem:[4,7,5,3,3,5],per:[7,7,7,7,9],mot:[9,6,6,6,7,7],car:[6,6,5,3,5,1,1],
+   content:'روان‌شناسی عمومی/رشد، پژوهش، مشاوره (با ارشد و پروانه)'},
+  {id:'edu',name:'علوم تربیتی',cat:'انسانی',prov:'سراسری',tuition:0,gender:'both',comp:4,
+   dem:[3,7,5,3,3,5],per:[7,7,7,6,8],mot:[9,5,5,5,8,7],car:[7,6,4,2,4,0,1],
+   content:'روان‌شناسی تربیتی، برنامه‌ریزی درسی، آموزش، کار با کودکان'},
+  {id:'trans',name:'مترجمی زبان انگلیسی',cat:'انسانی',prov:'سراسری',tuition:0,gender:'both',comp:4,
+   dem:[4,9,5,3,3,6],per:[6,7,6,7,6],mot:[6,5,6,6,7,6],car:[6,6,5,4,4,0,0],
+   content:'ترجمه، ادبیات، زبان‌شناسی، مهارت نوشتاری و شنیداری'},
+  {id:'graphic',name:'گرافیک',cat:'هنر',prov:'سراسری',tuition:0,gender:'both',comp:5,
+   dem:[3,4,4,8,4,10],per:[6,6,5,8,6],mot:[6,5,7,5,7,7],car:[5,6,6,5,4,0,0],
+   content:'طراحی بصری، تایپوگرافی، نرم‌افزارهای حرفه‌ای، نمونه‌کار'},
+  {id:'agri',name:'مهندسی کشاورزی',cat:'کشاورزی',prov:'سراسری',tuition:0,gender:'both',comp:4,
+   dem:[6,4,5,6,6,5],per:[4,6,5,5,5],mot:[6,6,6,5,7,7],car:[7,6,5,4,5,0,0],
+   content:'زراعت، خاک، گیاه‌پزشکی، کار میدانی و گلخانه'},
+  {id:'chem',name:'مهندسی شیمی',cat:'مهندسی',prov:'سراسری',tuition:0,gender:'both',comp:7,
+   dem:[8,4,7,5,8,6],per:[3,7,6,6,5],mot:[4,7,7,7,6,6],car:[7,6,5,4,7,0,0],
+   content:'ترمودینامیک، انتقال جرم، راکتور، فرآیند، صنایع نفت و پتروشیمی'}
+];
+
+/* ==============================================================
+   ۳) محدودیت‌های پیش‌فرض (سازمانی — قابل ویرایش/حذف)
+   ============================================================== */
+const DEFAULT_CONSTRAINTS = [
+  {id:'c1',name:'جنسیت مجاز',cat:'سازمانی',sev:'hard',field:'major.gender',op:'gender_ok',
+   value:'',source:'دفترچه انتخاب رشته — شرایط اختصاصی',active:true,notes:'برخی رشته‌ها فقط یک جنس'},
+  {id:'c2',name:'حداکثر شهریهٔ سالانه',cat:'اقتصادی',sev:'hard',field:'major.tuition',op:'<=',
+   value:'100',source:'شخصی',active:true,notes:'شهریهٔ پردیس/شبانه/غیرانتفاعی'},
+  {id:'c3',name:'حداقل ثبات شغلی',cat:'شغلی',sev:'soft',field:'major.career.stability',op:'>=',
+   value:'6',penalty:15,source:'شخصی',active:true,notes:'امنیت شغلی بلندمدت'},
+  {id:'c4',name:'حداکثر ریسک اشباع',cat:'شغلی',sev:'soft',field:'major.career.saturation',op:'<=',
+   value:'5',penalty:15,source:'شخصی',active:true,notes:'اشباع بازار کار'},
+  {id:'c5',name:'حداقل رشد آینده',cat:'شغلی',sev:'soft',field:'major.career.growth',op:'>=',
+   value:'6',penalty:10,source:'شخصی',active:true,notes:'روند تقاضا'},
+  {id:'c6',name:'فاصله از استان محل سکونت',cat:'جغرافیایی',sev:'hard',field:'computed.distance',op:'<=',
+   value:'0',source:'شخصی',active:false,notes:'۰ = همان استان یا سراسری، ۱ = استان دیگر'},
+  {id:'c7',name:'بدون نیاز به تحصیلات تکمیلی',cat:'تحصیلی',sev:'soft',field:'major.career.requiresGrad',op:'is_false',
+   value:'',penalty:20,source:'شخصی',active:false,notes:'اگر قصد ارشد ندارید'}
+];
+
+/* ==============================================================
+   ۴) فیلدهای محدودیت
+   ============================================================== */
+const FIELDS = [
+  {id:'major.gender',label:'جنسیت مجاز',type:'select',group:'رشته',ops:['gender_ok']},
+  {id:'major.category',label:'گروه تحصیلی',type:'select',group:'رشته',ops:['==','!=']},
+  {id:'major.province',label:'استان',type:'select',group:'رشته',ops:['==','!=']},
+  {id:'major.tuition',label:'شهریهٔ سالانه',type:'number',group:'رشته',ops:['<=','>=']},
+  {id:'major.competitiveness',label:'رقابت‌پذیری (۰-۱۰)',type:'number',group:'رشته',ops:['<=','>=']},
+  {id:'major.career.stability',label:'ثبات شغلی',type:'number',group:'شغل',ops:['>=','<=']},
+  {id:'major.career.growth',label:'رشد آینده',type:'number',group:'شغل',ops:['>=','<=']},
+  {id:'major.career.saturation',label:'ریسک اشباع',type:'number',group:'شغل',ops:['<=','>=']},
+  {id:'major.career.techRisk',label:'ریسک خودکارسازی',type:'number',group:'شغل',ops:['<=','>=']},
+  {id:'major.career.salaryCeiling',label:'سقف درآمد',type:'number',group:'شغل',ops:['>=','<=']},
+  {id:'major.career.requiresGrad',label:'نیاز به تحصیلات تکمیلی',type:'bool',group:'شغل',ops:['is_true','is_false']},
+  {id:'major.career.license',label:'نیاز به پروانه',type:'bool',group:'شغل',ops:['is_true','is_false']},
+  {id:'computed.distance',label:'فاصله از استان',type:'number',group:'محاسبه‌شده',ops:['<=','>=']},
+  {id:'computed.demandIntensity',label:'شدت بار تحصیلی',type:'number',group:'محاسبه‌شده',ops:['<=','>=']},
+  {id:'computed.chance',label:'شانس پذیرش (تقریب آموزشی، ۰-۱۰)',type:'number',group:'محاسبه‌شده',ops:['>=','<=']}
+];
+const OP_L = {'<=':'کوچک‌تر یا مساوی','<':'کوچک‌تر','>=':'بزرگ‌تر یا مساوی','>':'بزرگ‌تر',
+  '==':'برابر','!=':'نابرابر','is_true':'درست است','is_false':'نادرست است','gender_ok':'جنسیت مجاز'};
+
+/* ==============================================================
+   ۵) وضعیت
+   ============================================================== */
+const LS_KEY = 'majors-workbench-v1';
+const clean = v => typeof v==='string' ? v.replace(/[<>&"`]/g,'') :
+  Array.isArray(v) ? v.map(clean) :
+  (v && typeof v==='object') ? Object.fromEntries(Object.entries(v).map(([k,x])=>[k,clean(x)])) : v;
+const num = (v,lo,hi,d)=>{ v = Number(v); return Number.isFinite(v) ? Math.min(hi,Math.max(lo,v)) : d; };
+function checkState(o){
+  const issues = [];
+  if(!o || typeof o!=='object') return ['داده باید یک شیء JSON باشد.'];
+  if(!o.profile || typeof o.profile!=='object') issues.push('profile مفقود است');
+  if(!Array.isArray(o.majors) || !o.majors.length) issues.push('majors باید آرایهٔ ناتهی باشد');
+  else{
+    const ids = new Set();
+    o.majors.forEach((m,i)=>{
+      const p = 'رشتهٔ #'+(i+1);
+      if(!m || typeof m!=='object'){ issues.push(p+': شیء معتبر نیست'); return; }
+      if(!m.id || typeof m.id!=='string') issues.push(p+': id لازم است');
+      else if(ids.has(m.id)) issues.push(p+': id تکراری '+m.id); else ids.add(m.id);
+      if(!m.name || typeof m.name!=='string') issues.push(p+': نام لازم است');
+      [['dem',6],['per',5],['mot',6],['car',7]].forEach(([k,n])=>{
+        if(!Array.isArray(m[k]) || m[k].length!==n || m[k].some(x=>!Number.isFinite(Number(x)))) issues.push(p+': '+k+' باید آرایهٔ '+n+' عددی باشد');
+      });
+    });
+  }
+  if(o.constraints!==undefined && !Array.isArray(o.constraints)) issues.push('constraints باید آرایه باشد');
+  return issues;
+}
+function normalizeState(o){
+  const d = defaultState(), p = o.profile || {};
+  const grp = (keys,src,def)=> Object.fromEntries(keys.map(k=>[k, num(src&&src[k],0,10,def[k])]));
+  const majors = clean(o.majors).map(m=>({
+    ...m, tuition:num(m.tuition,0,1e9,0), comp:num(m.comp,0,10,5),
+    gender:['both','male','female'].includes(m.gender)?m.gender:'both', prov:m.prov||'سراسری',
+    dem:m.dem.map(x=>num(x,0,10,0)), per:m.per.map(x=>num(x,0,10,0)), mot:m.mot.map(x=>num(x,0,10,0)), car:m.car.map(x=>num(x,0,10,0))
+  }));
+  const ids = new Set(majors.map(m=>m.id)), pf = o.portfolio || {};
+  return {
+    profile:{...d.profile, ...clean(p),
+      abilities:grp(ABIL,p.abilities,d.profile.abilities), personality:grp(PERS,p.personality,d.profile.personality),
+      motivations:grp(MOT,p.motivations,d.profile.motivations), strength:num(p.strength,0,10,d.profile.strength),
+      budget:num(p.budget,0,1e9,d.profile.budget)},
+    majors,
+    constraints:Array.isArray(o.constraints) ? clean(o.constraints) : d.constraints,
+    weights:{...d.weights, ...(o.weights||{})},
+    portfolio:Object.fromEntries(['reach','match','safe'].map(k=>[k,(Array.isArray(pf[k])?pf[k]:[]).filter(id=>ids.has(id))])),
+    theme:o.theme==='light'?'light':'dark'
+  };
+}
+let S = null;
+
+function defaultState(){
+  return {
+    profile: {
+      abilities: Object.fromEntries(ABIL.map(k=>[k,5])),
+      personality: Object.fromEntries(PERS.map(k=>[k,5])),
+      motivations: Object.fromEntries(MOT.map(k=>[k,5])),
+      gender:'female', province:'تهران', budget:100, strength:6
+    },
+    majors: JSON.parse(JSON.stringify(DEFAULT_MAJORS)),
+    constraints: JSON.parse(JSON.stringify(DEFAULT_CONSTRAINTS)),
+    weights: {ability:0.35, personality:0.20, motivation:0.25, career:0.20},
+    portfolio: {reach:[], match:[], safe:[]},
+    theme:'dark'
+  };
+}
+
+function save(){
+  try{ localStorage.setItem(LS_KEY, JSON.stringify(S)); }catch(e){}
+}
+function load(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return false;
+    const o = JSON.parse(raw);
+    if(checkState(o).length) return false;
+    S = normalizeState(o);
+    return true;
+  }catch(e){ return false; }
+}
+
+/* ==============================================================
+   ۶) موتور امتیازدهی
+   ============================================================== */
+const ENGINE = {
+  abilityFit(cand, major){
+    let num=0, den=0;
+    ABIL.forEach((k,i)=>{
+      const d = major.dem[i];
+      const c = cand.abilities[k];
+      const fit = d > 0 ? Math.min(c,d)/d : 1;
+      num += d*fit; den += d;
+    });
+    return den > 0 ? num/den : 0;
+  },
+  personalityFit(cand, major){
+    let num=0, den=0;
+    PERS.forEach((k,i)=>{
+      const d = major.per[i];
+      const c = cand.personality[k];
+      const fit = d > 0 ? Math.min(c,d)/d : 1;
+      num += d*fit; den += d;
+    });
+    return den > 0 ? num/den : 0;
+  },
+  motivationFit(cand, major){
+    const total = MOT.reduce((s,k)=>s+cand.motivations[k],0) || 1;
+    let sum = 0;
+    MOT.forEach((k,i)=>{
+      const w = cand.motivations[k] / total;
+      sum += w * (major.mot[i]/10);
+    });
+    return sum;
+  },
+  careerFit(major){
+    const c = major.car;
+    const pos = (c[0]*0.25 + c[1]*0.25 + (10-c[2])*0.25 + (10-c[3])*0.15 + c[4]*0.10);
+    return pos/10;
+  },
+  score(cand, major, weights){
+    const a = this.abilityFit(cand, major);
+    const p = this.personalityFit(cand, major);
+    const m = this.motivationFit(cand, major);
+    const c = this.careerFit(major);
+    const total = weights.ability*a + weights.personality*p + weights.motivation*m + weights.career*c;
+    return {total, ability:a, personality:p, motivation:m, career:c};
+  },
+  computeField(field, major, cand){
+    switch(field){
+      case 'computed.distance': {
+        // فاصلهٔ واقعی بین استان‌ها در دادهٔ این میزکار نیست؛ فقط «همان استان/سراسری» یا «استان دیگر»
+        return (major.prov === 'سراسری' || major.prov === cand.province) ? 0 : 1;
+      }
+      case 'computed.demandIntensity': {
+        return major.dem.reduce((s,v)=>s+v,0) / 6;
+      }
+      case 'computed.chance': {
+        const diff = cand.strength - major.comp;
+        return Math.max(0, Math.min(10, 5 + diff*1.2));
+      }
+      default: return NaN;
+    }
+  },
+  getValue(field, major, cand){
+    if(field.startsWith('computed.')) return this.computeField(field, major, cand);
+    const parts = field.split('.');
+    let v = major;
+    for(const p of parts.slice(1)){ v = v?.[p]; }
+    return v;
+  },
+  evaluateConstraint(c, major, cand){
+    const f = FIELDS.find(x=>x.id===c.field);
+    if(!f) return {pass:true};
+    const actual = this.getValue(c.field, major, cand);
+    let pass = true;
+    if(c.op === 'gender_ok'){
+      pass = actual === 'both' || actual === cand.gender;
+    } else if(c.op === 'is_true'){ pass = !!actual; }
+    else if(c.op === 'is_false'){ pass = !actual; }
+    else {
+      const v = (f.type==='number') ? parseFloat(c.value) : c.value;
+      if(f.type==='number' && isNaN(v)) return {pass:true};
+      switch(c.op){
+        case '<=': pass = actual <= v; break;
+        case '<': pass = actual < v; break;
+        case '>=': pass = actual >= v; break;
+        case '>': pass = actual > v; break;
+        case '==': pass = String(actual) === String(v); break;
+        case '!=': pass = String(actual) !== String(v); break;
+      }
+    }
+    return {pass, actual, constraint:c};
+  }
+};
+
+/* ==============================================================
+   ۷) تحلیل کامل
+   ============================================================== */
+let ANALYSIS = null;
+
+function analyzeAll(){
+  const {profile, majors, constraints, weights} = S;
+  const active = constraints.filter(c=>c.active);
+  const results = [];
+  const eliminated = [];
+
+  majors.forEach(m=>{
+    const hardFails = [];
+    let softPenalty = 0;
+    const failures = [];
+
+    for(const c of active){
+      const ev = ENGINE.evaluateConstraint(c, m, profile);
+      if(!ev.pass){
+        if(c.sev === 'hard') hardFails.push(c);
+        else { softPenalty += (c.penalty || 10); failures.push({c, type:'soft'}); }
+      } else if(c.sev === 'soft'){
+        // pass soft constraint = no penalty
+      }
+    }
+
+    if(hardFails.length > 0){
+      eliminated.push({major:m, reasons:hardFails});
+      return;
+    }
+
+    const scores = ENGINE.score(profile, m, weights);
+    const penalty = softPenalty / 100;
+    const adjusted = Math.max(0, scores.total - penalty);
+    const chance = ENGINE.computeField('computed.chance', m, profile);
+
+    results.push({
+      major:m, ...scores, adjusted, chance,
+      softPenalty, softFails:failures
+    });
+  });
+
+  results.sort((a,b)=> b.adjusted - a.adjusted);
+
+  // Pareto front
+  const pareto = [];
+  results.forEach(r=>{
+    const dominated = results.some(o=> o !== r
+      && o.ability >= r.ability && o.career >= r.career
+      && (o.ability > r.ability || o.career > r.career));
+    if(!dominated) pareto.push(r.major.id);
+  });
+
+  ANALYSIS = {results, eliminated, pareto:new Set(pareto)};
+}
+
+/* ==============================================================
+   ۸) رسم UI
+   ============================================================== */
+function renderProfile(){
+  const p = S.profile;
+  $('#abilitySliders').innerHTML = ABIL.map(k=>`
+    <div class="slider-row"><label>${ABIL_L[k]}</label>
+      <input type="range" data-prof="abilities.${k}" min="0" max="10" step="0.5" value="${p.abilities[k]}">
+      <span class="slider-val" data-val="abilities.${k}">${fa(p.abilities[k],1)}</span></div>`).join('');
+  $('#personalitySliders').innerHTML = PERS.map(k=>`
+    <div class="slider-row"><label>${PERS_L[k]}</label>
+      <input type="range" data-prof="personality.${k}" min="0" max="10" step="0.5" value="${p.personality[k]}">
+      <span class="slider-val" data-val="personality.${k}">${fa(p.personality[k],1)}</span></div>`).join('');
+  $('#motivationSliders').innerHTML = MOT.map(k=>`
+    <div class="slider-row"><label>${MOT_L[k]}</label>
+      <input type="range" data-prof="motivations.${k}" min="0" max="10" step="0.5" value="${p.motivations[k]}">
+      <span class="slider-val" data-val="motivations.${k}">${fa(p.motivations[k],1)}</span></div>`).join('');
+
+  $('#profGender').value = p.gender;
+  $('#profBudget').value = p.budget;
+  $('#profStrength').value = p.strength;
+
+  const provSel = $('#profProvince');
+  provSel.innerHTML = PROVINCES.map(x=>`<option ${x===p.province?'selected':''}>${x}</option>`).join('');
+}
+
+function renderMajors(){
+  $('#majorGrid').innerHTML = S.majors.map(m=>{
+    const intensity = ENGINE.computeField('computed.demandIntensity', m, S.profile);
+    return `<div class="major-card">
+      <h4>${m.name}<span class="cat">${m.cat}</span></h4>
+      <div class="stat-row">
+        <span>رقابت <b>${fa(m.comp,0)}</b></span>
+        <span>ثبات <b>${fa(m.car[0],0)}</b></span>
+        <span>رشد <b>${fa(m.car[1],0)}</b></span>
+        <span>بار <b>${fmt(intensity,1)}</b></span>
+      </div>
+      <div class="content">${m.content}</div>
+      <div style="margin-top:7px;display:flex;align-items:center;gap:6px">
+        <span class="muted" style="font-size:10.5px">رقابت‌پذیری:</span>
+        <input type="range" data-mcomp="${m.id}" min="0" max="10" step="1" value="${m.comp}" style="flex:1;accent-color:var(--accent)">
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderConstraints(){
+  const list = $('#constraintList');
+  if(!S.constraints.length){
+    list.innerHTML = '<div class="empty">هیچ محدودیتی تعریف نشده.</div>';
+    return;
+  }
+  list.innerHTML = S.constraints.map(c=>{
+    const f = FIELDS.find(x=>x.id===c.field);
+    const valTxt = c.op==='gender_ok'||c.op==='is_true'||c.op==='is_false' ? '' : ` = ${c.value}`;
+    return `<div class="constraint ${c.active?'':'off'}">
+      <div class="info">
+        <b>${c.name}
+          <span class="tag ${c.sev}">${c.sev==='hard'?'سخت':'نرم'}</span>
+          <span class="tag cat">${c.cat}</span>
+        </b>
+        <div class="meta">
+          <span>${f?.label||c.field} ${OP_L[c.op]||c.op} ${valTxt}</span>
+          ${c.sev==='soft'?`<span>· جریمه ${fa(c.penalty||0,0)}</span>`:''}
+          ${c.source?`<span>· ${c.source}</span>`:''}
+        </div>
+      </div>
+      <div class="actions">
+        <input type="checkbox" ${c.active?'checked':''} data-ctoggle="${c.id}" style="width:16px;height:16px;accent-color:var(--accent)">
+        <button class="btn sm ghost" data-cedit="${c.id}">✎</button>
+        <button class="btn sm danger" data-cdel="${c.id}">×</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderMatch(){
+  if(!ANALYSIS) return;
+  const {results, eliminated, pareto} = ANALYSIS;
+  const tbody = $('#matchBody');
+  tbody.innerHTML = results.map((r,i)=>{
+    const label = r.chance >= 7 ? {t:'مطمئن',c:'g'} : r.chance >= 3 ? {t:'واقع‌بینانه',c:'a'} : {t:'خیال‌انگیز',c:'r'};
+    const inPareto = pareto.has(r.major.id);
+    return `<tr>
+      <td class="num">${fa(i+1,0)}</td>
+      <td>${inPareto?'<span style="color:var(--green)">●</span> ':''}${r.major.name}</td>
+      <td class="num"><b style="color:var(--accent)">${fmt(r.adjusted*100,1)}</b></td>
+      <td class="num">${fmt(r.ability*100,0)}</td>
+      <td class="num">${fmt(r.personality*100,0)}</td>
+      <td class="num">${fmt(r.motivation*100,0)}</td>
+      <td class="num">${fmt(r.career*100,0)}</td>
+      <td class="num">${fmt(r.chance,1)}</td>
+      <td><span class="chip ${label.c}">${label.t}</span></td>
+      <td style="display:flex;gap:2px;flex-wrap:wrap">
+        <button class="btn sm ghost" data-padd="${r.major.id}|reach" title="سبد خیال‌انگیز">R</button>
+        <button class="btn sm ghost" data-padd="${r.major.id}|match" title="سبد واقع‌بینانه">M</button>
+        <button class="btn sm ghost" data-padd="${r.major.id}|safe" title="سبد مطمئن">S</button>
+      </td>
+    </tr>`;
+  }).join('');
+  if(!results.length) tbody.innerHTML = '<tr><td colspan="10"><div class="empty">همهٔ رشته‌ها حذف شده‌اند. محدودیت‌های سخت را بررسی کنید.</div></td></tr>';
+
+  renderPareto();
+  renderElimination(eliminated);
+}
+
+function renderPareto(){
+  const svg = $('#paretoSvg');
+  if(!ANALYSIS){ svg.innerHTML=''; return; }
+  const results = ANALYSIS.results;
+  if(!results.length){ svg.innerHTML='<text x="160" y="150" class="pareto-label" text-anchor="middle">داده‌ای نیست</text>'; return; }
+  $('#paretoCount').textContent = fa(ANALYSIS.pareto.size) + ' غیرمغلوب';
+
+  const W=320, H=300, P={l:36,r:20,t:20,b:36};
+  const xS = v => P.l + v*(W-P.l-P.r);
+  const yS = v => H-P.b - v*(H-P.t-P.b);
+
+  const parts = [];
+  for(let t=0;t<=4;t++){
+    const g = t/4;
+    parts.push(`<line x1="${P.l}" x2="${W-P.r}" y1="${yS(g)}" y2="${yS(g)}" stroke="var(--line)" stroke-width=".5"/>`);
+    parts.push(`<line x1="${xS(g)}" x2="${xS(g)}" y1="${P.t}" y2="${H-P.b}" stroke="var(--line)" stroke-width=".5"/>`);
+  }
+  parts.push(`<line x1="${P.l}" x2="${W-P.r}" y1="${H-P.b}" y2="${H-P.b}" stroke="var(--line-strong)"/>`);
+  parts.push(`<line x1="${P.l}" x2="${P.l}" y1="${P.t}" y2="${H-P.b}" stroke="var(--line-strong)"/>`);
+  parts.push(`<text x="${W/2}" y="${H-6}" class="pareto-label" text-anchor="middle">توانش</text>`);
+  parts.push(`<text x="10" y="${H/2}" class="pareto-label" text-anchor="middle" transform="rotate(-90 10 ${H/2})">چشم‌انداز</text>`);
+
+  results.forEach(r=>{
+    const isP = ANALYSIS.pareto.has(r.major.id);
+    const x = xS(r.ability), y = yS(r.career);
+    parts.push(`<circle cx="${x}" cy="${y}" r="${isP?4.5:3.2}" fill="${isP?'var(--green)':'var(--line-strong)'}" opacity="${isP?1:.7}"/>`);
+  });
+  svg.innerHTML = parts.join('');
+}
+
+function renderElimination(eliminated){
+  const el = $('#eliminationTrace');
+  if(!eliminated.length){
+    el.innerHTML = '<div class="muted" style="font-size:11px;text-align:center;padding:8px">هیچ رشته‌ای حذف نشد.</div>';
+    return;
+  }
+  el.innerHTML = eliminated.map(e=>`
+    <div style="padding:5px 0;border-bottom:1px dotted var(--line)">
+      <b>${e.major.name}</b><br>
+      <span class="muted" style="font-size:10.5px">حذف توسط: ${e.reasons.map(c=>c.name).join('، ')}</span>
+    </div>`).join('');
+}
+
+function renderPortfolio(){
+  ['reach','match','safe'].forEach(tier=>{
+    const box = $('#tier'+tier.charAt(0).toUpperCase()+tier.slice(1));
+    const ids = S.portfolio[tier];
+    $('#tier'+tier.charAt(0).toUpperCase()+tier.slice(1)+'Count') ||
+      ($('#tier'+tier.charAt(0).toUpperCase()+tier.slice(1)+'Count'));
+    if(!ids.length){ box.innerHTML = '<div class="empty">خالی</div>'; return; }
+    box.innerHTML = ids.map(id=>{
+      const m = S.majors.find(x=>x.id===id);
+      if(!m) return '';
+      return `<div class="tier-item"><span>${m.name}</span>
+        <button class="rm" data-prem="${tier}|${id}">×</button></div>`;
+    }).join('');
+  });
+  // counts
+  const setCount = (id,v)=> { const e = $(id); if(e) e.textContent = fa(v); };
+  setCount('#reachCount', S.portfolio.reach.length);
+  setCount('#matchCount', S.portfolio.match.length);
+  setCount('#safeCount', S.portfolio.safe.length);
+}
+
+function renderSensitivity(){
+  if(!ANALYSIS || !ANALYSIS.results.length) return;
+  const base = ANALYSIS.results.map((r,i)=>({id:r.major.id, name:r.major.name, rank:i+1}));
+  const baseMap = Object.fromEntries(base.map(b=>[b.id, b.rank]));
+
+  const scenarios = [];
+  const baseW = S.weights;
+  const combos = [
+    {ability:+0.20},{ability:-0.20},{personality:+0.20},{personality:-0.20},
+    {motivation:+0.20},{motivation:-0.20},{career:+0.20},{career:-0.20}
+  ];
+  combos.forEach(delta=>{
+    const w = {...baseW};
+    Object.keys(delta).forEach(k=> w[k] = Math.max(0, w[k] + delta[k]));
+    const sum = Object.values(w).reduce((s,v)=>s+v,0) || 1;
+    Object.keys(w).forEach(k=> w[k] = w[k]/sum);
+    const res = S.majors
+      .filter(m=> !ANALYSIS.eliminated.some(e=>e.major.id===m.id))
+      .map(m=>{
+        const sc = ENGINE.score(S.profile, m, w);
+        return {id:m.id, name:m.name, adjusted:sc.total};
+      })
+      .sort((a,b)=> b.adjusted - a.adjusted);
+    const ranks = {};
+    res.forEach((r,i)=> ranks[r.id] = i+1);
+    scenarios.push({delta, ranks, label: Object.entries(delta).map(([k,v])=> `${k} ${v>0?'+':''}${v*100}٪`).join(', ')});
+  });
+
+  // fragility
+  const frag = base.map(b=>{
+    const ranks = scenarios.map(s=> s.ranks[b.id] ?? b.rank);
+    const avg = ranks.reduce((s,v)=>s+v,0)/ranks.length;
+    const maxJump = Math.max(...ranks.map(r=> Math.abs(r-b.rank)));
+    return {...b, avgRank:avg, maxJump};
+  }).sort((a,b)=> b.maxJump - a.maxJump || b.avgRank - a.avgRank);
+
+  $('#sensBody').innerHTML = frag.map(f=>{
+    const cls = f.maxJump >= 4 ? 'r' : f.maxJump >= 2 ? 'a' : 'g';
+    const lbl = f.maxJump >= 4 ? 'شکننده' : f.maxJump >= 2 ? 'نیمه‌پایدار' : 'پایدار';
+    return `<tr>
+      <td>${f.name}</td>
+      <td class="num">${fa(f.rank,0)}</td>
+      <td class="num">${fmt(f.avgRank,1)}</td>
+      <td class="num">±${fa(f.maxJump,0)}</td>
+      <td><span class="chip ${cls}">${lbl}</span></td>
+    </tr>`;
+  }).join('');
+
+  // detail table
+  const top5 = base.slice(0,5);
+  $('#sensHead').innerHTML = '<tr><th>رشته</th><th>پایه</th>' +
+    scenarios.map(s=>`<th style="font-size:10px">${s.label}</th>`).join('') + '</tr>';
+  $('#sensDetail').innerHTML = top5.map(b=>{
+    return `<tr><td>${b.name}</td><td class="num">${fa(b.rank,0)}</td>` +
+      scenarios.map(s=>{
+        const r = s.ranks[b.id] ?? b.rank;
+        const d = r - b.rank;
+        const color = d===0?'var(--muted)':d>0?'var(--red)':'var(--green)';
+        return `<td class="num" style="color:${color}">${fa(r,0)}${d!==0?` (${d>0?'+':''}${fa(d,0)})`:''}</td>`;
+      }).join('') + '</tr>';
+  }).join('');
+}
+
+/* ==============================================================
+   ۹) رفرش
+   ============================================================== */
+function refresh(){
+  analyzeAll();
+  renderProfile();
+  renderMajors();
+  renderConstraints();
+  renderMatch();
+  renderPortfolio();
+  renderSensitivity();
+  save();
+}
+
+/* ==============================================================
+   ۱۰) رویدادها
+   ============================================================== */
+let toastTimer;
+function toast(msg){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(()=>t.classList.remove('show'), 2000);
+}
+function setTheme(t){
+  S.theme = t; document.documentElement.dataset.theme = t; save();
+  if(ANALYSIS) { renderMatch(); renderSensitivity(); }
+}
+function switchTab(name){
+  $$('.tab-btn').forEach(b=> b.classList.toggle('active', b.dataset.tab===name));
+  $$('.tab-panel').forEach(p=> p.classList.toggle('active', p.id==='tab-'+name));
+}
+
+function bind(){
+  $$('.tab-btn').forEach(b=> b.addEventListener('click', ()=> switchTab(b.dataset.tab)));
+  $('#btnTheme').addEventListener('click', ()=> setTheme(S.theme==='dark'?'light':'dark'));
+
+  // profile sliders
+  document.addEventListener('input', e=>{
+    const t = e.target;
+    if(t.dataset.prof){
+      const [cat, key] = t.dataset.prof.split('.');
+      S.profile[cat][key] = +t.value;
+      const lbl = document.querySelector(`[data-val="${t.dataset.prof}"]`);
+      if(lbl) lbl.textContent = fa(t.value,1);
+      // debounced refresh
+      clearTimeout(window._rt);
+      window._rt = setTimeout(()=>{ analyzeAll(); renderMatch(); renderSensitivity(); save(); }, 200);
+    }
+    if(t.dataset.mcomp){
+      const m = S.majors.find(x=>x.id===t.dataset.mcomp);
+      if(m){ m.comp = +t.value; clearTimeout(window._rm); window._rm = setTimeout(()=>{ refresh(); }, 300); }
+    }
+    if(t.id === 'profStrength' || t.id === 'wAbil' || t.id === 'wPers' || t.id === 'wMot' || t.id === 'wCar'){
+      // handled in change
+    }
+  });
+
+  // profile basics
+  $('#profGender').addEventListener('change', e=>{ S.profile.gender = e.target.value; save(); });
+  $('#profProvince').addEventListener('change', e=>{ S.profile.province = e.target.value; save(); });
+  $('#profBudget').addEventListener('change', e=>{ S.profile.budget = +e.target.value; save(); });
+  $('#profStrength').addEventListener('change', e=>{ S.profile.strength = +e.target.value; refresh(); });
+  $('#btnSaveProfile').addEventListener('click', ()=>{ refresh(); toast('پروفایل ذخیره شد'); });
+
+  // weight sliders
+  const wMap = {wAbil:'ability', wPers:'personality', wMot:'motivation', wCar:'career'};
+  const wLbl = {wAbil:'#wAbilLabel', wPers:'#wPersLabel', wMot:'#wMotLabel', wCar:'#wCarLabel'};
+  Object.keys(wMap).forEach(id=>{
+    const el = $('#'+id);
+    if(!el) return;
+    el.value = S.weights[wMap[id]];
+    $(wLbl[id]).textContent = fmt(S.weights[wMap[id]],2).replace('.', '٫');
+    el.addEventListener('input', e=>{
+      S.weights[wMap[id]] = +e.target.value;
+      $(wLbl[id]).textContent = fmt(e.target.value,2).replace('.', '٫');
+      clearTimeout(window._rw);
+      window._rw = setTimeout(()=>{ analyzeAll(); renderMatch(); renderSensitivity(); save(); }, 200);
+    });
+  });
+
+  // constraints
+  const cField = $('#cField'), cOp = $('#cOp'), cValue = $('#cValue'), cSeverity = $('#cSeverity'), cPenaltyWrap = $('#cPenaltyWrap');
+  cField.innerHTML = FIELDS.map(f=>`<option value="${f.id}">${f.group} — ${f.label}</option>`).join('');
+  cSeverity.addEventListener('change', ()=> cPenaltyWrap.style.display = cSeverity.value==='soft'?'block':'none');
+  cField.addEventListener('change', ()=>{
+    const f = FIELDS.find(x=>x.id===cField.value);
+    cOp.innerHTML = f.ops.map(o=>`<option value="${o}">${OP_L[o]||o}</option>`).join('');
+    cValue.type = f.type==='number' ? 'number' : 'text';
+    if(f.type==='select' && f.id==='major.gender'){
+      cValue.value = ''; cValue.placeholder = '—'; cValue.style.display='none';
+    } else if(f.type==='bool'){
+      cValue.style.display='none';
+    } else {
+      cValue.style.display=''; cValue.placeholder = 'مقدار';
+    }
+  });
+  cField.dispatchEvent(new Event('change'));
+
+  $('#btnAddConstraint').addEventListener('click', ()=>{
+    const editing = $('#btnAddConstraint').dataset.editing;
+    const f = FIELDS.find(x=>x.id===cField.value);
+    const obj = {
+      id: editing || ('c'+Date.now()),
+      name: $('#cName').value.trim() || (f?.label || 'محدودیت'),
+      cat: $('#cCategory').value,
+      sev: cSeverity.value,
+      field: cField.value,
+      op: cOp.value,
+      value: (f?.type==='number'||f?.type==='text') ? cValue.value : '',
+      penalty: +($('#cPenalty').value) || 20,
+      source: $('#cSource').value.trim(),
+      notes: $('#cNotes').value.trim(),
+      active: true
+    };
+    if(editing){
+      const idx = S.constraints.findIndex(c=>c.id===editing);
+      if(idx>=0) S.constraints[idx] = obj;
+      $('#btnAddConstraint').textContent = 'افزودن';
+      $('#btnAddConstraint').dataset.editing = '';
+      $('#btnCancelEdit').style.display = 'none';
+    } else {
+      S.constraints.push(obj);
+    }
+    resetConstraintForm();
+    refresh(); renderConstraints();
+    toast(editing ? 'ویرایش شد' : 'افزوده شد');
+  });
+  $('#btnCancelEdit').addEventListener('click', ()=>{ resetConstraintForm(); });
+
+  function resetConstraintForm(){
+    $('#cName').value=''; $('#cValue').value=''; $('#cSource').value=''; $('#cNotes').value='';
+    $('#cPenalty').value = 20;
+  }
+
+  // constraints events (delegated)
+  $('#constraintList').addEventListener('click', e=>{
+    const t = e.target;
+    if(t.dataset.cedit){
+      const c = S.constraints.find(x=>x.id===t.dataset.cedit);
+      if(!c) return;
+      $('#cName').value = c.name;
+      $('#cCategory').value = c.cat;
+      cSeverity.value = c.sev;
+      cPenaltyWrap.style.display = c.sev==='soft'?'block':'none';
+      cField.value = c.field; cField.dispatchEvent(new Event('change'));
+      cOp.value = c.op;
+      cValue.value = c.value || '';
+      $('#cPenalty').value = c.penalty || 20;
+      $('#cSource').value = c.source || '';
+      $('#cNotes').value = c.notes || '';
+      $('#btnAddConstraint').textContent = 'ذخیرهٔ ویرایش';
+      $('#btnAddConstraint').dataset.editing = c.id;
+      $('#btnCancelEdit').style.display = 'inline-block';
+      switchTab('constraints');
+    }
+    if(t.dataset.cdel){
+      if(!confirm('این محدودیت حذف شود؟')) return;
+      S.constraints = S.constraints.filter(c=>c.id!==t.dataset.cdel);
+      refresh(); renderConstraints();
+      toast('حذف شد');
+    }
+  });
+  $('#constraintList').addEventListener('change', e=>{
+    if(e.target.dataset.ctoggle){
+      const c = S.constraints.find(x=>x.id===e.target.dataset.ctoggle);
+      if(c){ c.active = e.target.checked; refresh(); renderConstraints(); }
+    }
+  });
+  $('#btnLoadPresets').addEventListener('click', ()=>{
+    if(!confirm('محدودیت‌های پیش‌فرض سازمانی اضافه شود؟ (موجودها حفظ می‌شوند)')) return;
+    const existing = new Set(S.constraints.map(c=>c.id));
+    JSON.parse(JSON.stringify(DEFAULT_CONSTRAINTS)).forEach(c=>{
+      if(!existing.has(c.id)) S.constraints.push(c);
+    });
+    refresh(); renderConstraints(); toast('پیش‌فرض‌ها اضافه شد');
+  });
+
+  // match actions
+  $('#matchBody').addEventListener('click', e=>{
+    const t = e.target;
+    if(t.dataset.padd){
+      const [id, tier] = t.dataset.padd.split('|');
+      ['reach','match','safe'].forEach(k=>{
+        S.portfolio[k] = S.portfolio[k].filter(x=>x!==id);
+      });
+      S.portfolio[tier].push(id);
+      save(); renderPortfolio();
+      toast('به سبد اضافه شد');
+    }
+  });
+
+  // portfolio remove
+  $('#tab-portfolio').addEventListener('click', e=>{
+    if(e.target.dataset.prem){
+      const [tier, id] = e.target.dataset.prem.split('|');
+      S.portfolio[tier] = S.portfolio[tier].filter(x=>x!==id);
+      save(); renderPortfolio();
+    }
+  });
+
+  // data tab
+  $('#btnSaveData').addEventListener('click', ()=>{
+    try{
+      const obj = JSON.parse($('#dataBox').value), issues = checkState(obj);
+      if(issues.length){ dataMsg(issues.slice(0,4).join(' · '), false); return; }
+      S = normalizeState(obj); save();
+      document.documentElement.dataset.theme = S.theme;
+      refresh(); fillDataBox(); renderProfile();
+      dataMsg('داده ذخیره شد.', true);
+      toast('بارگذاری شد');
+    }catch(err){ dataMsg('خطای JSON: '+err.message, false); }
+  });
+  $('#btnValidateData').addEventListener('click', ()=>{
+    try{
+      const obj = JSON.parse($('#dataBox').value);
+      const issues = checkState(obj);
+      if(issues.length) dataMsg(issues.slice(0,4).join(' · '), false);
+      else dataMsg(`معتبر: ${obj.majors.length} رشته، ${(obj.constraints||[]).length} محدودیت.`, true);
+    }catch(err){ dataMsg('خطای JSON: '+err.message, false); }
+  });
+  $('#btnReloadData').addEventListener('click', ()=>{ fillDataBox(); dataMsg('از حافظه بازخوانی شد.', true); });
+  $('#btnDownloadData').addEventListener('click', ()=>{
+    const blob = new Blob([JSON.stringify(S, null, 2)], {type:'application/json;charset=utf-8'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = 'majors-workbench.json'; a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+  });
+  $('#btnLoadSample').addEventListener('click', ()=>{
+    $('#dataBox').value = JSON.stringify(defaultState(), null, 2);
+    dataMsg('نمونه بارگذاری شد. برای اعمال، «ذخیره» را بزنید.', true);
+  });
+  $('#btnFactoryData').addEventListener('click', ()=>{
+    if(!confirm('بازنشانی کامل به پیش‌فرض؟ همهٔ تغییرات از دست می‌رود.')) return;
+    S = defaultState(); document.documentElement.dataset.theme = 'dark';
+    refresh(); fillDataBox(); renderProfile();
+    toast('بازنشانی شد');
+  });
+
+  // export
+  $('#btnExport').addEventListener('click', ()=>{
+    const blob = new Blob([JSON.stringify(S, null, 2)], {type:'application/json;charset=utf-8'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = 'majors-workbench.json'; a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+  });
+
+  // modal
+  $('#modalClose').addEventListener('click', ()=> $('#modal').hidden = true);
+  $('#modalClose2').addEventListener('click', ()=> $('#modal').hidden = true);
+  $('#modal').addEventListener('click', e=>{ if(e.target.id==='modal') $('#modal').hidden = true; });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') $('#modal').hidden = true; });
+}
+
+function dataMsg(text, ok){
+  const el = $('#dataMsg'); el.className = 'msg ' + (ok?'ok':'err'); el.textContent = text;
+}
+function fillDataBox(){ $('#dataBox').value = JSON.stringify(S, null, 2); }
+
+/* ==============================================================
+   ۱۱) راه‌اندازی
+   ============================================================== */
+(function init(){
+  if(!load()) S = defaultState();
+  document.documentElement.dataset.theme = S.theme || 'dark';
+  bind();
+  refresh();
+  fillDataBox();
+})();
+</script>
+</body>
+</html>
