@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>میزکار تحلیل آزمون | مستر پلنر</title>
+<meta name="description" content="ابزار رایگان تحلیل آزمون: تفکیک نوع خطا، تحلیل زمان، کالیبراسیون اطمینان، تسلط موضوعی و برنامهٔ اقدام برای بهبود نتیجه.">
+<meta name="keywords" content="تحلیل آزمون, دفتر خطا, مدیریت زمان آزمون, روش مطالعه, کنکور, مستر پلنر">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="icon" type="image/jpeg" href="assets/logo/logo.jpg">
+<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/exam-analysis.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ehssnrouhani.github.io/Mestrplanner/exam-analysis.html">
+<meta property="og:title" content="میزکار تحلیل آزمون | مستر پلنر">
+<meta property="og:description" content="ابزار رایگان تحلیل آزمون: تفکیک نوع خطا، تحلیل زمان، کالیبراسیون اطمینان، تسلط موضوعی و برنامهٔ اقدام برای بهبود نتیجه.">
+<meta property="og:image" content="https://ehssnrouhani.github.io/Mestrplanner/assets/og-image.jpg">
+<meta property="og:site_name" content="مستر پلنر">
+<meta property="og:locale" content="fa_IR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="میزکار تحلیل آزمون | مستر پلنر">
+<meta name="twitter:description" content="ابزار رایگان تحلیل آزمون: تفکیک نوع خطا، تحلیل زمان، کالیبراسیون اطمینان، تسلط موضوعی و برنامهٔ اقدام برای بهبود نتیجه.">
+<meta name="twitter:image" content="https://ehssnrouhani.github.io/Mestrplanner/assets/og-image.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "میزکار تحلیل آزمون", "url": "https://ehssnrouhani.github.io/Mestrplanner/exam-analysis.html", "description": "ابزار رایگان تحلیل آزمون: تفکیک نوع خطا، تحلیل زمان، کالیبراسیون اطمینان، تسلط موضوعی و برنامهٔ اقدام برای بهبود نتیجه.", "inLanguage": "fa-IR", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IRR"}, "author": {"@type": "Person", "name": "احسان روحانی راوری"}, "isPartOf": {"@type": "WebSite", "name": "مستر پلنر", "url": "https://ehssnrouhani.github.io/Mestrplanner/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "مستر پلنر", "item": "https://ehssnrouhani.github.io/Mestrplanner/"}, {"@type": "ListItem", "position": 2, "name": "میزکار تحلیل آزمون", "item": "https://ehssnrouhani.github.io/Mestrplanner/exam-analysis.html"}]}</script>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f7fb; --panel:#fff; --ink:#0f172a; --muted:#64748b;
+  --line:#e5e9f0; --line-strong:#cbd5e1;
+  --accent:#6366f1; --accent-2:#8b5cf6; --accent-soft:#eef2ff;
+  --success:#10b981; --success-soft:#ecfdf5;
+  --warning:#f59e0b; --warning-soft:#fffbeb;
+  --danger:#ef4444; --danger-soft:#fef2f2;
+  --info:#3b82f6; --info-soft:#eff6ff;
+  --radius:16px;
+  --shadow-sm:0 1px 3px rgba(15,23,42,.06);
+  --shadow:0 4px 20px rgba(15,23,42,.07);
+  --shadow-lg:0 10px 40px rgba(15,23,42,.1);
+}
+[data-theme="dark"]{
+  --bg:#0b1220; --panel:#131c2c; --ink:#e6edf5; --muted:#8ea1b6;
+  --line:#22303f; --line-strong:#33445a;
+  --accent:#818cf8; --accent-2:#a78bfa; --accent-soft:#1a2444;
+  --success:#34d399; --success-soft:#0d3320;
+  --warning:#fbbf24; --warning-soft:#3a2a09;
+  --danger:#f87171; --danger-soft:#3b1212;
+  --info:#60a5fa; --info-soft:#0c1f3a;
+  --shadow:0 4px 20px rgba(0,0,0,.4);
+  --shadow-lg:0 10px 40px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:'Vazirmatn',Tahoma,system-ui,sans-serif;font-size:13.5px;line-height:1.8}
+h1,h2,h3,h4{margin:0;font-weight:700;line-height:1.4}
+button,select,input,textarea{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer}
+code{font-family:Consolas,monospace;background:var(--accent-soft);padding:1px 6px;border-radius:5px;font-size:11.5px}
+
+/* Header */
+.topbar{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#9333ea 100%);
+  padding:20px 24px;color:#fff;position:relative;overflow:hidden}
+.topbar::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;
+  background:radial-gradient(circle,rgba(255,255,255,.15),transparent 70%);border-radius:50%}
+.topbar-content{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;
+  gap:20px;flex-wrap:wrap;max-width:1600px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;
+  background:rgba(255,255,255,.2);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3);
+  font-size:26px;font-weight:800}
+.brand h1{font-size:17px;margin-bottom:3px}
+.brand p{margin:0;font-size:12px;opacity:.85}
+.top-stats{display:flex;gap:8px;flex-wrap:wrap}
+.top-stat{background:rgba(255,255,255,.15);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:8px 14px;text-align:center}
+.top-stat b{font-size:19px;font-family:Consolas,monospace;display:block;font-weight:800}
+.top-stat span{font-size:10px;opacity:.85}
+.top-actions{display:flex;gap:6px;flex-wrap:wrap}
+.top-actions .btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+  color:#fff;padding:6px 13px;border-radius:9px;font-size:12.5px;transition:.15s}
+.top-actions .btn:hover{background:rgba(255,255,255,.28);transform:translateY(-1px)}
+
+/* Buttons */
+.btn{border:1px solid var(--line-strong);background:var(--panel);color:var(--ink);
+  padding:6px 13px;border-radius:9px;font-size:12.5px;transition:.15s;white-space:nowrap}
+.btn:hover{background:var(--accent-soft);border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent}
+.btn.sm{padding:4px 10px;font-size:11.5px;border-radius:7px}
+.btn.danger:hover{background:var(--danger-soft);border-color:var(--danger);color:var(--danger)}
+
+/* Tabs */
+.tabs{display:flex;gap:2px;padding:0 24px;background:var(--panel);
+  border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;overflow-x:auto;
+  scrollbar-width:thin;max-width:1600px;margin:0 auto;border-radius:0}
+.tab-btn{border:0;background:transparent;padding:12px 15px;border-bottom:2px solid transparent;
+  color:var(--muted);font-weight:600;font-size:12.5px;white-space:nowrap;transition:.15s}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-btn:hover{color:var(--ink)}
+
+main{padding:18px 24px 60px;max-width:1600px;margin:0 auto}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* Cards */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px 20px;box-shadow:var(--shadow-sm);margin-bottom:14px}
+.card h2{font-size:15px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card h3{font-size:13px;color:var(--muted);margin:14px 0 8px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.5px}
+.muted{color:var(--muted);font-size:12px}
+
+/* KPI Cards */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;
+  box-shadow:var(--shadow-sm);position:relative;overflow:hidden;transition:.2s}
+.kpi:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.kpi::before{content:'';position:absolute;top:0;right:0;width:4px;height:100%;background:var(--kpi-color,var(--accent))}
+.kpi .kpi-label{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:6px}
+.kpi .kpi-value{font-size:26px;font-weight:800;font-family:Consolas,monospace;color:var(--kpi-color,var(--accent));line-height:1}
+.kpi .kpi-sub{font-size:10.5px;color:var(--muted);margin-top:4px}
+.kpi .kpi-icon{position:absolute;top:12px;left:14px;font-size:22px;opacity:.15}
+
+/* Diagnosis banner */
+.diagnosis{background:linear-gradient(135deg,var(--accent-soft),var(--panel));
+  border:2px solid var(--accent);border-radius:var(--radius);padding:18px 22px;
+  margin-bottom:16px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.diagnosis-icon{width:56px;height:56px;border-radius:14px;display:grid;place-items:center;
+  font-size:28px;background:var(--accent);color:#fff;flex-shrink:0}
+.diagnosis h3{font-size:14px;color:var(--accent);margin-bottom:4px}
+.diagnosis p{margin:0;font-size:13px;line-height:1.9}
+.diagnosis .highlight{color:var(--accent);font-weight:700}
+
+/* Charts row */
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+@media(max-width:900px){.chart-row{grid-template-columns:1fr}}
+.chart-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px;box-shadow:var(--shadow-sm)}
+.chart-card h3{font-size:13px;margin-bottom:10px;color:var(--ink);font-weight:700}
+svg{display:block;width:100%;height:auto;direction:ltr}
+.axis-text{font-size:10px;fill:var(--muted);font-family:'Vazirmatn',sans-serif}
+.center-text{text-anchor:middle;font-family:'Vazirmatn',sans-serif}
+
+/* Legend */
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;font-size:11.5px}
+.legend-item{display:inline-flex;align-items:center;gap:6px}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* Tables */
+.table-wrap{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:auto;box-shadow:var(--shadow-sm)}
+table.grid{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;min-width:800px}
+table.grid thead th{position:sticky;top:0;background:var(--accent-soft);color:var(--accent);
+  font-weight:700;font-size:11px;text-align:right;padding:10px 8px;
+  border-bottom:2px solid var(--accent);white-space:nowrap;z-index:2}
+table.grid td{padding:8px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.grid tbody tr:hover>td{background:var(--accent-soft)}
+table.grid tbody tr.correct-row>td:first-child{border-right:3px solid var(--success)}
+table.grid tbody tr.wrong-row>td:first-child{border-right:3px solid var(--danger)}
+.num{font-family:Consolas,monospace;text-align:center;white-space:nowrap;font-size:11.5px}
+
+/* Chips */
+.chip{display:inline-block;font-size:10.5px;padding:2px 8px;border-radius:6px;
+  background:var(--bg);border:1px solid var(--line);color:var(--muted);
+  margin:1px;white-space:nowrap;font-weight:600}
+.chip.ok{background:var(--success-soft);color:var(--success);border-color:var(--success)}
+.chip.bad{background:var(--danger-soft);color:var(--danger);border-color:var(--danger)}
+.chip.warn{background:var(--warning-soft);color:var(--warning);border-color:var(--warning)}
+.chip.info{background:var(--info-soft);color:var(--info);border-color:var(--info)}
+
+/* Topic cards */
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:12px}
+.topic-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:14px 16px;box-shadow:var(--shadow-sm);border-top:4px solid var(--topic-color)}
+.topic-card h4{font-size:13px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.topic-card .acc{font-family:Consolas,monospace;font-weight:800;font-size:16px}
+.topic-bar{height:8px;background:var(--bg);border-radius:4px;overflow:hidden;margin:8px 0}
+.topic-bar>div{height:100%;border-radius:3px;transition:width .4s}
+.topic-meta{display:flex;gap:8px;font-size:11px;color:var(--muted);flex-wrap:wrap;margin-top:8px}
+.topic-meta b{color:var(--ink);font-family:Consolas,monospace}
+
+/* Recommendation cards */
+.reco-grid{display:grid;gap:12px;margin-top:14px}
+.reco{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:16px 18px;box-shadow:var(--shadow-sm);display:grid;
+  grid-template-columns:auto 1fr;gap:14px;align-items:flex-start;
+  border-right:5px solid var(--reco-color)}
+.reco-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
+  font-size:22px;background:var(--reco-bg);flex-shrink:0}
+.reco h3{font-size:14px;margin-bottom:5px;display:flex;align-items:center;gap:8px}
+.reco .priority{font-size:10px;padding:1px 8px;border-radius:5px;font-weight:700;
+  background:var(--reco-bg);color:var(--reco-color)}
+.reco p{margin:0;font-size:12.5px;line-height:1.85;color:var(--muted)}
+.reco ul{margin:8px 0 0;padding-inline-start:18px;font-size:12px;color:var(--muted)}
+.reco li{margin:3px 0}
+
+/* Study plan */
+.plan-list{display:grid;gap:6px;margin-top:10px}
+.plan-item{display:flex;align-items:center;gap:10px;padding:8px 10px;
+  background:var(--bg);border:1px solid var(--line);border-radius:10px;font-size:12.5px}
+.plan-item input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent);cursor:pointer}
+.plan-item.done{opacity:.5}
+.plan-item.done span{text-decoration:line-through}
+
+/* Data textarea */
+textarea#dataBox{width:100%;min-height:420px;font-family:Consolas,monospace;font-size:11.5px;
+  line-height:1.6;padding:12px;border-radius:10px;border:1px solid var(--line-strong);
+  background:var(--bg);color:var(--ink);resize:vertical;direction:ltr;text-align:left}
+.msg{margin-top:8px;font-size:12px;padding:8px 12px;border-radius:9px;display:none}
+.msg.ok{display:block;background:var(--success-soft);color:var(--success);border:1px solid var(--success)}
+.msg.err{display:block;background:var(--danger-soft);color:var(--danger);border:1px solid var(--danger)}
+
+/* Help table */
+table.doc{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+table.doc th,table.doc td{border:1px solid var(--line);padding:7px 10px;text-align:right;vertical-align:top}
+table.doc th{background:var(--accent-soft);color:var(--accent);font-weight:600;font-size:11.5px}
+
+/* Toast */
+#toast{position:fixed;bottom:22px;right:50%;transform:translate(50%,20px);opacity:0;
+  background:#0f172a;color:#fff;padding:10px 20px;border-radius:10px;font-size:12.5px;
+  transition:.25s;z-index:200;pointer-events:none;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+#toast.show{opacity:1;transform:translate(50%,0)}
+
+@media print{.topbar,.tabs,.top-actions,.btn{display:none!important}}
+</style>
+</head>
+<body>
+<div style="background:#0f172a;color:#fff;padding:8px 16px;font-family:'Vazirmatn',Tahoma,sans-serif;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:10px;direction:rtl">
+  <a href="index.html" style="color:#fbbf24;text-decoration:none;font-weight:700">← بازگشت به مستر پلنر</a>
+  <span style="opacity:.8">میزکار تحلیل آزمون</span>
+</div>
+
+<header class="topbar">
+  <div class="topbar-content">
+    <div class="brand">
+      <div class="logo">📊</div>
+      <div>
+        <h1 id="examTitle">آزمون جامع ریاضی — مرحله ۱</h1>
+        <p id="examMeta">—</p>
+      </div>
+    </div>
+    <div class="top-stats" id="topStats"></div>
+    <div class="top-actions">
+      <button class="btn" id="btnTheme">◐ تم</button>
+      <button class="btn" id="btnExport">⤓ خروجی</button>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="overview">📈 نمای کلی</button>
+  <button class="tab-btn" data-tab="topics">🎯 تحلیل موضوعی</button>
+  <button class="tab-btn" data-tab="items">📝 تحلیل سوال</button>
+  <button class="tab-btn" data-tab="errors">⚠ تحلیل خطا</button>
+  <button class="tab-btn" data-tab="time">⏱ تحلیل زمان</button>
+  <button class="tab-btn" data-tab="trend">📉 روند</button>
+  <button class="tab-btn" data-tab="recos">💡 توصیه‌ها</button>
+  <button class="tab-btn" data-tab="data">{} داده</button>
+</nav>
+
+<main>
+  <section class="tab-panel active" id="tab-overview">
+    <div class="diagnosis" id="diagnosisBanner"></div>
+    <div class="kpi-grid" id="kpiGrid"></div>
+    <div class="chart-row">
+      <div class="chart-card">
+        <h3>توزیع نوع خطا</h3>
+        <svg id="errorDonut" viewBox="0 0 300 240"></svg>
+        <div class="legend" id="errorLegend"></div>
+      </div>
+      <div class="chart-card">
+        <h3>دقت در سطوح شناختی (بلوم)</h3>
+        <svg id="bloomRadar" viewBox="0 0 300 260"></svg>
+      </div>
+    </div>
+    <div class="chart-card">
+      <h3>دقت به تفکیک موضوع</h3>
+      <svg id="topicBars" viewBox="0 0 800 60" style="min-height:60px"></svg>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="tab-topics">
+    <div class="card">
+      <h2>🎯 تسلط بر موضوعات</h2>
+      <p class="muted">دقت در هر موضوع = تعداد پاسخ درست ÷ تعداد سوال. نوار رنگی سطح تسلط را نشان می‌دهد.</p>
+    </div>
+    <div class="topic-grid" id="topicCards"></div>
+  </section>
+
+  <section class="tab-panel" id="tab-items">
+    <div class="card">
+      <h2>📝 تحلیل تک‌سوال</h2>
+      <p class="muted">هر سطر یک سؤال. ستون‌های «زمان» و «اطمینان» کلید تشخیص نوع خطا هستند: زمان بالا + اطمینان پایین = دانش ناقص؛ زمان پایین + اطمینان بالا = بی‌دقتی.</p>
+    </div>
+    <div class="table-wrap" style="max-height:70vh">
+      <table class="grid"><thead><tr>
+        <th>#</th><th>موضوع</th><th>سطح</th><th>سختی</th><th>نتیجه</th>
+        <th>زمان</th><th>اطمینان</th><th>نوع خطا</th><th>یادداشت</th>
+      </tr></thead><tbody id="itemsBody"></tbody></table>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="tab-errors">
+    <div class="kpi-grid" id="errorKpiGrid"></div>
+    <div class="chart-row">
+      <div class="chart-card">
+        <h3>نقشهٔ خطا: موضوع × نوع</h3>
+        <svg id="errorHeatmap" viewBox="0 0 600 320"></svg>
+      </div>
+      <div class="chart-card">
+        <h3>اولویت بازیابی امتیاز</h3>
+        <p class="muted" style="font-size:11.5px;margin-bottom:10px">چقدر از امتیاز از دست‌رفته با تغییر استراتژی (نه لزوماً یادگیری جدید) قابل بازیابی است؟</p>
+        <svg id="recoveryChart" viewBox="0 0 300 240"></svg>
+      </div>
+    </div>
+    <div class="card">
+      <h2>⚠ جزئیات خطاها</h2>
+      <div id="errorDetails"></div>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="tab-time">
+    <div class="kpi-grid" id="timeKpiGrid"></div>
+    <div class="chart-row">
+      <div class="chart-card">
+        <h3>زمان صرف‌شده × نتیجه</h3>
+        <svg id="timeScatter" viewBox="0 0 600 340"></svg>
+      </div>
+      <div class="chart-card">
+        <h3>کالیبراسیون اطمینان</h3>
+        <p class="muted" style="font-size:11.5px;margin-bottom:10px">اگر نقطه‌ها بالای خط ۴۵° باشند، واقع‌بین هستید؛ اگر پایین، بیش‌برآورد؛ اگر بالا، کم‌برآورد.</p>
+        <svg id="calibrationChart" viewBox="0 0 300 260"></svg>
+      </div>
+    </div>
+    <div class="card">
+      <h2>⏱ تله‌های زمانی</h2>
+      <p class="muted">سؤالاتی که زمان زیادی صرف کرده‌اید و نتیجه نگرفته‌اید — این‌ها «سرمایه‌سوز» هستند.</p>
+      <div id="timeTraps"></div>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="tab-trend">
+    <div class="card">
+      <h2>📉 روند آزمون‌ها</h2>
+      <p class="muted">برای افزودن آزمون جدید، از تب «داده» استفاده کنید.</p>
+    </div>
+    <div class="chart-card">
+      <h3>روند درصد کل</h3>
+      <svg id="trendChart" viewBox="0 0 800 340"></svg>
+    </div>
+    <div class="table-wrap" style="margin-top:14px">
+      <table class="grid"><thead><tr>
+        <th>آزمون</th><th>تاریخ</th><th>درصد</th><th>نسبت به قبل</th><th>موضوع ضعیف</th>
+      </tr></thead><tbody id="trendBody"></tbody></table>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="tab-recos">
+    <div class="card">
+      <h2>💡 برنامهٔ اقدام پیشنهادی</h2>
+      <p class="muted">بر اساس الگوهای خطا، نقاط ضعف موضوعی و کالیبراسیون اطمینان، این توصیه‌ها تولید شده‌اند. هر توصیه را می‌توانید تیک بزنید.</p>
+      <div class="reco-grid" id="recoGrid"></div>
+    </div>
+    <div class="card">
+      <h2>📋 برنامهٔ مطالعهٔ هفتگی</h2>
+      <div class="plan-list" id="planList"></div>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="tab-data">
+    <div class="card">
+      <h2>{} دادهٔ باز</h2>
+      <p class="muted">کل داده به‌صورت JSON. برای افزودن آزمون جدید، یک شیء به آرایهٔ <code>exams</code> اضافه کنید.</p>
+      <div style="display:flex;gap:7px;flex-wrap:wrap;margin:10px 0">
+        <button class="btn primary sm" id="btnSaveData">ذخیره و تحلیل</button>
+        <button class="btn sm" id="btnValidateData">اعتبارسنجی</button>
+        <button class="btn sm" id="btnReloadData">بازخوانی از حافظه</button>
+        <button class="btn sm" id="btnDownloadData">دانلود JSON</button>
+        <button class="btn sm ghost" id="btnAddExam">+ افزودن آزمون</button>
+        <button class="btn sm danger" id="btnFactoryData">بازنشانی</button>
+      </div>
+      <textarea id="dataBox" spellcheck="false"></textarea>
+      <div class="msg" id="dataMsg"></div>
+    </div>
+    <div class="card">
+      <h2>راهنمای فرمت</h2>
+      <table class="doc">
+        <thead><tr><th>فیلد</th><th>مقدار</th></tr></thead>
+        <tbody>
+          <tr><td><code>no</code></td><td>شمارهٔ سؤال</td></tr>
+          <tr><td><code>topic</code></td><td>نام موضوع (مثلاً «مشتق»)</td></tr>
+          <tr><td><code>cognitive</code></td><td>remember / understand / apply / analyze / evaluate</td></tr>
+          <tr><td><code>difficulty</code></td><td>۱ تا ۵</td></tr>
+          <tr><td><code>correct</code></td><td>۰ یا ۱</td></tr>
+          <tr><td><code>time</code></td><td>ثانیه</td></tr>
+          <tr><td><code>confidence</code></td><td>۰ تا ۱۰۰</td></tr>
+          <tr><td><code>errorType</code></td><td>null / knowledge / conceptual / careless / misread / time / calc / guess</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<div id="toast"></div>
+
+<script>
+const BLOOM = [
+  {id:'remember',   name:'حفظ',       color:'#94a3b8'},
+  {id:'understand', name:'درک',       color:'#3b82f6'},
+  {id:'apply',      name:'کاربرد',    color:'#f59e0b'},
+  {id:'analyze',    name:'تحلیل',     color:'#8b5cf6'},
+  {id:'evaluate',   name:'ارزشیابی',  color:'#ec4899'}
+];
+const ERRORS = {
+  knowledge:  {name:'دانش ناقص',  color:'#ef4444', icon:'📚', strategic:false},
+  conceptual: {name:'درک مفهومی', color:'#f97316', icon:'🧩', strategic:false},
+  careless:   {name:'بی‌دقتی',    color:'#f59e0b', icon:'🎯', strategic:true},
+  misread:    {name:'بدخوانی',    color:'#eab308', icon:'👀', strategic:true},
+  time:       {name:'کمبود وقت',  color:'#8b5cf6', icon:'⏱', strategic:true},
+  calc:       {name:'خطای محاسبه',color:'#ec4899', icon:'🔢', strategic:true},
+  guess:      {name:'حدس اشتباه', color:'#64748b', icon:'🎲', strategic:true}
+};
+const TOPIC_COLORS = ['#6366f1','#8b5cf6','#ec4899','#f59e0b','#10b981','#3b82f6','#06b6d4','#f97316'];
+
+const SAMPLE = {
+  currentExamId:'exam-001',
+  exams:[
+    {
+      id:'exam-001',
+      name:'آزمون جامع ریاضی — مرحله ۱',
+      subject:'ریاضی',
+      date:'۱۴۰۴/۰۷/۲۳',
+      durationMin:30,
+      classAvg:55,
+      questions:[
+        {no:1, topic:'توابع', cognitive:'understand', difficulty:2, correct:1, selected:'B', correctAns:'B', time:45, confidence:90, errorType:null, notes:''},
+        {no:2, topic:'توابع', cognitive:'apply', difficulty:2, correct:1, selected:'C', correctAns:'C', time:60, confidence:85, errorType:null, notes:''},
+        {no:3, topic:'توابع', cognitive:'understand', difficulty:1, correct:1, selected:'A', correctAns:'A', time:40, confidence:95, errorType:null, notes:''},
+        {no:4, topic:'توابع', cognitive:'apply', difficulty:2, correct:1, selected:'D', correctAns:'D', time:70, confidence:80, errorType:null, notes:''},
+        {no:5, topic:'توابع', cognitive:'analyze', difficulty:3, correct:1, selected:'B', correctAns:'B', time:90, confidence:70, errorType:null, notes:''},
+        {no:6, topic:'مشتق', cognitive:'apply', difficulty:3, correct:1, selected:'A', correctAns:'A', time:80, confidence:75, errorType:null, notes:''},
+        {no:7, topic:'مشتق', cognitive:'analyze', difficulty:3, correct:1, selected:'C', correctAns:'C', time:100, confidence:65, errorType:null, notes:''},
+        {no:8, topic:'مشتق', cognitive:'apply', difficulty:2, correct:0, selected:'B', correctAns:'D', time:90, confidence:70, errorType:'careless', notes:'علامت مشتق را جا انداختم'},
+        {no:9, topic:'مشتق', cognitive:'understand', difficulty:2, correct:1, selected:'A', correctAns:'A', time:70, confidence:85, errorType:null, notes:''},
+        {no:10, topic:'مشتق', cognitive:'analyze', difficulty:4, correct:0, selected:'C', correctAns:'A', time:120, confidence:40, errorType:'conceptual', notes:'مشتق ضمنی را کامل نفهمیدم'},
+        {no:11, topic:'انتگرال', cognitive:'apply', difficulty:3, correct:0, selected:'A', correctAns:'C', time:100, confidence:30, errorType:'knowledge', notes:'جزء‌به‌جزء را نمی‌دانم'},
+        {no:12, topic:'انتگرال', cognitive:'analyze', difficulty:4, correct:0, selected:'B', correctAns:'A', time:120, confidence:25, errorType:'knowledge', notes:'انتگرال مثلثاتی نمی‌توانم'},
+        {no:13, topic:'انتگرال', cognitive:'apply', difficulty:3, correct:1, selected:'C', correctAns:'C', time:110, confidence:55, errorType:null, notes:'شانسی زدم'},
+        {no:14, topic:'انتگرال', cognitive:'understand', difficulty:3, correct:1, selected:'D', correctAns:'D', time:90, confidence:50, errorType:null, notes:'مطمئن نبودم'},
+        {no:15, topic:'انتگرال', cognitive:'apply', difficulty:4, correct:0, selected:'B', correctAns:'C', time:130, confidence:20, errorType:'knowledge', notes:'هیچ ایده‌ای نداشتم'},
+        {no:16, topic:'حد و پیوستگی', cognitive:'understand', difficulty:2, correct:1, selected:'A', correctAns:'A', time:50, confidence:90, errorType:null, notes:''},
+        {no:17, topic:'حد و پیوستگی', cognitive:'apply', difficulty:2, correct:0, selected:'C', correctAns:'B', time:60, confidence:80, errorType:'careless', notes:'یک مرحله را جا انداختم'},
+        {no:18, topic:'حد و پیوستگی', cognitive:'analyze', difficulty:3, correct:1, selected:'D', correctAns:'D', time:80, confidence:70, errorType:null, notes:''},
+        {no:19, topic:'حد و پیوستگی', cognitive:'apply', difficulty:3, correct:0, selected:'B', correctAns:'A', time:70, confidence:75, errorType:'misread', notes:'سؤال را اشتباه خواندم'},
+        {no:20, topic:'حد و پیوستگی', cognitive:'understand', difficulty:2, correct:1, selected:'C', correctAns:'C', time:45, confidence:95, errorType:null, notes:''},
+        {no:21, topic:'مثلثات', cognitive:'apply', difficulty:2, correct:0, selected:'A', correctAns:'D', time:30, confidence:50, errorType:'time', notes:'عجله کردم'},
+        {no:22, topic:'مثلثات', cognitive:'apply', difficulty:3, correct:1, selected:'B', correctAns:'B', time:25, confidence:55, errorType:null, notes:'سریع حل شد'},
+        {no:23, topic:'مثلثات', cognitive:'understand', difficulty:2, correct:1, selected:'C', correctAns:'C', time:35, confidence:60, errorType:null, notes:''},
+        {no:24, topic:'مثلثات', cognitive:'analyze', difficulty:4, correct:0, selected:'D', correctAns:'A', time:20, confidence:30, errorType:'time', notes:'زمان کم آوردم'},
+        {no:25, topic:'مثلثات', cognitive:'apply', difficulty:3, correct:0, selected:'B', correctAns:'C', time:15, confidence:25, errorType:'guess', notes:'زمان تمام شد'}
+      ]
+    }
+  ],
+  theme:'light'
+};
+
+const LS_KEY = 'exam-analysis-v1';
+let S = null;
+let A = null;
+let currentTab = 'overview';
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const fa = (v,d=0) => isNaN(v) ? '—' : Number(v).toLocaleString('fa-IR',{maximumFractionDigits:d});
+const fmt = (v,d=1) => isNaN(v) ? '—' : Number(v).toFixed(d);
+const pct = v => fa(Math.round(v*100))+'٪';
+
+function save(){ try{localStorage.setItem(LS_KEY, JSON.stringify(S));}catch(e){} }
+function load(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return false;
+    const o = JSON.parse(raw);
+    if(!o.exams || !Array.isArray(o.exams) || !o.exams.length) return false;
+    S = o;
+    return true;
+  }catch(e){ return false; }
+}
+
+function analyze(exam){
+  const qs = exam.questions;
+  const total = qs.length;
+  const correct = qs.filter(q=>q.correct).length;
+  const score = correct/total;
+  const totalTime = qs.reduce((s,q)=>s+q.time,0);
+  const avgTime = totalTime/total;
+
+  const errorCounts = {};
+  Object.keys(ERRORS).forEach(k=>errorCounts[k]=0);
+  let strategicLoss = 0, learningLoss = 0;
+  qs.forEach(q=>{
+    if(!q.correct && q.errorType){
+      errorCounts[q.errorType] = (errorCounts[q.errorType]||0) + 1;
+      if(ERRORS[q.errorType].strategic) strategicLoss++;
+      else learningLoss++;
+    }
+  });
+
+  const topicMap = {};
+  qs.forEach(q=>{
+    if(!topicMap[q.topic]) topicMap[q.topic] = {total:0, correct:0, time:0, errors:{}};
+    topicMap[q.topic].total++;
+    topicMap[q.topic].time += q.time;
+    if(q.correct) topicMap[q.topic].correct++;
+    else if(q.errorType) topicMap[q.topic].errors[q.errorType] = (topicMap[q.topic].errors[q.errorType]||0)+1;
+  });
+  const topicStats = Object.entries(topicMap).map(([t, d], i)=>({
+    topic:t, total:d.total, correct:d.correct,
+    accuracy:d.correct/d.total, time:d.time, errors:d.errors,
+    color:TOPIC_COLORS[i % TOPIC_COLORS.length]
+  })).sort((a,b)=> a.accuracy - b.accuracy);
+
+  const bloomStats = BLOOM.map(b=>{
+    const bqs = qs.filter(q=>q.cognitive===b.id);
+    return {...b, total:bqs.length, correct:bqs.filter(q=>q.correct).length,
+            accuracy: bqs.length ? bqs.filter(q=>q.correct).length/bqs.length : null};
+  });
+
+  const medianTime = [...qs.map(q=>q.time)].sort((a,b)=>a-b)[Math.floor(total/2)];
+  const timeTraps = qs.filter(q=> q.time > medianTime*1.4 && !q.correct);
+  const efficient = qs.filter(q=> q.time < medianTime*0.8 && q.correct);
+
+  const calibration = qs.map(q=>({conf:q.confidence, correct:q.correct, q}));
+  const wrongAvgConf = qs.filter(q=>!q.correct).reduce((s,q)=>s+q.confidence,0) /
+                       (qs.filter(q=>!q.correct).length||1);
+  const correctAvgConf = qs.filter(q=>q.correct).reduce((s,q)=>s+q.confidence,0) /
+                        (qs.filter(q=>q.correct).length||1);
+  const overconfident = wrongAvgConf > 60;
+
+  const stratFixScore = (correct + strategicLoss) / total;
+
+  const weakestTopic = topicStats[0];
+  const strongestTopic = topicStats[topicStats.length-1];
+
+  const weakBloom = bloomStats.filter(b=>b.total>0).sort((a,b)=>a.accuracy-b.accuracy)[0];
+
+  const dominantError = Object.entries(errorCounts).sort((a,b)=>b[1]-a[1])[0];
+
+  const timeEfficiency = correct / (totalTime/60);
+
+  return {
+    total, correct, score, totalTime, avgTime, medianTime,
+    errorCounts, strategicLoss, learningLoss,
+    topicStats, bloomStats, timeTraps, efficient,
+    calibration, overconfident, wrongAvgConf, correctAvgConf,
+    stratFixScore, weakestTopic, strongestTopic, weakBloom, dominantError,
+    timeEfficiency, qs
+  };
+}
+
+function diagnose(a){
+  const issues = [];
+  const dominantErr = a.dominantError;
+
+  if(dominantErr[1] >= 2){
+    const errKey = dominantErr[0];
+    const errInfo = ERRORS[errKey];
+    if(errInfo.strategic){
+      issues.push({
+        level:'strategy',
+        title:`غلبهٔ خطای «${errInfo.name}»`,
+        desc:`${fa(dominantErr[1])} سؤال به دلیل ${errInfo.name} از دست رفته. این خطاها با بهبود استراتژی آزمون (نه لزوماً یادگیری جدید) قابل بازیابی هستند.`,
+        color:'#f59e0b'
+      });
+    } else {
+      issues.push({
+        level:'learning',
+        title:`غلبهٔ «${errInfo.name}» در ${a.weakestTopic.topic}`,
+        desc:`بیشترین خطاها از نوع ${errInfo.name} است. نیاز به مطالعهٔ عمیق‌تر در موضوعات ضعیف دارید.`,
+        color:'#ef4444'
+      });
+    }
+  }
+
+  if(a.weakestTopic.accuracy < 0.5){
+    issues.push({
+      level:'topic',
+      title:`ضعف جدی در «${a.weakestTopic.topic}»`,
+      desc:`دقت در این موضوع فقط ${pct(a.weakestTopic.accuracy)} است (${fa(a.weakestTopic.correct)} از ${fa(a.weakestTopic.total)}). این موضوع اولویت اول مطالعه است.`,
+      color:'#ef4444'
+    });
+  }
+
+  if(a.overconfident){
+    issues.push({
+      level:'calibration',
+      title:`بیش‌برآورد اطمینان`,
+      desc:`میانگین اطمینان در پاسخ‌های غلط ${fa(a.wrongAvgConf)}٪ است در حالی که در پاسخ‌های درست ${fa(a.correctAvgConf)}٪. یعنی وقتی مطمئن هستید، لزوماً درست نیستید. برای تشخیص دقیق‌تر، بعد از هر سؤال یک بازبینی سریع انجام دهید.`,
+      color:'#8b5cf6'
+    });
+  }
+
+  if(a.weakBloom && a.weakBloom.accuracy < 0.5 && a.weakBloom.total >= 3){
+    issues.push({
+      level:'cognitive',
+      title:`ضعف در سطح شناختی «${a.weakBloom.name}»`,
+      desc:`در سؤالات سطح ${a.weakBloom.name}، دقت ${pct(a.weakBloom.accuracy)} است (${fa(a.weakBloom.correct)} از ${fa(a.weakBloom.total)}). این نشان می‌دهد مشکل فراتر از حفظ است — در کاربرد مفاهیم ضعف دارید.`,
+      color:'#f97316'
+    });
+  }
+
+  if(a.timeTraps.length >= 3){
+    issues.push({
+      level:'time',
+      title:`${fa(a.timeTraps.length)} تلهٔ زمانی`,
+      desc:`${fa(a.timeTraps.length)} سؤال زمان زیادی گرفته‌اید و نتیجه نداده‌اید. این‌ها زمان سؤالات دیگر را می‌خورند. توصیه: در آزمون‌های بعدی، اگر ۲۰٪ بیشتر از میانگین روی یک سؤال ماندید، رد شوید.`,
+      color:'#8b5cf6'
+    });
+  }
+
+  return issues;
+}
+
+function renderOverview(){
+  const a = A;
+  const issues = diagnose(a);
+  const primaryIssue = issues[0];
+
+  const banner = $('#diagnosisBanner');
+  if(primaryIssue){
+    banner.innerHTML = `
+      <div class="diagnosis-icon">${primaryIssue.level==='strategy'?'🎯':primaryIssue.level==='learning'?'📚':primaryIssue.level==='time'?'⏱':'🎲'}</div>
+      <div>
+        <h3>تشخیص اصلی</h3>
+        <p>${primaryIssue.title} — ${primaryIssue.desc}</p>
+        ${issues.length > 1 ? `<p style="margin-top:6px;font-size:11.5px;color:var(--muted)">+ ${fa(issues.length-1)} نکتهٔ دیگر در تب «توصیه‌ها»</p>` : ''}
+      </div>`;
+  } else {
+    banner.innerHTML = `
+      <div class="diagnosis-icon">✅</div>
+      <div><h3>عملکرد متوازن</h3><p>الگوی خطای خاصی یافت نشد. عملکرد کلی خوب است.</p></div>`;
+  }
+
+  const predicted = Math.round(a.score*100);
+  const strategic = Math.round(a.stratFixScore*100);
+  const delta = strategic - predicted;
+
+  $('#kpiGrid').innerHTML = `
+    <div class="kpi" style="--kpi-color:${predicted>=70?'var(--success)':predicted>=50?'var(--warning)':'var(--danger)'}">
+      <div class="kpi-icon">📊</div>
+      <div class="kpi-label">درصد کل</div>
+      <div class="kpi-value">${fa(predicted)}٪</div>
+      <div class="kpi-sub">${fa(a.correct)} از ${fa(a.total)} درست</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--info)">
+      <div class="kpi-icon">🎯</div>
+      <div class="kpi-label">با استراتژی بهتر</div>
+      <div class="kpi-value">${fa(strategic)}٪</div>
+      <div class="kpi-sub" style="color:var(--success)">+${fa(delta)}٪ قابل بازیابی</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--warning)">
+      <div class="kpi-icon">⏱</div>
+      <div class="kpi-label">زمان میانگین</div>
+      <div class="kpi-value">${fa(a.avgTime,0)}s</div>
+      <div class="kpi-sub">میانه ${fa(a.medianTime,0)}s</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--accent)">
+      <div class="kpi-icon">📈</div>
+      <div class="kpi-label">کارایی زمانی</div>
+      <div class="kpi-value">${fmt(a.timeEfficiency,1)}</div>
+      <div class="kpi-sub">درست در دقیقه</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--danger)">
+      <div class="kpi-icon">⚠</div>
+      <div class="kpi-label">امتیاز از دست‌رفته</div>
+      <div class="kpi-value">${fa(a.strategicLoss + a.learningLoss)}</div>
+      <div class="kpi-sub">${fa(a.strategicLoss)} استراتژیک · ${fa(a.learningLoss)} دانشی</div>
+    </div>
+  `;
+
+  renderErrorDonut();
+  renderBloomRadar();
+  renderTopicBars();
+}
+
+function renderErrorDonut(){
+  const svg = $('#errorDonut');
+  const a = A;
+  const entries = Object.entries(a.errorCounts).filter(([k,v])=>v>0);
+  const total = entries.reduce((s,[,v])=>s+v,0);
+
+  if(total === 0){
+    svg.innerHTML = `<text x="150" y="120" class="center-text axis-text">بدون خطا 🎉</text>`;
+    $('#errorLegend').innerHTML = '';
+    return;
+  }
+
+  const cx=150, cy=120, R=90, r=55;
+  let angle = -Math.PI/2;
+  const parts = [];
+  entries.forEach(([k,v])=>{
+    const frac = v/total;
+    const end = angle + frac*Math.PI*2;
+    const x1 = cx + R*Math.cos(angle), y1 = cy + R*Math.sin(angle);
+    const x2 = cx + R*Math.cos(end),   y2 = cy + R*Math.sin(end);
+    const xi1 = cx + r*Math.cos(angle), yi1 = cy + r*Math.sin(angle);
+    const xi2 = cx + r*Math.cos(end),   yi2 = cy + r*Math.sin(end);
+    const large = frac > 0.5 ? 1 : 0;
+    parts.push(`<path d="M${x1},${y1} A${R},${R} 0 ${large} 1 ${x2},${y2} L${xi2},${yi2} A${r},${r} 0 ${large} 0 ${xi1},${yi1} Z" fill="${ERRORS[k].color}" stroke="var(--panel)" stroke-width="2"/>`);
+    if(frac > 0.08){
+      const mid = (angle+end)/2;
+      const lx = cx + (R+r)/2*Math.cos(mid);
+      const ly = cy + (R+r)/2*Math.sin(mid);
+      parts.push(`<text x="${lx}" y="${ly+4}" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="Vazirmatn">${fa(v)}</text>`);
+    }
+    angle = end;
+  });
+  parts.push(`<text x="${cx}" y="${cy-4}" class="center-text" font-size="24" font-weight="800" fill="var(--danger)" font-family="Consolas">${fa(total)}</text>`);
+  parts.push(`<text x="${cx}" y="${cy+14}" class="center-text" font-size="10" fill="var(--muted)" font-family="Vazirmatn">خطا</text>`);
+  svg.innerHTML = parts.join('');
+
+  $('#errorLegend').innerHTML = entries.map(([k,v])=>
+    `<span class="legend-item"><span class="legend-dot" style="background:${ERRORS[k].color}"></span>${ERRORS[k].name} (${fa(v)})</span>`
+  ).join('');
+}
+
+function renderBloomRadar(){
+  const svg = $('#bloomRadar');
+  const a = A;
+  const stats = a.bloomStats.filter(b=>b.total>0);
+  const n = stats.length;
+  if(n < 3){
+    svg.innerHTML = `<text x="150" y="130" class="center-text axis-text">داده کافی نیست (حداقل ۳ سطح)</text>`;
+    return;
+  }
+  const W=300, H=260, cx=150, cy=135, R=85;
+  const parts = [];
+
+  for(let ring=1; ring<=4; ring++){
+    const r = R*ring/4;
+    const pts = stats.map((_, i)=>{
+      const ang = -Math.PI/2 + i*2*Math.PI/n;
+      return `${cx+r*Math.cos(ang)},${cy+r*Math.sin(ang)}`;
+    });
+    parts.push(`<polygon points="${pts.join(' ')}" fill="none" stroke="var(--line)" stroke-width=".7"/>`);
+  }
+
+  stats.forEach((s,i)=>{
+    const ang = -Math.PI/2 + i*2*Math.PI/n;
+    parts.push(`<line x1="${cx}" y1="${cy}" x2="${cx+R*Math.cos(ang)}" y2="${cy+R*Math.sin(ang)}" stroke="var(--line)" stroke-width=".7"/>`);
+    const lx = cx + (R+22)*Math.cos(ang);
+    const ly = cy + (R+22)*Math.sin(ang);
+    parts.push(`<text x="${lx}" y="${ly+3}" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="Vazirmatn">${s.name}</text>`);
+  });
+
+  const pts = stats.map((s,i)=>{
+    const ang = -Math.PI/2 + i*2*Math.PI/n;
+    const r = (s.accuracy||0)*R;
+    return `${cx+r*Math.cos(ang)},${cy+r*Math.sin(ang)}`;
+  });
+  parts.push(`<polygon points="${pts.join(' ')}" fill="rgba(99,102,241,0.25)" stroke="var(--accent)" stroke-width="2"/>`);
+
+  stats.forEach((s,i)=>{
+    const ang = -Math.PI/2 + i*2*Math.PI/n;
+    const r = (s.accuracy||0)*R;
+    const x = cx + r*Math.cos(ang), y = cy + r*Math.sin(ang);
+    const color = s.accuracy >= 0.7 ? 'var(--success)' : s.accuracy >= 0.4 ? 'var(--warning)' : 'var(--danger)';
+    parts.push(`<circle cx="${x}" cy="${y}" r="4.5" fill="${color}" stroke="var(--panel)" stroke-width="1.5"/>`);
+  });
+
+  svg.innerHTML = parts.join('');
+}
+
+function renderTopicBars(){
+  const svg = $('#topicBars');
+  const a = A;
+  const topics = a.topicStats;
+  const W = 800, rowH = 44;
+  const H = topics.length * rowH + 20;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.style.minHeight = H + 'px';
+
+  const labelW = 130, barW = W - labelW - 80;
+  const parts = [];
+  topics.forEach((t,i)=>{
+    const y = i*rowH + 12;
+    const color = t.accuracy >= 0.7 ? '#10b981' : t.accuracy >= 0.4 ? '#f59e0b' : '#ef4444';
+    parts.push(`<text x="${W-10}" y="${y+18}" text-anchor="end" font-size="12" fill="var(--ink)" font-family="Vazirmatn" font-weight="600">${t.topic}</text>`);
+    parts.push(`<rect x="${80}" y="${y+6}" width="${barW}" height="22" fill="var(--bg)" rx="11" stroke="var(--line)"/>`);
+    parts.push(`<rect x="${80}" y="${y+6}" width="${barW*t.accuracy}" height="22" fill="${color}" rx="11" opacity=".85"/>`);
+    parts.push(`<text x="${80+barW+12}" y="${y+22}" font-size="11.5" fill="${color}" font-family="Consolas" font-weight="700">${Math.round(t.accuracy*100)}٪</text>`);
+    parts.push(`<text x="${80+barW/2}" y="${y+22}" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="700" font-family="Vazirmatn">${fa(t.correct)}/${fa(t.total)}</text>`);
+  });
+  svg.innerHTML = parts.join('');
+}
+
+function renderTopics(){
+  const a = A;
+  $('#topicCards').innerHTML = a.topicStats.map(t=>{
+    const level = t.accuracy >= 0.75 ? 'مسلط' : t.accuracy >= 0.5 ? 'نیمه‌مسلط' : 'ضعیف';
+    const color = t.accuracy >= 0.75 ? 'var(--success)' : t.accuracy >= 0.5 ? 'var(--warning)' : 'var(--danger)';
+    const errList = Object.entries(t.errors).map(([k,v])=>`<span class="chip bad">${ERRORS[k].name}: ${fa(v)}</span>`).join('') || '<span class="chip ok">بدون خطا</span>';
+    return `
+      <div class="topic-card" style="--topic-color:${t.color}">
+        <h4>${t.topic} <span class="chip" style="background:${color};color:#fff;border-color:${color}">${level}</span></h4>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px">
+          <span class="acc" style="color:${color}">${pct(t.accuracy)}</span>
+          <span class="muted">${fa(t.correct)} از ${fa(t.total)}</span>
+        </div>
+        <div class="topic-bar"><div style="width:${t.accuracy*100}%;background:${color}"></div></div>
+        <div class="topic-meta">
+          <span>زمان: <b>${fa(t.time,0)}s</b></span>
+          <span>میانگین: <b>${fa(t.time/t.total,0)}s</b></span>
+        </div>
+        <div style="margin-top:8px">${errList}</div>
+      </div>`;
+  }).join('');
+}
+
+function renderItems(){
+  const a = A;
+  $('#itemsBody').innerHTML = a.qs.map(q=>{
+    const bloom = BLOOM.find(b=>b.id===q.cognitive);
+    const err = q.errorType ? ERRORS[q.errorType] : null;
+    const timeColor = q.time > a.medianTime*1.4 ? 'var(--danger)' : q.time < a.medianTime*0.6 ? 'var(--success)' : 'var(--muted)';
+    const confColor = q.confidence >= 75 ? 'var(--success)' : q.confidence >= 50 ? 'var(--warning)' : 'var(--danger)';
+    return `<tr class="${q.correct?'correct-row':'wrong-row'}">
+      <td class="num">${fa(q.no)}</td>
+      <td>${q.topic}</td>
+      <td><span class="chip" style="background:${bloom.color};color:#fff;border-color:${bloom.color}">${bloom.name}</span></td>
+      <td class="num">${'★'.repeat(q.difficulty)}${'☆'.repeat(5-q.difficulty)}</td>
+      <td class="num">${q.correct?'<span class="chip ok">✓</span>':'<span class="chip bad">✗</span>'}</td>
+      <td class="num" style="color:${timeColor};font-weight:600">${fa(q.time)}s</td>
+      <td class="num" style="color:${confColor};font-weight:600">${fa(q.confidence)}٪</td>
+      <td>${err?`<span class="chip" style="background:${err.color};color:#fff;border-color:${err.color}">${err.icon} ${err.name}</span>`:'—'}</td>
+      <td class="muted" style="font-size:11px">${q.notes||'—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderErrors(){
+  const a = A;
+
+  $('#errorKpiGrid').innerHTML = `
+    <div class="kpi" style="--kpi-color:var(--danger)">
+      <div class="kpi-icon">⚠</div>
+      <div class="kpi-label">کل خطا</div>
+      <div class="kpi-value">${fa(a.total - a.correct)}</div>
+      <div class="kpi-sub">از ${fa(a.total)} سؤال</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--warning)">
+      <div class="kpi-icon">🎯</div>
+      <div class="kpi-label">قابل بازیابی</div>
+      <div class="kpi-value">${fa(a.strategicLoss)}</div>
+      <div class="kpi-sub">با استراتژی بهتر</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--info)">
+      <div class="kpi-icon">📚</div>
+      <div class="kpi-label">نیازمند یادگیری</div>
+      <div class="kpi-value">${fa(a.learningLoss)}</div>
+      <div class="kpi-sub">دانش یا درک</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--accent)">
+      <div class="kpi-icon">📈</div>
+      <div class="kpi-label">پتانسیل با استراتژی</div>
+      <div class="kpi-value">${pct(a.stratFixScore)}</div>
+      <div class="kpi-sub">${pct(a.score)} فعلی</div>
+    </div>
+  `;
+
+  renderErrorHeatmap();
+  renderRecoveryChart();
+  renderErrorDetails();
+}
+
+function renderErrorHeatmap(){
+  const svg = $('#errorHeatmap');
+  const a = A;
+  const topics = a.topicStats.map(t=>t.topic);
+  const errKeys = Object.keys(ERRORS).filter(k => a.errorCounts[k] > 0);
+  if(errKeys.length === 0){
+    svg.innerHTML = `<text x="300" y="160" class="center-text axis-text">بدون خطا 🎉</text>`;
+    return;
+  }
+  const W=600, H=320;
+  const leftPad=100, topPad=60, cellW=(W-leftPad-20)/errKeys.length, cellH=(H-topPad-20)/topics.length;
+
+  const parts = [];
+  errKeys.forEach((k,i)=>{
+    parts.push(`<text x="${leftPad + i*cellW + cellW/2}" y="${topPad-12}" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="Vazirmatn">${ERRORS[k].name}</text>`);
+  });
+  topics.forEach((t,i)=>{
+    parts.push(`<text x="${leftPad-8}" y="${topPad + i*cellH + cellH/2 + 4}" text-anchor="end" font-size="11" fill="var(--ink)" font-family="Vazirmatn" font-weight="600">${t}</text>`);
+  });
+
+  a.topicStats.forEach((t, i)=>{
+    errKeys.forEach((k, j)=>{
+      const v = t.errors[k] || 0;
+      const fill = v>0 ? ERRORS[k].color : 'var(--bg)';
+      const opacity = v>0 ? Math.min(1, 0.35 + v*0.2) : 1;
+      const x = leftPad + j*cellW, y = topPad + i*cellH;
+      parts.push(`<rect x="${x+2}" y="${y+2}" width="${cellW-4}" height="${cellH-4}" fill="${fill}" opacity="${opacity}" rx="6" stroke="var(--line)"/>`);
+      if(v > 0){
+        parts.push(`<text x="${x+cellW/2}" y="${y+cellH/2+5}" text-anchor="middle" font-size="14" fill="#fff" font-weight="800" font-family="Consolas">${fa(v)}</text>`);
+      }
+    });
+  });
+  svg.innerHTML = parts.join('');
+}
+
+function renderRecoveryChart(){
+  const svg = $('#recoveryChart');
+  const a = A;
+  const strategic = a.strategicLoss;
+  const learning = a.learningLoss;
+  const total = strategic + learning;
+  if(total === 0){
+    svg.innerHTML = `<text x="150" y="120" class="center-text axis-text">بدون خطا</text>`;
+    return;
+  }
+  const cx=150, cy=110, R=80, r=50;
+  const stratFrac = strategic/total;
+  const end = -Math.PI/2 + stratFrac*Math.PI*2;
+
+  function arc(a1, a2, R, r, color){
+    const x1=cx+R*Math.cos(a1), y1=cy+R*Math.sin(a1);
+    const x2=cx+R*Math.cos(a2), y2=cy+R*Math.sin(a2);
+    const xi1=cx+r*Math.cos(a1), yi1=cy+r*Math.sin(a1);
+    const xi2=cx+r*Math.cos(a2), yi2=cy+r*Math.sin(a2);
+    const large = (a2-a1) > Math.PI ? 1 : 0;
+    return `<path d="M${x1},${y1} A${R},${R} 0 ${large} 1 ${x2},${y2} L${xi2},${yi2} A${r},${r} 0 ${large} 0 ${xi1},${yi1} Z" fill="${color}" stroke="var(--panel)" stroke-width="2"/>`;
+  }
+
+  const parts = [];
+  if(strategic > 0){
+    parts.push(arc(-Math.PI/2, end, R, r, '#f59e0b'));
+  }
+  if(learning > 0){
+    parts.push(arc(end, -Math.PI/2 + Math.PI*2, R, r, '#ef4444'));
+  }
+  parts.push(`<text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="22" font-weight="800" fill="var(--ink)" font-family="Consolas">${fa(total)}</text>`);
+  parts.push(`<text x="${cx}" y="${cy+14}" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="Vazirmatn">امتیاز از دست‌رفته</text>`);
+
+  if(strategic > 0){
+    const m = (-Math.PI/2 + end)/2;
+    parts.push(`<text x="${cx+(R+r)/2*Math.cos(m)}" y="${cy+(R+r)/2*Math.sin(m)+4}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="Consolas">${fa(strategic)}</text>`);
+  }
+  if(learning > 0){
+    const m = (end + (-Math.PI/2 + Math.PI*2))/2;
+    parts.push(`<text x="${cx+(R+r)/2*Math.cos(m)}" y="${cy+(R+r)/2*Math.sin(m)+4}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="Consolas">${fa(learning)}</text>`);
+  }
+  svg.innerHTML = parts.join('');
+
+  svg.innerHTML += `
+    <g transform="translate(20, 200)">
+      <rect x="0" y="0" width="12" height="12" fill="#f59e0b" rx="3"/>
+      <text x="20" y="10" font-size="11" fill="var(--muted)" font-family="Vazirmatn">استراتژیک (قابل بازیابی)</text>
+    </g>
+    <g transform="translate(20, 222)">
+      <rect x="0" y="0" width="12" height="12" fill="#ef4444" rx="3"/>
+      <text x="20" y="10" font-size="11" fill="var(--muted)" font-family="Vazirmatn">دانشی (نیازمند یادگیری)</text>
+    </g>`;
+}
+
+function renderErrorDetails(){
+  const a = A;
+  const wrong = a.qs.filter(q=>!q.correct && q.errorType);
+  if(wrong.length === 0){
+    $('#errorDetails').innerHTML = '<div class="muted" style="text-align:center;padding:20px">هیچ خطایی ثبت نشده.</div>';
+    return;
+  }
+  $('#errorDetails').innerHTML = wrong.map(q=>{
+    const err = ERRORS[q.errorType];
+    return `<div class="reco" style="--reco-color:${err.color};--reco-bg:${err.color}20;margin-bottom:8px;padding:12px 14px">
+      <div class="reco-icon" style="width:36px;height:36px;font-size:18px">${err.icon}</div>
+      <div>
+        <h3 style="font-size:12.5px;margin-bottom:3px">سؤال ${fa(q.no)} — ${q.topic} <span class="priority">${err.name}</span></h3>
+        <p style="font-size:11.5px;margin:0">پاسخ شما: <b>${q.selected}</b> · پاسخ صحیح: <b>${q.correctAns}</b> · زمان: <b>${fa(q.time)}s</b> · اطمینان: <b>${fa(q.confidence)}٪</b>${q.notes?` · <em>${q.notes}</em>`:''}</p>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderTime(){
+  const a = A;
+
+  $('#timeKpiGrid').innerHTML = `
+    <div class="kpi" style="--kpi-color:var(--accent)">
+      <div class="kpi-icon">⏱</div>
+      <div class="kpi-label">کل زمان</div>
+      <div class="kpi-value">${fa(a.totalTime/60,1)}</div>
+      <div class="kpi-sub">دقیقه</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--info)">
+      <div class="kpi-icon">📊</div>
+      <div class="kpi-label">میانگین هر سؤال</div>
+      <div class="kpi-value">${fa(a.avgTime,0)}s</div>
+      <div class="kpi-sub">میانه ${fa(a.medianTime,0)}s</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--danger)">
+      <div class="kpi-icon">⚠</div>
+      <div class="kpi-label">تلهٔ زمانی</div>
+      <div class="kpi-value">${fa(a.timeTraps.length)}</div>
+      <div class="kpi-sub">زمان زیاد + غلط</div>
+    </div>
+    <div class="kpi" style="--kpi-color:var(--success)">
+      <div class="kpi-icon">⚡</div>
+      <div class="kpi-label">کارآمد</div>
+      <div class="kpi-value">${fa(a.efficient.length)}</div>
+      <div class="kpi-sub">سریع + درست</div>
+    </div>
+  `;
+
+  renderTimeScatter();
+  renderCalibration();
+
+  if(a.timeTraps.length === 0){
+    $('#timeTraps').innerHTML = '<div class="muted" style="text-align:center;padding:16px">تلهٔ زمانی شناسایی نشد. 👏</div>';
+  } else {
+    $('#timeTraps').innerHTML = a.timeTraps.map(q=>{
+      const err = ERRORS[q.errorType];
+      return `<div class="reco" style="--reco-color:var(--danger);--reco-bg:var(--danger-soft);margin-bottom:6px;padding:10px 14px">
+        <div class="reco-icon" style="width:36px;height:36px;font-size:18px">⏱</div>
+        <div>
+          <h3 style="font-size:12.5px;margin-bottom:2px">سؤال ${fa(q.no)} — ${q.topic} <span class="priority">${fa(q.time)}s صرف شد</span></h3>
+          <p style="font-size:11.5px;margin:0">${err.icon} ${err.name}${q.notes?` · ${q.notes}`:''} — این زمان می‌توانست صرف سؤالات دیگر شود.</p>
+        </div>
+      </div>`;
+    }).join('');
+  }
+}
+
+function renderTimeScatter(){
+  const svg = $('#timeScatter');
+  const a = A;
+  const W=600, H=340, P={l:50, r:30, t:30, b:40};
+  const maxTime = Math.max(...a.qs.map(q=>q.time)) * 1.1;
+  const xS = t => P.l + (t/maxTime)*(W-P.l-P.r);
+  const yS = c => H-P.b - c*(H-P.t-P.b);
+
+  const parts = [];
+
+  for(let i=0;i<=4;i++){
+    const y = P.t + (H-P.t-P.b)*i/4;
+    parts.push(`<line x1="${P.l}" x2="${W-P.r}" y1="${y}" y2="${y}" stroke="var(--line)" stroke-width=".5"/>`);
+  }
+  parts.push(`<line x1="${xS(a.medianTime)}" x2="${xS(a.medianTime)}" y1="${P.t}" y2="${H-P.b}" stroke="var(--warning)" stroke-width="1" stroke-dasharray="4 3" opacity=".7"/>`);
+  parts.push(`<text x="${xS(a.medianTime)+4}" y="${P.t+12}" font-size="9" fill="var(--warning)" font-family="Vazirmatn">میانه ${fa(a.medianTime,0)}s</text>`);
+
+  parts.push(`<line x1="${P.l}" x2="${W-P.r}" y1="${H-P.b}" y2="${H-P.b}" stroke="var(--line-strong)"/>`);
+  parts.push(`<line x1="${P.l}" x2="${P.l}" y1="${P.t}" y2="${H-P.b}" stroke="var(--line-strong)"/>`);
+  parts.push(`<text x="${(P.l+W-P.r)/2}" y="${H-10}" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="Vazirmatn">زمان صرف‌شده (ثانیه)</text>`);
+  parts.push(`<text x="14" y="${(P.t+H-P.b)/2}" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="Vazirmatn" transform="rotate(-90 14 ${(P.t+H-P.b)/2})">درست / غلط</text>`);
+  parts.push(`<text x="${P.l-8}" y="${yS(1)+4}" text-anchor="end" font-size="10" fill="var(--muted)" font-family="Consolas">درست</text>`);
+  parts.push(`<text x="${P.l-8}" y="${yS(0)+4}" text-anchor="end" font-size="10" fill="var(--muted)" font-family="Consolas">غلط</text>`);
+
+  a.qs.forEach(q=>{
+    const x = xS(q.time);
+    const y = yS(q.correct?1:0);
+    // Jitter بر اساس شماره سوال ثابت می‌ماند تا نقاط نلرزند
+    const jitter = ((q.no * 17) % 14) - 7;
+    const color = q.correct ? 'var(--success)' : 'var(--danger)';
+    parts.push(`<circle cx="${x}" cy="${y+jitter}" r="6" fill="${color}" opacity=".75" stroke="var(--panel)" stroke-width="1.5"/>`);
+  });
+
+  parts.push(`<text x="${xS(a.medianTime*1.5)}" y="${yS(0.4)}" font-size="10" fill="var(--danger)" font-family="Vazirmatn" opacity=".6" font-weight="700">💰 سرمایه‌سوز</text>`);
+  parts.push(`<text x="${xS(a.medianTime*0.3)}" y="${yS(0.4)}" font-size="10" fill="var(--warning)" font-family="Vazirmatn" opacity=".6" font-weight="700">🎲 شانسی</text>`);
+  parts.push(`<text x="${xS(a.medianTime*1.5)}" y="${yS(0.7)}" font-size="10" fill="var(--info)" font-family="Vazirmatn" opacity=".6" font-weight="700">⚡ کارآمد</text>`);
+  parts.push(`<text x="${xS(a.medianTime*0.3)}" y="${yS(0.7)}" font-size="10" fill="var(--success)" font-family="Vazirmatn" opacity=".6" font-weight="700">✨ سریع</text>`);
+
+  svg.innerHTML = parts.join('');
+}
+
+function renderCalibration(){
+  const svg = $('#calibrationChart');
+  const a = A;
+  const W=300, H=260, P={l:40, r:20, t:20, b:40};
+  const xS = c => P.l + (c/100)*(W-P.l-P.r);
+  const yS = c => H-P.b - c*(H-P.t-P.b);
+
+  const parts = [];
+  for(let i=0;i<=4;i++){
+    const y = P.t + (H-P.t-P.b)*i/4;
+    const x = P.l + (W-P.l-P.r)*i/4;
+    parts.push(`<line x1="${P.l}" x2="${W-P.r}" y1="${y}" y2="${y}" stroke="var(--line)" stroke-width=".5"/>`);
+    parts.push(`<line x1="${x}" x2="${x}" y1="${P.t}" y2="${H-P.b}" stroke="var(--line)" stroke-width=".5"/>`);
+  }
+  parts.push(`<line x1="${xS(0)}" y1="${yS(0)}" x2="${xS(100)}" y2="${yS(1)}" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 3" opacity=".6"/>`);
+  parts.push(`<text x="${xS(80)}" y="${yS(0.9)}" font-size="9" fill="var(--muted)" font-family="Vazirmatn">کالیبراسیون کامل</text>`);
+
+  parts.push(`<line x1="${P.l}" x2="${W-P.r}" y1="${H-P.b}" y2="${H-P.b}" stroke="var(--line-strong)"/>`);
+  parts.push(`<line x1="${P.l}" x2="${P.l}"
