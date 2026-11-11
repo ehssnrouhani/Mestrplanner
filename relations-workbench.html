@@ -221,23 +221,1186 @@ table.heatmap td:hover{outline:2px solid var(--gold);outline-offset:-2px}
 <script src="tool-kit.js"></script>
 <script>
 /* =========================================================
-   موتور ریاضی و داده‌ها (همان کدهای قبلی)
+   ۱) ابزارهای پایه
+   ========================================================= */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const fa = (v,d=2) => isNaN(v) ? '—' : Number(v).toLocaleString('fa-IR',{maximumFractionDigits:d});
+const fmt = (v,d=2) => isNaN(v) ? '—' : Number(v).toFixed(d);
+const PALETTE = ['#2563eb','#dc2626','#059669','#d97706','#7c3aed','#0891b2','#db2777','#65a30d','#c026d3','#0284c7','#ea580c','#16a34a'];
+
+/* =========================================================
+   ۲) موتور ریاضی
    ========================================================= */
 const M = {
   mean: a => a.reduce((s,v)=>s+v,0)/a.length,
   stdev: a => { const m=M.mean(a); return Math.sqrt(a.reduce((s,v)=>s+(v-m)**2,0)/(a.length-1)); },
-  pearson: (x,y) => { /* ... */ },
-  rank: a => { /* ... */ },
+  pearson: (x,y) => {
+    const n = Math.min(x.length,y.length);
+    const mx = M.mean(x.slice(0,n)), my = M.mean(y.slice(0,n));
+    let sxy=0,sxx=0,syy=0;
+    for(let i=0;i<n;i++){
+      if(!isFinite(x[i])||!isFinite(y[i])) continue;
+      const dx=x[i]-mx, dy=y[i]-my; sxy+=dx*dy; sxx+=dx*dx; syy+=dy*dy;
+    }
+    if(sxx===0||syy===0) return NaN;
+    return sxy/Math.sqrt(sxx*syy);
+  },
+  rank: a => {
+    const idx = a.map((v,i)=>[v,i]).sort((p,q)=>p[0]-q[0]);
+    const r = new Array(a.length);
+    let i=0;
+    while(i<idx.length){
+      let j=i;
+      while(j+1<idx.length && idx[j+1][0]===idx[i][0]) j++;
+      const avg = (i+j)/2 + 1;
+      for(let k=i;k<=j;k++) r[idx[k][1]] = avg;
+      i = j+1;
+    }
+    return r;
+  },
   spearman: (x,y) => M.pearson(M.rank(x),M.rank(y)),
-  linreg: (x,y) => { /* ... */ },
-  solve3: (A,b) => { /* ... */ },
-  quadreg: (x,y) => { /* ... */ },
-  halfSplit: (x,y) => { /* ... */ },
-  xThreshold: (x,y) => { /* ... */ },
-  lagCorr: (x,y,maxLag=3) => { /* ... */ }
+  linreg: (x,y) => {
+    const n = Math.min(x.length,y.length);
+    const mx = M.mean(x.slice(0,n)), my = M.mean(y.slice(0,n));
+    let sxy=0,sxx=0,sst=0;
+    for(let i=0;i<n;i++){ if(!isFinite(x[i])||!isFinite(y[i])) continue; sxy+=(x[i]-mx)*(y[i]-my); sxx+=(x[i]-mx)**2; sst+=(y[i]-my)**2; }
+    if(sxx===0) return {slope:NaN,intercept:NaN,r2:NaN,sse:NaN,sst:NaN};
+    const slope = sxy/sxx, intercept = my - slope*mx;
+    let sse=0; for(let i=0;i<n;i++){ if(!isFinite(x[i])||!isFinite(y[i])) continue; sse += (y[i]-(slope*x[i]+intercept))**2; }
+    const r2 = sst===0 ? NaN : 1 - sse/sst;
+    return {slope,intercept,r2,sse,sst};
+  },
+  solve3: (A,b) => {
+    const Mx = A.map((r,i)=>[...r,b[i]]);
+    for(let i=0;i<3;i++){
+      let p=i; for(let r=i+1;r<3;r++) if(Math.abs(Mx[r][i])>Math.abs(Mx[p][i])) p=r;
+      if(Math.abs(Mx[p][i])<1e-12) return null;
+      [Mx[i],Mx[p]]=[Mx[p],Mx[i]];
+      for(let r=i+1;r<3;r++){ const f=Mx[r][i]/Mx[i][i]; for(let c=i;c<4;c++) Mx[r][c]-=f*Mx[i][c]; }
+    }
+    const x=[0,0,0];
+    for(let i=2;i>=0;i--){ let s=Mx[i][3]; for(let c=i+1;c<3;c++) s-=Mx[i][c]*x[c]; x[i]=s/Mx[i][i]; }
+    return x;
+  },
+  quadreg: (x,y) => {
+    const n = Math.min(x.length,y.length);
+    let s1=0,s2=0,s3=0,s4=0,sy=0,sxy=0,sx2y=0;
+    for(let i=0;i<n;i++){
+      if(!isFinite(x[i])||!isFinite(y[i])) continue;
+      const xi=x[i], yi=y[i], x2=xi*xi;
+      s1+=xi; s2+=x2; s3+=x2*xi; s4+=x2*x2;
+      sy+=yi; sxy+=xi*yi; sx2y+=x2*yi;
+    }
+    const A = [[n,s1,s2],[s1,s2,s3],[s2,s3,s4]], b = [sy,sxy,sx2y];
+    const sol = M.solve3(A,b);
+    const my = M.mean(y.slice(0,n));
+    let sst=0; for(let i=0;i<n;i++){ if(!isFinite(y[i])) continue; sst += (y[i]-my)**2; }
+    if(!sol) return {r2:NaN,coef:null,sst};
+    const [a,bq,c] = sol;
+    let sse=0;
+    for(let i=0;i<n;i++){ if(!isFinite(x[i])||!isFinite(y[i])) continue; sse += (y[i]-(a+bq*x[i]+c*x[i]*x[i]))**2; }
+    const r2 = sst===0 ? NaN : 1 - sse/sst;
+    return {r2,coef:sol,sse,sst};
+  },
+  halfSplit: (x,y) => {
+    const n = Math.min(x.length,y.length), h = Math.floor(n/2);
+    const r1 = M.pearson(x.slice(0,h), y.slice(0,h));
+    const r2 = M.pearson(x.slice(h), y.slice(h));
+    return {r1, r2, flip: !isNaN(r1) && !isNaN(r2) && (r1>0)!==(r2>0) && Math.abs(r1)>0.1 && Math.abs(r2)>0.1};
+  },
+  xThreshold: (x,y) => {
+    const n = Math.min(x.length,y.length);
+    if(n < 6) return null;
+    const idx = x.map((_,i)=>i).sort((a,b)=>x[a]-x[b]);
+    const xs = idx.map(i=>x[i]), ys = idx.map(i=>y[i]);
+    const lin = M.linreg(xs,ys);
+    if(isNaN(lin.sst) || lin.sst===0) return null;
+    let best = null;
+    for(let k=2; k<=n-3; k++){
+      const r1 = M.linreg(xs.slice(0,k), ys.slice(0,k));
+      const r2 = M.linreg(xs.slice(k), ys.slice(k));
+      if(isNaN(r1.sse) || isNaN(r2.sse)) continue;
+      const sse = r1.sse + r2.sse;
+      const r2v = 1 - sse/lin.sst;
+      if(!best || r2v > best.r2){
+        best = {k, r2:r2v, slope1:r1.slope, slope2:r2.slope, threshold:xs[k]};
+      }
+    }
+    if(!best) return null;
+    return {...best, linR2:lin.r2, gain: best.r2 - lin.r2,
+      signFlip: Math.abs(best.slope1)>1e-9 && Math.abs(best.slope2)>1e-9 && (best.slope1>0)!==(best.slope2>0)};
+  },
+  lagCorr: (x,y,maxLag=3) => {
+    const n = Math.min(x.length,y.length), out = [];
+    for(let L=-maxLag; L<=maxLag; L++){
+      const xs=[], ys=[];
+      for(let t=0;t<n;t++){
+        const j = t+L;
+        if(j<0||j>=n) continue;
+        if(!isFinite(x[t])||!isFinite(y[j])) continue;
+        xs.push(x[t]); ys.push(y[j]);
+      }
+      if(xs.length < 4) continue;
+      out.push({lag:L, r:M.pearson(xs,ys), n:xs.length});
+    }
+    return out;
+  }
 };
-const SAMPLES = { /* ... */ };
-/* ... بقیه کدهای مربوط به تحلیل، رسم، و رویدادها ... */
+
+/* =========================================================
+   ۳) داده
+   ========================================================= */
+const SAMPLES = {
+  study: {
+    title:'روال مطالعه هفتگی', xLabel:'هفته',
+    nodes:[
+      {id:'study',  name:'ساعت مطالعه', values:[3,4,4,5,6,6,7,8,9,10]},
+      {id:'sleep',  name:'خواب شبانه',  values:[7,7,7.5,7.5,7,7,6.5,6,5.5,5]},
+      {id:'stress', name:'استرس',       values:[5,5,4,4,5,6,7,8,9,9]},
+      {id:'focus',  name:'تمرکز',       values:[4,5,6,7,7,6,5,4,3,2]},
+      {id:'phone',  name:'گوشی (ساعت)', values:[4,3.5,3,2.5,3,4,5,6,7,7.5]},
+      {id:'score',  name:'نمره آزمون',  values:[11,13,15,17,18,17,15,13,11,9]}
+    ],
+    edges:[
+      {from:'study', to:'score',  sign:1,  lag:0},
+      {from:'study', to:'stress', sign:1,  lag:1},
+      {from:'stress',to:'score',  sign:-1, lag:0},
+      {from:'sleep', to:'stress', sign:-1, lag:0},
+      {from:'sleep', to:'focus',  sign:1,  lag:0},
+      {from:'focus', to:'score',  sign:1,  lag:1},
+      {from:'phone', to:'sleep',  sign:-1, lag:0},
+      {from:'phone', to:'focus',  sign:-1, lag:0}
+    ]
+  },
+  feedback: {
+    title:'حلقهٔ بازخورد مثبت — رشد مهارت', xLabel:'دوره',
+    nodes:[
+      {id:'motiv', name:'انگیزه',       values:[3,4,5,6,7,7.5,8,8.5,9,9.2]},
+      {id:'effort',name:'تلاش',         values:[2,3,4,5,6,6.5,7,7.5,8,8.3]},
+      {id:'perf',  name:'عملکرد',       values:[10,12,14,16,18,19,20,21,21.5,22]},
+      {id:'conf',  name:'اعتماد به نفس',values:[4,5,6,7,8,8.5,9,9.3,9.5,9.7]}
+    ],
+    edges:[
+      {from:'motiv', to:'effort', sign:1, lag:0},
+      {from:'effort',to:'perf',   sign:1, lag:1},
+      {from:'perf',  to:'conf',   sign:1, lag:0},
+      {from:'conf',  to:'motiv',  sign:1, lag:1},
+      {from:'perf',  to:'motiv',  sign:1, lag:0}
+    ]
+  },
+  balance: {
+    title:'سیستم متعادل — تنظیم دما', xLabel:'گام',
+    nodes:[
+      {id:'temp', name:'دما',       values:[20,21,22,22.5,22,21,20,19,19.5,20.5]},
+      {id:'heat', name:'گرمایش',    values:[8,7,5,3,2,3,5,7,6,4]},
+      {id:'cool', name:'سرمایش',    values:[2,3,4,5,6,7,7,5,3,2]},
+      {id:'set',  name:'نقطهٔ هدف', values:[21,21,21,21,21,21,21,21,21,21]}
+    ],
+    edges:[
+      {from:'heat', to:'temp', sign:1,  lag:1},
+      {from:'temp', to:'cool', sign:1,  lag:1},
+      {from:'cool', to:'temp', sign:-1, lag:1},
+      {from:'set',  to:'heat', sign:1,  lag:0},
+      {from:'set',  to:'cool', sign:-1, lag:0}
+    ]
+  }
+};
+
+function randomData(){
+  const n = 10;
+  const names = ['A','B','C','D'];
+  const nodes = names.map((nm,i)=>({
+    id:'n'+i, name:'متغیر '+nm,
+    values: Array.from({length:n}, ()=> Math.round((Math.random()*10)*10)/10)
+  }));
+  return {title:'داده تصادفی', xLabel:'گام', nodes, edges:[]};
+}
+
+/* =========================================================
+   ۴) وضعیت
+   ========================================================= */
+const LS_KEY = 'relational-workbench-v1';
+let DATA = null;
+let computed = null;
+let S = {theme:'dark', visible:new Set(), selectedPairs:[], activePair:null, tableMode:'corr', clusterThreshold:0.5};
+
+function save(){
+  try{
+    localStorage.setItem(LS_KEY, JSON.stringify({
+      theme:S.theme, data:DATA, tableMode:S.tableMode,
+      clusterThreshold:S.clusterThreshold,
+      visible:[...S.visible], selectedPairs:S.selectedPairs
+    }));
+  }catch(e){}
+}
+function load(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return false;
+    const o = JSON.parse(raw);
+    if(o.theme) S.theme = o.theme;
+    if(o.data){ const v = validate(o.data); if(v.ok) DATA = o.data; }
+    if(o.tableMode) S.tableMode = o.tableMode;
+    if(typeof o.clusterThreshold==='number') S.clusterThreshold = o.clusterThreshold;
+    if(Array.isArray(o.visible)) S.visible = new Set(o.visible);
+    if(Array.isArray(o.selectedPairs)) S.selectedPairs = o.selectedPairs;
+    return !!DATA;
+  }catch(e){ return false; }
+}
+
+/* =========================================================
+   ۵) اعتبارسنجی
+   ========================================================= */
+function validate(o){
+  if(!o || typeof o!=='object') return {ok:false, err:'داده باید یک شیء باشد.'};
+  if(!Array.isArray(o.nodes) || o.nodes.length<2) return {ok:false, err:'حداقل دو متغیر (node) لازم است.'};
+  const n = o.nodes[0]?.values?.length;
+  if(!n || n<4) return {ok:false, err:'هر متغیر حداقل ۴ مقدار لازم دارد.'};
+  const ids = new Set();
+  for(const nd of o.nodes){
+    if(!nd.id || typeof nd.id!=='string') return {ok:false, err:'هر متغیر باید id داشته باشد.'};
+    if(ids.has(nd.id)) return {ok:false, err:`id تکراری: ${nd.id}`};
+    ids.add(nd.id);
+    if(!nd.name) return {ok:false, err:`متغیر ${nd.id}: نام لازم است.`};
+    if(!Array.isArray(nd.values) || nd.values.length!==n) return {ok:false, err:`متغیر ${nd.name}: تعداد مقادیر باید ${n} باشد.`};
+    for(const v of nd.values) if(!isFinite(v)) return {ok:false, err:`متغیر ${nd.name}: مقدار نامعتبر (${v}).`};
+  }
+  if(!Array.isArray(o.edges)) o.edges = [];
+  for(const e of o.edges){
+    if(!ids.has(e.from) || !ids.has(e.to)) return {ok:false, err:`یال نامعتبر: ${e.from} → ${e.to}`};
+    if(e.sign !== 1 && e.sign !== -1) return {ok:false, err:'علامت یال باید +1 یا -1 باشد.'};
+  }
+  return {ok:true};
+}
+
+/* =========================================================
+   ۶) تحلیل
+   ========================================================= */
+function analyze(){
+  if(!DATA) return;
+  const nodes = DATA.nodes;
+  const n = nodes[0].values.length;
+  const edges = DATA.edges || [];
+
+  const nodeStats = {};
+  nodes.forEach(nd=>{
+    const v = nd.values;
+    const max = Math.max(...v), min = Math.min(...v);
+    nodeStats[nd.id] = {
+      mean: M.mean(v), stdev: M.stdev(v),
+      max, min, maxIdx: v.indexOf(max), minIdx: v.indexOf(min),
+      range: max-min
+    };
+  });
+
+  const pairs = [];
+  for(let i=0;i<nodes.length;i++){
+    for(let j=i+1;j<nodes.length;j++){
+      const A = nodes[i], B = nodes[j];
+      const x = A.values, y = B.values;
+      const r = M.pearson(x,y);
+      const rho = M.spearman(x,y);
+      const lin = M.linreg(x,y);
+      const quad = M.quadreg(x,y);
+      const half = M.halfSplit(x,y);
+      const thr = M.xThreshold(x,y);
+      const lag = M.lagCorr(x,y,3);
+      const edge = edges.find(e =>
+        (e.from===A.id && e.to===B.id) || (e.from===B.id && e.to===A.id));
+      pairs.push({a:A.id, b:B.id, r, rho, lin, quad, half, thr, lag, edge});
+    }
+  }
+
+  const corr = nodes.map((a)=>nodes.map((b)=> a.id===b.id?1:M.pearson(a.values,b.values)));
+  const corrS = nodes.map((a)=>nodes.map((b)=> a.id===b.id?1:M.spearman(a.values,b.values)));
+
+  const cycles = findCycles(nodes, edges);
+  const clusters = cluster(nodes, corr, S.clusterThreshold);
+
+  computed = {nodes, edges, pairs, corr, corrS, cycles, clusters, nodeStats, n};
+}
+
+function findEdge(edges, a, b){
+  return edges.find(e => (e.from===a && e.to===b) || (e.from===b && e.to===a));
+}
+
+function findCycles(nodes, edges){
+  const adj = {};
+  nodes.forEach(n=>adj[n.id]=[]);
+  edges.forEach(e=>{ if(adj[e.from]) adj[e.from].push({to:e.to, sign:e.sign, lag:e.lag||0}); });
+  const cycles = [];
+  const seen = new Set();
+  function dfs(start, cur, path, signs, lags, visited){
+    for(const nxt of adj[cur]||[]){
+      if(nxt.to===start && path.length>=2){
+        const cycleKey = [...path].sort().join('|') + ':' + path.length;
+        if(!seen.has(cycleKey)){
+          seen.add(cycleKey);
+          const allSigns = [...signs, nxt.sign];
+          const negCount = allSigns.filter(s=>s<0).length;
+          cycles.push({
+            nodes:[...path],
+            signs: allSigns,
+            lags: [...lags, nxt.lag],
+            type: negCount % 2 === 0 ? 'reinforcing' : 'balancing',
+            totalLag: [...lags, nxt.lag].reduce((s,v)=>s+v,0)
+          });
+        }
+      } else if(!visited.has(nxt.to) && path.length < nodes.length){
+        visited.add(nxt.to); path.push(nxt.to); signs.push(nxt.sign); lags.push(nxt.lag||0);
+        dfs(start, nxt.to, path, signs, lags, visited);
+        path.pop(); signs.pop(); lags.pop(); visited.delete(nxt.to);
+      }
+    }
+  }
+  nodes.forEach(n=>dfs(n.id, n.id, [n.id], [], [], new Set([n.id])));
+  return cycles;
+}
+
+function cluster(nodes, corr, threshold){
+  const n = nodes.length;
+  let clusters = nodes.map((_,i)=>({members:[i]}));
+  const dist = (i,j) => 1 - corr[i][j];
+  let guard = 0;
+  while(clusters.length > 1 && guard++ < 100){
+    let best = null;
+    for(let a=0;a<clusters.length;a++){
+      for(let b=a+1;b<clusters.length;b++){
+        let sum=0, cnt=0;
+        for(const i of clusters[a].members) for(const j of clusters[b].members){ sum+=dist(i,j); cnt++; }
+        const d = sum/cnt;
+        if(!best || d < best.d) best = {a,b,d};
+      }
+    }
+    if(!best || best.d > threshold) break;
+    const merged = {members:[...clusters[best.a].members, ...clusters[best.b].members]};
+    clusters = clusters.filter((_,i)=> i!==best.a && i!==best.b);
+    clusters.push(merged);
+  }
+  return clusters;
+}
+
+/* =========================================================
+   ۷) طبقه‌بندی جفت
+   ========================================================= */
+function classifyPair(p){
+  const tags = [];
+  const r = p.r, rho = p.rho;
+  if(isNaN(r)){ tags.push({t:'داده ناکافی', c:'none'}); return tags; }
+  const absR = Math.abs(r);
+
+  if(absR >= 0.7) tags.push({t: r>0?'مستقیم قوی':'معکوس قوی', c:'strong'});
+  else if(absR >= 0.4) tags.push({t: r>0?'مستقیم متوسط':'معکوس متوسط', c:'med'});
+  else if(absR >= 0.2) tags.push({t: r>0?'مستقیم ضعیف':'معکوس ضعیف', c:'weak'});
+  else tags.push({t:'بی‌ارتباط', c:'none'});
+
+  const gainQ = p.quad.r2 - p.lin.r2;
+  if(gainQ > 0.12) tags.push({t:'غیرخطی (درجه۲)', c:'nl'});
+  if(!isNaN(rho) && Math.abs(rho) - absR > 0.2) tags.push({t:'غیرخطی یکنوا', c:'nl'});
+
+  if(p.thr && p.thr.gain > 0.12){
+    tags.push({t:`آستانه در ${fmt(p.thr.threshold)}`, c:'thr'});
+    if(p.thr.signFlip) tags.push({t:'تغییر علامت شیب', c:'flip'});
+  }
+
+  if(p.half.flip) tags.push({t:'متناقض (تغییر رژیم)', c:'par'});
+
+  if(p.edge){
+    if(p.edge.sign !== Math.sign(r) && Math.abs(r) > 0.15) tags.push({t:'مغایر با فرض علّی', c:'par'});
+    else if(p.edge.sign === Math.sign(r)) tags.push({t:'هم‌راستا با فرض', c:'ok'});
+  }
+
+  return tags;
+}
+
+/* =========================================================
+   ۸) رندر نمودار خطی
+   ========================================================= */
+function renderLine(){
+  const svg = $('#lineChart');
+  const legend = $('#lineLegend');
+  if(!DATA){ svg.innerHTML = ''; legend.innerHTML = ''; return; }
+
+  const nodes = DATA.nodes;
+  const n = nodes[0].values.length;
+  const W = 980, H = 460;
+  const P = {l:58, r:24, t:26, b:52};
+
+  const visible = nodes.filter(nd => S.visible.has(nd.id));
+  legend.innerHTML = nodes.map((nd,i)=>{
+    const color = PALETTE[i%PALETTE.length];
+    const on = S.visible.has(nd.id);
+    return `<span class="legend-item ${on?'':'off'}" data-toggle="${nd.id}">
+      <span class="legend-dot" style="background:${color}"></span>${nd.name}</span>`;
+  }).join('');
+
+  if(!visible.length){
+    svg.innerHTML = `<text x="${W/2}" y="${H/2}" class="axis-label" text-anchor="middle">همهٔ سری‌ها پنهان‌اند. از برچسب‌ها یکی را فعال کنید.</text>`;
+    return;
+  }
+
+  const allVals = visible.flatMap(nd=>nd.values);
+  let yMin = Math.min(...allVals), yMax = Math.max(...allVals);
+  const pad = (yMax-yMin)*0.08 || 1;
+  yMin -= pad; yMax += pad;
+
+  const xS = i => P.l + (i/(n-1)) * (W-P.l-P.r);
+  const yS = v => H-P.b - ((v-yMin)/(yMax-yMin)) * (H-P.t-P.b);
+
+  const parts = [];
+
+  const ticks = 5;
+  for(let t=0;t<=ticks;t++){
+    const v = yMin + (yMax-yMin)*t/ticks;
+    const y = yS(v);
+    parts.push(`<line class="grid-line" x1="${P.l}" x2="${W-P.r}" y1="${y}" y2="${y}"/>`);
+    parts.push(`<text class="axis-label" x="${P.l-10}" y="${y+4}" text-anchor="end">${fa(v,1)}</text>`);
+  }
+  for(let i=0;i<n;i++){
+    parts.push(`<text class="axis-label" x="${xS(i)}" y="${H-P.b+20}" text-anchor="middle">${fa(i+1,0)}</text>`);
+  }
+  parts.push(`<line class="axis-line" x1="${P.l}" x2="${W-P.r}" y1="${H-P.b}" y2="${H-P.b}"/>`);
+  parts.push(`<line class="axis-line" x1="${P.l}" x2="${P.l}" y1="${P.t}" y2="${H-P.b}"/>`);
+  parts.push(`<text class="axis-label" x="${W/2}" y="${H-10}" text-anchor="middle">${DATA.xLabel||'گام'}</text>`);
+
+  visible.forEach(nd=>{
+    const idx = nodes.indexOf(nd);
+    const color = PALETTE[idx%PALETTE.length];
+    let d = '';
+    nd.values.forEach((v,i)=>{ d += (i?'L':'M') + xS(i) + ',' + yS(v) + ' '; });
+    parts.push(`<path d="${d}" fill="none" stroke="${color}" stroke-width="2.2" stroke-linejoin="round"/>`);
+    nd.values.forEach((v,i)=>{
+      parts.push(`<circle cx="${xS(i)}" cy="${yS(v)}" r="3.3" fill="${color}" stroke="var(--panel)" stroke-width="1.4"/>`);
+    });
+    const st = computed.nodeStats[nd.id];
+    if(st){
+      parts.push(`<circle cx="${xS(st.maxIdx)}" cy="${yS(st.max)}" r="6" fill="none" stroke="${color}" stroke-width="2" opacity=".55"/>`);
+      parts.push(`<circle cx="${xS(st.minIdx)}" cy="${yS(st.min)}" r="6" fill="none" stroke="${color}" stroke-width="2" opacity=".55"/>`);
+    }
+  });
+
+  svg.innerHTML = parts.join('');
+}
+
+function renderLineStats(){
+  const body = $('#lineStatsBody');
+  if(!computed){ body.innerHTML = ''; return; }
+  body.innerHTML = computed.nodes.map(nd=>{
+    const st = computed.nodeStats[nd.id];
+    return `<tr>
+      <td>${nd.name}</td>
+      <td class="num">${fa(st.mean)}</td>
+      <td class="num">${fa(st.stdev)}</td>
+      <td class="num">${fa(st.min)} <span class="muted">(گام ${fa(st.minIdx+1,0)})</span></td>
+      <td class="num">${fa(st.max)} <span class="muted">(گام ${fa(st.maxIdx+1,0)})</span></td>
+      <td class="num">${fa(st.range)}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* =========================================================
+   ۹) رندر جدول
+   ========================================================= */
+function renderTable(){
+  const wrap = $('#tableWrap');
+  if(!computed){ wrap.innerHTML = ''; return; }
+  const mode = S.tableMode;
+  const nodes = computed.nodes;
+  const n = computed.n;
+
+  if(mode === 'raw'){
+    let html = '<table class="grid"><thead><tr><th>گام</th>' +
+      nodes.map(nd=>`<th>${nd.name}</th>`).join('') + '</tr></thead><tbody>';
+    for(let i=0;i<n;i++){
+      html += `<tr><td class="num">${fa(i+1,0)}</td>`;
+      nodes.forEach(nd=>{
+        const v = nd.values[i];
+        const st = computed.nodeStats[nd.id];
+        const isMax = i===st.maxIdx, isMin = i===st.minIdx;
+        const style = isMax?'color:var(--ok);font-weight:700':isMin?'color:var(--bad);font-weight:700':'';
+        html += `<td class="num" style="${style}">${fa(v)}</td>`;
+      });
+      html += '</tr>';
+    }
+    html += '</tbody></table>';
+    wrap.innerHTML = html;
+    return;
+  }
+
+  const mat = mode==='corr' ? computed.corr : computed.corrS;
+  const dark = S.theme==='dark';
+  const corrColor = r => {
+    if(isNaN(r)) return 'transparent';
+    const t = Math.max(-1, Math.min(1, r));
+    const mid = dark ? [30,41,54] : [241,245,249];
+    const pos = [59,130,246], neg = [220,38,38];
+    const target = t>=0 ? pos : neg;
+    const u = Math.abs(t);
+    const c = mid.map((m,i)=> Math.round(m + (target[i]-m)*u));
+    return `rgb(${c.join(',')})`;
+  };
+
+  let html = '<table class="grid" style="min-width:auto"><thead><tr><th></th>' +
+    nodes.map(nd=>`<th>${nd.name}</th>`).join('') + '</tr></thead><tbody>';
+  nodes.forEach((nd,i)=>{
+    html += `<tr><th style="text-align:right;padding-right:10px;font-weight:600">${nd.name}</th>`;
+    nodes.forEach((_,j)=>{
+      const r = mat[i][j];
+      const bg = corrColor(r);
+      const color = Math.abs(r) > 0.55 ? '#fff' : 'var(--ink)';
+      html += `<td class="num" style="background:${bg};color:${color};padding:8px 6px;font-weight:${i===j?'700':'400'}">${i===j?'1':fmt(r)}</td>`;
+    });
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  wrap.innerHTML = html;
+}
+
+/* =========================================================
+   ۱۰) رندر چرخه
+   ========================================================= */
+function renderCycle(){
+  const svg = $('#cycleChart');
+  const edgeList = $('#edgeList');
+  const cycleList = $('#cycleList');
+  if(!computed){ svg.innerHTML=''; edgeList.innerHTML=''; cycleList.innerHTML=''; return; }
+
+  const nodes = computed.nodes;
+  const edges = computed.edges;
+  const n = nodes.length;
+
+  const W = 640, H = 640;
+  const cx = W/2, cy = H/2, R = Math.min(W,H)/2 - 80;
+
+  const pos = {};
+  nodes.forEach((nd,i)=>{
+    const ang = -Math.PI/2 + i*2*Math.PI/n;
+    pos[nd.id] = {x: cx + R*Math.cos(ang), y: cy + R*Math.sin(ang)};
+  });
+
+  const pairCount = {};
+  edges.forEach(e=>{
+    const key = [e.from,e.to].sort().join('|');
+    pairCount[key] = (pairCount[key]||0)+1;
+  });
+
+  const parts = [];
+  parts.push(`<defs>
+    <marker id="arrow-pos" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--ok)"/></marker>
+    <marker id="arrow-neg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--bad)"/></marker>
+  </defs>`);
+
+  edges.forEach(e=>{
+    const A = pos[e.from], B = pos[e.to];
+    if(!A || !B) return;
+    const key = [e.from,e.to].sort().join('|');
+    const bi = (pairCount[key]||0) > 1;
+
+    const mx = (A.x+B.x)/2, my = (A.y+B.y)/2;
+    const dx = mx-cx, dy = my-cy, len = Math.hypot(dx,dy)||1;
+    const off = bi ? 34 : 20;
+    const sign = e.from < e.to ? 1 : -1;
+    const qx = mx + (-dy/len)*off*sign;
+    const qy = my + (dx/len)*off*sign;
+
+    const nodeR = 24;
+    const dAB = Math.hypot(B.x-A.x, B.y-A.y) || 1;
+    const ux = (B.x-A.x)/dAB, uy = (B.y-A.y)/dAB;
+    const ax = A.x + ux*nodeR, ay = A.y + uy*nodeR;
+    const bx = B.x - ux*nodeR, by = B.y - uy*nodeR;
+
+    const color = e.sign > 0 ? 'var(--ok)' : 'var(--bad)';
+    const dash = (e.lag||0) > 0 ? 'stroke-dasharray="6 4"' : '';
+    const marker = e.sign > 0 ? 'arrow-pos' : 'arrow-neg';
+
+    parts.push(`<path d="M${ax},${ay} Q${qx},${qy} ${bx},${by}" fill="none" stroke="${color}" stroke-width="2" marker-end="url(#${marker})" ${dash}/>`);
+
+    const lx = ((ax+bx)/2)*0.35 + qx*0.65;
+    const ly = ((ay+by)/2)*0.35 + qy*0.65;
+    const lbl = (e.sign>0?'+':'−') + ((e.lag||0) ? ' t+' + fa(e.lag,0) : '');
+    parts.push(`<text x="${lx}" y="${ly}" class="edge-label">${lbl}</text>`);
+  });
+
+  nodes.forEach((nd,i)=>{
+    const p = pos[nd.id];
+    const color = PALETTE[i%PALETTE.length];
+    parts.push(`<circle cx="${p.x}" cy="${p.y}" r="24" fill="${color}" stroke="var(--panel)" stroke-width="3"/>`);
+    parts.push(`<text x="${p.x}" y="${p.y+4}" class="node-label" style="fill:#fff;font-size:11px" text-anchor="middle">${fa(i+1,0)}</text>`);
+    parts.push(`<text x="${p.x}" y="${p.y+38}" class="node-label">${nd.name}</text>`);
+  });
+
+  svg.innerHTML = parts.join('');
+
+  const edgeHtml = edges.length ? edges.map(e=>{
+    const A = nodes.find(x=>x.id===e.from), B = nodes.find(x=>x.id===e.to);
+    const p = computed.pairs.find(pp => (pp.a===e.from && pp.b===e.to) || (pp.a===e.to && pp.b===e.from));
+    const obs = p ? p.r : NaN;
+    const consistent = !isNaN(obs) && Math.sign(obs) === e.sign;
+    return `<div class="edge-row">
+      <div>${A.name} <span class="arrow">→</span> ${B.name} ${e.lag?`<span class="muted" style="font-size:10px">(تأخیر ${fa(e.lag,0)})</span>`:''}</div>
+      <div><span class="sig ${e.sign>0?'pos':'neg'}">${e.sign>0?'+':'−'} · مشاهده ${fmt(obs)}</span>
+      ${!isNaN(obs) && !consistent ? '<span class="chip par" style="margin-right:4px">مغایر</span>' : ''}</div>
+    </div>`;
+  }).join('') : '<div class="muted" style="text-align:center;padding:14px">یال علّی ثبت نشده. از تب «داده» می‌توانید اضافه کنید.</div>';
+  edgeList.innerHTML = edgeHtml;
+  $('#edgeCount').textContent = fa(edges.length);
+
+  if(!computed.cycles.length){
+    cycleList.innerHTML = '<div class="muted" style="text-align:center;padding:14px">حلقه‌ای شناسایی نشد.</div>';
+  } else {
+    cycleList.innerHTML = computed.cycles.map(c=>{
+      const names = c.nodes.map(id => nodes.find(n=>n.id===id)?.name || id).join(' → ');
+      const typeLabel = c.type==='reinforcing' ? 'تقویت‌کننده (واگرا)' : 'متعادل‌کننده (همگرا)';
+      return `<div class="cycle-row ${c.type}">
+        <div class="title">${typeLabel}</div>
+        <div>${names} → ${nodes.find(n=>n.id===c.nodes[0])?.name}</div>
+        <div class="muted" style="font-size:10.5px;margin-top:3px">علامت‌ها: ${c.signs.map(s=>s>0?'+':'−').join(' ')} · تأخیر کل: ${fa(c.totalLag,0)}</div>
+      </div>`;
+    }).join('');
+  }
+}
+
+/* =========================================================
+   ۱۱) رندر خوشه
+   ========================================================= */
+function renderCluster(){
+  if(!computed){ $('#heatmapWrap').innerHTML=''; $('#clusterCards').innerHTML=''; return; }
+  const {nodes, corr, clusters} = computed;
+
+  const order = [];
+  clusters.forEach(cl => cl.members.forEach(i=>order.push(i)));
+  const orderedCorr = order.map(i => order.map(j => corr[i][j]));
+  const orderedNodes = order.map(i => nodes[i]);
+
+  const dark = S.theme==='dark';
+  const corrColor = r => {
+    if(isNaN(r)) return 'transparent';
+    const t = Math.max(-1, Math.min(1, r));
+    const mid = dark ? [30,41,54] : [241,245,249];
+    const pos = [59,130,246], neg = [220,38,38];
+    const target = t>=0 ? pos : neg;
+    const u = Math.abs(t);
+    const c = mid.map((m,i)=> Math.round(m + (target[i]-m)*u));
+    return `rgb(${c.join(',')})`;
+  };
+
+  let html = '<table class="heatmap"><thead><tr><th></th>' +
+    orderedNodes.map(nd=>`<th style="writing-mode:vertical-rl;transform:rotate(180deg);padding:8px 2px">${nd.name}</th>`).join('') + '</tr></thead><tbody>';
+  orderedNodes.forEach((nd,i)=>{
+    html += `<tr><th class="rowh">${nd.name}</th>`;
+    orderedCorr[i].forEach((r,j)=>{
+      const bg = corrColor(r);
+      const color = Math.abs(r) > 0.55 ? '#fff' : 'var(--ink)';
+      html += `<td style="background:${bg};color:${color}">${i===j?'':fmt(r)}</td>`;
+    });
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  $('#heatmapWrap').innerHTML = html;
+
+  $('#clusterCards').innerHTML = clusters.map((cl,ci)=>{
+    const members = cl.members.map(i=>nodes[i]);
+    let withinSum = 0, cnt = 0;
+    for(const i of cl.members) for(const j of cl.members) if(i<j){ withinSum += corr[i][j]; cnt++; }
+    const withinR = cnt ? withinSum/cnt : NaN;
+    return `<div class="cluster-card">
+      <h4><span class="dot" style="background:${PALETTE[ci%PALETTE.length]}"></span>خوشهٔ ${fa(ci+1,0)} <span class="muted" style="font-size:10.5px;font-weight:400">(${fa(members.length,0)} عضو، میانگین r درون‌خوشه ${fmt(withinR)})</span></h4>
+      <ul>${members.map(m=>`<li>${m.name}</li>`).join('')}</ul>
+    </div>`;
+  }).join('');
+}
+
+/* =========================================================
+   ۱۲) رندر تحلیل
+   ========================================================= */
+function renderAnalysis(){
+  const body = $('#analysisBody');
+  if(!computed){ body.innerHTML = ''; return; }
+
+  const q = ($('#analysisSearch').value || '').trim().toLowerCase();
+  const sortBy = $('#analysisSort').value;
+  const filterBy = $('#analysisFilter').value;
+
+  let pairs = computed.pairs.slice();
+
+  if(q){
+    pairs = pairs.filter(p=>{
+      const A = computed.nodes.find(n=>n.id===p.a).name;
+      const B = computed.nodes.find(n=>n.id===p.b).name;
+      return (A+B).toLowerCase().includes(q) || classifyPair(p).some(t=>t.t.includes(q));
+    });
+  }
+
+  if(filterBy === 'paradox') pairs = pairs.filter(p => p.half.flip || (p.edge && Math.sign(p.r)!==p.edge.sign));
+  if(filterBy === 'nonlinear') pairs = pairs.filter(p => (p.quad.r2 - p.lin.r2) > 0.12);
+  if(filterBy === 'threshold') pairs = pairs.filter(p => p.thr && p.thr.gain > 0.12);
+  if(filterBy === 'causal') pairs = pairs.filter(p => p.edge);
+
+  const sorters = {
+    absR: (a,b)=> Math.abs(b.r)-Math.abs(a.r),
+    r: (a,b)=> b.r-a.r,
+    name: (a,b)=> {
+      const an = computed.nodes.find(n=>n.id===a.a).name + computed.nodes.find(n=>n.id===a.b).name;
+      const bn = computed.nodes.find(n=>n.id===b.a).name + computed.nodes.find(n=>n.id===b.b).name;
+      return an.localeCompare(bn,'fa');
+    },
+    gain: (a,b)=> (b.quad.r2-b.lin.r2)-(a.quad.r2-a.lin.r2),
+    thr: (a,b)=> ((b.thr?.gain||0)-(a.thr?.gain||0))
+  };
+  pairs.sort(sorters[sortBy] || sorters.absR);
+
+  if(!pairs.length){
+    body.innerHTML = '<tr><td colspan="9"><div class="muted" style="text-align:center;padding:18px">جفتی با این فیلتر پیدا نشد.</div></td></tr>';
+    return;
+  }
+
+  body.innerHTML = pairs.map((p,i)=>{
+    const A = computed.nodes.find(n=>n.id===p.a).name;
+    const B = computed.nodes.find(n=>n.id===p.b).name;
+    const tags = classifyPair(p);
+    const gainQ = p.quad.r2 - p.lin.r2;
+    return `<tr data-pair="${p.a}|${p.b}">
+      <td class="num">${fa(i+1,0)}</td>
+      <td>${A} <span class="muted">↔</span> ${B}</td>
+      <td class="num" style="font-weight:700;color:${p.r>0?'var(--ok)':'var(--bad)'}">${fmt(p.r)}</td>
+      <td class="num">${fmt(p.rho)}</td>
+      <td class="num">${fmt(p.lin.r2)}</td>
+      <td class="num">${fmt(p.quad.r2)}</td>
+      <td class="num" style="color:${gainQ>0.12?'var(--violet)':'var(--muted)'}">${gainQ>0?'+':''}${fmt(gainQ)}</td>
+      <td>${tags.map(t=>`<span class="chip ${t.c}">${t.t}</span>`).join('')}</td>
+      <td><button class="btn sm ghost" data-detail="${p.a}|${p.b}">جزئیات</button></td>
+    </tr>`;
+  }).join('');
+}
+
+/* =========================================================
+   ۱۳) رندر مقایسه
+   ========================================================= */
+function renderCompare(){
+  if(!computed){ return; }
+  const grid = $('#compareGrid');
+  const bars = $('#compareBars');
+
+  if(!S.selectedPairs.length){
+    grid.innerHTML = '<div class="card muted" style="text-align:center;padding:30px">هنوز جفتی برای مقایسه انتخاب نشده. از منوی بالا اضافه کنید.</div>';
+    bars.innerHTML = '';
+    return;
+  }
+
+  const selected = S.selectedPairs.map(key=>{
+    const [a,b] = key.split('|');
+    return computed.pairs.find(p => (p.a===a && p.b===b) || (p.a===b && p.b===a));
+  }).filter(Boolean);
+
+  const maxAbsR = Math.max(...selected.map(p=>Math.abs(p.r)), 0.01);
+  bars.innerHTML = selected.map(p=>{
+    const A = computed.nodes.find(n=>n.id===p.a).name;
+    const B = computed.nodes.find(n=>n.id===p.b).name;
+    const w = (Math.abs(p.r)/maxAbsR)*100;
+    const color = p.r>0 ? 'var(--ok)' : 'var(--bad)';
+    return `<div class="bar-row">
+      <div>${A} ↔ ${B}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${w}%;background:${color}"></div></div>
+      <div class="bar-val">${fmt(p.r)}</div>
+    </div>`;
+  }).join('');
+
+  grid.innerHTML = selected.map(p=>miniScatter(p)).join('');
+}
+
+function miniScatter(p){
+  const A = computed.nodes.find(n=>n.id===p.a);
+  const B = computed.nodes.find(n=>n.id===p.b);
+  const x = A.values, y = B.values;
+  const W = 320, H = 250;
+  const P = {l:44, r:14, t:16, b:36};
+  const xMin = Math.min(...x), xMax = Math.max(...x);
+  const yMin = Math.min(...y), yMax = Math.max(...y);
+  const padX = (xMax-xMin)*0.06 || 1, padY = (yMax-yMin)*0.06 || 1;
+  const x0 = xMin-padX, x1 = xMax+padX, y0 = yMin-padY, y1 = yMax+padY;
+  const xS = v => P.l + (v-x0)/(x1-x0) * (W-P.l-P.r);
+  const yS = v => H-P.b - (v-y0)/(y1-y0) * (H-P.t-P.b);
+
+  const parts = [];
+  if(p.thr && p.thr.gain > 0.12){
+    const tx = xS(p.thr.threshold);
+    parts.push(`<line x1="${tx}" y1="${P.t}" x2="${tx}" y2="${H-P.b}" stroke="var(--warn)" stroke-width="1.5" stroke-dasharray="4 3" opacity=".8"/>`);
+  }
+  x.forEach((xi,i)=>{
+    if(!isFinite(xi)||!isFinite(y[i])) return;
+    parts.push(`<circle cx="${xS(xi)}" cy="${yS(y[i])}" r="3.6" fill="var(--gold)" opacity=".7"/>`);
+  });
+  if(!isNaN(p.lin.slope)){
+    parts.push(`<line x1="${xS(x0)}" y1="${yS(p.lin.slope*x0+p.lin.intercept)}" x2="${xS(x1)}" y2="${yS(p.lin.slope*x1+p.lin.intercept)}" stroke="var(--gold)" stroke-width="2"/>`);
+  }
+  if(p.quad.coef){
+    const [a,b,c] = p.quad.coef;
+    let d = '';
+    for(let t=0;t<=40;t++){
+      const xv = x0 + (x1-x0)*t/40;
+      const yv = a + b*xv + c*xv*xv;
+      d += (t?'L':'M') + xS(xv) + ',' + yS(yv) + ' ';
+    }
+    parts.push(`<path d="${d}" fill="none" stroke="var(--violet)" stroke-width="1.8" stroke-dasharray="5 4"/>`);
+  }
+  parts.push(`<line x1="${P.l}" y1="${H-P.b}" x2="${W-P.r}" y2="${H-P.b}" stroke="var(--line-strong)"/>`);
+  parts.push(`<line x1="${P.l}" y1="${P.t}" x2="${P.l}" y2="${H-P.b}" stroke="var(--line-strong)"/>`);
+  parts.push(`<text x="${(P.l+W-P.r)/2}" y="${H-8}" class="axis-label" text-anchor="middle">${A.name}</text>`);
+  parts.push(`<text x="12" y="${(P.t+H-P.b)/2}" class="axis-label" text-anchor="middle" transform="rotate(-90 12 ${(P.t+H-P.b)/2})">${B.name}</text>`);
+
+  const tags = classifyPair(p);
+  return `<div class="mini-card">
+    <h4>${A.name} ↔ ${B.name}</h4>
+    <svg viewBox="0 0 ${W} ${H}">${parts.join('')}</svg>
+    <div class="stats">
+      <span>r <b>${fmt(p.r)}</b></span>
+      <span>ρ <b>${fmt(p.rho)}</b></span>
+      <span>R²<sub>lin</sub> <b>${fmt(p.lin.r2)}</b></span>
+      <span>R²<sub>quad</sub> <b>${fmt(p.quad.r2)}</b></span>
+    </div>
+    <div style="margin-top:5px">${tags.map(t=>`<span class="chip ${t.c}">${t.t}</span>`).join('')}</div>
+  </div>`;
+}
+
+/* =========================================================
+   ۱۴) جزئیات جفت (مودال)
+   ========================================================= */
+function openPairDetail(key){
+  const [a,b] = key.split('|');
+  const p = computed.pairs.find(x => (x.a===a && x.b===b) || (x.a===b && x.b===a));
+  if(!p) return;
+  S.activePair = p;
+
+  const A = computed.nodes.find(n=>n.id===p.a);
+  const B = computed.nodes.find(n=>n.id===p.b);
+
+  const bestLag = p.lag.reduce((best,l)=> (!best || Math.abs(l.r)>Math.abs(best.r)) ? l : best, null);
+  const gainQ = p.quad.r2 - p.lin.r2;
+  const tags = classifyPair(p);
+
+  $('#modalTitle').textContent = `${A.name} ↔ ${B.name}`;
+  $('#modalBody').innerHTML = `
+    <div style="display:flex;justify-content:center">${miniScatterBig(p)}</div>
+    <div class="metrics-grid">
+      <div class="metric"><b>${fmt(p.r)}</b><span>پیرسون (r)</span></div>
+      <div class="metric"><b>${fmt(p.rho)}</b><span>اسپیرمن (ρ)</span></div>
+      <div class="metric"><b>${fmt(p.lin.r2)}</b><span>R² خطی</span></div>
+      <div class="metric"><b>${fmt(p.quad.r2)}</b><span>R² درجه ۲</span></div>
+      <div class="metric"><b>${gainQ>0?'+':''}${fmt(gainQ)}</b><span>سود غیرخطی</span></div>
+      <div class="metric"><b>${p.thr ? fmt(p.thr.threshold) : '—'}</b><span>آستانه (x)</span></div>
+      <div class="metric"><b>${p.half.flip ? 'بله' : 'خیر'}</b><span>تغییر رژیم</span></div>
+      <div class="metric"><b>${bestLag ? (bestLag.lag>0?'+':'')+fa(bestLag.lag,0) : '—'}</b><span>تأخیر بهینه</span></div>
+    </div>
+    <div style="margin-top:10px">${tags.map(t=>`<span class="chip ${t.c}">${t.t}</span>`).join('')}</div>
+    <div class="interpret">${interpretPair(p)}</div>
+  `;
+  $('#modal').hidden = false;
+}
+
+function miniScatterBig(p){
+  const A = computed.nodes.find(n=>n.id===p.a);
+  const B = computed.nodes.find(n=>n.id===p.b);
+  const x = A.values, y = B.values;
+  const W = 760, H = 360;
+  const P = {l:56, r:20, t:20, b:44};
+  const xMin = Math.min(...x), xMax = Math.max(...x);
+  const yMin = Math.min(...y), yMax = Math.max(...y);
+  const padX = (xMax-xMin)*0.06||1, padY = (yMax-yMin)*0.06||1;
+  const x0=xMin-padX, x1=xMax+padX, y0=yMin-padY, y1=yMax+padY;
+  const xS = v => P.l + (v-x0)/(x1-x0)*(W-P.l-P.r);
+  const yS = v => H-P.b - (v-y0)/(y1-y0)*(H-P.t-P.b);
+
+  const parts = [];
+  if(p.thr && p.thr.gain > 0.12){
+    parts.push(`<line x1="${xS(p.thr.threshold)}" y1="${P.t}" x2="${xS(p.thr.threshold)}" y2="${H-P.b}" stroke="var(--warn)" stroke-width="1.8" stroke-dasharray="5 4"/>`);
+    parts.push(`<text x="${xS(p.thr.threshold)+4}" y="${P.t+12}" class="axis-label" style="fill:var(--warn)">آستانه ${fmt(p.thr.threshold)}</text>`);
+  }
+  x.forEach((xi,i)=>{
+    if(!isFinite(xi)||!isFinite(y[i])) return;
+    parts.push(`<circle cx="${xS(xi)}" cy="${yS(y[i])}" r="5" fill="var(--gold)" opacity=".75"/>`);
+  });
+  if(!isNaN(p.lin.slope)){
+    parts.push(`<line x1="${xS(x0)}" y1="${yS(p.lin.slope*x0+p.lin.intercept)}" x2="${xS(x1)}" y2="${yS(p.lin.slope*x1+p.lin.intercept)}" stroke="var(--gold)" stroke-width="2.2"/>`);
+  }
+  if(p.quad.coef){
+    const [a,b,c] = p.quad.coef;
+    let d = '';
+    for(let t=0;t<=60;t++){
+      const xv = x0+(x1-x0)*t/60;
+      d += (t?'L':'M') + xS(xv) + ',' + yS(a+b*xv+c*xv*xv) + ' ';
+    }
+    parts.push(`<path d="${d}" fill="none" stroke="var(--violet)" stroke-width="2" stroke-dasharray="6 4"/>`);
+  }
+  parts.push(`<line x1="${P.l}" y1="${H-P.b}" x2="${W-P.r}" y2="${H-P.b}" stroke="var(--line-strong)"/>`);
+  parts.push(`<line x1="${P.l}" y1="${P.t}" x2="${P.l}" y2="${H-P.b}" stroke="var(--line-strong)"/>`);
+  parts.push(`<text x="${(P.l+W-P.r)/2}" y="${H-10}" class="axis-label" text-anchor="middle">${A.name}</text>`);
+  parts.push(`<text x="14" y="${(P.t+H-P.b)/2}" class="axis-label" text-anchor="middle" transform="rotate(-90 14 ${(P.t+H-P.b)/2})">${B.name}</text>`);
+  return `<svg viewBox="0 0 ${W} ${H}" style="max-width:100%;height:auto">${parts.join('')}</svg>`;
+}
+
+function interpretPair(p){
+  const A = computed.nodes.find(n=>n.id===p.a);
+  const B = computed.nodes.find(n=>n.id===p.b);
+  const r = p.r;
+  if(isNaN(r)) return 'داده کافی برای تفسیر نیست.';
+
+  let s = '';
+  const absR = Math.abs(r);
+  if(absR >= 0.7) s += `همبستگی ${r>0?'مستقیم':'معکوس'} قوی (r = ${fmt(r)}) بین «${A.name}» و «${B.name}» وجود دارد. `;
+  else if(absR >= 0.4) s += `همبستگی ${r>0?'مستقیم':'معکوس'} متوسط (r = ${fmt(r)}) بین «${A.name}» و «${B.name}» دیده می‌شود. `;
+  else if(absR >= 0.2) s += `همبستگی ${r>0?'مستقیم':'معکوس'} ضعیف (r = ${fmt(r)}) بین «${A.name}» و «${B.name}» وجود دارد. `;
+  else s += `همبستگی خطی معناداری (r = ${fmt(r)}) بین «${A.name}» و «${B.name}» دیده نمی‌شود. `;
+
+  const gainQ = p.quad.r2 - p.lin.r2;
+  if(gainQ > 0.12) s += `مدل درجه دو ${(gainQ*100).toFixed(0)}٪ واریانس بیشتری توضیح می‌دهد؛ یعنی رابطه غیرخطی است. `;
+
+  if(p.thr && p.thr.gain > 0.12){
+    s += `آستانه‌ای نزدیک «${A.name} = ${fmt(p.thr.threshold)}» دیده می‌شود: شیب قبل ${fmt(p.thr.slope1)} و بعد ${fmt(p.thr.slope2)}. `;
+    if(p.thr.signFlip) s += `علامت شیب عوض شده — این یک کرانهٔ رفتاری است. `;
+  }
+
+  if(p.half.flip){
+    s += `نیمهٔ اول و دوم داده علامت همبستگی متفاوتی دارند (${fmt(p.half.r1)} در برابر ${fmt(p.half.r2)}). این یک متناقض‌نماست: روند کلی می‌تواند گمراه‌کننده باشد. `;
+  }
+
+  if(p.edge){
+    const declared = p.edge.sign > 0 ? 'مستقیم (+)' : 'معکوس (−)';
+    const observed = r > 0 ? 'مستقیم (+)' : 'معکوس (−)';
+    if(p.edge.sign !== Math.sign(r) && Math.abs(r) > 0.15){
+      s += `فرض علّی ثبت‌شده «${declared}» است اما همبستگی مشاهده‌شده «${observed}» است — احتمالاً یک متغیر میانجی یا مخدوش‌کننده در کار است. `;
+    } else {
+      s += `همبستگی مشاهده‌شده با فرض علّی ثبت‌شده هم‌راستاست. `;
+    }
+  }
+
+  const bestLag = p.lag.reduce((b,l)=> (!b || Math.abs(l.r)>Math.abs(b.r)) ? l : b, null);
+  if(bestLag && bestLag.lag !== 0 && Math.abs(bestLag.r) > Math.abs(r) + 0.05){
+    s += `قوی‌ترین همبستگی در تأخیر ${bestLag.lag > 0 ? '+' : ''}${bestLag.lag} است (r = ${fmt(bestLag.r)})؛ این سرنخی از جهت علّی است، نه اثبات آن. `;
+  }
+
+  return s;
+}
+
+/* =========================================================
+   ۱۵) رویدادها
+   ========================================================= */
+let toastTimer;
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=> t.classList.remove('show'), 2200);
+}
+
+function setTheme(t){
+  S.theme = t;
+  Kit.setTheme(t);
+  save();
+  if(computed){ renderTable(); renderCluster(); renderCompare(); }
+}
+
+function switchTab(name){
+  $$('.tab-btn').forEach(b=> b.classList.toggle('active', b.dataset.tab===name));
+  $$('.tab-panel').forEach(p=> p.classList.toggle('active', p.id==='tab-'+name));
+  if(name==='data') fillDataBox();
+}
+
+function refreshAll(){
+  analyze();
+  renderLine();
+  renderLineStats();
+  renderTable();
+  renderCycle();
+  renderCluster();
+  renderAnalysis();
+  renderCompare();
+  populateComparePicker();
+}
+
+function fillDataBox(){
+  if(DATA) $('#dataBox').value = JSON.stringify(DATA, null, 2);
+}
+
+function dataMsg(text, ok){
+  const el = $('#dataMsg');
+  el.className = 'msg ' + (ok?'ok':'err');
+  el.textContent = text;
+}
+
+function loadData(obj){
+  const v = validate(obj);
+  if(!v.ok){ dataMsg(v.err, false); return false; }
+  DATA = obj;
+  S.visible = new Set(DATA.nodes.map(n=>n.id));
+  S.selectedPairs = [];
+  save();
+  refreshAll();
+  return true;
+}
+
+function populateComparePicker(){
+  const sel = $('#comparePicker');
+  if(!computed){ sel.innerHTML = ''; return; }
+  sel.innerHTML = computed.pairs.map(p=>{
+    const A = computed.nodes.find(n=>n.id===p.a).name;
+    const B = computed.nodes.find(n=>n.id===p.b).name;
+    const key = p.a+'|'+p.b;
+    return `<option value="${key}">${A} ↔ ${B}  (r=${fmt(p.r)})</option>`;
+  }).join('');
+}
+
+function downloadFile(name, content, type){
+  const blob = new Blob([content], {type: type+';charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=> URL.revokeObjectURL(a.href), 2000);
+}
+
+/* =========================================================
+   ۱۶) اتصال رویدادها
+   ========================================================= */
+function bind(){
+  $$('.tab-btn').forEach(b=> b.addEventListener('click', ()=> switchTab(b.dataset.tab)));
+  $('#btnTheme').addEventListener('click', ()=> setTheme(S.theme==='dark'?'light':'dark'));
+  $('#btnPrint').addEventListener('click', ()=> window.print());
+  $('#btnExport').addEventListener('click', ()=>{
+    if(!DATA) return;
+    const payload = {data:DATA, computed:{
+      pairs: computed.pairs.map(p=>({
+        a:p.a, b:p.b, r:p.r, rho:p.rho, r2lin:p.lin.r2, r2quad:p.quad.r2,
+        threshold:p.thr, halfSplit:p.half, tags:classifyPair(p).map(t=>t.t)
+      })),
+      cycles: computed.cycles
+    }};
+    downloadFile('relational-analysis.json', JSON.stringify(payload, null, 2), 'application/json');
+  });
+
+  $$('[data-sample]').forEach(b=> b.addEventListener('click', ()=>{
+    const key = b.dataset.sample;
+    const obj = key==='random' ? randomData() : JSON.parse(JSON.stringify(SAMPLES[key]));
+    if(loadData(obj)){
+      fillDataBox();
+      dataMsg(`نمونه «${obj.title}» بارگذاری شد.`, true);
+      toast('داده بارگذاری شد');
+    }
+  }));
+
+  $('#btnApplyData').addEventListener('click', ()=>{
+    try{
+      const obj = JSON.parse($('#dataBox').value);
+      if(loadData(obj)){
+        dataMsg('داده ذخیره و تحلیل شد.', true);
+        toast('تحلیل به‌روزرسانی شد');
+      }
+    }catch(e){ dataMsg('خطای JSON: '+e.message, false); }
+  });
+  $('#btnValidateData').addEventListener('click', ()=>{
+    try{
+      const obj = JSON.parse($('#dataBox').value);
+      const v = validate(obj);
+      dataMsg(v.ok ? `داده معتبر است: ${obj.nodes.length} متغیر، ${obj.edges?.length||0} یال.` : v.err, v.ok);
+    }catch(e){ dataMsg('خطای JSON: '+e.message, false); }
+  });
+  $('#btnReloadData').addEventListener('click', ()=>{ fillDataBox(); dataMsg('متن از حافظهٔ فعلی بازخوانی شد.', true); });
+
+  $('#lineLegend').addEventListener('click', e=>{
+    const item = e.target.closest('[data-toggle]');
+    if(!item) return;
+    const id = item.dataset.toggle;
+    if(S.visible.has(id)) S.visible.delete(id); else S.visible.add(id);
+    save();
+    renderLine();
+  });
+
+  $('#tableMode').addEventListener('change', e=>{ S.tableMode = e.target.value; save(); renderTable(); });
+
+  const slider = $('#clusterThreshold');
+  slider.value = S.clusterThreshold;
+  $('#clusterThresholdLabel').textContent = `r > ${fmt(S.clusterThreshold)}`;
+  slider.addEventListener('input', e=>{
+    S.clusterThreshold = +e.target.value;
+    $('#clusterThresholdLabel').textContent = `r > ${fmt(S.clusterThreshold)}`;
+    if(computed){
+      computed.clusters = cluster(computed.nodes, computed.corr, S.clusterThreshold);
+      renderCluster();
+    }
+    save();
+  });
+
+  $('#analysisSearch').addEventListener('input', renderAnalysis);
+  $('#analysisSort').addEventListener('change', renderAnalysis);
+  $('#analysisFilter').addEventListener('change', renderAnalysis);
+
+  $('#analysisBody').addEventListener('click', e=>{
+    const btn = e.target.closest('[data-detail]');
+    if(!btn) return;
+    openPairDetail(btn.dataset.detail);
+  });
+  $('#analysisBody').addEventListener('dblclick', e=>{
+    const tr = e.target.closest('tr[data-pair]');
+    if(!tr) return;
+    openPairDetail(tr.dataset.pair);
+  });
+
+  $('#modalClose').addEventListener('click', ()=> $('#modal').hidden = true);
+  $('#modalClose2').addEventListener('click', ()=> $('#modal').hidden = true);
+  $('#modal').addEventListener('click', e=>{ if(e.target.id==='modal') $('#modal').hidden = true; });
+  $('#modalAddCompare').addEventListener('click', ()=>{
+    if(!S.activePair) return;
+    const key = S.activePair.a+'|'+S.activePair.b;
+    if(!S.selectedPairs.includes(key)) S.selectedPairs.push(key);
+    save(); renderCompare();
+    $('#modal').hidden = true;
+    toast('به مقایسه افزوده شد');
+    switchTab('compare');
+  });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') $('#modal').hidden = true; });
+
+  $('#btnAddCompare').addEventListener('click', ()=>{
+    const key = $('#comparePicker').value;
+    if(!key) return;
+    if(!S.selectedPairs.includes(key)) S.selectedPairs.push(key);
+    save(); renderCompare();
+  });
+  $('#btnAddTop').addEventListener('click', ()=>{
+    if(!computed) return;
+    const top = computed.pairs.slice().sort((a,b)=> Math.abs(b.r)-Math.abs(a.r)).slice(0,4);
+    top.forEach(p=>{
+      const key = p.a+'|'+p.b;
+      if(!S.selectedPairs.includes(key)) S.selectedPairs.push(key);
+    });
+    save(); renderCompare();
+    toast('چهار جفت برتر افزوده شد');
+  });
+  $('#btnClearCompare').addEventListener('click', ()=>{ S.selectedPairs = []; save(); renderCompare(); });
+}
+
+/* =========================================================
+   ۱۷) راه‌اندازی
+   ========================================================= */
+(function init(){
+  if(!load()){
+    DATA = JSON.parse(JSON.stringify(SAMPLES.study));
+    S.visible = new Set(DATA.nodes.map(n=>n.id));
+  }
+  if(!S.visible.size){
+    S.visible = new Set(DATA.nodes.map(n=>n.id));
+  }
+  document.documentElement.dataset.theme = S.theme || 'dark';
+  bind();
+  refreshAll();
+  fillDataBox();
+  Kit.initTheme();
+  Kit.header('تحلیل ارتباطات');
+})();
 </script>
 </body>
 </html>
