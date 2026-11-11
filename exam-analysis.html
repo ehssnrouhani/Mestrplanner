@@ -4,49 +4,30 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>میزکار تحلیل آزمون | مستر پلنر</title>
-<meta name="description" content="ابزار رایگان تحلیل آزمون: تفکیک نوع خطا، تحلیل زمان، کالیبراسیون اطمینان، تسلط موضوعی و برنامهٔ اقدام برای بهبود نتیجه.">
-<meta name="keywords" content="تحلیل آزمون, دفتر خطا, مدیریت زمان آزمون, روش مطالعه, کنکور, مستر پلنر">
-<meta name="author" content="احسان روحانی راوری">
-<link rel="icon" type="image/jpeg" href="assets/logo/logo.jpg">
-<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/exam-analysis.html">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ehssnrouhani.github.io/Mestrplanner/exam-analysis.html">
-<meta property="og:title" content="میزکار تحلیل آزمون | مستر پلنر">
-<meta property="og:description" content="ابزار رایگان تحلیل آزمون: تفکیک نوع خطا، تحلیل زمان، کالیبراسیون اطمینان، تسلط موضوعی و برنامهٔ اقدام برای بهبود نتیجه.">
-<meta property="og:image" content="https://ehssnrouhani.github.io/Mestrplanner/assets/og-image.jpg">
-<meta property="og:site_name" content="مستر پلنر">
-<meta property="og:locale" content="fa_IR">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="میزکار تحلیل آزمون | مستر پلنر">
-<meta name="twitter:description" content="ابزار رایگان تحلیل آزمون: تفکیک نوع خطا، تحلیل زمان، کالیبراسیون اطمینان، تسلط موضوعی و برنامهٔ اقدام برای بهبود نتیجه.">
-<meta name="twitter:image" content="https://ehssnrouhani.github.io/Mestrplanner/assets/og-image.jpg">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "میزکار تحلیل آزمون", "url": "https://ehssnrouhani.github.io/Mestrplanner/exam-analysis.html", "description": "ابزار رایگان تحلیل آزمون: تفکیک نوع خطا، تحلیل زمان، کالیبراسیون اطمینان، تسلط موضوعی و برنامهٔ اقدام برای بهبود نتیجه.", "inLanguage": "fa-IR", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IRR"}, "author": {"@type": "Person", "name": "احسان روحانی راوری"}, "isPartOf": {"@type": "WebSite", "name": "مستر پلنر", "url": "https://ehssnrouhani.github.io/Mestrplanner/"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "مستر پلنر", "item": "https://ehssnrouhani.github.io/Mestrplanner/"}, {"@type": "ListItem", "position": 2, "name": "میزکار تحلیل آزمون", "item": "https://ehssnrouhani.github.io/Mestrplanner/exam-analysis.html"}]}</script>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f5f7fb; --panel:#fff; --ink:#0f172a; --muted:#64748b;
-  --line:#e5e9f0; --line-strong:#cbd5e1;
-  --accent:#6366f1; --accent-2:#8b5cf6; --accent-soft:#eef2ff;
-  --success:#10b981; --success-soft:#ecfdf5;
-  --warning:#f59e0b; --warning-soft:#fffbeb;
-  --danger:#ef4444; --danger-soft:#fef2f2;
-  --info:#3b82f6; --info-soft:#eff6ff;
+  --bg:#0b1120; --panel:#1e293b; --ink:#f8fafc; --muted:#94a3b8;
+  --line:#334155; --line-strong:#475569;
+  --accent:#e8971f; --accent-2:#f5b041; --accent-soft:rgba(232,151,31,.14);
+  --success:#34d399; --success-soft:rgba(16,185,129,.16);
+  --warning:#fbbf24; --warning-soft:rgba(251,191,36,.14);
+  --danger:#f87171; --danger-soft:rgba(239,68,68,.16);
+  --info:#60a5fa; --info-soft:rgba(59,130,246,.16);
   --radius:16px;
-  --shadow-sm:0 1px 3px rgba(15,23,42,.06);
-  --shadow:0 4px 20px rgba(15,23,42,.07);
-  --shadow-lg:0 10px 40px rgba(15,23,42,.1);
+  --shadow-sm:0 1px 3px rgba(0,0,0,.3); --shadow:0 6px 24px rgba(0,0,0,.28); --shadow-lg:0 10px 40px rgba(0,0,0,.4);
+  /* نام‌های کیت مشترک (برای هدر و نمودارها) */
+  --bg2:#0f172a; --panel2:#18233a; --line2:#475569; --ink2:#cbd5e1;
+  --gold:#e8971f; --gold2:#f5b041; --gold-soft:rgba(232,151,31,.14); --violet:#8b5cf6; --ok:#10b981; --bad:#ef4444; --warn:#fbbf24;
 }
-[data-theme="dark"]{
-  --bg:#0b1220; --panel:#131c2c; --ink:#e6edf5; --muted:#8ea1b6;
-  --line:#22303f; --line-strong:#33445a;
-  --accent:#818cf8; --accent-2:#a78bfa; --accent-soft:#1a2444;
-  --success:#34d399; --success-soft:#0d3320;
-  --warning:#fbbf24; --warning-soft:#3a2a09;
-  --danger:#f87171; --danger-soft:#3b1212;
-  --info:#60a5fa; --info-soft:#0c1f3a;
-  --shadow:0 4px 20px rgba(0,0,0,.4);
-  --shadow-lg:0 10px 40px rgba(0,0,0,.5);
+[data-theme="light"]{
+  --bg:#f4f6fa; --panel:#ffffff; --ink:#0f172a; --muted:#64748b;
+  --line:#e2e8f0; --line-strong:#cbd5e1;
+  --accent:#c47a10; --accent-2:#e8971f; --accent-soft:rgba(232,151,31,.13);
+  --success:#059669; --success-soft:#ecfdf5; --warning:#b45309; --warning-soft:#fffbeb;
+  --danger:#dc2626; --danger-soft:#fef2f2; --info:#2563eb; --info-soft:#eff6ff;
+  --shadow-sm:0 1px 3px rgba(15,23,42,.06); --shadow:0 6px 24px rgba(15,23,42,.08); --shadow-lg:0 10px 40px rgba(15,23,42,.1);
+  --bg2:#ffffff; --panel2:#f1f5f9; --line2:#cbd5e1; --ink2:#334155; --gold:#c47a10; --gold2:#e8971f;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
@@ -57,8 +38,8 @@ button{cursor:pointer}
 code{font-family:Consolas,monospace;background:var(--accent-soft);padding:1px 6px;border-radius:5px;font-size:11.5px}
 
 /* Header */
-.topbar{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 60%,#9333ea 100%);
-  padding:20px 24px;color:#fff;position:relative;overflow:hidden}
+.topbar{background:linear-gradient(135deg,var(--panel) 0%,var(--bg2) 100%);border-bottom:3px solid var(--accent);
+  padding:20px 24px;color:var(--ink);position:relative;overflow:hidden}
 .topbar::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;
   background:radial-gradient(circle,rgba(255,255,255,.15),transparent 70%);border-radius:50%}
 .topbar-content{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;
@@ -91,7 +72,7 @@ code{font-family:Consolas,monospace;background:var(--accent-soft);padding:1px 6p
 
 /* Tabs */
 .tabs{display:flex;gap:2px;padding:0 24px;background:var(--panel);
-  border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;overflow-x:auto;
+  border-bottom:1px solid var(--line);position:sticky;top:57px;z-index:50;overflow-x:auto;
   scrollbar-width:thin;max-width:1600px;margin:0 auto;border-radius:0}
 .tab-btn{border:0;background:transparent;padding:12px 15px;border-bottom:2px solid transparent;
   color:var(--muted);font-weight:600;font-size:12.5px;white-space:nowrap;transition:.15s}
@@ -216,6 +197,28 @@ table.doc{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
 table.doc th,table.doc td{border:1px solid var(--line);padding:7px 10px;text-align:right;vertical-align:top}
 table.doc th{background:var(--accent-soft);color:var(--accent);font-weight:600;font-size:11.5px}
 
+/* هدر کیت مشترک و سازگاری تم روشن */
+.kit-header{position:sticky;top:0;z-index:60;background:rgba(15,23,42,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+[data-theme="light"] .kit-header{background:rgba(255,255,255,.94)}
+.kit-bar{max-width:1600px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.kit-brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--ink);text-decoration:none}
+.kit-brand b{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;font-size:17px}
+.kit-crumb{color:var(--muted);font-size:13px}.kit-crumb strong{color:var(--ink2)}.kit-spacer{flex:1}
+.kit-menu{position:relative}.kit-menu summary{list-style:none;cursor:pointer}.kit-menu summary::-webkit-details-marker{display:none}
+.kit-menu .drop{position:absolute;left:0;top:110%;min-width:230px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:var(--shadow);display:grid;gap:2px;z-index:70}
+.kit-menu .drop a{padding:7px 12px;border-radius:8px;color:var(--ink2);font-size:13px;text-decoration:none}.kit-menu .drop a:hover{background:var(--gold-soft);color:var(--gold2)}
+a{color:var(--accent-2)}
+[data-theme="light"] .top-stat{background:var(--accent-soft);border-color:var(--line)}
+[data-theme="light"] .top-actions .btn{color:var(--ink);background:var(--panel);border-color:var(--line)}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));border-color:transparent;color:#fff}
+svg.chart text{font-family:'Vazirmatn',sans-serif;fill:var(--muted);font-size:11px}
+input[type=text],input[type=number],select.f,select.fi,textarea.f{background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:6px 9px;color:var(--ink);outline:none;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+table.entry input,table.entry select{padding:4px 6px;font-size:12px;border-radius:7px;min-width:56px}
+table.entry td{padding:5px 6px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:10px}
+.fgrid label{display:block;font-size:11.5px;color:var(--muted);font-weight:600;margin-bottom:3px}
+
 /* Toast */
 #toast{position:fixed;bottom:22px;right:50%;transform:translate(50%,20px);opacity:0;
   background:#0f172a;color:#fff;padding:10px 20px;border-radius:10px;font-size:12.5px;
@@ -224,12 +227,26 @@ table.doc th{background:var(--accent-soft);color:var(--accent);font-weight:600;f
 
 @media print{.topbar,.tabs,.top-actions,.btn{display:none!important}}
 </style>
+<meta name="description" content="ابزار رایگان تحلیل آزمون: تفکیک نوع خطا، تحلیل زمان، کالیبراسیون اطمینان، تسلط موضوعی و برنامهٔ اقدام برای بهبود نتیجه.">
+<meta name="keywords" content="تحلیل آزمون, دفتر خطا, مدیریت زمان آزمون, روش مطالعه, کنکور, مستر پلنر">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/exam-analysis.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ehssnrouhani.github.io/Mestrplanner/exam-analysis.html">
+<meta property="og:title" content="میزکار تحلیل آزمون | مستر پلنر">
+<meta property="og:description" content="ابزار رایگان تحلیل آزمون: تفکیک نوع خطا، تحلیل زمان، کالیبراسیون اطمینان، تسلط موضوعی و برنامهٔ اقدام برای بهبود نتیجه.">
+<meta property="og:image" content="https://ehssnrouhani.github.io/Mestrplanner/assets/og-image.jpg">
+<meta property="og:site_name" content="مستر پلنر">
+<meta property="og:locale" content="fa_IR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="میزکار تحلیل آزمون | مستر پلنر">
+<meta name="twitter:description" content="ابزار رایگان تحلیل آزمون: تفکیک نوع خطا، تحلیل زمان، کالیبراسیون اطمینان، تسلط موضوعی و برنامهٔ اقدام برای بهبود نتیجه.">
+<meta name="twitter:image" content="https://ehssnrouhani.github.io/Mestrplanner/assets/og-image.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "میزکار تحلیل آزمون", "url": "https://ehssnrouhani.github.io/Mestrplanner/exam-analysis.html", "description": "ابزار رایگان تحلیل آزمون: تفکیک نوع خطا، تحلیل زمان، کالیبراسیون اطمینان، تسلط موضوعی و برنامهٔ اقدام برای بهبود نتیجه.", "inLanguage": "fa-IR", "applicationCategory": "EducationalApplication", "operatingSystem": "Web", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IRR"}, "author": {"@type": "Person", "name": "احسان روحانی راوری"}, "isPartOf": {"@type": "WebSite", "name": "مستر پلنر", "url": "https://ehssnrouhani.github.io/Mestrplanner/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "مستر پلنر", "item": "https://ehssnrouhani.github.io/Mestrplanner/"}, {"@type": "ListItem", "position": 2, "name": "میزکار تحلیل آزمون", "item": "https://ehssnrouhani.github.io/Mestrplanner/exam-analysis.html"}]}</script>
 </head>
 <body>
-<div style="background:#0f172a;color:#fff;padding:8px 16px;font-family:'Vazirmatn',Tahoma,sans-serif;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:10px;direction:rtl">
-  <a href="index.html" style="color:#fbbf24;text-decoration:none;font-weight:700">← بازگشت به مستر پلنر</a>
-  <span style="opacity:.8">میزکار تحلیل آزمون</span>
-</div>
+<div id="kit-header"></div>
 
 <header class="topbar">
   <div class="topbar-content">
@@ -242,7 +259,8 @@ table.doc th{background:var(--accent-soft);color:var(--accent);font-weight:600;f
     </div>
     <div class="top-stats" id="topStats"></div>
     <div class="top-actions">
-      <button class="btn" id="btnTheme">◐ تم</button>
+      <select id="examSel" class="btn" title="انتخاب آزمون" style="max-width:230px"></select>
+      <button class="btn" id="btnTheme" style="display:none">◐ تم</button>
       <button class="btn" id="btnExport">⤓ خروجی</button>
     </div>
   </div>
@@ -254,8 +272,10 @@ table.doc th{background:var(--accent-soft);color:var(--accent);font-weight:600;f
   <button class="tab-btn" data-tab="items">📝 تحلیل سوال</button>
   <button class="tab-btn" data-tab="errors">⚠ تحلیل خطا</button>
   <button class="tab-btn" data-tab="time">⏱ تحلیل زمان</button>
+  <button class="tab-btn" data-tab="strategy">🧠 استراتژی پاسخ‌دهی</button>
   <button class="tab-btn" data-tab="trend">📉 روند</button>
   <button class="tab-btn" data-tab="recos">💡 توصیه‌ها</button>
+  <button class="tab-btn" data-tab="entry">✏️ ورود سریع</button>
   <button class="tab-btn" data-tab="data">{} داده</button>
 </nav>
 
@@ -333,6 +353,7 @@ table.doc th{background:var(--accent-soft);color:var(--accent);font-weight:600;f
         <svg id="calibrationChart" viewBox="0 0 300 260"></svg>
       </div>
     </div>
+    <div class="card" id="calibCard"></div>
     <div class="card">
       <h2>⏱ تله‌های زمانی</h2>
       <p class="muted">سؤالاتی که زمان زیادی صرف کرده‌اید و نتیجه نگرفته‌اید — این‌ها «سرمایه‌سوز» هستند.</p>
@@ -365,6 +386,50 @@ table.doc th{background:var(--accent-soft);color:var(--accent);font-weight:600;f
     <div class="card">
       <h2>📋 برنامهٔ مطالعهٔ هفتگی</h2>
       <div class="plan-list" id="planList"></div>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="tab-strategy">
+    <div class="card">
+      <h2>🧠 استراتژی پاسخ‌دهی: بزنم یا نزنم؟</h2>
+      <p class="muted">با نمرهٔ منفی، گاهی نزدن سؤال از زدن آن بهتر است. این بخش با اطمینانی که خودتان ثبت کرده‌اید و دقت واقعی‌تان، آستانهٔ منطقی «بزن/نزن» را حساب می‌کند.</p>
+      <div class="fgrid" style="max-width:420px"><div><label>نمرهٔ منفی هر پاسخ غلط</label>
+        <select id="negSel" class="f"><option value="0">بدون نمرهٔ منفی</option><option value="0.25">۱/۴ (چهار غلط، یک درست را می‌برد)</option><option value="0.3333">۱/۳ (کنکور سراسری)</option><option value="0.5">۱/۲</option></select></div></div>
+    </div>
+    <div id="strategyBox"></div>
+  </section>
+
+  <section class="tab-panel" id="tab-entry">
+    <div class="card">
+      <h2>✏️ آزمون و مشخصات</h2>
+      <div class="row" style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:6px">
+        <button class="btn primary sm" id="exNew">+ آزمون جدید</button><button class="btn sm danger" id="exDel">حذف این آزمون</button>
+      </div>
+      <div class="fgrid">
+        <div><label>نام آزمون</label><input type="text" id="exName"></div>
+        <div><label>درس</label><input type="text" id="exSubject"></div>
+        <div><label>تاریخ</label><input type="text" id="exDate"></div>
+        <div><label>مدت (دقیقه)</label><input type="number" id="exDur" min="1"></div>
+        <div><label>میانگین کلاس (٪)</label><input type="number" id="exAvg" min="0" max="100"></div>
+        <div><label>نمرهٔ منفی</label><select id="exNeg" class="f"><option value="0">ندارد</option><option value="0.25">۱/۴</option><option value="0.3333">۱/۳ (کنکور)</option><option value="0.5">۱/۲</option></select></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>پاسخ‌برگ</h2>
+      <p class="muted">برای هر سؤال نتیجه را بزنید. اگر هر دو حرف «پاسخ من» و «پاسخ صحیح» را بدهید نتیجه خودکار حساب می‌شود. برای سؤال بی‌پاسخ «نزده» را انتخاب کنید. نوع خطا فقط برای سؤال‌های غلط یا نزده معنی دارد.</p>
+      <div style="display:flex;gap:7px;flex-wrap:wrap;margin:10px 0">
+        <button class="btn primary sm" id="qAdd">+ سؤال</button>
+        <button class="btn sm" id="qSuggest" title="با توجه به زمان و اطمینان، برای خطاهای بدون نوع پیشنهاد می‌دهد">🔎 پیشنهاد خودکار نوع خطا</button>
+        <button class="btn sm" id="qTpl">⤓ الگوی CSV</button>
+      </div>
+      <div class="table-wrap" style="max-height:70vh"><table class="grid entry" style="min-width:1000px"><thead><tr>
+        <th>#</th><th>موضوع</th><th>سطح</th><th>سختی</th><th>نتیجه</th><th>پاسخ من</th><th>پاسخ صحیح</th><th>زمان (ث)</th><th>اطمینان ٪</th><th>نوع خطا</th><th>یادداشت</th><th></th>
+      </tr></thead><tbody id="entryBody"></tbody></table></div>
+      <datalist id="topicList"></datalist>
+      <details style="margin-top:12px"><summary style="cursor:pointer;font-weight:700">ورود دسته‌ای با CSV (از اکسل کپی کنید)</summary>
+        <p class="muted">ستون‌ها: <code>no, topic, cognitive, difficulty, result, selected, correctAns, time, confidence, errorType, notes</code>. نتیجه: درست / غلط / نزده. سطح و نوع خطا را می‌توانید فارسی یا انگلیسی بنویسید. با ورود، سؤال‌های همین آزمون جایگزین می‌شوند.</p>
+        <textarea id="csvBox" class="f" style="width:100%;min-height:130px;direction:ltr;font-family:Consolas,monospace;font-size:12px" placeholder="1,توابع,کاربرد,2,درست,B,B,60,85,,"></textarea>
+        <button class="btn primary sm" id="csvGo" style="margin-top:6px">ورود از CSV</button></details>
     </div>
   </section>
 
@@ -404,7 +469,11 @@ table.doc th{background:var(--accent-soft);color:var(--accent);font-weight:600;f
 
 <div id="toast"></div>
 
+<script src="tool-kit.js"></script>
 <script>
+/* ============================================================
+   ۱) ثابت‌ها
+   ============================================================ */
 const BLOOM = [
   {id:'remember',   name:'حفظ',       color:'#94a3b8'},
   {id:'understand', name:'درک',       color:'#3b82f6'},
@@ -423,6 +492,9 @@ const ERRORS = {
 };
 const TOPIC_COLORS = ['#6366f1','#8b5cf6','#ec4899','#f59e0b','#10b981','#3b82f6','#06b6d4','#f97316'];
 
+/* ============================================================
+   ۲) دادهٔ نمونه
+   ============================================================ */
 const SAMPLE = {
   currentExamId:'exam-001',
   exams:[
@@ -432,7 +504,7 @@ const SAMPLE = {
       subject:'ریاضی',
       date:'۱۴۰۴/۰۷/۲۳',
       durationMin:30,
-      classAvg:55,
+      classAvg:55, neg:0.3333,
       questions:[
         {no:1, topic:'توابع', cognitive:'understand', difficulty:2, correct:1, selected:'B', correctAns:'B', time:45, confidence:90, errorType:null, notes:''},
         {no:2, topic:'توابع', cognitive:'apply', difficulty:2, correct:1, selected:'C', correctAns:'C', time:60, confidence:85, errorType:null, notes:''},
@@ -462,12 +534,15 @@ const SAMPLE = {
       ]
     }
   ],
-  theme:'light'
+  theme:'dark'
 };
 
+/* ============================================================
+   ۳) وضعیت
+   ============================================================ */
 const LS_KEY = 'exam-analysis-v1';
 let S = null;
-let A = null;
+let A = null; // analysis
 let currentTab = 'overview';
 
 const $ = s => document.querySelector(s);
@@ -476,6 +551,9 @@ const fa = (v,d=0) => isNaN(v) ? '—' : Number(v).toLocaleString('fa-IR',{maxim
 const fmt = (v,d=1) => isNaN(v) ? '—' : Number(v).toFixed(d);
 const pct = v => fa(Math.round(v*100))+'٪';
 
+/* ============================================================
+   ۴) ذخیره/بارگذاری
+   ============================================================ */
 function save(){ try{localStorage.setItem(LS_KEY, JSON.stringify(S));}catch(e){} }
 function load(){
   try{
@@ -488,14 +566,22 @@ function load(){
   }catch(e){ return false; }
 }
 
+/* ============================================================
+   ۵) موتور تحلیل
+   ============================================================ */
 function analyze(exam){
   const qs = exam.questions;
   const total = qs.length;
   const correct = qs.filter(q=>q.correct).length;
   const score = correct/total;
+  const blanks = qs.filter(q=>q.blank).length;
+  const wrong = total - correct - blanks;
+  const neg = +exam.neg || 0;
+  const netScore = (correct - neg*wrong)/total;
   const totalTime = qs.reduce((s,q)=>s+q.time,0);
   const avgTime = totalTime/total;
 
+  // Error breakdown
   const errorCounts = {};
   Object.keys(ERRORS).forEach(k=>errorCounts[k]=0);
   let strategicLoss = 0, learningLoss = 0;
@@ -507,6 +593,7 @@ function analyze(exam){
     }
   });
 
+  // Topic stats
   const topicMap = {};
   qs.forEach(q=>{
     if(!topicMap[q.topic]) topicMap[q.topic] = {total:0, correct:0, time:0, errors:{}};
@@ -521,33 +608,43 @@ function analyze(exam){
     color:TOPIC_COLORS[i % TOPIC_COLORS.length]
   })).sort((a,b)=> a.accuracy - b.accuracy);
 
+  // Bloom stats
   const bloomStats = BLOOM.map(b=>{
     const bqs = qs.filter(q=>q.cognitive===b.id);
     return {...b, total:bqs.length, correct:bqs.filter(q=>q.correct).length,
             accuracy: bqs.length ? bqs.filter(q=>q.correct).length/bqs.length : null};
   });
 
+  // Time traps: long time + wrong
   const medianTime = [...qs.map(q=>q.time)].sort((a,b)=>a-b)[Math.floor(total/2)];
   const timeTraps = qs.filter(q=> q.time > medianTime*1.4 && !q.correct);
+  // Efficient: fast + correct with reasonable confidence
   const efficient = qs.filter(q=> q.time < medianTime*0.8 && q.correct);
 
+  // Calibration
   const calibration = qs.map(q=>({conf:q.confidence, correct:q.correct, q}));
+  // Overconfidence: avg confidence on wrong > 60
   const wrongAvgConf = qs.filter(q=>!q.correct).reduce((s,q)=>s+q.confidence,0) /
                        (qs.filter(q=>!q.correct).length||1);
   const correctAvgConf = qs.filter(q=>q.correct).reduce((s,q)=>s+q.confidence,0) /
                         (qs.filter(q=>q.correct).length||1);
   const overconfident = wrongAvgConf > 60;
 
+  // Predicted score with strategy fix
   const stratFixScore = (correct + strategicLoss) / total;
 
+  // Weakest topic
   const weakestTopic = topicStats[0];
   const strongestTopic = topicStats[topicStats.length-1];
 
+  // Bloom weakest
   const weakBloom = bloomStats.filter(b=>b.total>0).sort((a,b)=>a.accuracy-b.accuracy)[0];
 
+  // Dominant error
   const dominantError = Object.entries(errorCounts).sort((a,b)=>b[1]-a[1])[0];
 
-  const timeEfficiency = correct / (totalTime/60);
+  // Time efficiency
+  const timeEfficiency = correct / (totalTime/60); // correct per minute
 
   return {
     total, correct, score, totalTime, avgTime, medianTime,
@@ -555,10 +652,13 @@ function analyze(exam){
     topicStats, bloomStats, timeTraps, efficient,
     calibration, overconfident, wrongAvgConf, correctAvgConf,
     stratFixScore, weakestTopic, strongestTopic, weakBloom, dominantError,
-    timeEfficiency, qs
+    timeEfficiency, qs, blanks, wrong, neg, netScore, exam
   };
 }
 
+/* ============================================================
+   ۶) تشخیص خودکار
+   ============================================================ */
 function diagnose(a){
   const issues = [];
   const dominantErr = a.dominantError;
@@ -622,11 +722,15 @@ function diagnose(a){
   return issues;
 }
 
+/* ============================================================
+   ۷) رندر نمای کلی
+   ============================================================ */
 function renderOverview(){
   const a = A;
   const issues = diagnose(a);
   const primaryIssue = issues[0];
 
+  // Diagnosis banner
   const banner = $('#diagnosisBanner');
   if(primaryIssue){
     banner.innerHTML = `
@@ -642,6 +746,7 @@ function renderOverview(){
       <div><h3>عملکرد متوازن</h3><p>الگوی خطای خاصی یافت نشد. عملکرد کلی خوب است.</p></div>`;
   }
 
+  // KPI cards
   const predicted = Math.round(a.score*100);
   const strategic = Math.round(a.stratFixScore*100);
   const delta = strategic - predicted;
@@ -679,11 +784,24 @@ function renderOverview(){
     </div>
   `;
 
+  if(a.neg>0){
+    const net = Math.round(a.netScore*100);
+    $('#kpiGrid').insertAdjacentHTML('beforeend', `
+    <div class="kpi" style="--kpi-color:${net>=50?'var(--success)':net>=25?'var(--warning)':'var(--danger)'}">
+      <div class="kpi-icon">➖</div>
+      <div class="kpi-label">درصد خالص (با نمرهٔ منفی)</div>
+      <div class="kpi-value">${fa(net)}٪</div>
+      <div class="kpi-sub">${fa(a.correct)} درست − ${fa(a.neg,2)}×${fa(a.wrong)} غلط · ${fa(a.blanks)} نزده</div>
+    </div>`);
+  }
   renderErrorDonut();
   renderBloomRadar();
   renderTopicBars();
 }
 
+/* ============================================================
+   ۸) نمودار دونات خطا
+   ============================================================ */
 function renderErrorDonut(){
   const svg = $('#errorDonut');
   const a = A;
@@ -708,6 +826,7 @@ function renderErrorDonut(){
     const xi2 = cx + r*Math.cos(end),   yi2 = cy + r*Math.sin(end);
     const large = frac > 0.5 ? 1 : 0;
     parts.push(`<path d="M${x1},${y1} A${R},${R} 0 ${large} 1 ${x2},${y2} L${xi2},${yi2} A${r},${r} 0 ${large} 0 ${xi1},${yi1} Z" fill="${ERRORS[k].color}" stroke="var(--panel)" stroke-width="2"/>`);
+    // label
     if(frac > 0.08){
       const mid = (angle+end)/2;
       const lx = cx + (R+r)/2*Math.cos(mid);
@@ -725,6 +844,9 @@ function renderErrorDonut(){
   ).join('');
 }
 
+/* ============================================================
+   ۹) رادار بلوم
+   ============================================================ */
 function renderBloomRadar(){
   const svg = $('#bloomRadar');
   const a = A;
@@ -737,6 +859,7 @@ function renderBloomRadar(){
   const W=300, H=260, cx=150, cy=135, R=85;
   const parts = [];
 
+  // Grid
   for(let ring=1; ring<=4; ring++){
     const r = R*ring/4;
     const pts = stats.map((_, i)=>{
@@ -746,6 +869,7 @@ function renderBloomRadar(){
     parts.push(`<polygon points="${pts.join(' ')}" fill="none" stroke="var(--line)" stroke-width=".7"/>`);
   }
 
+  // Axes
   stats.forEach((s,i)=>{
     const ang = -Math.PI/2 + i*2*Math.PI/n;
     parts.push(`<line x1="${cx}" y1="${cy}" x2="${cx+R*Math.cos(ang)}" y2="${cy+R*Math.sin(ang)}" stroke="var(--line)" stroke-width=".7"/>`);
@@ -754,6 +878,7 @@ function renderBloomRadar(){
     parts.push(`<text x="${lx}" y="${ly+3}" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="Vazirmatn">${s.name}</text>`);
   });
 
+  // Data polygon
   const pts = stats.map((s,i)=>{
     const ang = -Math.PI/2 + i*2*Math.PI/n;
     const r = (s.accuracy||0)*R;
@@ -761,6 +886,7 @@ function renderBloomRadar(){
   });
   parts.push(`<polygon points="${pts.join(' ')}" fill="rgba(99,102,241,0.25)" stroke="var(--accent)" stroke-width="2"/>`);
 
+  // Dots with accuracy labels
   stats.forEach((s,i)=>{
     const ang = -Math.PI/2 + i*2*Math.PI/n;
     const r = (s.accuracy||0)*R;
@@ -772,6 +898,9 @@ function renderBloomRadar(){
   svg.innerHTML = parts.join('');
 }
 
+/* ============================================================
+   ۱۰) نوارهای موضوعی
+   ============================================================ */
 function renderTopicBars(){
   const svg = $('#topicBars');
   const a = A;
@@ -795,9 +924,13 @@ function renderTopicBars(){
   svg.innerHTML = parts.join('');
 }
 
+/* ============================================================
+   ۱۱) تحلیل موضوعی
+   ============================================================ */
 function renderTopics(){
   const a = A;
   $('#topicCards').innerHTML = a.topicStats.map(t=>{
+    const ci = Kit.wilson(t.correct, t.total);
     const level = t.accuracy >= 0.75 ? 'مسلط' : t.accuracy >= 0.5 ? 'نیمه‌مسلط' : 'ضعیف';
     const color = t.accuracy >= 0.75 ? 'var(--success)' : t.accuracy >= 0.5 ? 'var(--warning)' : 'var(--danger)';
     const errList = Object.entries(t.errors).map(([k,v])=>`<span class="chip bad">${ERRORS[k].name}: ${fa(v)}</span>`).join('') || '<span class="chip ok">بدون خطا</span>';
@@ -808,6 +941,7 @@ function renderTopics(){
           <span class="acc" style="color:${color}">${pct(t.accuracy)}</span>
           <span class="muted">${fa(t.correct)} از ${fa(t.total)}</span>
         </div>
+        <div class="muted" style="font-size:11px">بازهٔ اطمینان ۹۵٪: <b class="num">${fa(ci[0]*100)}–${fa(ci[1]*100)}٪</b> ${t.total<5?'<span class="chip warn">نمونهٔ کم؛ با احتیاط</span>':''}</div>
         <div class="topic-bar"><div style="width:${t.accuracy*100}%;background:${color}"></div></div>
         <div class="topic-meta">
           <span>زمان: <b>${fa(t.time,0)}s</b></span>
@@ -818,6 +952,9 @@ function renderTopics(){
   }).join('');
 }
 
+/* ============================================================
+   ۱۲) تحلیل تک‌سوال
+   ============================================================ */
 function renderItems(){
   const a = A;
   $('#itemsBody').innerHTML = a.qs.map(q=>{
@@ -839,9 +976,13 @@ function renderItems(){
   }).join('');
 }
 
+/* ============================================================
+   ۱۳) تحلیل خطا
+   ============================================================ */
 function renderErrors(){
   const a = A;
 
+  // KPI cards
   $('#errorKpiGrid').innerHTML = `
     <div class="kpi" style="--kpi-color:var(--danger)">
       <div class="kpi-icon">⚠</div>
@@ -887,6 +1028,7 @@ function renderErrorHeatmap(){
   const leftPad=100, topPad=60, cellW=(W-leftPad-20)/errKeys.length, cellH=(H-topPad-20)/topics.length;
 
   const parts = [];
+  // Headers
   errKeys.forEach((k,i)=>{
     parts.push(`<text x="${leftPad + i*cellW + cellW/2}" y="${topPad-12}" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="Vazirmatn">${ERRORS[k].name}</text>`);
   });
@@ -894,6 +1036,7 @@ function renderErrorHeatmap(){
     parts.push(`<text x="${leftPad-8}" y="${topPad + i*cellH + cellH/2 + 4}" text-anchor="end" font-size="11" fill="var(--ink)" font-family="Vazirmatn" font-weight="600">${t}</text>`);
   });
 
+  // Cells
   a.topicStats.forEach((t, i)=>{
     errKeys.forEach((k, j)=>{
       const v = t.errors[k] || 0;
@@ -942,6 +1085,7 @@ function renderRecoveryChart(){
   parts.push(`<text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="22" font-weight="800" fill="var(--ink)" font-family="Consolas">${fa(total)}</text>`);
   parts.push(`<text x="${cx}" y="${cy+14}" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="Vazirmatn">امتیاز از دست‌رفته</text>`);
 
+  // Labels
   if(strategic > 0){
     const m = (-Math.PI/2 + end)/2;
     parts.push(`<text x="${cx+(R+r)/2*Math.cos(m)}" y="${cy+(R+r)/2*Math.sin(m)+4}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="Consolas">${fa(strategic)}</text>`);
@@ -952,6 +1096,7 @@ function renderRecoveryChart(){
   }
   svg.innerHTML = parts.join('');
 
+  // Legend
   svg.innerHTML += `
     <g transform="translate(20, 200)">
       <rect x="0" y="0" width="12" height="12" fill="#f59e0b" rx="3"/>
@@ -982,6 +1127,9 @@ function renderErrorDetails(){
   }).join('');
 }
 
+/* ============================================================
+   ۱۴) تحلیل زمان
+   ============================================================ */
 function renderTime(){
   const a = A;
 
@@ -1015,6 +1163,7 @@ function renderTime(){
   renderTimeScatter();
   renderCalibration();
 
+  // Time traps
   if(a.timeTraps.length === 0){
     $('#timeTraps').innerHTML = '<div class="muted" style="text-align:center;padding:16px">تلهٔ زمانی شناسایی نشد. 👏</div>';
   } else {
@@ -1041,13 +1190,16 @@ function renderTimeScatter(){
 
   const parts = [];
 
+  // Grid
   for(let i=0;i<=4;i++){
     const y = P.t + (H-P.t-P.b)*i/4;
     parts.push(`<line x1="${P.l}" x2="${W-P.r}" y1="${y}" y2="${y}" stroke="var(--line)" stroke-width=".5"/>`);
   }
+  // Median line
   parts.push(`<line x1="${xS(a.medianTime)}" x2="${xS(a.medianTime)}" y1="${P.t}" y2="${H-P.b}" stroke="var(--warning)" stroke-width="1" stroke-dasharray="4 3" opacity=".7"/>`);
   parts.push(`<text x="${xS(a.medianTime)+4}" y="${P.t+12}" font-size="9" fill="var(--warning)" font-family="Vazirmatn">میانه ${fa(a.medianTime,0)}s</text>`);
 
+  // Axes
   parts.push(`<line x1="${P.l}" x2="${W-P.r}" y1="${H-P.b}" y2="${H-P.b}" stroke="var(--line-strong)"/>`);
   parts.push(`<line x1="${P.l}" x2="${P.l}" y1="${P.t}" y2="${H-P.b}" stroke="var(--line-strong)"/>`);
   parts.push(`<text x="${(P.l+W-P.r)/2}" y="${H-10}" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="Vazirmatn">زمان صرف‌شده (ثانیه)</text>`);
@@ -1055,15 +1207,16 @@ function renderTimeScatter(){
   parts.push(`<text x="${P.l-8}" y="${yS(1)+4}" text-anchor="end" font-size="10" fill="var(--muted)" font-family="Consolas">درست</text>`);
   parts.push(`<text x="${P.l-8}" y="${yS(0)+4}" text-anchor="end" font-size="10" fill="var(--muted)" font-family="Consolas">غلط</text>`);
 
+  // Points
   a.qs.forEach(q=>{
     const x = xS(q.time);
     const y = yS(q.correct?1:0);
-    // Jitter بر اساس شماره سوال ثابت می‌ماند تا نقاط نلرزند
-    const jitter = ((q.no * 17) % 14) - 7;
+    const jitter = (Math.random()-0.5)*14;
     const color = q.correct ? 'var(--success)' : 'var(--danger)';
     parts.push(`<circle cx="${x}" cy="${y+jitter}" r="6" fill="${color}" opacity=".75" stroke="var(--panel)" stroke-width="1.5"/>`);
   });
 
+  // Quadrant labels
   parts.push(`<text x="${xS(a.medianTime*1.5)}" y="${yS(0.4)}" font-size="10" fill="var(--danger)" font-family="Vazirmatn" opacity=".6" font-weight="700">💰 سرمایه‌سوز</text>`);
   parts.push(`<text x="${xS(a.medianTime*0.3)}" y="${yS(0.4)}" font-size="10" fill="var(--warning)" font-family="Vazirmatn" opacity=".6" font-weight="700">🎲 شانسی</text>`);
   parts.push(`<text x="${xS(a.medianTime*1.5)}" y="${yS(0.7)}" font-size="10" fill="var(--info)" font-family="Vazirmatn" opacity=".6" font-weight="700">⚡ کارآمد</text>`);
@@ -1076,18 +1229,565 @@ function renderCalibration(){
   const svg = $('#calibrationChart');
   const a = A;
   const W=300, H=260, P={l:40, r:20, t:20, b:40};
-  const xS = c => P.l + (c/100)*(W-P.l-P.r);
-  const yS = c => H-P.b - c*(H-P.t-P.b);
+  const xS = c => P.l + (c/100)*(W-P.l-P.r); // confidence
+  const yS = c => H-P.b - c*(H-P.t-P.b); // correctness
 
   const parts = [];
+  // Grid
   for(let i=0;i<=4;i++){
     const y = P.t + (H-P.t-P.b)*i/4;
     const x = P.l + (W-P.l-P.r)*i/4;
     parts.push(`<line x1="${P.l}" x2="${W-P.r}" y1="${y}" y2="${y}" stroke="var(--line)" stroke-width=".5"/>`);
     parts.push(`<line x1="${x}" x2="${x}" y1="${P.t}" y2="${H-P.b}" stroke="var(--line)" stroke-width=".5"/>`);
   }
+  // 45 line (perfect calibration)
   parts.push(`<line x1="${xS(0)}" y1="${yS(0)}" x2="${xS(100)}" y2="${yS(1)}" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 3" opacity=".6"/>`);
   parts.push(`<text x="${xS(80)}" y="${yS(0.9)}" font-size="9" fill="var(--muted)" font-family="Vazirmatn">کالیبراسیون کامل</text>`);
 
+  // Axes
   parts.push(`<line x1="${P.l}" x2="${W-P.r}" y1="${H-P.b}" y2="${H-P.b}" stroke="var(--line-strong)"/>`);
-  parts.push(`<line x1="${P.l}" x2="${P.l}"
+  parts.push(`<line x1="${P.l}" x2="${P.l}" y1="${P.t}" y2="${H-P.b}" stroke="var(--line-strong)"/>`);
+  parts.push(`<text x="${(P.l+W-P.r)/2}" y="${H-10}" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="Vazirmatn">اطمینان اعلام‌شده</text>`);
+  parts.push(`<text x="10" y="${(P.t+H-P.b)/2}" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="Vazirmatn" transform="rotate(-90 10 ${(P.t+H-P.b)/2})">درستی واقعی</text>`);
+
+  // Points (grouped by confidence bin and accuracy)
+  const bins = {};
+  a.qs.forEach(q=>{
+    const cBin = Math.round(q.confidence/20)*20;
+    if(!bins[cBin]) bins[cBin] = {total:0, correct:0};
+    bins[cBin].total++;
+    if(q.correct) bins[cBin].correct++;
+  });
+  const binSize = 8;
+  Object.entries(bins).forEach(([c, d])=>{
+    const conf = +c;
+    const acc = d.correct/d.total;
+    const x = xS(conf), y = yS(acc);
+    const r = Math.max(4, Math.min(10, 3 + d.total*1.5));
+    const color = Math.abs(acc - conf/100) > 0.25 ? 'var(--warning)' : 'var(--success)';
+    parts.push(`<circle cx="${x}" cy="${y}" r="${r}" fill="${color}" opacity=".75" stroke="var(--panel)" stroke-width="1.5"/>`);
+    parts.push(`<text x="${x}" y="${y+r+10}" text-anchor="middle" font-size="9" fill="var(--muted)" font-family="Consolas">${fa(d.total)}</text>`);
+  });
+
+  svg.innerHTML = parts.join('');
+}
+
+/* ============================================================
+   ۱۵) روند
+   ============================================================ */
+function renderTrend(){
+  const exams = S.exams;
+  if(exams.length < 2){
+    $('#trendChart').innerHTML = `<text x="400" y="170" text-anchor="middle" font-size="13" fill="var(--muted)" font-family="Vazirmatn">برای دیدن روند، حداقل دو آزمون لازم است. از تب «داده» یک آزمون جدید اضافه کنید.</text>`;
+    $('#trendBody').innerHTML = '<tr><td colspan="5" style="text-align:center;padding:20px" class="muted">فقط یک آزمون ثبت شده.</td></tr>';
+    return;
+  }
+
+  const data = exams.map(e=>{
+    const a = analyze(e);
+    return {name:e.name, date:e.date, score:a.score, weakest:a.weakestTopic.topic};
+  });
+
+  const W=800, H=340, P={l:50, r:30, t:30, b:70};
+  const maxScore = 1;
+  const xS = i => P.l + (i/(data.length-1||1))*(W-P.l-P.r);
+  const yS = s => H-P.b - s*(H-P.t-P.b);
+
+  const parts = [];
+  for(let i=0;i<=4;i++){
+    const y = P.t + (H-P.t-P.b)*i/4;
+    parts.push(`<line x1="${P.l}" x2="${W-P.r}" y1="${y}" y2="${y}" stroke="var(--line)"/>`);
+    parts.push(`<text x="${P.l-8}" y="${y+4}" text-anchor="end" font-size="10" fill="var(--muted)" font-family="Consolas">${100-i*25}٪</text>`);
+  }
+  parts.push(`<line x1="${P.l}" x2="${W-P.r}" y1="${H-P.b}" y2="${H-P.b}" stroke="var(--line-strong)"/>`);
+
+  // Line
+  let d = '';
+  data.forEach((e,i)=>{ d += (i?'L':'M') + xS(i) + ',' + yS(e.score); });
+  parts.push(`<path d="${d}" fill="none" stroke="var(--accent)" stroke-width="2.5"/>`);
+
+  // Points + labels
+  data.forEach((e,i)=>{
+    const x = xS(i), y = yS(e.score);
+    parts.push(`<circle cx="${x}" cy="${y}" r="6" fill="var(--accent)" stroke="var(--panel)" stroke-width="2"/>`);
+    parts.push(`<text x="${x}" y="${y-14}" text-anchor="middle" font-size="11" font-weight="700" fill="var(--accent)" font-family="Consolas">${Math.round(e.score*100)}٪</text>`);
+    parts.push(`<text x="${x}" y="${H-P.b+18}" text-anchor="middle" font-size="10" fill="var(--ink)" font-family="Vazirmatn">${e.name.substring(0,20)}</text>`);
+    parts.push(`<text x="${x}" y="${H-P.b+32}" text-anchor="middle" font-size="9" fill="var(--muted)" font-family="Consolas">${e.date}</text>`);
+  });
+
+  $('#trendChart').innerHTML = parts.join('');
+
+  // Table
+  $('#trendBody').innerHTML = data.map((e,i)=>{
+    const prev = i>0 ? data[i-1].score : null;
+    const delta = prev!==null ? e.score - prev : null;
+    const deltaStr = delta===null ? '—' :
+      `<span style="color:${delta>0?'var(--success)':delta<0?'var(--danger)':'var(--muted)'}">${delta>0?'+':''}${fa(Math.round(delta*100))}٪</span>`;
+    return `<tr>
+      <td>${e.name}</td>
+      <td class="num">${e.date}</td>
+      <td class="num"><b>${pct(e.score)}</b></td>
+      <td class="num">${deltaStr}</td>
+      <td>${e.weakest}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* ============================================================
+   ۱۶) توصیه‌ها
+   ============================================================ */
+function renderRecos(){
+  const a = A;
+  const issues = diagnose(a);
+  const recos = [];
+
+  // Careless errors dominant
+  if(a.errorCounts.careless + a.errorCounts.calc >= 2){
+    recos.push({
+      priority:'بالا',
+      color:'#f59e0b',
+      icon:'🎯',
+      title:'کاهش بی‌دقتی و خطای محاسبه',
+      desc:`${fa(a.errorCounts.careless + a.errorCounts.calc)} سؤال به دلیل بی‌دقتی یا محاسبه از دست رفته.`,
+      actions:[
+        'پس از هر پاسخ، ۵ ثانیه بازبینی: واحد، علامت، و جایگذاری نهایی را چک کنید.',
+        'در سؤالات چند مرحله‌ای، هر مرحله را در همان خط بنویسید تا خطا ردیابی شود.',
+        'قبل از شروع، ۳ قانون شخصی را روی برگه بنویسید: «علامت را چک کن»، «واحد را چک کن»، «جواب را جایگذاری کن».'
+      ]
+    });
+  }
+
+  // Time pressure
+  if(a.errorCounts.time + a.errorCounts.guess >= 2){
+    recos.push({
+      priority:'بالا',
+      color:'#8b5cf6',
+      icon:'⏱',
+      title:'مدیریت زمان آزمون',
+      desc:`${fa(a.errorCounts.time + a.errorCounts.guess)} سؤال به دلیل کمبود وقت یا حدس از دست رفته.`,
+      actions:[
+        'قانون ۱٫۵×: اگر روی یک سؤال ۱٫۵ برابر میانگین زمان ماندید، علامت بزنید و رد شوید.',
+        'ابتدا سؤالات آسان را کامل کنید؛ بعد به سراغ متوسط؛ سخت‌ها آخر.',
+        'در ۵ دقیقهٔ پایانی، حتماً به سؤالات علامت‌خورده برگردید (نه سؤالات جدید).'
+      ]
+    });
+  }
+
+  // Weak topics
+  const weakTopics = a.topicStats.filter(t=> t.accuracy < 0.6).slice(0, 2);
+  weakTopics.forEach(t=>{
+    recos.push({
+      priority:'بالا',
+      color:'#ef4444',
+      icon:'📚',
+      title:`تقویت «${t.topic}»`,
+      desc:`دقت ${pct(t.accuracy)} در ${fa(t.total)} سؤال. ${Object.entries(t.errors).map(([k,v])=>`${fa(v)} خطای ${ERRORS[k].name}`).join('، ')}.`,
+      actions:[
+        `مرور مفهومی: ۳۰ دقیقهٔ اول را به بازخوانی اصول «${t.topic}» اختصاص دهید.`,
+        `حل ۱۰ تمرین هدفمند از «${t.topic}» با تمرکز روی انواع سؤالاتی که غلط زده‌اید.`,
+        `بعد از هر تمرین، دقیقاً بگویید چرا پاسخ درست است — نه فقط اینکه درست است.`
+      ]
+    });
+  });
+
+  // Bloom weakness
+  if(a.weakBloom && a.weakBloom.accuracy < 0.5 && a.weakBloom.total >= 3){
+    recos.push({
+      priority:'متوسط',
+      color:'#f97316',
+      icon:'🧩',
+      title:`تمرین سطح «${a.weakBloom.name}»`,
+      desc:`در سؤالات این سطح، فقط ${pct(a.weakBloom.accuracy)} درست پاسخ داده‌اید. مشکل فراتر از حفظ است.`,
+      actions:[
+        `به جای خواندن مجدد، سؤالاتی حل کنید که نیاز به ${a.weakBloom.name} دارند.`,
+        'از تکنیک «حل بدون دیدن جواب» استفاده کنید — اول خودتان، بعد جواب را ببینید.',
+        'هر راه‌حل را با زبان خودتان توضیح دهید.'
+      ]
+    });
+  }
+
+  // Overconfidence
+  if(a.overconfident){
+    recos.push({
+      priority:'متوسط',
+      color:'#8b5cf6',
+      icon:'🎲',
+      title:'کالیبراسیون اطمینان',
+      desc:`وقتی مطمئن هستید، به‌اندازهٔ کافی درست نیستید (میانگین اطمینان در غلط‌ها: ${fa(a.wrongAvgConf)}٪).`,
+      actions:[
+        'قبل از انتخاب گزینه، بگویید «چرا این جواب درست است و بقیه غلط؟»',
+        'در سؤالاتی که ۸۰٪ مطمئن هستید، ۵ ثانیه اضافی برای بازبینی بگذارید.',
+        'بعد از آزمون، پاسخ‌های «مطمئن ولی غلط» را جدا کنید و دلیل واقعی را بنویسید.'
+      ]
+    });
+  }
+
+  if(recos.length === 0){
+    recos.push({
+      priority:'پایین',
+      color:'#10b981',
+      icon:'✅',
+      title:'ادامهٔ مسیر فعلی',
+      desc:'هیچ الگوی خطای خاصی یافت نشد. عملکرد متوازن است.',
+      actions:['برای حفظ فرم، هفته‌ای یک آزمون شبیه‌سازی‌شده با زمان واقعی بزنید.']
+    });
+  }
+
+  $('#recoGrid').innerHTML = recos.map(r=>`
+    <div class="reco" style="--reco-color:${r.color};--reco-bg:${r.color}20">
+      <div class="reco-icon">${r.icon}</div>
+      <div>
+        <h3>${r.title} <span class="priority">${r.priority}</span></h3>
+        <p>${r.desc}</p>
+        <ul>${r.actions.map(a=>`<li>${a}</li>`).join('')}</ul>
+      </div>
+    </div>
+  `).join('');
+
+  renderPlan(recos);
+}
+
+function renderPlan(recos){
+  const planKey = 'plan-'+S.currentExamId;
+  let checked = {};
+  try{ checked = JSON.parse(localStorage.getItem(planKey)||'{}'); }catch(e){}
+
+  const items = [];
+  recos.forEach((r, ri)=>{
+    r.actions.forEach((a, ai)=>{
+      items.push({id:ri+'-'+ai, text:a, pri:r.priority, color:r.color});
+    });
+  });
+
+  $('#planList').innerHTML = items.map(it=>{
+    const done = checked[it.id];
+    return `<div class="plan-item ${done?'done':''}" data-id="${it.id}">
+      <input type="checkbox" data-plan="${it.id}" ${done?'checked':''}>
+      <span style="flex:1">${it.text}</span>
+      <span class="chip" style="background:${it.color}20;color:${it.color};border-color:${it.color}">${it.pri}</span>
+    </div>`;
+  }).join('');
+
+  $('#planList').onchange = e=>{
+    if(e.target.dataset.plan){
+      checked[e.target.dataset.plan] = e.target.checked;
+      localStorage.setItem(planKey, JSON.stringify(checked));
+      e.target.closest('.plan-item').classList.toggle('done', e.target.checked);
+    }
+  };
+}
+
+/* ============================================================
+   ۱۷) رفرش کل
+   ============================================================ */
+function refresh(){
+  const exam = S.exams.find(e=>e.id===S.currentExamId) || S.exams[0];
+  S.currentExamId = exam.id;
+  A = analyze(exam);
+
+  // Header
+  $('#examTitle').textContent = exam.name;
+  $('#examMeta').textContent = `${exam.subject} · ${exam.date} · ${fa(exam.questions.length)} سؤال · ${fa(exam.durationMin)} دقیقه`;
+
+  // Top stats
+  $('#topStats').innerHTML = `
+    <div class="top-stat"><b>${pct(A.score)}</b><span>درصد</span></div>
+    <div class="top-stat"><b>${fa(A.correct)}/${fa(A.total)}</b><span>درست</span></div>
+    <div class="top-stat"><b>${fa(A.avgTime,0)}s</b><span>میانگین</span></div>
+    <div class="top-stat"><b>${fa(A.totalTime/60,1)}</b><span>دقیقه</span></div>
+    ${A.neg>0?`<div class="top-stat"><b>${fa(Math.round(A.netScore*100))}٪</b><span>خالص</span></div>`:''}
+  `;
+  if(typeof fillExamSel==='function'){ fillExamSel(); renderStrategy(); renderCalibStats(); }
+
+  renderOverview();
+  renderTopics();
+  renderItems();
+  renderErrors();
+  renderTime();
+  renderTrend();
+  renderRecos();
+
+  save();
+}
+
+/* ============================================================
+   ۱۸) داده
+   ============================================================ */
+function fillDataBox(){ $('#dataBox').value = JSON.stringify(S, null, 2); }
+function dataMsg(t, ok){
+  const el = $('#dataMsg'); el.className = 'msg ' + (ok?'ok':'err'); el.textContent = t;
+}
+function validateData(o){
+  if(!o || !Array.isArray(o.exams) || !o.exams.length) return {ok:false, err:'آرایهٔ exams ناقص یا خالی است.'};
+  for(const e of o.exams){
+    if(!e.id || !e.name) return {ok:false, err:'هر آزمون باید id و name داشته باشد.'};
+    if(!Array.isArray(e.questions)) return {ok:false, err:`آزمون ${e.name}: questions آرایه نیست.`};
+    for(const q of e.questions){
+      if(typeof q.no !== 'number') return {ok:false, err:`آزمون ${e.name}: شماره سؤال نامعتبر.`};
+    }
+  }
+  return {ok:true};
+}
+
+/* ============================================================
+   ۱۹) رویدادها
+   ============================================================ */
+let toastTimer;
+function toast(msg){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(()=>t.classList.remove('show'), 2000);
+}
+function setTheme(t){
+  S.theme = t;
+  Kit.setTheme(t);
+  save();
+}
+function switchTab(name){
+  $$('.tab-btn').forEach(b=> b.classList.toggle('active', b.dataset.tab===name));
+  $$('.tab-panel').forEach(p=> p.classList.toggle('active', p.id==='tab-'+name));
+  currentTab = name;
+}
+
+function bind(){
+  $$('.tab-btn').forEach(b=> b.addEventListener('click', ()=> switchTab(b.dataset.tab)));
+  $('#btnTheme').addEventListener('click', ()=> setTheme(document.documentElement.dataset.theme==='light'?'dark':'light'));
+  $('#btnExport').addEventListener('click', ()=>{
+    const blob = new Blob([JSON.stringify(S, null, 2)], {type:'application/json;charset=utf-8'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = 'exam-analysis.json'; a.click();
+    setTimeout(()=> URL.revokeObjectURL(a.href), 2000);
+  });
+
+  $('#btnSaveData').addEventListener('click', ()=>{
+    try{
+      const o = JSON.parse($('#dataBox').value);
+      const v = validateData(o);
+      if(!v.ok){ dataMsg(v.err, false); return; }
+      S = o;
+      if(!S.theme) S.theme = 'light';
+      if(!S.currentExamId || !S.exams.find(e=>e.id===S.currentExamId)) S.currentExamId = S.exams[0].id;
+      refresh(); fillDataBox();
+      dataMsg(`ذخیره شد: ${S.exams.length} آزمون.`, true);
+      toast('داده به‌روزرسانی شد');
+    }catch(err){ dataMsg('خطای JSON: '+err.message, false); }
+  });
+  $('#btnValidateData').addEventListener('click', ()=>{
+    try{
+      const o = JSON.parse($('#dataBox').value);
+      const v = validateData(o);
+      dataMsg(v.ok ? `معتبر: ${o.exams.length} آزمون.` : v.err, v.ok);
+    }catch(err){ dataMsg('خطای JSON: '+err.message, false); }
+  });
+  $('#btnReloadData').addEventListener('click', ()=>{ fillDataBox(); dataMsg('از حافظه بازخوانی شد.', true); });
+  $('#btnDownloadData').addEventListener('click', ()=>{
+    const blob = new Blob([JSON.stringify(S, null, 2)], {type:'application/json;charset=utf-8'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = 'exam-data.json'; a.click();
+    setTimeout(()=> URL.revokeObjectURL(a.href), 2000);
+  });
+  $('#btnAddExam').addEventListener('click', ()=>{
+    const newExam = {
+      id: 'exam-'+Date.now(),
+      name: 'آزمون جدید',
+      subject: 'ریاضی',
+      date: new Date().toLocaleDateString('fa-IR'),
+      durationMin: 30,
+      classAvg: 55,
+      questions: JSON.parse(JSON.stringify(SAMPLE.exams[0].questions.map(q=>({...q, correct:1, errorType:null, notes:''}))))
+    };
+    S.exams.push(newExam);
+    S.currentExamId = newExam.id;
+    save(); fillDataBox(); refresh();
+    toast('آزمون جدید اضافه شد — سؤالات را در تب داده ویرایش کنید');
+  });
+  $('#btnFactoryData').addEventListener('click', ()=>{
+    if(!confirm('بازگشت به دادهٔ نمونه؟')) return;
+    S = JSON.parse(JSON.stringify(SAMPLE));
+    save(); fillDataBox(); refresh(); renderEntry();
+    toast('بازنشانی شد');
+  });
+}
+
+/* ============================================================
+   ۲۰) راه‌اندازی
+   ============================================================ */
+window.addEventListener('DOMContentLoaded', function init(){
+  if(!load()) S = JSON.parse(JSON.stringify(SAMPLE));
+  Kit.initTheme(); Kit.header('تحلیل آزمون');
+  normalizeData();
+  bind();
+  refresh();
+  fillDataBox();
+  renderEntry();
+});
+</script>
+<script>
+/* ===== ارتقای تحلیل آزمون: نمرهٔ منفی، ورود سریع، استراتژی پاسخ‌دهی، کالیبراسیون دقیق ===== */
+(function(){
+const st=document.createElement('style');
+st.textContent=`.note{border-right:4px solid var(--nc,var(--accent));background:var(--nb,var(--accent-soft));border-radius:12px;padding:12px 16px;margin:10px 0;font-size:13px;line-height:1.9}
+.note b:first-child{display:block;margin-bottom:2px;color:var(--nc,var(--accent-2))}
+.note.ok{--nc:var(--success);--nb:var(--success-soft)}.note.bad{--nc:var(--danger);--nb:var(--danger-soft)}.note.warn{--nc:var(--warning);--nb:var(--warning-soft)}.note.info{--nc:var(--info);--nb:var(--info-soft)}
+.seg-ok{color:var(--success)}.seg-bad{color:var(--danger)}`;
+document.head.appendChild(st);
+})();
+
+const NEGS=[0,0.25,0.3333,0.5];
+const nearestNeg=v=>String(NEGS.reduce((b,x)=>Math.abs(x-(+v||0))<Math.abs(b-(+v||0))?x:b,0));
+const fixDigits=s=>String(s).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+const curExam=()=>S.exams.find(e=>e.id===S.currentExamId)||S.exams[0];
+
+function normalizeData(){
+  S.exams.forEach(e=>{ if(e.neg==null) e.neg=0; e.questions.forEach(q=>{ if(q.blank==null) q.blank=0; q.correct=q.blank?0:(q.correct?1:0); }); });
+}
+
+/* ---------- انتخاب آزمون و نمرهٔ منفی ---------- */
+function fillExamSel(){
+  const sel=$('#examSel');
+  sel.innerHTML=S.exams.map(e=>`<option value="${Kit.esc(e.id)}" ${e.id===S.currentExamId?'selected':''}>${Kit.esc(e.name)}</option>`).join('');
+  const n=nearestNeg(curExam().neg); $('#negSel').value=n; $('#exNeg').value=n;
+}
+function fillMeta(){
+  const e=curExam();
+  $('#exName').value=e.name||''; $('#exSubject').value=e.subject||''; $('#exDate').value=e.date||'';
+  $('#exDur').value=e.durationMin||''; $('#exAvg').value=e.classAvg??''; $('#exNeg').value=nearestNeg(e.neg);
+}
+$('#examSel').addEventListener('change',e=>{ S.currentExamId=e.target.value; refresh(); fillMeta(); renderEntry(); });
+const setNeg=v=>{ curExam().neg=+v; refresh(); };
+$('#negSel').addEventListener('change',e=>setNeg(e.target.value));
+$('#exNeg').addEventListener('change',e=>setNeg(e.target.value));
+[['exName','name',0],['exSubject','subject',0],['exDate','date',0],['exDur','durationMin',1],['exAvg','classAvg',1]].forEach(([id,k,num])=>{
+  $('#'+id).addEventListener('input',e=>{ curExam()[k]=num?(+e.target.value||0):e.target.value; refresh(); });
+});
+$('#exNew').onclick=()=>{
+  const name=prompt('نام آزمون جدید:','آزمون جدید'); if(!name) return;
+  const n=Math.max(1,Math.min(200,+fixDigits(prompt('تعداد سؤال‌ها:','20'))||20));
+  const ex={id:'exam-'+Date.now(),name,subject:curExam().subject||'',date:new Date().toLocaleDateString('fa-IR-u-ca-persian'),durationMin:curExam().durationMin||30,classAvg:0,neg:curExam().neg||0,
+    questions:Array.from({length:n},(_,i)=>({no:i+1,topic:'موضوع ۱',cognitive:'apply',difficulty:3,correct:1,blank:0,selected:'',correctAns:'',time:60,confidence:70,errorType:null,notes:''}))};
+  S.exams.push(ex); S.currentExamId=ex.id; refresh(); fillMeta(); renderEntry(); fillDataBox(); toast('آزمون ساخته شد؛ نتیجهٔ سؤال‌ها را وارد کنید');
+};
+$('#exDel').onclick=()=>{
+  if(S.exams.length<2){ toast('حداقل یک آزمون باید بماند'); return; }
+  if(!confirm('این آزمون حذف شود؟')) return;
+  S.exams=S.exams.filter(e=>e.id!==S.currentExamId); S.currentExamId=S.exams[0].id; refresh(); fillMeta(); renderEntry(); fillDataBox();
+};
+
+/* ---------- ورود سریع ---------- */
+const LET=['','A','B','C','D','E'];
+const opt=(f,val,opts)=>`<select data-f="${f}">${opts.map(o=>`<option value="${o[0]}" ${String(o[0])===String(val)?'selected':''}>${o[1]}</option>`).join('')}</select>`;
+function rowHtml(q,i){
+  const r=q.blank?'b':q.correct?'c':'w';
+  return `<tr data-i="${i}" class="${r==='c'?'correct-row':'wrong-row'}"><td class="num">${fa(q.no)}</td>
+   <td><input type="text" list="topicList" value="${Kit.esc(q.topic)}" data-f="topic" style="min-width:110px"></td>
+   <td>${opt('cognitive',q.cognitive,BLOOM.map(b=>[b.id,b.name]))}</td>
+   <td>${opt('difficulty',q.difficulty,[1,2,3,4,5].map(d=>[d,'★'.repeat(d)]))}</td>
+   <td>${opt('res',r,[['c','درست'],['w','غلط'],['b','نزده']])}</td>
+   <td>${opt('selected',q.selected||'',LET.map(x=>[x,x||'—']))}</td>
+   <td>${opt('correctAns',q.correctAns||'',LET.map(x=>[x,x||'—']))}</td>
+   <td><input type="number" min="0" value="${q.time}" data-f="time" style="width:72px"></td>
+   <td><input type="number" min="0" max="100" value="${q.confidence}" data-f="confidence" style="width:72px"></td>
+   <td>${opt('errorType',q.errorType||'',[['','—'],...Object.keys(ERRORS).map(k=>[k,ERRORS[k].icon+' '+ERRORS[k].name])])}</td>
+   <td><input type="text" value="${Kit.esc(q.notes||'')}" data-f="notes" style="min-width:150px"></td>
+   <td><button class="btn sm danger" data-qdel="${i}" title="حذف سؤال">×</button></td></tr>`;
+}
+function renderEntry(){
+  const ex=curExam(); fillMeta();
+  $('#topicList').innerHTML=[...new Set(ex.questions.map(q=>q.topic))].map(t=>`<option value="${Kit.esc(t)}">`).join('');
+  $('#entryBody').innerHTML=ex.questions.map(rowHtml).join('');
+}
+function applyResult(q,res){
+  if(!res){ if(q.selected&&q.correctAns) res=q.selected===q.correctAns?'c':'w'; else if(!q.selected&&q.correctAns) res='b'; else res='w'; }
+  q.correct=res==='c'?1:0; q.blank=res==='b'?1:0; if(res==='b') q.selected=''; if(res==='c') q.errorType=null;
+}
+$('#entryBody').addEventListener('change',e=>{
+  const t=e.target, tr=t.closest('tr'); if(!tr||!t.dataset.f) return;
+  const q=curExam().questions[+tr.dataset.i], f=t.dataset.f, v=t.value; let rerender=false;
+  if(f==='topic') q.topic=v.trim()||'بدون موضوع';
+  else if(f==='cognitive') q.cognitive=v;
+  else if(f==='difficulty') q.difficulty=+v;
+  else if(f==='res'){ applyResult(q,v); rerender=true; }
+  else if(f==='selected'||f==='correctAns'){ q[f]=v; if(q.selected&&q.correctAns) applyResult(q); else if(f==='selected'&&!v) applyResult(q,'b'); rerender=true; }
+  else if(f==='time') q.time=Math.max(0,+v||0);
+  else if(f==='confidence') q.confidence=Kit.clamp(+v||0,0,100);
+  else if(f==='errorType') q.errorType=v||null;
+  else if(f==='notes') q.notes=v;
+  if(f==='res'||f==='selected'||f==='correctAns') if(q.correct) q.errorType=null;
+  refresh(); fillDataBox(); if(rerender) renderEntry();
+});
+$('#entryBody').addEventListener('click',e=>{
+  const b=e.target.closest('[data-qdel]'); if(!b) return;
+  const ex=curExam(); if(ex.questions.length<2){ toast('حداقل یک سؤال باید بماند'); return; }
+  ex.questions.splice(+b.dataset.qdel,1); ex.questions.forEach((q,i)=>q.no=i+1); refresh(); fillDataBox(); renderEntry();
+});
+$('#qAdd').onclick=()=>{ const ex=curExam(), last=ex.questions[ex.questions.length-1]||{}; ex.questions.push({no:ex.questions.length+1,topic:last.topic||'موضوع ۱',cognitive:'apply',difficulty:3,correct:1,blank:0,selected:'',correctAns:'',time:60,confidence:70,errorType:null,notes:''}); refresh(); fillDataBox(); renderEntry(); };
+
+function suggest(q,med){
+  const c=q.confidence,t=q.time;
+  if(q.blank) return t<med*0.6?'time':'knowledge';
+  if(c>=70) return t<=med?'careless':'conceptual';
+  if(c<40) return t<med*0.6?'guess':'knowledge';
+  return t>med*1.3?'knowledge':'conceptual';
+}
+$('#qSuggest').onclick=()=>{
+  const ex=curExam(), med=A.medianTime; let n=0;
+  ex.questions.forEach(q=>{ if(!q.correct&&!q.errorType){ q.errorType=suggest(q,med); n++; } });
+  refresh(); fillDataBox(); renderEntry(); toast(n?fa(n)+' خطا برچسب خورد؛ پیشنهادها را بازبینی کنید':'همهٔ خطاها نوع دارند');
+};
+$('#qTpl').onclick=()=>Kit.download('exam-template.csv','no,topic,cognitive,difficulty,result,selected,correctAns,time,confidence,errorType,notes\n1,توابع,کاربرد,2,درست,B,B,60,85,,\n2,مشتق,تحلیل,3,غلط,C,A,110,40,دانش ناقص,مشتق ضمنی\n3,انتگرال,کاربرد,3,نزده,,C,20,10,کمبود وقت,','text/csv');
+function parseCsv(txt){
+  const rows=fixDigits(txt).split(/\r?\n/).map(l=>l.trim()).filter(Boolean).map(l=>l.split(/\t|,|;/).map(c=>c.trim().replace(/^"|"$/g,'')));
+  if(rows.length&&isNaN(parseFloat(rows[0][0]))) rows.shift();
+  const bm={},em={},rm={'درست':'c','c':'c','1':'c','correct':'c','غلط':'w','w':'w','0':'w','wrong':'w','نزده':'b','b':'b','blank':'b','خالی':'b'};
+  BLOOM.forEach(b=>{bm[b.id]=b.id;bm[b.name]=b.id;}); Object.keys(ERRORS).forEach(k=>{em[k]=k;em[ERRORS[k].name]=k;});
+  return rows.map((r,i)=>{
+    const q={no:+r[0]||i+1,topic:r[1]||'بدون موضوع',cognitive:bm[r[2]]||'apply',difficulty:Kit.clamp(+r[3]||3,1,5),correct:0,blank:0,selected:(r[5]||'').toUpperCase(),correctAns:(r[6]||'').toUpperCase(),time:+r[7]||0,confidence:Kit.clamp(+r[8]||0,0,100),errorType:em[r[9]]||null,notes:r[10]||''};
+    applyResult(q,rm[(r[4]||'').toLowerCase()]); return q;
+  });
+}
+$('#csvGo').onclick=()=>{
+  const qs=parseCsv($('#csvBox').value); if(!qs.length){ toast('CSV خالی است'); return; }
+  if(!confirm(fa(qs.length)+' سؤال جایگزین سؤال‌های این آزمون شود؟')) return;
+  curExam().questions=qs.map((q,i)=>({...q,no:i+1})); refresh(); fillDataBox(); renderEntry(); toast('وارد شد');
+};
+
+/* ---------- کالیبراسیون دقیق ---------- */
+function renderCalibStats(){
+  const box=$('#calibCard'), qs=A.qs.filter(q=>q.confidence!=null), N=qs.length;
+  if(N<5){ box.innerHTML='<h2>🎚 سنجش دقت اطمینان</h2><p class="muted">برای این تحلیل حداقل ۵ سؤال با اطمینان ثبت‌شده لازم است.</p>'; return; }
+  const brier=Kit.mean(qs.map(q=>(q.confidence/100-(q.correct?1:0))**2));
+  const B=[[0,40,'کمتر از ۴۰٪'],[40,60,'۴۰ تا ۶۰٪'],[60,80,'۶۰ تا ۸۰٪'],[80,101,'۸۰٪ و بالاتر']].map(([lo,hi,l])=>{
+    const g=qs.filter(q=>q.confidence>=lo&&q.confidence<hi); return {l,n:g.length,conf:g.length?Kit.mean(g.map(q=>q.confidence))/100:null,acc:g.length?g.filter(q=>q.correct).length/g.length:null};
+  });
+  const ece=B.reduce((s,b)=>b.n?s+b.n/N*Math.abs(b.acc-b.conf):s,0);
+  const over=Kit.mean(qs.map(q=>q.confidence))/100-A.score;
+  const verdict=Math.abs(over)<0.07?['ok','خودشناسی خوب','اطمینان شما با دقت واقعی‌تان هم‌خوان است.']:over>0?['bad','بیش‌اطمینانی',`به‌طور میانگین ${fa(over*100)} نقطه بیشتر از دقت واقعی مطمئن بوده‌اید. «مطمئنم» را با یک بازبینی کوتاه تأیید کنید.`]:['warn','کم‌اطمینانی',`به‌طور میانگین ${fa(-over*100)} نقطه کمتر از دقت واقعی به خودتان اطمینان داشته‌اید؛ بیشتر به اولین پاسخ‌تان اعتماد کنید.`];
+  box.innerHTML=`<h2>🎚 سنجش دقت اطمینان</h2>
+  <div class="kpi-grid" style="margin:8px 0">
+    <div class="kpi" style="--kpi-color:var(--accent)"><div class="kpi-label">امتیاز برایر (هرچه کمتر بهتر)</div><div class="kpi-value">${fa(brier,2)}</div><div class="kpi-sub">۰ بی‌نقص · ۰٫۲۵ معادل حدس ۵۰٪</div></div>
+    <div class="kpi" style="--kpi-color:var(--info)"><div class="kpi-label">خطای کالیبراسیون (ECE)</div><div class="kpi-value">${fa(ece*100)}٪</div><div class="kpi-sub">میانگین فاصلهٔ اطمینان و دقت</div></div>
+    <div class="kpi" style="--kpi-color:var(--${verdict[0]==='ok'?'success':verdict[0]==='bad'?'danger':'warning'})"><div class="kpi-label">قضاوت</div><div class="kpi-value" style="font-size:18px">${verdict[1]}</div><div class="kpi-sub">${fa(over*100)} نقطه اختلاف</div></div></div>
+  <table class="doc"><thead><tr><th>بازهٔ اطمینان</th><th>تعداد</th><th>اطمینان میانگین</th><th>دقت واقعی</th><th>فاصله</th></tr></thead><tbody>${B.map(b=>b.n?`<tr><td>${b.l}</td><td class="num">${fa(b.n)}</td><td class="num">${fa(b.conf*100)}٪</td><td class="num">${fa(b.acc*100)}٪</td><td class="num ${b.conf-b.acc>.1?'seg-bad':b.acc-b.conf>.1?'seg-ok':''}">${b.conf-b.acc>0?'+':''}${fa((b.conf-b.acc)*100)}</td></tr>`:`<tr><td>${b.l}</td><td colspan="4" class="muted">بدون داده</td></tr>`).join('')}</tbody></table>
+  <div class="note ${verdict[0]}"><b>${verdict[1]}</b>${verdict[2]} ${N<20?'(با کمتر از ۲۰ سؤال، این اعداد نوسان زیادی دارند.)':''}</div>`;
+}
+
+/* ---------- استراتژی پاسخ‌دهی ---------- */
+function renderStrategy(){
+  const a=A, neg=a.neg, qs=a.qs, N=a.total, host=$('#strategyBox'); let h='';
+  const answered=qs.filter(q=>!q.blank);
+  if(neg>0){
+    const pStar=neg/(1+neg);
+    h+=`<div class="note info"><b>حد سربه‌سر: ${fa(pStar*100)}٪</b>با نمرهٔ منفی ${fa(neg,2)}، سؤالی را بزنید که احتمال درست بودن پاسخ‌تان از <span class="num">${fa(pStar*100)}٪</span> بیشتر است؛ چون امید ریاضی نمره‌ٔ زدن <code>p − (1−p)×${fa(neg,2)}</code> است. بهتر از این، اگر یکی از گزینه‌ها را با اطمینان حذف کنید، احتمال شما بالا می‌رود.</div>`;
+    const score=thr=>answered.reduce((s,q)=>(q.confidence??0)>=thr?s+(q.correct?1:-neg):s,0)/N*100;
+    const pts=[];for(let t=0;t<=100;t+=5)pts.push([t,score(t)]);
+    let best=pts[0];pts.forEach(p=>{if(p[1]>best[1]+1e-9)best=p;});
+    const cur=pts[0][1], lo=Math.min(...pts.map(p=>p[1])), hi=Math.max(...pts.map(p=>p[1]));
+    const y0=Math.floor(lo/20)*20, y1=Math.max(y0+20,Math.ceil(hi/20)*20);
+    h+=`<div class="chart-card" style="margin-bottom:14px"><h3>درصد خالص اگر سؤال‌های کم‌اطمینان را نمی‌زدید</h3><p class="muted" style="margin-bottom:8px">محور افقی: «سؤال‌هایی با اطمینان کمتر از این عدد را نمی‌زنم». عدد صفر یعنی وضعیت فعلی.</p><svg id="thrChart"></svg></div>`;
+    host.innerHTML=h; // برای ساخت نمودار
+    Kit.chart($('#thrChart'),{h:280,x:[0,100],y:[y0,y1],xTicks:5,yTicks:(y1-y0)/20,xLabel:'آستانهٔ اطمینان برای زدن (٪)',yLabel:'درصد خالص',yFmt:v=>fa(v),series:[{pts,color:'var(--accent-2)',w:3,dots:true,r:3}],
+      marks:[{x:0,y:cur,color:'var(--info)',label:'الان'}].concat(best[0]>0?[{x:best[0],y:best[1],color:'var(--success)',label:'بهترین'}]:[])});
+    h=host.innerHTML;
+    h+= best[0]>0&&best[1]-cur>=0.5
+      ? `<div class="note ok"><b>اگر زیر ${fa(best[0])}٪ اطمینان نمی‌زدید</b>درصد خالص از ${fa(cur)}٪ به ${fa(best[1])}٪ می‌رسید (${best[1]-cur>0?'+':''}${fa(best[1]-cur,1)}). نکته: این محاسبه روی همین آزمون است؛ برای آزمون بعد همان آستانه را به‌عنوان قانون سرانگشتی امتحان کنید.</div>`
+      : `<div class="note ok"><b>نزدن لازم نبود</b>در این آزمون پاسخ‌های کم‌اطمینان‌تان هم در مجموع هزینه‌ای نداشتند.</div>`;
+    if(answered.length<20) h+=`<div class="note warn"><b>نمونهٔ کوچک</b>فقط ${fa(answered.length)} سؤال پاسخ داده‌اید؛ این تحلیل برای
