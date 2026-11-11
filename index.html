@@ -192,7 +192,38 @@
   <div class="container header-inner">
     <!-- لوگوی تصویری + متن -->
     <div class="logo" onclick="showPage('home')" style="cursor: pointer; display: flex; align-items: center; gap: 10px;">
-      <img src="assets/logo/logo.jpg" alt="لوگوی مستر پلنر" style="height: 40px; width: auto; border-radius: 8px; object-fit: cover;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="42" height="42" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.3));">
+  <defs>
+    <linearGradient id="copperGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E27C63" />
+      <stop offset="100%" stop-color="#C76850" />
+    </linearGradient>
+  </defs>
+  
+  <!-- مدادها (پشت کتاب و کلاه) -->
+  <g transform="translate(50,50) rotate(45)">
+     <rect x="-5" y="-35" width="10" height="50" fill="url(#copperGrad)" rx="1" />
+     <polygon points="-5,15 5,15 0,25" fill="#fcd34d" />
+     <polygon points="-2,20 2,20 0,25" fill="#1e293b" />
+  </g>
+  <g transform="translate(50,50) rotate(-45)">
+     <rect x="-5" y="-35" width="10" height="50" fill="url(#copperGrad)" rx="1" />
+     <polygon points="-5,15 5,15 0,25" fill="#fcd34d" />
+     <polygon points="-2,20 2,20 0,25" fill="#1e293b" />
+  </g>
+  
+  <!-- کتاب (پایه) -->
+  <path d="M 10,75 Q 30,65 50,70 Q 70,65 90,75 L 90,85 Q 70,75 50,80 Q 30,75 10,85 Z" fill="url(#copperGrad)" />
+  <path d="M 48,70 L 52,70 L 52,80 L 48,80 Z" fill="#1e293b" />
+  
+  <!-- کلاه فارغ‌التحصیلی -->
+  <path d="M 35,32 L 65,32 L 60,42 L 40,42 Z" fill="url(#copperGrad)" />
+  <path d="M 50,17 L 80,32 L 50,47 L 20,32 Z" fill="url(#copperGrad)" />
+  
+  <!-- نخ کلاه -->
+  <path d="M 50,17 L 50,7 L 55,7" fill="none" stroke="url(#copperGrad)" stroke-width="2.5" stroke-linecap="round" />
+  <circle cx="55" cy="7" r="2.5" fill="#fcd34d" />
+</svg>
       <div style="display: flex; flex-direction: column; justify-content: center; line-height: 1.2;">
         <span class="logo-fa">مستر پلنر</span>
         <span class="logo-en" style="font-size: 11px; color: #94a3b8; margin-top: 2px;">Mesterplanner</span>
