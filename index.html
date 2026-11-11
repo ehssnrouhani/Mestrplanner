@@ -192,37 +192,24 @@
   <div class="container header-inner">
     <!-- لوگوی تصویری + متن -->
     <div class="logo" onclick="showPage('home')" style="cursor: pointer; display: flex; align-items: center; gap: 10px;">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="42" height="42" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.3));">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="44" height="44" role="img" aria-label="لوگوی مستر پلنر">
+  <title>مستر پلنر | برنامه‌ریزی و مطالعه</title>
+  <desc>لوگوی مستر پلنر شامل حرف M، کتاب و جرقه دانش</desc>
   <defs>
-    <linearGradient id="copperGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#E27C63" />
-      <stop offset="100%" stop-color="#C76850" />
+    <linearGradient id="logoGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5b041" />
+      <stop offset="100%" stop-color="#e8971f" />
     </linearGradient>
   </defs>
   
-  <!-- مدادها (پشت کتاب و کلاه) -->
-  <g transform="translate(50,50) rotate(45)">
-     <rect x="-5" y="-35" width="10" height="50" fill="url(#copperGrad)" rx="1" />
-     <polygon points="-5,15 5,15 0,25" fill="#fcd34d" />
-     <polygon points="-2,20 2,20 0,25" fill="#1e293b" />
-  </g>
-  <g transform="translate(50,50) rotate(-45)">
-     <rect x="-5" y="-35" width="10" height="50" fill="url(#copperGrad)" rx="1" />
-     <polygon points="-5,15 5,15 0,25" fill="#fcd34d" />
-     <polygon points="-2,20 2,20 0,25" fill="#1e293b" />
-  </g>
+  <!-- کتاب باز در پایین -->
+  <path d="M 15 75 Q 35 65 50 72 Q 65 65 85 75 L 85 88 Q 65 78 50 85 Q 35 78 15 88 Z" fill="url(#logoGold)" opacity="0.9" />
   
-  <!-- کتاب (پایه) -->
-  <path d="M 10,75 Q 30,65 50,70 Q 70,65 90,75 L 90,85 Q 70,75 50,80 Q 30,75 10,85 Z" fill="url(#copperGrad)" />
-  <path d="M 48,70 L 52,70 L 52,80 L 48,80 Z" fill="#1e293b" />
+  <!-- حرف M که از کتاب رشد می‌کند -->
+  <path d="M 22 68 L 22 28 L 50 52 L 78 28 L 78 68" fill="none" stroke="url(#logoGold)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
   
-  <!-- کلاه فارغ‌التحصیلی -->
-  <path d="M 35,32 L 65,32 L 60,42 L 40,42 Z" fill="url(#copperGrad)" />
-  <path d="M 50,17 L 80,32 L 50,47 L 20,32 Z" fill="url(#copperGrad)" />
-  
-  <!-- نخ کلاه -->
-  <path d="M 50,17 L 50,7 L 55,7" fill="none" stroke="url(#copperGrad)" stroke-width="2.5" stroke-linecap="round" />
-  <circle cx="55" cy="7" r="2.5" fill="#fcd34d" />
+  <!-- جرقه / ستاره خلاقیت -->
+  <path d="M 82 12 L 84 20 L 92 22 L 84 24 L 82 32 L 80 24 L 72 22 L 80 20 Z" fill="#f8fafc" />
 </svg>
       <div style="display: flex; flex-direction: column; justify-content: center; line-height: 1.2;">
         <span class="logo-fa">مستر پلنر</span>
