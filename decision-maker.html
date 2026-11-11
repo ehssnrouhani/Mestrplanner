@@ -3,133 +3,301 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>تصمیم‌ساز تسلط (وب‌اپ) | مستر پلنر</title>
-<meta name="description" content="ابزار وب محاسبه فاصله تا تسلط بر اساس مدل منحنی یادگیری لگاریتمی">
+<title>تسلط‌ساز؛ محاسبهٔ زمان رسیدن به تسلط با مدل یادگیری و فراموشی | مستر پلنر</title>
+<meta name="description" content="ابزار رایگان محاسبهٔ فاصله تا تسلط: مدل یادگیری نمایی همراه با فراموشی، سناریوهای خوش‌بینانه و بدبینانه، ساعت لازم تا مهلت آزمون، تقسیم بهینهٔ ساعت بین چند درس و کالیبراسیون نرخ یادگیری از آزمون‌های واقعی.">
+<meta name="keywords" content="تسلط, برنامه ریزی مطالعه, منحنی یادگیری, منحنی فراموشی, ساعت مطالعه, تقسیم زمان بین دروس, مستر پلنر">
 <meta name="author" content="احسان روحانی راوری">
+<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/decision-maker.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ehssnrouhani.github.io/Mestrplanner/decision-maker.html">
+<meta property="og:title" content="تسلط‌ساز | مستر پلنر">
+<meta property="og:description" content="چند هفته و چند ساعت تا تسلط؟ مدل یادگیری همراه با فراموشی، مهلت آزمون و تقسیم بهینهٔ ساعت بین دروس.">
+<meta property="og:image" content="https://ehssnrouhani.github.io/Mestrplanner/assets/og-image.jpg">
+<meta property="og:site_name" content="مستر پلنر">
+<meta property="og:locale" content="fa_IR">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "تصمیم‌ساز تسلط",
-  "description": "ابزار وب محاسبه فاصله تا تسلط بر اساس مدل منحنی یادگیری لگاریتمی",
-  "applicationCategory": "EducationalApplication",
-  "operatingSystem": "All",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "IRR"
-  }
-}
-</script>
-
+<link rel="stylesheet" href="tool-kit.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"تسلط‌ساز","url":"https://ehssnrouhani.github.io/Mestrplanner/decision-maker.html","description":"محاسبهٔ زمان و ساعت لازم برای رسیدن به تسلط با مدل یادگیری و فراموشی","applicationCategory":"EducationalApplication","operatingSystem":"Web","inLanguage":"fa-IR","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"IRR"},"author":{"@type":"Person","name":"احسان روحانی راوری"},"isPartOf":{"@type":"WebSite","name":"مستر پلنر","url":"https://ehssnrouhani.github.io/Mestrplanner/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"مستر پلنر","item":"https://ehssnrouhani.github.io/Mestrplanner/"},{"@type":"ListItem","position":2,"name":"تسلط‌ساز","item":"https://ehssnrouhani.github.io/Mestrplanner/decision-maker.html"}]}</script>
 <style>
-:root{--brand:#1f7a4d;--brand-dark:#0d3524;--brand-soft:#e8f4ec;--bg:#f2f6f3;--card:#fff;--ink:#16241d;--muted:#5d6f65;--line:#dfe9e2;--radius:16px;--shadow:0 10px 30px rgba(13,53,36,.08);}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
-a{color:var(--brand);text-decoration:none}
-.site-header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;padding:14px 18px}
-.bar{max-width:800px;margin:0 auto;display:flex;align-items:center;gap:12px}
-.brand{display:flex;align-items:center;gap:10px;color:#fff}
-.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);font-weight:800;font-size:20px}
-main{max-width:600px;margin:40px auto;padding:0 16px}
-.card{background:var(--card);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);border:1px solid var(--line);}
-h1{font-size:22px;color:var(--brand-dark);margin:0 0 10px;text-align:center;}
-p.sub{text-align:center;color:var(--muted);margin-bottom:24px;font-size:14px;}
-.form-group{margin-bottom:16px;}
-.form-group label{display:block;margin-bottom:6px;font-size:14px;font-weight:700;color:var(--brand-dark);}
-.form-group input{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:16px;outline:none;}
-.form-group input:focus{border-color:var(--brand);}
-.btn{background:var(--brand);color:#fff;border:none;padding:14px;border-radius:8px;font-family:inherit;font-size:16px;cursor:pointer;width:100%;margin-top:10px;}
-.btn:hover{background:var(--brand-dark);}
-.result-box{margin-top:24px;padding:20px;background:var(--brand-soft);border-radius:12px;border-right:4px solid var(--brand);display:none;}
-.result-box.show{display:block;}
-.result-item{display:flex;justify-content:space-between;margin-bottom:10px;border-bottom:1px dashed var(--line);padding-bottom:8px;}
-.result-item:last-child{border:none;margin:0;padding:0;}
-.result-label{color:var(--muted);font-size:14px;}
-.result-value{font-weight:800;color:var(--brand-dark);font-size:16px;}
-.alert{background:#fef3c7;color:#92400e;padding:12px;border-radius:8px;margin-top:16px;font-size:14px;border-right:4px solid #f59e0b;display:none;}
-.alert.show{display:block;}
+.layout{display:grid;grid-template-columns:340px 1fr;gap:18px;align-items:start}
+@media(max-width:960px){.layout{grid-template-columns:1fr}}
+.sticky{position:sticky;top:76px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sc-real{--kc:var(--gold2)}.sc-opt{--kc:var(--ok)}.sc-pes{--kc:var(--bad)}
+table.t input{padding:5px 8px;border-radius:8px;min-width:64px}
+.bar{height:10px;border-radius:6px;background:var(--bg2);overflow:hidden;border:1px solid var(--line)}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2))}
 </style>
 </head>
 <body>
-<header class="site-header">
-  <div class="bar">
-    <a class="brand" href="index.html"><span class="brand-badge">م</span><strong>مستر پلنر</strong></a>
-  </div>
-</header>
-<main>
-  <div class="card">
-    <h1>تصمیم‌ساز تسلط</h1>
-    <p class="sub">فاصله‌ات تا آستانه تسلط را دقیق اندازه بگیر</p>
-    
-    <div class="form-group">
-      <label>سطح فعلی تسلط (۰ تا ۱۰۰):</label>
-      <input type="number" id="currentLevel" value="35" min="0" max="100">
-    </div>
-    <div class="form-group">
-      <label>آستانه هدف (۰ تا ۱۰۰):</label>
-      <input type="number" id="targetLevel" value="90" min="1" max="100">
-    </div>
-    <div class="form-group">
-      <label>نرخ یادگیری هفتگی (۱ تا ۱۰):</label>
-      <input type="number" id="learningRate" value="4" min="1" max="10" step="0.5">
-    </div>
-    <div class="form-group">
-      <label>ساعت مطالعه هفتگی:</label>
-      <input type="number" id="weeklyHours" value="6" min="1" max="40" step="0.5">
-    </div>
-    
-    <button class="btn" onclick="calculate()">محاسبه فاصله تا تسلط</button>
-    
-    <div class="result-box" id="resultBox">
-      <div class="result-item">
-        <span class="result-label">هفته‌های لازم:</span>
-        <span class="result-value" id="weeksResult">-</span>
-      </div>
-      <div class="result-item">
-        <span class="result-label">ساعت مطالعه کل:</span>
-        <span class="result-value" id="hoursResult">-</span>
-      </div>
-      <div class="result-item">
-        <span class="result-label">فاصله تا هدف:</span>
-        <span class="result-value" id="gapResult">-</span>
-      </div>
-    </div>
-    <div class="alert" id="alertBox"></div>
-  </div>
-</main>
+<div id="kit-header"></div>
+<div class="wrap">
+  <section class="hero">
+    <h1>تسلط‌ساز</h1>
+    <p>چند هفته و چند ساعت تا تسلط؟ این ابزار یادگیری را همراه با <b>فراموشی</b> مدل می‌کند، بازهٔ خوش‌بینانه و بدبینانه می‌دهد، ساعت لازم برای رسیدن تا مهلت آزمون را حساب می‌کند و ساعت هفتگی را بین چند درس بهینه تقسیم می‌کند.</p>
+  </section>
 
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="calc">۱. محاسبه</button>
+    <button class="tab-btn" data-tab="multi">۲. چند درس</button>
+    <button class="tab-btn" data-tab="calib">۳. کالیبراسیون نرخ</button>
+    <button class="tab-btn" data-tab="method">۴. روش و فرض‌ها</button>
+  </nav>
+
+  <!-- ۱ -->
+  <section class="tab-panel active" id="tab-calc">
+    <div class="layout">
+      <aside class="card sticky">
+        <h2>ورودی‌ها</h2>
+        <p class="sub">مقادیر را بدهید؛ نتیجه هم‌زمان به‌روز می‌شود.</p>
+        <div class="two">
+          <div class="field"><label for="L0">سطح فعلی <em>٪</em></label><input type="number" id="L0" min="0" max="99" step="1"></div>
+          <div class="field"><label for="T">سطح هدف <em>٪</em></label><input type="number" id="T" min="1" max="99" step="1"></div>
+        </div>
+        <div class="field"><label for="E">کارایی یادگیری <em id="Ev"></em></label><input type="range" id="E" min="1" max="10" step="0.5">
+          <span class="hint">در ۶ ساعت مطالعهٔ هفتگی، کارایی ۴ یعنی حدود ۳۳٪ از شکاف باقی‌مانده در هفته بسته می‌شود. از تب «کالیبراسیون» می‌توانید آن را از پیشرفت واقعی خود بسنجید.</span></div>
+        <div class="field"><label for="H">ساعت مطالعهٔ هفتگی <em id="Hv"></em></label><input type="range" id="H" min="1" max="40" step="0.5"></div>
+        <div class="field"><label>کیفیت مرور (فراموشی هفتگی) <em id="Fv"></em></label>
+          <div class="seg" id="Fseg"><button data-f="3">مرور فاصله‌دار</button><button data-f="8">گاه‌به‌گاه</button><button data-f="15">بدون مرور</button></div>
+          <input type="range" id="F" min="0" max="25" step="1" style="margin-top:8px">
+          <span class="hint">درصدی از آنچه یاد گرفته‌اید که هر هفته بدون مرور از دست می‌رود.</span></div>
+        <div class="field"><label for="D">مهلت (هفته تا آزمون) <em>اختیاری</em></label><input type="number" id="D" min="0.5" max="104" step="0.5" placeholder="مثلاً ۸"></div>
+        <div class="row no-print"><button class="btn sm" id="btnShare">ذخیرهٔ نتیجه (JSON)</button><button class="btn sm ghost" id="btnReset">بازنشانی</button></div>
+      </aside>
+
+      <div>
+        <div id="alertBox"></div>
+        <div class="grid ga" id="kpis"></div>
+        <div id="notes"></div>
+        <div class="card"><h2>منحنی تسلط در زمان</h2><p class="sub">خط تیره: هدف. ناحیهٔ رنگی: بازهٔ بین سناریوی بدبینانه و خوش‌بینانه.</p>
+          <svg id="curve"></svg>
+          <div class="legend"><span><i style="background:var(--gold2)"></i>واقع‌بینانه</span><span><i style="background:var(--ok)"></i>خوش‌بینانه</span><span><i style="background:var(--bad)"></i>بدبینانه</span></div></div>
+        <div class="grid g2">
+          <div class="card"><h2>نقاط عطف</h2><p class="sub">زمان رسیدن به ۲۵، ۵۰، ۷۵ و ۱۰۰٪ مسیر.</p><div class="table-wrap"><table class="t" id="mile"></table></div></div>
+          <div class="card"><h2>اثر مرور بر سقف تسلط</h2><p class="sub">با همین ساعت مطالعه، کیفیت مرور چه می‌کند؟</p><div class="table-wrap"><table class="t" id="retTab"></table></div></div>
+        </div>
+        <div class="card"><h2>بازده نزولی ساعت‌ها</h2><p class="sub">با افزایش ساعت هفتگی، زمان رسیدن به هدف چقدر کم می‌شود؟</p><svg id="sens"></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ۲ -->
+  <section class="tab-panel" id="tab-multi">
+    <div class="card">
+      <h2>تقسیم بهینهٔ ساعت بین چند درس</h2>
+      <p class="sub">کل ساعت هفتگی را بدهید؛ ابزار سهم هر درس را طوری می‌یابد که <b>همهٔ درس‌ها هم‌زمان به هدف برسند و زودترین زمان ممکن حاصل شود</b>. کارایی و فراموشی از تب اول گرفته می‌شود.</p>
+      <div class="row" style="margin-bottom:12px">
+        <div class="field" style="margin:0;width:200px"><label for="TH">کل ساعت هفتگی <em id="THv"></em></label><input type="range" id="TH" min="2" max="60" step="0.5"></div>
+        <button class="btn gold" id="addSub">+ افزودن درس</button>
+      </div>
+      <div class="table-wrap"><table class="t" id="subTab"></table></div>
+      <div id="multiOut"></div>
+    </div>
+  </section>
+
+  <!-- ۳ -->
+  <section class="tab-panel" id="tab-calib">
+    <div class="card">
+      <h2>کالیبراسیون: نرخ یادگیری واقعی خودتان</h2>
+      <p class="sub">دو سنجش از یک درس (مثلاً دو آزمون) به‌همراه ساعت مطالعهٔ میان آن‌ها بدهید. ابزار کارایی یادگیری شما را از روی دادهٔ واقعی برآورد می‌کند، نه حدسی.</p>
+      <div class="grid g4">
+        <div class="field"><label>سطح در سنجش اول <em>٪</em></label><input type="number" id="c1" value="30" min="0" max="99"></div>
+        <div class="field"><label>سطح در سنجش دوم <em>٪</em></label><input type="number" id="c2" value="55" min="1" max="100"></div>
+        <div class="field"><label>فاصلهٔ دو سنجش (هفته)</label><input type="number" id="cw" value="3" min="0.5" step="0.5"></div>
+        <div class="field"><label>میانگین ساعت هفتگی</label><input type="number" id="ch" value="5" min="0.5" step="0.5"></div>
+      </div>
+      <button class="btn gold" id="calcCal">برآورد کارایی</button>
+      <div id="calOut"></div>
+    </div>
+  </section>
+
+  <!-- ۴ -->
+  <section class="tab-panel" id="tab-method">
+    <div class="card">
+      <h2>مدل ریاضی</h2>
+      <p>سطح تسلط <code>L</code> بین ۰ و ۱ است. مطالعه سهمی از شکاف باقی‌مانده را می‌بندد و فراموشی بخشی از دانسته‌ها را می‌برد:</p>
+      <div class="formula">dL/dt = a·(1 − L) − f·L</div>
+      <p>که در آن <code>a = (کارایی/۱۰) × (ساعت هفتگی/۶)</code> نرخ یادگیری هفتگی و <code>f</code> نرخ فراموشی هفتگی است. جواب بسته:</p>
+      <div class="formula">L(t) = L∞ − (L∞ − L₀)·e^(−(a+f)t) ,  L∞ = a / (a + f)</div>
+      <div class="formula">t* = ln[(L∞ − L₀) / (L∞ − T)] / (a + f)   (فقط اگر T &lt; L∞)</div>
+      <div class="note info"><b>نکتهٔ کلیدی: سقف تسلط</b>اگر فراموشی را صفر بگیرید، فرمول به شکل ساده‌تر قدیمی <code>ln((1−L₀)/(1−T))/k</code> برمی‌گردد. اما با فراموشی واقعی، هر ساعت‌ریزی سقفی دارد (<code>L∞</code>) و رسیدن به هدفی بالاتر از آن، با همان شیوه ممکن نیست؛ باید ساعت یا کیفیت مرور بالاتر برود.</div>
+      <h3 style="margin-top:14px">سناریوها</h3>
+      <p>خوش‌بینانه: نرخ یادگیری ۲۵٪ بیشتر و فراموشی ۲۰٪ کمتر. بدبینانه: نرخ یادگیری ۳۰٪ کمتر و فراموشی ۳۰٪ بیشتر. این ضرایب برای نمایش عدم قطعیت‌اند، نه برآورد آماری.</p>
+      <h3 style="margin-top:14px">ساعت لازم تا مهلت</h3>
+      <p>کمترین ساعت هفتگی <code>h</code> که <code>L(D) ≥ T</code> شود، با جست‌وجوی دودویی روی همین فرمول پیدا می‌شود.</p>
+      <h3 style="margin-top:14px">محدودیت‌ها</h3>
+      <p class="muted">مدل ساده‌شده است: نرخ ثابت فرض می‌شود، تفاوت دشواری مباحث و خستگی لحاظ نمی‌شود و عددهای کارایی تقریبی‌اند. خروجی را راهنمای برنامه‌ریزی بدانید و هر چند هفته با سنجش واقعی اصلاح کنید.</p>
+    </div>
+  </section>
+  <div class="foot">طراحی و مدیریت: احسان روحانی راوری — مستر پلنر</div>
+</div>
+
+<script src="tool-kit.js"></script>
 <script>
-function calculate() {
-  const l0 = parseFloat(document.getElementById('currentLevel').value) / 100;
-  const t = parseFloat(document.getElementById('targetLevel').value) / 100;
-  const k = parseFloat(document.getElementById('learningRate').value) / 10;
-  const hours = parseFloat(document.getElementById('weeklyHours').value);
-  
-  const alertBox = document.getElementById('alertBox');
-  const resultBox = document.getElementById('resultBox');
-  
-  alertBox.classList.remove('show');
-  resultBox.classList.remove('show');
-  
-  if (isNaN(l0) || isNaN(t) || isNaN(k) || isNaN(hours) || l0 >= t || l0 < 0 || t > 100) {
-    alertBox.innerText = 'لطفاً مقادیر معتبر وارد کنید (سطح هدف باید بیشتر از سطح فعلی باشد).';
-    alertBox.classList.add('show');
-    return;
-  }
-  
-  // فرمول: n* = ln((1-L0)/(1-T)) / k
-  const weeks = Math.log((1 - l0) / (1 - t)) / k;
-  const totalHours = Math.round(weeks * hours);
-  
-  document.getElementById('weeksResult').innerText = weeks.toFixed(1) + ' هفته';
-  document.getElementById('hoursResult').innerText = totalHours + ' ساعت';
-  document.getElementById('gapResult').innerText = ((t - l0) * 100).toFixed(0) + ' درصد';
-  
-  resultBox.classList.add('show');
+const { $, $$, fa, pct, store, toast, esc } = Kit;
+const KEY = 'mastery-v2', REF_H = 6;
+const DEF = { L0: 35, T: 90, E: 4, H: 6, F: 3, D: '', TH: 14, subs: [
+  { n: 'ریاضی', L0: 30, T: 85, E: 4 }, { n: 'فیزیک', L0: 45, T: 85, E: 5 }, { n: 'شیمی', L0: 60, T: 90, E: 6 }] };
+let S = Object.assign({}, DEF, store.get(KEY, {}));
+
+/* ---------- مدل ---------- */
+const aOf = (e, h) => (e / 10) * (h / REF_H);
+const level = (t, L0, a, f) => { const k = a + f; if (k <= 0) return L0; const Li = a / k; return Li - (Li - L0) * Math.exp(-k * t); };
+const timeTo = (T, L0, a, f) => { if (L0 >= T) return 0; const k = a + f; if (k <= 0) return Infinity; const Li = a / k; return Li > T ? Math.log((Li - L0) / (Li - T)) / k : Infinity; };
+const SC = { real: [1, 1], opt: [1.25, .8], pes: [.7, 1.3] };
+const timeSc = (sc, L0, T, e, h, f) => timeTo(T, L0, aOf(e, h) * SC[sc][0], f * SC[sc][1]);
+function hoursFor(D, L0, T, e, f) { // کمترین ساعت هفتگی برای رسیدن تا D
+  if (L0 >= T) return 0; let lo = 0, hi = 500;
+  if (level(D, L0, aOf(e, hi), f) < T) return Infinity;
+  for (let i = 0; i < 60; i++) { const m = (lo + hi) / 2; (level(D, L0, aOf(e, m), f) >= T) ? hi = m : lo = m; }
+  return hi;
 }
+const wk = v => isFinite(v) ? fa(v, 1) + ' هفته' : 'نامحدود';
+const lvl = v => fa(v * 100, 0) + '٪';
+
+/* ---------- رابط ---------- */
+function readInputs() {
+  S.L0 = +$('#L0').value; S.T = +$('#T').value; S.E = +$('#E').value; S.H = +$('#H').value; S.F = +$('#F').value; S.D = $('#D').value; S.TH = +$('#TH').value;
+}
+function writeInputs() {
+  $('#L0').value = S.L0; $('#T').value = S.T; $('#E').value = S.E; $('#H').value = S.H; $('#F').value = S.F; $('#D').value = S.D; $('#TH').value = S.TH;
+  $$('#Fseg button').forEach(b => b.classList.toggle('on', +b.dataset.f === +S.F));
+}
+function calc() {
+  readInputs(); store.set(KEY, S);
+  $('#Ev').textContent = fa(S.E, 1); $('#Hv').textContent = fa(S.H, 1) + ' ساعت'; $('#Fv').textContent = fa(S.F) + '٪ در هفته'; $('#THv').textContent = fa(S.TH, 1) + ' ساعت';
+  $$('#Fseg button').forEach(b => b.classList.toggle('on', +b.dataset.f === +S.F));
+  const L0 = S.L0 / 100, T = S.T / 100, f = S.F / 100, a = aOf(S.E, S.H), box = $('#alertBox');
+  box.innerHTML = '';
+  if ([L0, T].some(isNaN) || S.L0 < 0 || S.T > 99 || S.T < 1 || L0 >= T) {
+    box.innerHTML = `<div class="note warn"><b>ورودی نامعتبر</b>سطح هدف باید بین ۱ تا ۹۹ و بیشتر از سطح فعلی باشد. (هدف ۱۰۰٪ در مدل نمایی هرگز دقیقاً حاصل نمی‌شود؛ ۹۸ یا ۹۹ را بزنید.)</div>`;
+    $('#kpis').innerHTML = $('#notes').innerHTML = ''; return;
+  }
+  const Li = a / (a + f), tR = timeSc('real', L0, T, S.E, S.H, f), tO = timeSc('opt', L0, T, S.E, S.H, f), tP = timeSc('pes', L0, T, S.E, S.H, f);
+  const hoursTot = isFinite(tR) ? tR * S.H : Infinity;
+  const D = S.D ? +S.D : null;
+  const date = isFinite(tR) ? Kit.jal(Kit.addDays(new Date(), Math.round(tR * 7))) : '—';
+  let hNeed = null; if (D) hNeed = hoursFor(D, L0, T, S.E, f);
+
+  $('#kpis').innerHTML = [
+    ['هفتهٔ لازم (واقع‌بینانه)', wk(tR), isFinite(tO) || isFinite(tP) ? `بازه: ${isFinite(tO) ? fa(tO, 1) : '—'} تا ${isFinite(tP) ? fa(tP, 1) : 'نامحدود'}` : 'در دسترس نیست', isFinite(tR) ? 'var(--gold2)' : 'var(--bad)'],
+    ['ساعت مطالعهٔ کل', isFinite(hoursTot) ? fa(Math.round(hoursTot)) + ' ساعت' : '—', `با ${fa(S.H, 1)} ساعت در هفته`, 'var(--info)'],
+    ['تاریخ تقریبی رسیدن', date, 'اگر از امروز شروع کنید', 'var(--violet)'],
+    ['سقف تسلط با این برنامه', lvl(Li), Li > T ? 'بالاتر از هدف ✓' : 'پایین‌تر از هدف ✗', Li > T ? 'var(--ok)' : 'var(--bad)'],
+    ...(D ? [['ساعت هفتگیِ لازم تا مهلت', isFinite(hNeed) ? fa(hNeed, 1) + ' ساعت' : 'ناممکن', `برای ${fa(D, 1)} هفته`, isFinite(hNeed) && hNeed <= S.H ? 'var(--ok)' : 'var(--warn)']] : [])
+  ].map(k => `<div class="kpi" style="--kc:${k[3]}"><div class="l">${k[0]}</div><div class="v" style="font-size:${k[1].length > 11 ? 19 : 27}px">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');
+
+  /* تحلیل و توصیه */
+  const N = [];
+  const hMin = f > 0 ? (S.E ? (10 / S.E) * REF_H * (f * T / (1 - T)) : Infinity) : 0;
+  if (!isFinite(tR)) N.push(`<div class="note bad"><b>با این برنامه به هدف نمی‌رسید</b>سقف تسلطتان با ${fa(S.H, 1)} ساعت و فراموشی ${fa(S.F)}٪ در هفته فقط ${lvl(Li)} است. حداقل ساعت پایدار برای هدف ${fa(S.T)}٪ حدود <b>${fa(hMin, 1)} ساعت در هفته</b> است؛ یا مرور فاصله‌دار را بهتر کنید تا فراموشی کم شود (جدول «اثر مرور» را ببینید).</div>`);
+  else if (!isFinite(tP)) N.push(`<div class="note warn"><b>برنامه شکننده است</b>در سناریوی بدبینانه سقف تسلط زیر هدف می‌ماند. کمی ساعت یا مرور بیشتر، برنامه را مقاوم می‌کند.</div>`);
+  if (D) {
+    if (isFinite(tP) && tP <= D) N.push(`<div class="note ok"><b>مهلت امن است</b>حتی در سناریوی بدبینانه (${wk(tP)}) پیش از مهلت (${wk(D)}) به هدف می‌رسید.</div>`);
+    else if (isFinite(tR) && tR <= D) N.push(`<div class="note warn"><b>مهلت شدنی است، اما حاشیهٔ امنیت کم است</b>در حالت واقع‌بینانه ${wk(tR)} لازم است؛ در حالت بدبینانه از مهلت می‌گذرید. برای اطمینان در حالت بدبینانه حدود <b>${(() => { const x = hoursFor(D, L0, T, S.E * 0.7, f * 1.3); return isFinite(x) ? fa(x, 1) : '—'; })()} ساعت</b> در هفته هدف بگیرید.</div>`);
+    else N.push(`<div class="note bad"><b>مهلت با این برنامه نمی‌رسد</b>${isFinite(hNeed) ? `برای رسیدن تا ${wk(D)} به حدود <b>${fa(hNeed, 1)} ساعت در هفته</b> نیاز دارید.` : 'حتی با ساعت بسیار زیاد در این مهلت ممکن نیست؛ هدف یا مهلت را تغییر دهید.'}</div>`);
+  }
+  if (isFinite(tR)) {
+    const t2 = timeTo(T, L0, aOf(S.E, S.H * 2), f), save = tR - t2;
+    N.push(`<div class="note info"><b>بازده نزولی</b>دو برابر کردن ساعت هفتگی (به ${fa(S.H * 2, 1)}) زمان را فقط ${fa(save, 1)} هفته کم می‌کند (${fa(save / tR * 100)}٪)، نه نصف. بیشترین بازده معمولاً از بهتر کردن مرور و کارایی می‌آید، نه فقط ساعت.</div>`);
+  }
+  $('#notes').innerHTML = N.join('');
+
+  /* منحنی */
+  const tFinite = [tR, tP, tO].filter(isFinite);
+  let tmax = D ? Math.max(D * 1.15, 4) : tFinite.length ? Math.max(...tFinite) * 1.25 : 26;
+  tmax = Kit.clamp(Math.ceil(tmax), 4, 104);
+  const pts = sc => { const [ka, kf] = SC[sc]; return Array.from({ length: 61 }, (_, i) => { const t = tmax * i / 60; return [t, level(t, L0, a * ka, f * kf) * 100]; }); };
+  Kit.chart($('#curve'), {
+    x: [0, tmax], y: [0, 100], xLabel: 'هفته', yLabel: 'سطح تسلط (٪)', yFmt: v => fa(v),
+    bands: [{ hi: pts('opt'), lo: pts('pes'), color: 'var(--gold2)' }],
+    series: [{ pts: pts('opt'), color: 'var(--ok)', w: 1.6, dash: '5 4' }, { pts: pts('pes'), color: 'var(--bad)', w: 1.6, dash: '5 4' }, { pts: pts('real'), color: 'var(--gold2)', w: 3 }],
+    hlines: [{ y: S.T, color: 'var(--violet)', label: 'هدف ' + fa(S.T) + '٪' }],
+    vlines: D ? [{ x: Math.min(D, tmax), color: 'var(--info)', label: 'مهلت' }] : [],
+    marks: isFinite(tR) && tR <= tmax ? [{ x: tR, y: S.T, color: 'var(--gold2)', label: fa(tR, 1) + ' هفته' }] : []
+  });
+
+  /* نقاط عطف */
+  $('#mile').innerHTML = '<tr><th>پیشرفت مسیر</th><th>سطح</th><th>هفته</th><th>ساعت کل</th></tr>' + [.25, .5, .75, 1].map(q => {
+    const lv = L0 + (T - L0) * q, t = timeTo(lv, L0, a, f);
+    return `<tr><td>${fa(q * 100)}٪</td><td class="num">${lvl(lv)}</td><td class="num">${isFinite(t) ? fa(t, 1) : '—'}</td><td class="num">${isFinite(t) ? fa(Math.round(t * S.H)) : '—'}</td></tr>`;
+  }).join('');
+
+  /* مرور */
+  $('#retTab').innerHTML = '<tr><th>کیفیت مرور</th><th>سقف</th><th>زمان</th></tr>' + [[0, 'بی‌نقص'], [3, 'فاصله‌دار'], [8, 'گاه‌به‌گاه'], [15, 'بدون مرور']].map(r => {
+    const ff = r[0] / 100, li = a / (a + ff || 1e-9), t = timeTo(T, L0, a, ff);
+    return `<tr${r[0] === +S.F ? ' style="background:var(--gold-soft)"' : ''}><td>${r[1]} (${fa(r[0])}٪)</td><td class="num">${lvl(li)}</td><td class="num">${isFinite(t) ? fa(t, 1) + ' هفته' : '<span style="color:var(--bad)">نمی‌رسد</span>'}</td></tr>`;
+  }).join('');
+
+  /* حساسیت */
+  const sp = []; for (let h = 1; h <= 40; h += 1) { const t = timeTo(T, L0, aOf(S.E, h), f); if (isFinite(t) && t < 80) sp.push([h, t]); }
+  const ymax = sp.length ? Math.min(80, Math.ceil(Math.max(...sp.map(p => p[1])) * 1.1)) : 20;
+  Kit.chart($('#sens'), {
+    h: 260, x: [0, 40], y: [0, ymax], xLabel: 'ساعت مطالعه در هفته', yLabel: 'هفته تا هدف', yFmt: v => fa(v),
+    series: [{ pts: sp.length ? sp : [[0, 0]], color: 'var(--gold2)', w: 3 }],
+    marks: isFinite(tR) ? [{ x: S.H, y: Math.min(tR, ymax), color: 'var(--info)', label: 'شما' }] : []
+  });
+  multi();
+}
+
+/* ---------- چند درس ---------- */
+function renderSubs() {
+  $('#subTab').innerHTML = '<tr><th>درس</th><th>سطح فعلی ٪</th><th>هدف ٪</th><th>کارایی (۱ تا ۱۰)</th><th></th></tr>' + S.subs.map((s, i) =>
+    `<tr><td><input type="text" data-i="${i}" data-k="n" value="${esc(s.n)}" style="min-width:110px"></td>
+    <td><input type="number" data-i="${i}" data-k="L0" value="${s.L0}" min="0" max="99"></td>
+    <td><input type="number" data-i="${i}" data-k="T" value="${s.T}" min="1" max="99"></td>
+    <td><input type="number" data-i="${i}" data-k="E" value="${s.E}" min="1" max="10" step="0.5"></td>
+    <td><button class="btn sm bad ghost" data-del="${i}">حذف</button></td></tr>`).join('');
+}
+function multi() {
+  const out = $('#multiOut'), f = S.F / 100, H = S.TH, subs = S.subs.filter(s => s.T > s.L0 && s.T <= 99 && s.L0 >= 0);
+  if (!subs.length) { out.innerHTML = '<div class="note warn"><b>درسی معتبر نیست</b>هدف هر درس باید از سطح فعلی بیشتر باشد.</div>'; return; }
+  const need = D => subs.map(s => hoursFor(D, s.L0 / 100, s.T / 100, s.E, f));
+  const sum = D => need(D).reduce((x, y) => x + y, 0);
+  let lo = 0.25, hi = 260;
+  if (!(sum(hi) <= H)) { const hm = subs.map(s => s.E ? (10 / s.E) * REF_H * (f * s.T / 100 / (1 - s.T / 100)) : Infinity).reduce((x, y) => x + y, 0);
+    out.innerHTML = `<div class="note bad"><b>ظرفیت کافی نیست</b>با ${fa(H, 1)} ساعت در هفته و فراموشی ${fa(S.F)}٪، همهٔ درس‌ها هرگز هم‌زمان به هدف نمی‌رسند. حداقل ساعت پایدار حدود <b>${fa(hm, 1)}</b> ساعت در هفته است. ساعت را بالا ببرید، هدف‌ها را پایین بیاورید یا مرور را بهتر کنید.</div>`; return; }
+  for (let i = 0; i < 60; i++) { const m = (lo + hi) / 2; sum(m) <= H ? hi = m : lo = m; }
+  const Dstar = hi, hrs = need(Dstar), tot = hrs.reduce((x, y) => x + y, 0);
+  const eq = subs.map(s => timeTo(s.T / 100, s.L0 / 100, aOf(s.E, H / subs.length), f)), eqMax = Math.max(...eq);
+  out.innerHTML = `<div class="grid ga" style="margin:14px 0">
+    <div class="kpi"><div class="l">زمان رسیدن همهٔ درس‌ها (بهینه)</div><div class="v">${fa(Dstar, 1)} هفته</div><div class="s">${Kit.jal(Kit.addDays(new Date(), Math.round(Dstar * 7)))}</div></div>
+    <div class="kpi" style="--kc:var(--info)"><div class="l">تقسیم مساوی</div><div class="v">${isFinite(eqMax) ? fa(eqMax, 1) + ' هفته' : 'نمی‌رسد'}</div><div class="s">آخرین درس</div></div>
+    <div class="kpi" style="--kc:var(--ok)"><div class="l">صرفه‌جویی تقسیم بهینه</div><div class="v">${isFinite(eqMax) ? fa(eqMax - Dstar, 1) + ' هفته' : '—'}</div><div class="s">نسبت به تقسیم مساوی</div></div></div>
+    <div class="table-wrap"><table class="t"><tr><th>درس</th><th>ساعت هفتگی</th><th>سهم</th><th>ساعت در ${fa(Math.ceil(Dstar))} هفته</th><th style="width:30%">نمودار سهم</th></tr>` +
+    subs.map((s, i) => `<tr><td><b>${esc(s.n)}</b></td><td class="num">${fa(hrs[i], 1)}</td><td class="num">${fa(hrs[i] / tot * 100)}٪</td><td class="num">${fa(Math.round(hrs[i] * Dstar))}</td><td><div class="bar"><div style="width:${hrs[i] / tot * 100}%"></div></div></td></tr>`).join('') +
+    `</table></div><div class="note info"><b>منطق تقسیم</b>درس‌هایی که فاصلهٔ بیشتر یا کارایی کمتر دارند سهم بیشتری می‌گیرند تا همه با هم تمام شوند. تقسیم مساوی همیشه سخت‌ترین درس را عقب می‌اندازد.</div>`;
+}
+
+/* ---------- کالیبراسیون ---------- */
+function calibrate() {
+  const L1 = +$('#c1').value / 100, L2 = +$('#c2').value / 100, w = +$('#cw').value, h = +$('#ch').value, f = S.F / 100, out = $('#calOut');
+  if (!(w > 0 && h > 0) || isNaN(L1) || isNaN(L2)) { out.innerHTML = '<div class="note warn"><b>ورودی ناقص</b>همهٔ فیلدها را پر کنید.</div>'; return; }
+  if (L2 <= L1) { out.innerHTML = '<div class="note warn"><b>پیشرفتی دیده نمی‌شود</b>سطح دوم باید بیشتر از اول باشد. اگر مطالعه کرده‌اید، مرور و کیفیت مطالعه را بازبینی کنید.</div>'; return; }
+  const solve = l2 => { let lo = 0, hi = 20; if (level(w, L1, hi, f) < l2) return Infinity; for (let i = 0; i < 60; i++) { const m = (lo + hi) / 2; level(w, L1, m, f) >= l2 ? hi = m : lo = m; } return hi; };
+  const toE = a => a * REF_H / h * 10;
+  const e = toE(solve(L2)), eLo = toE(solve(Math.max(L1 + .001, L2 - .05))), eHi = toE(solve(Math.min(.999, L2 + .05)));
+  out.innerHTML = `<div class="grid ga" style="margin:14px 0"><div class="kpi"><div class="l">کارایی برآوردشده</div><div class="v">${fa(e, 1)}</div><div class="s">بازهٔ احتمالی با خطای سنجش ±۵ نمره: ${fa(eLo, 1)} تا ${fa(eHi, 1)}</div></div></div>
+    <div class="note info"><b>تفسیر</b>${e > 10 ? 'عدد بالاتر از مقیاس ۱۰ است؛ احتمالاً سنجش دوم آسان‌تر بوده یا مطالعه قبلاً شروع شده بود. با احتیاط به‌کار ببرید.' : 'کارایی ' + fa(e, 1) + ' از ۱۰ یعنی در ۶ ساعت هفتگی حدود ' + fa((1 - Math.exp(-e / 10)) * 100) + '٪ از شکاف باقی‌مانده در هفته بسته می‌شود.'} با دو سنجش، نتیجه تقریبی است؛ هرچه سنجش بیشتر ثبت کنید و میانگین بگیرید دقیق‌تر می‌شود.</div>
+    <button class="btn gold" id="applyCal">اعمال در تب محاسبه</button>`;
+  $('#applyCal').onclick = () => { S.E = Math.round(Kit.clamp(e, 1, 10) * 2) / 2; S.H = h; S.L0 = Math.round(L2 * 100); writeInputs(); calc(); toast('کارایی، ساعت و سطح فعلی اعمال شد'); $('[data-tab=calc]').click(); };
+}
+
+/* ---------- راه‌اندازی ---------- */
+Kit.initTheme(); Kit.header('تسلط‌ساز'); Kit.tabs();
+writeInputs(); renderSubs();
+document.addEventListener('input', e => { if (e.target.matches('#L0,#T,#E,#H,#F,#D,#TH')) calc(); });
+$('#Fseg').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { $('#F').value = b.dataset.f; calc(); } });
+$('#subTab').addEventListener('input', e => { const t = e.target, i = +t.dataset.i; if (isNaN(i)) return; S.subs[i][t.dataset.k] = t.dataset.k === 'n' ? t.value : +t.value; store.set(KEY, S); multi(); });
+$('#subTab').addEventListener('click', e => { const b = e.target.closest('[data-del]'); if (b) { S.subs.splice(+b.dataset.del, 1); renderSubs(); store.set(KEY, S); multi(); } });
+$('#addSub').onclick = () => { S.subs.push({ n: 'درس ' + fa(S.subs.length + 1), L0: 40, T: 85, E: 5 }); renderSubs(); store.set(KEY, S); multi(); };
+$('#calcCal').onclick = calibrate;
+$('#btnReset').onclick = () => { if (confirm('همه‌چیز به پیش‌فرض برگردد؟')) { S = JSON.parse(JSON.stringify(DEF)); writeInputs(); renderSubs(); calc(); } };
+$('#btnShare').onclick = () => { Kit.download('mastery-result.json', JSON.stringify(S, null, 2)); toast('ذخیره شد'); };
+document.addEventListener('kit-theme', calc);
+calc();
 </script>
 </body>
 </html>
