@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تحلیل‌گر الگوی خطا | بعد از آزمون بفهم چرا غلط زدی | مستر پلنر</title>
+<meta name="description" content="غلط‌های آزمونت را در پنج دسته (مفهومی، محاسباتی، بی‌دقتی، مدیریت زمان، دودلی) دسته‌بندی کن، نمودار ریشهٔ مشکل را ببین و نسخهٔ اختصاصی اصلاح بگیر. رایگان، بدون ثبت‌نام و فقط در مرورگر خودت.">
+<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/error-analyzer.html">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="mp-tools.css">
+<style>
+.hero{border-top:4px solid var(--ac)}
+.hero p{color:#cbd5e1;margin:6px 0}
+.steps{display:flex;gap:6px;margin:0 0 14px;padding:0;list-style:none;font-size:12.5px}
+.steps li{flex:1;text-align:center;padding:6px 4px;border-bottom:3px solid var(--bd);color:var(--mu)}
+.steps li.on{border-color:var(--ac);color:var(--ac);font-weight:700}.steps li.done{border-color:var(--gr);color:var(--gr)}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:560px){.fg{grid-template-columns:1fr}}
+label.l{display:block;font-size:13px;font-weight:600;margin-bottom:4px}
+.er{color:#f87171;font-size:13px;min-height:20px;margin:6px 0}
+.prog{height:8px;background:#0f172a;border-radius:6px;overflow:hidden;margin:6px 0 14px}.prog i{display:block;height:100%;background:var(--ac);transition:width .25s}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:right;background:#0f172a;border:2px solid var(--bd);border-radius:14px;padding:12px 14px;margin-bottom:8px;cursor:pointer;color:var(--tx)}
+.opt:hover,.opt:focus-visible{border-color:var(--c)}.opt.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 15%,#0f172a)}
+.opt .ic{font-size:22px}.opt b{display:block;font-size:14.5px}.opt small{color:var(--mu);font-size:12.5px}.opt kbd{margin-right:auto;background:var(--p);border:1px solid var(--bd);border-radius:6px;padding:0 8px;font-size:12px;color:var(--mu)}
+.big{font-size:20px;font-weight:800}
+.dash{display:grid;grid-template-columns:240px 1fr;gap:18px;align-items:center}@media(max-width:640px){.dash{grid-template-columns:1fr}}
+.donut{width:100%;max-width:240px;margin:0 auto;display:block}
+.row2{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:13.5px}
+.row2 .sw{width:12px;height:12px;border-radius:3px;flex-shrink:0}.row2 .nm{flex:1}.row2 .pc{font-weight:800;min-width:46px;text-align:left}
+.bar{height:8px;background:#0f172a;border-radius:5px;overflow:hidden;margin:3px 0 0}.bar i{display:block;height:100%}
+.rx{border-right:5px solid var(--c);background:#0b1120;border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.rx h3{color:var(--c);margin:0 0 4px}.rx ol{margin:8px 0;padding-right:20px;color:#cbd5e1;font-size:14px}.rx li{margin-bottom:4px}
+.links{display:flex;gap:8px;flex-wrap:wrap}.links a{color:var(--tx);background:var(--p);border:1px solid var(--bd);border-radius:999px;padding:3px 12px;font-size:12.5px;text-decoration:none}.links a:hover{border-color:var(--ac)}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:12px 0}
+.kpi div{background:#0f172a;border:1px solid var(--bd);border-radius:12px;padding:10px;text-align:center;font-size:12px;color:var(--mu)}.kpi b{display:block;font-size:20px;color:var(--tx)}
+.hist{background:#0f172a;border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.hist .top2{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}
+.sbar{display:flex;height:12px;border-radius:6px;overflow:hidden;margin-top:8px;background:var(--bd)}
+details.faq{border-top:1px solid var(--bd);padding:10px 0}details.faq summary{cursor:pointer;font-weight:700}details.faq div{color:#cbd5e1;font-size:14px;margin-top:6px}
+.note{font-size:12.5px;color:var(--mu);border-right:3px solid var(--bd);padding-right:10px;margin-top:10px}
+ol.howto{padding-right:22px;color:#cbd5e1}
+.skip{position:absolute;right:-999px}.skip:focus{right:8px;top:8px;background:#000;color:#fff;padding:8px;z-index:99}
+@media print{.noprint,.tabs{display:none!important}}
+</style>
+<!-- mp-seo:start -->
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#0f172a">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="مستر پلنر">
+<meta property="og:locale" content="fa_IR">
+<meta property="og:title" content="تحلیل‌گر الگوی خطا | بعد از آزمون بفهم چرا غلط زدی | مستر پلنر">
+<meta property="og:description" content="غلط‌های آزمونت را در پنج دسته (مفهومی، محاسباتی، بی‌دقتی، مدیریت زمان، دودلی) دسته‌بندی کن، نمودار ریشهٔ مشکل را ببین و نسخهٔ اختصاصی اصلاح بگیر. رایگان، بدون ثبت‌نام و فقط در مرورگر خودت.">
+<meta property="og:url" content="https://ehssnrouhani.github.io/Mestrplanner/error-analyzer.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="تحلیل‌گر الگوی خطا | بعد از آزمون بفهم چرا غلط زدی | مستر پلنر">
+<meta name="twitter:description" content="غلط‌های آزمونت را در پنج دسته (مفهومی، محاسباتی، بی‌دقتی، مدیریت زمان، دودلی) دسته‌بندی کن، نمودار ریشهٔ مشکل را ببین و نسخهٔ اختصاصی اصلاح بگیر. رایگان، بدون ثبت‌نام و فقط در مرورگر خودت.">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🔍%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://ehssnrouhani.github.io/Mestrplanner/#org",
+   "name": "مستر پلنر",
+   "url": "https://ehssnrouhani.github.io/Mestrplanner/",
+   "founder": {
+    "@type": "Person",
+    "name": "احسان روحانی راوری"
+   }
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://ehssnrouhani.github.io/Mestrplanner/#website",
+   "name": "مستر پلنر",
+   "url": "https://ehssnrouhani.github.io/Mestrplanner/",
+   "inLanguage": "fa-IR",
+   "publisher": {
+    "@id": "https://ehssnrouhani.github.io/Mestrplanner/#org"
+   }
+  },
+  {
+   "@type": "WebPage",
+   "@id": "https://ehssnrouhani.github.io/Mestrplanner/error-analyzer.html#webpage",
+   "url": "https://ehssnrouhani.github.io/Mestrplanner/error-analyzer.html",
+   "name": "تحلیل‌گر الگوی خطا | بعد از آزمون بفهم چرا غلط زدی | مستر پلنر",
+   "description": "غلط‌های آزمونت را در پنج دسته (مفهومی، محاسباتی، بی‌دقتی، مدیریت زمان، دودلی) دسته‌بندی کن، نمودار ریشهٔ مشکل را ببین و نسخهٔ اختصاصی اصلاح بگیر. رایگان، بدون ثبت‌نام و فقط در مرورگر خودت.",
+   "inLanguage": "fa-IR",
+   "isPartOf": {
+    "@id": "https://ehssnrouhani.github.io/Mestrplanner/#website"
+   },
+   "breadcrumb": {
+    "@id": "https://ehssnrouhani.github.io/Mestrplanner/error-analyzer.html#breadcrumb"
+   },
+   "dateModified": "2026-11-14",
+   "mainEntity": {
+    "@id": "https://ehssnrouhani.github.io/Mestrplanner/error-analyzer.html#app"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "@id": "https://ehssnrouhani.github.io/Mestrplanner/error-analyzer.html#breadcrumb",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "مستر پلنر",
+     "item": "https://ehssnrouhani.github.io/Mestrplanner/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "تحلیل‌گر الگوی خطا",
+     "item": "https://ehssnrouhani.github.io/Mestrplanner/error-analyzer.html"
+    }
+   ]
+  },
+  {
+   "@type": "WebApplication",
+   "@id": "https://ehssnrouhani.github.io/Mestrplanner/error-analyzer.html#app",
+   "name": "تحلیل‌گر الگوی خطا",
+   "url": "https://ehssnrouhani.github.io/Mestrplanner/error-analyzer.html",
+   "description": "غلط‌های آزمونت را در پنج دسته (مفهومی، محاسباتی، بی‌دقتی، مدیریت زمان، دودلی) دسته‌بندی کن، نمودار ریشهٔ مشکل را ببین و نسخهٔ اختصاصی اصلاح بگیر. رایگان، بدون ثبت‌نام و فقط در مرورگر خودت.",
+   "applicationCategory": "EducationalApplication",
+   "operatingSystem": "All (web browser)",
+   "browserRequirements": "Requires JavaScript",
+   "inLanguage": "fa-IR",
+   "isAccessibleForFree": true,
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "IRR"
+   },
+   "featureList": [
+    "دسته‌بندی غلط‌ها در پنج نوع",
+    "نمودار دایره‌ای و درصد هر خطا",
+    "نسخهٔ اصلاح اختصاصی و روند چند آزمون"
+   ],
+   "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "student"
+   },
+   "author": {
+    "@type": "Person",
+    "name": "احسان روحانی راوری"
+   },
+   "publisher": {
+    "@id": "https://ehssnrouhani.github.io/Mestrplanner/#org"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://ehssnrouhani.github.io/Mestrplanner/error-analyzer.html#faq",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "تفاوت خطای مفهومی و خطای محاسباتی چیست؟",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "در خطای مفهومی خودِ دانش یا روش را نمی‌دانی و باید به درس برگردی. در خطای محاسباتی روش را می‌دانی ولی در اجرا (علامت، عدد، تبدیل واحد) اشتباه می‌کنی؛ درمانش تمرین دقیق و بازبینی است، نه مطالعهٔ دوباره."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "بی‌دقتی دقیقاً یعنی چه؟",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "یعنی می‌توانستی سؤال را درست حل کنی، اما صورت سؤال را اشتباه خوانده‌ای (مثلاً «به جز» یا «نادرست» را ندیده‌ای) یا پاسخ را اشتباه در پاسخ‌برگ زده‌ای."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "این ابزار جای مشاور یا معلم را می‌گیرد؟",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "نه. این ابزار فقط الگوهای کلی را نشان می‌دهد. نتیجه به صداقت تو در دسته‌بندی بستگی دارد و برآوردهایش تقریبی‌اند. برای تصمیم‌های مهم تحصیلی با معلم یا مشاور مشورت کن."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "چند غلط برای تحلیل کافی است؟",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "هرچه تعداد غلط‌ها بیشتر باشد الگو مطمئن‌تر است. با کمتر از حدود ۱۰ غلط، درصدها ناپایدارند؛ بهتر است چند آزمون را در تاریخچه کنار هم ببینی."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "اطلاعاتم کجا ذخیره می‌شود؟",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "فقط در حافظهٔ مرورگر همین دستگاه. هر زمان بخواهی می‌توانی تاریخچه را پاک کنی."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "HowTo",
+   "@id": "https://ehssnrouhani.github.io/Mestrplanner/error-analyzer.html#howto",
+   "name": "نحوهٔ استفاده از تحلیل‌گر الگوی خطا",
+   "inLanguage": "fa-IR",
+   "step": [
+    {
+     "@type": "HowToStep",
+     "position": 1,
+     "name": "نام آزمون، تعداد کل سؤال‌ها و تعداد غلط‌هایت را وارد کن.",
+     "text": "نام آزمون، تعداد کل سؤال‌ها و تعداد غلط‌هایت را وارد کن."
+    },
+    {
+     "@type": "HowToStep",
+     "position": 2,
+     "name": "برای هر غلط، دلیل اصلی‌اش را از میان پنج دسته انتخاب کن (یا در «ثبت سریع» تعداد هر دسته را بزن).",
+     "text": "برای هر غلط، دلیل اصلی‌اش را از میان پنج دسته انتخاب کن (یا در «ثبت سریع» تعداد هر دسته را بزن)."
+    },
+    {
+     "@type": "HowToStep",
+     "position": 3,
+     "name": "نمودار دایره‌ای و درصد هر دسته را ببین و ریشهٔ اصلی مشکل را پیدا کن.",
+     "text": "نمودار دایره‌ای و درصد هر دسته را ببین و ریشهٔ اصلی مشکل را پیدا کن."
+    },
+    {
+     "@type": "HowToStep",
+     "position": 4,
+     "name": "نسخهٔ اصلاح اختصاصی را بخوان و برای آزمون بعد، یک یا دو کار مشخص انتخاب کن.",
+     "text": "نسخهٔ اصلاح اختصاصی را بخوان و برای آزمون بعد، یک یا دو کار مشخص انتخاب کن."
+    }
+   ]
+  }
+ ]
+}
+</script>
+<!-- mp-seo:end -->
+</head>
+<body>
+<a class="skip" href="#main">رفتن به محتوا</a>
+<div class="top">
+  <div class="th"><a href="index.html">← مستر پلنر</a><h1>تحلیل‌گر الگوی خطا</h1></div>
+  <div class="tabs" role="tablist"><button role="tab" data-tab="new">تحلیل جدید</button><button role="tab" data-tab="hist">تاریخچه و روند</button></div>
+</div>
+<main id="main">
+  <section class="cd hero">
+    <h2>نمره یک عدد است؛ معنایش در نوع غلط‌هاست</h2>
+    <p>بعد از یک آزمون بد، همه می‌گویند «باید بیشتر بخوانی». اما اگر بیشتر غلط‌هایت بی‌دقتی یا کمبود وقت باشد، خواندنِ بیشتر فقط خسته‌ات می‌کند. این ابزار غلط‌هایت را دسته‌بندی می‌کند و نشان می‌دهد ریشهٔ اصلی کجاست و اول کدام را درمان کنی.</p>
+    <p class="muted">داده‌ها فقط در مرورگر خودت می‌مانند و جایی فرستاده نمی‌شوند.</p>
+  </section>
+  <div id="app" aria-live="polite"></div>
+
+  <section class="cd" aria-labelledby="how">
+    <h2 id="how">نحوهٔ استفاده</h2>
+    <ol class="howto">
+      <li>نام آزمون، تعداد کل سؤال‌ها و تعداد غلط‌هایت را وارد کن.</li>
+      <li>برای هر غلط، دلیل اصلی‌اش را از میان پنج دسته انتخاب کن (یا در «ثبت سریع» تعداد هر دسته را بزن).</li>
+      <li>نمودار دایره‌ای و درصد هر دسته را ببین و ریشهٔ اصلی مشکل را پیدا کن.</li>
+      <li>نسخهٔ اصلاح اختصاصی را بخوان و برای آزمون بعد، یک یا دو کار مشخص انتخاب کن.</li>
+    </ol>
+  </section>
+
+  <section class="cd" aria-labelledby="faqh">
+    <h2 id="faqh">پرسش‌های پرتکرار</h2>
+    <details class="faq"><summary>تفاوت خطای مفهومی و خطای محاسباتی چیست؟</summary><div>در خطای مفهومی خودِ دانش یا روش را نمی‌دانی و باید به درس برگردی. در خطای محاسباتی روش را می‌دانی ولی در اجرا (علامت، عدد، تبدیل واحد) اشتباه می‌کنی؛ درمانش تمرین دقیق و بازبینی است، نه مطالعهٔ دوباره.</div></details>
+    <details class="faq"><summary>بی‌دقتی دقیقاً یعنی چه؟</summary><div>یعنی می‌توانستی سؤال را درست حل کنی، اما صورت سؤال را اشتباه خوانده‌ای (مثلاً «به جز» یا «نادرست» را ندیده‌ای) یا پاسخ را اشتباه در پاسخ‌برگ زده‌ای.</div></details>
+    <details class="faq"><summary>این ابزار جای مشاور یا معلم را می‌گیرد؟</summary><div>نه. این ابزار فقط الگوهای کلی را نشان می‌دهد. نتیجه به صداقت تو در دسته‌بندی بستگی دارد و برآوردهایش تقریبی‌اند. برای تصمیم‌های مهم تحصیلی با معلم یا مشاور مشورت کن.</div></details>
+    <details class="faq"><summary>چند غلط برای تحلیل کافی است؟</summary><div>هرچه تعداد غلط‌ها بیشتر باشد الگو مطمئن‌تر است. با کمتر از حدود ۱۰ غلط، درصدها ناپایدارند؛ بهتر است چند آزمون را در تاریخچه کنار هم ببینی.</div></details>
+    <details class="faq"><summary>اطلاعاتم کجا ذخیره می‌شود؟</summary><div>فقط در حافظهٔ مرورگر همین دستگاه. هر زمان بخواهی می‌توانی تاریخچه را پاک کنی.</div></details>
+  </section>
+</main>
+<noscript><p style="padding:20px;text-align:center">این ابزار برای اجرا به جاوااسکریپت نیاز دارد.</p></noscript>
+<div id="toast" role="status"></div>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fa=n=>Number(n).toLocaleString('fa-IR',{maximumFractionDigits:1});
+const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2600)};
+const CATS=[
+ {id:'concept',n:'خطای مفهومی',s:'مفهوم یا روش را نمی‌دانستم',c:'#ef4444',i:'🧠'},
+ {id:'calc',n:'خطای محاسباتی',s:'روش را بلد بودم، در اجرا اشتباه کردم',c:'#f59e0b',i:'🧮'},
+ {id:'careless',n:'بی‌دقتی',s:'صورت سؤال را بد خواندم یا جابه‌جا زدم',c:'#3b82f6',i:'👁'},
+ {id:'time',n:'مدیریت زمان',s:'می‌توانستم حل کنم اما وقت کم آوردم',c:'#8b5cf6',i:'⏱'},
+ {id:'doubt',n:'دودلی بین گزینه‌ها',s:'بین دو گزینه شک داشتم و اشتباه انتخاب کردم',c:'#10b981',i:'⚖'}];
+const RX={
+ concept:{h:'ریشهٔ مشکل: دانش، نه زمان',t:'این غلط‌ها نشان می‌دهد بخشی از مطلب هنوز جا نیفتاده. تست بیشتر جای فهمیدن را نمی‌گیرد؛ اول به متن درس برگرد.',
+  a:['مبحث هر غلط را فهرست کن و قبل از حل تست جدید، همان بخش درس را دوباره بخوان.','هر مبحث را با «تکنیک فاینمن» در پنج جمله برای یک دوست فرضی توضیح بده؛ جای گیر کردن، همان شکاف است.','یک مثال حل‌شده بخوان و بعد مسئلهٔ مشابه را بدون نگاه حل کن.','همان مبحث را سه و هفت روز بعد با بازیابی فعال (کتاب بسته) مرور کن.'],
+  l:[['study-strategies.html','روش‌های مطالعه'],['concept-maker.html','نقشهٔ مفهومی']]},
+ calc:{h:'ریشهٔ مشکل: اجرا، نه فهم',t:'روش را می‌دانی ولی در اجرا می‌لغزی. مطالعهٔ دوباره کمکی نمی‌کند؛ تمرین دقیق و بازبینی کمک می‌کند.',
+  a:['برای هر غلط بنویس دقیقاً کدام خط اشتباه بود (علامت، تبدیل واحد، جابه‌جایی رقم).','مراحل را روی کاغذ کامل بنویس و محاسبهٔ ذهنی را کم کن.','قبل از محاسبه، جواب را تخمین بزن تا جواب غیرمنطقی را بشناسی.','روزی ۱۰ سؤال محاسبه‌محور را زمان‌دار تمرین کن و جواب را معکوس امتحان کن.'],
+  l:[['calculator.html','تمرین بی‌پایان فیزیک و شیمی'],['place-value.html','تمرین ارزش مکانی']]},
+ careless:{h:'مشکل کم‌کاری نیست؛ بی‌دقتی است',t:'دانش را داری ولی در خواندن سؤال یا زدن پاسخ نمره از دست می‌دهی. این‌جا کارِ اصلی، عادتِ خواندن و چک‌کردن است.',
+  a:['زیر کلمات کلیدی سؤال خط بکش: «نیست»، «به جز»، «نادرست»، واحدها و اعداد.','قبل از علامت‌زدن، پاسخ را یک بار با صورت سؤال مقایسه کن.','چک‌لیست ۳۰ ثانیه‌ای: واحد؟ علامت؟ گزینهٔ درست در پاسخ‌برگ؟','هر ۵ سؤال یک بار شماره‌های پاسخ‌برگ را با برگهٔ سؤال هم‌تراز کن.'],
+  l:[['action-cards.html','کارت‌های اقدام (تمرکز)'],['study-strategies.html','حذف محرک و تک‌وظیفگی']]},
+ time:{h:'ریشهٔ مشکل: زمان‌بندی',t:'بلدی ولی وقت کم می‌آوری. بیشتر خواندن حل‌کننده نیست؛ مهارت مدیریت زمان در آزمون را باید تمرین کنی.',
+  a:['برای هر سؤال سقف زمانی تعیین کن و هنگام عبور از آن، سؤال را علامت بزن و برو.','دور اول فقط سؤال‌های آسان و متوسط؛ دور دوم سؤال‌های سخت.','هفته‌ای یک آزمون کامل با زمان واقعی بزن.','زمان صرف‌شده برای هر درس را یادداشت کن تا بدانی وقت‌ات کجا می‌رود.'],
+  l:[['planner.html','برنامه‌ریز چندبعدی'],['study-strategies.html','شبیه‌سازی آزمون']]},
+ doubt:{h:'ریشهٔ مشکل: تمایز مفاهیم نزدیک',t:'دودلی معمولاً از تفاوت ظریف دو مفهوم می‌آید. باید مرز مفاهیم شبیه را روشن کنی، نه فقط بیشتر تست بزنی.',
+  a:['برای هر سؤالی که بین دو گزینه ماندی، دلیل رد کردن گزینهٔ دیگر را بنویس.','مفاهیم شبیه را در جدول مقایسه کنار هم بگذار: شباهت‌ها و تفاوت‌ها.','پاسخ را فقط وقتی عوض کن که دلیل مشخصی پیدا کرده‌ای، نه از روی تردید.','فلش‌کارت «تفاوت X و Y» بساز و در مرورِ فاصله‌دار بگنجان.'],
+  l:[['concept-maker.html','ابزار مقایسهٔ مفاهیم'],['study-strategies.html','مرور فاصله‌دار']]}};
+const KEY='mp_error_analyzer_v1';
+let H=[];try{H=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
+const saveH=()=>{try{localStorage.setItem(KEY,JSON.stringify(H.slice(0,50)))}catch(e){}};
+let tab='new',E={step:'setup',mode:'one',name:'',subject:'',total:'',wrong:'',idx:0,items:[],counts:{},err:'',rec:null};
+const norm=s=>String(s).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).trim();
+const toInt=s=>{s=norm(s);return /^\d+$/.test(s)?+s:NaN};
+
+/* ───── محاسبات ───── */
+function tally(items){const c=Object.fromEntries(CATS.map(x=>[x.id,0]));items.forEach(i=>c[i.c]++);return c}
+function ranked(counts){const t=Object.values(counts).reduce((a,b)=>a+b,0)||1;return CATS.map(c=>({...c,n_:counts[c.id]||0,p:(counts[c.id]||0)/t*100})).sort((a,b)=>b.n_-a.n_||CATS.indexOf(a)-CATS.indexOf(b))}
+function donut(r,wrong){
+  const R=70,C=2*Math.PI*R;let off=0;
+  const segs=r.filter(x=>x.n_>0).map(x=>{const len=x.p/100*C,s=`<circle r="${R}" cx="100" cy="100" fill="none" stroke="${x.c}" stroke-width="30" stroke-dasharray="${len.toFixed(2)} ${(C-len).toFixed(2)}" stroke-dashoffset="${(-off).toFixed(2)}" transform="rotate(-90 100 100)"/>`;off+=len;return s}).join('');
+  const label=r.filter(x=>x.n_>0).map(x=>`${x.n}: ${fa(x.p)} درصد`).join('، ');
+  return`<svg class="donut" viewBox="0 0 200 200" role="img" aria-label="نمودار دایره‌ای الگوی خطا. ${esc(label)}"><circle r="${R}" cx="100" cy="100" fill="none" stroke="#1e293b" stroke-width="30"/>${segs}<text x="100" y="98" text-anchor="middle" font-size="30" font-weight="800" fill="#f8fafc">${fa(wrong)}</text><text x="100" y="120" text-anchor="middle" font-size="12" fill="#94a3b8">غلط</text></svg>`;
+}
+function makeRec(){
+  const items=E.mode==='one'?E.items:Object.entries(E.counts).flatMap(([c,n])=>Array.from({length:n},()=>({c})));
+  return{id:Date.now().toString(36),name:E.name||'آزمون بدون نام',subject:E.subject,total:+E.total,wrong:items.length,date:new Date().toISOString(),counts:tally(items),items:E.mode==='one'?E.items:[]};
+}
+
+/* ───── نماها ───── */
+const stepper=s=>`<ol class="steps" aria-label="مراحل">${[['setup','۱ اطلاعات آزمون'],['classify','۲ دسته‌بندی غلط‌ها'],['result','۳ نتیجه و نسخه']].map(([k,t],i)=>{const o=['setup','classify','result'],cur=o.indexOf(s),me=o.indexOf(k);return`<li class="${me===cur?'on':me<cur?'done':''}" ${me===cur?'aria-current="step"':''}>${t}</li>`}).join('')}</ol>`;
+function vSetup(){
+  return`<section class="cd">${stepper('setup')}<h2>اطلاعات آزمون</h2>
+  <div class="fg"><div><label class="l" for="name">نام آزمون</label><input class="f" id="name" maxlength="60" placeholder="مثلاً: آزمون ۱۵ آبان" value="${esc(E.name)}"></div>
+  <div><label class="l" for="subject">درس (اختیاری)</label><input class="f" id="subject" maxlength="40" placeholder="مثلاً: زیست" value="${esc(E.subject)}"></div>
+  <div><label class="l" for="total">تعداد کل سؤال‌ها</label><input class="f" id="total" inputmode="numeric" autocomplete="off" placeholder="مثلاً ۲۵" value="${esc(E.total)}"></div>
+  <div><label class="l" for="wrong">تعداد غلط‌ها</label><input class="f" id="wrong" inputmode="numeric" autocomplete="off" placeholder="مثلاً ۸" value="${esc(E.wrong)}"></div></div>
+  <label class="l">روش ثبت</label>
+  <div class="chips"><button class="chip ${E.mode==='one'?'on':''}" data-mode="one">یک‌به‌یک (دقیق‌تر)</button><button class="chip ${E.mode==='quick'?'on':''}" data-mode="quick">ثبت سریع (شمارنده)</button></div>
+  <div class="er" role="alert">${esc(E.err)}</div>
+  <button class="b pr w" data-a="start">ادامه ←</button><p class="note">غلط‌ها را صادقانه دسته‌بندی کن؛ «بی‌دقتی» بودن بهتر از «نمی‌دانستم» است، فقط اگر واقعاً درست باشد.</p></section>`;
+}
+function vClassify(){
+  const w=+E.wrong;
+  if(E.mode==='quick'){
+    const sum=Object.values(E.counts).reduce((a,b)=>a+b,0);
+    return`<section class="cd">${stepper('classify')}<h2>ثبت سریع: غلط‌ها را بشمار</h2><p class="hn">مجموع باید برابر ${fa(w)} شود. اکنون: <b style="color:${sum===w?'var(--gr)':'var(--ac)'}">${fa(sum)}</b></p>
+    ${CATS.map(c=>`<div class="opt" style="--c:${c.c};cursor:default"><span class="ic">${c.i}</span><span style="flex:1"><b>${c.n}</b><small>${c.s}</small></span><button class="b" data-dec="${c.id}" aria-label="کم کردن ${c.n}">−</button><b class="big" style="min-width:28px;text-align:center">${fa(E.counts[c.id]||0)}</b><button class="b" data-inc="${c.id}" aria-label="زیاد کردن ${c.n}">+</button></div>`).join('')}
+    <div class="er" role="alert">${esc(E.err)}</div><div class="row"><button class="b" data-a="back">→ بازگشت</button><button class="b pr" style="flex:1" data-a="finish">نمایش نتیجه</button></div></section>`;
+  }
+  const i=E.idx,cur=E.items[i];
+  return`<section class="cd">${stepper('classify')}<h2>غلط شمارهٔ ${fa(i+1)} از ${fa(w)}</h2>
+  <div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${w}" aria-valuenow="${i}"><i style="width:${i/w*100}%"></i></div>
+  <p class="hn">چرا این سؤال را غلط زدی؟ (کلید ۱ تا ۵ هم کار می‌کند)</p>
+  <div role="radiogroup" aria-label="دلیل غلط">${CATS.map((c,k)=>`<button class="opt ${cur&&cur.c===c.id?'on':''}" style="--c:${c.c}" role="radio" aria-checked="${cur&&cur.c===c.id}" data-pick="${c.id}"><span class="ic">${c.i}</span><span><b>${c.n}</b><small>${c.s}</small></span><kbd>${fa(k+1)}</kbd></button>`).join('')}</div>
+  <div class="row"><button class="b" data-a="prev">${i?'→ قبلی':'→ بازگشت'}</button><span class="hn" style="margin:0;flex:1;text-align:left">${fa(E.items.length)} ثبت‌شده</span></div></section>`;
+}
+function vResult(){
+  const r=E.rec,rk=ranked(r.counts),top=rk[0],sec=rk[1],pctOk=Math.round((r.total-r.wrong)/r.total*100);
+  const fixable=r.counts.calc+r.counts.careless+r.counts.time+r.counts.doubt,gain=Math.round(fixable/2);
+  const prev=H.find(h=>h.id!==r.id&&h.subject===r.subject&&h.date<r.date);
+  let cmp='';
+  if(prev){const pr=ranked(prev.counts),pt=pr[0];cmp=`<p class="note">آزمون قبلی «${esc(prev.name)}»: بیشترین خطا ${esc(pt.n)} (${fa(pt.p)}٪) بود، این بار ${esc(top.n)} (${fa(top.p)}٪).</p>`}
+  const show=[top];if(sec.n_>0&&sec.p>=25)show.push(sec);
+  const byCat=r.items.length?CATS.map(c=>({c,q:r.items.map((x,i)=>x.c===c.id?i+1:null).filter(Boolean)})).filter(x=>x.q.length).map(x=>`<span class="chip" style="border-color:${x.c.c}">${x.c.n}: غلط‌های ${x.q.map(fa).join('، ')}</span>`).join(''):'';
+  return`<section class="cd">${stepper('result')}<h2>${esc(r.name)}${r.subject?' — '+esc(r.subject):''}</h2>
+  <div class="kpi"><div><b>${fa(r.wrong)} از ${fa(r.total)}</b>غلط</div><div><b>${fa(pctOk)}٪</b>پاسخ درست</div><div><b>${esc(top.n)}</b>ریشهٔ اصلی (${fa(top.p)}٪)</div></div>
+  <div class="dash">${donut(rk,r.wrong)}<div>${rk.map(x=>`<div class="row2"><span class="sw" style="background:${x.c}"></span><span class="nm">${x.n}<div class="bar"><i style="width:${x.p}%;background:${x.c}"></i></div></span><span class="pc">${fa(x.p)}٪</span><span class="hn" style="margin:0">(${fa(x.n_)})</span></div>`).join('')}</div></div>
+  ${byCat?`<div class="chips" style="margin-top:8px">${byCat}</div>`:''}
+  ${fixable>0?`<p class="note">برآورد تقریبی: ${fa(fixable)} غلط از نوع «اجرا، دقت، زمان یا دودلی» بود. اگر با اصلاح عادت‌ها حتی نیمی از آن‌ها را جلوگیری کنی، حدود ${fa(gain)} سؤال درست بیشتر می‌شود. این فقط یک تخمین ساده است، نه پیش‌بینی نمره.</p>`:''}${cmp}
+  </section><section class="cd"><h2>نسخهٔ اصلاح اختصاصی</h2>
+  ${show.map(c=>{const x=RX[c.id];return`<div class="rx" style="--c:${c.c}"><h3>${c.i} ${x.h}</h3><p>${x.t}</p><ol>${x.a.map(t=>`<li>${t}</li>`).join('')}</ol><div class="links">${x.l.map(([u,t])=>`<a href="${u}">${t}</a>`).join('')}</div></div>`}).join('')}
+  <p class="note">اگر نیمی از غلط‌هایت از چند آزمون پشت‌سرهم یک دسته است، همان را اول درمان کن. این ابزار تشخیص آموزشی-خودآگاهی است و جای نظر معلم یا مشاور را نمی‌گیرد.</p>
+  <div class="row noprint" style="margin-top:12px"><button class="b pr" data-a="again">تحلیل آزمون تازه</button><button class="b" data-a="copy">کپی خلاصه</button><button class="b" onclick="print()">چاپ</button></div></section>`;
+}
+function trend(recs){
+  if(recs.length<2)return'<p class="hn">برای دیدن روند، دست‌کم دو آزمون تحلیل کن.</p>';
+  const L=recs.slice(0,8).reverse(),W=560,Ht=200,bw=Math.min(50,(W-40)/L.length-10);
+  const bars=L.map((r,i)=>{const tot=r.wrong||1;let y=Ht-24;const x=30+i*((W-40)/L.length)+5;return CATS.map(c=>{const h=(r.counts[c.id]||0)/tot*(Ht-50);y-=h;return h>0?`<rect x="${x}" y="${y.toFixed(1)}" width="${bw}" height="${h.toFixed(1)}" fill="${c.c}"><title>${c.n}: ${r.counts[c.id]}</title></rect>`:''}).join('')+`<text x="${x+bw/2}" y="${Ht-8}" text-anchor="middle" font-size="9" fill="#94a3b8">${esc((r.name||'').slice(0,9))}</text>`}).join('');
+  return`<svg viewBox="0 0 ${W} ${Ht}" style="width:100%;direction:ltr" role="img" aria-label="روند نوع خطا در چند آزمون اخیر">${bars}</svg><div class="chips">${CATS.map(c=>`<span class="hn" style="margin:0"><i style="display:inline-block;width:10px;height:10px;background:${c.c};border-radius:2px"></i> ${c.n}</span>`).join('')}</div>`;
+}
+function vHist(){
+  if(!H.length)return'<section class="cd"><h2>تاریخچه</h2><p class="hn">هنوز آزمونی تحلیل نکرده‌ای.</p></section>';
+  return`<section class="cd"><h2>روند نوع خطا</h2>${trend(H)}</section><section class="cd"><h2>آزمون‌های ثبت‌شده</h2>${H.map(r=>{const rk=ranked(r.counts);return`<div class="hist"><div class="top2"><b>${esc(r.name)}${r.subject?' — '+esc(r.subject):''}</b><span class="hn" style="margin:0">${new Date(r.date).toLocaleDateString('fa-IR')} · ${fa(r.wrong)} غلط از ${fa(r.total)}</span></div>
+  <div class="sbar">${rk.filter(x=>x.n_>0).map(x=>`<i style="width:${x.p}%;background:${x.c}" title="${x.n}"></i>`).join('')}</div>
+  <div class="row" style="margin-top:8px"><span class="hn" style="margin:0;flex:1">بیشترین: ${esc(rk[0].n)} (${fa(rk[0].p)}٪)</span><button class="b" data-open="${r.id}">مشاهده</button><button class="b" data-del="${r.id}" aria-label="حذف">✕</button></div></div>`}).join('')}
+  <button class="b" data-a="clear">پاک کردن کل تاریخچه</button></section>`;
+}
+function render(){
+  document.querySelectorAll('.tabs button').forEach(b=>{const on=b.dataset.tab===tab;b.classList.toggle('on',on);b.setAttribute('aria-selected',on)});
+  $('#app').innerHTML=tab==='hist'?vHist():E.step==='setup'?vSetup():E.step==='classify'?vClassify():vResult();
+}
+
+/* ───── منطق ───── */
+function start(){
+  E.name=$('#name').value.trim();E.subject=$('#subject').value.trim();E.total=$('#total').value;E.wrong=$('#wrong').value;
+  const t=toInt(E.total),w=toInt(E.wrong);
+  if(!(t>=1&&t<=500))return E.err='تعداد کل سؤال‌ها را به‌صورت عدد (۱ تا ۵۰۰) بنویس.',render();
+  if(!(w>=1))return E.err='برای تحلیل دست‌کم یک غلط لازم است. اگر غلطی نداری، آفرین!',render();
+  if(w>t)return E.err='تعداد غلط‌ها نمی‌تواند از کل سؤال‌ها بیشتر باشد.',render();
+  E.total=t;E.wrong=w;E.err='';E.idx=0;E.items=[];E.counts={};E.step='classify';render();
+}
+function finish(){
+  E.rec=makeRec();H=H.filter(h=>h.id!==E.rec.id);H.unshift(E.rec);saveH();E.step='result';render();window.scrollTo(0,0);
+}
+function pick(id){
+  E.items[E.idx]={c:id};
+  if(E.idx+1>=+E.wrong){render();setTimeout(finish,200);return}
+  E.idx++;render();
+}
+function summary(){
+  const r=E.rec,rk=ranked(r.counts);
+  return`تحلیل خطا — ${r.name}${r.subject?' ('+r.subject+')':''}\n${r.wrong} غلط از ${r.total} سؤال\n`+rk.filter(x=>x.n_>0).map(x=>`• ${x.n}: ${fa(x.p)}٪ (${x.n_})`).join('\n')+`\nریشهٔ اصلی: ${rk[0].n} — ${RX[rk[0].id].h}\n(مستر پلنر — تحلیل‌گر الگوی خطا)`;
+}
+document.querySelector('.tabs').onclick=e=>{const b=e.target.closest('[data-tab]');if(b){tab=b.dataset.tab;render()}};
+$('#app').addEventListener('click',e=>{
+  const g=s=>e.target.closest(s);let t;
+  if(t=g('[data-mode]')){E.name=$('#name').value;E.subject=$('#subject').value;E.total=$('#total').value;E.wrong=$('#wrong').value;E.mode=t.dataset.mode;render();return}
+  if(t=g('[data-pick]')){pick(t.dataset.pick);return}
+  if(t=g('[data-inc]')){const w=+E.wrong,s=Object.values(E.counts).reduce((a,b)=>a+b,0);if(s<w)E.counts[t.dataset.inc]=(E.counts[t.dataset.inc]||0)+1;render();return}
+  if(t=g('[data-dec]')){E.counts[t.dataset.dec]=Math.max(0,(E.counts[t.dataset.dec]||0)-1);render();return}
+  if(t=g('[data-open]')){const r=H.find(h=>h.id===t.dataset.open);if(r){E.rec=r;E.step='result';tab='new';render();window.scrollTo(0,0)}return}
+  if(t=g('[data-del]')){H=H.filter(h=>h.id!==t.dataset.del);saveH();render();return}
+  if(t=g('[data-a]')){
+    const a=t.dataset.a;
+    if(a==='start')start();
+    if(a==='back'||(a==='prev'&&E.idx===0)){E.step='setup';render()}
+    else if(a==='prev'){E.idx--;render()}
+    if(a==='finish'){const s=Object.values(E.counts).reduce((x,y)=>x+y,0);if(s!==+E.wrong){E.err=`مجموع باید ${fa(E.wrong)} باشد (اکنون ${fa(s)}).`;render()}else finish()}
+    if(a==='again'){E={...E,step:'setup',name:'',subject:'',total:'',wrong:'',idx:0,items:[],counts:{},err:'',rec:null};render();window.scrollTo(0,0)}
+    if(a==='copy'){
+      if(!navigator.clipboard){toast('مرورگر شما از کپی پشتیبانی نمی‌کند');return;}
+      navigator.clipboard.writeText(summary()).then(()=>toast('خلاصه کپی شد'),()=>toast('کپی نشد'));
+    }
+    if(a==='clear'&&confirm('کل تاریخچه پاک شود؟')){H=[];saveH();render()}
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(tab==='new'&&E.step==='classify'&&E.mode==='one'&&/^[1-5۱-۵]$/.test(e.key)&&!/INPUT|TEXTAREA/.test(e.target.tagName)){
+    const k='۱۲۳۴۵'.indexOf(e.key);pick(CATS[k>=0?k:+e.key-1].id);
+  }
+  if(e.key==='Enter'&&E.step==='setup'&&/INPUT/.test(e.target.tagName)&&tab==='new')start();
+});
+render();
+</script>
+</body>
+</html>
