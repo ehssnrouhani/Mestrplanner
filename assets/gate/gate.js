@@ -676,34 +676,61 @@ if (window.location.search.indexOf('reset=1') > -1) {
       }
     });
   }
-
-  function init() {
-    if (hasAccess()) return;
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', showLogin);
-    } else {
-      showLogin();
-    }
+    function init() {
+  if (hasAccess()) {
+    // دسترسی دارد → دکمه خروج شناور را اضافه کن
+    addLogoutButton();
+    return;
   }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', showLogin);
+  } else {
+    showLogin();
+  }
+}
 
-  window.MPGate = {
-    logout: function () {
+function addLogoutButton() {
+  // جلوگیری از اضافه شدن تکراری
+  if (document.getElementById('mp-logout-btn')) return;
+
+  const btn = document.createElement('button');
+  btn.id = 'mp-logout-btn';
+  btn.innerHTML = '🚪 خروج';
+  btn.title = 'خروج از حساب (پاک کردن دسترسی این مرورگر)';
+  btn.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 999998;
+    background: rgba(12, 56, 70, 0.9);
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 30px;
+    font-family: 'Vazirmatn', Tahoma, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    transition: all 0.2s;
+    backdrop-filter: blur(4px);
+  `;
+  
+  btn.addEventListener('mouseenter', function () {
+    btn.style.background = 'rgba(192, 57, 43, 0.95)';
+    btn.style.transform = 'translateY(-2px)';
+  });
+  btn.addEventListener('mouseleave', function () {
+    btn.style.background = 'rgba(12, 56, 70, 0.9)';
+    btn.style.transform = '';
+  });
+  
+  btn.addEventListener('click', function () {
+    if (confirm('خروج از حساب؟\nبعد از خروج، برای ورود مجدد باید رمز را وارد کنی.')) {
       localStorage.removeItem(CONFIG.storageKey);
       window.location.reload();
-    },
-    hasAccess: hasAccess,
-    info: function () {
-      const raw = localStorage.getItem(CONFIG.storageKey);
-      if (!raw) return null;
-      const data = JSON.parse(raw);
-      return {
-        code: data.code,
-        type: data.type,
-        expires: new Date(data.expires).toLocaleDateString('fa-IR'),
-        daysLeft: Math.ceil((data.expires - Date.now()) / (1000 * 60 * 60 * 24))
-      };
     }
-  };
-
-  init();
-})();
+  });
+  
+  document.body.appendChild(btn);
+}
