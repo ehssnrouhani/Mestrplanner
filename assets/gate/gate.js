@@ -4,6 +4,13 @@
    سالانه → mesterplanner / ۰۹۱۳۷۵۸۳۰۰۸
    ============================================================ */
 (function () {
+// ═══════════════════════════════════════════
+// قابلیت ریست برای تست — ?reset=1 در URL
+// ═══════════════════════════════════════════
+if (window.location.search.indexOf('reset=1') > -1) {
+  localStorage.removeItem('mp_access_v1');
+  console.log('[MPGate] دسترسی پاک شد. حالا صفحه ورود را می‌بینی.');
+}
   'use strict';
 
   const CONFIG = {
