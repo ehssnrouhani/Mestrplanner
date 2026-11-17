@@ -1,168 +1,392 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>پنل مدیریت دسترسی | مستر پلنر</title>
-  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Vazirmatn', Tahoma, sans-serif;
-      background: #f7f9fb;
-      padding: 40px 20px;
-      max-width: 700px;
-      margin: 0 auto;
-      color: #1a2332;
-    }
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-      margin-bottom: 20px;
-    }
-    h1 { color: #0c3846; font-size: 1.4rem; margin-bottom: 16px; }
-    h2 { color: #1e5a6e; font-size: 1.1rem; margin: 20px 0 12px; }
-    .status {
-      padding: 16px;
-      border-radius: 8px;
-      font-weight: 700;
-      margin: 16px 0;
-    }
-    .status.ok { background: #e8f5e9; color: #2e7d32; border-right: 4px solid #27ae60; }
-    .status.no { background: #ffebee; color: #c62828; border-right: 4px solid #c0392b; }
-    button {
-      padding: 12px 24px;
-      border-radius: 8px;
-      border: none;
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      margin: 4px;
-    }
-    .btn-primary { background: #0c3846; color: #fff; }
-    .btn-primary:hover { background: #1e5a6e; }
-    .btn-danger { background: #c0392b; color: #fff; }
-    .btn-danger:hover { background: #e74c3c; }
-    input {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #e1e8ed;
-      border-radius: 8px;
-      font-family: inherit;
-      font-size: 1rem;
-      margin: 8px 0;
-    }
-    .hint {
-      font-size: 0.85rem;
-      color: #6b7c93;
-      line-height: 1.8;
-      background: #f0f4f8;
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 16px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>پنل مدیریت دسترسی | مستر پلنر</title>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{font-family:'Vazirmatn',Tahoma,sans-serif;background:#f4f7fa;margin:0;color:#1a2332;line-height:1.8}
+header{background:linear-gradient(135deg,#0c3846,#1e5a6e);color:#fff;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+header h1{margin:0;font-size:1.15rem}header small{opacity:.8}
+main{max-width:1050px;margin:0 auto;padding:18px}
+.card{background:#fff;border-radius:12px;padding:22px;box-shadow:0 4px 18px rgba(0,0,0,.06);margin-bottom:16px}
+h2{color:#0c3846;font-size:1.05rem;margin:0 0 12px}h3{color:#1e5a6e;font-size:.95rem;margin:16px 0 8px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:14px}
+.tabs button{background:#fff;border:1px solid #dbe3ea;border-radius:10px;padding:9px 16px;font:inherit;font-weight:700;color:#4a5a6a;cursor:pointer}
+.tabs button.on{background:#0c3846;color:#fff;border-color:#0c3846}
+button,.btn{padding:9px 16px;border-radius:8px;border:0;font:inherit;font-weight:700;cursor:pointer}
+.pri{background:#0c3846;color:#fff}.pri:hover{background:#1e5a6e}
+.sec{background:#e8eef3;color:#0c3846}.sec:hover{background:#d5dfe8}
+.dng{background:#c0392b;color:#fff}.ok{background:#27ae60;color:#fff}.sm{padding:5px 10px;font-size:.78rem}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid #d3dce5;border-radius:8px;font:inherit;background:#fff;margin:4px 0 10px}
+textarea{min-height:90px;direction:ltr;text-align:left;font-family:Consolas,monospace;font-size:.82rem}
+label{font-size:.85rem;font-weight:700;color:#35495c}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.hint{font-size:.82rem;color:#5d6f80;background:#eef3f7;border-radius:8px;padding:10px 12px;line-height:1.9}
+.warn{background:#fff4e5;color:#8a4b00;border:1px solid #f5b041}
+.bad{background:#fdecea;color:#a93226;border:1px solid #e6a39a}
+.good{background:#e8f5e9;color:#256c2f;border:1px solid #9fd2a5}
+.hidden{display:none!important}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}
+.stat{background:#fff;border-radius:10px;padding:12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)}.stat b{display:block;font-size:1.5rem;color:#0c3846}.stat span{font-size:.78rem;color:#6b7c93}
+table{width:100%;border-collapse:collapse;font-size:.85rem}th,td{padding:9px 8px;border-bottom:1px solid #e8eef3;text-align:right;vertical-align:middle}th{color:#6b7c93;font-size:.78rem;background:#f8fafc}
+.badge{display:inline-block;border-radius:20px;padding:2px 10px;font-size:.74rem;font-weight:700}
+.b-active{background:#e3f6e8;color:#1f7a3a}.b-exp{background:#fff3d6;color:#9a6200}.b-dead{background:#fde6e3;color:#b03a2e}.b-rev{background:#e6e6ee;color:#555}
+.mono{font-family:Consolas,monospace;direction:ltr;text-align:left;word-break:break-all;font-size:.78rem}
+.acts{display:flex;gap:4px;flex-wrap:wrap}
+.code{background:#0c1f27;color:#cfe8f0;border-radius:10px;padding:12px;direction:ltr;text-align:left;font:12px/1.6 Consolas,monospace;word-break:break-all}
+.tbl{overflow-x:auto}
+@media print{header,.tabs,button{display:none}}
+</style>
 </head>
 <body>
+<header><div><h1>🔐 پنل مدیریت دسترسی — نسخهٔ ۲</h1><small>صدور و مدیریت کد برای هر کاربر · همه‌چیز فقط در مرورگر خودت</small></div><div id="topActions" class="hidden"><button class="sec sm" id="btnLock">🔒 قفل کردن</button></div></header>
+<main>
 
-<div class="card">
-  <h1>🔐 پنل مدیریت دسترسی</h1>
-  <p>این صفحه فقط برای خودت است. آن را در جایی امن نگه دار.</p>
+<!-- راه‌اندازی -->
+<section id="vSetup" class="card hidden">
+  <h2>راه‌اندازی اولیه (فقط یک بار)</h2>
+  <div class="hint">یک «جفت‌کلید» ساخته می‌شود. <b>کلید خصوصی</b> فقط در همین مرورگر و رمزنگاری‌شده با گذرواژهٔ تو می‌ماند و با آن کد امضا می‌کنی. <b>کلید عمومی</b> را در سایت می‌گذاری تا کدها را تأیید کند. کسی که پنل را باز کند نمی‌تواند کد معتبر بسازد، چون کلید خصوصی تو را ندارد.</div>
+  <label for="sp1">گذاشتن گذارواژهٔ پنل (دست‌کم ۸ نویسه)</label><input type="password" id="sp1" autocomplete="new-password">
+  <label for="sp2">تکرار گذرواژه</label><input type="password" id="sp2" autocomplete="new-password">
+  <div id="setupMsg" class="hint bad hidden"></div>
+  <button class="pri" id="btnCreate">ساخت کلید و گاوصندوق</button>
+  <h3>یا بازیابی از فایل پشتیبان</h3>
+  <input type="file" id="restoreFile1" accept=".json">
+</section>
 
-  <h2>وضعیت فعلی این مرورگر</h2>
-  <div id="status"></div>
+<!-- قفل -->
+<section id="vLock" class="card hidden">
+  <h2>🔒 گاوصندوق قفل است</h2>
+  <label for="lp">گذرواژهٔ پنل</label><input type="password" id="lp" autocomplete="current-password">
+  <div id="lockMsg" class="hint bad hidden"></div>
+  <button class="pri" id="btnUnlock">باز کردن</button>
+  <h3>بازیابی از فایل پشتیبان</h3>
+  <input type="file" id="restoreFile2" accept=".json">
+</section>
 
-  <h2>عملیات</h2>
-  <button class="btn-primary" onclick="loginHere()">🔓 فعال‌سازی دسترسی</button>
-  <button class="btn-danger" onclick="logoutHere()">🔒 لغو دسترسی</button>
-</div>
-
-<div class="card">
-  <h2>تغییر رمز (دائمی)</h2>
-  <p>رمز فعلی را می‌توانی در فایل <code>assets/gate/gate.js</code> عوض کنی. این کادر فقط برای تست است.</p>
-  <input type="text" id="newPass" placeholder="رمز جدید">
-  <button class="btn-primary" onclick="saveTempPass()">ذخیره موقت</button>
-  <div class="hint" id="tempHint"></div>
-</div>
-
-<div class="card">
-  <h2>📖 راهنما</h2>
-  <div class="hint">
-    <p><strong>چطور کار می‌کند:</strong></p>
-    <p>وقتی کاربر رمز را در صفحه ورود وارد می‌کند، در localStorage مرورگرش ذخیره می‌شود. تا زمانی که localStorage پاک نشود، دسترسی دارد.</p>
-    <p><strong>محدودیت:</strong> این یک قفل ساده است. کسی که View Source کند، رمز را می‌بیند. برای ۹۵٪ کاربران عادی کافی است.</p>
-    <p><strong>مدت اعتبار:</strong> ۳۶۵ روز (در gate.js قابل تغییر است).</p>
-    <p><strong>عوض کردن رمز:</strong> فایل <code>gate.js</code> را باز کن، مقدار <code>password</code> را عوض کن.</p>
+<div id="app" class="hidden">
+  <div class="tabs" id="tabs">
+    <button data-t="issue" class="on">➕ صدور کد</button>
+    <button data-t="users">👥 کاربران</button>
+    <button data-t="revoke">⛔ فهرست غیرفعال‌ها</button>
+    <button data-t="tools">🧰 ابزارها</button>
+    <button data-t="settings">⚙️ تنظیمات و پشتیبان</button>
   </div>
+
+  <!-- صدور -->
+  <section data-p="issue">
+    <div class="card">
+      <h2>صدور کد برای یک نفر</h2>
+      <div class="row">
+        <div><label for="iName">نام و نام خانوادگی</label><input id="iName" placeholder="سارا احمدی"></div>
+        <div><label for="iContact">تماس (اختیاری)</label><input id="iContact" placeholder="روبیکا یا شماره"></div>
+        <div><label for="iPlan">طرح</label><select id="iPlan"><option value="m">ماهانه</option><option value="y">سالانه</option><option value="c">ویژه (تعداد روز دلخواه)</option></select></div>
+        <div><label for="iDays">تعداد روز</label><input id="iDays" type="number" min="1" max="3650"></div>
+        <div><label for="iStart">شروع از (اختیاری)</label><input id="iStart" type="date"></div>
+        <div><label for="iScope">محدود به ابزارها (اختیاری)</label><input id="iScope" class="mono" placeholder="atlas,mastery"></div>
+      </div>
+      <label for="iNote">یادداشت داخلی (اختیاری)</label><input id="iNote" placeholder="مثلاً: کارت‌به‌کارت ۱۴۰۵/۰۸/۲۰">
+      <label><input type="checkbox" id="iLabel" style="width:auto;margin:0 0 0 6px"> نام کوچک در کد درج شود (برای نمایش «سلام …»؛ در کد دیده می‌شود)</label><br><br>
+      <div id="issueErr" class="hint bad hidden"></div>
+      <button class="pri" id="btnIssue">صدور کد</button>
+    </div>
+    <div class="card hidden" id="issued">
+      <h2>✅ کد صادر شد — <span id="issuedFor"></span></h2>
+      <p class="hint good" id="issuedInfo"></p>
+      <h3>پیام آمادهٔ ارسال (روبیکا / پیامک)</h3>
+      <textarea id="issuedMsg" style="direction:rtl;text-align:right;font-family:inherit;min-height:200px"></textarea>
+      <div class="acts"><button class="ok" id="cpMsg">کپی پیام</button><button class="sec" id="cpLink">کپی لینک فعال‌سازی</button><button class="sec" id="cpCode">کپی کد</button></div>
+      <h3>کد</h3><div class="code" id="issuedCode"></div>
+    </div>
+  </section>
+
+  <!-- کاربران -->
+  <section data-p="users" class="hidden">
+    <div class="stats" id="stats"></div>
+    <div class="card">
+      <div class="row" style="align-items:end"><div><label for="uQ">جستجو</label><input id="uQ" placeholder="نام، تماس یا شناسه"></div><div><label for="uF">وضعیت</label><select id="uF"><option value="">همه</option><option value="active">فعال</option><option value="soon">رو به پایان</option><option value="dead">منقضی</option><option value="rev">غیرفعال</option></select></div><div><button class="sec" id="btnCsv">دانلود CSV</button></div></div>
+      <div class="tbl"><table><thead><tr><th>نام</th><th>تماس</th><th>طرح</th><th>صدور</th><th>انقضا</th><th>مانده</th><th>وضعیت</th><th>عملیات</th></tr></thead><tbody id="uBody"></tbody></table></div>
+      <p class="hint" id="uEmpty">هنوز کاربری ثبت نشده است.</p>
+    </div>
+    <div class="card hidden" id="detail"></div>
+  </section>
+
+  <!-- غیرفعال‌ها -->
+  <section data-p="revoke" class="hidden">
+    <div class="card">
+      <h2>فایل revoked.json</h2>
+      <div class="hint warn">کدهای غیرفعال‌شده فقط وقتی از دسترسی خارج می‌شوند که این فایل در سایت به‌روز شود. مراحل: متن زیر را در <code>assets/gate/revoked.json</code> جایگزین کن ← commit ← حدود ۱ تا ۲ دقیقه بعد (بعد از ساخته شدن GitHub Pages) اثر می‌کند. کاربر در اولین بازدید بعدی بیرون می‌افتد.</div>
+      <textarea id="revText" readonly></textarea>
+      <div class="acts"><button class="ok" id="cpRev">کپی</button><button class="sec" id="dlRev">دانلود revoked.json</button></div>
+      <p class="hint" id="revInfo"></p>
+    </div>
+  </section>
+
+  <!-- ابزارها -->
+  <section data-p="tools" class="hidden">
+    <div class="card">
+      <h2>بررسی یک کد</h2>
+      <p class="hint">کد یا لینک فعال‌سازی را بچسبان تا امضا، تاریخ و وضعیتش را ببینی.</p>
+      <textarea id="vCode" placeholder="MP1.…" style="min-height:70px"></textarea>
+      <button class="pri" id="btnVerify">بررسی</button>
+      <div id="vOut" class="hint hidden" style="margin-top:10px"></div>
+    </div>
+    <div class="card">
+      <h2>آزمایش روی همین مرورگر</h2>
+      <p class="hint">برای دیدن تجربهٔ کاربر: اول «پاک کردن دسترسی» را بزن تا صفحهٔ ورود را ببینی، بعد کد را وارد کن. (برای کار کردن، فایل public-key.json یا کلید در gate.js باید در سایت گذاشته شده باشد.)</p>
+      <div class="acts"><button class="dng" id="btnClearHere">🔓 پاک کردن دسترسی این مرورگر</button><button class="sec" id="btnActHere">فعال‌سازی کد بالا روی این مرورگر</button></div>
+      <div id="hereOut" class="hint hidden" style="margin-top:10px"></div>
+    </div>
+  </section>
+
+  <!-- تنظیمات -->
+  <section data-p="settings" class="hidden">
+    <div class="card">
+      <h2>۱. کلید عمومی (برای سایت)</h2>
+      <div class="hint">اثر انگشت کلید: <b class="mono" id="fp"></b> — با این عدد می‌توانی مطمئن شوی کلید سایت همین کلید است.</div>
+      <h3>روش پیشنهادی: فایل public-key.json</h3>
+      <textarea id="pubJson" readonly style="min-height:70px"></textarea>
+      <div class="acts"><button class="ok" id="dlPub">دانلود public-key.json</button><button class="sec" id="cpPub">کپی</button></div>
+      <p class="hint">فایل را کنار <code>gate.js</code> بگذار (<code>assets/gate/public-key.json</code>). یا همین مقدار را در gate.js جلوی <code>publicKey:</code> بنویس.</p>
+    </div>
+    <div class="card">
+      <h2>۲. تنظیمات صدور</h2>
+      <div class="row"><div><label for="sBase">آدرس پایهٔ سایت (با / پایانی)</label><input id="sBase" class="mono"></div><div><label for="sSup">متن پشتیبانی</label><input id="sSup"></div><div><label for="sM">روز طرح ماهانه</label><input id="sM" type="number"></div><div><label for="sY">روز طرح سالانه</label><input id="sY" type="number"></div></div>
+      <label for="sMsg">قالب پیام (متغیرها: {name} {plan} {link} {code} {expires} {days} {support})</label>
+      <textarea id="sMsg" style="direction:rtl;text-align:right;font-family:inherit;min-height:210px"></textarea>
+      <button class="pri" id="btnSaveSet">ذخیره تنظیمات</button> <span id="setOk" class="hidden" style="color:#1f7a3a">✓ ذخیره شد</span>
+    </div>
+    <div class="card">
+      <h2>۳. پشتیبان و امنیت</h2>
+      <div class="hint warn">اگر حافظهٔ این مرورگر پاک شود و پشتیبان نداشته باشی، کلید خصوصی از بین می‌رود و دیگر نمی‌توانی با همین کلید کد بسازی. <b>فایل پشتیبان را حتماً در جای امن نگه دار.</b> فایل پشتیبان رمزنگاری‌شده است.</div>
+      <div class="acts" style="margin:10px 0"><button class="ok" id="btnBackup">دانلود فایل پشتیبان</button></div>
+      <label for="restoreFile3">بازیابی از فایل پشتیبان (جایگزین داده‌های فعلی)</label><input type="file" id="restoreFile3" accept=".json">
+      <h3>تغییر گذرواژهٔ پنل</h3>
+      <div class="row"><div><label for="np1">گذرواژهٔ جدید</label><input type="password" id="np1" autocomplete="new-password"></div><div><label for="np2">تکرار</label><input type="password" id="np2" autocomplete="new-password"></div></div>
+      <button class="sec" id="btnChangePass">تغییر گذرواژه</button> <span id="passMsg" class="hint hidden"></span>
+      <h3>حذف کامل گاوصندوق</h3>
+      <p class="hint bad">با حذف کلید، همهٔ کدهای صادرشده دیگر قابل تمدید نیستند و باید یک جفت‌کلید تازه بسازی و کلید عمومی سایت را عوض کنی.</p>
+      <button class="dng" id="btnWipe">حذف گاوصندوق</button>
+    </div>
+  </section>
 </div>
+</main>
 
 <script>
-  function checkStatus() {
-    const raw = localStorage.getItem('mp_access_v1');
-    const statusDiv = document.getElementById('status');
-    
-    if (!raw) {
-      statusDiv.className = 'status no';
-      statusDiv.textContent = '❌ دسترسی فعال نیست.';
-      return;
-    }
-    
-    try {
-      const data = JSON.parse(raw);
-      const expires = new Date(data.expires);
-      const now = new Date();
-      
-      if (now > expires) {
-        statusDiv.className = 'status no';
-        statusDiv.textContent = '❌ دسترسی منقضی شده است (' + expires.toLocaleDateString('fa-IR') + ').';
-      } else {
-        const days = Math.ceil((expires - now) / (1000 * 60 * 60 * 24));
-        statusDiv.className = 'status ok';
-        statusDiv.textContent = '✅ دسترسی فعال است. ' + days + ' روز باقی مانده (تا ' + expires.toLocaleDateString('fa-IR') + ')';
-      }
-    } catch (e) {
-      statusDiv.className = 'status no';
-      statusDiv.textContent = '❌ خطا در خواندن وضعیت.';
-    }
-  }
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)};
+var enc=new TextEncoder(),dec=new TextDecoder();
+function b64u(buf){var b=new Uint8Array(buf),s='';for(var i=0;i<b.length;i++)s+=String.fromCharCode(b[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function unb64u(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';var b=atob(s),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var TEH=12600000,VAULT='mp_admin_vault_v1',LIC='mp_license_v2';
+function today(){return Math.floor((Date.now()+TEH)/86400000)}
+function fmt(d){return new Date(d*86400000).toLocaleDateString('fa-IR',{timeZone:'UTC'})}
+var PN={m:'ماهانه',y:'سالانه',c:'ویژه'};
+var S=null,KEY=null,SALT=null,lockT=null;
 
-  function loginHere() {
-    const pass = prompt('رمز دسترسی را وارد کن:');
-    if (!pass) return;
-    
-    // رمز فعلی (همان چیزی که در gate.js است)
-    if (pass === 'masterplanner2026') {
-      const expires = Date.now() + (365 * 24 * 60 * 60 * 1000);
-      localStorage.setItem('mp_access_v1', JSON.stringify({
-        granted: Date.now(),
-        expires: expires
-      }));
-      checkStatus();
-      alert('✅ دسترسی فعال شد.');
-    } else {
-      alert('❌ رمز اشتباه است.');
-    }
-  }
+var DEF_MSG='سلام {name} عزیز 🌿\nپرداخت شما تأیید شد و «اشتراک {plan}» مستر پلنر فعال شد.\n\nبرای فعال‌سازی فقط روی لینک زیر بزن:\n{link}\n\nاگر لینک باز نشد، این کد را در صفحهٔ ورود بچسبان:\n{code}\n\n📅 اعتبار تا: {expires} ({days} روز)\n💬 {support}';
+function defaultSettings(){return{base:location.href.replace(/assets\/gate\/[^\/]*$/,'').replace(/[^\/]*$/,'').replace(/\/?$/,'/'),support:'پشتیبانی روبیکا: Alfanet2828',m:30,y:365,msg:DEF_MSG}}
 
-  function logoutHere() {
-    if (!confirm('آیا مطمئنی می‌خواهی دسترسی این مرورگر را لغو کنی؟')) return;
-    localStorage.removeItem('mp_access_v1');
-    checkStatus();
-    alert('🔒 دسترسی لغو شد.');
-  }
+/* ───── گاوصندوق ───── */
+function deriveKey(pass,salt){return crypto.subtle.importKey('raw',enc.encode(pass),'PBKDF2',false,['deriveKey']).then(function(m){return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:310000,hash:'SHA-256'},m,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])})}
+function seal(){var iv=crypto.getRandomValues(new Uint8Array(12));return crypto.subtle.encrypt({name:'AES-GCM',iv:iv},KEY,enc.encode(JSON.stringify(S))).then(function(ct){localStorage.setItem(VAULT,JSON.stringify({v:1,salt:b64u(SALT),iv:b64u(iv),data:b64u(ct)}))})}
+function openVault(raw,pass){var v=typeof raw==='string'?JSON.parse(raw):raw;var salt=unb64u(v.salt);return deriveKey(pass,salt).then(function(k){return crypto.subtle.decrypt({name:'AES-GCM',iv:unb64u(v.iv)},k,unb64u(v.data)).then(function(pt){S=JSON.parse(dec.decode(pt));KEY=k;SALT=salt})})}
+function fingerprint(){return crypto.subtle.digest('SHA-256',enc.encode(S.pub.x+'.'+S.pub.y)).then(function(h){return Array.prototype.map.call(new Uint8Array(h).slice(0,6),function(b){return('0'+b.toString(16)).slice(-2)}).join(':')})}
+function pubJson(){return JSON.stringify({kty:'EC',crv:'P-256',x:S.pub.x,y:S.pub.y})}
 
-  function saveTempPass() {
-    const p = document.getElementById('newPass').value;
-    if (!p) return;
-    // فقط برای تست — در کد اصلی رعایت نمی‌شود
-    document.getElementById('tempHint').textContent = 
-      '⚠️ برای تغییر دائمی، فایل gate.js را ویرایش کن. مقدار فعلی: ' + p;
-  }
+function show(id){['vSetup','vLock','app'].forEach(function(x){$(x).classList.toggle('hidden',x!==id)});$('topActions').classList.toggle('hidden',id!=='app')}
+function lock(){S=null;KEY=null;clearTimeout(lockT);show('vLock');$('lp').value='';$('lp').focus()}
+function touch(){clearTimeout(lockT);if(S)lockT=setTimeout(lock,10*60*1000)}
+['click','keydown','input'].forEach(function(e){document.addEventListener(e,touch)});
 
-  checkStatus();
+function msg(id,t,cls){var e=$(id);e.textContent=t||'';e.className='hint '+(cls||'bad')+(t?'':' hidden')}
+function create(){
+  var a=$('sp1').value,b=$('sp2').value;
+  if(a.length<8)return msg('setupMsg','گذرواژه باید دست‌کم ۸ نویسه باشد.');
+  if(a!==b)return msg('setupMsg','دو گذرواژه یکی نیست.');
+  if(!window.crypto||!crypto.subtle)return msg('setupMsg','این مرورگر یا این آدرس (غیر از HTTPS) رمزنگاری را پشتیبانی نمی‌کند.');
+  msg('setupMsg','');SALT=crypto.getRandomValues(new Uint8Array(16));
+  crypto.subtle.generateKey({name:'ECDSA',namedCurve:'P-256'},true,['sign','verify']).then(function(kp){
+    return Promise.all([crypto.subtle.exportKey('jwk',kp.privateKey),crypto.subtle.exportKey('jwk',kp.publicKey)])
+  }).then(function(r){
+    S={v:1,created:Date.now(),priv:r[0],pub:{kty:'EC',crv:'P-256',x:r[1].x,y:r[1].y},registry:[],settings:defaultSettings()};
+    return deriveKey(a,SALT)
+  }).then(function(k){KEY=k;return seal()}).then(function(){enter();switchTab('settings');alert('کلید ساخته شد.\nحالا: ۱) public-key.json را دانلود و در سایت بگذار. ۲) فایل پشتیبان را دانلود و نگه دار.')});
+}
+function unlock(){
+  var raw=localStorage.getItem(VAULT);if(!raw)return show('vSetup');
+  openVault(raw,$('lp').value).then(enter,function(){msg('lockMsg','گذرواژه اشتباه است.')});
+}
+function restore(file,passPromptText){
+  if(!file)return;var r=new FileReader();
+  r.onload=function(){
+    var data;try{data=JSON.parse(r.result);if(!data.salt||!data.iv||!data.data)throw 0}catch(e){return alert('فایل پشتیبان معتبر نیست.')}
+    var p=prompt(passPromptText||'گذرواژهٔ این پشتیبان را وارد کن:');if(!p)return;
+    openVault(data,p).then(function(){return seal()}).then(function(){alert('بازیابی انجام شد.');enter()},function(){alert('گذرواژه اشتباه است یا فایل آسیب دیده.')});
+  };r.readAsText(file);
+}
+function save(){return seal()}
+function enter(){show('app');touch();renderAll();fillSettings()}
+
+/* ───── صدور ───── */
+function randId(){var a=crypto.getRandomValues(new Uint8Array(4));return Array.prototype.map.call(a,function(b){return('0'+b.toString(16)).slice(-2)}).join('')}
+function signCode(pay){
+  var pl=b64u(enc.encode(JSON.stringify(pay)));
+  return crypto.subtle.importKey('jwk',S.priv,{name:'ECDSA',namedCurve:'P-256'},false,['sign']).then(function(k){
+    return crypto.subtle.sign({name:'ECDSA',hash:'SHA-256'},k,enc.encode('MP1.'+pl))
+  }).then(function(sig){return'MP1.'+pl+'.'+b64u(sig)});
+}
+function build(o){ // o: {name,contact,plan,s,e,note,label,scope}
+  var pay={v:1,i:randId(),p:o.plan,s:o.s,e:o.e};
+  if(o.label){pay.n=String(o.name).trim().split(/\s+/)[0].slice(0,24)}
+  if(o.scope&&o.scope.length)pay.t=o.scope;
+  return signCode(pay).then(function(code){
+    var rec={id:pay.i,name:o.name,contact:o.contact||'',plan:o.plan,s:o.s,e:o.e,note:o.note||'',code:code,status:'active',issuedAt:Date.now()};
+    S.registry.unshift(rec);return save().then(function(){return rec});
+  });
+}
+function link(rec){return S.settings.base+'assets/gate/activate.html#code='+rec.code}
+function messageFor(rec){
+  var d=rec.e-today()+1;
+  return S.settings.msg.replace(/\{name\}/g,rec.name).replace(/\{plan\}/g,PN[rec.plan]||'').replace(/\{link\}/g,link(rec)).replace(/\{code\}/g,rec.code).replace(/\{expires\}/g,fmt(rec.e)).replace(/\{days\}/g,String(d)).replace(/\{support\}/g,S.settings.support);
+}
+function planDays(p){return p==='m'?+S.settings.m:p==='y'?+S.settings.y:+$('iDays').value}
+function issue(){
+  var name=$('iName').value.trim(),plan=$('iPlan').value,days=planDays(plan);
+  var err=$('issueErr');err.classList.add('hidden');
+  if(!name){err.textContent='نام را بنویس.';return err.classList.remove('hidden')}
+  if(!(days>=1&&days<=3650)){err.textContent='تعداد روز معتبر نیست.';return err.classList.remove('hidden')}
+  var s=$('iStart').value?Math.floor(new Date($('iStart').value+'T00:00:00Z').getTime()/86400000):today();
+  var scope=$('iScope').value.split(',').map(function(x){return x.trim()}).filter(Boolean);
+  build({name:name,contact:$('iContact').value.trim(),plan:plan,s:s,e:s+days-1,note:$('iNote').value.trim(),label:$('iLabel').checked,scope:scope}).then(function(rec){showIssued(rec);['iName','iContact','iNote','iScope','iStart'].forEach(function(i){$(i).value=''});renderAll()});
+}
+var lastRec=null;
+function showIssued(rec){
+  lastRec=rec;$('issued').classList.remove('hidden');$('issuedFor').textContent=rec.name;
+  $('issuedInfo').textContent='طرح '+PN[rec.plan]+' — از '+fmt(rec.s)+' تا '+fmt(rec.e)+' — شناسه: '+rec.id;
+  $('issuedMsg').value=messageFor(rec);$('issuedCode').textContent=rec.code;$('issued').scrollIntoView({behavior:'smooth'});
+}
+function copy(t,btn){navigator.clipboard.writeText(t).then(function(){if(btn){var o=btn.textContent;btn.textContent='✓ کپی شد';setTimeout(function(){btn.textContent=o},1200)}},function(){prompt('کپی کن:',t)})}
+
+/* ───── کاربران ───── */
+function status(r){var t=today();if(r.status==='revoked')return'rev';if(r.e<t)return'dead';if(r.e-t<=7)return'soon';return'active'}
+var ST={active:['فعال','b-active'],soon:['رو به پایان','b-exp'],dead:['منقضی','b-dead'],rev:['غیرفعال','b-rev']};
+function renderStats(){
+  var c={active:0,soon:0,dead:0,rev:0};S.registry.forEach(function(r){c[status(r)]++});
+  $('stats').innerHTML=[['فعال',c.active+c.soon],['رو به پایان (۷ روز)',c.soon],['منقضی',c.dead],['غیرفعال',c.rev],['کل',S.registry.length]].map(function(x){return'<div class="stat"><b>'+x[1]+'</b><span>'+x[0]+'</span></div>'}).join('');
+}
+function renderUsers(){
+  var q=$('uQ').value.trim().toLowerCase(),f=$('uF').value;
+  var rows=S.registry.filter(function(r){return(!f||status(r)===f)&&(!q||(r.name+' '+r.contact+' '+r.id+' '+r.note).toLowerCase().indexOf(q)>-1)});
+  $('uEmpty').classList.toggle('hidden',rows.length>0);
+  $('uBody').innerHTML=rows.map(function(r){var s=status(r),left=r.e-today()+1;
+    return'<tr><td>'+esc(r.name)+'<br><small class="mono">'+r.id+'</small></td><td>'+esc(r.contact)+'</td><td>'+PN[r.plan]+'</td><td>'+fmt(r.s)+'</td><td>'+fmt(r.e)+'</td><td>'+(left>0?left:0)+'</td><td><span class="badge '+ST[s][1]+'">'+ST[s][0]+'</span></td><td class="acts">'+
+      '<button class="sec sm" data-a="open" data-id="'+r.id+'">جزئیات</button></td></tr>'}).join('');
+}
+function openDetail(id){
+  var r=S.registry.filter(function(x){return x.id===id})[0];if(!r)return;
+  var s=status(r),d=$('detail');d.classList.remove('hidden');
+  d.innerHTML='<h2>'+esc(r.name)+' <span class="badge '+ST[s][1]+'">'+ST[s][0]+'</span></h2><p class="hint">طرح '+PN[r.plan]+' — '+fmt(r.s)+' تا '+fmt(r.e)+' — شناسه '+r.id+(r.note?' — '+esc(r.note):'')+'</p>'+
+   '<div class="acts"><button class="ok sm" data-a="cpmsg" data-id="'+id+'">📋 کپی پیام</button><button class="sec sm" data-a="cplink" data-id="'+id+'">🔗 کپی لینک</button><button class="sec sm" data-a="cpcode" data-id="'+id+'">🔑 کپی کد</button>'+
+   '<button class="pri sm" data-a="renew" data-id="'+id+'">♻️ تمدید</button><button class="sec sm" data-a="reset" data-id="'+id+'">🔁 ریست کد (کد تازه)</button>'+
+   (r.status==='revoked'?'<button class="ok sm" data-a="unrevoke" data-id="'+id+'">✅ فعال‌سازی مجدد</button>':'<button class="dng sm" data-a="revoke" data-id="'+id+'">⛔ غیرفعال‌سازی</button>')+
+   '<button class="sec sm" data-a="del" data-id="'+id+'">🗑 حذف از فهرست</button></div><div class="code" style="margin-top:10px">'+esc(r.code)+'</div>';
+  d.scrollIntoView({behavior:'smooth'});
+}
+function userAction(a,id,btn){
+  var r=S.registry.filter(function(x){return x.id===id})[0];if(!r)return;
+  if(a==='open')return openDetail(id);
+  if(a==='cpmsg')return copy(messageFor(r),btn);
+  if(a==='cplink')return copy(link(r),btn);
+  if(a==='cpcode')return copy(r.code,btn);
+  if(a==='revoke'){if(!confirm('کد «'+r.name+'» غیرفعال شود؟\nبعد از انتشار revoked.json اثر می‌کند.'))return;r.status='revoked';r.revokedAt=Date.now()}
+  if(a==='unrevoke'){r.status='active';delete r.revokedAt}
+  if(a==='del'){if(!confirm('رکورد از فهرست حذف شود؟ (کد همچنان تا انقضا معتبر می‌ماند مگر غیرفعالش کرده باشی)'))return;S.registry=S.registry.filter(function(x){return x.id!==id});$('detail').classList.add('hidden')}
+  if(a==='renew'){
+    var days=prompt('چند روز اضافه شود؟',String(r.plan==='m'?S.settings.m:S.settings.y));if(!days)return;days=+days;if(!(days>=1))return alert('عدد معتبر نیست.');
+    var start=Math.max(today(),r.e+1);var keep=confirm('کد قبلی همزمان غیرفعال شود؟ (پیشنهاد: تأیید)');
+    return build({name:r.name,contact:r.contact,plan:r.plan,s:today(),e:Math.max(today()-1,r.e)+days,note:'تمدید '+r.id,label:false}).then(function(n){if(keep){r.status='revoked';r.revokedAt=Date.now()}r.replacedBy=n.id;return save().then(function(){renderAll();showIssued(n);switchTab('issue')})});
+  }
+  if(a==='reset'){
+    if(!confirm('یک کد تازه با همان انقضا ساخته و کد قبلی غیرفعال شود؟'))return;
+    return build({name:r.name,contact:r.contact,plan:r.plan,s:r.s,e:r.e,note:'ریست '+r.id,label:false}).then(function(n){r.status='revoked';r.revokedAt=Date.now();r.replacedBy=n.id;return save().then(function(){renderAll();showIssued(n);switchTab('issue')})});
+  }
+  save().then(renderAll).then(function(){if(!$('detail').classList.contains('hidden')&&S.registry.some(function(x){return x.id===id}))openDetail(id)});
+}
+function csv(){
+  var rows=[['id','name','contact','plan','issued','expires','status','note']].concat(S.registry.map(function(r){return[r.id,r.name,r.contact,PN[r.plan],fmt(r.s),fmt(r.e),ST[status(r)][0],r.note]}));
+  var t='\ufeff'+rows.map(function(r){return r.map(function(c){return'"'+String(c).replace(/"/g,'""')+'"'}).join(',')}).join('\n');
+  download('users.csv',t,'text/csv');
+}
+function download(name,content,type){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type:type+';charset=utf-8'}));a.download=name;document.body.appendChild(a);a.click();a.remove()}
+
+/* ───── revoked.json ───── */
+function revJson(){
+  var ids=S.registry.filter(function(r){return r.status==='revoked'&&r.e>=today()}).map(function(r){return r.id});
+  return JSON.stringify({updated:new Date().toISOString().slice(0,10),revoked:ids},null,2);
+}
+function renderRev(){var t=revJson();$('revText').value=t;var n=JSON.parse(t).revoked.length;$('revInfo').textContent=n+' کد غیرفعال در فهرست است (کدهای منقضی لازم نیست در فهرست باشند).'}
+
+/* ───── ابزارها ───── */
+function verifyCode(raw){
+  var s=String(raw||'').replace(/[\u200b-\u200f\s]+/g,'');var m=/(MP1\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)/.exec(s);
+  if(!m)return Promise.resolve({ok:false,text:'قالب کد درست نیست.'});
+  var p=m[1].split('.');
+  return crypto.subtle.importKey('jwk',{kty:'EC',crv:'P-256',x:S.pub.x,y:S.pub.y,ext:true},{name:'ECDSA',namedCurve:'P-256'},false,['verify']).then(function(k){return crypto.subtle.verify({name:'ECDSA',hash:'SHA-256'},k,unb64u(p[2]),enc.encode('MP1.'+p[1]))}).then(function(ok){
+    if(!ok)return{ok:false,text:'❌ امضا با کلید این پنل تأیید نشد (کد جعلی یا از کلید دیگری).'};
+    var pay=JSON.parse(dec.decode(unb64u(p[1]))),rec=S.registry.filter(function(x){return x.id===pay.i})[0],t=today(),st=pay.e<t?'منقضی شده':'در حال اعتبار';
+    return{ok:true,code:m[1],text:'✅ امضا معتبر است.\nشناسه: '+pay.i+'\nطرح: '+(PN[pay.p]||'؟')+'\nاز '+fmt(pay.s)+' تا '+fmt(pay.e)+' ('+st+', '+Math.max(0,pay.e-t+1)+' روز مانده)'+(rec?'\nصاحب (از فهرست): '+rec.name+(rec.status==='revoked'?'\n⛔ در فهرست شما غیرفعال شده است':''):'\nدر فهرست این پنل نیست.')+(pay.t?'\nابزارها: '+pay.t.join(', '):'')};
+  });
+}
+
+/* ───── تنظیمات ───── */
+function fillSettings(){
+  var s=S.settings;$('sBase').value=s.base;$('sSup').value=s.support;$('sM').value=s.m;$('sY').value=s.y;$('sMsg').value=s.msg;
+  $('pubJson').value=pubJson();fingerprint().then(function(f){$('fp').textContent=f});
+}
+function saveSettings(){
+  var b=$('sBase').value.trim();if(b&&!/\/$/.test(b))b+='/';
+  S.settings={base:b,support:$('sSup').value.trim(),m:+$('sM').value||30,y:+$('sY').value||365,msg:$('sMsg').value||DEF_MSG};
+  save().then(function(){$('setOk').classList.remove('hidden');setTimeout(function(){$('setOk').classList.add('hidden')},1800)});
+}
+function changePass(){
+  var a=$('np1').value,b=$('np2').value,m=$('passMsg');m.classList.remove('hidden');
+  if(a.length<8){m.className='hint bad';m.textContent='دست‌کم ۸ نویسه.';return}
+  if(a!==b){m.className='hint bad';m.textContent='دو گذرواژه یکی نیست.';return}
+  SALT=crypto.getRandomValues(new Uint8Array(16));deriveKey(a,SALT).then(function(k){KEY=k;return seal()}).then(function(){m.className='hint good';m.textContent='✓ گذرواژه تغییر کرد. فایل پشتیبان جدید بگیر.';$('np1').value=$('np2').value=''});
+}
+function backup(){var raw=localStorage.getItem(VAULT);if(!raw)return;download('mp-admin-vault-'+new Date().toISOString().slice(0,10)+'.json',raw,'application/json')}
+
+/* ───── رابط ───── */
+function renderAll(){renderStats();renderUsers();renderRev()}
+function switchTab(t){document.querySelectorAll('#tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.t===t)});document.querySelectorAll('[data-p]').forEach(function(p){p.classList.toggle('hidden',p.dataset.p!==t)});if(t==='revoke')renderRev()}
+$('tabs').addEventListener('click',function(e){var b=e.target.closest('button');if(b)switchTab(b.dataset.t)});
+$('iPlan').addEventListener('change',function(){var p=$('iPlan').value;$('iDays').value=p==='m'?S.settings.m:p==='y'?S.settings.y:'';$('iDays').disabled=p!=='c'});
+$('uBody').addEventListener('click',function(e){var b=e.target.closest('button');if(b)userAction(b.dataset.a,b.dataset.id,b)});
+$('detail').addEventListener('click',function(e){var b=e.target.closest('button');if(b)userAction(b.dataset.a,b.dataset.id,b)});
+$('uQ').addEventListener('input',renderUsers);$('uF').addEventListener('change',renderUsers);
+$('btnCreate').onclick=create;$('btnUnlock').onclick=unlock;$('lp').addEventListener('keydown',function(e){if(e.key==='Enter')unlock()});
+$('btnLock').onclick=lock;$('btnIssue').onclick=issue;$('btnCsv').onclick=csv;
+$('cpMsg').onclick=function(){copy($('issuedMsg').value,this)};$('cpLink').onclick=function(){copy(link(lastRec),this)};$('cpCode').onclick=function(){copy(lastRec.code,this)};
+$('cpRev').onclick=function(){copy($('revText').value,this)};$('dlRev').onclick=function(){download('revoked.json',$('revText').value,'application/json')};
+$('dlPub').onclick=function(){download('public-key.json',pubJson(),'application/json')};$('cpPub').onclick=function(){copy(pubJson(),this)};
+$('btnSaveSet').onclick=saveSettings;$('btnChangePass').onclick=changePass;$('btnBackup').onclick=backup;
+$('btnWipe').onclick=function(){if(prompt('برای حذف کامل، کلمهٔ «حذف» را بنویس:')==='حذف'){localStorage.removeItem(VAULT);S=null;KEY=null;show('vSetup')}};
+$('restoreFile1').onchange=$('restoreFile2').onchange=$('restoreFile3').onchange=function(e){restore(e.target.files[0]);e.target.value=''};
+$('btnVerify').onclick=function(){verifyCode($('vCode').value).then(function(r){var o=$('vOut');o.className='hint '+(r.ok?'good':'bad');o.style.whiteSpace='pre-line';o.textContent=r.text;$('vCode').dataset.ok=r.ok?r.code:''})};
+$('btnClearHere').onclick=function(){['mp_license_v2','mp_access_v1','mp_revoked_cache_v2','mp_last_seen_v2','mp_gate_fail_v2'].forEach(function(k){localStorage.removeItem(k)});var o=$('hereOut');o.className='hint good';o.textContent='✓ دسترسی این مرورگر پاک شد.'};
+$('btnActHere').onclick=function(){var o=$('hereOut');verifyCode($('vCode').value).then(function(r){if(!r.ok){o.className='hint bad';o.textContent='ابتدا یک کد معتبر بچسبان و «بررسی» بزن.';return}localStorage.setItem('mp_license_v2',JSON.stringify({code:r.code,at:Date.now()}));o.className='hint good';o.textContent='✓ فعال شد. حالا یکی از ابزارهای سایت را باز کن.'})};
+window.__adminReady=true;
+(function boot(){$('iPlan').dispatchEvent(new Event('change'));show(localStorage.getItem(VAULT)?'vLock':'vSetup')})();
+// مقدار روزهای پیش‌فرض بعد از باز شدن
+document.addEventListener('DOMContentLoaded',function(){});
+})();
 </script>
-
 </body>
 </html>
