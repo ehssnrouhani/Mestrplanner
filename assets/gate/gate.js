@@ -1,117 +1,161 @@
 /* ============================================================
-   Masterplanner Gate — نسخه اشتراکی با دو سطح قیمت
-   ماهانه → Alfanet2828
-   سالانه → mesterplanner / ۰۹۱۳۷۵۸۳۰۰۸
+   Masterplanner Gate v2 — دروازهٔ اشتراک با کد امضاشده (ECDSA P-256)
+   • کدها را فقط پنل مدیریت (admin.html) با کلید خصوصیِ شما می‌سازد؛ بدون آن، کد جعل‌شدنی نیست.
+   • این فایل فقط «کلید عمومی» دارد. رمز یا کد معتبری در آن ذخیره نمی‌شود.
+   • حالت کتابخانه: قبل از بارگذاری  window.MP_GATE_MODE='lib'  بگذار (برای admin/reset/activate).
    ============================================================ */
 (function () {
-// ═══════════════════════════════════════════
-// قابلیت ریست برای تست — ?reset=1 در URL
-// ═══════════════════════════════════════════
-if (window.location.search.indexOf('reset=1') > -1) {
-  localStorage.removeItem('mp_access_v1');
-  console.log('[MPGate] دسترسی پاک شد. حالا صفحه ورود را می‌بینی.');
-}
   'use strict';
 
-  const CONFIG = {
-    // ═══════════════════════════════════════════
-    // رمزهای معتبر — برای هر خریدار یک رمز
-    // بعد از پرداخت، رمز اضافه کن
-    // بعد از انقضا، رمز را حذف کن
-    // ═══════════════════════════════════════════
-    passwords: [
-      // { code: 'MP-M-001', name: 'علی — ماهانه', type: 'monthly' },
-      // { code: 'MP-Y-001', name: 'سارا — سالانه', type: 'yearly' },
-    ],
+  var BASE = (document.currentScript && document.currentScript.src) ? document.currentScript.src.replace(/[^\/]*$/, '') : '';
+  var USER = window.MP_GATE_CONFIG || {};
+  var LIB_MODE = window.MP_GATE_MODE === 'lib';
 
-    storageKey: 'mp_access_v1',
-    defaultValidDays: 30,
-
-    // ═══════════════════════════════════════════
-    // طرح‌های اشتراک
-    // ═══════════════════════════════════════════
+  var CONFIG = {
+    // ── کلید عمومی: خروجی پنل مدیریت → «تنظیمات». یا فایل public-key.json را کنار gate.js بگذار.
+    publicKey: null,
+    publicKeyUrl: BASE + 'public-key.json',
+    revokedUrl: BASE + 'revoked.json',
+    storageKey: 'mp_license_v2',
+    legacyKeys: ['mp_access_v1'],
     plans: {
       monthly: {
-        name: 'اشتراک ماهانه',
-        price: '۵۹,۰۰۰',
-        period: 'ماه',
-        validityDays: 30,
-        link: 'https://rubika.ir/Alfanet2828',
-        linkLabel: 'روبیکا: Alfanet2828',
+        name: 'اشتراک ماهانه', price: '۵۹,۰۰۰', period: 'ماه', validityDays: 30,
+        link: 'https://rubika.ir/Alfanet2828', linkLabel: 'روبیکا: Alfanet2828',
         buttonText: 'خرید اشتراک ماهانه',
-        features: [
-          'دسترسی کامل به همه ابزارها',
-          '۳۰ روز اعتبار',
-          'تمدید آسان'
-        ],
-        featured: false
+        features: ['دسترسی کامل به همه ابزارها', '۳۰ روز اعتبار', 'تمدید آسان'], featured: false
       },
       yearly: {
-        name: 'اشتراک سالانه',
-        price: '۴۹۰,۰۰۰',
-        launchPrice: '۳۹۰,۰۰۰',
-        period: 'سال',
-        validityDays: 365,
-        link: 'https://rubika.ir/mesterplanner',
-        linkLabel: 'روبیکا: mesterplanner',
-        phone: '09137583008',
-        phoneFa: '۰۹۱۳۷۵۸۳۰۰۸',
+        name: 'اشتراک سالانه', price: '۴۹۰,۰۰۰', launchPrice: '۳۹۰,۰۰۰', period: 'سال', validityDays: 365,
+        link: 'https://rubika.ir/mesterplanner', linkLabel: 'روبیکا: mesterplanner',
+        phone: '09137583008', phoneFa: '۰۹۱۳۷۵۸۳۰۰۸',
         buttonText: 'خرید اشتراک سالانه',
-        features: [
-          'دسترسی کامل به همه ابزارها',
-          '۳۶۵ روز اعتبار',
-          'به‌روزرسانی‌های رایگان',
-          'صرفه‌جویی ۳۱٪ نسبت به ماهانه'
-        ],
-        featured: true
+        features: ['دسترسی کامل به همه ابزارها', '۳۶۵ روز اعتبار', 'به‌روزرسانی‌های رایگان', 'صرفه‌جویی ۳۱٪ نسبت به ماهانه'], featured: true
       }
     },
-
     contact: {
       rubikaSupport: 'https://rubika.ir/Alfanet2828',
       rubikaChannel: 'https://rubika.ir/mesterplanner',
-      phone: '09137583008',
-      phoneFa: '۰۹۱۳۷۵۸۳۰۰۸'
+      phone: '09137583008', phoneFa: '۰۹۱۳۷۵۸۳۰۰۸'
     }
   };
+  for (var k in USER) if (Object.prototype.hasOwnProperty.call(USER, k)) CONFIG[k] = USER[k];
+  var TEHRAN_MS = 12600000;           // +۳:۳۰
+  var LAST_KEY = 'mp_last_seen_v2', REV_KEY = 'mp_revoked_cache_v2', FAIL_KEY = 'mp_gate_fail_v2';
 
   // ═══════════════════════════════════════════
-  // بررسی دسترسی
+  // ابزارهای پایه
   // ═══════════════════════════════════════════
-  function hasAccess() {
-    try {
-      const raw = localStorage.getItem(CONFIG.storageKey);
-      if (!raw) return false;
-      const data = JSON.parse(raw);
-      if (!data.expires) return false;
-      if (Date.now() > data.expires) {
-        localStorage.removeItem(CONFIG.storageKey);
-        return false;
-      }
-      return true;
-    } catch (e) { return false; }
-  }
-
-  function grantAccess(passwordObj) {
-    const days = (passwordObj && passwordObj.validityDays) || CONFIG.defaultValidDays;
-    const expires = Date.now() + (days * 24 * 60 * 60 * 1000);
-    localStorage.setItem(CONFIG.storageKey, JSON.stringify({
-      code: passwordObj ? passwordObj.code : 'unknown',
-      type: passwordObj ? passwordObj.type : 'unknown',
-      granted: Date.now(),
-      expires: expires
-    }));
-  }
-
-  function checkPassword(entered) {
-    if (!CONFIG.passwords || CONFIG.passwords.length === 0) return null;
-    return CONFIG.passwords.find(function (p) {
-      return p.code.toLowerCase() === entered.toLowerCase().trim();
-    }) || null;
+  var enc = new TextEncoder(), dec = new TextDecoder();
+  function b64uToBytes(s) { s = s.replace(/-/g, '+').replace(/_/g, '/'); while (s.length % 4) s += '='; var b = atob(s), a = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) a[i] = b.charCodeAt(i); return a; }
+  function readJSON(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
+  function writeJSON(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function fmtDay(d) { return new Date(d * 86400000).toLocaleDateString('fa-IR', { timeZone: 'UTC' }); }
+  var PLAN_FA = { m: 'ماهانه', y: 'سالانه', c: 'ویژه' };
+  function today() {                      // شمارهٔ روز (تهران)؛ برگرداندن ساعت دستگاه به عقب اثری ندارد
+    var now = Date.now(), last = +localStorage.getItem(LAST_KEY) || 0, eff = Math.max(now, last);
+    try { localStorage.setItem(LAST_KEY, String(eff)); } catch (e) {}
+    return Math.floor((eff + TEHRAN_MS) / 86400000);
   }
 
   // ═══════════════════════════════════════════
-  // ساخت صفحه ورود
+  // تأیید کد
+  // ═══════════════════════════════════════════
+  var keyPromise = null;
+  function getKey() {
+    if (keyPromise) return keyPromise;
+    keyPromise = (CONFIG.publicKey ? Promise.resolve(CONFIG.publicKey) :
+      fetch(CONFIG.publicKeyUrl, { cache: 'no-store' }).then(function (r) { if (!r.ok) throw 0; return r.json(); }))
+      .then(function (jwk) { return crypto.subtle.importKey('jwk', { kty: 'EC', crv: 'P-256', x: jwk.x, y: jwk.y, ext: true }, { name: 'ECDSA', namedCurve: 'P-256' }, false, ['verify']); });
+    return keyPromise;
+  }
+  function parseCode(raw) {
+    var s = String(raw || '').replace(/[\u200b-\u200f\u202a-\u202e\ufeff\s]+/g, '');
+    var m = /(?:code=|mpcode=)?(MP1\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+)/.exec(s);
+    if (!m) return null;
+    var p = m[1].split('.');
+    return { code: m[1], pl: p[1], sig: p[2] };
+  }
+  function getRevoked() {
+    var cache = readJSON(REV_KEY) || { ids: [] };
+    if (!CONFIG.revokedUrl) return Promise.resolve(cache.ids);
+    var ctl = 'AbortController' in window ? new AbortController() : null, to = setTimeout(function () { if (ctl) ctl.abort(); }, 3000);
+    return fetch(CONFIG.revokedUrl + '?t=' + Date.now(), { cache: 'no-store', signal: ctl ? ctl.signal : undefined })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (j) { var ids = Array.isArray(j.revoked) ? j.revoked.map(String) : []; writeJSON(REV_KEY, { ids: ids, t: Date.now() }); return ids; })
+      .catch(function () { return cache.ids; })
+      .then(function (ids) { clearTimeout(to); return ids; });
+  }
+  function verify(raw) {
+    if (!(window.crypto && crypto.subtle)) return Promise.resolve({ ok: false, reason: 'nocrypto' });
+    var p = parseCode(raw);
+    if (!p) return Promise.resolve({ ok: false, reason: 'format' });
+    return getKey().then(function (key) {
+      return crypto.subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, key, b64uToBytes(p.sig), enc.encode('MP1.' + p.pl));
+    }, function () { return 'nokey'; }).then(function (ok) {
+      if (ok === 'nokey') return { ok: false, reason: 'nokey' };
+      if (!ok) return { ok: false, reason: 'sig' };
+      var pay; try { pay = JSON.parse(dec.decode(b64uToBytes(p.pl))); } catch (e) { return { ok: false, reason: 'payload' }; }
+      if (!pay || pay.v !== 1 || !pay.i || !isFinite(pay.e) || !isFinite(pay.s)) return { ok: false, reason: 'payload' };
+      var d = today();
+      if (d < pay.s - 1) return { ok: false, reason: 'notyet', payload: pay };
+      if (d > pay.e) return { ok: false, reason: 'expired', payload: pay };
+      return getRevoked().then(function (ids) {
+        if (ids.indexOf(String(pay.i)) > -1) return { ok: false, reason: 'revoked', payload: pay };
+        if (pay.t && pay.t.length && window.MP_GATE_SCOPE && pay.t.indexOf(window.MP_GATE_SCOPE) < 0) return { ok: false, reason: 'scope', payload: pay };
+        return { ok: true, payload: pay, code: p.code, daysLeft: pay.e - d + 1 };
+      });
+    }).catch(function () { return { ok: false, reason: 'format' }; });
+  }
+  var MSG = {
+    format: 'کد معتبر نیست. کد باید با MP1. شروع شود؛ همهٔ آن را کامل کپی کن.',
+    sig: 'کد معتبر نیست (امضا تأیید نشد). مطمئن شو کد را کامل و بدون تغییر چسبانده‌ای.',
+    payload: 'محتوای کد آسیب دیده است. کد را دوباره از پشتیبانی بگیر.',
+    nokey: 'سیستم هنوز پیکربندی نشده است (کلید عمومی تنظیم نشده). با پشتیبانی تماس بگیر.',
+    nocrypto: 'این مرورگر یا این نوع آدرس (غیر از HTTPS) از تأیید امن کد پشتیبانی نمی‌کند.',
+    scope: 'اشتراک تو شامل این ابزار نیست. برای ارتقا با پشتیبانی تماس بگیر.'
+  };
+  function reasonText(r) {
+    var pay = r.payload;
+    if (r.reason === 'expired') return '⏳ اشتراک تو در تاریخ ' + fmtDay(pay.e) + ' به پایان رسیده است. برای تمدید با پشتیبانی تماس بگیر.';
+    if (r.reason === 'revoked') return '⛔ این کد توسط مدیر غیرفعال شده است. با پشتیبانی تماس بگیر.';
+    if (r.reason === 'notyet') return 'این کد از تاریخ ' + fmtDay(pay.s) + ' فعال می‌شود.';
+    return MSG[r.reason] || 'کد پذیرفته نشد.';
+  }
+
+  // ═══════════════════════════════════════════
+  // وضعیت دسترسی
+  // ═══════════════════════════════════════════
+  function clearAll() {
+    try { localStorage.removeItem(CONFIG.storageKey); localStorage.removeItem(REV_KEY); (CONFIG.legacyKeys || []).forEach(function (k) { localStorage.removeItem(k); }); } catch (e) {}
+  }
+  function checkAccess() {
+    try { (CONFIG.legacyKeys || []).forEach(function (k) { localStorage.removeItem(k); }); } catch (e) {}
+    var st = readJSON(CONFIG.storageKey);
+    if (!st || !st.code) return Promise.resolve({ ok: false, reason: 'none' });
+    return verify(st.code).then(function (r) { if (!r.ok && r.reason !== 'nokey' && r.reason !== 'nocrypto') { /* مجوز نامعتبر: پاک شود */ try { localStorage.removeItem(CONFIG.storageKey); } catch (e) {} } return r; });
+  }
+  function activate(raw) {
+    var fail = readJSON(FAIL_KEY) || { n: 0, until: 0 };
+    if (Date.now() < fail.until) return Promise.resolve({ ok: false, reason: 'locked', wait: Math.ceil((fail.until - Date.now()) / 1000) });
+    return verify(raw).then(function (r) {
+      if (r.ok) { writeJSON(CONFIG.storageKey, { code: r.code, at: Date.now() }); try { localStorage.removeItem(FAIL_KEY); } catch (e) {} return r; }
+      if (r.reason === 'sig' || r.reason === 'format' || r.reason === 'payload') { fail.n++; if (fail.n >= 5) { fail.until = Date.now() + 30000; fail.n = 0; } writeJSON(FAIL_KEY, fail); }
+      return r;
+    });
+  }
+  function logout() { clearAll(); }
+  function urlCode() {
+    var m = /[#?&](?:code|mpcode)=([^&]+)/.exec(location.hash + location.search);
+    if (!m) return null;
+    try { return decodeURIComponent(m[1]); } catch (e) { return m[1]; }
+  }
+  function stripUrlCode() {
+    try { var u = location.pathname + location.search.replace(/([?&])(?:code|mpcode)=[^&]*&?/, '$1').replace(/[?&]$/, ''); history.replaceState(null, '', u + (location.hash.replace(/[#&]?(?:code|mpcode)=[^&]*/, '') || '')); } catch (e) {}
+  }
+
+  // ═══════════════════════════════════════════
+  // صفحهٔ ورود (طراحی اصلی شما)
   // ═══════════════════════════════════════════
   function buildLoginPage() {
     const c = CONFIG.contact;
@@ -228,14 +272,14 @@ if (window.location.search.indexOf('reset=1') > -1) {
               <li>
                 <span class="mp-step-num">۴</span>
                 <div>
-                  <strong>رمز اختصاصی را دریافت کن</strong>
+                  <strong>کد یا لینک فعال‌سازی را دریافت کن</strong>
                   <p>حداکثر تا ۳۰ دقیقه (ساعت ۹ صبح تا ۱۱ شب).</p>
                 </div>
               </li>
               <li>
                 <span class="mp-step-num">۵</span>
                 <div>
-                  <strong>رمز را در کادر پایین وارد کن</strong>
+                  <strong>روی لینک بزن یا کد را در کادر پایین بچسبان</strong>
                   <p>تا پایان دوره، به همه ابزارها دسترسی داری.</p>
                 </div>
               </li>
@@ -281,14 +325,14 @@ if (window.location.search.indexOf('reset=1') > -1) {
 
           <!-- فرم ورود -->
           <div class="mp-gate-section mp-gate-login-section">
-            <h2>🔓 اگر رمز داری، اینجا وارد کن:</h2>
+            <h2>🔓 اگر کد دسترسی داری، اینجا وارد کن:</h2>
+            <div class="mp-gate-note" id="mp-gate-note" role="status"></div>
             <form class="mp-gate-form" autocomplete="off">
-              <label for="mp-gate-input">رمز دسترسی</label>
+              <label for="mp-gate-input">کد دسترسی</label>
               <input id="mp-gate-input" type="text" 
-                     placeholder="مثلاً: MP-Y-001" autocomplete="off" required
-                     style="letter-spacing: 0.08em;">
+                     placeholder="MP1.… (کد یا لینک فعال‌سازی را اینجا بچسبان)" dir="ltr" spellcheck="false" autocomplete="off" required>
               <div class="mp-gate-error" id="mp-gate-error"></div>
-              <button type="submit" class="mp-gate-btn">ورود به ابزارها</button>
+              <button type="submit" class="mp-gate-btn" id="mp-gate-submit">ورود به ابزارها</button>
             </form>
           </div>
 
@@ -304,9 +348,6 @@ if (window.location.search.indexOf('reset=1') > -1) {
     return container;
   }
 
-  // ═══════════════════════════════════════════
-  // استایل
-  // ═══════════════════════════════════════════
   function injectStyles() {
     if (document.getElementById('mp-gate-styles')) return;
 
@@ -626,111 +667,97 @@ if (window.location.search.indexOf('reset=1') > -1) {
         .mp-pricing-grid { grid-template-columns: 1fr; }
         .mp-price-amount { font-size: 1.6rem; }
       }
+
+      .mp-gate-note { font-size: 0.85rem; line-height: 1.8; margin: 0 0 12px; padding: 10px 14px; border-radius: 10px; display: none; }
+      .mp-gate-note.show { display: block; background: #fff3e0; color: #8a4b00; border: 1px solid #f5b041; }
+      .mp-gate-form input { direction: ltr; font-size: 0.85rem; }
+      .mp-pill { position: fixed; bottom: 20px; left: 20px; z-index: 999998; display: flex; align-items: center; gap: 8px;
+        background: rgba(12,56,70,.92); color: #fff; border-radius: 30px; padding: 8px 8px 8px 14px; font: 700 .82rem 'Vazirmatn',Tahoma,sans-serif;
+        box-shadow: 0 4px 12px rgba(0,0,0,.25); backdrop-filter: blur(4px); direction: rtl; }
+      .mp-pill.warn { background: rgba(176,96,0,.95); }
+      .mp-pill button { background: rgba(255,255,255,.16); color: #fff; border: 0; border-radius: 20px; padding: 6px 12px; cursor: pointer; font: inherit; }
+      .mp-pill button:hover { background: rgba(192,57,43,.95); }
+      .mp-pill a { color: #ffd88a; text-decoration: underline; }
     `;
     document.head.appendChild(style);
   }
 
+
   // ═══════════════════════════════════════════
   // نمایش
   // ═══════════════════════════════════════════
-  function showLogin() {
+  function ready(fn) { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn); else fn(); }
+  var hideEl = null;
+  function hidePage() { hideEl = document.createElement('style'); hideEl.id = 'mp-gate-hide'; hideEl.textContent = 'html{visibility:hidden!important}.mp-gate-overlay{visibility:visible!important}'; (document.head || document.documentElement).appendChild(hideEl); }
+  function showPage() { if (hideEl && hideEl.parentNode) hideEl.parentNode.removeChild(hideEl); hideEl = null; }
+
+  function showLogin(reasonObj) {
     injectStyles();
     document.documentElement.style.overflow = 'hidden';
-
-    const page = buildLoginPage();
+    var page = buildLoginPage();
     document.body.appendChild(page);
-
-    const input = page.querySelector('#mp-gate-input');
-    const form = page.querySelector('.mp-gate-form');
-    const error = page.querySelector('#mp-gate-error');
-
+    var input = page.querySelector('#mp-gate-input'), form = page.querySelector('.mp-gate-form'),
+        error = page.querySelector('#mp-gate-error'), note = page.querySelector('#mp-gate-note'), btn = page.querySelector('#mp-gate-submit');
+    if (reasonObj && reasonObj.reason && reasonObj.reason !== 'none') { note.textContent = reasonText(reasonObj); note.className = 'mp-gate-note show'; }
     setTimeout(function () { input.focus(); }, 100);
-
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      const entered = input.value.trim();
-
-      if (!entered) {
-        error.textContent = 'رمز را وارد کن.';
-        return;
-      }
-
-      const match = checkPassword(entered);
-      if (match) {
-        grantAccess(match);
-        error.textContent = '';
-        page.style.animation = 'mp-gate-fade 0.2s reverse';
-        setTimeout(function () {
-          page.remove();
-          document.documentElement.style.overflow = '';
-          window.location.reload();
-        }, 200);
-      } else {
-        error.textContent = '❌ رمز نامعتبر است یا منقضی شده. برای دریافت رمز، روی دکمه‌های خرید کلیک کن.';
-        input.value = '';
-        input.focus();
-        page.querySelector('.mp-gate-box').style.animation = 'mp-gate-shake 0.3s';
-        setTimeout(function () {
-          page.querySelector('.mp-gate-box').style.animation = '';
-        }, 300);
-      }
+      var entered = input.value.trim();
+      if (!entered) { error.textContent = 'کد را وارد کن.'; return; }
+      btn.disabled = true; error.textContent = '';
+      activate(entered).then(function (r) {
+        btn.disabled = false;
+        if (r.ok) {
+          page.style.animation = 'mp-gate-fade 0.2s reverse';
+          setTimeout(function () { stripUrlCode(); window.location.reload(); }, 200);
+        } else {
+          error.textContent = r.reason === 'locked' ? '⏱️ تلاش‌های ناموفق زیاد بود؛ ' + r.wait + ' ثانیه صبر کن.' : '❌ ' + reasonText(r);
+          input.value = ''; input.focus();
+          var box = page.querySelector('.mp-gate-box'); box.style.animation = 'mp-gate-shake 0.3s'; setTimeout(function () { box.style.animation = ''; }, 300);
+        }
+      });
     });
   }
-    function init() {
-  if (hasAccess()) {
-    // دسترسی دارد → دکمه خروج شناور را اضافه کن
-    addLogoutButton();
-    return;
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', showLogin);
-  } else {
-    showLogin();
-  }
-}
 
-function addLogoutButton() {
-  // جلوگیری از اضافه شدن تکراری
-  if (document.getElementById('mp-logout-btn')) return;
+  function addPill(info) {
+    if (document.getElementById('mp-pill')) return;
+    injectStyles();
+    var left = info.daysLeft, warn = left <= 7;
+    var d = document.createElement('div');
+    d.id = 'mp-pill'; d.className = 'mp-pill' + (warn ? ' warn' : '');
+    d.innerHTML = '<span>' + (warn ? '⚠️ ' : '✅ ') + 'اشتراک ' + (PLAN_FA[info.payload.p] || '') + ': ' + left.toLocaleString('fa-IR') + ' روز مانده</span>' +
+      (warn ? '<a href="' + CONFIG.contact.rubikaSupport + '" target="_blank" rel="noopener">تمدید</a>' : '') +
+      '<button type="button" title="خروج از حساب (پاک شدن دسترسی این مرورگر)">🚪 خروج</button>';
+    d.querySelector('button').addEventListener('click', function () {
+      if (confirm('خروج از حساب؟\nبعد از خروج، برای ورود مجدد باید کد را دوباره وارد کنی.')) { logout(); location.reload(); }
+    });
+    document.body.appendChild(d);
+  }
 
-  const btn = document.createElement('button');
-  btn.id = 'mp-logout-btn';
-  btn.innerHTML = '🚪 خروج';
-  btn.title = 'خروج از حساب (پاک کردن دسترسی این مرورگر)';
-  btn.style.cssText = `
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 999998;
-    background: rgba(12, 56, 70, 0.9);
-    color: #fff;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 30px;
-    font-family: 'Vazirmatn', Tahoma, sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    transition: all 0.2s;
-    backdrop-filter: blur(4px);
-  `;
-  
-  btn.addEventListener('mouseenter', function () {
-    btn.style.background = 'rgba(192, 57, 43, 0.95)';
-    btn.style.transform = 'translateY(-2px)';
-  });
-  btn.addEventListener('mouseleave', function () {
-    btn.style.background = 'rgba(12, 56, 70, 0.9)';
-    btn.style.transform = '';
-  });
-  
-  btn.addEventListener('click', function () {
-    if (confirm('خروج از حساب؟\nبعد از خروج، برای ورود مجدد باید رمز را وارد کنی.')) {
-      localStorage.removeItem(CONFIG.storageKey);
-      window.location.reload();
-    }
-  });
-  
-  document.body.appendChild(btn);
-}
+  // ═══════════════════════════════════════════
+  // رابط عمومی و راه‌اندازی
+  // ═══════════════════════════════════════════
+  window.MPGate = {
+    version: 2,
+    verify: verify, activate: activate, checkAccess: checkAccess, logout: logout, clear: clearAll,
+    reasonText: reasonText, fmtDay: fmtDay, planName: function (p) { return PLAN_FA[p] || ''; },
+    config: CONFIG
+  };
+
+  function init() {
+    if (/[?&]reset=1/.test(location.search)) { clearAll(); try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {} }
+    if (LIB_MODE) return;
+    hidePage();
+    var timer = setTimeout(function () { ready(function () { showLogin({ reason: 'nocrypto' }); }); }, 8000);
+    var code = urlCode();
+    (code ? activate(code).then(function (r) { if (r.ok) stripUrlCode(); }) : Promise.resolve())
+      .then(checkAccess)
+      .then(function (r) {
+        clearTimeout(timer);
+        if (r.ok) { showPage(); ready(function () { addPill(r); try { window.dispatchEvent(new CustomEvent('mp:access', { detail: r })); } catch (e) {} }); }
+        else ready(function () { if (!document.querySelector('.mp-gate-overlay')) showLogin(r); });
+      });
+    window.addEventListener('storage', function (e) { if (e.key === CONFIG.storageKey) location.reload(); });
+  }
+  init();
+})();
