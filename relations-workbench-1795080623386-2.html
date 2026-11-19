@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>میزکار تحلیل ارتباطات و روال‌ها | همبستگی، تأخیر و چرخهٔ علّی | مستر پلنر</title>
+<script src="assets/gate/gate.js"></script>
+<meta name="description" content="تحلیل ارتباط بین متغیرهای روال‌های شخصی (مطالعه، خواب، استرس، تمرکز…): نمودار سری زمانی، ماتریس همبستگی، همبستگی جزئی، خوشه‌بندی، همبستگی با تأخیر، آستانه، چرخهٔ چندعلتی، یافته‌های خودکار و پیش‌نمایش روند. داده فقط در مرورگر شما می‌ماند.">
+<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/relations-workbench.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"میزکار تحلیل ارتباطات و روال‌ها","url":"https://ehssnrouhani.github.io/Mestrplanner/relations-workbench.html","applicationCategory":"EducationalApplication","operatingSystem":"Web Browser","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"IRR"},"inLanguage":"fa-IR","description":"تحلیل همبستگی، آستانه، تأخیر و چرخهٔ چندعلتی بین متغیرهای روال‌های شخصی، به‌همراه یافته‌های خودکار و همبستگی جزئی.","author":{"@type":"Person","name":"احسان روحانی راوری"},"publisher":{"@type":"Organization","name":"مستر پلنر","url":"https://ehssnrouhani.github.io/Mestrplanner/"}}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f2f5f9; --panel:#fff; --ink:#15202b; --muted:#64748b;
+  --line:#d9e1ea; --line-strong:#b8c4d3; --head:#edf2f8;
+  --accent:#2563eb; --accent-soft:#e8f0fe;
+  --pos:#059669; --neg:#dc2626; --purple:#7c3aed; --amber:#d97706;
+  --radius:12px; --shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06);
+}
+[data-theme="dark"]{
+  --bg:#0f172a; --panel:#1e293b; --ink:#f1f5f9; --muted:#94a3b8;
+  --line:#334155; --line-strong:#475569; --head:#162033;
+  --accent:#e8971f; --accent-soft:rgba(232,151,31,.14);
+  --pos:#34d399; --neg:#f87171; --purple:#a78bfa; --amber:#fbbf24;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:'Vazirmatn',Tahoma,'Segoe UI',system-ui,sans-serif;
+  font-size:14px;line-height:1.85}
+h1,h2,h3,h4{margin:0;font-weight:700;line-height:1.5}
+button,select,input,textarea{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+code{font-family:Consolas,monospace;background:var(--head);padding:1px 6px;border-radius:5px;font-size:12px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+/* ---- topbar ---- */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:12px 20px;background:var(--panel);border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:50;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--accent),var(--purple));color:#fff;font-weight:700;font-size:18px}
+.brand h1{font-size:16px}
+.brand p{margin:0;font-size:12px;color:var(--muted)}
+.top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.badge{font-size:11px;padding:4px 10px;border-radius:999px;border:1px solid var(--line-strong);
+  color:var(--muted);background:var(--bg);white-space:nowrap}
+.btn{border:1px solid var(--line-strong);background:var(--panel);color:var(--ink);
+  padding:7px 14px;border-radius:9px;font-size:13px;transition:.15s;white-space:nowrap}
+.btn:hover{background:var(--accent-soft);border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent}
+.btn.sm{padding:4px 10px;font-size:12px;border-radius:8px}
+.btn.danger:hover{background:#fee2e2;border-color:var(--neg);color:var(--neg)}
+[data-theme="dark"] .btn.danger:hover{background:#3b1212}
+
+/* ---- tabs ---- */
+.tabs{display:flex;gap:2px;padding:0 20px;background:var(--panel);
+  border-bottom:1px solid var(--line);position:sticky;top:63px;z-index:49;
+  overflow-x:auto;scrollbar-width:thin}
+.tab-btn{border:0;background:transparent;padding:11px 15px;border-bottom:2px solid transparent;
+  color:var(--muted);font-weight:600;font-size:12.5px;white-space:nowrap}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-btn:hover{color:var(--ink)}
+
+main{padding:16px 20px 60px;max-width:1600px;margin:0 auto}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fade .2s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+footer.f{margin-top:26px;color:var(--muted);font-size:12px;text-align:center}
+footer.f a{color:var(--accent);text-decoration:none}
+
+/* ---- cards ---- */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px 18px;box-shadow:var(--shadow);margin-bottom:14px}
+.card h2{font-size:15px;margin-bottom:8px}
+.card h3{font-size:13.5px;color:var(--accent);margin:14px 0 6px}
+.card p{margin:6px 0}
+.muted{color:var(--muted);font-size:12.5px}
+.hl{background:var(--accent-soft);border-radius:6px;padding:0 5px}
+
+/* ---- toolbar ---- */
+.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0 12px}
+.toolbar label.chk{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);
+  border:1px solid var(--line);border-radius:8px;padding:5px 10px;background:var(--bg);cursor:pointer}
+.toolbar select,.toolbar input[type="date"]{padding:7px 10px;border:1px solid var(--line-strong);
+  border-radius:9px;background:var(--panel)}
+.search{flex:1 1 220px;position:relative}
+.search input{width:100%;padding:8px 34px 8px 12px;border:1px solid var(--line-strong);
+  border-radius:9px;background:var(--panel);outline:none}
+.search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.search::before{content:"⌕";position:absolute;right:11px;top:50%;transform:translateY(-50%);
+  color:var(--muted);font-size:16px;pointer-events:none}
+
+/* ---- layout helpers ---- */
+.split{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;align-items:start}
+.split-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;align-items:start}
+@media(max-width:1100px){.split{grid-template-columns:1fr}}
+.panel-box{background:var(--panel);border:1px solid var(--line-strong);border-radius:var(--radius);
+  padding:14px;box-shadow:var(--shadow)}
+.panel-box h3{font-size:13px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+
+/* ---- SVG ---- */
+svg{display:block;width:100%;height:auto;direction:ltr}
+.chart-wrap{background:var(--panel);border:1px solid var(--line-strong);border-radius:var(--radius);
+  padding:12px;box-shadow:var(--shadow);overflow:hidden;position:relative}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;font-size:12px}
+.legend-item{display:inline-flex;align-items:center;gap:6px;cursor:pointer;padding:3px 8px;
+  border-radius:7px;border:1px solid var(--line)}
+.legend-item.off{opacity:.35;text-decoration:line-through}
+.legend-dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+.axis-label{font-size:10.5px;fill:var(--muted);font-family:'Vazirmatn',sans-serif}
+.grid-line{stroke:var(--line);stroke-width:1}
+.axis-line{stroke:var(--line-strong);stroke-width:1.2}
+.edge-label{font-size:10.5px;fill:var(--muted);font-family:Consolas,monospace;text-anchor:middle}
+.halo{stroke:var(--panel);stroke-width:3px;paint-order:stroke}
+.node-label{font-size:11px;fill:var(--ink);font-family:'Vazirmatn',sans-serif;font-weight:600;text-anchor:middle}
+.node-sub{font-size:9.5px;fill:var(--muted);font-family:'Vazirmatn',sans-serif;text-anchor:middle}
+.tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--line-strong);
+  border-radius:8px;padding:6px 10px;font-size:11.5px;box-shadow:var(--shadow);display:none;z-index:5;white-space:nowrap}
+
+/* ---- heatmap ---- */
+.hm-scroll{overflow-x:auto;padding-bottom:4px}
+.hm{display:grid;gap:3px;font-size:11px;direction:ltr}
+.hm .cell{border-radius:6px;min-height:40px;display:grid;place-items:center;cursor:pointer;
+  font-family:Consolas,monospace;border:1px solid transparent;transition:.12s}
+.hm .cell:hover{border-color:var(--ink)}
+.hm .cell.sel{outline:2px solid var(--accent);outline-offset:-1px}
+.hm .hd{display:grid;place-items:center;font-size:10px;color:var(--muted);min-height:40px;
+  writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;font-family:'Vazirmatn',sans-serif}
+.hm .hd.h{writing-mode:horizontal-tb;transform:none}
+.hm .corner{background:var(--head);border-radius:6px}
+
+/* ---- table ---- */
+.table-wrap{background:var(--panel);border:1px solid var(--line-strong);border-radius:var(--radius);
+  overflow:auto;box-shadow:var(--shadow)}
+table.grid{width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px;min-width:640px}
+table.grid thead th{position:sticky;top:0;z-index:3;background:var(--head);color:var(--muted);
+  font-weight:600;font-size:11.5px;text-align:right;padding:8px;border-bottom:2px solid var(--line-strong);white-space:nowrap}
+table.grid td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.grid tbody tr:hover>td{background:var(--accent-soft)}
+.num{font-family:Consolas,monospace}
+table.grid td.date-cell{position:sticky;right:0;background:var(--panel);font-weight:600;font-size:11.5px;white-space:nowrap}
+table.grid tbody tr:hover td.date-cell{background:var(--accent-soft)}
+td input.val{width:74px;padding:4px 8px;border:1px solid var(--line);border-radius:7px;background:var(--bg);
+  font-family:Consolas,monospace;text-align:center;direction:ltr}
+td input.val:focus{border-color:var(--accent);background:var(--panel)}
+td input.val:invalid{border-color:var(--neg)}
+
+/* ---- variable editor ---- */
+.var-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+.var-row:last-child{border-bottom:0}
+.var-row input[type="color"]{width:34px;height:30px;border:1px solid var(--line-strong);border-radius:8px;
+  background:var(--panel);padding:2px;cursor:pointer}
+.var-row input.txt{padding:5px 9px;border:1px solid var(--line-strong);border-radius:8px;background:var(--bg);min-width:110px}
+.var-row input.txt:focus{border-color:var(--accent);background:var(--panel)}
+.var-row .unit{width:86px}
+.var-row .cnt{font-size:11px;color:var(--muted);min-width:86px}
+
+/* ---- insights ---- */
+.insight{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:var(--radius);
+  padding:12px 14px;margin-bottom:10px;background:var(--bg);cursor:pointer;transition:.15s}
+.insight:hover{border-color:var(--accent);background:var(--accent-soft)}
+.insight .ico{font-size:22px;line-height:1.4}
+.insight h4{font-size:13.5px;margin-bottom:2px}
+.insight p{margin:0;font-size:12.5px;color:var(--muted)}
+.conf{font-size:10.5px;padding:2px 8px;border-radius:999px;white-space:nowrap;font-weight:600}
+.conf.ok{background:rgba(5,150,105,.14);color:var(--pos)}
+.conf.mid{background:rgba(217,119,6,.14);color:var(--amber)}
+.conf.low{background:var(--head);color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.kpi{background:var(--panel);border:1px solid var(--line-strong);border-radius:var(--radius);
+  padding:12px 14px;box-shadow:var(--shadow);text-align:center}
+.kpi b{display:block;font-size:22px;color:var(--accent)}
+.kpi span{font-size:11.5px;color:var(--muted)}
+.gauge{margin:8px 0}
+.gauge .bar{height:9px;border-radius:999px;background:var(--head);overflow:hidden;margin-top:4px}
+.gauge .bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--pos))}
+.gauge .row{display:flex;justify-content:space-between;font-size:12px}
+
+/* ---- misc ---- */
+.empty{padding:26px 10px;text-align:center;color:var(--muted);font-size:13px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:2px 9px;border-radius:999px;
+  border:1px solid var(--line);background:var(--bg)}
+.range-row{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--muted);flex-wrap:wrap}
+input[type="range"]{accent-color:var(--accent);min-width:180px}
+.switch{position:relative;display:inline-block;width:40px;height:22px;flex:none}
+.switch input{opacity:0;width:0;height:0}
+.switch i{position:absolute;inset:0;background:var(--line-strong);border-radius:999px;transition:.2s}
+.switch i::before{content:"";position:absolute;width:16px;height:16px;right:3px;top:3px;border-radius:50%;
+  background:#fff;transition:.2s}
+.switch input:checked+i{background:var(--accent)}
+.switch input:checked+i::before{transform:translateX(-18px)}
+.file-imp{display:none}
+.top3{font-size:12.5px}
+.top3 li{margin-bottom:7px;cursor:pointer;padding:7px 10px;border:1px solid var(--line);border-radius:9px;list-style:none}
+.top3 li:hover{border-color:var(--accent);background:var(--accent-soft)}
+.top3 ul,.top3 ol{padding:0;margin:0}
+</style>
+</head>
+<body>
+
+<!-- ====== TOPBAR ====== -->
+<header class="topbar">
+  <div class="brand">
+    <div class="logo" aria-hidden="true">م</div>
+    <div>
+      <h1>میزکار تحلیل ارتباطات و روال‌ها</h1>
+      <p>همبستگی · تأخیر · آستانه · چرخهٔ علّی · یافته‌های خودکار</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <span class="badge">🔒 داده فقط در مرورگر شما می‌ماند</span>
+    <button class="btn sm" id="btnTheme" title="تغییر پوسته">🌓 پوسته</button>
+    <button class="btn sm" id="btnShareTop" title="ساخت لینک اشتراک داده">🔗 اشتراک لینک</button>
+    <a class="btn sm" href="index.html">← مستر پلنر</a>
+  </div>
+</header>
+
+<!-- ====== TABS ====== -->
+<nav class="tabs" aria-label="بخش‌های میزکار">
+  <button class="tab-btn active" data-tab="data">🗂 داده‌ها</button>
+  <button class="tab-btn" data-tab="ts">📈 سری زمانی</button>
+  <button class="tab-btn" data-tab="corr">🔗 همبستگی</button>
+  <button class="tab-btn" data-tab="lag">⏱ تأخیر زمانی</button>
+  <button class="tab-btn" data-tab="loop">🔄 آستانه و چرخه</button>
+  <button class="tab-btn" data-tab="ins">✨ یافته‌ها</button>
+  <button class="tab-btn" data-tab="help">📖 راهنما</button>
+</nav>
+
+<main>
+  <!-- ====== TAB: DATA ====== -->
+  <section class="tab-panel active" id="tab-data">
+    <div class="card" id="welcomeBox">
+      <h2>👋 به میزکار تحلیل ارتباطات خوش آمدید</h2>
+      <p>هر روز چند عدد ساده از روال خود ثبت کنید — ساعت خواب، دقیقهٔ مطالعه، سطح استرس، تمرکز… — این میزکار به‌صورت خودکار الگوها را می‌یابد: چه چیزی با چه چیزی هم‌جهت است، اثر یک روال با چند روز تأخیر ظاهر می‌شود، کجا «آستانه» وجود دارد و چه چرخه‌های علّی در رفتار شما جریان دارد.</p>
+      <p class="muted">تمام محاسبات در مرورگر خودتان انجام می‌شود؛ هیچ داده‌ای جایی ارسال نمی‌گردد.</p>
+      <div class="toolbar">
+        <button class="btn primary" id="btnSample1">🧪 بارگذاری دادهٔ نمونه (۶۰ روز)</button>
+        <button class="btn" id="btnFirstVar">➕ افزودن متغیر اول</button>
+      </div>
+    </div>
+
+    <div class="split">
+      <div>
+        <div class="card">
+          <h2>🗂 متغیرها</h2>
+          <p class="muted">نام، واحد و رنگ هر متغیر را اینجا تنظیم کنید. تعداد، میانگین و پوشش داده هر متغیر کنارش نمایش داده می‌شود.</p>
+          <div id="varList"></div>
+          <div class="toolbar"><button class="btn primary sm" id="btnAddVar">➕ متغیر جدید</button></div>
+        </div>
+
+        <div class="card">
+          <h2>📝 ثبت روزانه</h2>
+          <div class="toolbar">
+            <input type="date" id="dayDate" aria-label="تاریخ روز جدید">
+            <button class="btn sm primary" id="btnAddDay">➕ افزودن این روز</button>
+            <span class="badge" id="rowCount">۰ روز</span>
+            <button class="btn sm ghost" id="btnToggleAll">نمایش همهٔ روزها</button>
+          </div>
+          <div class="table-wrap"><table class="grid" id="entryTable"></table></div>
+          <p class="muted">خانهٔ خالی یعنی «آن روز ثبت نشده» — محاسبات نقاط ناقص را نادیده می‌گیرند و بین جفت‌متغیرها فقط روزهای مشترک شمرده می‌شوند.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel-box">
+          <h3>💾 پشتیبان‌گیری و انتقال</h3>
+          <div class="toolbar" style="flex-direction:column;align-items:stretch">
+            <button class="btn" id="btnSample2">🧪 بارگذاری دادهٔ نمونه</button>
+            <button class="btn" id="btnShare">🔗 ساخت لینک اشتراک داده</button>
+            <button class="btn" id="btnExpJson">⬇️ برون‌بری JSON</button>
+            <button class="btn" id="btnExpCsv">⬇️ برون‌بری CSV (اکسل)</button>
+            <button class="btn" id="btnImpBtn">⬆️ درون‌ریزی فایل JSON</button>
+            <input type="file" id="fileImp" class="file-imp" accept=".json,application/json">
+            <button class="btn danger" id="btnClear">🗑 پاک‌کردن همهٔ داده‌ها</button>
+          </div>
+          <p class="muted">لینک اشتراک، کل داده را به‌صورت فشرده داخل خودِ لینک (#…) نگه می‌دارد — بدون هیچ سروری. برای پشتیبان‌گیری مطمئن، از برون‌بری JSON استفاده کنید.</p>
+        </div>
+        <div class="panel-box">
+          <h3>✅ پیشنهاد شروع</h3>
+          <p class="muted">۴ تا ۶ متغیر کافی است؛ مثلاً: خواب (ساعت)، مطالعه (دقیقه)، ورزش (دقیقه)، استرس (۱–۱۰)، تمرکز (۱–۱۰). حداقل ۳ هفته ثبت پیوسته، اولین الگوهای واقعی را آشکار می‌کند.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== TAB: TIME SERIES ====== -->
+  <section class="tab-panel" id="tab-ts">
+    <div class="card">
+      <h2>📈 سری زمانی همهٔ متغیرها</h2>
+      <div class="toolbar">
+        <label class="chk"><span class="switch"><input type="checkbox" id="tsSmooth"><i></i></span> میانگین متحرک ۵روزه (خط‌چین)</label>
+        <label class="chk"><span class="switch"><input type="checkbox" id="tsAnom"><i></i></span> نشان‌گذاری نقاط غیرمعمول (|z| ≥ ۲)</label>
+      </div>
+      <div class="chart-wrap"><div id="tsChart"></div><div class="tip" id="tsTip"></div></div>
+      <div class="legend" id="tsLegend"></div>
+      <p class="muted">روی نمودار حرکت کنید تا مقدار دقیق هر روز را ببینید. با کلیک روی نام هر متغیر در فهرست زیر نمودار، آن خط پنهان/آشکار می‌شود.</p>
+    </div>
+  </section>
+
+  <!-- ====== TAB: CORRELATION ====== -->
+  <section class="tab-panel" id="tab-corr">
+    <div class="card">
+      <h2>🔗 ماتریس همبستگی پیرسون</h2>
+      <div class="toolbar">
+        <span class="muted">چینش:</span>
+        <select id="hmSort">
+          <option value="orig">ترتیب اصلی متغیرها</option>
+          <option value="cluster">خوشه‌ای (متغیرهای هم‌الگو کنار هم)</option>
+        </select>
+        <span class="chip" id="hmN"></span>
+      </div>
+      <div class="hm-scroll"><div id="hmBox"></div></div>
+      <p class="muted">سبز = رابطهٔ هم‌جهت (+) · قرمز = رابطهٔ مخالف (−) · شدت رنگ و عدد، قدرت رابطه. روی هر خانه کلیک کنید تا همان جفت در نمودار پراکندگی زیر باز شود.</p>
+    </div>
+    <div class="split">
+      <div class="card">
+        <h2>⚪ نمودار پراکندگی و خط رگرسیون</h2>
+        <div class="toolbar">
+          <select id="selA" aria-label="متغیر X"></select>
+          <span>↔</span>
+          <select id="selB" aria-label="متغیر Y"></select>
+          <button class="btn sm" id="btnSwap" title="جابه‌جایی">⇄</button>
+        </div>
+        <div class="chart-wrap"><div id="scChart"></div></div>
+        <div id="pairStats"></div>
+      </div>
+      <div class="card">
+        <h2>🧪 همبستگی جزئی (کنترل متغیر سوم)</h2>
+        <p class="muted">گاهی X و Y فقط به‌خاطر یک متغیر سوم با هم «هم‌حرکت» می‌شوند. متغیر سوم را انتخاب کنید تا اثرش کنار گذاشته شود:</p>
+        <div class="toolbar"><select id="selZ" aria-label="متغیر کنترل"></select></div>
+        <div id="partBox"></div>
+        <h3>🔎 خوشه‌بندی خودکار</h3>
+        <p class="muted">متغیرهایی که الگوی روزانهٔ مشابهی دارند، در یک خوشه می‌افتند (آستانهٔ اتصال: r ≥ ۰٫۵۵):</p>
+        <div id="cluBox"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== TAB: LAG ====== -->
+  <section class="tab-panel" id="tab-lag">
+    <div class="card">
+      <h2>⏱ همبستگی با تأخیر (Cross-Correlation)</h2>
+      <p class="muted">بسیاری از اثرها همان‌روز ظاهر نمی‌شوند؛ ورزش امشب ممکن است روی خوابِ فردا اثر بگذارد. این نمودار می‌گوید هر جفت در چه فاصلهٔ زمانی بیشترین هم‌حرکتی را دارد.</p>
+      <div class="toolbar">
+        <select id="lagA" aria-label="متغیر پیشرو"></select>
+        <span>→</span>
+        <select id="lagB" aria-label="متغیر پیرو"></select>
+        <span class="muted">بازهٔ تأخیر:</span>
+        <select id="lagWin"><option value="3">±۳ روز</option><option value="5" selected>±۵ روز</option><option value="7">±۷ روز</option></select>
+      </div>
+      <div class="chart-wrap"><div id="lagChart"></div></div>
+      <div id="lagNote" class="muted"></div>
+      <h3>🏅 قوی‌ترین روابط زمانی یافت‌شده</h3>
+      <div class="top3"><ul id="lagTop"></ul></div>
+    </div>
+  </section>
+
+  <!-- ====== TAB: THRESHOLD & LOOP ====== -->
+  <section class="tab-panel" id="tab-loop">
+    <div class="card">
+      <h2>🎯 تحلیل آستانه</h2>
+      <p class="muted">برخی رابطه‌ها خطی نیستند: شاید تا ۱۲۰ دقیقه مطالعه به تمرکز کمک کند و بعد از آن خسته‌کننده شود. این تحلیل بهترین «نقطهٔ برش» را پیدا می‌کند — جایی که میانگین Y به‌طور معنادار عوض می‌شود.</p>
+      <div class="toolbar">
+        <select id="thrX" aria-label="متغیر شرط"></select>
+        <span>→</span>
+        <select id="thrY" aria-label="متغیر پیامد"></select>
+      </div>
+      <div class="split-2">
+        <div class="chart-wrap"><div id="thrChart"></div></div>
+        <div class="panel-box"><h3>نتیجهٔ برش بهینه</h3><div id="thrBars"></div></div>
+      </div>
+      <h3>🏅 قوی‌ترین آستانه‌ها در همهٔ جفت‌ها</h3>
+      <div class="top3"><ul id="thrTop"></ul></div>
+    </div>
+    <div class="card">
+      <h2>🔄 نقشهٔ چرخه‌های علّی</h2>
+      <p class="muted">برای هر جفت متغیر، بهترین تأخیر زمانی تعیین می‌کند «چه چیزی بر چه چیزی پیشی می‌گیرد»؛ سپس چرخه‌های بازخورد (حلقه‌های A→B→C→A) به‌صورت خودکار یافت و بنفش نشان داده می‌شوند.</p>
+      <div class="range-row">
+        <span>حداقل قدرت پیوند (|r|):</span>
+        <input type="range" id="edgeThr" min="0.2" max="0.6" step="0.05" value="0.35">
+        <b id="edgeThrVal">۰٫۳۵</b>
+        <span class="muted">— پیوند ضعیف‌تر پنهان می‌شود</span>
+      </div>
+      <div class="chart-wrap"><div id="loopWrap"></div></div>
+      <div id="cycList"></div>
+    </div>
+  </section>
+
+  <!-- ====== TAB: INSIGHTS ====== -->
+  <section class="tab-panel" id="tab-ins">
+    <div class="kpis" id="kpiBox"></div>
+    <div class="card">
+      <h2>✨ یافته‌های خودکار</h2>
+      <p class="muted">این کارت‌ها با هر تغییر داده بازتولید می‌شوند؛ برای جزئیات روی هر یافته کلیک کنید.</p>
+      <div id="insList"></div>
+    </div>
+    <div class="split-2">
+      <div class="panel-box">
+        <h3>⚖️ امتیاز ثبات روال‌ها</h3>
+        <p class="muted">ثبات = ۱۰۰ منهای پراکندگی نسبی (CV). عدد بالاتر یعنی روال یکنواخت‌تر و قابل‌اتکاتر.</p>
+        <div id="gaugeBox"></div>
+      </div>
+      <div class="panel-box">
+        <h3>📊 شاخص ترکیبی شخصی</h3>
+        <p class="muted">هر ترکیبی که می‌خواهید بسازید — مثلاً «شاخص روز خوب» = خواب + تمرکز − استرس. مقادیر هر متغیر اول به بازهٔ ۰–۱ نرمال می‌شوند و با وزن‌ها جمع می‌شوند.</p>
+        <div id="compBox"></div>
+        <div class="chart-wrap" style="margin-top:10px"><div id="compChart"></div></div>
+        <div id="compNote" class="muted"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>🔭 پیش‌نمایش روند (۷ روز آینده)</h2>
+      <p class="muted">یک ادامهٔ ساده و صادقانه: میانگین هفت روز اخیر + شیب روند ۱۴ روز اخیر. این «پیش‌بینی آماری دقیق» نیست — فقط جهت‌گیری فعلی را نشان می‌دهد.</p>
+      <div class="toolbar"><select id="fcVar" aria-label="متغیر پیش‌بینی"></select></div>
+      <div class="chart-wrap"><div id="fcChart"></div></div>
+      <div id="fcNote" class="muted"></div>
+    </div>
+  </section>
+
+  <!-- ====== TAB: HELP ====== -->
+  <section class="tab-panel" id="tab-help">
+    <div class="card">
+      <h2>📖 راهنمای میزکار</h2>
+      <h3>۱) جریان کار پیشنهادی</h3>
+      <p>در تب «داده‌ها» متغیرها را تعریف کنید و هر شب ۱ دقیقه وقت بگذارید و روز را ثبت کنید. وقتی حدود ۲۰ روز داده جمع شد، تب «یافته‌ها» را باز کنید — تحلیل‌ها خودکار ساخته می‌شوند. برای عمق بیشتر سراغ «همبستگی»، «تأخیر» و «آستانه و چرخه» بروید.</p>
+      <h3>۲) همبستگی چه می‌گوید و چه نمی‌گوید</h3>
+      <p>همبستگی (r بین ‎−۱ و +۱) فقط «هم‌حرکتی» را می‌سنجد، نه علّیت. سه چیز قضاوت را قوی‌تر می‌کند: <span class="hl">تعداد روزهای مشترک</span> (هرچه بیشتر بهتر)، <span class="hl">قدرت</span> (|r| بالای ۰٫۵ معمولاً چشمگیر است) و <span class="hl">تأخیر منطقی</span> — اگر خوابِ دیشب با تمرکزِ امروز همبستگی دارد، این الگو بسیار باورپذیرتر از رابطهٔ هم‌روزِ دو متغیر است. برای حذف اثر یک متغیر سوم (مثلاً آیا رابطهٔ مطالعه و تمرکز فقط محصول «انگیزه» است؟) از همبستگی جزئی استفاده کنید.</p>
+      <h3>۳) تأخیر مثبت و منفی</h3>
+      <p>در تب تأخیر، تأخیر ‎+k یعنی «متغیر اول امروز با متغیر دوم بعد از k روز» و تأخیر ‎−k برعکس. میلهٔ برجسته، بهترین فاصلهٔ زمانی است.</p>
+      <h3>۴) نقاط غیرمعمول (Outlier)</h3>
+      <p>نقاطی که فاصله‌شان از میانگین بیش از ۲ برابر انحراف معیار است، با حلقه نشان داده می‌شوند. این نقاط را پاک نکنید — اول بپرسید آن روز چه اتفاقی افتاده؛ گاهی مهم‌بینش‌ها همین‌جاست. اگر دادهٔ اشتباه است، در تب داده‌ها اصلاحش کنید.</p>
+      <h3>۵) چرخهٔ علّی</h3>
+      <p>جهت فلش‌ها از بهترین تأخیر زمانی استنباط می‌شود (پیشرو → پیرو). حلقه‌های بنفش یعنی سیستم بازخوردی دارید؛ مثلاً «استرس ← خوابِ فردا ← تمرکز ← استرس». شکستن حلقه در ضعیف‌ترین پیوند، معمولاً مؤثرترین نقطهٔ مداخله است.</p>
+      <h3>۶) حریم خصوصی</h3>
+      <p>همهٔ محاسبات و ذخیره‌سازی در مرورگر خودتان انجام می‌شود (localStorage). با «برون‌بری JSON» پشتیبان بگیرید و با «لینک اشتراک» — که داده را داخل خود لینک فشرده می‌کند — تحلیل را با دوست یا مربی‌تان به اشتراک بگذارید، بدون هیچ سرور و حساب کاربری.</p>
+      <h3>۷) محدودیت‌ها</h3>
+      <p>داده‌های خودگزارشی ذهنی‌اند (به‌ویژه مقیاس‌های ۱–۱۰)؛ روند‌ها را جدی بگیرید اما تک‌روزها را نه. با روزهای کم (زیر ~۱۵ روز مشترک) هر عددی شکننده است. این ابزار تصمیم‌ساز نیست؛ «افزودن نور بر رفتار شماست».</p>
+    </div>
+  </section>
+
+  <footer class="f">میزکار تحلیل ارتباطات و روال‌ها — بخشی از <a href="index.html">مستر پلنر</a> · طراحی و توسعه: احسان روحانی راوری</footer>
+</main>
+
+<div class="tip" id="toast" style="position:fixed;bottom:18px;right:18px;z-index:99;display:none"></div>
+
+<script>
+'use strict';
+/* ================= helpers ================= */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const NS='http://www.w3.org/2000/svg';
+const el=(t,a={})=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const FA='۰۱۲۳۴۵۶۷۸۹';
+const fa=x=>String(x).replace(/\d/g,d=>FA[d]);
+const fmt=(x,d=2)=>(x==null||!isFinite(x))?'—':fa(Number(x.toFixed(d)).toLocaleString('en-US',{useGrouping:true}));
+const rF=r=>(r==null||!isFinite(r))?'—':(r>=0?'+':'−')+fa(Math.abs(r).toFixed(2));
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function div(a,b){return Math.floor(a/b);}
+function toJalali(gy,gm,gd){
+  const gdm=[0,31,59,90,120,151,181,212,243,273,304,334];
+  let jy=(gy<=1600)?0:979; gy-=(gy<=1600)?621:1600;
+  const gy2=(gm>2)?(gy+1):gy;
+  let days=365*gy+div(gy2+3,4)-div(gy2+99,100)+div(gy2+399,400)-80+gd+gdm[gm-1];
+  jy+=33*div(days,12033); days%=12033;
+  jy+=4*div(days,1461); days%=1461;
+  if(days>365){jy+=div(days-1,365); days=(days-1)%365;}
+  const jm=(days<186)?1+div(days,31):7+div(days-186,30);
+  const jd=1+((days<186)?(days%31):((days-186)%30));
+  return [jy,jm,jd];
+}
+const jDate=s=>{const p=s.split('-').map(Number);const[j,m,d]=toJalali(p[0],p[1],p[2]);
+  return fa(`${j}/${String(m).padStart(2,'0')}/${String(d).padStart(2,'0')}`);};
+const jShort=s=>{const p=s.split('-').map(Number);const[,m,d]=toJalali(p[0],p[1],p[2]);return fa(`${m}/${d}`);};
+const wd=s=>{try{return new Date(s+'T12:00:00').toLocaleDateString('fa-IR',{weekday:'short'});}catch(e){return'';}};
+const dstr=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const todayStr=()=>dstr(new Date());
+const shiftDate=s,k=>{const d=new Date(s+'T12:00:00');d.setDate(d.getDate()+k);return dstr(d);};
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const enc=o=>btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+const dec=s=>{try{s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return JSON.parse(decodeURIComponent(escape(atob(s))));}catch(e){return null;}};
+let toastT=null;
+function toast(msg){const t=$('#toast');t.textContent=msg;t.style.display='block';clearTimeout(toastT);toastT=setTimeout(()=>t.style.display='none',2600);}
+function copyText(txt){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(()=>toast('✅ کپی شد')).catch(()=>fallbackCopy(txt));}else fallbackCopy(txt);}
+function fallbackCopy(txt){const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('✅ کپی شد');}catch(e){toast('⚠️ کپی نشد — لینک در نوار آدرس مرورگر است');}ta.remove();}
+const PALETTE=['#6366f1','#059669','#d97706','#dc2626','#2563eb','#7c3aed','#0891b2','#db2777','#65a30d','#ea580c'];
+
+/* ================= state ================= */
+const LS_KEY='rw_state_v2';
+let S=emptyState();
+let selPair={a:null,b:null}, selZ=null, selThr={x:null,y:null};
+let hmSortMode='orig', showAllRows=false, hiddenTS=new Set();
+function emptyState(){return{vars:[],rows:[],nextId:1,comp:{sel:[],w:{}}};}
+function save(){try{localStorage.setItem(LS_KEY,JSON.stringify(S));}catch(e){}}
+function load(){
+  if(location.hash.startsWith('#d=')){
+    const st=dec(location.hash.slice(3));
+    if(st&&Array.isArray(st.v)&&Array.isArray(st.r)){
+      S=fromCompact(st); save(); setTimeout(()=>toast('🔗 دادهٔ مشترک بارگذاری شد'),400); return;
+    }
+  }
+  try{const raw=localStorage.getItem(LS_KEY); if(raw){const o=JSON.parse(raw); if(o&&Array.isArray(o.vars)){o.comp=o.comp||{sel:[],w:{}}; o.nextId=o.nextId||o.vars.length+1; S=o;}}}catch(e){}
+}
+function toCompact(){return{v:S.vars.map(v=>({n:v.name,u:v.unit,c:v.color})),r:S.rows.map(r=>[r.d,S.vars.map(v=>r.v[v.id]??null)])};}
+function fromCompact(st){
+  const vars=st.v.map((v,i)=>({id:i,name:v.n||('متغیر '+(i+1)),unit:v.u||'',color:v.c||PALETTE[i%PALETTE.length]}));
+  const rows=st.r.filter(r=>Array.isArray(r)&&r[0]).map(r=>({d:r[0],v:Object.fromEntries(vars.map((v,i)=>[v.id,r[1][i]??null]))}));
+  rows.sort((a,b)=>a.d<b.d?-1:1);
+  return{vars,rows,nextId:vars.length,comp:{sel:[],w:{}}};
+}
+function importState(o){
+  if(!o) return false;
+  let vars,rows;
+  if(Array.isArray(o.vars)&&o.vars.length&&typeof o.vars[0]==='object'&&'name'in o.vars[0]){
+    vars=o.vars.map((v,i)=>({id:i,name:String(v.name||('متغیر '+(i+1))).slice(0,40),unit:String(v.unit||'').slice(0,20),color:v.color||PALETTE[i%PALETTE.length]}));
+    rows=(o.rows||[]).filter(r=>r&&r.d).map(r=>({d:r.d,v:Object.fromEntries(vars.map(v=>[v.id, (r.v&&(r.v[v.id]??r.v[String(v.id)]))??null]) )}));
+  }else if(Array.isArray(o.v)&&Array.isArray(o.r)){const st=fromCompact(o);vars=st.vars;rows=st.rows;}
+  else return false;
+  rows.sort((a,b)=>a.d<b.d?-1:1);
+  S={vars,rows,nextId:vars.length,comp:{sel:[],w:{}}};
+  fixSelections(); save(); return true;
+}
+const varById=id=>S.vars.find(v=>v.id===id);
+function fixSelections(){
+  const ids=S.vars.map(v=>v.id);
+  if(!ids.includes(selPair.a)) selPair.a=ids[0]??null;
+  if(!ids.includes(selPair.b)) selPair.b=ids[1]??null;
+  if(selPair.a===selPair.b&&ids.length>1) selPair.b=ids.find(i=>i!==selPair.a);
+  if(selZ==null||!ids.includes(selZ)) selZ=ids.find(i=>i!==selPair.a&&i!==selPair.b)??null;
+  if(!ids.includes(selThr.x)) selThr.x=ids[0]??null;
+  if(!ids.includes(selThr.y)) selThr.y=ids[1]??null;
+  if(!S.comp.sel.length) S.comp.sel=ids.slice(0,4);
+  S.comp.sel=S.comp.sel.filter(i=>ids.includes(i));
+  S.comp.sel.forEach(i=>{if(!S.comp.w[i])S.comp.w[i]=3;});
+}
+
+/* ================= statistics ================= */
+function seriesOf(id){return S.rows.map(r=>r.v[id]??null);}
+function stat(xs){let s=0,c=0;for(const x of xs)if(x!=null&&isFinite(x)){s+=x;c++;}if(!c)return null;
+  const m=s/c;let v=0;for(const x of xs)if(x!=null&&isFinite(x))v+=(x-m)**2;v/=c;return{m,sd:Math.sqrt(v),n:c};}
+function pearson(a,b){
+  let n=0,sx=0,sy=0,sxy=0,sx2=0,sy2=0;
+  for(let i=0;i<a.length;i++){const x=a[i],y=b[i];
+    if(x==null||y==null||!isFinite(x)||!isFinite(y))continue;
+    n++;sx+=x;sy+=y;sxy+=x*y;sx2+=x*x;sy2+=y*y;}
+  if(n<3)return null;
+  const cov=sxy/n-(sx/n)*(sy/n), vx=sx2/n-(sx/n)**2, vy=sy2/n-(sy/n)**2;
+  if(vx<=1e-12||vy<=1e-12)return null;
+  return clamp(cov/Math.sqrt(vx*vy),-1,1);
+}
+function pairN(a,b){let n=0;for(let i=0;i<a.length;i++)if(a[i]!=null&&b[i]!=null)n++;return n;}
+function corrMatrix(){const ids=S.vars.map(v=>v.id);
+  return ids.map(i=>ids.map(j=>pearson(seriesOf(i),seriesOf(j))));}
+function lagCorr(a,b,L){
+  const out=[];
+  for(let lag=-L;lag<=L;lag++){
+    const xs=[],ys=[];
+    for(let t=0;t<a.length;t++){const tt=t+lag;if(tt<0||tt>=a.length)continue;
+      if(a[t]==null||b[tt]==null)continue;xs.push(a[t]);ys.push(b[tt]);}
+    out.push({lag,r:pearson(xs,ys),n:xs.length});
+  }
+  return out;
+}
+function partialR(rxy,rxz,ryz){const d=Math.sqrt((1-rxz*rxz)*(1-ryz*ryz));
+  if(!isFinite(d)||d<1e-9)return null;return clamp((rxy-rxz*ryz)/d,-1,1);}
+function linreg(x,y){
+  let n=0,sx=0,sy=0,sxy=0,sx2=0;
+  for(let i=0;i<x.length;i++){const a=x[i],b=y[i];if(a==null||b==null)continue;
+    n++;sx+=a;sy+=b;sxy+=a*b;sx2+=a*a;}
+  if(n<3)return null;
+  const mx=sx/n,my=sy/n,vx=sx2/n-mx*mx;
+  if(vx<=1e-12)return null;
+  const slope=(sxy/n-mx*my)/vx;
+  return{slope,inter:my-slope*mx,r:pearson(x,y)};
+}
+function thresholdStump(x,y,minG=5){
+  const pts=[];
+  for(let i=0;i<x.length;i++)if(x[i]!=null&&y[i]!=null)pts.push([x[i],y[i]]);
+  const N=pts.length;
+  if(N<2*minG)return null;
+  pts.sort((p,q)=>p[0]-q[0]);
+  const cs=[];let s=0;
+  for(const p of pts){s+=p[1];cs.push(s);}
+  let best=null;
+  for(let i=minG;i<=N-minG;i++){
+    if(pts[i][0]===pts[i-1][0])continue;
+    const mL=cs[i-1]/i,mR=(s-cs[i-1])/(N-i),diff=mR-mL;
+    const score=Math.abs(diff)*Math.sqrt((i/N)*(1-i/N));
+    if(!best||score>best.score)best={x:pts[i][0],mL,mR,diff,score,nL:i,nR:N-i};
+  }
+  return best;
+}
+function movingAvg(xs,k=5){
+  return xs.map((_,i)=>{
+    let s=0,c=0;
+    for(let j=i-Math.floor(k/2);j<=i+Math.floor(k/2);j++){
+      if(j<0||j>=xs.length)continue;
+      if(xs[j]==null)continue;s+=xs[j];c++;}
+    return c? s/c : null;
+  });
+}
+function anomalyIdx(xs,zThr=2){
+  const st=stat(xs);if(!st||st.sd<1e-9)return[];
+  const out=[];
+  xs.forEach((v,i)=>{if(v==null)return;
+    const z=(v-st.m)/st.sd;
+    if(Math.abs(z)>=zThr)out.push({i,v,z});});
+  return out;
+}
+function niceTicks(min,max,n=5){
+  if(!isFinite(min)||!isFinite(max)){min=0;max=1;}
+  if(min===max){min-=1;max+=1;}
+  const span=max-min,step0=span/Math.max(1,n),mag=10**Math.floor(Math.log10(step0));
+  let step=10*mag;
+  for(const c of[1,2,2.5,5,10])if(c*mag>=step0){step=c*mag;break;}
+  const t0=Math.ceil(min/step)*step,out=[];
+  for(let v=t0;v<=max+1e-9;v+=step)out.push(+v.toFixed(10));
+  return out;
+}
+function clusterVars(M,thr=0.55){
+  const n=M.length;
+  let cl=S.vars.map((_,i)=>[i]);
+  while(cl.length>1){
+    let best=null,bv=thr;
+    for(let i=0;i<cl.length;i++)for(let j=i+1;j<cl.length;j++){
+      let s=0,c=0;
+      for(const a of cl[i])for(const b of cl[j]){s+=Math.abs(M[a][b]||0);c++;}
+      const avg=s/c;
+      if(avg>bv){bv=avg;best=[i,j];}
+    }
+    if(!best)break;
+    cl[best[0]]=cl[best[0]].concat(cl[best[1]]);
+    cl.splice(best[1],1);
+  }
+  return cl;
+}
+function loopEdges(L=5,thr=0.35,minN=10){
+  const ids=S.vars.map(v=>v.id),E=[];
+  for(let i=0;i<ids.length;i++)for(let j=i+1;j<ids.length;j++){
+    const lags=lagCorr(seriesOf(ids[i]),seriesOf(ids[j]),L);
+    let best=null;
+    for(const o of lags){
+      if(o.lag===0||o.r==null||o.n<minN)continue;
+      if(!best||Math.abs(o.r)>Math.abs(best.r))best=o;
+    }
+    if(best&&Math.abs(best.r)>=thr){
+      const fwd=best.lag>0;
+      E.push({from:fwd?ids[i]:ids[j],to:fwd?ids[j]:ids[i],r:best.r,lag:Math.abs(best.lag),n:best.n});
+    }
+  }
+  return E;
+}
+function findCycles(E,limit=4){
+  const adj=new Map();
+  for(const e of E){
+    if(!adj.has(e.from))adj.set(e.from,[]);
+    adj.get(e.from).push(e.to);
+  }
+  const cyc=[],path=[];
+  const ids=[...new Set(E.flatMap(e=>[e.from,e.to]))].sort((a,b)=>a-b);
+  function dfs(u,start){
+    if(cyc.length>=limit)return;
+    path.push(u);
+    for(const v of(adj.get(u)||[])){
+      if(v===start&&path.length>=2){cyc.push([...path]);if(cyc.length>=limit)break;}
+      else if(v>start&&!path.includes(v))dfs(v,start);
+    }
+    path.pop();
+  }
+  for(const s of ids)dfs(s,s);
+  return cyc;
+}
+function consistencyScore(id){
+  const st=stat(seriesOf(id));
+  if(!st||st.n<5||Math.abs(st.m)<1e-9)return null;
+  const cv=st.sd/Math.abs(st.m);
+  return Math.round(clamp(100*(1-cv/2),0,100));
+}
+
+/* ================= chart builders ================= */
+function frame(W,H,M){
+  const iw=W-M.l-M.r,ih=H-M.t-M.b;
+  return{svg:el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img'}),iw,ih,
+    sx:(i,n)=>M.l+(n<=1?iw/2:iw*i/(n-1)),
+    sy:(v,ymin,ymax)=>M.t+ih-ih*((v-ymin)/(ymax-ymin||1))};
+}
+function axes(f,M,ymax,ymin,ticks,xLabels,dates){
+  const{svg,sy}=f;
+  ticks.forEach(t=>{
+    svg.appendChild(el('line',{x1:M.l,x2:M.l+f.iw,y1:sy(t,ymin,ymax),y2:sy(t,ymin,ymax),class:'grid-line'}));
+    const tx=el('text',{x:M.l-6,y:sy(t,ymin,ymax)+3.5,'text-anchor':'end',class:'axis-label'});
+    tx.textContent=fmt(t,Math.abs(t)<10?1:0);svg.appendChild(tx);
+  });
+  const step=Math.max(1,Math.ceil(dates.length/Math.max(1,xLabels)));
+  dates.forEach((d,i)=>{
+    if(i%step&&i!==dates.length-1)return;
+    const t=el('text',{x:f.sx(i,dates.length),y:M.t+f.ih+16,'text-anchor':'middle',class:'axis-label'});
+    t.textContent=jShort(d);svg.appendChild(t);
+  });
+  svg.appendChild(el('line',{x1:M.l,x2:M.l+f.iw,y1:M.t+f.ih,y2:M.t+f.ih,class:'axis-line'}));
+  svg.appendChild(el('line',{x1:M.l,x2:M.l,y1:M.t,y2:M.t+f.ih,class:'axis-line'}));
+}
+function poly(f,pts,ymin,ymax,color,dash){
+  const p=pts.map((v,i)=>`${f.sx(i,pts.length)},${f.sy(v,ymin,ymax)}`).filter(s=>!s.includes('NaN'));
+  if(p.length<2)return;
+  f.svg.appendChild(el('polyline',{points:p.join(' '),fill:'none',stroke:color,
+    'stroke-width':2.2,'stroke-linejoin':'round','stroke-linecap':'round',
+    ...(dash?{'stroke-dasharray':'6 5'}:{})}));
+}
+
+/* ================= render: variables & table ================= */
+function renderVars(){
+  const box=$('#varList');
+  if(!S.vars.length){box.innerHTML='<p class="muted">هنوز متغیری تعریف نشده است.</p>';return;}
+  box.innerHTML=S.vars.map(v=>{
+    const st=stat(seriesOf(v.id));
+    return `<div class="var-row" data-id="${v.id}">
+      <input type="color" value="${v.color}" aria-label="رنگ ${esc(v.name)}">
+      <input class="txt name" value="${esc(v.name)}" aria-label="نام متغیر">
+      <input class="txt unit" value="${esc(v.unit)}" placeholder="واحد" aria-label="واحد">
+      <span class="cnt">${st?fa(st.n)+' روز · میانگین '+fmt(st.m,1):'بدون داده'}</span>
+      <button class="btn sm danger del" title="حذف متغیر">🗑</button>
+    </div>`;}).join('');
+  box.querySelectorAll('.var-row').forEach(row=>{
+    const id=+row.dataset.id,v=varById(id);
+    row.querySelector('[type=color]').addEventListener('input',e=>{v.color=e.target.value;save();renderTab(active);});
+    row.querySelector('.name').addEventListener('change',e=>{v.name=e.target.value.trim()||v.name;save();refreshSelects();renderTab(active);});
+    row.querySelector('.unit').addEventListener('change',e=>{v.unit=e.target.value.trim();save();});
+    row.querySelector('.del').addEventListener('click',()=>{
+      if(!confirm(`متغیر «${v.name}» و همهٔ داده‌هایش حذف شود؟`))return;
+      S.vars=S.vars.filter(x=>x.id!==id);
+      S.rows.forEach(r=>delete r.v[id]);
+      S.comp.sel=S.comp.sel.filter(i=>i!==id);
+      fixSelections();save();renderAll();toast('متغیر حذف شد');});
+  });
+}
+function renderTable(){
+  const t=$('#entryTable');
+  const n=S.rows.length;
+  $('#rowCount').textContent=fa(n)+' روز';
+  $('#btnToggleAll').textContent=showAllRows?'نمایش ۴۰ روز اخیر':'نمایش همهٔ روزها';
+  if(!S.vars.length||!n){t.innerHTML='<tbody><tr><td class="empty">ابتدا متغیر تعریف کنید و روز اضافه کنید.</td></tr></tbody>';return;}
+  const rows=[...S.rows].reverse();
+  const view=showAllRows?rows:rows.slice(0,40);
+  t.innerHTML=`<thead><tr><th>تاریخ</th>${S.vars.map(v=>`<th><span class="legend-dot" style="background:${v.color}"></span> ${esc(v.name)}${v.unit?' <small>('+esc(v.unit)+')</small>':''}</th>`).join('')}<th></th></tr></thead>
+  <tbody>${view.map(r=>`<tr data-d="${r.d}">
+    <td class="date-cell">${jDate(r.d)}<br><small class="muted">${wd(r.d)}</small></td>
+    ${S.vars.map(v=>`<td><input class="val" type="number" step="any" inputmode="decimal" value="${r.v[v.id]??''}" data-v="${v.id}" aria-label="${esc(v.name)} در ${r.d}"></td>`).join('')}
+    <td><button class="btn sm danger rdel" title="حذف این روز">✕</button></td>
+  </tr>`).join('')}</tbody>`;
+  t.querySelectorAll('input.val').forEach(inp=>{
+    inp.addEventListener('change',()=>{
+      const d=inp.closest('tr').dataset.d,id=+inp.dataset.v;
+      const row=S.rows.find(x=>x.d===d);if(!row)return;
+      const raw=inp.value.trim();
+      if(raw==='')delete row.v[id];
+      else{const num=Number(raw);if(!isFinite(num)){toast('⚠️ عدد معتبر وارد کنید');return;}row.v[id]=num;}
+      save();renderVars();
+    });
+  });
+  t.querySelectorAll('.rdel').forEach(b=>b.addEventListener('click',()=>{
+    const d=b.closest('tr').dataset.d;
+    if(!confirm('روز '+jDate(d)+' حذف شود؟'))return;
+    S.rows=S.rows.filter(x=>x.d!==d);save();renderTable();renderVars();
+  }));
+}
+
+/* ================= render: time series ================= */
+function renderTS(){
+  const box=$('#tsChart');
+  if(S.vars.length<1||S.rows.length<2){box.innerHTML='<div class="empty">حداقل یک متغیر و دو روز داده لازم است.</div>';$('#tsLegend').innerHTML='';return;}
+  const dates=S.rows.map(r=>r.d);
+  const vis=S.vars.filter(v=>!hiddenTS.has(v.id));
+  if(!vis.length){box.innerHTML='<div class="empty">همهٔ متغیرها پنهان‌اند — از فهرست زیر یکی را فعال کنید.</div>';}
+  let ymin=Infinity,ymax=-Infinity;
+  const anom={};
+  for(const v of S.vars){
+    const s=seriesOf(v.id);anom[v.id]=anomalyIdx(s,2);
+    if(hiddenTS.has(v.id))continue;
+    for(const x of s)if(x!=null){if(x<ymin)ymin=x;if(x>ymax)ymax=x;}
+  }
+  if(!isFinite(ymin)){ymin=0;ymax=1;}
+  const pad=(ymax-ymin)*0.08||0.5;ymin-=pad;ymax+=pad;
+  const W=920,H=400,M={l:52,r:16,t:16,b:32};
+  const f=frame(W,H,M);
+  axes(f,M,ymax,ymin,niceTicks(ymin,ymax,5),8,dates);
+  if(vis.length&&$('#tsSmooth').checked){
+    for(const v of vis)poly(f,movingAvg(seriesOf(v.id),5),ymin,ymax,v.color,true);
+  }
+  for(const v of vis){
+    const s=seriesOf(v.id);
+    const p=[];s.forEach((x,i)=>{if(x!=null)p.push(`${f.sx(i,dates.length)},${f.sy(x,ymin,ymax)}`);});
+    if(p.length>1)f.svg.appendChild(el('polyline',{points:p.join(' '),fill:'none',stroke:v.color,'stroke-width':2.2,'stroke-linejoin':'round'}));
+    s.forEach((x,i)=>{if(x!=null)f.svg.appendChild(el('circle',{cx:f.sx(i,dates.length),cy:f.sy(x,ymin,ymax),r:2.6,fill:v.color,opacity:.85}));});
+  }
+  if($('#tsAnom').checked){
+    for(const v of vis)for(const a of anom[v.id]){
+      const g=el('g',{});
+      g.appendChild(el('circle',{cx:f.sx(a.i,dates.length),cy:f.sy(a.v,ymin,ymax),r:6,fill:'none',stroke:a.z>0?'var(--pos)':'var(--neg)','stroke-width':2}));
+      const ti=el('title',{});ti.textContent=`${v.name} · ${jDate(dates[a.i])} · z=${rF(a.z)}`;g.appendChild(ti);
+      f.svg.appendChild(g);
+    }
+  }
+  box.innerHTML='';box.appendChild(f.svg);
+  const tip=$('#tsTip');
+  f.svg.addEventListener('mousemove',ev=>{
+    const r=f.svg.getBoundingClientRect();
+    const vx=(ev.clientX-r.left)*(W/r.width);
+    let idx=Math.round((vx-M.l)/f.iw*(dates.length-1));
+    idx=clamp(idx,0,dates.length-1);
+    const rowsHtml=S.vars.filter(v=>!hiddenTS.has(v.id)).map(v=>{
+      const val=S.rows[idx].v[v.id];
+      return `<div style="color:${v.color}">● ${esc(v.name)}: ${fmt(val,1)}</div>`;}).join('');
+    tip.innerHTML=`<b>${jDate(dates[idx])} ${wd(dates[idx])}</b>${rowsHtml}`;
+    tip.style.display='block';
+    const wrap=tip.parentElement.getBoundingClientRect();
+    let lx=ev.clientX-wrap.left+14;if(lx+180>wrap.width)lx-=200;
+    tip.style.left=lx+'px';tip.style.top=Math.min(ev.clientY-wrap.top+8,wrap.height-70)+'px';
+  });
+  f.svg.addEventListener('mouseleave',()=>tip.style.display='none');
+  $('#tsLegend').innerHTML=S.vars.map(v=>
+    `<span class="legend-item ${hiddenTS.has(v.id)?'off':''}" data-id="${v.id}">
+      <span class="legend-dot" style="background:${v.color}"></span>${esc(v.name)}</span>`).join('');
+  $$('#tsLegend .legend-item').forEach(li=>li.addEventListener('click',()=>{
+    const id=+li.dataset.id;
+    hiddenTS.has(id)?hiddenTS.delete(id):hiddenTS.add(id);
+    renderTS();
+  }));
+}
+
+/* ================= render: correlation ================= */
+function refreshSelects(){
+  const opt=v=>`<option value="${v.id}">${esc(v.name)}</option>`;
+  const opts=S.vars.map(opt).join('');
+  [['#selA',selPair.a],['#selB',selPair.b],['#lagA',selPair.a],['#lagB',selPair.b],['#thrX',selThr.x],['#thrY',selThr.y],['#fcVar',selPair.a]].forEach(([sel,cur])=>{
+    const e=$(sel);if(!e)return;
+    e.innerHTML=opts;if(cur!=null&&S.vars.some(v=>v.id===cur))e.value=cur;
+  });
+  const z=$('#selZ');
+  if(z){z.innerHTML=S.vars.filter(v=>v.id!==selPair.a&&v.id!==selPair.b).map(opt).join('')||'<option value="">—</option>';
+    if(selZ!=null&&S.vars.some(v=>v.id===selZ)&&selZ!==selPair.a&&selZ!==selPair.b)z.value=selZ;}
+}
+function renderHM(){
+  const box=$('#hmBox');
+  if(S.vars.length<2){box.innerHTML='<div class="empty">حداقل دو متغیر لازم است.</div>';$('#hmN').textContent='';return;}
+  const M=corrMatrix();
+  const n=S.vars.length;
+  let order=S.vars.map((_,i)=>i);
+  if(hmSortMode==='cluster'){
+    order=clusterVars(M).flat();
+  }
+  const cell=Math.max(56,Math.min(84,Math.floor(760/Math.max(3,n))));
+  const heat=r=>{
+    if(r==null)return'var(--head)';
+    const a=Math.min(1,Math.abs(r)),c=r>=0?[5,150,105]:[220,38,38];
+    return`rgba(${c[0]},${c[1]},${c[2]},${(0.10+0.78*a).toFixed(2)})`;};
+  const nameOf=i=>esc(S.vars[i].name);
+  let html=`<div class="hm" style="grid-template-columns:repeat(${n+1},${cell}px)">`;
+  html+=`<div class="hd h corner" style="min-width:${cell}px"></div>`;
+  for(const c of order)html+=`<div class="hd h" title="${nameOf(c)}">${nameOf(c)}</div>`;
+  for(const r of order){
+    html+=`<div class="hd" title="${nameOf(r)}">${nameOf(r)}</div>`;
+    for(const c of order){
+      const rv=M[r][c];
+      const selC=(S.vars[r].id===selPair.a&&S.vars[c].id===selPair.b)||(S.vars[r].id===selPair.b&&S.vars[c].id===selPair.a);
+      html+=`<div class="cell ${selC?'sel':''}" data-a="${S.vars[r].id}" data-b="${S.vars[c].id}"
+        style="background:${heat(rv)};color:${rv!=null&&Math.abs(rv)>0.55?'#fff':'var(--ink)'}"
+        title="${nameOf(r)} ↔ ${nameOf(c)}: ${rF(rv)}">${r===c?'—':rF(rv)}</div>`;
+    }
+  }
+  html+='</div>';
+  box.innerHTML=html;
+  const pn=Math.max(...S.vars.map((v,i)=>S.vars.slice(i+1).map(w=>pairN(seriesOf(v.id),seriesOf(w.id)))).flat().concat([0]));
+  $('#hmN').textContent='بیشترین روز مشترک جفت‌ها: '+fa(pn);
+  box.querySelectorAll('.cell[data-a]').forEach(c=>c.addEventListener('click',()=>{
+    const a=+c.dataset.a,b=+c.dataset.b;
+    if(a===b)return;
+    selPair={a,b};refreshSelects();renderHM();renderScatter();renderPartial();
+  }));
+}
+function renderScatter(){
+  const box=$('#scChart');
+  const A=varById(selPair.a),B=varById(selPair.b);
+  if(!A||!B){box.innerHTML='<div class="empty">دو متغیر انتخاب کنید.</div>';$('#pairStats').innerHTML='';return;}
+  const xs=seriesOf(A.id),ys=seriesOf(B.id);
+  const n=pairN(xs,ys);
+  let pts=[];for(let i=0;i<xs.length;i++)if(xs[i]!=null&&ys[i]!=null)pts.push([xs[i],ys[i]]);
+  if(pts.length<3){box.innerHTML='<div class="empty">روزهای مشترک این دو متغیر کافی نیست (حداقل ۳).</div>';$('#pairStats').innerHTML='';return;}
+  let xmin=Infinity,xmax=-Infinity,ymin=Infinity,ymax=-Infinity;
+  for(const[x,y]of pts){xmin=Math.min(xmin,x);xmax=Math.max(xmax,x);ymin=Math.min(ymin,y);ymax=Math.max(ymax,y);}
+  const px=(xmax-xmin)*0.08||0.5,py=(ymax-ymin)*0.08||0.5;
+  xmin-=px;xmax+=px;ymin-=py;ymax+=py;
+  const W=520,H=340,M={l:48,r:14,t:14,b:36};
+  const f=frame(W,H,M);
+  axes(f,M,ymax,ymin,niceTicks(ymin,ymax,4),6,dates4scatter(pts.length));
+  const P=pts.map(([x,y])=>({x:M.l+f.iw*((x-xmin)/(xmax-xmin)),y:f.sy(y,ymin,ymax)}));
+  const reg=linreg(xs,ys);
+  if(reg){
+    const y1=reg.inter+reg.slope*xmin,y2=reg.inter+reg.slope*xmax;
+    f.svg.appendChild(el('line',{x1:M.l,y1:f.sy(y1,ymin,ymax),x2:M.l+f.iw,y2:f.sy(y2,ymin,ymax),
+      stroke:'var(--accent)','stroke-width':2,'stroke-dasharray':'7 5',opacity:.9}));
+  }
+  P.forEach(p=>f.svg.appendChild(el('circle',{cx:p.x,cy:p.y,r:4,fill:A.color,opacity:.55,stroke:'none'})));
+  const t=el('text',{x:M.l+10,y:M.t+16,class:'axis-label'});
+  t.textContent=`r = ${rF(reg?reg.r:null)} · n = ${fa(n)}`;f.svg.appendChild(t);
+  const xl=el('text',{x:M.l+f.iw/2,y:H-4,'text-anchor':'middle',class:'axis-label'});xl.textContent=A.name;f.svg.appendChild(xl);
+  box.innerHTML='';box.appendChild(f.svg);
+  const r=reg?reg.r:null,st=stat(xs),st2=stat(ys);
+  $('#pairStats').innerHTML=`
+    <table class="grid" style="margin-top:10px"><tbody>
+    <tr><td>همبستگی پیرسون</td><td class="num"><b>${rF(r)}</b></td></tr>
+    <tr><td>ضریب تعیین R²</td><td class="num">${r==null?'—':fa((r*r).toFixed(2))}</td></tr>
+    <tr><td>معادلهٔ خط</td><td class="num">${reg?`${esc(B.name)} ≈ ${fmt(reg.slope,2)} × ${esc(A.name)} + ${fmt(reg.inter,2)}`:'—'}</td></tr>
+    <tr><td>میانگین ± انحراف (${esc(A.name)})</td><td class="num">${st?fmt(st.m,1)+' ± '+fmt(st.sd,1):'—'}</td></tr>
+    <tr><td>میانگین ± انحراف (${esc(B.name)})</td><td class="num">${st2?fmt(st2.m,1)+' ± '+fmt(st2.sd,1):'—'}</td></tr>
+    <tr><td>روزهای مشترک</td><td class="num">${fa(n)}</td></tr>
+    </tbody></table>`;
+}
+function dates4scatter(){return[];}
+function renderPartial(){
+  const box=$('#partBox');
+  const A=varById(selPair.a),B=varById(selPair.b),Z=varById(selZ);
+  if(!A||!B||!Z||Z.id===A.id||Z.id===B.id){box.innerHTML='<p class="muted">برای همبستگی جزئی به سه متغیر نیاز دارید.</p>';return;}
+  const ra=seriesOf(A.id),rb=seriesOf(B.id),rz=seriesOf(Z.id);
+  const rxy=pearson(ra,rb),rxz=pearson(ra,rz),ryz=pearson(rb,rz);
+  if(rxy==null||rxz==null||ryz==null){box.innerHTML='<p class="muted">روزهای مشترک سه متغیر کافی نیست.</p>';return;}
+  const pr=partialR(rxy,rxz,ryz);
+  const delta=pr==null?null:Math.abs(pr)-Math.abs(rxy);
+  box.innerHTML=`
+  <table class="grid"><tbody>
+  <tr><td>r خام (${esc(A.name)} ↔ ${esc(B.name)})</td><td class="num"><b>${rF(rxy)}</b></td></tr>
+  <tr><td>r با ${esc(A.name)} ↔ ${esc(Z.name)}</td><td class="num">${rF(rxz)}</td></tr>
+  <tr><td>r با ${esc(B.name)} ↔ ${esc(Z.name)}</td><td class="num">${rF(ryz)}</td></tr>
+  <tr><td><b>همبستگی جزئی</b> (با کنترل ${esc(Z.name)})</td><td class="num"><b style="color:var(--accent)">${rF(pr)}</b></td></tr>
+  </tbody></table>
+  <p class="muted">${pr==null?'محاسبه ممکن نشد.':'تحلیل: '+
+    (delta!=null&&Math.abs(rxy)>0.15&&Math.abs(pr)<Math.abs(rxy)*0.45
+      ?`بخش بزرگی از رابطهٔ خام به‌دلیل ${esc(Z.name)} بود؛ پس از کنترل، رابطه ضعیف شد. احتمال اثر واسطه‌ای جدی است.`
+      :delta!=null&&Math.abs(pr)>=Math.abs(rxy)*0.45
+      ?`رابطه حتی پس از کنترل ${esc(Z.name)} هم پابرجاست — نشانهٔ پیوند مستقل‌تر.`
+      :'تغییر چشمگیری دیده نشد؛ رابطه تقریباً مستقل از متغیر سوم است.')}</p>`;
+}
+function renderClusters(){
+  const box=$('#cluBox');
+  if(S.vars.length<3){box.innerHTML='<p class="muted">با سه متغیر یا بیشتر معنا پیدا می‌کند.</p>';return;}
+  const cl=clusterVars(corrMatrix());
+  const useful=cl.filter(g=>g.length>1);
+  if(!useful.length){box.innerHTML='<p class="muted">در دادهٔ فعلی هیچ خوشهٔ هم‌الگوی قوی (r ≥ ۰٫۵۵) شکل نگرفته است.</p>';return;}
+  box.innerHTML=useful.map(g=>`<p>${g.map(i=>`<span class="chip"><span class="legend-dot" style="background:${S.vars[i].color}"></span>${esc(S.vars[i].name)}</span>`).join(' + ')}</p>`).join('');
+}
+
+/* ================= render: lag ================= */
+function renderLag(){
+  const box=$('#lagChart'),note=$('#lagNote'),top=$('#lagTop');
+  const A=varById(selPair.a),B=varById(selPair.b);
+  if(!A||!B||S.rows.length<6){box.innerHTML='<div class="empty">داده کافی نیست.</div>';note.textContent='';top.innerHTML='';return;}
+  const L=+$('#lagWin').value;
+  const res=lagCorr(seriesOf(A.id),seriesOf(B.id),L);
+  const valid=res.filter(o=>o.r!=null);
+  const maxAbs=Math.max(0.15,...valid.map(o=>Math.abs(o.r)));
+  const best=valid.length?valid.reduce((m,o)=>Math.abs(o.r)>Math.abs(m.r)?o:m):null;
+  const W=860,H=310,M={l:46,r:14,t:16,b:34};
+  const f=frame(W,H,M);
+  const ymin=-Math.min(1,maxAbs*1.15),ymax=Math.min(1,maxAbs*1.15);
+  [0].concat(niceTicks(ymin,ymax,4).filter(t=>t>ymin&&t<ymax)).forEach(t=>{
+    f.svg.appendChild(el('line',{x1:M.l,x2:M.l+f.iw,y1:f.sy(t,ymin,ymax),y2:f.sy(t,ymin,ymax),
+      class:t===0?'axis-line':'grid-line'}));
+    const tx=el('text',{x:M.l-6,y:f.sy(t,ymin,ymax)+3.5,'text-anchor':'end',class:'axis-label'});
+    tx.textContent=rF(t);f.svg.appendChild(tx);
+  });
+  const n=2*L+1,bw=f.iw/n;
+  res.forEach((o,k)=>{
+    if(o.r==null)return;
+    const x=M.l+bw*k+bw*0.18,w=bw*0.64;
+    const y0=f.sy(0,ymin,ymax),y1=f.sy(o.r,ymin,ymax);
+    const isBest=best&&o.lag===best.lag;
+    const rc=f.svg.appendChild(el('rect',{x,y:Math.min(y0,y1),width:w,height:Math.max(2,Math.abs(y1-y0)),
+      rx:4,fill:o.r>=0?'var(--pos)':'var(--neg)',opacity:isBest?1:0.55,
+      ...(isBest?{stroke:'var(--ink)','stroke-width':1.4}:{})}));
+    const ti=el('title',{});ti.textContent=`تأخیر ${fa(o.lag>0?'+':'')+o.lag}: r=${rF(o.r)} (n=${fa(o.n)})`;rc.appendChild(ti);
+    const lb=el('text',{x:x+w/2,y:M.t+f.ih+16,'text-anchor':'middle',class:'axis-label'});
+    lb.textContent=fa(o.lag>0?'+':'')+fa(o.lag);f.svg.appendChild(lb);
+    if(isBest){
+      const bt=el('text',{x:x+w/2,y:Math.min(y0,y1)-6,'text-anchor':'middle',class:'node-label'});
+      bt.textContent=rF(o.r);f.svg.appendChild(bt);
+    }
+  });
+  box.innerHTML='';box.appendChild(f.svg);
+  if(best&&best.lag!==0){
+    note.innerHTML=`⭐ بهترین تأخیر: <b>${fa(Math.abs(best.lag))} روز</b> — یعنی «${esc(A.name)} امروز» بیشترین هم‌حرکتی را با «${esc(B.name)} پس از ${fa(Math.abs(best.lag))} روز» دارد (r=${rF(best.r)}). ${best.lag>0?`پس ${esc(A.name)} پیشرو و ${esc(B.name)} پیرو است.`:`دقت کنید: تأخیر منفی یعنی جهت برعکس است — ${esc(B.name)} پیشروست.`}`;
+  }else note.textContent='هنوز الگوی زمانی معناداری در این جفت دیده نمی‌شود (روزهای مشترک را بیشتر کنید).';
+  // top lag findings
+  const all=[];
+  for(let i=0;i<S.vars.length;i++)for(let j=0;j<S.vars.length;j++){
+    if(i===j)continue;
+    const lags=lagCorr(seriesOf(S.vars[i].id),seriesOf(S.vars[j].id),L);
+    const b=lags.filter(o=>o.lag!==0&&o.r!=null&&o.n>=10).reduce((m,o)=>!m||Math.abs(o.r)>Math.abs(m.r)?o:m,null);
+    if(b&&Math.abs(b.r)>=0.4)all.push({from:S.vars[i],to:S.vars[j],...b});
+  }
+  all.sort((a,b)=>Math.abs(b.r)-Math.abs(a.r));
+  top.innerHTML=all.slice(0,4).map(o=>`<li data-a="${o.from.id}" data-b="${o.to.id}">
+    <b>${esc(o.from.name)} ← ${esc(o.to.name)}</b> با تأخیر ${fa(o.lag)} روز · r=${rF(o.r)} · n=${fa(o.n)}
+    <span class="muted">— برای مشاهده کلیک کنید</span></li>`).join('')
+    ||'<li class="muted" style="cursor:default;border:0">هنوز رابطهٔ زمانی قوی (|r| ≥ ۰٫۴) یافت نشده است.</li>';
+  $$('#lagTop li[data-a]').forEach(li=>li.addEventListener('click',()=>{
+    selPair={a:+li.dataset.a,b:+li.dataset.b};refreshSelects();renderLag();
+  }));
+}
+
+/* ================= render: threshold & loop ================= */
+function renderThr(){
+  const box=$('#thrChart'),bars=$('#thrBars');
+  const X=varById(selThr.x),Y=varById(selThr.y);
+  if(!X||!Y){box.innerHTML='<div class="empty">دو متغیر انتخاب کنید.</div>';bars.innerHTML='';return;}
+  const xs=seriesOf(X.id),ys=seriesOf(Y.id);
+  const st=thresholdStump(xs,ys);
+  if(!st){box.innerHTML='<div class="empty">روزهای مشترک این دو متغیر برای تحلیل آستانه کافی نیست (حداقل ۱۰ و در هر گروه ۵).</div>';
+    bars.innerHTML='';return;}
+  const pts=[];for(let i=0;i<xs.length;i++)if(xs[i]!=null&&ys[i]!=null)pts.push([xs[i],ys[i]]);
+  let xmin=Infinity,xmax=-Infinity,ymin=Infinity,ymax=-Infinity;
+  for(const[x,y]of pts){xmin=Math.min(xmin,x);xmax=Math.max(xmax,x);ymin=Math.min(ymin,y);ymax=Math.max(ymax,y);}
+  const p=(xmax-xmin)*0.1||0.5;xmin-=p;xmax+=p;
+  const py=(ymax-ymin)*0.1||0.5;ymin-=py;ymax+=py;
+  const W=520,H=340,M={l:48,r:14,t:14,b:36};
+  const f=frame(W,H,M);
+  axes(f,M,ymax,ymin,niceTicks(ymin,ymax,4),6,[]);
+  const sxv=v=>M.l+f.iw*((v-xmin)/(xmax-xmin));
+  for(const[x,y]of pts){
+    const left=x<st.x;
+    f.svg.appendChild(el('circle',{cx:sxv(x),cy:f.sy(y,ymin,ymax),r:4.2,
+      fill:left?'var(--amber)':'var(--pos)',opacity:.6}));
+  }
+  f.svg.appendChild(el('line',{x1:sxv(st.x),x2:sxv(st.x),y1:M.t,y2:M.t+f.ih,
+    stroke:'var(--accent)','stroke-width':2,'stroke-dasharray':'6 4'}));
+  const tt=el('text',{x:sxv(st.x)+6,y:M.t+14,class:'node-label'});
+  tt.textContent='آستانه: '+fmt(st.x,1);f.svg.appendChild(tt);
+  box.innerHTML='';box.appendChild(f.svg);
+  const up=st.diff>0;
+  bars.innerHTML=`
+    <table class="grid"><tbody>
+    <tr><td>نقطهٔ برش در ${esc(X.name)}</td><td class="num"><b>${fmt(st.x,1)}</b></td></tr>
+    <tr><td>میانگین ${esc(Y.name)} — گروه کمتر از آستانه (${fa(st.nL)} روز)</td><td class="num">${fmt(st.mL,2)}</td></tr>
+    <tr><td>میانگین ${esc(Y.name)} — گروه بیشتر از آستانه (${fa(st.nR)} روز)</td><td class="num"><b>${fmt(st.mR,2)}</b></td></tr>
+    <tr><td>تفاوت میانگین‌ها</td><td class="num" style="color:${up?'var(--pos)':'var(--neg)'}">${fmt(st.diff,2)}</td></tr>
+    <tr><td>قدرت یافته (score)</td><td class="num">${fmt(st.score,2)}</td></tr>
+    </tbody></table>
+    <p class="muted">📌 در روزهایی که ${esc(X.name)} ${up?'بیشتر':'کمتر'} از ${fmt(st.x,1)} بوده، ${esc(Y.name)} به‌طور میانگین ${fmt(Math.abs(st.diff),2)} واحد ${up?'بالاتر':'پایین‌تر'} است.</p>`;
+  // top thresholds
+  const all=[];
+  for(const a of S.vars)for(const b of S.vars){
+    if(a.id===b.id)continue;
+    const s=thresholdStump(seriesOf(a.id),seriesOf(b.id));
+    if(s)all.push({a,b,...s});
+  }
+  all.sort((u,v)=>v.score-u.score);
+  $('#thrTop').innerHTML=all.slice(0,4).map((o,i)=>`<li data-i="${i}">
+    <b>${esc(o.a.name)} → ${esc(o.b.name)}</b> · آستانهٔ ${fmt(o.x,1)} · تفاوت میانگین ${fmt(o.diff,2)}
+    <span class="muted">— کلیک برای مشاهده</span></li>`).join('')
+    ||'<li class="muted" style="cursor:default;border:0">یافته‌ای ثبت نشد.</li>';
+  $$('#thrTop li[data-i]').forEach(li=>li.addEventListener('click',()=>{
+    const o=all[+li.dataset.i];selThr={x:o.a.id,y:o.b.id};
+    refreshSelects();renderThr();
+  }));
+}
+function renderLoop(){
+  const box=$('#loopWrap');
+  const thr=+$('#edgeThr').value;
+  $('#edgeThrVal').textContent=fa(thr.toFixed(2).replace('0.','۰٫').replace(/\d/g,d=>FA[d]));
+  if(S.vars.length<3||S.rows.length<10){box.innerHTML='<div class="empty">برای نقشهٔ علّی حداقل ۳ متغیر و ۱۰ روز داده لازم است.</div>';$('#cycList').innerHTML='';return;}
+  let E=loopEdges(5,thr);
+  $('#cycList').innerHTML='';
+  if(!E.length){box.innerHTML='<div class="empty">در این سطح از قدرت (|r| ≥ '+fa(thr.toFixed(2))+') پیوندی یافت نشد. اسلایدر را کمتر کنید یا داده بیشتری ثبت کنید.</div>';return;}
+  // keep top 8 nodes
+  const deg={};E.forEach(e=>{deg[e.from]=(deg[e.from]||0)+1;deg[e.to]=(deg[e.to]||0)+1;});
+  const keep=[...S.vars].sort((a,b)=>(deg[b.id]||0)-(deg[a.id]||0)).slice(0,8).map(v=>v.id);
+  E=E.filter(e=>keep.includes(e.from)&&keep.includes(e.to));
+  const cyc=findCycles(E,4);
+  const cycEdges=new Set();
+  cyc.forEach(c=>{for(let k=0;k<c.length;k++)cycEdges.add(c[k]+'>'+c[(k+1)%c.length]);});
+  const nodes=keep.map(id=>varById(id)).filter(Boolean);
+  const W=880,H=520,cx=W/2,cy=H/2,R=Math.min(W,H)/2-78;
+  const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img'});
+  const defs=el('defs',{});
+  [['arrP','var(--pos)'],['arrN','var(--neg)'],['arrC','var(--purple)']].forEach(([id,col])=>{
+    const m=el('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:7,markerHeight:7,orient:'auto-start-reverse'});
+    m.appendChild(el('path',{d:'M0,0L10,5L0,10z',fill:col}));
+    defs.appendChild(m);
+  });
+  svg.appendChild(defs);
+  const pos={};
+  nodes.forEach((v,i)=>{
+    const a=-Math.PI/2+2*Math.PI*i/nodes.length;
+    pos[v.id]=[cx+R*Math.cos(a),cy+R*Math.sin(a)];
+  });
+  const seenPair=new Set();
+  for(const e of E){
+    const key=[e.from,e.to].sort().join('-');
+    const both=seenPair.has(key);seenPair.add(key);
+    const[x1,y1]=pos[e.from],[x2,y2]=pos[e.to];
+    const mx=(x1+x2)/2,my=(y1+y2)/2;
+    let dx=cx-mx,dy=cy-my;
+    let k=0.30+0.38*Math.abs(Math.atan2(y2-cy,x2-cx)-Math.atan2(y1-cy,x1-cx))/Math.PI;
+    if(both){dx=-dx;dy=-dy;k=0.42;}
+    const cpx=mx+dx*k,cpy=my+dy*k;
+    const ang=Math.atan2(y2-cpy,x2-cpx);
+    const ex=x2-Math.cos(ang)*30,ey=y2-Math.sin(ang)*30;
+    const isCyc=cycEdges.has(e.from+'>'+e.to);
+    const stroke=isCyc?'var(--purple)':(e.r>=0?'var(--pos)':'var(--neg)');
+    const p=el('path',{d:`M${x1},${y1} Q${cpx},${cpy} ${ex},${ey}`,fill:'none',stroke,
+      'stroke-width':isCyc?2.6:2,'stroke-linecap':'round',opacity:.85,
+      'marker-end':`url(#${isCyc?'arrC':(e.r>=0?'arrP':'arrN')})`});
+    const ti=el('title',{});ti.textContent=`${varById(e.from).name} → ${varById(e.to).name} · r=${rF(e.r)} · تأخیر ${fa(e.lag)} روز`;p.appendChild(ti);
+    svg.appendChild(p);
+    const lx=0.25*x1+0.5*cpx+0.25*ex,ly=0.25*y1+0.5*cpy+0.25*ey;
+    const lt=el('text',{x:lx,y:ly-4,class:'edge-label halo','text-anchor':'middle'});
+    lt.textContent=`r${rF(e.r)} ·${fa(e.lag)}روز`;svg.appendChild(lt);
+  }
+  for(const v of nodes){
+    const[x,y]=pos[v.id];
+    const g=el('g',{});
+    g.appendChild(el('circle',{cx:x,cy:y,r:27,fill:'var(--panel)',stroke:v.color,'stroke-width':3}));
+    const t1=el('text',{x,y:y-2,class:'node-label'});
+    t1.textContent=v.name.length>10?v.name.slice(0,10)+'…':v.name;g.appendChild(t1);
+    const t2=el('text',{x,y:y+12,class:'node-sub'});t2.textContent=v.unit||'';g.appendChild(t2);
+    svg.appendChild(g);
+  }
+  box.innerHTML='';box.appendChild(svg);
+  const cycHtml=cyc.length?cyc.map((c,i)=>`<p>🔁 <b>حلقهٔ ${fa(i+1)}:</b> ${c.map(id=>esc(varById(id).name)).join(' ← ')} ← <b>${esc(varById(c[0]).name)}</b>
+    <span class="muted">— در نقشه با خط بنفش مشخص شده. ضعیف‌ترین پیوند این حلقه، بهترین نقطهٔ مداخله است.</span></p>`).join('')
+    :'<p class="muted">در این سطح از قدرت، حلقهٔ بازخوردی یافت نشد.</p>';
+  $('#cycList').innerHTML=cycHtml;
+}
+
+/* ================= render: insights ================= */
+function confTag(r,n){
+  if(n>=25&&Math.abs(r)>=0.6)return['قوی','ok'];
+  if(n>=15&&Math.abs(r)>=0.45)return['متوسط','mid'];
+  return['نیازمند دادهٔ بیشتر','low'];
+}
+function renderIns(){
+  // KPIs
+  const nRows=S.rows.length;
+  let cells=0,filled=0;
+  S.rows.forEach(r=>S.vars.forEach(v=>{cells++;if(r.v[v.id]!=null)filled++;}));
+  const cov=cells?Math.round(100*filled/cells):0;
+  $('#kpiBox').innerHTML=`
+    <div class="kpi"><b>${fa(nRows)}</b><span>روز ثبت‌شده</span></div>
+    <div class="kpi"><b>${fa(S.vars.length)}</b><span>متغیر</span></div>
+    <div class="kpi"><b>${fa(cov)}٪</b><span>پوشش داده</span></div>
+    <div class="kpi"><b>${fa(S.vars.reduce((s,v)=>s+(stat(seriesOf(v.id))||{n:0}).n,0))}</b><span>مجموع اندازه‌گیری‌ها</span></div>`;
+  const list=$('#insList');
+  if(S.vars.length<2||nRows<6){list.innerHTML='<div class="empty">برای یافته‌های خودکار، حداقل دو متغیر و شش روز داده لازم است.</div>';
+    $('#gaugeBox').innerHTML='';$('#compBox').innerHTML='';$('#compChart').innerHTML='';$('#fcChart').innerHTML='';return;}
+  const cards=[];
+  // strongest correlations
+  let bp=null,bn=null;
+  for(let i=0;i<S.vars.length;i++)for(let j=i+1;j<S.vars.length;j++){
+    const r=pearson(seriesOf(S.vars[i].id),seriesOf(S.vars[j].id));
+    if(r==null)continue;
+    const n=pairN(seriesOf(S.vars[i].id),seriesOf(S.vars[j].id));
+    if(!bp||r>bp.r)bp={a:S.vars[i],b:S.vars[j],r,n};
+    if(!bn||r<bn.r)bn={a:S.vars[i],b:S.vars[j],r,n};
+  }
+  if(bp&&bp.r>=0.3){const[c,cl]=confTag(bp.r,bp.n);
+    cards.push({ico:'🤝',cl,c,goto:'corr',t:`قوی‌ترین رابطهٔ هم‌جهت: ${bp.a.name} ↔ ${bp.b.name} (r=${rF(bp.r)})`,
+      p:`در روزهایی که ${bp.a.name} بالاتر بوده، ${bp.b.name} هم معمولاً بالاتر گزارش شده است (${fa(bp.n)} روز مشترک).`});}
+  if(bn&&bn.r<=-0.3){const[c,cl]=confTag(bn.r,bn.n);
+    cards.push({ico:'⚖️',cl,c,goto:'corr',t:`قوی‌ترین رابطهٔ مخالف: ${bn.a.name} ↔ ${bn.b.name} (r=${rF(bn.r)})`,
+      p:`وقتی ${bn.a.name} بالا می‌رود، ${bn.b.name} معمولاً پایین می‌آید — نامزد اصلی «مقابلهای که باید مدیریت شود».`});}
+  // best lag
+  const E5=loopEdges(5,0.45,12).sort((a,b)=>Math.abs(b.r)-Math.abs(a.r));
+  if(E5.length){const e=E5[0];const[c,cl]=confTag(e.r,e.n);
+    cards.push({ico:'⏱️',cl,c,goto:'lag',t:`اثر با تأخیر: ${varById(e.from).name} امروز → ${varById(e.to).name} پس از ${fa(e.lag)} روز (r=${rF(e.r)})`,
+      p:'این الگوی زمانی، باورپذیرتر از همبستگی هم‌روز است؛ چون ترتیب علت و معلول را حفظ می‌کند.'});}
+  // threshold
+  let bt=null;
+  for(const a of S.vars)for(const b of S.vars){
+    if(a.id===b.id)continue;
+    const s=thresholdStump(seriesOf(a.id),seriesOf(b.id));
+    if(s&&(!bt||s.score>bt.s.score))bt={a,b,s};
+  }
+  if(bt&&bt.s.score>=0.5){const[c,cl]=confTag(bt.s.score*2,bt.s.nL+bt.s.nR);
+    cards.push({ico:'🎯',cl,c,goto:'loop',t:`آستانهٔ قابل‌توجه در ${bt.a.name} → ${bt.b.name}`,
+      p:`وقتی ${bt.a.name} از ${fmt(bt.s.x,1)} عبور می‌کند، میانگین ${bt.b.name} حدود ${fmt(Math.abs(bt.s.diff),2)} واحد ${bt.s.diff>0?'بالاتر':'پایین‌تر'} می‌رود.`});}
+  // anomalies
+  const anoms=S.vars.map(v=>({v,a:anomalyIdx(seriesOf(v.id))})).filter(o=>o.a.length);
+  if(anoms.length){
+    const big=anoms.reduce((m,o)=>Math.abs(o.a[0].z)>Math.abs(m.a[0].z)?o:m);
+    const date=S.rows[big.a[0].i].d;
+    cards.push({ico:'🚨',cl:'mid',c:'متوسط',goto:'ts',t:`${fa(anoms.reduce((s,o)=>s+o.a.length,0))} نقطهٔ غیرمعمول شناسایی شد`,
+      p:`چشمگیرترین: ${big.v.name} در ${jDate(date)} (z=${rF(big.a[0].z)}). آن روز چه گذشت؟ گاهی مهم‌بینش‌ها همین‌جاست.`});}
+  // cycles
+  const cyc=findCycles(loopEdges(5,0.4,12),1);
+  if(cyc.length){const c=cyc[0];
+    cards.push({ico:'🔁',cl:'ok',c:'قوی',goto:'loop',t:`چرخهٔ بازخورد کشف شد: ${c.map(id=>varById(id).name).join(' ← ')} ← ${varById(c[0]).name}`,
+      p:'سیستم شما یک حلقهٔ خودتقویت‌کننده دارد؛ شکستن آن در ضعیف‌ترین پیوند معمولاً مؤثرترین مداخله است.'});}
+  // consistency
+  const cs=S.vars.map(v=>({v,s:consistencyScore(v.id)})).filter(o=>o.s!=null);
+  if(cs.length>1){
+    const best=[...cs].sort((a,b)=>b.s-a.s)[0],worst=[...cs].sort((a,b)=>a.s-b.s)[0];
+    cards.push({ico:'🧭',cl:'mid',c:'متوسط',goto:'data',t:`ثبات روال: «${best.v.name}» منظم‌ترین و «${worst.v.name}» بی‌ثبات‌ترین`,
+      p:`امتیاز ثبات از ${fa(best.s)} تا ${fa(worst.s)} — برای بهبود کل سیستم، معمولاً تثبیت کم‌ثبات‌ترین روال بیشترین بازده را دارد.`});}
+  list.innerHTML=cards.length?cards.map((c,i)=>`
+    <div class="insight" data-goto="${c.goto}" data-i="${i}">
+      <div class="ico">${c.ico}</div>
+      <div style="flex:1"><h4>${esc(c.t)}</h4><p>${esc(c.p)}</p></div>
+      <span class="conf ${c.cl}">${c.c}</span>
+    </div>`).join('')
+    :'<div class="empty">هنوز الگوی چشمگیری یافت نشده — با ثبت روزهای بیشتر، یافته‌ها اینجا ظاهر می‌شوند.</div>';
+  $$('#insList .insight').forEach(elc=>elc.addEventListener('click',()=>switchTab(elc.dataset.goto)));
+  // gauges
+  $('#gaugeBox').innerHTML=cs.length?cs.sort((a,b)=>b.s-a.s).map(o=>`
+    <div class="gauge"><div class="row"><span>${esc(o.v.name)}</span><b class="num">${fa(o.s)}</b></div>
+    <div class="bar"><i style="width:${o.s}%"></i></div></div>`).join('')
+    :'<p class="muted">برای امتیاز ثبات، هر متغیر به ۵ روز داده نیاز دارد.</p>';
+  renderComposite();renderForecast();
+}
+function renderComposite(){
+  const box=$('#compBox');
+  if(!S.vars.length){box.innerHTML='';$('#compChart').innerHTML='';$('#compNote').textContent='';return;}
+  box.innerHTML=S.vars.map(v=>`
+    <label class="var-row" style="border:0;padding:3px 0">
+      <span class="switch"><input type="checkbox" data-cid="${v.id}" ${S.comp.sel.includes(v.id)?'checked':''}><i></i></span>
+      <span class="legend-dot" style="background:${v.color}"></span>
+      <span style="flex:1">${esc(v.name)}</span>
+      <input class="txt" style="width:64px;text-align:center" type="number" min="1" max="5" step="1"
+        value="${S.comp.w[v.id]||3}" data-wid="${v.id}" aria-label="وزن ${esc(v.name)}">
+    </label>`).join('');
+  box.querySelectorAll('[data-cid]').forEach(ch=>ch.addEventListener('change',()=>{
+    const id=+ch.dataset.cid;
+    S.comp.sel=ch.checked?[...S.comp.sel,id]:S.comp.sel.filter(i=>i!==id);
+    if(ch.checked&&!S.comp.w[id])S.comp.w[id]=3;
+    save();renderComposite();
+  }));
+  box.querySelectorAll('[data-wid]').forEach(w=>w.addEventListener('change',()=>{
+    S.comp.w[+w.dataset.wid]=clamp(Math.round(+w.value||3),1,5);save();renderComposite();
+  }));
+  if(S.comp.sel.length<1){$('#compChart').innerHTML='<div class="empty">حداقل یک متغیر را فعال کنید.</div>';$('#compNote').textContent='';return;}
+  // normalize each var 0..1 by observed min/max
+  const norm={};
+  for(const id of S.comp.sel){
+    const s=seriesOf(id);const st=stat(s);
+    let mn=Infinity,mx=-Infinity;
+    s.forEach(x=>{if(x!=null){mn=Math.min(mn,x);mx=Math.max(mx,x);}});
+    norm[id]=x=>x==null?null:(mx-mn<1e-9?0.5:(x-mn)/(mx-mn));
+  }
+  const idx=S.rows.map(r=>{
+    let s=0,w=0;
+    for(const id of S.comp.sel){
+      const nv=norm[id](r.v[id]);if(nv==null)continue;
+      s+=nv*S.comp.w[id];w+=S.comp.w[id];
+    }
+    return w? s/w : null;
+  });
+  let mn=Infinity,mx=-Infinity;
+  idx.forEach(x=>{if(x!=null){mn=Math.min(mn,x);mx=Math.max(mx,x);}});
+  if(!isFinite(mn)){$('#compChart').innerHTML='<div class="empty">داده کافی نیست.</div>';return;}
+  const pad=(mx-mn)*0.12||0.05;
+  const W=520,H=250,M={l:44,r:14,t:14,b:30};
+  const f=frame(W,H,M),ymin=mn-pad,ymax=mx+pad;
+  axes(f,M,ymax,ymin,niceTicks(ymin,ymax,4),6,S.rows.map(r=>r.d));
+  poly(f,idx,ymin,ymax,'var(--accent)');
+  // best / worst day
+  let bi=-1,wi=-1;
+  idx.forEach((x,i)=>{if(x==null)return;if(bi<0||x>idx[bi])bi=i;if(wi<0||x<idx[wi])wi=i;});
+  $('#compChart').innerHTML='';$('#compChart').appendChild(f.svg);
+  $('#compNote').innerHTML=bi>=0?` بهترین روز: <b>${jDate(S.rows[bi].d)}</b> (${fmt(idx[bi],2)}) · ضعیف‌ترین: <b>${jDate(S.rows[wi].d)}</b> (${fmt(idx[wi],2)}) · آخرین مقدار: <b>${fmt(idx[idx.length-1],2)}</b>`:'';
+}
+function renderForecast(){
+  const box=$('#fcChart'),note=$('#fcNote');
+  const id=selPair.a!=null?selPair.a:(S.vars[0]||{}).id;
+  const v=varById(id);
+  if(!v||S.rows.length<12){box.innerHTML='<div class="empty">حداقل ۱۲ روز داده لازم است.</div>';note.textContent='';return;}
+  const s=seriesOf(v.id);
+  const n=s.length;
+  const histN=Math.min(21,n);
+  const histStart=n-histN;
+  const last14=s.slice(-14).map((x,i)=>[i,x]);
+  const reg=linreg(last14.map(p=>p[0]),last14.map(p=>p[1]));
+  const last7=s.slice(-7).filter(x=>x!=null);
+  const base=last7.length?last7.reduce((a,b)=>a+b,0)/last7.length:(stat(s)||{m:0}).m;
+  const HN=7,proj=[];
+  for(let k=1;k<=HN;k++){
+    proj.push(reg?reg.inter+reg.slope*(14-1+k):base);
+  }
+  let ymin=Infinity,ymax=-Infinity;
+  s.slice(histStart).forEach(x=>{if(x!=null){ymin=Math.min(ymin,x);ymax=Math.max(ymax,x);}});
+  proj.forEach(x=>{ymin=Math.min(ymin,x);ymax=Math.max(ymax,x);});
+  const pad=(ymax-ymin)*0.12||0.5;ymin-=pad;ymax+=pad;
+  const W=520,H=260,M={l:46,r:14,t:14,b:30};
+  const f=frame(W,H,M);
+  const dates=S.rows.map(r=>r.d).concat(Array.from({length:HN},(_,k)=>shiftDate(S.rows[n-1].d,k+1)));
+  axes(f,M,ymax,ymin,niceTicks(ymin,ymax,4),7,dates);
+  // history
+  const hp=[];for(let i=histStart;i<n;i++)if(s[i]!=null)hp.push([i-histStart,s[i]]);
+  const p1=hp.map(([i,val])=>`${f.sx(i,n+HN)},${f.sy(val,ymin,ymax)}`).join(' ');
+  if(hp.length>1)f.svg.appendChild(el('polyline',{points:p1,fill:'none',stroke:v.color,'stroke-width':2.4}));
+  hp.forEach(([i,val])=>f.svg.appendChild(el('circle',{cx:f.sx(i,n+HN),cy:f.sy(val,ymin,ymax),r:3,fill:v.color,opacity:.8})));
+  // projection
+  const pp=[];const lastVal=s[n-1]!=null?s[n-1]:base;
+  pp.push([histN-1,lastVal]);
+  proj.forEach((x,k)=>pp.push([histN+k,x]));
+  const p2=pp.map(([i,val])=>`${f.sx(i,n+HN)},${f.sy(val,ymin,ymax)}`).join(' ');
+  f.svg.appendChild(el('polyline',{points:p2,fill:'none',stroke:v.color,'stroke-width':2.2,'stroke-dasharray':'7 5',opacity:.85}));
+  const t=el('text',{x:M.l+8,y:M.t+16,class:'axis-label'});
+  t.textContent='◄ گذشته (۲۱ روز)      آیندهٔ تخمینی (۷ روز) ►';f.svg.appendChild(t);
+  box.innerHTML='';box.appendChild(f.svg);
+  const dir=reg?reg.slope:0;
+  note.innerHTML=`روند ۱۴ روز اخیرِ <b>${esc(v.name)}</b> ${dir>0.05?'صعودی ↗':dir<-0.05?'نزولی ↘':'تقریباً هم‌سطح →'} است
+   (شیب ≈ ${fmt(dir,2)} در روز) و ادامهٔ خطی آن به‌صورت خط‌چین رسم شده. این یک <b>تخمین ساده</b> است، نه پیش‌بینی آماری دقیق.`;
+}
+
+/* ================= sample data ================= */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function genSample(){
+  const rnd=mulberry32(20260401);
+  const g=()=>{let u=0,v=0;while(!u)u=rnd();while(!v)v=rnd();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);};
+  const vars=[
+    {name:'خواب',unit:'ساعت',color:'#6366f1'},
+    {name:'مطالعه',unit:'دقیقه',color:'#059669'},
+    {name:'ورزش',unit:'دقیقه',color:'#d97706'},
+    {name:'استرس',unit:'۱ تا ۱۰',color:'#dc2626'},
+    {name:'تمرکز',unit:'۱ تا ۱۰',color:'#2563eb'},
+    {name:'انگیزه',unit:'۱ تا ۱۰',color:'#7c3aed'}
+  ].map((v,i)=>({...v,id:i}));
+  const N=60,rows=[];
+  const study=[],exer=[],stress=[],sleep=[],focus=[],motiv=[];
+  for(let t=0;t<N;t++){
+    study.push(Math.round(clamp(120+60*g()+30*Math.sin(t/9),0,420)));
+    exer.push(rnd()<0.35?Math.round(30+45*rnd()):0);
+    let st=5+0.55*g()-(study[t-1]>240?(study[t-1]-240)/60*1.1:0)-(exer[t-1]||0)/60*0.6+(stress[t-1]||5)*0.12-0.6;
+    stress.push(Math.round(clamp(st,1,10)));
+    let sl=7.1+0.5*g()-0.28*((stress[t-1]||5)-5)+(exer[t-1]||0)/45*0.3;
+    sleep.push(+clamp(sl,3,10).toFixed(1));
+    let fc=6+0.85*(sleep[t]-7)-0.5*((stress[t])-5)+0.55*g();
+    focus.push(Math.round(clamp(fc,1,10)));
+    let mt=6+0.5*(focus[t]-5)-0.3*((stress[t])-5)+0.5*g();
+    motiv.push(Math.round(clamp(mt,1,10)));
+  }
+  for(let t=0;t<N;t++){
+    const v={};
+    const miss=k=>rnd()<0.05;
+    if(!miss())v['خواب']=sleep[t];
+    if(!miss())v['مطالعه']=study[t];
+    if(!miss())v['ورزش']=exer[t];
+    if(!miss())v['استرس']=stress[t];
+    if(!miss())v['تمرکز']=focus[t];
+    if(!miss())v['انگیزه']=motiv[t];
+    rows.push({d:shiftDate(todayStr(),t-(N-1)),v:Object.fromEntries(vars.map(x=>[x.id,v[x.name]??null]))});
+  }
+  S={vars,rows,nextId:vars.length,comp:{sel:[0,3,4],w:{0:3,3:1,4:3}}};
+  hiddenTS.clear();
+  fixSelections();save();
+}
+
+/* ================= export / share ================= */
+function download(name,text,type){
+  const b=new Blob([text],{type});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(b);a.download=name;
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},400);
+}
+function exportJSON(){download('relations-data.json',JSON.stringify(S,null,2),'application/json');toast('فایل JSON دانلود شد');}
+function exportCSV(){
+  if(!S.vars.length){toast('داده‌ای برای برون‌بری نیست');return;}
+  const head=['تاریخ',...S.vars.map(v=>v.name+(v.unit?' ('+v.unit+')':''))];
+  const lines=[head.join(',')];
+  for(const r of S.rows){
+    lines.push([r.d,...S.vars.map(v=>r.v[v.id]??'')].join(','));
+  }
+  download('relations-data.csv','\ufeff'+lines.join('\n'),'text/csv;charset=utf-8');
+  toast('فایل CSV دانلود شد');
+}
+function shareLink(){
+  if(!S.vars.length){toast('ابتدا داده ثبت کنید');return;}
+  const url=location.origin&&location.origin!=='null'
+    ?location.origin+location.pathname+'#d='+enc(toCompact())
+    :location.href.split('#')[0]+'#d='+enc(toCompact());
+  copyText(url);
+  history.replaceState(null,'','#d='+enc(toCompact()));
+  toast('🔗 لینک اشتراک کپی شد — دادهٔ کامل داخل خود لینک است');
+}
+
+/* ================= tabs & init ================= */
+let active='data';
+function switchTab(name){
+  active=name;
+  $$('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));
+  $$('.tab-panel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+name));
+  renderTab(name);
+}
+function renderTab(name){
+  if(name==='data'){renderVars();renderTable();}
+  else if(name==='ts')renderTS();
+  else if(name==='corr'){renderHM();renderScatter();renderPartial();renderClusters();}
+  else if(name==='lag')renderLag();
+  else if(name==='loop'){renderThr();renderLoop();}
+  else if(name==='ins')renderIns();
+}
+function renderAll(){fixSelections();refreshSelects();$('#welcomeBox').style.display=S.vars.length?'none':'block';renderTab(active);}
+function applyTheme(){
+  let t=null;
+  try{t=localStorage.getItem('rw_theme');}catch(e){}
+  if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+  document.documentElement.dataset.theme=t;
+}
+function bind(){
+  $$('.tab-btn').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
+  $('#btnTheme').addEventListener('click',()=>{
+    const t=document.documentElement.dataset.theme==='dark'?'light':'dark';
+    document.documentElement.dataset.theme=t;
+    try{localStorage.setItem('rw_theme',t);}catch(e){}
+    renderTab(active);
+  });
+  $('#btnShare').addEventListener('click',shareLink);
+  $('#btnShareTop').addEventListener('click',shareLink);
+  $('#btnExpJson').addEventListener('click',exportJSON);
+  $('#btnExpCsv').addEventListener('click',exportCSV);
+  $('#btnImpBtn').addEventListener('click',()=>$('#fileImp').click());
+  $('#fileImp').addEventListener('change',e=>{
+    const f=e.target.files[0];if(!f)return;
+    const rd=new FileReader();
+    rd.onload=()=>{
+      let ok=false;
+      try{ok=importState(JSON.parse(rd.result));}catch(err){}
+      toast(ok?'✅ داده درون‌ریزی شد':'⚠️ فایل معتبر نیست');
+      if(ok){hiddenTS.clear();renderAll();switchTab('data');}
+      e.target.value='';
+    };
+    rd.readAsText(f);
+  });
+  $('#btnClear').addEventListener('click',()=>{
+    if(!confirm('همهٔ متغیرها و روزها پاک شوند؟ این کار بازگشت‌پذیر نیست — اول برون‌بری JSON بگیرید.'))return;
+    S=emptyState();hiddenTS.clear();fixSelections();save();renderAll();toast('داده‌ها پاک شد');
+  });
+  const doSample=()=>{genSample();renderAll();switchTab('data');toast('🧪 دادهٔ نمونهٔ ۶۰ روزه بارگذاری شد — حالا تب «یافته‌ها» را ببینید');};
+  $('#btnSample1').addEventListener('click',doSample);
+  $('#btnSample2').addEventListener('click',()=>{if(S.vars.length&&!confirm('دادهٔ فعلی با دادهٔ نمونه جایگزین شود؟'))return;doSample();});
+  $('#btnFirstVar').addEventListener('click',()=>{addVar();});
+  $('#btnAddVar').addEventListener('click',addVar);
+  function addVar(){
+    const id=S.nextId++;
+    S.vars.push({id,name:'متغیر جدید '+fa(S.vars.length+1),unit:'',color:PALETTE[(S.vars.length)%PALETTE.length]});
+    fixSelections();save();renderAll();
+    const inputs=$$('#varList .name');if(inputs.length)inputs[inputs.length-1].focus();
+  }
+  $('#btnAddDay').addEventListener('click',()=>{
+    const d=$('#dayDate').value||todayStr();
+    if(S.rows.some(r=>r.d===d)){toast('این تاریخ از قبل موجود است');return;}
+    S.rows.push({d,v:{}});
+    S.rows.sort((a,b)=>a.d<b.d?-1:1);
+    save();renderTable();renderVars();
+    toast('روز '+jDate(d)+' اضافه شد');
+  });
+  $('#btnToggleAll').addEventListener('click',()=>{showAllRows=!showAllRows;renderTable();});
+  $('#dayDate').value=todayStr();
+  $('#hmSort').addEventListener('change',e=>{hmSortMode=e.target.value;renderHM();});
+  $('#selA').addEventListener('change',e=>{selPair.a=+e.target.value;refreshSelects();renderScatter();renderPartial();renderHM();});
+  $('#selB').addEventListener('change',e=>{selPair.b=+e.target.value;refreshSelects();renderScatter();renderPartial();renderHM();});
+  $('#btnSwap').addEventListener('click',()=>{[selPair.a,selPair.b]=[selPair.b,selPair.a];refreshSelects();renderScatter();renderPartial();renderHM();});
+  $('#selZ').addEventListener('change',e=>{selZ=+e.target.value;renderPartial();});
+  $('#lagA').addEventListener('change',e=>{selPair.a=+e.target.value;refreshSelects();renderLag();});
+  $('#lagB').addEventListener('change',e=>{selPair.b=+e.target.value;refreshSelects();renderLag();});
+  $('#lagWin').addEventListener('change',renderLag);
+  $('#thrX').addEventListener('change',e=>{selThr.x=+e.target.value;refreshSelects();renderThr();});
+  $('#thrY').addEventListener('change',e=>{selThr.y=+e.target.value;refreshSelects();renderThr();});
+  $('#edgeThr').addEventListener('input',renderLoop);
+  $('#tsSmooth').addEventListener('change',renderTS);
+  $('#tsAnom').addEventListener('change',renderTS);
+  $('#fcVar').addEventListener('change',e=>{selPair.a=+e.target.value;refreshSelects();renderForecast();});
+}
+applyTheme();
+load();
+bind();
+renderAll();
+</script>
+</body>
+</html>
