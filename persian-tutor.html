@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>کتابخانهٔ ابزار دستور و ادب فارسی | مستر پلنر</title>
+  <meta name="description" content="میزکار تعاملی صرف، نحو، واژگانی-معنایی، عروض، بلاغت و نگارش فارسی — با معماری کتابخانه‌ای و تولید تمرین." />
+  <meta name="theme-color" content="#07080C" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    /* ===== توکن‌ها — همان تم اُبسیدین و طلایی ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07080C;
+      --surface: rgba(19, 23, 32, 0.72);
+      --surface-solid: #12151D;
+      --surface-2: #181D27;
+      --primary: #D4AF37;
+      --gold-light: #F3E5AB;
+      --gold-deep: #AA771C;
+      --text: #F5F7FA;
+      --text-soft: #CBD3DE;
+      --muted: #9AA4B2;
+      --line: rgba(212, 175, 55, 0.22);
+      --line-soft: rgba(255, 255, 255, 0.08);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --pill: 999px;
+      --shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
+      --t: 0.3s cubic-bezier(.4, 0, .2, 1);
+
+      /* اکسنت‌های اختصاصی فارسی */
+      --c-sarf: #34D399;      /* صرف */
+      --c-nahw: #60A5FA;      /* نحو */
+      --c-lex: #FB923C;       /* واژگانی */
+      --c-aruz: #A78BFA;      /* عروض */
+      --c-balagh: #F472B6;    /* بلاغت */
+      --c-write: #2DD4BF;     /* نگارش */
+      --c-error: #F87171;
+      --c-ok: #34D399;
+
+      --font-fa: 'Vazirmatn', Tahoma, sans-serif;
+      --font-en: 'Outfit', sans-serif;
+      --font-code: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-fa);
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(1100px 520px at 50% -160px, rgba(212, 175, 55, 0.10), transparent 65%),
+        radial-gradient(900px 620px at 100% 8%, #12161f 0%, transparent 60%);
+      color: var(--text);
+      line-height: 1.9;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: rgba(212, 175, 55, 0.35); color: #fff; }
+    :focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 1.25rem; width: 100%; }
+
+    /* ===== هدر ===== */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7, 8, 12, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.16);
+    }
+    .header-inner { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-fa { font-weight: 800; font-size: 1.15rem; color: var(--primary); display: block; line-height: 1.35; }
+    .logo-en { font-family: var(--font-en); font-size: 0.64rem; color: var(--muted); letter-spacing: 0.22em; text-transform: uppercase; display: block; }
+    .back-link {
+      margin-inline-start: auto;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 1.1rem; border-radius: var(--pill);
+      font-size: 0.86rem; font-weight: 700; color: var(--gold-light);
+      text-decoration: none; border: 1px solid var(--line);
+      background: rgba(212, 175, 55, 0.08);
+      transition: var(--t);
+    }
+    .back-link:hover { background: rgba(212, 175, 55, 0.16); transform: translateY(-1px); }
+
+    /* ===== هیرو ===== */
+    .hero {
+      position: relative; text-align: center;
+      padding: 2.8rem 1.5rem 2.2rem; margin: 1.5rem 0 1.6rem;
+      background: linear-gradient(180deg, rgba(24, 28, 38, 0.6), rgba(12, 14, 20, 0.88));
+      border: 1px solid var(--line); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden;
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(560px 260px at 50% -60px, rgba(212, 175, 55, 0.16), transparent 70%);
+    }
+    .hero > * { position: relative; z-index: 2; }
+    .hero h1 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 800; line-height: 1.4; margin-bottom: 0.4rem; }
+    .hero p { color: var(--muted); font-size: 0.98rem; max-width: 60ch; margin: 0 auto; }
+    .hero .philosophy {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-top: 1rem; padding: 0.4rem 1rem;
+      background: rgba(212, 175, 55, 0.08); border: 1px solid var(--line);
+      border-radius: var(--pill); font-size: 0.8rem; color: var(--gold-light);
+    }
+
+    /* ===== تب‌بار ===== */
+    .tabs {
+      display: grid; grid-template-columns: repeat(6, 1fr);
+      gap: 0.5rem; margin-bottom: 1.6rem;
+      background: var(--surface-2); border: 1px solid var(--line-soft);
+      border-radius: var(--radius); padding: 0.5rem;
+    }
+    .tab {
+      display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+      padding: 0.7rem 0.4rem; border-radius: var(--radius-sm);
+      background: transparent; border: 1px solid transparent;
+      color: var(--muted); font-family: inherit; font-size: 0.8rem; font-weight: 700;
+      cursor: pointer; transition: var(--t);
+    }
+    .tab i { font-size: 1rem; }
+    .tab:hover { color: var(--gold-light); background: rgba(212, 175, 55, 0.06); }
+    .tab.active {
+      color: #0B0B0B; background: linear-gradient(135deg, var(--gold-light), var(--primary));
+      border-color: var(--primary); box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
+    }
+    .tab.active i { color: #0B0B0B; }
+
+    /* ===== پنل‌ها ===== */
+    .panel { display: none; animation: fadeIn 0.4s ease; }
+    .panel.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    .panel-head { margin-bottom: 1.2rem; }
+    .panel-head h2 {
+      font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem;
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .panel-head h2 i {
+      width: 40px; height: 40px; border-radius: 12px;
+      display: inline-grid; place-items: center; font-size: 1.1rem;
+      background: rgba(212, 175, 55, 0.12); color: var(--primary);
+    }
+    .panel-head p { color: var(--muted); font-size: 0.9rem; }
+
+    .workbench {
+      background: linear-gradient(160deg, rgba(26, 31, 44, 0.85), rgba(13, 16, 23, 0.94));
+      border: 1px solid var(--line-soft); border-radius: var(--radius);
+      padding: 1.6rem; box-shadow: var(--shadow);
+    }
+
+    /* ===== فرم ===== */
+    .field-group { margin-bottom: 1rem; }
+    .field-group label {
+      display: block; font-size: 0.85rem; font-weight: 700;
+      color: var(--gold-light); margin-bottom: 0.4rem;
+    }
+    .field-group .hint { font-size: 0.75rem; color: var(--muted); font-weight: 400; margin-top: 0.25rem; }
+    .field {
+      width: 100%; padding: 0.85rem 1rem;
+      background: rgba(11, 13, 19, 0.7); border: 1px solid var(--line-soft);
+      border-radius: var(--radius-sm); color: var(--text);
+      font-family: inherit; font-size: 0.95rem;
+      transition: var(--t); resize: vertical;
+    }
+    .field:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15); }
+    textarea.field { min-height: 100px; line-height: 1.8; }
+    select.field { cursor: pointer; }
+
+    .actions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.6rem; }
+    .btn-primary, .btn-secondary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.7rem 1.4rem; border-radius: var(--radius-sm);
+      font-family: inherit; font-size: 0.92rem; font-weight: 700;
+      cursor: pointer; transition: var(--t); border: 1px solid transparent;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--gold-deep));
+      color: #0B0B0B; box-shadow: 0 4px 14px rgba(212, 175, 55, 0.25);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 7px 18px rgba(212, 175, 55, 0.4); }
+    .btn-secondary {
+      background: transparent; color: var(--primary);
+      border-color: rgba(212, 175, 55, 0.4);
+    }
+    .btn-secondary:hover { background: rgba(212, 175, 55, 0.08); }
+
+    /* ===== خروجی ===== */
+    .output {
+      margin-top: 1.4rem; padding: 1.3rem;
+      background: rgba(11, 13, 19, 0.5);
+      border: 1px solid var(--line-soft); border-radius: var(--radius-sm);
+      font-size: 0.92rem; line-height: 1.95;
+    }
+    .output:empty { display: none; }
+    .output h3 {
+      font-size: 1rem; color: var(--primary); font-weight: 800;
+      margin: 0 0 0.7rem; padding-bottom: 0.5rem;
+      border-bottom: 1px dashed var(--line-soft);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .output h4 {
+      font-size: 0.9rem; color: var(--gold-light); font-weight: 700;
+      margin: 1rem 0 0.5rem;
+    }
+    .output ul { padding-right: 1.4rem; margin: 0.4rem 0; }
+    .output li { margin: 0.2rem 0; color: var(--text-soft); }
+    .output p { margin: 0.5rem 0; color: var(--text-soft); }
+    .output strong { color: var(--text); }
+
+    /* جدول */
+    .out-table {
+      width: 100%; border-collapse: collapse; margin: 0.6rem 0;
+      font-size: 0.86rem;
+    }
+    .out-table th, .out-table td {
+      padding: 0.55rem 0.7rem; text-align: right;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .out-table th { color: var(--primary); font-weight: 700; background: rgba(212, 175, 55, 0.05); }
+    .out-table tr:hover td { background: rgba(212, 175, 55, 0.03); }
+
+    /* کارت نتیجه */
+    .result-card {
+      background: rgba(212, 175, 55, 0.05);
+      border: 1px solid var(--line-soft); border-right: 3px solid var(--primary);
+      border-radius: var(--radius-sm); padding: 0.9rem 1.1rem;
+      margin: 0.7rem 0; font-size: 0.9rem;
+    }
+    .result-card strong { color: var(--gold-light); }
+    .result-card.error { border-right-color: var(--c-error); background: rgba(248, 113, 113, 0.06); }
+    .result-card.ok { border-right-color: var(--c-ok); background: rgba(52, 211, 153, 0.06); }
+
+    /* درخت اشتقاق */
+    .derivation {
+      background: rgba(15, 17, 24, 0.85); border: 1px solid var(--line-soft);
+      border-radius: var(--radius-sm); padding: 1rem 1.1rem; margin: 0.8rem 0;
+      font-family: var(--font-code); font-size: 0.82rem; direction: ltr; text-align: left;
+      color: #c9d6e4; overflow-x: auto; line-height: 1.6;
+    }
+    .derivation .rule { color: var(--primary); font-weight: 700; }
+    .derivation .node { color: var(--gold-light); }
+    .derivation .val { color: var(--c-ok); }
+
+    /* بج/چیپ */
+    .badges { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.25rem 0.7rem; border-radius: var(--pill);
+      font-size: 0.75rem; font-weight: 700;
+      background: rgba(212, 175, 55, 0.12); color: var(--gold-light);
+      border: 1px solid var(--line);
+    }
+    .badge.ok { background: rgba(52, 211, 153, 0.12); color: var(--c-ok); border-color: rgba(52, 211, 153, 0.3); }
+    .badge.err { background: rgba(248, 113, 113, 0.12); color: var(--c-error); border-color: rgba(248, 113, 113, 0.3); }
+
+    /* گزینه‌های تمرین */
+    .options { display: grid; gap: 0.5rem; margin: 0.8rem 0; }
+    .option {
+      padding: 0.8rem 1rem; background: rgba(11, 13, 19, 0.6);
+      border: 1px solid var(--line-soft); border-radius: var(--radius-sm);
+      cursor: pointer; transition: var(--t); font-family: inherit;
+      color: var(--text-soft); text-align: right; font-size: 0.92rem;
+    }
+    .option:hover { border-color: var(--primary); background: rgba(212, 175, 55, 0.06); }
+    .option.correct { border-color: var(--c-ok); background: rgba(52, 211, 153, 0.12); color: var(--text); }
+    .option.wrong { border-color: var(--c-error); background: rgba(248, 113, 113, 0.12); color: var(--text); }
+    .option[disabled] { cursor: default; }
+
+    /* حالت خالی */
+    .empty {
+      text-align: center; padding: 2rem 1rem; color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .empty i { display: block; font-size: 2rem; color: rgba(212, 175, 55, 0.3); margin-bottom: 0.6rem; }
+
+    /* فوتر */
+    .footer {
+      background: #050608; border-top: 1px solid rgba(212, 175, 55, 0.16);
+      margin-top: 3rem; padding: 2rem 0 1.2rem;
+      font-size: 0.82rem; color: var(--muted); text-align: center;
+    }
+    .footer strong { color: var(--primary); }
+
+    /* ریسپانسیو */
+    @media (max-width: 900px) {
+      .tabs { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 2rem 1rem 1.6rem; }
+      .workbench { padding: 1.1rem; }
+      .tab { font-size: 0.74rem; }
+      .tab i { font-size: 0.9rem; }
+      .actions .btn-primary, .actions .btn-secondary { width: 100%; }
+    }
+    @media (max-width: 480px) {
+      .tabs { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+/* ===== تب‌بار ۹تایی — ریسپانسیو ===== */
+.tabs {
+  display: flex; flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.tabs .tab {
+  flex: 1 1 110px;
+  min-width: 90px;
+}
+
+/* ===== عروض — جدول تطبیق ===== */
+.meter-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 0.85rem; margin: 0.6rem 0;
+}
+.meter-table th, .meter-table td {
+  padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--line-soft);
+  text-align: right;
+}
+.meter-table th { color: var(--primary); font-weight: 700; background: rgba(212,175,55,0.05); }
+.meter-table tr.match td { background: rgba(52,211,153,0.1); }
+.meter-table .rhythm { font-family: var(--font-code); direction: ltr; text-align: left; color: var(--c-ok); }
+
+/* ===== خط هجاها ===== */
+.syllable-line {
+  display: flex; flex-wrap: wrap; gap: 0.3rem;
+  margin: 0.6rem 0; direction: rtl;
+}
+.syllable-line .syl {
+  padding: 0.3rem 0.7rem; border-radius: 8px;
+  font-family: var(--font-fa); font-size: 0.9rem;
+  border: 1px solid var(--line-soft);
+}
+.syl.short { background: rgba(96,165,250,0.15); color: #60A5FA; }
+.syl.long  { background: rgba(168,139,250,0.15); color: #A78BFA; }
+
+/* ===== بیت — کارت ===== */
+.bayt-card {
+  background: rgba(11,13,19,0.6); border: 1px solid var(--line-soft);
+  border-radius: var(--radius-sm); padding: 1rem 1.2rem;
+  margin: 0.6rem 0; text-align: center;
+  font-family: var(--font-fa); font-size: 1.02rem;
+  line-height: 2.2; color: var(--gold-light);
+}
+.bayt-card .mesra { display: block; }
+.bayt-card .mesra + .mesra { border-top: 1px dashed var(--line-soft); padding-top: 0.4rem; margin-top: 0.4rem; }
+
+/* ===== بلاغت — نسخه‌ها ===== */
+.rhetoric-version {
+  padding: 0.9rem 1.1rem; margin: 0.5rem 0;
+  background: rgba(212,175,55,0.05); border: 1px solid var(--line-soft);
+  border-right: 3px solid var(--primary); border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+}
+.rhetoric-version .label {
+  display: block; font-size: 0.75rem; font-weight: 700;
+  color: var(--gold-light); margin-bottom: 0.3rem;
+}
+.rhetoric-version .text { color: var(--text); line-height: 1.85; }
+
+@media (max-width: 640px) {
+  .tabs .tab { flex: 1 1 45%; }
+}
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <span>
+        <span class="logo-fa">مستر پلنر</span>
+        <span class="logo-en">Mesterplanner</span>
+      </span>
+    </a>
+    <a href="index.html" class="back-link">
+      <i class="fa-solid fa-arrow-right"></i> بازگشت به خانه
+    </a>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- هیرو -->
+  <section class="hero">
+    <h1>کتابخانهٔ ابزار دستور و ادب فارسی</h1>
+    <p>میزکار تعاملی صرف، نحو، واژگانی-معنایی، عروض، بلاغت و نگارش — با معماری کتابخانه‌ای که ابزارهای کوچک را به هم می‌پیوندد.</p>
+    <span class="philosophy">
+      <i class="fa-solid fa-cube"></i>
+      کتابخانه، نه مخزن — ابزارهای ترکیب‌پذیر، نه محتوای آماده
+    </span>
+  </section>
+
+  <!-- تب‌ها -->
+<nav class="tabs" id="tabs" role="tablist">
+  <button class="tab active" data-panel="word" role="tab"><i class="fa-solid fa-magnifying-glass"></i> واژه‌کاو</button>
+  <button class="tab" data-panel="check" role="tab"><i class="fa-solid fa-clipboard-check"></i> بررسی جمله</button>
+  <button class="tab" data-panel="rewrite" role="tab"><i class="fa-solid fa-pen-fancy"></i> بازنویسی</button>
+  <button class="tab" data-panel="exercise" role="tab"><i class="fa-solid fa-dumbbell"></i> تمرین‌ساز</button>
+  <button class="tab" data-panel="style" role="tab"><i class="fa-solid fa-palette"></i> تشخیص سبک</button>
+  <button class="tab" data-panel="figure" role="tab"><i class="fa-solid fa-wand-magic-sparkles"></i> آرایه‌یاب</button>
+  <button class="tab" data-panel="aruz" role="tab"><i class="fa-solid fa-music"></i> عروض</button>
+  <button class="tab" data-panel="rhyme" role="tab"><i class="fa-solid fa-link"></i> قافیه و ردیف</button>
+  <button class="tab" data-panel="rhetoric" role="tab"><i class="fa-solid fa-feather"></i> بلاغت‌ساز</button>
+</nav>
+  <!-- پنل ۱: واژه‌کاو -->
+  <section class="panel active" id="panel-word" role="tabpanel">
+    <div class="panel-head">
+      <h2><i class="fa-solid fa-magnifying-glass"></i> واژه‌کاو</h2>
+      <p>یک واژه بنویس تا صرف، جمع، مترادف، متضاد و اطلاعات واژگانی‌اش را ببینی.</p>
+    </div>
+    <div class="workbench">
+      <div class="field-group">
+        <label for="wordInput">واژه</label>
+        <input id="wordInput" class="field" type="text" placeholder="مثلاً: کتاب، رفتن، دانش‌آموز، شاد" />
+        <div class="hint">اگر فعل باشد، جدول صرف کامل نمایش داده می‌شود.</div>
+      </div>
+      <div class="actions">
+        <button class="btn-primary" id="btn-word">
+          <i class="fa-solid fa-magnifying-glass"></i> بررسی واژه
+        </button>
+      </div>
+      <div class="output" id="out-word"></div>
+    </div>
+  </section>
+
+  <!-- پنل ۲: بررسی جمله -->
+  <section class="panel" id="panel-check" role="tabpanel">
+    <div class="panel-head">
+      <h2><i class="fa-solid fa-clipboard-check"></i> بررسی جمله</h2>
+      <p>جمله‌ات را بنویس تا خطاهای دستوری، حشو، جمع عربی نادرست و مشکلات نگارشی را با محل دقیق ببینی.</p>
+    </div>
+    <div class="workbench">
+      <div class="field-group">
+        <label for="sentenceInput">جمله</label>
+        <textarea id="sentenceInput" class="field" placeholder="مثلاً: دانش‌آموزان دیروز به مدرسه آمد."></textarea>
+      </div>
+      <div class="actions">
+        <button class="btn-primary" id="btn-check">
+          <i class="fa-solid fa-stethoscope"></i> بررسی
+        </button>
+      </div>
+      <div class="output" id="out-check"></div>
+    </div>
+  </section>
+
+  <!-- پنل ۳: بازنویسی -->
+  <section class="panel" id="panel-rewrite" role="tabpanel">
+    <div class="panel-head">
+      <h2><i class="fa-solid fa-pen-fancy"></i> بازنویسی</h2>
+      <p>متن را از محاوره به رسمی، یا از رسمی به محاوره بازنویسی کن. نیم‌فاصله و همزه هم اصلاح می‌شود.</p>
+    </div>
+    <div class="workbench">
+      <div class="field-group">
+        <label for="rewriteInput">متن</label>
+        <textarea id="rewriteInput" class="field" placeholder="مثلاً: میخوام برم خونه که یه کم درس بخونم"></textarea>
+      </div>
+      <div class="field-group">
+        <label for="rewriteTarget">سبک هدف</label>
+        <select id="rewriteTarget" class="field">
+          <option value="formal">رسمی</option>
+          <option value="colloquial">محاوره</option>
+        </select>
+      </div>
+      <div class="actions">
+        <button class="btn-primary" id="btn-rewrite">
+          <i class="fa-solid fa-rotate"></i> بازنویسی
+        </button>
+      </div>
+      <div class="output" id="out-rewrite"></div>
+    </div>
+  </section>
+
+  <!-- پنل ۴: تمرین‌ساز -->
+  <section class="panel" id="panel-exercise" role="tabpanel">
+    <div class="panel-head">
+      <h2><i class="fa-solid fa-dumbbell"></i> تمرین‌ساز</h2>
+      <p>با هر بار کلیک، یک تمرین تازه از صرف، نحو، واژگانی و نگارشی تولید می‌شود. گزینه‌های نادرست از خطاهای واقعی مشتق می‌شوند.</p>
+    </div>
+    <div class="workbench">
+      <div class="field-group">
+        <label for="exerciseType">نوع تمرین</label>
+        <select id="exerciseType" class="field">
+          <option value="sarf">صرف فعل (تطبیق نهاد و فعل)</option>
+          <option value="plural">جمع‌بستن اسم</option>
+          <option value="synonym">انتخاب مترادف</option>
+          <option value="antonym">انتخاب متضاد</option>
+          <option value="normalize">نرمال‌سازی نگارش</option>
+        </select>
+      </div>
+      <div class="actions">
+        <button class="btn-primary" id="btn-exercise">
+          <i class="fa-solid fa-shuffle"></i> تمرین تازه
+        </button>
+      </div>
+      <div class="output" id="out-exercise"></div>
+    </div>
+  </section>
+
+  <!-- پنل ۵: تشخیص سبک -->
+  <section class="panel" id="panel-style" role="tabpanel">
+    <div class="panel-head">
+      <h2><i class="fa-solid fa-palette"></i> تشخیص سبک</h2>
+      <p>با تحلیل نشانه‌های زبانی، پروفایل سبکی متن را می‌بین.</p>
+    </div>
+    <div class="workbench">
+      <div class="field-group">
+        <label for="styleInput">متن (یک بیت یا چند جمله)</label>
+        <textarea id="styleInput" class="field" placeholder="مثلاً: بیا که قصر امل سخت سست بنیاد است / بیار باده که بنیاد عمر بر باد است"></textarea>
+      </div>
+      <div class="actions">
+        <button class="btn-primary" id="btn-style">
+          <i class="fa-solid fa-chart-simple"></i> تحلیل سبک
+        </button>
+      </div>
+      <div class="output" id="out-style"></div>
+    </div>
+  </section>
+
+  <!-- پنل ۶: آرایه‌یاب -->
+  <section class="panel" id="panel-figure" role="tabpanel">
+    <div class="panel-head">
+      <h2><i class="fa-solid fa-wand-magic-sparkles"></i> آرایه‌یاب</h2>
+      <p>تشبیه، استعاره، کنایه، تضاد، جناس و مراعات نظیر را با نشانه‌های متنی پیدا کن.</p>
+    </div>
+    <div class="workbench">
+      <div class="field-group">
+        <label for="figureInput">متن ادبی</label>
+        <textarea id="figureInput" class="field" placeholder="مثلاً: قد بلندش مثل سرو بود، و چشمانش چون دریا می‌درخشید."></textarea>
+      </div>
+      <div class="actions">
+        <button class="btn-primary" id="btn-figure">
+          <i class="fa-solid fa-magnifying-glass-chart"></i> یافتن آرایه‌ها
+        </button>
+      </div>
+      <div class="output" id="out-figure"></div>
+    </div>
+  </section>
+<!-- پنل ۷: عروض -->
+<section class="panel" id="panel-aruz" role="tabpanel">
+  <div class="panel-head">
+    <h2><i class="fa-solid fa-music"></i> عروض</h2>
+    <p>هجاشماری تقریبی، حدس بحر، و جدول تطبیق با ۶ بحر پرکاربرد فارسی.</p>
+  </div>
+  <div class="workbench">
+    <div class="field-group">
+      <label for="aruzInput">مصراع یا بیت</label>
+      <textarea id="aruzInput" class="field" placeholder="مثلاً: بیا که قصر امل سخت سست بنیاد است"></textarea>
+      <div class="hint">برای دقت بیشتر، هر مصراع را جدا وارد کن.</div>
+    </div>
+    <div class="actions">
+      <button class="btn-primary" id="btn-aruz">
+        <i class="fa-solid fa-wave-square"></i> تحلیل عروضی
+      </button>
+    </div>
+    <div class="output" id="out-aruz"></div>
+  </div>
+</section>
+
+<!-- پنل ۸: قافیه و ردیف -->
+<section class="panel" id="panel-rhyme" role="tabpanel">
+  <div class="panel-head">
+    <h2><i class="fa-solid fa-link"></i> قافیه و ردیف</h2>
+    <p>قافیه و ردیف دو یا چند مصراع را بیاب و نوع قافیه را بشناس.</p>
+  </div>
+  <div class="workbench">
+    <div class="field-group">
+      <label for="rhymeInput">ابیات (هر مصراع در یک خط)</label>
+      <textarea id="rhymeInput" class="field" style="min-height:140px;" placeholder="بیا که قصر امل سخت سست بنیاد است&#10;بیار باده که بنیاد عمر بر باد است"></textarea>
+    </div>
+    <div class="actions">
+      <button class="btn-primary" id="btn-rhyme">
+        <i class="fa-solid fa-magnifying-glass"></i> یافتن قافیه و ردیف
+      </button>
+    </div>
+    <div class="output" id="out-rhyme"></div>
+  </div>
+</section>
+
+<!-- پنل ۹: بلاغت‌ساز -->
+<section class="panel" id="panel-rhetoric" role="tabpanel">
+  <div class="panel-head">
+    <h2><i class="fa-solid fa-feather"></i> بلاغت‌ساز</h2>
+    <p>تشبیه، استعاره، تضاد و ایهام بساز — یا متن ساده را به سبک ادبی ارتقا بده.</p>
+  </div>
+  <div class="workbench">
+    <div class="field-group">
+      <label for="rhetoricType">نوع</label>
+      <select id="rhetoricType" class="field">
+        <option value="simile">تشبیه</option>
+        <option value="metaphor">استعاره (از تشبیه)</option>
+        <option value="tazad">تضاد</option>
+        <option value="styleShift">ارتقای سبک</option>
+      </select>
+    </div>
+
+    <div id="simileFields">
+      <div class="field-group">
+        <label for="simTenor">مشبه (چیزی که توصیف می‌شود)</label>
+        <input id="simTenor" class="field" type="text" placeholder="مثلاً: چهره‌اش" />
+      </div>
+      <div class="field-group">
+        <label for="simVehicle">مشبه‌به</label>
+        <input id="simVehicle" class="field" type="text" placeholder="مثلاً: ماه" />
+      </div>
+      <div class="field-group">
+        <label for="simGround">وجه شبه (اختیاری)</label>
+        <input id="simGround" class="field" type="text" placeholder="مثلاً: زیبایی" />
+      </div>
+    </div>
+
+    <div id="metaphorFields" style="display:none;">
+      <div class="field-group">
+        <label for="metTenor">مشبه</label>
+        <input id="metTenor" class="field" type="text" placeholder="مثلاً: دل من" />
+      </div>
+      <div class="field-group">
+        <label for="metVehicle">مشبه‌به</label>
+        <input id="metVehicle" class="field" type="text" placeholder="مثلاً: دریا" />
+      </div>
+    </div>
+
+    <div id="tazadFields" style="display:none;">
+      <div class="field-group">
+        <label for="tazWord">واژه</label>
+        <input id="tazWord" class="field" type="text" placeholder="مثلاً: عشق" />
+      </div>
+    </div>
+
+    <div id="shiftFields" style="display:none;">
+      <div class="field-group">
+        <label for="shiftText">متن ساده</label>
+        <textarea id="shiftText" class="field" placeholder="مثلاً: خانه‌اش زیبا بود و باغی بزرگ داشت."></textarea>
+      </div>
+      <div class="field-group">
+        <label for="shiftTarget">سبک هدف</label>
+        <select id="shiftTarget" class="field">
+          <option value="khorasani">خراسانی</option>
+          <option value="eraghi">عراقی</option>
+          <option value="hindi">هندی</option>
+          <option value="modern">معاصر</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-primary" id="btn-rhetoric">
+        <i class="fa-solid fa-wand-sparkles"></i> بساز
+      </button>
+    </div>
+    <div class="output" id="out-rhetoric"></div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p><strong>کتابخانهٔ ابزار دستور و ادب فارسی</strong> — بخشی از مستر پلنر — طراحی و مدیریت: احسان روحانی راوری</p>
+    <p style="margin-top:0.4rem;">هستهٔ بی‌محتوا · ابزارهای نوع‌دار · خط لولهٔ ترکیب‌پذیر</p>
+  </div>
+</footer>
+
+<!-- ==== جاوااسکریپت در قسمت بعدی ==== -->
+<script>
+/* ==================================================================
+   هستهٔ کتابخانه — Result + Utilities
+   ================================================================== */
+function Result_ok(value, derivation) {
+  return { ok: true, value, derivation: derivation || null };
+}
+function Result_err(code, message) {
+  return { ok: false, error: { code, message } };
+}
+const FA_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
+function faDigits(n) { return String(n).replace(/\d/g, d => FA_DIGITS[+d]); }
+function escapeHtml(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+/* ==================================================================
+   داده‌های بذر
+   ================================================================== */
+const SEED = {
+  verbs: {
+    'رفتن':    { past: 'رفت', present: 'رو',   trans: 'intrans' },
+    'آمدن':    { past: 'آمد', present: 'آ',     trans: 'intrans' },
+    'بودن':    { past: 'بود', present: 'باش',   trans: 'intrans' },
+    'داشتن':   { past: 'داشت', present: 'دار',  trans: 'trans' },
+    'خوردن':   { past: 'خورد', present: 'خور',  trans: 'trans' },
+    'نوشتن':   { past: 'نوشت', present: 'نویس', trans: 'trans' },
+    'خواندن':  { past: 'خواند', present: 'خوان', trans: 'trans' },
+    'گفتن':    { past: 'گفت', present: 'گو',    trans: 'trans' },
+    'دیدن':    { past: 'دید', present: 'بین',   trans: 'trans' },
+    'شنیدن':   { past: 'شنید', present: 'شنو',  trans: 'trans' },
+    'دانستن':  { past: 'دانست', present: 'دان', trans: 'trans' },
+    'خواستن':  { past: 'خواست', present: 'خواه', trans: 'trans' },
+    'توانستن': { past: 'توانست', present: 'توان', trans: 'trans' },
+    'گرفتن':   { past: 'گرفت', present: 'گیر',  trans: 'trans' },
+    'دادن':    { past: 'داد', present: 'ده',    trans: 'trans' },
+    'آوردن':   { past: 'آورد', present: 'آور',  trans: 'trans' },
+    'بردن':    { past: 'برد', present: 'بر',    trans: 'trans' },
+    'زدن':     { past: 'زد', present: 'زن',     trans: 'trans' },
+    'کردن':    { past: 'کرد', present: 'کن',    trans: 'trans' },
+    'شدن':     { past: 'شد', present: 'شو',     trans: 'intrans' },
+    'ماندن':   { past: 'ماند', present: 'مان',  trans: 'intrans' },
+    'نشستن':   { past: 'نشست', present: 'نشین', trans: 'intrans' },
+    'افتادن':  { past: 'افتاد', present: 'افت', trans: 'intrans' },
+    'رسیدن':   { past: 'رسید', present: 'رس',   trans: 'intrans' },
+    'پرسیدن':  { past: 'پرسید', present: 'پرس', trans: 'trans' },
+    'فهمیدن':  { past: 'فهمید', present: 'فهم', trans: 'trans' },
+    'آموختن':  { past: 'آموخت', present: 'آموز', trans: 'trans' },
+    'شناختن':  { past: 'شناخت', present: 'شناس', trans: 'trans' },
+    'ساختن':   { past: 'ساخت', present: 'ساز',  trans: 'trans' },
+    'خریدن':   { past: 'خرید', present: 'خر',   trans: 'trans' }
+  },
+  nouns: {
+    'کتاب':     { plural: 'کتاب‌ها', animate: false },
+    'خانه':     { plural: 'خانه‌ها', animate: false },
+    'درخت':     { plural: 'درخت‌ها', animate: false },
+    'گل':       { plural: 'گل‌ها', animate: false },
+    'مدرسه':    { plural: 'مدرسه‌ها', animate: false },
+    'شهر':      { plural: 'شهرها', animate: false },
+    'کوه':      { plural: 'کوه‌ها', animate: false },
+    'دریا':     { plural: 'دریاها', animate: false },
+    'ستاره':    { plural: 'ستاره‌ها', animate: false },
+    'رود':      { plural: 'رودها', animate: false },
+    'دانش‌آموز': { plural: 'دانش‌آموزان', animate: true },
+    'معلم':     { plural: 'معلمان', animate: true },
+    'دانشجو':   { plural: 'دانشجویان', animate: true },
+    'مهندس':    { plural: 'مهندسان', animate: true },
+    'پزشک':     { plural: 'پزشکان', animate: true },
+    'مرد':      { plural: 'مردان', animate: true },
+    'زن':       { plural: 'زنان', animate: true },
+    'پسر':      { plural: 'پسران', animate: true },
+    'دختر':     { plural: 'دختران', animate: true },
+    'بچه':      { plural: 'بچه‌ها', animate: true },
+    'دوست':     { plural: 'دوستان', animate: true },
+    'برادر':    { plural: 'برادران', animate: true },
+    'خواهر':    { plural: 'خواهران', animate: true },
+    'پدر':      { plural: 'پدران', animate: true },
+    'مادر':     { plural: 'مادران', animate: true },
+    'فرزند':    { plural: 'فرزندان', animate: true },
+    'پرنده':    { plural: 'پرندگان', animate: true },
+    'اسب':      { plural: 'اسب‌ها', animate: true },
+    'گربه':     { plural: 'گربه‌ها', animate: true },
+    'سگ':       { plural: 'سگ‌ها', animate: true },
+    'مرغ':      { plural: 'مرغ‌ها', animate: true },
+    'مردم':     { plural: 'مردم', animate: true },
+    'قلم':      { plural: 'قلم‌ها', animate: false },
+    'دفتر':     { plural: 'دفترها', animate: false },
+    'تخته':     { plural: 'تخته‌ها', animate: false },
+    'پنجره':    { plural: 'پنجره‌ها', animate: false },
+    'دست':      { plural: 'دست‌ها', animate: false },
+    'چشم':      { plural: 'چشم‌ها', animate: false },
+    'پا':       { plural: 'پاها', animate: false }
+  },
+  synonyms: {
+    'شاد': ['خوشحال', 'مسرور', 'شادمان'],
+    'خوشحال': ['شاد', 'مسرور'],
+    'دلیر': ['شجاع', 'بی‌باک', 'نترس'],
+    'شجاع': ['دلیر', 'بی‌باک'],
+    'خانه': ['سرا', 'منزل', 'مسکن'],
+    'دوست': ['یار', 'رفیق', 'همدم'],
+    'زیبا': ['قشنگ', 'خوش‌رو', 'دلنشین'],
+    'بزرگ': ['عظیم', 'کلان', 'ستُرگ'],
+    'کوچک': ['خرد', 'ریز'],
+    'سریع': ['تند', 'چابک', 'شتابان'],
+    'آرام': ['ساکن', 'آسوده'],
+    'دانا': ['عالم', 'خردمند', 'آگاه'],
+    'نادان': ['جاهل', 'بی‌خرد', 'ناآگاه'],
+    'ثروتمند': ['غنی', 'توانگر', 'دارا'],
+    'فقیر': ['تهی‌دست', 'بینوا', 'محتاج'],
+    'مهربان': ['دلسوز', 'شفیق', 'رئوف'],
+    'سخت': ['دشوار', 'صعب', 'مشکل'],
+    'آسان': ['ساده', 'راحت', 'سهل'],
+    'تاریک': ['ظلمانی', 'سیاه'],
+    'روشن': ['منور', 'تابان', 'درخشان'],
+    'بلند': ['مرتفع', 'رفیع'],
+    'کوتاه': ['قصیر'],
+    'کوشا': ['تلاشگر', 'ساعی', 'پرکار'],
+    'تنبل': ['کاهل', 'سست'],
+    'پیروز': ['فاتح', 'ظفرمند'],
+    'بیمار': ['مریض', 'ناخوش'],
+    'سالم': ['تندرست', 'صحیح'],
+    'خسته': ['مانده', 'فرسوده'],
+    'سرحال': ['شاداب', 'بانشاط']
+  },
+  antonyms: {
+    'شاد': 'غمگین', 'خوشحال': 'ناراحت',
+    'بزرگ': 'کوچک', 'بلند': 'کوتاه',
+    'گرم': 'سرد', 'روز': 'شب',
+    'تاریک': 'روشن', 'آسان': 'سخت', 'دشوار': 'ساده',
+    'ثروتمند': 'فقیر', 'غنی': 'فقیر',
+    'دانا': 'نادان', 'عالم': 'جاهل',
+    'مهربان': 'بی‌رحم',
+    'سریع': 'کند', 'تند': 'کند',
+    'پیروز': 'شکست‌خورده',
+    'بیمار': 'سالم', 'سالم': 'بیمار',
+    'خسته': 'سرحال',
+    'خوب': 'بد', 'زشت': 'زیبا', 'زیبا': 'زشت',
+    'سفید': 'سیاه', 'سیاه': 'سفید',
+    'پر': 'خالی', 'خالی': 'پر',
+    'پیر': 'جوان', 'جوان': 'پیر',
+    'نو': 'کهنه', 'کهنه': 'نو',
+    'دور': 'نزدیک', 'نزدیک': 'دور',
+    'بالا': 'پایین', 'پایین': 'بالا',
+    'داخل': 'خارج', 'خارج': 'داخل',
+    'باز': 'بسته', 'بسته': 'باز',
+    'زنده': 'مرده', 'مرده': 'زنده'
+  },
+  colloquialToFormal: {
+    'می‌خوام': 'می‌خواهم', 'میخوام': 'می‌خواهم',
+    'می‌رم': 'می‌روم', 'می‌ری': 'می‌روی', 'می‌ره': 'می‌رود',
+    'می‌ریم': 'می‌رویم', 'می‌رید': 'می‌روید', 'می‌رن': 'می‌روند',
+    'برم': 'بروم', 'بری': 'بروی', 'بره': 'برود',
+    'بریم': 'برویم', 'برید': 'بروید', 'برن': 'بروند',
+    'نمی‌تونم': 'نمی‌توانم', 'نمی‌تونی': 'نمی‌توانی', 'نمی‌تونه': 'نمی‌تواند',
+    'نمی‌تونیم': 'نمی‌توانیم', 'نمی‌تونید': 'نمی‌توانید', 'نمی‌تونن': 'نمی‌توانند',
+    'خونه': 'خانه', 'یه': 'یک', 'چیه': 'چیست', 'چطوره': 'چطور است',
+    'بخونم': 'بخوانم', 'بخونی': 'بخوانی', 'بخونه': 'بخواند',
+    'بخونیم': 'بخوانیم', 'بخونید': 'بخوانید', 'بخونن': 'بخوانند',
+    'نمی‌دونم': 'نمی‌دانم', 'می‌دونم': 'می‌دانم',
+    'می‌دونی': 'می‌دانی', 'می‌دونه': 'می‌داند',
+    'اومدم': 'آمدم', 'اومدی': 'آمدی', 'اومد': 'آمد',
+    'اومدیم': 'آمدیم', 'اومدید': 'آمدید', 'اومدن': 'آمدند'
+  },
+  archaicMarkers: ['بسی','خرد','رزم','گرد','کی','چو','همی','بدین','بدان','زآن','کز','گر','بگفت','بشد'],
+  simileMarkers: ['مثل','مانند','چون','همچو','همانند','به سان','به مانند','به کردار'],
+  semanticFields: {
+    طبیعت: ['گل','بلبل','سرو','باغ','بهار','خزان','چمن','غنچه','لاله','سنبل'],
+    رزم:   ['شمشیر','نیزه','کمان','تیر','سوار','اسپ','گرد','میدان','رزم'],
+    آسمان: ['ماه','ستاره','خورشید','آسمان','افق','سپیده','شب','روز'],
+    عشق:   ['عشق','دل','جانان','مستی','خرابات','ساقی','می','جام','باده'],
+    مدرن:  ['شب','تنهایی','خیابان','پنجره','چراغ','دیوار','باران','کوچه']
+  }
+};
+
+/* ==================================================================
+   ابزار ۱: صرف فعل
+   ================================================================== */
+const PAST_ENDINGS = { 1: ['م', 'یم'], 2: ['ی', 'ید'], 3: ['', 'ند'] };
+const PRES_ENDINGS = { 1: ['م', 'یم'], 2: ['ی', 'ید'], 3: ['د', 'ند'] };
+
+function conjugate(verbName, opts) {
+  const o = Object.assign({ tense: 'past', person: 3, number: 'sg', negative: false }, opts);
+  const v = SEED.verbs[verbName];
+  if (!v) return Result_err('E_NOT_FOUND', `فعل «${verbName}» در بذر نیست`);
+  const endArr = o.tense === 'past' ? PAST_ENDINGS : PRES_ENDINGS;
+  const end = endArr[o.person][o.number === 'sg' ? 0 : 1];
+  if (o.tense === 'past') {
+    const form = (o.negative ? 'ن' : '') + v.past + end;
+    return Result_ok(form, { rule: 'conjugate.past',
+      features: { tense: 'past', person: o.person, number: o.number, negative: o.negative } });
+  }
+  const base = v.present;
+  const prefix = o.negative ? 'نمی‌' : 'می‌';
+  const connector = base.endsWith('آ') ? 'ی' : '';
+  const form = prefix + base + connector + end;
+  return Result_ok(form, { rule: 'conjugate.present',
+    features: { tense: 'present', person: o.person, number: o.number, negative: o.negative } });
+}
+
+function conjugateTable(verbName) {
+  const persons = [
+    { p: 1, n: 'sg', label: 'من' }, { p: 2, n: 'sg', label: 'تو' },
+    { p: 3, n: 'sg', label: 'او' }, { p: 1, n: 'pl', label: 'ما' },
+    { p: 2, n: 'pl', label: 'شما' }, { p: 3, n: 'pl', label: 'آن‌ها' }
+  ];
+  return persons.map(pp => {
+    const past = conjugate(verbName, { tense: 'past', person: pp.p, number: pp.n });
+    const pres = conjugate(verbName, { tense: 'present', person: pp.p, number: pp.n });
+    const pastNeg = conjugate(verbName, { tense: 'past', person: pp.p, number: pp.n, negative: true });
+    const presNeg = conjugate(verbName, { tense: 'present', person: pp.p, number: pp.n, negative: true });
+    return {
+      label: pp.label,
+      past: past.ok ? past.value : '—',
+      pres: pres.ok ? pres.value : '—',
+      pastNeg: pastNeg.ok ? pastNeg.value : '—',
+      presNeg: presNeg.ok ? presNeg.value : '—'
+    };
+  });
+}
+
+/* ==================================================================
+   ابزار ۲: جمع‌بستن اسم
+   ================================================================== */
+function pluralize(noun) {
+  if (SEED.nouns[noun]) {
+    return Result_ok(SEED.nouns[noun].plural, {
+      rule: 'pluralize.dictionary',
+      features: { animate: SEED.nouns[noun].animate }
+    });
+  }
+  return Result_ok(noun + '‌ها', { rule: 'pluralize.ha' });
+}
+
+/* ==================================================================
+   ابزار ۳و۴: مترادف و متضاد
+   ================================================================== */
+function findSynonyms(word) {
+  const direct = SEED.synonyms[word] || [];
+  const reverse = [];
+  Object.keys(SEED.synonyms).forEach(k => {
+    if (SEED.synonyms[k].includes(word)) reverse.push(k);
+  });
+  const all = [...new Set([...direct, ...reverse])];
+  if (!all.length) return Result_err('E_NOT_FOUND', `مترادفی برای «${word}» نیست`);
+  return Result_ok(all, { rule: 'synonyms.lookup' });
+}
+function findAntonyms(word) {
+  if (SEED.antonyms[word]) return Result_ok([SEED.antonyms[word]], { rule: 'antonyms.lookup' });
+  const reverse = Object.keys(SEED.antonyms).filter(k => SEED.antonyms[k] === word);
+  if (reverse.length) return Result_ok(reverse, { rule: 'antonyms.lookup' });
+  return Result_err('E_NOT_FOUND', `متضادی برای «${word}» نیست`);
+}
+
+/* ==================================================================
+   ابزار ۵: نرمال‌سازی نگارش
+   ================================================================== */
+function normalize(text) {
+  const changes = [];
+  let out = String(text);
+  if (/ي/.test(out)) { out = out.replace(/ي/g, 'ی'); changes.push('ي عربی → ی فارسی'); }
+  if (/ك/.test(out)) { out = out.replace(/ك/g, 'ک'); changes.push('ك عربی → ک فارسی'); }
+  const beforeMi = out;
+  out = out.replace(/(^|\s)(ن?می)(?=[آ-ی])/g, '$1$2‌');
+  if (out !== beforeMi) changes.push('افزودن نیم‌فاصله پس از «می/نمی»');
+  const beforeHa = out;
+  out = out.replace(/([آ-ی])(ها|های)(\s|$|\.|،)/g, '$1‌$2$3');
+  if (out !== beforeHa) changes.push('افزودن نیم‌فاصله پیش از «ها»');
+  return Result_ok(out, { rule: 'normalize', changes });
+}
+
+/* ==================================================================
+   ابزار ۶: بازنویسی رسمی/محاوره
+   ================================================================== */
+function formalize(text) {
+  let out = String(text);
+  Object.keys(SEED.colloquialToFormal).forEach(k => {
+    const re = new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+    out = out.replace(re, SEED.colloquialToFormal[k]);
+  });
+  const n = normalize(out);
+  return Result_ok(n.value, { rule: 'formalize', changes: n.derivation.changes });
+}
+function colloquialize(text) {
+  let out = String(text);
+  const reverse = {};
+  Object.keys(SEED.colloquialToFormal).forEach(k => {
+    reverse[SEED.colloquialToFormal[k]] = k;
+  });
+  Object.keys(reverse).forEach(k => {
+    const re = new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+    out = out.replace(re, reverse[k]);
+  });
+  return Result_ok(out, { rule: 'colloquialize' });
+}
+
+/* ==================================================================
+   ابزار ۷: بررسی جمله
+   ================================================================== */
+const HUSHW_RULES = [
+  { re: /سوابق\s+گذشته/g, msg: '«سوابق» خود به معنای گذشته است؛ «سوابق گذشته» حشو است', fix: 'سوابق' },
+  { re: /اخلاق‌?ها/g, msg: '«اخلاق» جمع عربی است؛ با «ها» جمع نبندید', fix: 'اخلاق' },
+  { re: /اعلم‌?تر/g, msg: 'صفت تفضیلی عربی با «تر» فارسی ترکیب نمی‌شود', fix: 'اعلم' },
+  { re: /لیست\s+اسامی/g, msg: 'بهتر است «فهرست نام‌ها» به کار برود', fix: 'فهرست نام‌ها' },
+  { re: /در\s+حال\s+حاضر/g, msg: '«در حال حاضر» حشو است؛ «اکنون» کافی است', fix: 'اکنون' }
+];
+const AGREEMENT_PAIRS = [
+  { subj: 'دانش‌آموزان', verb: 'آمد', fix: 'دانش‌آموزان آمدند' },
+  { subj: 'دانش‌آموزان', verb: 'رفت', fix: 'دانش‌آموزان رفتند' },
+  { subj: 'آن‌ها', verb: 'آمد', fix: 'آن‌ها آمدند' },
+  { subj: 'آنها', verb: 'آمد', fix: 'آنها آمدند' },
+  { subj: 'بچه‌ها', verb: 'بازی کرد', fix: 'بچه‌ها بازی کردند' },
+  { subj: 'معلمان', verb: 'گفت', fix: 'معلمان گفتند' }
+];
+
+function validateSentence(text) {
+  const errors = [];
+  HUSHW_RULES.forEach(rule => {
+    const m = text.match(rule.re);
+    if (m) errors.push({ type: 'حشو و واژه‌گزینی', span: m[0], fix: rule.fix, msg: rule.msg });
+  });
+  if (/(^|\s)ن?می(?=[آ-ی])(?!‌)/.test(text)) {
+    const m = text.match(/(^|\s)ن?می(?=[آ-ی])(?!‌)/);
+    errors.push({ type: 'نگارش', span: m ? m[0].trim() : '', fix: 'افزودن نیم‌فاصله', msg: 'افعال با «می/نمی» با نیم‌فاصله نوشته می‌شوند' });
+  }
+  if (/[آ-ی]ها(?=\s|$|\.|،)/.test(text)) {
+    errors.push({ type: 'نگارش', msg: 'نشانهٔ جمع «ها» با نیم‌فاصله جدا می‌شود: «کتاب‌ها» نه «کتابها»' });
+  }
+  AGREEMENT_PAIRS.forEach(p => {
+    if (text.includes(p.subj) && text.includes(p.verb)) {
+      errors.push({ type: 'مطابقت نهاد و فعل', msg: `نهاد «${p.subj}» جمع است؛ فعل باید جمع باشد`, fix: p.fix });
+    }
+  });
+  if (errors.length === 0) return Result_ok({ errors: [], clean: true }, { rule: 'validate.clean' });
+  return Result_ok({ errors, clean: false }, { rule: 'validate.found', count: errors.length });
+}
+
+/* ==================================================================
+   ابزار ۸: تشخیص آرایه
+   ================================================================== */
+function detectFigures(text) {
+  const figures = [];
+  SEED.simileMarkers.forEach(marker => {
+    const re = new RegExp(marker + '\\s+([^\\s.،!?]+)', 'g');
+    let m;
+    while ((m = re.exec(text)) !== null) {
+      figures.push({ type: 'تشبیه', marker, vehicle: m[1], msg: `تشبیه با «${marker}» — مشبه‌به: ${m[1]}` });
+    }
+  });
+  const words = text.split(/[\s.،!?؛:]+/).filter(Boolean);
+  const wordSet = new Set(words);
+  const seen = new Set();
+  Object.keys(SEED.antonyms).forEach(k => {
+    const v = SEED.antonyms[k];
+    if (wordSet.has(k) && wordSet.has(v)) {
+      const key = [k, v].sort().join('|');
+      if (!seen.has(key)) {
+        seen.add(key);
+        figures.push({ type: 'تضاد (طباق)', pair: [k, v], msg: `تضاد معنایی بین «${k}» و «${v}»` });
+      }
+    }
+  });
+  Object.keys(SEED.semanticFields).forEach(field => {
+    const found = SEED.semanticFields[field].filter(m => text.includes(m));
+    if (found.length >= 2) {
+      figures.push({ type: 'مراعات نظیر', field, msg: `واژه‌های هم‌حوزه از «${field}»: ${found.join('، ')}` });
+    }
+  });
+  for (let i = 0; i < words.length; i++) {
+    for (let j = i + 1; j < words.length; j++) {
+      const a = words[i], b = words[j];
+      if (a !== b && a.length === b.length && a.length >= 3) {
+        let diff = 0;
+        for (let k = 0; k < a.length; k++) if (a[k] !== b[k]) diff++;
+        if (diff === 1) {
+          figures.push({ type: 'جناس (ناقص)', pair: [a, b], msg: `جناس بین «${a}» و «${b}»` });
+        }
+      }
+    }
+  }
+  if (!figures.length) return Result_ok({ figures: [], found: false }, { rule: 'detectFigures.none' });
+  return Result_ok({ figures, found: true }, { rule: 'detectFigures.found', count: figures.length });
+}
+
+/* ==================================================================
+   ابزار ۹: تشخیص سبک
+   ================================================================== */
+function classifyStyle(text) {
+  const words = text.split(/[\s.،!?؛:]+/).filter(Boolean);
+  const wordSet = new Set(words);
+  let archaic = 0;
+  SEED.archaicMarkers.forEach(m => { if (text.includes(m)) archaic++; });
+  let similes = 0;
+  SEED.simileMarkers.forEach(m => {
+    similes += (text.match(new RegExp(m, 'g')) || []).length;
+  });
+  const fieldHits = {};
+  Object.keys(SEED.semanticFields).forEach(f => {
+    fieldHits[f] = SEED.semanticFields[f].filter(m => text.includes(m)).length;
+  });
+  const register = /می‌خوام|میخوام|خونه|بچه‌ها|آخه|داداش|مامان/.test(text) ? 'colloquial' : 'formal';
+  let period = '—';
+  const kh = fieldHits['طبیعت'] + fieldHits['رزم'] + (archaic * 2);
+  const er = fieldHits['عشق'];
+  const mo = fieldHits['مدرن'];
+  if (kh >= 3 && kh > er && kh > mo) period = 'خراسانی';
+  else if (er >= 2 && er > mo) period = 'عراقی';
+  else if (mo >= 2) period = 'معاصر';
+  return Result_ok({
+    period, register,
+    features: { archaic, similes, fieldHits },
+    explanation: `کهنگی: ${archaic} — تشبیه: ${similes} — حوزه‌ها: ${Object.keys(fieldHits).map(k => `${k}:${fieldHits[k]}`).join(' | ')}`
+  }, { rule: 'classifyStyle' });
+}
+
+/* ==================================================================
+   تمرین‌ساز
+   ================================================================== */
+const EXERCISE_GENERATORS = {
+  sarf() {
+    const verbNames = Object.keys(SEED.verbs);
+    const verb = pick(verbNames);
+    const persons = [
+      { p: 1, n: 'sg', label: 'من' }, { p: 2, n: 'sg', label: 'تو' },
+      { p: 3, n: 'sg', label: 'او' }, { p: 1, n: 'pl', label: 'ما' },
+      { p: 2, n: 'pl', label: 'شما' }, { p: 3, n: 'pl', label: 'آن‌ها' }
+    ];
+    const person = pick(persons);
+    const tense = pick(['past', 'present']);
+    const correct = conjugate(verb, { tense, person: person.p, number: person.n });
+    if (!correct.ok) return null;
+    const wrongs = [];
+    const otherPerson = pick(persons.filter(pp => pp.p !== person.p || pp.n !== person.n));
+    const w1 = conjugate(verb, { tense, person: otherPerson.p, number: otherPerson.n });
+    if (w1.ok && w1.value !== correct.value) wrongs.push(w1.value);
+    const w2 = conjugate(verb, { tense: tense === 'past' ? 'present' : 'past', person: person.p, number: person.n });
+    if (w2.ok && w2.value !== correct.value) wrongs.push(w2.value);
+    const w3 = conjugate(verb, { tense, person: person.p, number: person.n, negative: true });
+    if (w3.ok && w3.value !== correct.value) wrongs.push(w3.value);
+    return {
+      prompt: `فعل «${verb}» در زمان ${tense === 'past' ? 'گذشته' : 'حال'}، «${person.label}» — کدام صورت درست است؟`,
+      options: [...new Set([correct.value, ...wrongs])].slice(0, 4).sort(() => Math.random() - 0.5),
+      answer: correct.value,
+      feedback: `صورت درست: «${correct.value}» — ساخته‌شده از ستاک ${tense === 'past' ? 'گذشته' : 'حال'} + شناسهٔ مناسب.`
+    };
+  },
+  plural() {
+    const nouns = Object.keys(SEED.nouns);
+    const noun = pick(nouns);
+    const correct = pluralize(noun);
+    if (!correct.ok) return null;
+    const wrongs = [];
+    const other = correct.value.endsWith('ها') ? correct.value.replace(/‌ها$/, 'ان') : correct.value.replace(/ان$/, '‌ها');
+    if (other !== correct.value) wrongs.push(other);
+    wrongs.push(correct.value.replace('‌', ''));
+    return {
+      prompt: `جمع «${noun}» کدام است؟`,
+      options: [...new Set([correct.value, ...wrongs])].slice(0, 4).sort(() => Math.random() - 0.5),
+      answer: correct.value,
+      feedback: `«${noun}» ${SEED.nouns[noun].animate ? 'جاندار' : 'بی‌جان'} است و جمع صحیح آن «${correct.value}» است.`
+    };
+  },
+  synonym() {
+    const keys = Object.keys(SEED.synonyms);
+    const word = pick(keys);
+    const correct = pick(SEED.synonyms[word]);
+    const others = keys.filter(k => k !== word && !SEED.synonyms[word].includes(k));
+    return {
+      prompt: `مترادف «${word}» کدام است؟`,
+      options: [correct, pick(others), pick(others)].sort(() => Math.random() - 0.5),
+      answer: correct,
+      feedback: `«${word}» و «${correct}» در معنا نزدیک‌اند.`
+    };
+  },
+  antonym() {
+    const keys = Object.keys(SEED.antonyms);
+    const word = pick(keys);
+    const correct = SEED.antonyms[word];
+    const others = keys.filter(k => k !== word && k !== correct);
+    return {
+      prompt: `متضاد «${word}» کدام است؟`,
+      options: [correct, pick(others), pick(others)].sort(() => Math.random() - 0.5),
+      answer: correct,
+      feedback: `«${word}» ⟷ «${correct}» تضاد معنایی دارند.`
+    };
+  },
+  normalize() {
+    const samples = [
+      { wrong: 'میخوام برم خونه', fix: 'می‌خواهم بروم خانه' },
+      { wrong: 'کتابها روی میز است', fix: 'کتاب‌ها روی میز است' },
+      { wrong: 'نمیتونم بیام', fix: 'نمی‌توانم بیایم' }
+    ];
+    const s = pick(samples);
+    return {
+      prompt: `کدام صورت نگارشی درست است؟`,
+      options: [s.fix, s.wrong].sort(() => Math.random() - 0.5),
+      answer: s.fix,
+      feedback: `«${s.fix}» با نیم‌فاصله و صورت رسمی درست است.`
+    };
+  }
+};
+
+function generateExercise(type) {
+  const gen = EXERCISE_GENERATORS[type];
+  if (!gen) return Result_err('E_UNKNOWN', 'نوع تمرین ناشناخته');
+  const ex = gen();
+  if (!ex) return Result_err('E_GEN', 'تولید تمرین ناموفق');
+  return Result_ok(ex, { rule: `exercise.${type}` });
+}
+
+/* ==================================================================
+   Presetها (پایپ‌لاین‌ها)
+   ================================================================== */
+const PRESETS = {
+  wordExplorer(word) {
+    const w = String(word).trim();
+    if (!w) return Result_err('E_EMPTY', 'واژه‌ای وارد نشده');
+    const out = { word: w, verb: null, noun: null, synonyms: null, antonyms: null, normalize: null };
+    if (SEED.verbs[w]) out.verb = { conjugation: conjugateTable(w), trans: SEED.verbs[w].trans };
+    if (SEED.nouns[w]) {
+      const p = pluralize(w);
+      out.noun = { plural: p.ok ? p.value : null, animate: SEED.nouns[w].animate };
+    }
+    const s = findSynonyms(w); if (s.ok) out.synonyms = s.value;
+    const a = findAntonyms(w); if (a.ok) out.antonyms = a.value;
+    const n = normalize(w); if (n.ok && n.value !== w) out.normalize = n.value;
+    if (!out.verb && !out.noun && !out.synonyms && !out.antonyms) {
+      return Result_err('E_NOT_FOUND',
+        `«${w}» در بذر نیست. نمونه‌ها: ${Object.keys(SEED.nouns).slice(0,5).join('، ')} (اسم)، ${Object.keys(SEED.verbs).slice(0,5).join('، ')} (فعل)، ${Object.keys(SEED.synonyms).slice(0,5).join('، ')} (مترادف)`);
+    }
+    return Result_ok(out, { rule: 'preset.wordExplorer' });
+  },
+  sentenceCheck(text) {
+    if (!String(text).trim()) return Result_err('E_EMPTY', 'جمله‌ای وارد نشده');
+    return validateSentence(text);
+  },
+  rewrite(text, target) {
+    if (!String(text).trim()) return Result_err('E_EMPTY', 'متنی وارد نشده');
+    return target === 'formal' ? formalize(text) : colloquialize(text);
+  },
+  styleAnalysis(text) {
+    if (!String(text).trim()) return Result_err('E_EMPTY', 'متنی وارد نشده');
+    return classifyStyle(text);
+  },
+  figureDetection(text) {
+    if (!String(text).trim()) return Result_err('E_EMPTY', 'متنی وارد نشده');
+    return detectFigures(text);
+  }
+};
+
+/* ==================================================================
+   رندر خروجی‌ها
+   ================================================================== */
+function renderWordExplorer(res) {
+  if (!res.ok) return `<div class="result-card error"><strong>⚠️</strong> ${escapeHtml(res.error.message)}</div>`;
+  const d = res.value;
+  let html = `<h3><i class="fa-solid fa-book"></i> «${escapeHtml(d.word)}»</h3>`;
+  if (d.normalize) html += `<div class="result-card ok"><strong>نرمال‌سازی:</strong> «${escapeHtml(d.normalize)}»</div>`;
+  if (d.verb) {
+    html += `<h4>🔧 صرف فعل — نوع: ${d.verb.trans === 'trans' ? 'گذرا' : 'ناگذر'}</h4>`;
+    html += `<table class="out-table"><thead><tr><th>شخص</th><th>گذشته</th><th>حال</th><th>گذشته منفی</th><th>حال منفی</th></tr></thead><tbody>`;
+    d.verb.conjugation.forEach(r => {
+      html += `<tr><td>${r.label}</td><td>${escapeHtml(r.past)}</td><td>${escapeHtml(r.pres)}</td><td>${escapeHtml(r.pastNeg)}</td><td>${escapeHtml(r.presNeg)}</td></tr>`;
+    });
+    html += `</tbody></table>`;
+  }
+  if (d.noun) html += `<h4>📚 اسم — جمع: <strong>${escapeHtml(d.noun.plural)}</strong> (${d.noun.animate ? 'جاندار' : 'بی‌جان'})</h4>`;
+  if (d.synonyms) {
+    html += `<h4>🔗 مترادف‌ها</h4><div class="badges">${d.synonyms.map(s => `<span class="badge">${escapeHtml(s)}</span>`).join('')}</div>`;
+  }
+  if (d.antonyms) {
+    html += `<h4>⚡ متضادها</h4><div class="badges">${d.antonyms.map(a => `<span class="badge err">${escapeHtml(a)}</span>`).join('')}</div>`;
+  }
+  return html;
+}
+function renderSentenceCheck(res) {
+  if (!res.ok) return `<div class="result-card error">${escapeHtml(res.error.message)}</div>`;
+  const d = res.value;
+  if (d.clean) return `<div class="result-card ok"><strong>✅</strong> جمله از نظر قواعد بررسی‌شده، خطایی یافت نشد.</div>`;
+  let html = `<h3><i class="fa-solid fa-triangle-exclamation"></i> ${faDigits(d.errors.length)} خطا یافت شد</h3>`;
+  d.errors.forEach((e, i) => {
+    html += `<div class="result-card error"><strong>خطا ${faDigits(i+1)} — ${escapeHtml(e.type)}</strong><br>${escapeHtml(e.msg)}`;
+    if (e.span) html += `<br><span style="opacity:0.7;">بخش: «${escapeHtml(e.span)}»</span>`;
+    if (e.fix) html += `<br><span style="color:var(--c-ok);">پیشنهاد: «${escapeHtml(e.fix)}»</span>`;
+    html += `</div>`;
+  });
+  return html;
+}
+function renderRewrite(res) {
+  if (!res.ok) return `<div class="result-card error">${escapeHtml(res.error.message)}</div>`;
+  let html = `<h3><i class="fa-solid fa-pen-fancy"></i> بازنویسی‌شده</h3>`;
+  html += `<div class="result-card ok">${escapeHtml(res.value)}</div>`;
+  if (res.derivation && res.derivation.changes && res.derivation.changes.length) {
+    html += `<h4>تغییرات اعمال‌شده</h4><ul>`;
+    res.derivation.changes.forEach(c => { html += `<li>${escapeHtml(c)}</li>`; });
+    html += `</ul>`;
+  }
+  return html;
+}
+function renderExercise(res) {
+  if (!res.ok) return `<div class="result-card error">${escapeHtml(res.error.message)}</div>`;
+  const ex = res.value;
+  const id = 'ex_' + Date.now();
+  let html = `<h3><i class="fa-solid fa-dumbbell"></i> ${escapeHtml(ex.prompt)}</h3>`;
+  html += `<div class="options" id="${id}">`;
+  ex.options.forEach(opt => {
+    html += `<button class="option" data-correct="${opt === ex.answer ? 'true' : 'false'}">${escapeHtml(opt)}</button>`;
+  });
+  html += `</div><div class="output" style="margin-top:0.5rem;" id="${id}_fb"></div>`;
+  setTimeout(() => {
+    const wrap = document.getElementById(id);
+    if (!wrap) return;
+    wrap.querySelectorAll('.option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isCorrect = btn.dataset.correct === 'true';
+        btn.classList.add(isCorrect ? 'correct' : 'wrong');
+        if (!isCorrect) wrap.querySelectorAll('.option').forEach(b => {
+          if (b.dataset.correct === 'true') b.classList.add('correct');
+        });
+        wrap.querySelectorAll('.option').forEach(b => b.disabled = true);
+        const fb = document.getElementById(id + '_fb');
+        if (fb) fb.innerHTML = `<div class="result-card ${isCorrect ? 'ok' : 'error'}"><strong>${isCorrect ? '✅ درست!' : '❌ نه'}</strong><br>${escapeHtml(ex.feedback)}</div>`;
+      });
+    });
+  }, 0);
+  return html;
+}
+function renderStyle(res) {
+  if (!res.ok) return `<div class="result-card error">${escapeHtml(res.error.message)}</div>`;
+  const d = res.value;
+  let html = `<h3><i class="fa-solid fa-palette"></i> پروفایل سبکی</h3>`;
+  html += `<div class="result-card"><p><strong>دورهٔ محتمل:</strong> ${escapeHtml(d.period)}</p><p><strong>ثبت:</strong> ${d.register === 'formal' ? 'رسمی' : 'محاوره'}</p></div>`;
+  html += `<h4>بردار ویژگی</h4><table class="out-table"><thead><tr><th>ویژگی</th><th>مقدار</th></tr></thead><tbody>`;
+  html += `<tr><td>نشانه‌های کهنگی</td><td>${faDigits(d.features.archaic)}</td></tr>`;
+  html += `<tr><td>تراکم تشبیه</td><td>${faDigits(d.features.similes)}</td></tr>`;
+  Object.keys(d.features.fieldHits).forEach(k => {
+    if (d.features.fieldHits[k] > 0) html += `<tr><td>حوزهٔ ${escapeHtml(k)}</td><td>${faDigits(d.features.fieldHits[k])}</td></tr>`;
+  });
+  html += `</tbody></table><p style="opacity:0.7;font-size:0.82rem;">${escapeHtml(d.explanation)}</p>`;
+  return html;
+}
+function renderFigures(res) {
+  if (!res.ok) return `<div class="result-card error">${escapeHtml(res.error.message)}</div>`;
+  const d = res.value;
+  if (!d.found) return `<div class="empty"><i class="fa-solid fa-magnifying-glass"></i>آرایه‌ای یافت نشد. متن دیگری امتحان کنید.</div>`;
+  let html = `<h3><i class="fa-solid fa-wand-magic-sparkles"></i> ${faDigits(d.figures.length)} آرایه یافت شد</h3>`;
+  d.figures.forEach(f => {
+    html += `<div class="result-card"><strong>${escapeHtml(f.type)}</strong><br>${escapeHtml(f.msg)}</div>`;
+  });
+  return html;
+}
+
+/* ==================================================================
+   اتصال UI
+   ================================================================== */
+(function wireUI() {
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      const panel = document.getElementById('panel-' + tab.dataset.panel);
+      if (panel) panel.classList.add('active');
+    });
+  });
+  document.getElementById('btn-word').addEventListener('click', () => {
+    const res = PRESETS.wordExplorer(document.getElementById('wordInput').value);
+    document.getElementById('out-word').innerHTML = renderWordExplorer(res);
+  });
+  document.getElementById('btn-check').addEventListener('click', () => {
+    const res = PRESETS.sentenceCheck(document.getElementById('sentenceInput').value);
+    document.getElementById('out-check').innerHTML = renderSentenceCheck(res);
+  });
+  document.getElementById('btn-rewrite').addEventListener('click', () => {
+    const res = PRESETS.rewrite(
+      document.getElementById('rewriteInput').value,
+      document.getElementById('rewriteTarget').value
+    );
+    document.getElementById('out-rewrite').innerHTML = renderRewrite(res);
+  });
+  document.getElementById('btn-exercise').addEventListener('click', () => {
+    const res = generateExercise(document.getElementById('exerciseType').value);
+    document.getElementById('out-exercise').innerHTML = renderExercise(res);
+  });
+  document.getElementById('btn-style').addEventListener('click', () => {
+    const res = PRESETS.styleAnalysis(document.getElementById('styleInput').value);
+    document.getElementById('out-style').innerHTML = renderStyle(res);
+  });
+  document.getElementById('btn-figure').addEventListener('click', () => {
+    const res = PRESETS.figureDetection(document.getElementById('figureInput').value);
+    document.getElementById('out-figure').innerHTML = renderFigures(res);
+  });
+})();
+</script>
+</body>
+</html>
