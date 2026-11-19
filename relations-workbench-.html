@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>میزکار تحلیل ارتباطات | مستر پلنر</title>
+<meta name="description" content="ابزار تحلیل ارتباط بین عادت‌ها و پیامدهای روزانه: همبستگی، تأخیر زمانی، آستانه، چرخهٔ علّی و یافته‌های خودکار — بخشی از مستر پلنر.">
+<meta name="author" content="احسان روحانی راوری">
+<meta name="theme-color" content="#2563eb">
+<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/relations-workbench.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+/* ===== tokens ===== */
+:root{
+  --bg:#f5f7fb; --card:#ffffff; --ink:#1e293b; --ink2:#64748b; --line:#e2e8f0;
+  --ac:#2563eb; --ac2:#e8971f; --bad:#dc2626; --ok:#10b981; --purple:#8b5cf6;
+  --radius:16px; --radius-sm:10px;
+  --shadow:0 6px 20px rgba(15,23,42,.14);
+  --font:'Vazirmatn',Tahoma,'Segoe UI',sans-serif;
+}
+[data-theme="dark"]{
+  --bg:#0f172a; --card:#1e293b; --ink:#e2e8f0; --ink2:#94a3b8; --line:#334155;
+  --ac:#e8971f; --bad:#f87171; --ok:#34d399;
+  --shadow:0 6px 20px rgba(0,0,0,.5);
+}
+/* ===== base ===== */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*:before,*:after{transition:none!important;animation:none!important}
+}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.75;font-size:15px}
+[hidden]{display:none!important}
+.container{max-width:1080px;margin:0 auto;padding:0 16px}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+/* ===== topbar ===== */
+.topbar{background:var(--card);border-bottom:1px solid var(--line)}
+.topbar .container{display:flex;align-items:center;gap:12px;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:17px;color:var(--ink);text-decoration:none}
+.brand:hover{color:var(--ac)}
+.badge{background:var(--ac);color:#fff;font-size:11px;padding:2px 9px;border-radius:999px;font-weight:700}
+.topbar h1{font-size:15.5px;font-weight:700;color:var(--ink2);margin-inline-start:auto}
+/* ===== tabs ===== */
+.tabs{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+.tabs .container{display:flex;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.tabs button{background:none;border:none;border-bottom:2.5px solid transparent;padding:12px 13px;font:inherit;font-weight:600;font-size:13.5px;color:var(--ink2);cursor:pointer;white-space:nowrap}
+.tabs button:hover{color:var(--ac)}
+.tabs button.on{color:var(--ac);border-bottom-color:var(--ac)}
+main{padding:24px 0 56px}
+.tabsec{display:grid;gap:16px}
+footer{border-top:1px solid var(--line);padding:18px 0;text-align:center;color:var(--ink2);font-size:12.5px}
+/* ===== cards & buttons ===== */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.card h2{font-size:17px;font-weight:800;margin-bottom:8px}
+.hint{color:var(--ink2);font-size:13px;margin-top:6px}
+.lead{font-size:14.5px;margin-top:8px}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:var(--radius-sm);padding:8px 14px;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer;transition:border-color .25s ease,color .25s ease}
+.btn:hover{border-color:var(--ac);color:var(--ac)}
+.btn.primary{background:var(--ac);border-color:var(--ac);color:#fff}
+.btn.primary:hover{color:#fff;filter:brightness(1.08)}
+.btn.warn:hover{border-color:var(--bad);color:var(--bad)}
+.filelabel{position:relative}
+.ibtn{background:none;border:1px solid var(--line);border-radius:10px;min-width:34px;height:34px;cursor:pointer;color:var(--ink2);display:inline-flex;align-items:center;justify-content:center;padding:0 8px;transition:color .25s ease,border-color .25s ease}
+.ibtn:hover{color:var(--ac);border-color:var(--ac)}
+/* ===== inputs ===== */
+input[type=text],input[type=number],input[type=date],select{font:inherit;font-size:13.5px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:7px 10px;color:var(--ink)}
+input[type=color]{width:40px;height:34px;border:1px solid var(--line);border-radius:10px;background:none;padding:2px;cursor:pointer}
+/* ===== variable editor ===== */
+.vlist{display:grid;gap:8px;margin-bottom:18px}
+.vrow{display:flex;gap:8px;align-items:center}
+.vrow .vn{flex:1.4;min-width:0}
+.vrow .vu{flex:1;min-width:0}
+/* ===== table ===== */
+.tblwrap{overflow:auto;max-height:520px;border:1px solid var(--line);border-radius:var(--radius-sm)}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:560px}
+.tbl th{position:sticky;top:0;background:var(--card);z-index:2;text-align:right;font-weight:700;padding:10px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl input[type=number]{width:86px}
+.tbl input[type=date]{width:148px}
+.dcell{display:flex;align-items:center;gap:8px}
+.jdate{font-size:11.5px;color:var(--ink2);min-width:62px}
+.clickrow{cursor:pointer}
+.clickrow:hover{background:var(--bg)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-inline-end:6px;vertical-align:middle;flex-shrink:0}
+/* ===== charts ===== */
+.chartwrap{position:relative}
+.card svg{width:100%;height:auto;display:block}
+.axis{font-size:11px;fill:var(--ink2);font-family:var(--font)}
+.nlabel{font-size:12.5px;font-weight:700;fill:var(--ink);font-family:var(--font);text-anchor:middle}
+.elabel{font-size:10.5px;fill:var(--ink2);paint-order:stroke;stroke:var(--card);stroke-width:3px;font-family:var(--font);text-anchor:middle}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{display:inline-flex;align-items:center;border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:4px 12px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;color:var(--ink);transition:opacity .25s ease}
+.chip:hover{border-color:var(--ac)}
+.chip.off{opacity:.4;text-decoration:line-through}
+.tip{position:absolute;pointer-events:none;display:none;background:var(--card);border:1px solid var(--line);padding:8px 12px;border-radius:10px;font-size:12.5px;box-shadow:var(--shadow);z-index:5;min-width:150px}
+.tip .dot{margin-inline-end:6px}
+/* ===== correlation matrix ===== */
+.mtxwrap{overflow:auto;border:1px solid var(--line);border-radius:var(--radius-sm)}
+.mtx{border-collapse:collapse;font-size:12.5px;min-width:420px}
+.mtx th{padding:8px;font-weight:700;white-space:nowrap;text-align:center}
+.mtx th .dot{display:block;margin:0 auto 4px}
+.mtx td{width:54px;height:40px;text-align:center;font-weight:700;border:1px solid var(--card)}
+.mtx td.mtxcell{cursor:pointer}
+.mtx td.diag,.mtx td.na{color:var(--ink2);cursor:default}
+/* ===== lag bars ===== */
+.lagrow{display:flex;align-items:flex-end;gap:6px;justify-content:center;padding-top:12px;min-height:180px;flex-wrap:nowrap;overflow-x:auto}
+.lagcol{display:flex;flex-direction:column;align-items:center;gap:4px;width:44px;flex-shrink:0}
+.lagbar{width:26px;border-radius:6px 6px 2px 2px}
+.lagcol.best .lagbar{outline:2px solid var(--ink);outline-offset:2px}
+.lagr{font-size:11px;color:var(--ink2)}
+.lagk{font-size:12px;font-weight:700}
+.lagzero{text-align:center;color:var(--ink2);font-size:11.5px;border-top:1px dashed var(--line);padding-top:4px;margin-top:4px}
+/* ===== findings ===== */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;text-align:center}
+.kpi b{display:block;font-size:22px;font-weight:800;color:var(--ac)}
+.kpi span{font-size:12px;color:var(--ink2)}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.fcard{border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px;cursor:pointer;background:var(--bg);position:relative;transition:border-color .25s ease,transform .25s ease}
+.fcard:hover{border-color:var(--ac);transform:translateY(-2px)}
+.fic{width:34px;height:34px;border-radius:10px;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:8px}
+.fcard h3{font-size:14px;font-weight:800;margin-bottom:4px}
+.fcard p{font-size:12.5px;color:var(--ink2)}
+.tag{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:2px 10px;margin-top:8px}
+.t-ok{background:rgba(16,185,129,.14);color:var(--ok)}
+.t-mid{background:rgba(232,151,31,.16);color:#b45309}
+.t-low{background:rgba(100,116,139,.16);color:var(--ink2)}
+[data-theme="dark"] .t-mid{color:#fbbf24}
+.go{position:absolute;inset-inline-end:14px;bottom:12px;font-size:11px;color:var(--ac);font-weight:700;opacity:0;transition:opacity .25s ease}
+.fcard:hover .go{opacity:1}
+.crow{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+.crow:last-child{border-bottom:none}
+.bar{flex:1;min-width:120px;height:8px;background:var(--bg);border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;background:var(--ac)}
+.num{font-weight:800;min-width:34px;text-align:center}
+.sub{font-size:11.5px;color:var(--ink2)}
+.idxrow{display:grid;grid-template-columns:auto 1fr 90px 130px;gap:8px;align-items:center;padding:6px 0}
+.idxhead{font-size:11.5px;color:var(--ink2);font-weight:700}
+.idxname{display:flex;align-items:center}
+.loop{display:flex;align-items:center;gap:8px;padding:6px 0;flex-wrap:wrap;font-size:13.5px}
+.loopdot{width:12px;height:12px;border-radius:50%;background:var(--purple);flex-shrink:0}
+.empty{padding:28px;text-align:center;color:var(--ink2);border:1px dashed var(--line);border-radius:var(--radius-sm);font-size:13.5px}
+.row-between{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.chk{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink2);cursor:pointer}
+/* ===== toast ===== */
+#toasts{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:100;display:grid;gap:8px;width:max-content;max-width:92vw}
+.toast{background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;font-size:13.5px;font-weight:600;box-shadow:var(--shadow);animation:tin .3s ease}
+@keyframes tin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:640px){
+  .idxrow{grid-template-columns:auto 1fr 70px 110px}
+  .topbar h1{width:100%;margin-inline-start:0}
+  .card{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ====== TOPBAR ====== -->
+<header class="topbar">
+  <div class="container">
+    <a class="brand" href="index.html">مستر پلنر <span class="badge">افزونه</span></a>
+    <h1>میزکار تحلیل ارتباطات</h1>
+    <button type="button" class="ibtn" id="themeBtn" aria-label="تغییر تم روشن/تاریک"><i class="fa-solid fa-moon"></i></button>
+  </div>
+</header>
+
+<!-- ====== TABS ====== -->
+<nav class="tabs" aria-label="بخش‌های ابزار">
+  <div class="container">
+    <button type="button" data-tab="data" class="on" aria-selected="true"><i class="fa-solid fa-table-list"></i> داده‌ها</button>
+    <button type="button" data-tab="series" aria-selected="false"><i class="fa-solid fa-chart-line"></i> سری زمانی</button>
+    <button type="button" data-tab="corr" aria-selected="false"><i class="fa-solid fa-table-cells-large"></i> همبستگی</button>
+    <button type="button" data-tab="lag" aria-selected="false"><i class="fa-solid fa-clock-rotate-left"></i> تأخیر زمانی</button>
+    <button type="button" data-tab="thresh" aria-selected="false"><i class="fa-solid fa-scissors"></i> آستانه و چرخه</button>
+    <button type="button" data-tab="findings" aria-selected="false"><i class="fa-solid fa-wand-magic-sparkles"></i> یافته‌ها</button>
+    <button type="button" data-tab="help" aria-selected="false"><i class="fa-solid fa-circle-question"></i> راهنما</button>
+  </div>
+</nav>
+
+<main class="container">
+
+  <!-- ====== TAB: DATA ====== -->
+  <section class="tabsec" id="sec-data" role="tabpanel">
+    <div class="card">
+      <div class="toolbar">
+        <button type="button" class="btn" id="btnAddVar"><i class="fa-solid fa-plus"></i> متغیر</button>
+        <button type="button" class="btn" id="btnAddDay"><i class="fa-solid fa-calendar-plus"></i> روز جدید</button>
+        <button type="button" class="btn" id="btnSample"><i class="fa-solid fa-flask"></i> دادهٔ نمونه</button>
+        <label class="btn filelabel"><i class="fa-solid fa-folder-open"></i> بارگذاری فایل<input type="file" id="fileImp" accept=".json,.csv" hidden></label>
+        <button type="button" class="btn" id="btnExpJson"><i class="fa-solid fa-file-code"></i> خروجی JSON</button>
+        <button type="button" class="btn" id="btnExpCsv"><i class="fa-solid fa-file-csv"></i> خروجی CSV</button>
+        <button type="button" class="btn primary" id="btnShare"><i class="fa-solid fa-link"></i> ساخت لینک اشتراک</button>
+        <button type="button" class="btn warn" id="btnClear"><i class="fa-solid fa-trash"></i> پاک‌کردن همه</button>
+      </div>
+      <div id="varEditor" class="vlist"></div>
+      <div id="tableWrap"></div>
+      <p class="hint">همه‌چیز فقط روی دستگاه شما ذخیره می‌شود (localStorage). تاریخ‌ها در نمودارها و جداول به شمسی نمایش داده می‌شوند.</p>
+    </div>
+  </section>
+
+  <!-- ====== TAB: SERIES ====== -->
+  <section class="tabsec" id="sec-series" role="tabpanel" hidden>
+    <div class="card">
+      <div class="row-between">
+        <h2>سری زمانی</h2>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <label class="chk"><input type="checkbox" id="normChk"> نرمال‌شده (۰–۱)</label>
+          <label class="chk"><input type="checkbox" id="maChk" checked> میانگین متحرک ۵روزه</label>
+        </div>
+      </div>
+      <div class="chartwrap" id="seriesWrap">
+        <div id="seriesBox"></div>
+        <div class="tip" id="seriesTip"></div>
+      </div>
+      <div id="seriesLegend" class="legend"></div>
+      <p class="hint">حلقهٔ سبز = نقطهٔ غیرمعمول بالا (z≥۲) · حلقهٔ قرمز = غیرمعمول پایین. با ماوس روی نمودار، مقدار هر روز را ببینید.</p>
+    </div>
+  </section>
+
+  <!-- ====== TAB: CORRELATION ====== -->
+  <section class="tabsec" id="sec-corr" role="tabpanel" hidden>
+    <div class="card">
+      <h2>ماتریس همبستگی</h2>
+      <div id="corrWrap"></div>
+      <p class="hint">آبی = هم‌جهت، قرمز = مخالف؛ شدت رنگ و عدد = قدرت رابطه (−۱ تا ۱). کلیک روی هر خانه → تحلیل تأخیر همان جفت.</p>
+    </div>
+    <div class="card">
+      <h2>همبستگی جزئی (کنترل متغیر سوم)</h2>
+      <p class="hint">آیا رابطهٔ A و B واقعی است یا فقط به‌خاطر C؟ اثر C را کنار بگذارید و ببینید رابطه باقی می‌ماند یا نه.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <select id="pA" aria-label="متغیر اول"></select>
+        <select id="pB" aria-label="متغیر دوم"></select>
+        <select id="pC" aria-label="متغیر کنترل"></select>
+      </div>
+      <div id="partialOut"></div>
+    </div>
+    <div class="card">
+      <h2>گروه‌های هم‌رفتار (|r| ≥ ۰٫۵۵)</h2>
+      <div id="clusterOut"></div>
+    </div>
+  </section>
+
+  <!-- ====== TAB: LAG ====== -->
+  <section class="tabsec" id="sec-lag" role="tabpanel" hidden>
+    <div class="card">
+      <h2>همبستگی متقاطع (تأخیر زمانی)</h2>
+      <p class="hint">آیا «X امروز» با «Y چند روز بعد» رابطه دارد؟ k مثبت یعنی X پیشرو است.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center">
+        <select id="lagX" aria-label="متغیر پیشرو"></select>
+        <select id="lagY" aria-label="متغیر پیرو"></select>
+        <select id="lagW" aria-label="بازهٔ تأخیر">
+          <option value="3">±۳ روز</option>
+          <option value="5" selected>±۵ روز</option>
+          <option value="7">±۷ روز</option>
+        </select>
+      </div>
+      <div id="lagChart" style="margin-top:12px"></div>
+      <div id="lagOut"></div>
+    </div>
+  </section>
+
+  <!-- ====== TAB: THRESHOLD & CYCLES ====== -->
+  <section class="tabsec" id="sec-thresh" role="tabpanel" hidden>
+    <div class="card">
+      <h2>تحلیل آستانه</h2>
+      <p class="hint">آیا از نقطه‌ای به بعد، رفتار Y تغییر می‌کند؟ (مثلاً «بعد از ۱۲۰ دقیقه مطالعه، تمرکز افت می‌کند»)</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <select id="thX" aria-label="متغیر شرط"></select>
+        <select id="thY" aria-label="متغیر پیامد"></select>
+      </div>
+      <div id="stumpChart" style="margin-top:12px"></div>
+      <div id="stumpOut"></div>
+    </div>
+    <div class="card">
+      <h2>قوی‌ترین آستانه‌ها در همهٔ جفت‌ها</h2>
+      <div id="stumpTop"></div>
+      <p class="hint">روی هر ردیف کلیک کنید تا نمودار همان جفت بالا بیاید.</p>
+    </div>
+    <div class="card">
+      <h2>نقشهٔ چرخهٔ علّی</h2>
+      <p class="hint">جهت فلش از تحلیل تأخیر (پنجرهٔ ۵ روز، |r| ≥ ۰٫۴) استنباط می‌شود: فلش یعنی «پیشرو → پیرو». ضخامت خط = قدرت پیوند.</p>
+      <div id="cycleMap"></div>
+      <div id="cycleLoops"></div>
+    </div>
+  </section>
+
+  <!-- ====== TAB: FINDINGS ====== -->
+  <section class="tabsec" id="sec-findings" role="tabpanel" hidden>
+    <div class="kpis" id="kpis"></div>
+    <div class="card">
+      <h2>یافته‌های خودکار</h2>
+      <div id="findingsGrid" class="fgrid"></div>
+      <p class="hint">روی هر کارت کلیک کنید تا به تحلیل مربوطه بروید.</p>
+    </div>
+    <div class="card">
+      <h2>ثبات روال‌ها</h2>
+      <div id="consistOut"></div>
+      <p class="hint">امتیاز = ۱۰۰ − نصف ضریب تغییرات (CV%). هرچه نوسان هر متغیر کمتر باشد، روال پایدارتر است.</p>
+    </div>
+    <div class="card">
+      <h2>شاخص ترکیبی شخصی</h2>
+      <p class="hint">«روز خوبِ» خودتان را تعریف کنید: کدام متغیرها، با چه وزنی، و بیشتر بهتر یا کمتر بهتر.</p>
+      <div id="idxBuilder"></div>
+      <div id="idxChart"></div>
+      <div id="idxOut"></div>
+    </div>
+    <div class="card">
+      <h2>پیش‌نمایش روند ۷ روز آینده</h2>
+      <div style="margin-top:8px"><select id="fcTarget" aria-label="متغیر پیش‌بینی"></select></div>
+      <div id="fcChart"></div>
+      <div id="fcOut"></div>
+    </div>
+  </section>
+
+  <!-- ====== TAB: HELP ====== -->
+  <section class="tabsec" id="sec-help" role="tabpanel" hidden>
+    <div class="card">
+      <h2>راهنمای میزکار تحلیل ارتباطات</h2>
+      <p>این ابزار کمک می‌کند بفهمید کدام‌یک از عادت‌ها و روال‌های روزانهٔ شما واقعاً با پیامدها (خواب، تمرکز، استرس، انگیزه و…) در ارتباط‌اند — و کدام فقط شایعهٔ ذهنی‌اند.</p>
+      <h3 style="margin-top:14px">۱) داده‌ها</h3>
+      <p class="hint">با «+ متغیر» شاخص‌ها را بسازید (نام، واحد، رنگ). هر روز یک ردیف اضافه می‌شود و مقادیر را مستقیم در جدول می‌نویسید. روزهای بدون مقدار مشکلی ایجاد نمی‌کنند. می‌توانید دادهٔ نمونهٔ ۶۰ روزه را بارگذاری کنید تا با خروجی‌ها آشنا شوید.</p>
+      <h3 style="margin-top:14px">۲) سری زمانی</h3>
+      <p class="hint">روند هر متغیر در طول زمان، همراه میانگین متحرک ۵روزه (خط‌چین) و نشان‌گذاری نقاط غیرمعمول. حالت «نرمال‌شده» متغیرهای با واحدهای مختلف را روی یک مقیاس می‌گذارد.</p>
+      <h3 style="margin-top:14px">۳) همبستگی</h3>
+      <p class="hint">ماتریس Pearson بین همهٔ جفت‌ها. «همبستگی جزئی» اثر یک متغیر سوم را حذف می‌کند: اگر رابطه پس از کنترل تقریباً صفر شد، احتمالاً آن متغیر سوم واسطه بوده است.</p>
+      <h3 style="margin-top:14px">۴) تأخیر زمانی</h3>
+      <p class="hint">خیلی از اثرها یک‌روزه‌اند (ورزش امروز ← خواب بهتر فردا). نمودار r بر حسب k نشان می‌دهد کدام تأخیر قوی‌ترین پیوند را دارد. k مثبت = متغیر اول پیشرو.</p>
+      <h3 style="margin-top:14px">۵) آستانه و چرخه</h3>
+      <p class="hint">تحلیل آستانه بهترین نقطهٔ برش را پیدا می‌کند («بعد از X ≥ t، میانگین Y چقدر تغییر می‌کند»). نقشهٔ چرخه از جهت تأخیرها، گراف جهت‌دار می‌سازد و حلقه‌های بازخورد (مثل استرس ← کم‌خوابی ← استرس) را با بنفش نشان می‌دهد؛ ضعیف‌ترین پیوند هر حلقه، بهترین نقطهٔ مداخله است.</p>
+      <h3 style="margin-top:14px">۶) یافته‌ها</h3>
+      <p class="hint">خلاصهٔ خودکار همهٔ تحلیل‌ها: قوی‌ترین روابط، اثرهای تأخیری، آستانه‌ها، ناهنجاری‌ها، امتیاز ثبات هر روال، شاخص ترکیبی دلخواه شما و برازش خطی سادهٔ ۷ روز آینده.</p>
+      <h3 style="margin-top:14px">اشتراک و پشتیبان</h3>
+      <p class="hint">«ساخت لینک اشتراک» داده‌ها را داخل خود لینک (#) جاسازی می‌کند — هیچ داده‌ای به سرور نمی‌رود. خروجی JSON پشبان کامل است؛ CSV برای اکسل. بارگذاری فایل هر دو قالب را می‌پذیرد.</p>
+      <h3 style="margin-top:14px">هشدار علمی</h3>
+      <p class="hint">همبستگی (حتی تأخیری) دلیل نیست؛ این ابزار فرضیه‌ساز است، نه حکم‌کننده. برای ادعای علّیت، آزمایش شخصی طراحی کنید و دادهٔ بیشتری جمع کنید.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">میزکار تحلیل ارتباطات — بخشی از <a href="index.html">مستر پلنر</a> · داده‌ها فقط روی دستگاه شما نگه‌داری می‌شود</div>
+</footer>
+
+<div id="toasts" aria-live="polite"></div>
+
+<script src="assets/gate/gate.js"></script>
+<script>
+'use strict';
+/* ============================================================
+   میزکار تحلیل ارتباطات — مستر پلنر
+   احسان روحانی راوری
+   ============================================================ */
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function $$(sel,root){root=root||document;return Array.prototype.slice.call(root.querySelectorAll(sel));}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+var FA_D='۰۱۲۳۴۵۶۷۸۹';
+function faNum(x,d){
+  if(x===null||x===undefined||typeof x!=='number'||isNaN(x))return '—';
+  var s=(typeof d==='number')?Number(x).toFixed(d):String(x);
+  s=s.replace('-','−');
+  return s.replace(/[0-9.]/g,function(c){return c==='.'?'٫':FA_D[+c];});
+}
+function toast(msg){
+  var box=$('toasts');
+  var t=document.createElement('div');
+  t.className='toast';t.textContent=msg;
+  box.appendChild(t);
+  setTimeout(function(){t.style.opacity='0';t.style.transition='opacity .4s ease';},2800);
+  setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},3300);
+}
+function debounce(fn,ms){var t=null;return function(){var a=arguments,self=this;clearTimeout(t);t=setTimeout(function(){fn.apply(self,a);},ms);};}
+function safe(fn){try{fn();}catch(e){console.error(e);}}
+function emptyHint(msg){return '<div class="empty">'+msg+'</div>';}
+function p2(x){return (x<10?'0':'')+x;}
+function todayISO(){var d=new Date();return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate());}
+function b64enc(str){return btoa(unescape(encodeURIComponent(str))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+function b64dec(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return decodeURIComponent(escape(atob(s)));}
+
+/* ---------- Jalali display (Intl) ---------- */
+var _jF=null,_jS=null;
+try{_jF=new Intl.DateTimeFormat('fa-IR-u-ca-persian',{day:'numeric',month:'long',year:'numeric'});}catch(e){}
+try{_jS=new Intl.DateTimeFormat('fa-IR-u-ca-persian',{day:'numeric',month:'long'});}catch(e){}
+function jFull(iso){try{return _jF?_jF.format(new Date(iso+'T12:00:00')):iso;}catch(e){return iso;}}
+function jShort(iso){try{return _jS?_jS.format(new Date(iso+'T12:00:00')):iso;}catch(e){return iso;}}
+
+/* ---------- state ---------- */
+var PALETTE=['#2563eb','#e8971f','#10b981','#ef4444','#8b5cf6','#0ea5e9','#ec4899','#84cc16'];
+var LS='rw_state_v2';
+var state={vars:[],rows:[],idx:{vars:{}}};
+var seriesOn={};
+function save(){try{localStorage.setItem(LS,JSON.stringify(state));}catch(e){}}
+function load(){
+  try{
+    var s=localStorage.getItem(LS);
+    if(!s)return;
+    var o=JSON.parse(s);
+    if(o&&Array.isArray(o.vars)&&Array.isArray(o.rows)){state=o;if(!state.idx||!state.idx.vars)state.idx={vars:{}};}
+  }catch(e){console.warn(e);}
+}
+function pruneIdx(){
+  var o={};
+  state.vars.forEach(function(v){
+    var c=(state.idx&&state.idx.vars&&state.idx.vars[v.n])||null;
+    o[v.n]={on:(c&&c.on!==false),w:(c?(+c.w||1):1),dir:(c&&c.dir==='lo'?'lo':'hi')};
+  });
+  state.idx={vars:o};
+}
+
+/* ---------- stats ---------- */
+function sortedRows(){return state.rows.slice().sort(function(a,b){return a.d<b.d?-1:(a.d>b.d?1:0);});}
+function rowsDesc(){return state.rows.slice().sort(function(a,b){return a.d>b.d?-1:(a.d<b.d?1:0);});}
+function col(i){return sortedRows().map(function(r){return (r.v&&r.v[i]!=null)?r.v[i]:null;});}
+function pairsClean(a,b){
+  var xs=[],ys=[];
+  for(var i=0;i<Math.min(a.length,b.length);i++){if(a[i]!=null&&b[i]!=null){xs.push(a[i]);ys.push(b[i]);}}
+  return [xs,ys];
+}
+function mean(a){if(!a.length)return NaN;var s=0;for(var i=0;i<a.length;i++)s+=a[i];return s/a.length;}
+function std(a){if(a.length<2)return NaN;var m=mean(a),s=0;for(var i=0;i<a.length;i++)s+=(a[i]-m)*(a[i]-m);return Math.sqrt(s/(a.length-1));}
+function pearson(xs,ys){
+  var n=xs.length;if(n<3)return NaN;
+  var mx=mean(xs),my=mean(ys),sxy=0,sx=0,sy=0;
+  for(var i=0;i<n;i++){var dx=xs[i]-mx,dy=ys[i]-my;sxy+=dx*dy;sx+=dx*dx;sy+=dy*dy;}
+  if(!(sx>0)||!(sy>0))return NaN;
+  var r=sxy/Math.sqrt(sx*sy);
+  return Math.max(-1,Math.min(1,r));
+}
+function rOf(i,j){var p=pairsClean(col(i),col(j));return pearson(p[0],p[1]);}
+function partialR(i,j,k){
+  var rij=rOf(i,j),rik=rOf(i,k),rjk=rOf(j,k);
+  if(isNaN(rij)||isNaN(rik)||isNaN(rjk))return NaN;
+  var den=Math.sqrt((1-rik*rik)*(1-rjk*rjk));
+  if(!(den>1e-12))return NaN;
+  return Math.max(-1,Math.min(1,(rij-rik*rjk)/den));
+}
+function xcorr(i,j,W){
+  var xs=col(i),ys=col(j),res=[];
+  for(var k=-W;k<=W;k++){
+    var a=[],b=[];
+    for(var t=0;t<xs.length;t++){
+      var u=t+k;
+      if(u<0||u>=ys.length)continue;
+      if(xs[t]!=null&&ys[u]!=null){a.push(xs[t]);b.push(ys[u]);}
+    }
+    res.push({k:k,r:pearson(a,b),n:a.length});
+  }
+  return res;
+}
+function bestLag(i,j,W){
+  var res=xcorr(i,j,W),best=null;
+  res.forEach(function(x){if(x.k>=1&&x.k<=W&&!isNaN(x.r)){if(!best||Math.abs(x.r)>Math.abs(best.r))best=x;}});
+  return best;
+}
+function movAvg(arr,w){
+  var out=[];
+  for(var i=0;i<arr.length;i++){
+    var s=0,c=0;
+    for(var j=Math.max(0,i-w+1);j<=i;j++){if(arr[j]!=null){s+=arr[j];c++;}}
+    out.push(c>=3?s/c:null);
+  }
+  return out;
+}
+function niceStep(range,n){
+  if(!(range>0))return 1;
+  var raw=range/Math.max(1,n);
+  var mag=Math.pow(10,Math.floor(Math.log(raw)/Math.log(10)));
+  var norm=raw/mag;
+  var step=(norm<1.5?1:(norm<3?2:(norm<7?5:10)));
+  return step*mag;
+}
+function ticks(min,max,count){
+  if(!(max>min))return [min];
+  var step=niceStep(max-min,count),out=[];
+  for(var v=Math.ceil(min/step)*step;v<=max+step*1e-6;v+=step){out.push(Math.round(v*1e6)/1e6);}
+  return out;
+}
+function linfit(xs,ys){
+  var n=xs.length;if(n<2)return null;
+  var mx=mean(xs),my=mean(ys),sxy=0,sxx=0;
+  for(var i=0;i<n;i++){sxy+=(xs[i]-mx)*(ys[i]-my);sxx+=(xs[i]-mx)*(xs[i]-mx);}
+  if(!(sxx>0))return null;
+  var b=sxy/sxx;
+  return {b:b,a:my-b*mx};
+}
+
+/* ---------- decision stump ---------- */
+function stump(i,j){
+  var rows=sortedRows(),xs=[],ys=[];
+  rows.forEach(function(r){
+    if(r.v&&r.v[i]!=null&&r.v[j]!=null){xs.push(r.v[i]);ys.push(r.v[j]);}
+  });
+  var n=xs.length;
+  if(n<6)return null;
+  var sorted=xs.slice().sort(function(a,b){return a-b;});
+  var cands=[];
+  for(var q=0.15;q<=0.85;q+=0.05){
+    var idx=Math.floor(q*(sorted.length-1));
+    var t=(sorted[idx]+sorted[Math.min(idx+1,sorted.length-1)])/2;
+    if(cands.indexOf(t)<0)cands.push(t);
+  }
+  var best=null;
+  cands.forEach(function(t){
+    var hi=[],lo=[];
+    for(var i2=0;i2<n;i2++){(xs[i2]>=t?hi:lo).push(ys[i2]);}
+    if(hi.length<3||lo.length<3)return;
+    var m1=mean(hi),m0=mean(lo);
+    if(isNaN(m1)||isNaN(m0))return;
+    var eff=m1-m0;
+    var score=Math.abs(eff)*Math.sqrt(hi.length*lo.length)/n;
+    if(!best||score>best.score)best={t:t,eff:eff,score:score,nHi:hi.length,nLo:lo.length,mHi:m1,mLo:m0};
+  });
+  return best;
+}
+
+/* ---------- causal map edges & cycles ---------- */
+function mapEdges(){
+  var E=[],nv=state.vars.length;
+  for(var i=0;i<nv;i++)for(var j=i+1;j<nv;j++){
+    var a=bestLag(i,j,5),b=bestLag(j,i,5),pick=null;
+    if(a&&b){pick=(Math.abs(a.r)>=Math.abs(b.r))?{from:i,to:j,k:a.k,r:a.r,n:a.n}:{from:j,to:i,k:b.k,r:b.r,n:b.n};}
+    else if(a){pick={from:i,to:j,k:a.k,r:a.r,n:a.n};}
+    else if(b){pick={from:j,to:i,k:b.k,r:b.r,n:b.n};}
+    if(pick&&Math.abs(pick.r)>=0.4&&pick.n>=8)E.push(pick);
+  }
+  return E;
+}
+function findCycles(E,nv){
+  var adj={};
+  E.forEach(function(e){(adj[e.from]=adj[e.from]||[]).push(e.to);});
+  var cycles=[],seen={};
+  function dfs(start,node,path,visited){
+    if(path.length>=4)return;
+    var nxt=adj[node]||[];
+    for(var x=0;x<nxt.length;x++){
+      var nx=nxt[x];
+      if(nx===start){
+        if(path.length>=2){
+          var key=path.join('-');
+          if(!seen[key]){seen[key]=1;cycles.push(path.slice());}
+        }
+        continue;
+      }
+      if(nx<start||visited[nx])continue;
+      visited[nx]=1;path.push(nx);
+      dfs(start,nx,path,visited);
+      path.pop();delete visited[nx];
+    }
+  }
+  for(var s=0;s<nv;s++){var visited={};visited[s]=1;dfs(s,s,[s],visited);}
+  return cycles;
+}
+
+/* ---------- composite index ---------- */
+function computeIndex(){
+  var rows=sortedRows(),out=[];
+  var act=[];
+  state.vars.forEach(function(v,i){var c=state.idx.vars[v.n];if(c&&c.on)act.push(i);});
+  if(!act.length)return out;
+  var rng=act.map(function(i){
+    var vals=col(i).filter(function(x){return x!=null;});
+    if(!vals.length)return null;
+    var mn=Math.min.apply(null,vals),mx=Math.max.apply(null,vals);
+    return (mx>mn)?[mn,mx]:null;
+  });
+  rows.forEach(function(r){
+    var s=0,w=0;
+    act.forEach(function(i,ai){
+      var v=r.v[i];
+      if(v==null)return;
+      var rg=rng[ai];
+      var nrm=rg?((v-rg[0])/(rg[1]-rg[0])):0.5;
+      var cfg=state.idx.vars[state.vars[i].n]||{dir:'hi',w:1};
+      if(cfg.dir==='lo')nrm=1-nrm;
+      s+=nrm*(+cfg.w||0);
+      w+=(+cfg.w||0);
+    });
+    if(w>0)out.push({d:r.d,val:100*s/w});
+  });
+  return out;
+}
+function strongLinks(){
+  var c=0,nv=state.vars.length;
+  if(nv<2)return 0;
+  for(var i=0;i<nv;i++)for(var j=i+1;j<nv;j++){
+    var p=pairsClean(col(i),col(j));
+    var r=pearson(p[0],p[1]);
+    if(!isNaN(r)&&Math.abs(r)>=0.4&&p[0].length>=8)c++;
+  }
+  return c;
+}
+
+/* ---------- sample data ---------- */
+function mulberry32(a){
+  return function(){
+    a|=0;a=a+0x6D2B79F5|0;
+    var t=Math.imul(a^(a>>>15),1|a);
+    t=t+Math.imul(t^(t>>>7),61|t)^t;
+    return ((t^(t>>>14))>>>0)/4294967296;
+  };
+}
+function loadSample(){
+  var rnd=mulberry32(1403);
+  state.vars=[
+    {n:'ورزش',u:'دقیقه',c:'#2563eb'},
+    {n:'استرس',u:'از ۱۰۰',c:'#ef4444'},
+    {n:'خواب',u:'ساعت',c:'#8b5cf6'},
+    {n:'تمرکز',u:'از ۱۰۰',c:'#10b981'},
+    {n:'انگیزه',u:'از ۱۰۰',c:'#e8971f'}
+  ];
+  var rows=[],prevEx=40,prevSl=7;
+  var t0=new Date();t0.setHours(12,0,0,0);
+  for(var i=59;i>=0;i--){
+    var d=new Date(t0.getTime()-i*86400000);
+    var iso=d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate());
+    var ex=Math.round(Math.max(0,Math.min(120,prevEx*0.4+rnd()*70-15)));
+    var st=Math.round(Math.max(10,Math.min(95,68-ex*0.35-(prevSl-7)*6+rnd()*26-13)));
+    var sl=Math.max(4,Math.min(10,Math.round((8.4-st/50+rnd()*1.6-0.8)*2)/2));
+    var fo=Math.round(Math.max(15,Math.min(100,sl*8.5-st*0.22+rnd()*16-8)));
+    var mo=Math.round(Math.max(10,Math.min(100,fo*0.5+prevEx*0.15-st*0.12+rnd()*14-7)));
+    var v=[ex,st,sl,fo,mo];
+    var miss=rnd();
+    if(miss<0.05)v[4]=null;else if(miss<0.08)v[2]=null;
+    rows.push({d:iso,v:v});
+    prevEx=ex;prevSl=sl;
+  }
+  state.rows=rows;
+  state.idx={vars:{
+    'ورزش':{on:true,w:1,dir:'hi'},
+    'استرس':{on:true,w:1.5,dir:'lo'},
+    'خواب':{on:true,w:1.5,dir:'hi'},
+    'تمرکز':{on:true,w:2,dir:'hi'},
+    'انگیزه':{on:true,w:1,dir:'hi'}
+  }};
+  save();renderAll();
+  toast('دادهٔ نمونهٔ ۶۰ روزه بارگذاری شد');
+}
+
+/* ---------- tab switching ---------- */
+function showTab(id){
+  $$('.tabsec').forEach(function(s){s.hidden=(s.id!=='sec-'+id);});
+  $$('.tabs button').forEach(function(b){
+    var on=(b.getAttribute('data-tab')===id);
+    b.classList.toggle('on',on);
+    b.setAttribute('aria-selected',on?'true':'false');
+  });
+  if(id==='series')safe(renderSeries);
+  if(id==='corr'){safe(renderCorr);safe(renderPartial);safe(renderClusters);}
+  if(id==='lag')safe(renderLag);
+  if(id==='thresh'){safe(renderStump);safe(renderStumpTop);safe(renderCycles);}
+  if(id==='findings')safe(renderFindings);
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  try{window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});}catch(e){window.scrollTo(0,0);}
+}
+
+/* ---------- DATA TAB ---------- */
+function renderVarEditor(){
+  var w=$('varEditor');
+  if(!state.vars.length){
+    w.innerHTML='<p class="hint">هنوز متغیری ندارید. با «+ متغیر» شروع کنید یا «دادهٔ نمونه» را بارگذاری کنید.</p>';
+    return;
+  }
+  var h='';
+  state.vars.forEach(function(v,i){
+    h+='<div class="vrow">'
+      +'<input type="color" value="'+v.c+'" data-act="c" data-vi="'+i+'" aria-label="رنگ '+esc(v.n)+'">'
+      +'<input type="text" class="vn" value="'+esc(v.n)+'" data-act="n" data-vi="'+i+'" aria-label="نام متغیر">'
+      +'<input type="text" class="vu" value="'+esc(v.u||'')+'" placeholder="واحد" data-act="u" data-vi="'+i+'" aria-label="واحد">'
+      +'<button type="button" class="ibtn" data-delvar="'+i+'" aria-label="حذف '+esc(v.n)+'" title="حذف متغیر"><i class="fa-solid fa-xmark"></i></button>'
+      +'</div>';
+  });
+  w.innerHTML=h;
+}
+function renderTable(){
+  var w=$('tableWrap');
+  if(!state.vars.length){w.innerHTML='';return;}
+  var rows=rowsDesc();
+  var h='<div class="tblwrap"><table class="tbl"><thead><tr><th>تاریخ</th>';
+  state.vars.forEach(function(v){
+    h+='<th><span class="dot" style="background:'+v.c+'"></span>'+esc(v.n)+(v.u?' <small style="color:var(--ink2)">('+esc(v.u)+')</small>':'')+'</th>';
+  });
+  h+='<th></th></tr></thead><tbody>';
+  rows.forEach(function(r){
+    var ri=state.rows.indexOf(r);
+    h+='<tr><td class="dcell"><input type="date" value="'+esc(r.d)+'" data-ri="'+ri+'" data-act="d" aria-label="تاریخ"><span class="jdate">'+jShort(r.d)+'</span></td>';
+    state.vars.forEach(function(v,vi){
+      var val=(r.v&&r.v[vi]!=null)?r.v[vi]:'';
+      h+='<td><input type="number" step="any" value="'+val+'" data-ri="'+ri+'" data-vi="'+vi+'" data-act="v" aria-label="'+esc(v.n)+'"></td>';
+    });
+    h+='<td><button type="button" class="ibtn" data-delrow="'+ri+'" aria-label="حذف این روز" title="حذف روز"><i class="fa-solid fa-trash-can"></i></button></td></tr>';
+  });
+  h+='</tbody></table></div>';
+  w.innerHTML=h;
+}
+var softRefresh=debounce(function(){
+  safe(renderSeries);safe(renderCorr);safe(renderPartial);safe(renderClusters);
+  safe(renderLag);safe(renderStump);safe(renderStumpTop);safe(renderCycles);safe(renderFindings);
+},300);
+
+/* ---------- SERIES TAB ---------- */
+function renderSeries(){
+  var box=$('seriesBox'),tip=$('seriesTip');
+  tip.style.display='none';
+  var rows=sortedRows(),n=rows.length,nv=state.vars.length;
+  if(!nv||n<2){
+    box.innerHTML=emptyHint(nv?'حداقل دو روز داده ثبت کنید تا نمودار رسم شود.':'اول از تب «داده‌ها» متغیر و داده بسازید یا دادهٔ نمونه را بارگذاری کنید.');
+    $('seriesLegend').innerHTML='';
+    return;
+  }
+  var shown=[];
+  state.vars.forEach(function(v,i){if(seriesOn[v.n]!==false)shown.push(i);});
+  if(!shown.length){
+    box.innerHTML=emptyHint('همهٔ سری‌ها پنهان‌اند؛ از فهرست زیر یکی را فعال کنید.');
+    $('seriesLegend').innerHTML='';
+    return;
+  }
+  var norm=$('normChk').checked;
+  var W=900,H=360,pl=52,pr=16,pt=16,pb=34,pw=W-pl-pr,ph=H-pt-pb;
+  var gmin=Infinity,gmax=-Infinity;
+  var data=shown.map(function(vi){
+    var vals=rows.map(function(r){return (r.v&&r.v[vi]!=null)?r.v[vi]:null;});
+    var cc=vals.filter(function(x){return x!=null;});
+    var mn=cc.length?Math.min.apply(null,cc):0,mx=cc.length?Math.max.apply(null,cc):1;
+    if(mn<gmin)gmin=mn;
+    if(mx>gmax)gmax=mx;
+    return {vi:vi,vals:vals,mn:mn,mx:mx,c:state.vars[vi].c,nm:state.vars[vi].n};
+  });
+  var ys;
+  if(norm){ys={min:0,max:1};}
+  else{
+    var pad=((gmax-gmin)*0.08)||1;
+    ys={min:gmin-pad,max:gmax+pad};
+  }
+  function X(i){return pl+(n>1?i*pw/(n-1):pw/2);}
+  function Y(v,lo,hi){var rg=(hi-lo)||1;return pt+ph-((v-lo)/rg)*ph;}
+  /* gridlines + y labels */
+  var grid='',xlab='';
+  var tks=norm?[0,0.5,1]:ticks(ys.min,ys.max,4);
+  var dec=norm?1:((tks.length>1&&(tks[1]-tks[0])<1)?1:0);
+  tks.forEach(function(v){
+    var y=Y(v,ys.min,ys.max).toFixed(1);
+    grid+='<line x1="'+pl+'" y1="'+y+'" x2="'+(W-pr)+'" y2="'+y+'" stroke="var(--line)" stroke-width="1"/>';
+    grid+='<text x="'+(pl-8)+'" y="'+(pt+ph-((v-ys.min)/((ys.max-ys.min)||1)*ph)+4).toFixed(1)+'" text-anchor="end" class="axis">'+faNum(v,dec)+'</text>';
+  });
+  var xidx=[0,Math.round((n-1)/3),Math.round(2*(n-1)/3),n-1];
+  xidx.forEach(function(i,ix){
+    if(ix>0&&xidx[ix-1]===i)return;
+    xlab+='<text x="'+X(i).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" class="axis">'+jShort(rows[i].d)+'</text>';
+  });
+  /* series paths */
+  var showMA=$('maChk').checked;
+  var paths='';
+  data.forEach(function(s){
+    var d='',pen=false;
+    s.vals.forEach(function(v,i){
+      if(v==null){pen=false;return;}
+      var lo=norm?s.mn:ys.min,hi=norm?s.mx:ys.max;
+      d+=(pen?'L':'M')+X(i).toFixed(1)+' '+Y(v,lo,hi).toFixed(1)+' ';
+      pen=true;
+    });
+    if(d)paths+='<path d="'+d+'" fill="none" stroke="'+s.c+'" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" opacity="0.95"/>';
+    if(showMA){
+      var ma=movAvg(s.vals,5),d2='',pen2=false;
+      ma.forEach(function(v,i){
+        if(v==null){pen2=false;return;}
+        var lo=norm?s.mn:ys.min,hi=norm?s.mx:ys.max;
+        d2+=(pen2?'L':'M')+X(i).toFixed(1)+' '+Y(v,lo,hi).toFixed(1)+' ';
+        pen2=true;
+      });
+      if(d2)paths+='<path d="'+d2+'" fill="none" stroke="'+s.c+'" stroke-width="1.4" stroke-dasharray="5 4" opacity="0.55"/>';
+    }
+    var cc=s.vals.filter(function(x){return x!=null;});
+    if(cc.length>=8){
+      var m=mean(cc),sd=std(cc);
+      if(sd>0){
+        s.vals.forEach(function(v,i){
+          if(v==null)return;
+          var z=(v-m)/sd;
+          if(Math.abs(z)>=2){
+            var lo=norm?s.mn:ys.min,hi=norm?s.mx:ys.max;
+            paths+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(v,lo,hi).toFixed(1)+'" r="6" fill="none" stroke="'+(z>0?'var(--ok)':'var(--bad)')+'" stroke-width="2"/>';
+          }
+        });
+      }
+    }
+  });
+  box.innerHTML='<svg viewBox="0 0 900 360" role="img" aria-label="نمودار سری زمانی">'+grid+paths+xlab+'</svg>';
+  var svgEl=box.querySelector('svg');
+  svgEl.setAttribute('data-pl',pl);
+  svgEl.setAttribute('data-pw',pw);
+  svgEl.setAttribute('data-n',n);
+  svgEl.addEventListener('mousemove',function(ev){
+    var rect=svgEl.getBoundingClientRect();
+    if(!rect.width)return;
+    var vx=(ev.clientX-rect.left)/rect.width*900;
+    var pl2=+svgEl.getAttribute('data-pl'),pw2=+svgEl.getAttribute('data-pw'),n2=+svgEl.getAttribute('data-n');
+    var i=Math.round((vx-pl2)/pw2*(n2-1));
+    if(i<0||i>=n2||!rows[i]){tip.style.display='none';return;}
+    var r=rows[i];
+    var h='<b>'+jFull(r.d)+'</b>';
+    state.vars.forEach(function(v,vi){
+      var x=(r.v&&r.v[vi]!=null)?r.v[vi]:null;
+      h+='<div><span class="dot" style="background:'+v.c+'"></span>'+esc(v.n)+': <b>'+(x==null?'—':faNum(x,(x%1)?1:0))+'</b>'+(v.u?' '+esc(v.u):'')+'</div>';
+    });
+    tip.innerHTML=h;
+    var wrap=$('seriesWrap').getBoundingClientRect();
+    tip.style.display='block';
+    var lx=ev.clientX-wrap.left;
+    tip.style.left=Math.max(8,Math.min(wrap.width-170,lx))+'px';
+    tip.style.top=(ev.clientY-wrap.top+14)+'px';
+  });
+  svgEl.addEventListener('mouseleave',function(){tip.style.display='none';});
+  /* legend */
+  var lg='';
+  state.vars.forEach(function(v,i){
+    var on=(seriesOn[v.n]!==false);
+    lg+='<button type="button" class="chip'+(on?'':' off')+'" data-svi="'+i+'"><span class="dot" style="background:'+v.c+'"></span>'+esc(v.n)+'</button>';
+  });
+  $('seriesLegend').innerHTML=lg;
+}
+
+/* ---------- CORRELATION TAB ---------- */
+function renderCorr(){
+  var w=$('corrWrap'),nv=state.vars.length;
+  if(nv<2){w.innerHTML=emptyHint('حداقل دو متغیر لازم است.');return;}
+  var h='<div class="mtxwrap"><table class="mtx"><thead><tr><th></th>';
+  for(var j=0;j<nv;j++){h+='<th title="'+esc(state.vars[j].n)+'"><span class="dot" style="background:'+state.vars[j].c+'"></span>'+esc(state.vars[j].n)+'</th>';}
+  h+='</tr></thead><tbody>';
+  for(var i=0;i<nv;i++){
+    h+='<tr><th><span class="dot" style="background:'+state.vars[i].c+'"></span>'+esc(state.vars[i].n)+'</th>';
+    for(var j2=0;j2<nv;j2++){
+      if(i===j2){h+='<td class="diag">—</td>';continue;}
+      var p=pairsClean(col(i),col(j2));
+      var r=pearson(p[0],p[1]);
+      if(isNaN(r)){h+='<td class="na">·</td>';continue;}
+      var a=0.1+0.75*Math.min(1,Math.abs(r));
+      var bg=(r>=0?'rgba(37,99,235,'+a+')':'rgba(220,38,38,'+a+')');
+      var tc=(Math.abs(r)>0.62)?';color:#fff':'';
+      h+='<td class="mtxcell" data-i="'+i+'" data-j="'+j2+'" style="background:'+bg+tc+'" title="'+esc(state.vars[i].n)+' ↔ '+esc(state.vars[j2].n)+'">'+faNum(r,2)+'</td>';
+    }
+    h+='</tr>';
+  }
+  h+='</tbody></table></div>';
+  w.innerHTML=h;
+}
+function renderPartial(){
+  var w=$('partialOut'),nv=state.vars.length;
+  if(nv<3){w.innerHTML='<p class="hint">برای همبستگی جزئی، حداقل سه متغیر لازم است.</p>';return;}
+  var a=+$('pA').value,b=+$('pB').value,c=+$('pC').value;
+  if(a===b||b===c||a===c){w.innerHTML='<p class="hint">سه متغیر متفاوت انتخاب کنید.</p>';return;}
+  var raw=rOf(a,b),pc=partialR(a,b,c);
+  if(isNaN(raw)){w.innerHTML='<p class="hint">دادهٔ مشترک کافی نیست.</p>';return;}
+  var verdict;
+  if(isNaN(pc)){verdict='متغیر کنترل تقریباً ثابت است؛ کنترل آن معنی ندارد.';}
+  else{
+    var d=Math.abs(pc)/Math.abs(raw);
+    if(d<0.6)verdict='بخش بزرگی از رابطه با «'+esc(state.vars[c].n)+'» توضیح داده می‌شود — احتمال اثر واسطه‌ای.';
+    else if(d>=0.85)verdict='رابطه پس از کنترل تقریباً پابرجاست — پیوند مستقل‌تری است.';
+    else verdict='رابطه تا حدی ضعیف می‌شود — اثر واسطه‌ای جزئی.';
+    if(raw*pc<0&&Math.abs(pc)>0.2)verdict+=' جهت رابطه هم برعکس شده است (پارادوکس سیمپسون).';
+  }
+  w.innerHTML='<p class="lead">r خام («'+esc(state.vars[a].n)+'» ↔ «'+esc(state.vars[b].n)+'»): <b>'+faNum(raw,2)+'</b> · پس از کنترل «'+esc(state.vars[c].n)+'»: <b>'+(isNaN(pc)?'—':faNum(pc,2))+'</b></p><p class="lead">'+verdict+'</p>';
+}
+function renderClusters(){
+  var w=$('clusterOut'),nv=state.vars.length;
+  if(nv<2){w.innerHTML='';return;}
+  var parent=[];
+  for(var i=0;i<nv;i++)parent.push(i);
+  function find(x){while(parent[x]!==x){parent[x]=parent[parent[x]];x=parent[x];}return x;}
+  for(var a=0;a<nv;a++)for(var b=a+1;b<nv;b++){
+    var p=pairsClean(col(a),col(b));
+    var r=pearson(p[0],p[1]);
+    if(!isNaN(r)&&Math.abs(r)>=0.55&&p[0].length>=5){
+      var ra=find(a),rb=find(b);
+      if(ra!==rb)parent[ra]=rb;
+    }
+  }
+  var groups={};
+  for(var k=0;k<nv;k++){var rt=find(k);(groups[rt]=groups[rt]||[]).push(k);}
+  var h='',any=false;
+  Object.keys(groups).forEach(function(g){
+    var mem=groups[g];
+    if(mem.length<2)return;
+    any=true;
+    h+='<div class="loop"><span class="loopdot" style="background:var(--ac)"></span>'+mem.map(function(x){return '<b>'+esc(state.vars[x].n)+'</b>';}).join(' + ')+'</div>';
+  });
+  w.innerHTML=any?h:'<p class="hint">هنوز گروهی با هم‌بستگی قوی پیدا نشد.</p>';
+}
+
+/* ---------- LAG TAB ---------- */
+function renderLag(){
+  var w=$('lagChart'),out=$('lagOut'),nv=state.vars.length;
+  if(nv<2){w.innerHTML=emptyHint('حداقل دو متغیر لازم است.');out.innerHTML='';return;}
+  var xi=+$('lagX').value||0,yi=+$('lagY').value||0,Wv=+$('lagW').value||5;
+  if(xi===yi){w.innerHTML='';out.innerHTML='<p class="hint">دو متغیر متفاوت انتخاب کنید.</p>';return;}
+  var res=xcorr(xi,yi,Wv),best=null;
+  res.forEach(function(x){if(!isNaN(x.r)&&(!best||Math.abs(x.r)>Math.abs(best.r)))best=x;});
+  var h='<div class="lagrow">';
+  res.forEach(function(x){
+    var hh=isNaN(x.r)?0:Math.abs(x.r);
+    var hp=Math.max(2,Math.round(hh*110));
+    var col=(isNaN(x.r)?'var(--line)':(x.r>=0?'var(--ac)':'var(--bad)'));
+    var bc=(best&&x.k===best.k)?' best':'';
+    h+='<div class="lagcol'+bc+'"><span class="lagr">'+(isNaN(x.r)?'·':faNum(x.r,2))+'</span><div class="lagbar" style="height:'+hp+'px;background:'+col+'"></div><span class="lagk">'+faNum(x.k,0)+'</span></div>';
+  });
+  h+='</div>';
+  w.innerHTML=h;
+  if(!best){out.innerHTML='<p class="hint">دادهٔ کافی برای تحلیل تأخیر نیست؛ چند روز دیگر ثبت کنید.</p>';return;}
+  var dirTxt=(best.k>0)
+    ?'«'+esc(state.vars[xi].n)+'» پیشرو است و «'+esc(state.vars[yi].n)+'» با تأخیر دنبال می‌کند.'
+    :(best.k<0?'برعکس: «'+esc(state.vars[yi].n)+'» پیشرو است و «'+esc(state.vars[xi].n)+'» دنبال می‌کند.':'دو متغیر هم‌زمان هم‌حرکت‌اند.');
+  var sign=(best.r>=0)?'هم‌جهت':'مخالف';
+  out.innerHTML='<p class="lead">قوی‌ترین پیوند: تأخیر <b>'+faNum(Math.abs(best.k),0)+'</b> روز، r=<b>'+faNum(best.r,2)+'</b> ('+sign+'، '+faNum(best.n,0)+' روز مشترک). '+dirTxt+'</p>'
+    +'<p class="hint">همبستگی به‌تنهایی دلیل نیست؛ برای ادعای علّیت، آزمایش یا دادهٔ بیشتر لازم است.</p>';
+}
+
+/* ---------- THRESHOLD TAB ---------- */
+function renderStump(){
+  var w=$('stumpChart'),out=$('stumpOut'),nv=state.vars.length;
+  if(nv<2){w.innerHTML='';out.innerHTML='<p class="hint">حداقل دو متغیر لازم است.</p>';return;}
+  var xi=+$('thX').value||0,yi=+$('thY').value||0;
+  if(xi===yi){w.innerHTML='';out.innerHTML='<p class="hint">دو متغیر متفاوت انتخاب کنید.</p>';return;}
+  var st=stump(xi,yi);
+  var rows=sortedRows(),pts=[];
+  rows.forEach(function(r){
+    if(r.v&&r.v[xi]!=null&&r.v[yi]!=null)pts.push({x:r.v[xi],y:r.v[yi]});
+  });
+  if(pts.length<2){w.innerHTML=emptyHint('دادهٔ کافی نیست.');out.innerHTML='';return;}
+  var xs=pts.map(function(p){return p.x;}),ys2=pts.map(function(p){return p.y;});
+  var xmin=Math.min.apply(null,xs),xmax=Math.max.apply(null,xs);
+  var ymin=Math.min.apply(null,ys2),ymax=Math.max.apply(null,ys2);
+  var xp=((xmax-xmin)*0.08)||1,yp=((ymax-ymin)*0.08)||1;
+  var xlo=xmin-xp,xhi=xmax+xp,ylo=ymin-yp,yhi=ymax+yp;
+  var W2=640,H2=400,pl=46,pr=16,pt=20,pb=40,pw=W2-pl-pr,ph=H2-pt-pb;
+  function SX(v){return pl+((v-xlo)/((xhi-xlo)||1))*pw;}
+  function SY(v){return pt+ph-((v-ylo)/((yhi-ylo)||1))*ph;}
+  var s='<svg viewBox="0 0 640 400" role="img" aria-label="نمودار پراکندگی با آستانه">';
+  ticks(ylo,yhi,4).forEach(function(v){
+    s+='<line x1="'+pl+'" y1="'+SY(v).toFixed(1)+'" x2="'+(W2-pr)+'" y2="'+SY(v).toFixed(1)+'" stroke="var(--line)"/>';
+    s+='<text x="'+(pl-6)+'" y="'+(SY(v)+4).toFixed(1)+'" text-anchor="end" class="axis">'+faNum(v,(ymax-ymin)<5?1:0)+'</text>';
+  });
+  ticks(xlo,xhi,4).forEach(function(v){
+    s+='<text x="'+SX(v).toFixed(1)+'" y="'+(H2-10)+'" text-anchor="middle" class="axis">'+faNum(v,(xmax-xmin)<5?1:0)+'</text>';
+  });
+  pts.forEach(function(p){
+    var hi=(st?(p.x>=st.t):true);
+    s+='<circle cx="'+SX(p.x).toFixed(1)+'" cy="'+SY(p.y).toFixed(1)+'" r="4.5" fill="'+(hi?'#2563eb':'#e8971f')+'" opacity="0.72"/>';
+  });
+  if(st){
+    var tx=SX(st.t).toFixed(1);
+    s+='<line x1="'+tx+'" y1="'+pt+'" x2="'+tx+'" y2="'+(pt+ph)+'" stroke="var(--ink)" stroke-dasharray="6 4" stroke-width="1.5"/>';
+    s+='<text x="'+(SX(st.t)+6).toFixed(1)+'" y="'+(pt+14)+'" class="axis">آستانه: '+faNum(st.t,(st.t%1)?1:0)+'</text>';
+  }
+  s+='<text x="'+(pl+pw/2)+'" y="'+(H2-24)+'" text-anchor="middle" class="axis" style="font-weight:700">'+esc(state.vars[xi].n)+'</text>';
+  s+='</svg>';
+  w.innerHTML=s;
+  var legend='<div class="legend"><span class="chip" style="cursor:default"><span class="dot" style="background:#2563eb"></span>'+(st?'بالای آستانه':'همهٔ روزها')+'</span>'+(st?'<span class="chip" style="cursor:default"><span class="dot" style="background:#e8971f"></span>پایین آستانه</span>':'')+'</div>';
+  if(!st){
+    out.innerHTML=legend+'<p class="hint">الگوی آستانه‌ای معناداری پیدا نشد (دادهٔ کم یا رابطهٔ تقریباً خطی).</p>';
+    return;
+  }
+  var ux=state.vars[xi].u?' '+esc(state.vars[xi].u):'';
+  var uy=state.vars[yi].u?' '+esc(state.vars[yi].u):'';
+  out.innerHTML=legend
+    +'<p class="lead">وقتی «'+esc(state.vars[xi].n)+'» دست‌کم <b>'+faNum(st.t,(st.t%1)?1:0)+'</b>'+ux+' باشد ('+faNum(st.nHi,0)+' روز)، میانگین «'+esc(state.vars[yi].n)+'» برابر <b>'+faNum(st.mHi,1)+'</b>'+uy+' است؛ در روزهای کمتر از آستانه ('+faNum(st.nLo,0)+' روز) میانگین <b>'+faNum(st.mLo,1)+'</b>'+uy+'.</p>'
+    +'<p class="lead">تفاوت میانگین‌ها: <b>'+(st.eff>=0?'+':'')+faNum(st.eff,1)+'</b>'+uy+' · قدرت الگو: '+faNum(st.score,1)+'</p>';
+}
+function renderStumpTop(){
+  var w=$('stumpTop'),nv=state.vars.length;
+  if(nv<2){w.innerHTML='';return;}
+  var list=[];
+  for(var i=0;i<nv;i++)for(var j=0;j<nv;j++){
+    if(i===j)continue;
+    var st=stump(i,j);
+    if(st)list.push({i:i,j:j,st:st});
+  }
+  list.sort(function(a,b){return b.st.score-a.st.score;});
+  list=list.slice(0,6);
+  if(!list.length){w.innerHTML='<p class="hint">هنوز الگوی آستانه‌ای پیدا نشد.</p>';return;}
+  var h='<div class="tblwrap"><table class="tbl"><thead><tr><th>متغیر شرط</th><th>پیامد</th><th>آستانه</th><th>تفاوت میانگین</th></tr></thead><tbody>';
+  list.forEach(function(it){
+    h+='<tr class="clickrow" data-tx="'+it.i+'" data-ty="'+it.j+'"><td>'+esc(state.vars[it.i].n)+'</td><td>'+esc(state.vars[it.j].n)+'</td><td><b>'+faNum(it.st.t,(it.st.t%1)?1:0)+'</b></td><td>'+(it.st.eff>=0?'+':'')+faNum(it.st.eff,1)+'</td></tr>';
+  });
+  h+='</tbody></table></div>';
+  w.innerHTML=h;
+}
+function renderCycles(){
+  var w=$('cycleMap'),out=$('cycleLoops'),nv=state.vars.length;
+  if(nv<3){w.innerHTML=emptyHint('با حداقل سه متغیر و دادهٔ کافی، نقشهٔ علّی رسم می‌شود.');out.innerHTML='';return;}
+  var E=mapEdges();
+  if(!E.length){
+    w.innerHTML=emptyHint('هنوز پیوند تأخیری قوی (|r| ≥ ۰٫۴ با n ≥ ۸ روز) پیدا نشد؛ دادهٔ بیشتری ثبت کنید.');
+    out.innerHTML='';
+    return;
+  }
+  var cx=320,cy=210,R=150;
+  var pos=state.vars.map(function(v,i){
+    var ang=-Math.PI/2+i*2*Math.PI/nv;
+    return {x:cx+R*Math.cos(ang),y:cy+R*Math.sin(ang),v:v};
+  });
+  var s='<svg viewBox="0 0 640 440" role="img" aria-label="نقشهٔ چرخهٔ علّی">';
+  s+='<defs>'
+    +'<marker id="arrA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2563eb"/></marker>'
+    +'<marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#dc2626"/></marker>'
+    +'<marker id="arrP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8b5cf6"/></marker>'
+    +'</defs>';
+  E.forEach(function(e){
+    var a=pos[e.from],b=pos[e.to];
+    var dx=b.x-a.x,dy=b.y-a.y,dl=Math.sqrt(dx*dx+dy*dy)||1;
+    var ux=dx/dl,uy=dy/dl;
+    var x1=a.x+ux*24,y1=a.y+uy*24,x2=b.x-ux*28,y2=b.y-uy*28;
+    var mx=(x1+x2)/2,my=(y1+y2)/2;
+    var off=dl*0.18;
+    var cxp=mx+(-uy)*off,cyp=my+ux*off;
+    var mref=(e.r>=0?'arrA':'arrB');
+    s+='<path d="M'+x1.toFixed(1)+' '+y1.toFixed(1)+' Q'+cxp.toFixed(1)+' '+cyp.toFixed(1)+' '+x2.toFixed(1)+' '+y2.toFixed(1)+'" fill="none" stroke="'+(e.r>=0?'var(--ac)':'var(--bad)')+'" stroke-width="'+(1.2+Math.abs(e.r)*2.5).toFixed(2)+'" marker-end="url(#'+mref+')" opacity="0.85"/>';
+    var lx=(x1+2*cxp+x2)/4,ly=(y1+2*cyp+y2)/4;
+    s+='<text x="'+lx.toFixed(1)+'" y="'+ly.toFixed(1)+'" class="elabel">'+faNum(e.r,2)+'</text>';
+  });
+  pos.forEach(function(p){
+    s+='<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="17" fill="'+p.v.c+'" stroke="var(--card)" stroke-width="2.5"/>';
+    s+='<text x="'+p.x.toFixed(1)+'" y="'+(p.y+34).toFixed(1)+'" class="nlabel">'+esc(p.v.n)+'</text>';
+  });
+  s+='</svg>';
+  w.innerHTML=s;
+  /* feedback loops */
+  var cycles=findCycles(E,nv);
+  var em={};
+  E.forEach(function(e){em[e.from+'-'+e.to]=e;});
+  var h='';
+  cycles.forEach(function(cyc){
+    var names=cyc.map(function(x){return esc(state.vars[x].n);});
+    names.push(esc(state.vars[cyc[0]].n));
+    var weakest=null;
+    for(var k=0;k<cyc.length;k++){
+      var a2=cyc[k],b2=cyc[(k+1)%cyc.length];
+      var e2=em[a2+'-'+b2];
+      if(e2&&(!weakest||Math.abs(e2.r)<Math.abs(weakest.r)))weakest=e2;
+    }
+    h+='<div class="loop"><span class="loopdot"></span><span>'+names.join(' ← ')+'</span>'
+      +(weakest?'<span class="sub">ضعیف‌ترین پیوند: '+esc(state.vars[weakest.from].n)+' ← '+esc(state.vars[weakest.to].n)+' (r='+faNum(weakest.r,2)+') — بهترین نقطهٔ مداخله</span>':'')
+      +'</div>';
+  });
+  out.innerHTML=h?('<h3 style="font-size:14px;margin-top:12px">حلقه‌های بازخورد</h3>'+h):'<p class="hint">حلقهٔ بازخوردی پیدا نشد.</p>';
+}
+
+/* ---------- FINDINGS TAB ---------- */
+function renderFindings(){
+  var rows=sortedRows(),n=rows.length,nv=state.vars.length;
+  var filled=0,total=0;
+  rows.forEach(function(r){(r.v||[]).forEach(function(x){total++;if(x!=null)filled++;});});
+  var cov=total?filled/total*100:0;
+  $('kpis').innerHTML=
+    '<div class="kpi"><b>'+(n?faNum(n,0):'—')+'</b><span>روز ثبت‌شده</span></div>'
+    +'<div class="kpi"><b>'+(nv?faNum(nv,0):'—')+'</b><span>متغیر</span></div>'
+    +'<div class="kpi"><b>'+(total?faNum(cov,0)+'٪':'—')+'</b><span>پوشش داده</span></div>'
+    +'<div class="kpi"><b>'+(n?faNum(strongLinks(),0):'—')+'</b><span>پیوند قوی (|r|≥۰٫۴)</span></div>';
+  safe(renderConsist);
+  safe(renderIdxBuilder);
+  safe(renderIdxChart);
+  safe(renderForecast);
+  safe(renderFindCards);
+}
+function renderConsist(){
+  var w=$('consistOut');
+  if(!state.vars.length){w.innerHTML='<p class="hint">داده‌ای نیست.</p>';return;}
+  var list=[];
+  state.vars.forEach(function(v,i){
+    var vals=col(i).filter(function(x){return x!=null;});
+    var it={n:v.n,c:v.c,nv:vals.length,score:null,cv:null};
+    if(vals.length>=5){
+      var m=mean(vals),s=std(vals);
+      if(m&&s&&!isNaN(s)){
+        var cv=Math.abs(s/m)*100;
+        it.cv=cv;
+        it.score=Math.max(0,Math.min(100,Math.round(100-cv/2)));
+      }
+    }
+    list.push(it);
+  });
+  list.sort(function(a,b){
+    var sa=(a.score==null?-1:a.score),sb=(b.score==null?-1:b.score);
+    return sb-sa;
+  });
+  var h='';
+  list.forEach(function(it){
+    h+='<div class="crow"><span class="dot" style="background:'+it.c+'"></span><b>'+esc(it.n)+'</b>';
+    if(it.score==null)h+='<span class="sub">دادهٔ کم ('+faNum(it.nv,0)+' روز)</span>';
+    else h+='<div class="bar"><i style="width:'+it.score+'%"></i></div><span class="num">'+faNum(it.score,0)+'</span><span class="sub">'+faNum(it.nv,0)+' روز</span>';
+    h+='</div>';
+  });
+  w.innerHTML=h;
+}
+function renderIdxBuilder(){
+  var w=$('idxBuilder');
+  if(!state.vars.length){w.innerHTML='<p class="hint">داده‌ای نیست.</p>';return;}
+  var h='<div class="idxrow idxhead"><span></span><span>متغیر</span><span>وزن</span><span>جهت</span></div>';
+  state.vars.forEach(function(v){
+    var cfg=state.idx.vars[v.n]||{on:true,w:1,dir:'hi'};
+    h+='<div class="idxrow">'
+      +'<input type="checkbox" data-ixon="'+esc(v.n)+'"'+(cfg.on?' checked':'')+' aria-label="شامل '+esc(v.n)+'">'
+      +'<span class="idxname"><span class="dot" style="background:'+v.c+'"></span>'+esc(v.n)+'</span>'
+      +'<input type="number" min="0" step="0.5" value="'+(+cfg.w||1)+'" data-ixw="'+esc(v.n)+'" aria-label="وزن '+esc(v.n)+'">'
+      +'<select data-ixd="'+esc(v.n)+'" aria-label="جهت '+esc(v.n)+'"><option value="hi"'+(cfg.dir!=='lo'?' selected':'')+'>بیشتر بهتر</option><option value="lo"'+(cfg.dir==='lo'?' selected':'')+'>کمتر بهتر</option></select>'
+      +'</div>';
+  });
+  w.innerHTML=h;
+}
+function renderIdxChart(){
+  var w=$('idxChart'),out=$('idxOut');
+  var idx=computeIndex();
+  if(idx.length<3){
+    w.innerHTML='';
+    out.innerHTML='<p class="hint">برای شاخص ترکیبی، حداقل یک متغیر فعال و چند روز داده لازم است.</p>';
+    return;
+  }
+  var pts=idx.slice(-30);
+  var W2=640,H2=240,pl=42,pr=14,pt=14,pb=30,pw=W2-pl-pr,ph=H2-pt-pb;
+  var vs=pts.map(function(p){return p.val;});
+  var mn=Math.min.apply(null,vs),mx=Math.max.apply(null,vs);
+  var pad=((mx-mn)*0.15)||5;
+  var lo=Math.max(0,mn-pad),hi=Math.min(100,mx+pad);
+  function X(i){return pl+(pts.length>1?i*pw/(pts.length-1):pw/2);}
+  function Y(v){return pt+ph-((v-lo)/((hi-lo)||1))*ph;}
+  var s='<svg viewBox="0 0 640 240" role="img" aria-label="روند شاخص ترکیبی">';
+  ticks(lo,hi,3).forEach(function(v){
+    s+='<line x1="'+pl+'" y1="'+Y(v).toFixed(1)+'" x2="'+(W2-pr)+'" y2="'+Y(v).toFixed(1)+'" stroke="var(--line)"/>';
+    s+='<text x="'+(pl-6)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end" class="axis">'+faNum(v,0)+'</text>';
+  });
+  var d='',pen=false;
+  pts.forEach(function(p,i){
+    d+=(pen?'L':'M')+X(i).toFixed(1)+' '+Y(p.val).toFixed(1)+' ';
+    pen=true;
+  });
+  s+='<path d="'+d+'" fill="none" stroke="var(--ac)" stroke-width="2.4" stroke-linejoin="round"/>';
+  s+='<text x="'+X(0).toFixed(1)+'" y="'+(H2-6)+'" text-anchor="middle" class="axis">'+jShort(pts[0].d)+'</text>';
+  s+='<text x="'+X(pts.length-1).toFixed(1)+'" y="'+(H2-6)+'" text-anchor="middle" class="axis">'+jShort(pts[pts.length-1].d)+'</text>';
+  s+='</svg>';
+  w.innerHTML=s;
+  var best=idx[0],worst=idx[0];
+  idx.forEach(function(p){if(p.val>best.val)best=p;if(p.val<worst.val)worst=p;});
+  out.innerHTML='<p class="lead">میانگین شاخص: <b>'+faNum(mean(idx.map(function(p){return p.val;})),0)+'</b> از ۱۰۰ · بهترین روز: <b>'+jFull(best.d)+'</b> ('+faNum(best.val,0)+') · ضعیف‌ترین روز: <b>'+jFull(worst.d)+'</b> ('+faNum(worst.val,0)+')</p>';
+}
+function renderForecast(){
+  var w=$('fcChart'),out=$('fcOut');
+  var sel=$('fcTarget').value||'idx';
+  var L=[],label='';
+  if(sel==='idx'){
+    label='شاخص ترکیبی';
+    computeIndex().forEach(function(p,i){L.push({x:i,v:p.val,d:p.d});});
+  }else{
+    var vi=+sel;
+    if(!(vi>=0&&vi<state.vars.length)){w.innerHTML='';out.innerHTML='';return;}
+    label=state.vars[vi].n;
+    var rows=sortedRows();
+    rows.forEach(function(r,i){if(r.v&&r.v[vi]!=null)L.push({x:i,v:r.v[vi],d:r.d});});
+  }
+  if(L.length<6){
+    w.innerHTML='';
+    out.innerHTML='<p class="hint">حداقل ۶ داده برای برازش روند لازم است.</p>';
+    return;
+  }
+  var last14=L.slice(-14);
+  var fit=linfit(last14.map(function(p){return p.x;}),last14.map(function(p){return p.v;}));
+  if(!fit){w.innerHTML='';out.innerHTML='<p class="hint">محاسبهٔ روند ممکن نشد.</p>';return;}
+  var hist=L.slice(-21),last=L[L.length-1];
+  var W2=640,H2=250,pl=44,pr=16,pt=16,pb=32,pw=W2-pl-pr,ph=H2-pt-pb;
+  var x0=hist[0].x,x1=last.x+7;
+  var allv=hist.map(function(p){return p.v;});
+  for(var m=1;m<=7;m++)allv.push(fit.a+fit.b*(last.x+m));
+  var mn=Math.min.apply(null,allv),mx=Math.max.apply(null,allv);
+  var pad=((mx-mn)*0.15)||1;
+  var lo=mn-pad,hi=mx+pad;
+  function X(x){return pl+((x-x0)/((x1-x0)||1))*pw;}
+  function Y(v){return pt+ph-((v-lo)/((hi-lo)||1))*ph;}
+  var s='<svg viewBox="0 0 640 250" role="img" aria-label="پیش‌بینی روند">';
+  ticks(lo,hi,3).forEach(function(v){
+    s+='<line x1="'+pl+'" y1="'+Y(v).toFixed(1)+'" x2="'+(W2-pr)+'" y2="'+Y(v).toFixed(1)+'" stroke="var(--line)"/>';
+    s+='<text x="'+(pl-6)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end" class="axis">'+faNum(v,(hi-lo)<6?1:0)+'</text>';
+  });
+  var d='',pen=false;
+  hist.forEach(function(p){
+    d+=(pen?'L':'M')+X(p.x).toFixed(1)+' '+Y(p.v).toFixed(1)+' ';
+    pen=true;
+  });
+  s+='<path d="'+d+'" fill="none" stroke="var(--ac)" stroke-width="2.4" stroke-linejoin="round"/>';
+  s+='<circle cx="'+X(last.x).toFixed(1)+'" cy="'+Y(last.v).toFixed(1)+'" r="4" fill="var(--ac)"/>';
+  var d2='M'+X(last.x).toFixed(1)+' '+Y(last.v).toFixed(1)+' ';
+  for(var m2=1;m2<=7;m2++){
+    var fx=last.x+m2,fv=fit.a+fit.b*fx;
+    d2+='L'+X(fx).toFixed(1)+' '+Y(fv).toFixed(1)+' ';
+    s+='<circle cx="'+X(fx).toFixed(1)+'" cy="'+Y(fv).toFixed(1)+'" r="3.5" fill="var(--card)" stroke="var(--ac)" stroke-width="1.5"/>';
+  }
+  s+='<path d="'+d2+'" fill="none" stroke="var(--ac)" stroke-width="1.8" stroke-dasharray="6 5" opacity="0.8"/>';
+  s+='<text x="'+X(hist[0].x).toFixed(1)+'" y="'+(H2-6)+'" text-anchor="middle" class="axis">'+jShort(hist[0].d)+'</text>';
+  s+='<text x="'+X(last.x+7).toFixed(1)+'" y="'+(H2-6)+'" text-anchor="middle" class="axis">'+jFull(addDaysISO(last.d,7))+'</text>';
+  s+='</svg>';
+  w.innerHTML=s;
+  var trend=(Math.abs(fit.b)<0.05)?'تقریباً ثابت':(fit.b>0?'صعودی':'نزولی');
+  out.innerHTML='<p class="lead">روند ۱۴ روز اخیر «'+esc(label)+'»: <b>'+trend+'</b> (تغییر روزانه ≈ '+(fit.b>=0?'+':'')+faNum(fit.b,2)+'). برآورد هفت روز آینده: <b>'+faNum(fit.a+fit.b*(last.x+1),1)+'</b> تا <b>'+faNum(fit.a+fit.b*(last.x+7),1)+'</b>.</p>'
+    +'<p class="hint">این یک برازش خطی ساده روی گذشته است، نه پیش‌بینی قطعی؛ رویدادهای جدید می‌توانند مسیر را عوض کنند.</p>';
+}
+function addDaysISO(iso,dd){
+  var p=iso.split('-');
+  var d=new Date(+p[0],+p[1]-1,+p[2],12);
+  d.setDate(d.getDate()+dd);
+  return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate());
+}
+function confTag(n,ar){
+  if(n>=20&&ar>=0.5)return ['شواهد قوی','t-ok'];
+  if(n>=10&&ar>=0.35)return ['شواهد متوسط','t-mid'];
+  return ['نیازمند دادهٔ بیشتر','t-low'];
+}
+function renderFindCards(){
+  var w=$('findingsGrid');
+  if(!state.vars.length||state.rows.length<3){
+    w.innerHTML=emptyHint('برای دیدن یافته‌ها، چند روز داده ثبت کنید یا «دادهٔ نمونه» را از تب داده‌ها بارگذاری کنید.');
+    return;
+  }
+  var nv=state.vars.length,F=[];
+  /* strongest + / - */
+  var bP=null,bN=null;
+  for(var i=0;i<nv;i++)for(var j=i+1;j<nv;j++){
+    var p=pairsClean(col(i),col(j));
+    var r=pearson(p[0],p[1]);
+    if(isNaN(r))continue;
+    if(r>0&&(!bP||r>bP.r))bP={i:i,j:j,r:r,n:p[0].length};
+    if(r<0&&(!bN||r<bN.r))bN={i:i,j:j,r:r,n:p[0].length};
+  }
+  if(bP){
+    var t1=confTag(bP.n,bP.r);
+    F.push({icon:'fa-arrow-trend-up',title:'قوی‌ترین هم‌جهتی',body:'«'+esc(state.vars[bP.i].n)+'» و «'+esc(state.vars[bP.j].n)+'» با هم بالا می‌روند (r='+faNum(bP.r,2)+' در '+faNum(bP.n,0)+' روز مشترک).',tag:t1[0],cls:t1[1],goto:'corr'});
+  }
+  if(bN){
+    var t2=confTag(bN.n,Math.abs(bN.r));
+    F.push({icon:'fa-arrow-trend-down',title:'قوی‌ترین تضاد',body:'وقتی «'+esc(state.vars[bN.i].n)+'» بیشتر است، «'+esc(state.vars[bN.j].n)+'» کمتر می‌شود (r='+faNum(bN.r,2)+').',tag:t2[0],cls:t2[1],goto:'corr'});
+  }
+  /* best delayed */
+  var bD=null;
+  for(var a=0;a<nv;a++)for(var b2=0;b2<nv;b2++){
+    if(a===b2)continue;
+    var bl=bestLag(a,b2,5);
+    if(bl&&(!bD||Math.abs(bl.r)>Math.abs(bD.r)))bD={i:a,j:b2,k:bl.k,r:bl.r,n:bl.n};
+  }
+  if(bD){
+    var t3=confTag(bD.n,Math.abs(bD.r));
+    F.push({icon:'fa-clock',title:'بهترین اثر تأخیری',body:'«'+esc(state.vars[bD.i].n)+'» امروز با «'+esc(state.vars[bD.j].n)+'» در '+faNum(bD.k,0)+' روز بعد '+(bD.r>=0?'هم‌جهت':'مخالف')+' است (r='+faNum(bD.r,2)+').',tag:t3[0],cls:t3[1],goto:'lag',x:bD.i,y:bD.j});
+  }
+  /* best stump */
+  var bS=null;
+  for(var c1=0;c1<nv;c1++)for(var c2=0;c2<nv;c2++){
+    if(c1===c2)continue;
+    var st=stump(c1,c2);
+    if(st&&(!bS||st.score>bS.st.score))bS={i:c1,j:c2,st:st};
+  }
+  if(bS){
+    F.push({icon:'fa-scissors',title:'آستانهٔ قابل‌توجه',body:'بعد از «'+esc(state.vars[bS.i].n)+'» ≥ '+faNum(bS.st.t,(bS.st.t%1)?1:0)+'، میانگین «'+esc(state.vars[bS.j].n)+'» از '+faNum(bS.st.mLo,1)+' به '+faNum(bS.st.mHi,1)+' می‌رسد.',goto:'thresh',x:bS.i,y:bS.j});
+  }
+  /* anomalies */
+  var anom=0,anomVar='';
+  state.vars.forEach(function(v,vi){
+    var vals=col(vi).filter(function(x){return x!=null;});
+    if(vals.length<8)return;
+    var m=mean(vals),s=std(vals);
+    if(!(s>0))return;
+    var c=0;
+    vals.forEach(function(x){if(Math.abs((x-m)/s)>=2)c++;});
+    if(c>anom){anom=c;anomVar=v.n;}
+  });
+  if(anom>0){
+    F.push({icon:'fa-circle-exclamation',title:'نقاط غیرمعمول',body:'در «'+esc(anomVar)+'» '+faNum(anom,0)+' نقطهٔ غیرمعمول (|z|≥۲) دیده می‌شود — آن روزها را مرور کنید.',goto:'series'});
+  }
+  /* cycles */
+  var cyc=findCycles(mapEdges(),nv);
+  if(cyc.length){
+    var c0=cyc[0];
+    F.push({icon:'fa-rotate',title:'چرخهٔ بازخورد',body:'حلقه‌ای از '+c0.map(function(x){return '«'+esc(state.vars[x].n)+'»';}).join(' ← ')+' کشف شد؛ ضعیف‌ترین پیوند، بهترین نقطهٔ مداخله است.',goto:'thresh'});
+  }
+  /* consistency */
+  var worstV=null;
+  state.vars.forEach(function(v,vi){
+    var vals=col(vi).filter(function(x){return x!=null;});
+    if(vals.length<5)return;
+    var m=mean(vals),s=std(vals);
+    if(!(m&&s>0))return;
+    var sc=Math.max(0,Math.min(100,Math.round(100-(Math.abs(s/m)*100)/2)));
+    if(!worstV||sc<worstV.sc)worstV={n:v.n,sc:sc};
+  });
+  if(worstV){
+    F.push({icon:'fa-shake-low',title:'کم‌ثبات‌ترین روال',body:'«'+esc(worstV.n)+'» نوسان بیشتری از همه دارد (امتیاز ثبات '+faNum(worstV.sc,0)+' از ۱۰۰) — اولین نقطهٔ شروع برای سنجیدن قاعدهٔ ثابت.',goto:'findings'});
+  }
+  if(!F.length){
+    w.innerHTML=emptyHint('هنوز الگوی قابل‌توجهی پیدا نشد؛ با ثبت روزهای بیشتر، یافته‌ها دقیق‌تر می‌شوند.');
+    return;
+  }
+  var h='';
+  F.forEach(function(o){
+    h+='<div class="fcard" data-goto="'+o.goto+'"'+(o.x!=null?' data-x="'+o.x+'" data-y="'+o.y+'"':'')+'>'
+      +'<div class="fic"><i class="fa-solid '+o.icon+'"></i></div>'
+      +'<h3>'+o.title+'</h3><p>'+o.body+'</p>'
+      +(o.tag?'<span class="tag '+o.cls+'">'+o.tag+'</span>':'')
+      +'<span class="go">بررسی ←</span></div>';
+  });
+  w.innerHTML=h;
+}
+
+/* ---------- selects ---------- */
+function renderVarSelects(){
+  var nv=state.vars.length;
+  function fill(sel,defFn){
+    var cur=sel.value;
+    var h='';
+    state.vars.forEach(function(v,i){h+='<option value="'+i+'">'+esc(v.n)+'</option>';});
+    sel.innerHTML=h;
+    if(cur!==''&&+cur>=0&&+cur<nv&&sel.querySelector('option[value="'+cur+'"]'))sel.value=cur;
+    else sel.value=String(defFn(nv));
+  }
+  fill($('pA'),function(){return 0;});
+  fill($('pB'),function(){return Math.min(1,nv-1);});
+  fill($('pC'),function(){return Math.min(2,nv-1);});
+  fill($('lagX'),function(){return 0;});
+  fill($('lagY'),function(){return Math.min(1,nv-1);});
+  fill($('thX'),function(){return 0;});
+  fill($('thY'),function(){return Math.min(1,nv-1);});
+  var fc=$('fcTarget'),cur=fc.value||'idx';
+  var h='<option value="idx">شاخص ترکیبی</option>';
+  state.vars.forEach(function(v,i){h+='<option value="'+i+'">'+esc(v.n)+'</option>';});
+  fc.innerHTML=h;
+  fc.value=(cur==='idx'||(+cur>=0&&+cur<nv))?cur:'idx';
+  if(!fc.value)fc.value='idx';
+}
+
+/* ---------- import / export / share ---------- */
+function download(name,text,type){
+  var b=new Blob([text],{type:type||'text/plain;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(b);
+  a.download=name;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);if(a.parentNode)a.parentNode.removeChild(a);},600);
+}
+function normDate(s){
+  s=(s||'').trim().replace(/\//g,'-');
+  return /^\d{4}-\d{2}-\d{2}$/.test(s)?s:null;
+}
+function parseCSV(txt){
+  var lines=txt.replace(/^\uFEFF/,'').split(/\r?\n/).filter(function(l){return l.trim();});
+  if(lines.length<2)throw new Error('فایل CSV خالی است');
+  var head=lines[0].split(',');
+  state.vars=head.slice(1).map(function(hd,i){
+    return {n:hd.trim()||('متغیر '+(i+1)),u:'',c:PALETTE[i%PALETTE.length]};
+  });
+  var nv=state.vars.length;
+  state.rows=[];
+  for(var i=1;i<lines.length;i++){
+    var parts=lines[i].split(',');
+    var d=normDate(parts[0]);
+    if(!d)continue;
+    var v=[];
+    for(var j=0;j<nv;j++){
+      var x=parseFloat((parts[j+1]||'').trim());
+      v.push(isNaN(x)?null:x);
+    }
+    state.rows.push({d:d,v:v});
+  }
+}
+function exportJSON(){
+  if(!state.vars.length){toast('داده‌ای برای خروجی نیست');return;}
+  download('relations-workbench.json',JSON.stringify({app:'relations-workbench',ver:2,vars:state.vars,rows:state.rows,idx:state.idx},null,2),'application/json;charset=utf-8');
+  toast('خروجی JSON دانلود شد');
+}
+function exportCSV(){
+  if(!state.vars.length){toast('داده‌ای برای خروجی نیست');return;}
+  var lines=['\uFEFFdate,'+state.vars.map(function(v){return '"'+v.n.replace(/"/g,'""')+'"';}).join(',')];
+  sortedRows().forEach(function(r){
+    var row=[r.d];
+    state.vars.forEach(function(v,vi){row.push((r.v&&r.v[vi]!=null)?r.v[vi]:'');});
+    lines.push(row.join(','));
+  });
+  download('relations-workbench.csv',lines.join('\r\n'),'text/csv;charset=utf-8');
+  toast('خروجی CSV دانلود شد');
+}
+function shareLink(){
+  if(!state.vars.length){toast('اول داده بسازید');return;}
+  var payload=b64enc(JSON.stringify({v:state.vars,r:state.rows.map(function(r){return [r.d,r.v];})}));
+  var url=location.href.split('#')[0]+'#d='+payload;
+  try{history.replaceState(null,'','#d='+payload);}catch(e){location.hash='d='+payload;}
+  function ok(){toast('لینک اشتراک کپی شد — هر که بازش کند همین داده‌ها را می‌بیند');}
+  function fb(){
+    var t=document.createElement('textarea');
+    t.value=url;document.body.appendChild(t);t.select();
+    var done=false;
+    try{done=document.execCommand('copy');}catch(e){}
+    if(t.parentNode)t.parentNode.removeChild(t);
+    toast(done?'لینک اشتراک کپی شد':'لینک در نوار آدرس مرورگر ساخته شد؛ آن را کپی کنید');
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(ok,fb);
+  }else fb();
+}
+function tryHash(){
+  try{
+    var h=location.hash||'';
+    if(h.indexOf('#d=')!==0)return;
+    var o=JSON.parse(b64dec(h.slice(3)));
+    if(o&&Array.isArray(o.v)&&Array.isArray(o.r)){
+      state.vars=o.v.map(function(v,i){return {n:String(v.n||('متغیر '+(i+1))),u:String(v.u||''),c:(typeof v.c==='string'&&/^#[0-9a-fA-F]{6}$/.test(v.c))?v.c:PALETTE[i%PALETTE.length]};});
+      var nv=state.vars.length;
+      state.rows=o.r.filter(function(x){return x&&x[0];}).map(function(x){
+        var v=Array.isArray(x[1])?x[1].slice():[];
+        while(v.length<nv)v.push(null);
+        return {d:String(x[0]),v:v.slice(0,nv).map(function(y){if(y==null)return null;var q=+y;return isNaN(q)?null:q;})};
+      });
+      toast('داده‌های اشتراکی بارگذاری شد ('+faNum(state.rows.length,0)+' روز)');
+    }
+  }catch(e){console.warn(e);}
+}
+
+/* ---------- theme ---------- */
+function updateThemeBtn(){
+  var dark=(document.documentElement.getAttribute('data-theme')==='dark');
+  $('themeBtn').innerHTML=dark?'<i class="fa-solid fa-sun"></i>':'<i class="fa-solid fa-moon"></i>';
+}
+function loadTheme(){
+  var t=null;
+  try{t=localStorage.getItem('rw_theme');}catch(e){}
+  if(t!=='dark'&&t!=='light'){
+    t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
+  }
+  document.documentElement.setAttribute('data-theme',t);
+  updateThemeBtn();
+}
+
+/* ---------- render all ---------- */
+function renderAll(){
+  renderVarEditor();
+  renderTable();
+  renderVarSelects();
+  safe(renderSeries);
+  safe(renderCorr);
+  safe(renderPartial);
+  safe(renderClusters);
+  safe(renderLag);
+  safe(renderStump);
+  safe(renderStumpTop);
+  safe(renderCycles);
+  safe(renderFindings);
+}
+
+/* ---------- events ---------- */
+function wireEvents(){
+  /* tabs */
+  $$('.tabs button').forEach(function(b){
+    b.addEventListener('click',function(){showTab(b.getAttribute('data-tab'));});
+  });
+  /* theme */
+  $('themeBtn').addEventListener('click',function(){
+    var t=(document.documentElement.getAttribute('data-theme')==='dark')?'light':'dark';
+    document.documentElement.setAttribute('data-theme',t);
+    try{localStorage.setItem('rw_theme',t);}catch(e){}
+    updateThemeBtn();
+    safe(renderSeries);safe(renderCorr);safe(renderStump);
+  });
+  /* toolbar */
+  $('btnAddVar').addEventListener('click',function(){
+    state.vars.push({n:'متغیر '+(state.vars.length+1),u:'',c:PALETTE[state.vars.length%PALETTE.length]});
+    state.rows.forEach(function(r){while(!r.v||r.v.length<state.vars.length)r.v.push(null);});
+    pruneIdx();save();renderAll();
+    toast('متغیر اضافه شد');
+  });
+  $('btnAddDay').addEventListener('click',function(){
+    if(!state.vars.length){toast('اول یک متغیر بسازید');return;}
+    var iso=todayISO();
+    var exists=state.rows.some(function(r){return r.d===iso;});
+    if(exists){toast('برای امروز قبلاً ردیف دارید');renderTable();return;}
+    state.rows.push({d:iso,v:state.vars.map(function(){return null;})});
+    save();renderTable();softRefresh();
+    toast('ردیف امروز اضافه شد');
+  });
+  $('btnSample').addEventListener('click',loadSample);
+  $('btnExpJson').addEventListener('click',exportJSON);
+  $('btnExpCsv').addEventListener('click',exportCSV);
+  $('btnShare').addEventListener('click',shareLink);
+  $('btnClear').addEventListener('click',function(){
+    if(!confirm('همهٔ متغیرها و داده‌ها پاک شوند؟'))return;
+    state={vars:[],rows:[],idx:{vars:{}}};
+    seriesOn={};
+    save();renderAll();
+    toast('همه‌چیز پاک شد');
+  });
+  /* file import */
+  $('fileImp').addEventListener('change',function(){
+    var f=this.files&&this.files[0];
+    if(!f)return;
+    var rd=new FileReader();
+    rd.onload=function(){
+      try{
+        var txt=String(rd.result);
+        if(/\.json$/i.test(f.name)||txt.trim().charAt(0)==='{'){
+          var o=JSON.parse(txt);
+          if(!o||!Array.isArray(o.vars)||!Array.isArray(o.rows))throw new Error('ساختار فایل معتبر نیست');
+          state.vars=o.vars.map(function(v,i){
+            return {n:String(v.n||('متغیر '+(i+1))),u:String(v.u||''),c:(/^#[0-9a-fA-F]{6}$/.test(v.c)?v.c:PALETTE[i%PALETTE.length])};
+          });
+          var nv=state.vars.length;
+          state.rows=o.rows.filter(function(r){return r&&r.d;}).map(function(r){
+            var v=(r.v&&r.v.slice)?r.v.slice():[];
+            while(v.length<nv)v.push(null);
+            return {d:String(r.d),v:v.slice(0,nv).map(function(x){
+              if(x==null||x==='')return null;
+              var q=+x;
+              return isNaN(q)?null:q;
+            })};
+          });
+        }else{
+          parseCSV(txt);
+        }
+        seriesOn={};
+        pruneIdx();save();renderAll();
+        toast('فایل بارگذاری شد ('+faNum(state.rows.length,0)+' روز)');
+      }catch(e){
+        toast('خواندن فایل ناموفق بود: '+e.message);
+      }
+    };
+    rd.readAsText(f,'utf-8');
+    this.value='';
+  });
+  /* variable editor */
+  var ve=$('varEditor');
+  ve.addEventListener('input',function(ev){
+    var t=ev.target;
+    if(!t.dataset.act)return;
+    var i=+t.dataset.vi;
+    if(!state.vars[i])return;
+    if(t.dataset.act==='n')state.vars[i].n=t.value.trim()||('متغیر '+(i+1));
+    if(t.dataset.act==='u')state.vars[i].u=t.value.trim();
+    if(t.dataset.act==='c')state.vars[i].c=t.value;
+    save();softRefresh();
+  });
+  ve.addEventListener('change',function(){renderAll();});
+  ve.addEventListener('click',function(ev){
+    var t=ev.target.closest('[data-delvar]');
+    if(!t)return;
+    var i=+t.dataset.delvar;
+    if(!state.vars[i])return;
+    if(!confirm('متغیر «'+state.vars[i].n+'» و همهٔ داده‌هایش حذف شود؟'))return;
+    state.vars.splice(i,1);
+    state.rows.forEach(function(r){if(r.v)r.v.splice(i,1);});
+    pruneIdx();save();renderAll();
+    toast('متغیر حذف شد');
+  });
+  /* daily table */
+  var tw=$('tableWrap');
+  tw.addEventListener('input',function(ev){
+    var t=ev.target;
+    if(t.dataset.act!=='v')return;
+    var ri=+t.dataset.ri,vi=+t.dataset.vi;
+    var r=state.rows[ri];
+    if(!r)return;
+    while(!r.v||r.v.length<state.vars.length){r.v=r.v||[];r.v.push(null);}
+    var val=t.value.trim();
+    if(val===''){r.v[vi]=null;}
+    else{
+      var q=parseFloat(val);
+      r.v[vi]=isNaN(q)?null:q;
+    }
+    save();softRefresh();
+  });
+  tw.addEventListener('change',function(ev){
+    var t=ev.target;
+    if(t.dataset.act!=='d')return;
+    var ri=+t.dataset.ri;
+    var r=state.rows[ri];
+    if(!r)return;
+    var nd=normDate(t.value);
+    if(nd)r.d=nd;
+    save();renderTable();softRefresh();
+  });
+  tw.addEventListener('click',function(ev){
+    var t=ev.target.closest('[data-delrow]');
+    if(!t)return;
+    var ri=+t.dataset.delrow;
+    if(!state.rows[ri])return;
+    state.rows.splice(ri,1);
+    save();renderAll();
+    toast('روز حذف شد');
+  });
+  /* series controls */
+  $('normChk').addEventListener('change',renderSeries);
+  $('maChk').addEventListener('change',renderSeries);
+  $('seriesLegend').addEventListener('click',function(ev){
+    var c=ev.target.closest('[data-svi]');
+    if(!c)return;
+    var i=+c.dataset.svi;
+    if(!state.vars[i])return;
+    var nm=state.vars[i].n;
+    seriesOn[nm]=(seriesOn[nm]===false)?true:false;
+    renderSeries();
+  });
+  /* correlation interactions */
+  $('corrWrap').addEventListener('click',function(ev){
+    var td=ev.target.closest('td.mtxcell');
+    if(!td)return;
+    var i=+td.dataset.i,j=+td.dataset.j;
+    $('lagX').value=String(i);
+    $('lagY').value=String(j);
+    safe(renderLag);
+    showTab('lag');
+  });
+  ['pA','pB','pC'].forEach(function(id){
+    $(id).addEventListener('change',renderPartial);
+  });
+  /* lag controls */
+  ['lagX','lagY','lagW'].forEach(function(id){
+    $(id).addEventListener('change',renderLag);
+  });
+  /* threshold controls */
+  ['thX','thY'].forEach(function(id){
+    $(id).addEventListener('change',renderStump);
+  });
+  $('stumpTop').addEventListener('click',function(ev){
+    var tr=ev.target.closest('tr.clickrow');
+    if(!tr)return;
+    $('thX').value=tr.dataset.tx;
+    $('thY').value=tr.dataset.ty;
+    safe(renderStump);
+    var card=tr.closest('.card');
+    if(card)card.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+  /* composite index builder */
+  $('idxBuilder').addEventListener('change',function(ev){
+    var t=ev.target;
+    var nm=t.dataset.ixon||t.dataset.ixw||t.dataset.ixd;
+    if(!nm||!state.idx.vars[nm])return;
+    if(t.dataset.ixon!==undefined)state.idx.vars[nm].on=t.checked;
+    if(t.dataset.ixw!==undefined)state.idx.vars[nm].w=(+t.value||1);
+    if(t.dataset.ixd!==undefined)state.idx.vars[nm].dir=t.value;
+    save();
+    safe(renderIdxChart);
+  });
+  /* forecast */
+  $('fcTarget').addEventListener('change',renderForecast);
+  /* findings cards */
+  $('findingsGrid').addEventListener('click',function(ev){
+    var c=ev.target.closest('.fcard');
+    if(!c||!c.dataset.goto)return;
+    if(c.dataset.x!==undefined&&c.dataset.y!==undefined){
+      if(c.dataset.goto==='lag'){$('lagX').value=c.dataset.x;$('lagY').value=c.dataset.y;}
+      if(c.dataset.goto==='thresh'){$('thX').value=c.dataset.x;$('thY').value=c.dataset.y;}
+    }
+    showTab(c.dataset.goto);
+  });
+  /* visible runtime errors (برای اشکال‌زدایی) */
+  window.addEventListener('error',function(e){
+    if(e&&e.message)toast('خطا: '+e.message);
+  });
+}
+
+/* ---------- init ---------- */
+loadTheme();
+load();
+tryHash();
+pruneIdx();
+wireEvents();
+renderAll();
+showTab('data');
+</script>
+</body>
+</html>
