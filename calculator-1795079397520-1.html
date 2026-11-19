@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>محاسبه‌گر تخصصی فیزیک و شیمی | مستر پلنر</title>
+<script src="assets/gate/gate.js"></script>
+<meta name="description" content="محاسبه‌گر و تمرین‌کنندهٔ فیزیک و شیمی: حل هر فرمول، حل زنجیره‌ای، معادله‌سنج آزاد، رسم نمودار چندمنحنی، تمرین بی‌پایان با پاسخ صحیح، تبدیل واحدها، ثابت‌ها و اشتراک مسئله.">
+<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/calculator.html">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+:root{
+  --bg:#0f172a; --p:#1e293b; --p2:#0b1120; --bd:#334155; --bd2:#475569;
+  --tx:#f1f5f9; --mu:#94a3b8; --ac:#e8971f; --ac2:#fbbf24; --ok:#10b981; --err:#ef4444;
+  --r:12px; --ok-bg:rgba(16,185,129,.12); --err-bg:rgba(239,68,68,.1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:'Vazirmatn',Tahoma,'Segoe UI',sans-serif;font-size:14px;line-height:1.9}
+h1,h2,h3,h4{margin:0;font-weight:700;line-height:1.6}
+button,select,input,textarea{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer}
+a{color:var(--ac2);text-decoration:none}
+:focus-visible{outline:2px solid var(--ac2);outline-offset:2px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* ===== header / tabs ===== */
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;background:var(--p);border-bottom:1px solid var(--bd);flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,var(--ac),#b45309);color:#fff;font-weight:800;font-size:19px;flex:none}
+.brand h1{font-size:16.5px;margin:0}
+.brand p{margin:0;font-size:11.5px;color:var(--mu)}
+.top-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.badge{font-size:11px;padding:4px 10px;border-radius:999px;border:1px solid var(--bd2);color:var(--mu);white-space:nowrap}
+.btn{border:1px solid var(--bd2);background:var(--p2);color:var(--tx);padding:8px 14px;border-radius:9px;font-size:13px;font-weight:700;transition:.15s;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--ac);color:var(--ac2)}
+.btn.primary{background:var(--ac);border-color:var(--ac);color:#fff}
+.btn.primary:hover{filter:brightness(1.1);color:#fff}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn.sm{padding:5px 10px;font-size:12px;border-radius:8px}
+nav.tabs{display:flex;gap:2px;padding:0 14px;background:var(--p);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:40;overflow-x:auto;scrollbar-width:thin}
+nav.tabs button{background:transparent;border:0;padding:12px 13px;border-bottom:2px solid transparent;color:var(--mu);font-weight:700;font-size:12.5px;white-space:nowrap}
+nav.tabs button.on{color:var(--ac2);border-bottom-color:var(--ac)}
+nav.tabs button:hover{color:var(--tx)}
+main{max-width:1000px;margin:0 auto;padding:18px 16px 70px}
+.tab-panel{display:none}
+.tab-panel.on{display:block;animation:fade .22s ease}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+/* ===== cards / generic ===== */
+.card{background:var(--p);border:1.5px solid var(--bd);border-radius:14px;padding:16px 18px;margin-bottom:14px}
+.card h3{font-size:14.5px;color:var(--ac2);margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.muted{color:var(--mu);font-size:12.5px}
+.cat-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.cat-bar button{background:var(--p);border:1.5px solid var(--bd);border-radius:999px;padding:6px 14px;color:var(--mu);font-weight:700;font-size:13px;display:flex;align-items:center;gap:6px}
+.cat-bar button.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.searchrow{display:flex;gap:8px;margin-bottom:14px}
+.searchrow input{flex:1;background:var(--p2);border:1px solid var(--bd);border-radius:10px;padding:10px 14px;color:var(--tx)}
+.searchrow input:focus{outline:2px solid var(--ac);border-color:var(--ac)}
+.flist{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-bottom:18px}
+.fcard{background:var(--p);border:1.5px solid var(--bd);border-radius:12px;padding:12px 14px;text-align:right;transition:.15s;width:100%}
+.fcard:hover{border-color:var(--ac);transform:translateY(-1px)}
+.fcard b{display:block;font-size:13.5px;color:#f8fafc;margin-bottom:6px}
+.fcard small{font-size:11.5px;color:var(--mu)}
+.tex-mini{font-size:13px;color:var(--ac2);margin-top:6px;direction:ltr;text-align:left}
+.var-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.vfield label{display:block;font-size:12px;color:var(--ac2);margin-bottom:4px;font-weight:700}
+.vfield input{width:100%;background:var(--p2);border:1px solid var(--bd);border-radius:8px;padding:9px 11px;font-size:14px;color:var(--tx)}
+.vfield input:focus{outline:2px solid var(--ac);outline-offset:1px;border-color:var(--ac)}
+.vfield input.miss{border-color:var(--err);background:var(--err-bg)}
+.vfield small{display:block;font-size:10.5px;color:var(--mu);margin-top:3px;direction:ltr;text-align:left}
+.target-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+.target-row select{flex:1;min-width:200px;background:var(--p2);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;color:var(--tx);font-size:14px;font-weight:700}
+.target-row select:focus{outline:2px solid var(--ac);border-color:var(--ac)}
+.result-box{background:linear-gradient(135deg,#0b1120,#1e293b);border:2px solid var(--ac);border-radius:16px;padding:20px;margin-top:14px;text-align:center}
+.result-box .lbl{font-size:13px;color:var(--ac2);font-weight:700;margin-bottom:6px}
+.result-box .val{font-size:30px;font-weight:800;color:#fff;direction:ltr;font-variant-numeric:tabular-nums}
+.result-box .unit{font-size:15px;color:var(--mu);margin-right:8px}
+.result-box .expr{font-size:12px;color:var(--mu);margin-top:8px;direction:ltr}
+.result-box.err{border-color:var(--err);background:var(--err-bg)}
+.result-box.err .val{font-size:15px;color:#f87171}
+.act-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.steps{background:var(--p2);border:1px dashed var(--bd);border-radius:14px;padding:14px;margin-top:14px}
+.steps h4{margin:0 0 10px;color:var(--ac2);font-size:13.5px}
+.step-item{background:var(--p);border-radius:10px;padding:12px 14px;margin-bottom:8px;border-right:3px solid var(--ac)}
+.step-item:last-child{margin-bottom:0}
+.step-item .st-h{font-size:12.5px;color:var(--ac2);font-weight:700;margin-bottom:6px}
+.step-item .st-b{font-size:14px;color:#e2e8f0;direction:ltr;text-align:left;line-height:2}
+.qinput{width:100%;background:var(--p2);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;font-family:'Courier New',monospace;font-size:15px;color:var(--tx);direction:ltr;text-align:left}
+.qinput::placeholder{color:#64748b;direction:rtl;text-align:right;font-family:'Vazirmatn',Tahoma,sans-serif}
+.qinput:focus{outline:2px solid var(--ac);border-color:var(--ac)}
+.parsed{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.parsed span{background:var(--ok-bg);color:#6ee7b7;border:1px solid var(--ok);border-radius:999px;padding:3px 12px;font-size:12px;font-weight:700;direction:ltr}
+.parsed span.bad{background:var(--err-bg);color:#f87171;border-color:var(--err)}
+.hint{font-size:12.5px;color:var(--mu);margin:8px 0;line-height:1.9}
+.hint code{background:var(--p2);padding:1px 6px;border-radius:4px;color:var(--ac2);font-family:'Courier New',monospace;direction:ltr;display:inline-block}
+.var-explorer{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px;margin-bottom:16px;max-height:220px;overflow-y:auto;padding:8px;background:var(--p2);border-radius:12px;border:1px solid var(--bd)}
+.var-explorer button{background:var(--p);border:1px solid var(--bd);border-radius:8px;padding:6px 10px;color:#cbd5e1;font-size:12.5px;font-weight:700;direction:ltr;text-align:center}
+.var-explorer button:hover{border-color:var(--ac)}
+.rel-item{background:var(--p);border:1px solid var(--bd);border-radius:10px;padding:10px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap}
+.rel-item b{font-size:13px;color:#f8fafc}
+.rel-item .tex-mini{margin:0}
+.help-section{background:var(--p);border-radius:14px;padding:18px;margin-bottom:14px;border-right:4px solid var(--ac)}
+.help-section h3{font-size:15px;color:var(--ac2);margin:0 0 8px}
+.help-section p,.help-section li{font-size:13.5px;color:#cbd5e1;line-height:2}
+.help-section code{background:var(--p2);padding:2px 8px;border-radius:5px;color:#6ee7b7;font-family:'Courier New',monospace;direction:ltr;display:inline-block}
+.gwrap{position:relative}
+.gwrap svg{width:100%;height:auto;background:var(--p2);border-radius:12px;display:block;direction:ltr}
+.gtip{position:absolute;top:8px;left:8px;background:rgba(11,17,32,.92);border:1px solid var(--bd2);border-radius:8px;padding:6px 10px;font-size:11.5px;color:#e2e8f0;direction:ltr;pointer-events:none;display:none;min-width:130px}
+.gtip b{color:var(--ac2)}
+.share-banner{background:linear-gradient(135deg,rgba(6,182,212,.15),rgba(6,182,212,.04));border:2px solid #06b6d4;border-radius:14px;padding:14px 18px;margin-bottom:14px;color:#cbd5e1;font-size:13.5px;line-height:1.9}
+.share-banner b{color:#06b6d4}
+.saved-panel{position:fixed;inset:0;background:rgba(2,6,23,.6);z-index:90;display:none;align-items:center;justify-content:center;padding:16px}
+.saved-panel.on{display:flex}
+.saved-card{background:var(--p);border:1px solid var(--bd2);border-radius:16px;max-width:520px;width:100%;max-height:75vh;overflow-y:auto;padding:18px}
+.saved-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:var(--p2);margin-bottom:6px;font-size:12.5px;color:#cbd5e1}
+.saved-item b{flex:1;font-weight:700;color:#f8fafc}
+.saved-item .meta{font-size:11px;color:var(--mu)}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--p);border:1.5px solid var(--ok);color:#e2e8f0;padding:10px 20px;border-radius:12px;font-size:13px;font-weight:700;z-index:99;opacity:0;pointer-events:none;transition:.3s}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.err{border-color:var(--err)}
+.chain-node{background:var(--p);border:1.5px solid var(--bd);border-radius:12px;padding:12px 14px;margin-bottom:10px;position:relative}
+.chain-node h4{font-size:13px;color:#f8fafc;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.chain-out{background:var(--ok-bg);border:1px dashed var(--ok);border-radius:8px;padding:6px 10px;margin-top:8px;font-size:12.5px;color:#6ee7b7;direction:ltr;text-align:left}
+.quiz-opt-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:12px 0}
+.quiz-opt{background:var(--p2);border:1.5px solid var(--bd);border-radius:10px;padding:11px 14px;color:var(--tx);font-weight:800;font-size:14px;direction:ltr}
+.quiz-opt:hover{border-color:var(--ac)}
+.quiz-opt.correct{background:var(--ok-bg);border-color:var(--ok);color:#6ee7b7}
+.quiz-opt.wrong{background:var(--err-bg);border-color:var(--err);color:#f87171}
+.chip-row{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chip{background:rgba(232,151,31,.1);border:1px solid var(--ac);color:var(--ac2);border-radius:999px;padding:3px 12px;font-size:12.5px;font-weight:700;direction:ltr}
+.stat-row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.stat-box{background:var(--p2);border:1px solid var(--bd);border-radius:10px;padding:8px 16px;text-align:center;flex:1;min-width:90px}
+.stat-box b{display:block;font-size:19px;color:var(--ac2)}
+.stat-box small{font-size:11px;color:var(--mu)}
+.const-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
+.const-grid button{background:var(--p2);border:1px solid var(--bd);border-radius:9px;padding:9px 12px;text-align:right;color:#e2e8f0;transition:.15s}
+.const-grid button:hover{border-color:var(--ac)}
+.const-grid b{color:var(--ac2);font-size:12.5px;display:block}
+.const-grid span{font-size:11.5px;color:var(--mu);direction:ltr;display:block;text-align:left}
+table.conv{width:100%}
+footer{border-top:1px solid var(--bd);margin-top:30px;padding:18px;text-align:center;font-size:12px;color:var(--mu)}
+@media(max-width:600px){.brand h1{font-size:14px}.result-box .val{font-size:24px}main{padding:14px 10px 60px}}
+</style>
+</head>
+<body>
+
+<!-- ====== HEADER ====== -->
+<header class="top">
+  <div class="brand">
+    <div class="logo">م</div>
+    <div>
+      <h1>محاسبه‌گر تخصصی فیزیک و شیمی</h1>
+      <p>مستر پلنر — حل، تمرین و تحلیل</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <span class="badge" id="savedCount">۰ ذخیره</span>
+    <a class="btn sm" href="index.html"><i class="fa-solid fa-house"></i> بازگشت</a>
+    <button class="btn sm" id="btnSaved"><i class="fa-solid fa-bookmark"></i> ذخیره‌ها</button>
+  </div>
+</header>
+
+<!-- ====== TABS ====== -->
+<nav class="tabs" id="tabs">
+  <button data-t="solve" class="on"><i class="fa-solid fa-square-root-variable"></i> حل فرمول</button>
+  <button data-t="chain"><i class="fa-solid fa-link"></i> حل زنجیره‌ای</button>
+  <button data-t="free"><i class="fa-solid fa-keyboard"></i> ورود آزاد</button>
+  <button data-t="graph"><i class="fa-solid fa-chart-line"></i> رسم نمودار</button>
+  <button data-t="quiz"><i class="fa-solid fa-dumbbell"></i> تمرین بی‌پایان</button>
+  <button data-t="conv"><i class="fa-solid fa-scale-balanced"></i> تبدیل واحدها</button>
+  <button data-t="help"><i class="fa-solid fa-circle-question"></i> راهنما</button>
+</nav>
+
+<main>
+<!-- ====== SOLVE TAB ====== -->
+<section class="tab-panel on" id="tab-solve">
+  <div class="share-banner" id="solveShare" style="display:none"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-flask"></i> کتابخانهٔ فرمول‌ها</h3>
+    <div class="searchrow"><input id="fSearch" placeholder="جست‌وجو در فرمول‌ها… (مثلاً انرژی، اهم، مول)"></div>
+    <div class="cat-bar" id="catBar"></div>
+    <div class="flist" id="flist"></div>
+  </div>
+  <div class="card" id="solveArea" style="display:none"></div>
+</section>
+
+<!-- ====== CHAIN TAB ====== -->
+<section class="tab-panel" id="tab-chain">
+  <div class="card">
+    <h3><i class="fa-solid fa-link"></i> حل زنجیره‌ای — خروجی یک فرمول، ورودی فرمول بعدی</h3>
+    <p class="muted">گام‌ها را به ترتیب اضافه کن؛ متغیرهای مشترک به‌طور خودکار از یک گام به گام بعد منتقل می‌شوند و در پایان، نمودار زنجیره رسم می‌شود.</p>
+    <div class="target-row">
+      <select id="chainF"></select>
+      <button class="btn primary" id="chainAdd"><i class="fa-solid fa-plus"></i> افزودن گام</button>
+      <button class="btn sm" id="chainExample"><i class="fa-solid fa-wand-magic-sparkles"></i> مثال آماده</button>
+      <button class="btn sm" id="chainClear"><i class="fa-solid fa-trash"></i> پاک‌کردن</button>
+    </div>
+  </div>
+  <div id="chainSteps"></div>
+  <div class="act-row"><button class="btn primary" id="chainRun"><i class="fa-solid fa-play"></i> اجرای زنجیره</button></div>
+  <div id="chainResult"></div>
+  <div class="card gwrap" id="chainDiagram" style="display:none"></div>
+</section>
+
+<!-- ====== FREE INPUT TAB ====== -->
+<section class="tab-panel" id="tab-free">
+  <div class="card">
+    <h3><i class="fa-solid fa-keyboard"></i> معادله‌سنج آزاد</h3>
+    <p class="muted">هر معادله‌ای بنویس — حتی اگر در کتابخانه نیست. متغیرها خودکار شناخته می‌شوند و مجهول با روش عددی حل می‌شود.</p>
+    <div class="chip-row" id="freeSamples">
+      <button class="chip" data-eq="F = m * a">F = m * a</button>
+      <button class="chip" data-eq="v0 = v - a*t">v0 = v - a*t</button>
+      <button class="chip" data-eq="sqrt(x) + 2*x = 10">sqrt(x) + 2*x = 10</button>
+      <button class="chip" data-eq="0.5*m*v^2 = 50">0.5*m*v^2 = 50</button>
+    </div>
+    <input class="qinput" id="freeEq" placeholder="مثلاً:  F = m * a   یا   x^2 + 3*x = 10" spellcheck="false">
+    <div class="parsed" id="freeParsed"></div>
+    <div class="target-row" id="freeTargetRow" style="display:none">
+      <span class="muted">مجهول:</span>
+      <select id="freeTarget"></select>
+      <button class="btn primary" id="freeSolve"><i class="fa-solid fa-equals"></i> حل کن</button>
+    </div>
+    <div class="var-grid" id="freeVars"></div>
+    <div id="freeOut"></div>
+  </div>
+  <div class="card">
+    <h3><i class="fa-solid fa-atom"></i> ثابت‌های مهم فیزیک و شیمی <span class="muted">(کلیک = کپی مقدار)</span></h3>
+    <div class="const-grid" id="constGrid"></div>
+  </div>
+</section>
+
+<!-- ====== GRAPH TAB ====== -->
+<section class="tab-panel" id="tab-graph">
+  <div class="card">
+    <h3><i class="fa-solid fa-chart-line"></i> رسم نمودار چندمنحنی</h3>
+    <div class="target-row">
+      <span class="muted">بازهٔ x از</span>
+      <input class="qinput" id="gx1" value="0" style="width:110px;padding:8px">
+      <span class="muted">تا</span>
+      <input class="qinput" id="gx2" value="10" style="width:110px;padding:8px">
+      <button class="btn primary" id="gDraw"><i class="fa-solid fa-pen-ruler"></i> رسم</button>
+    </div>
+    <p class="hint">عبارت را بر حسب <code>x</code> بنویس. تابع‌های مجاز: <code>sqrt</code> <code>sin</code> <code>cos</code> <code>tan</code> <code>ln</code> <code>log</code> <code>abs</code> <code>exp</code> و ثابت <code>pi</code>. تا ۴ منحنی هم‌زمان. نشانگر ماوس را روی نمودار ببر تا مقدار دقیق را ببینی.</p>
+    <div id="curveRows"></div>
+    <div class="target-row" style="margin-top:10px">
+      <input class="qinput" id="gNew" placeholder="مثلاً:  sin(x) + x/4" spellcheck="false" style="flex:1;min-width:200px">
+      <button class="btn" id="gAdd"><i class="fa-solid fa-plus"></i> افزودن منحنی</button>
+    </div>
+  </div>
+  <div class="card gwrap" id="graphWrap" style="display:none">
+    <svg id="gsvg" viewBox="0 0 880 460"></svg>
+    <div class="gtip" id="gtip"></div>
+  </div>
+</section>
+
+<!-- ====== QUIZ TAB ====== -->
+<section class="tab-panel" id="tab-quiz">
+  <div class="share-banner" id="quizShare" style="display:none"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-dumbbell"></i> تمرین بی‌پایان</h3>
+    <p class="muted">مسئله‌های تصادفی از کتابخانهٔ فرمول‌ها؛ گزینه‌ها را بزن، راه‌حل گام‌به‌گام را ببین و زنجیرهٔ پاسخ‌های درستت را بساز.</p>
+    <div class="target-row">
+      <span class="muted">سطح:</span>
+      <select id="qDiff">
+        <option value="0">آسان — اعداد صحیح + نمایش فرمول</option>
+        <option value="1" selected>متوسط — اعشار و بدون فرمول</option>
+        <option value="2">سخت — اعداد دقیق و بازهٔ بزرگ</option>
+      </select>
+      <button class="btn primary" id="qNew"><i class="fa-solid fa-shuffle"></i> مسئلهٔ جدید</button>
+    </div>
+    <div class="stat-row">
+      <div class="stat-box"><b id="qScore">0</b><small>امتیاز</small></div>
+      <div class="stat-box"><b id="qStreak">0</b><small>زنجیرهٔ درست 🔥</small></div>
+      <div class="stat-box"><b id="qBest">0</b><small>رکورد زنجیره</small></div>
+      <div class="stat-box"><b id="qSolved">0</b><small>مسئلهٔ حل‌شده</small></div>
+    </div>
+  </div>
+  <div class="card" id="quizBox"></div>
+</section>
+
+<!-- ====== CONVERT TAB ====== -->
+<section class="tab-panel" id="tab-conv">
+  <div class="card">
+    <h3><i class="fa-solid fa-scale-balanced"></i> تبدیل واحدها</h3>
+    <div class="cat-bar" id="convCat"></div>
+    <div class="target-row">
+      <input class="qinput" id="cvVal" value="1" style="width:130px;padding:9px">
+      <select id="cvFrom" style="flex:1;min-width:130px;background:var(--p2);border:1px solid var(--bd);border-radius:10px;padding:9px 12px;font-weight:700"></select>
+      <button class="btn sm" id="cvSwap" title="جابه‌جایی"><i class="fa-solid fa-right-left"></i></button>
+      <select id="cvTo" style="flex:1;min-width:130px;background:var(--p2);border:1px solid var(--bd);border-radius:10px;padding:9px 12px;font-weight:700"></select>
+      <button class="btn primary" id="cvGo"><i class="fa-solid fa-equals"></i> تبدیل</button>
+    </div>
+    <div id="cvOut"></div>
+  </div>
+  <div class="card">
+    <h3><i class="fa-solid fa-atom"></i> ثابت‌های مهم <span class="muted">(کلیک = کپی)</span></h3>
+    <div class="const-grid" id="constGrid2"></div>
+  </div>
+</section>
+
+<!-- ====== HELP TAB ====== -->
+<section class="tab-panel" id="tab-help">
+  <div class="help-section"><h3>🚀 شروع سریع</h3>
+    <p>در تب «حل فرمول» یک فرمول را انتخاب کن، مقدار معلوم‌ها را بنویس و مجهول را از فهرست انتخاب کن. جواب با <b>راه‌حل گام‌به‌گام</b> نمایش داده می‌شود و می‌توانی فرمول‌های مرتبط را برای ادامهٔ حل ببینی.</p></div>
+  <div class="help-section"><h3>⌨️ ورود آزاد</h3>
+    <p>هر معادله‌ای بنویس، حتی خارج از کتابخانه: <code>F = m * a</code> ، <code>v0 = v - a*t</code> ، <code>sqrt(x) + 2*x = 10</code> ، <code>0.5*m*v^2 = 50</code>. اگر طرفین با «=» جدا شده باشند، مجهول با روش عددی پیدا می‌شود؛ اگر معادله ننویسی، همان عبارت مستقیم حساب می‌شود. توان با <code>^</code> و جذر با <code>sqrt()</code>.</p></div>
+  <div class="help-section"><h3>🔗 حل زنجیره‌ای</h3>
+    <p>مسئله‌های چندمرحله‌ای را مثل زنجیر حل کن: خروجی هر گام (مثلاً جرم از رابطهٔ چگالی) خودکار به گام بعدی (مثلاً نیرو از قانون دوم نیوتن) منتقل می‌شود. با «مثال آماده» ببین چطور کار می‌کند و در پایان نمودار زنجیره را تحویل بگیر.</p></div>
+  <div class="help-section"><h3>📈 رسم نمودار</h3>
+    <p>تا ۴ عبارت را هم‌زمان روی یک دستگاه بکش، نشانگر را روی نمودار ببر تا مقدار دقیق هر منحنی را بخوانی، و نقطهٔ بیشینه/کمینهٔ خودکار را ببین. برای دیدن رفتار متغیرها عالی است — مثلاً <code>v0*t + 0.5*a*t^2</code> با <code>t</code> از ۰ تا ۱۰.</p></div>
+  <div class="help-section"><h3>🏋️ تمرین بی‌پایان</h3>
+    <p>مسئلهٔ تصادفی بگیر، از بین چهار گزینه انتخاب کن و راه‌حل کامل را ببین. پاسخ درست، زنجیرهٔ 🔥 تو را می‌سازد و رکوردت در همین مرورگر ذخیره می‌شود. با دکمهٔ <b>اشتراک</b> می‌توانی لینک همان مسئله را برای دوستت بفرستی تا خودش حل کند.</p></div>
+  <div class="help-section"><h3>💾 ذخیره و اشتراک</h3>
+    <p>هر نتیجه یا مسئله را ذخیره کن و بعداً از دکمهٔ «ذخیره‌ها» بازش کن. همه‌چیز فقط در مرورگر خودت می‌ماند و هیچ داده‌ای جایی فرستاده نمی‌شود.</p></div>
+  <div class="help-section"><h3>🧠 چرا تمرین بی‌پایان؟</h3>
+    <p>«حل فعال» مؤثرترین شکل یادگیری است: مغز وقتی مجبور است خودش رابطه را بازآرایی کند، آن را ماندگار یاد می‌گیرد. هر مسئله یک تکرار کوچک بازیابی است — روزی ده مسئله، ده تکرار واقعی.</p></div>
+</section>
+</main>
+
+<footer>همهٔ محاسبات به‌طور کامل در مرورگر شما انجام می‌شود — هیچ داده‌ای ارسال یا ذخیرهٔ آنلاین نمی‌شود. · مستر پلنر</footer>
+
+<!-- ====== SAVED PANEL ====== -->
+<div class="saved-panel" id="savedPanel">
+  <div class="saved-card">
+    <h3 style="color:var(--ac2);font-size:15px;display:flex;justify-content:space-between;align-items:center">ذخیره‌های من <button class="btn sm" id="savedClose">بستن</button></h3>
+    <div id="savedList"><p class="muted">هنوز چیزی ذخیره نکرده‌ای.</p></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+'use strict';
+/* ====== helpers ====== */
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const FA='۰۱۲۳۴۵۶۷۸۹';
+const fmt=x=>{if(typeof x!=='number'||!isFinite(x))return '—';const a=Math.abs(x);
+  if(a!==0&&(a<1e-4||a>=1e7))return x.toExponential(3);
+  return String(parseFloat(x.toPrecision(6)));};
+const rnd=(v,d)=>parseFloat(v.toFixed(d));
+let toastT=null;
+function toast(m,err){const t=$('#toast');t.textContent=m;t.classList.toggle('err',!!err);t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2200);}
+function typeset(){if(window.MathJax&&MathJax.typesetPromise)Promise.resolve().then(()=>MathJax.typesetPromise());}
+
+/* ====== expression engine ====== */
+const FN={sqrt:Math.sqrt,sin:Math.sin,cos:Math.cos,tan:Math.tan,asin:Math.asin,acos:Math.acos,atan:Math.atan,ln:Math.log,log:Math.log10,abs:Math.abs,exp:Math.exp,min:Math.min,max:Math.max,pow:Math.pow,floor:Math.floor,ceil:Math.ceil,round:Math.round,
+ deg:d=>d*180/Math.PI,rad:d=>d*Math.PI/180};
+const SAFE=/^[0-9a-zA-Z_+\-*/().,\s^]*$/;
+const PREP=ex=>String(ex).replace(/\^/g,'**').replace(/×/g,'*').replace(/÷/g,'/').replace(/−/g,'-').replace(/[۰-۹]/g,d=>String(FA.indexOf(d)));
+function evalExpr(ex,vars){
+  ex=PREP(ex);
+  if(!SAFE.test(ex))throw 'کاراکتر نامعتبر در عبارت';
+  const body=ex.replace(/[A-Za-z_][A-Za-z_0-9]*/g,w=>{
+    if(w in FN)return 'FN["'+w+'"]';
+    if(w==='pi')return 'Math.PI';
+    if(w==='e')return 'Math.E';
+    if(vars&&Object.prototype.hasOwnProperty.call(vars,w)){const v=Number(vars[w]);if(!isFinite(v))throw 'مقدار '+w+' نامعتبر است';return '('+v+')';}
+    throw 'متغیر ناشناخته: '+w;});
+  let r;try{r=Function('FN','return ('+body+')')(FN);}catch(e){throw 'عبارت قابل محاسبه نیست';}
+  if(typeof r!=='number'||!isFinite(r))throw 'نتیجه عددی معتبری نیست (تقسیم بر صفر؟)';
+  return r;}
+function tokens(ex){return (PREP(ex).match(/[A-Za-z_][A-Za-z_0-9]*/g)||[]).filter(w=>!(w in FN)&&w!=='pi'&&w!=='e');}
+
+/* ====== variable dictionary ====== */
+const V={
+ s:{n:'مسافت',u:'m',t:'s'},t:{n:'زمان',u:'s',t:'t'},v:{n:'سرعت',u:'m/s',t:'v'},
+ v0:{n:'سرعت اولیه',u:'m/s',t:'v_0'},a:{n:'شتاب',u:'m/s²',t:'a'},F:{n:'نیرو',u:'N',t:'F'},
+ m:{n:'جرم',u:'kg',t:'m'},g:{n:'شتاب گرانش',u:'m/s²',t:'g'},W:{n:'کار / وزن',u:'J (N)',t:'W'},
+ d:{n:'جابه‌جایی',u:'m',t:'d'},P:{n:'توان',u:'W',t:'P'},p:{n:'تکانه',u:'kg·m/s',t:'p'},
+ Ek:{n:'انرژی جنبشی',u:'J',t:'E_k'},Ep:{n:'انرژی پتانسیل',u:'J',t:'E_p'},h:{n:'ارتفاع',u:'m',t:'h'},
+ A:{n:'مساحت',u:'m²',t:'A'},Pr:{n:'فشار',u:'Pa',t:'P'},rho:{n:'چگالی',u:'kg/m³',t:'\\rho'},
+ k:{n:'ثابت فنر',u:'N/m',t:'k'},x:{n:'تغییر طول فنر',u:'m',t:'x'},fr:{n:'نیروی اصطکاک',u:'N',t:'f'},
+ mu:{n:'ضریب اصطکاک',u:'—',t:'\\mu'},N:{n:'نیروی عمودی',u:'N',t:'N'},Q:{n:'گرما',u:'J',t:'Q'},
+ c:{n:'گرمای ویژه',u:'J/(kg·K)',t:'c'},dT:{n:'تغییر دما',u:'K',t:'\\Delta T'},
+ dL:{n:'تغییر طول',u:'m',t:'\\Delta L'},alpha:{n:'ضریب انبساط',u:'1/K',t:'\\alpha'},
+ L:{n:'طول اولیه',u:'m',t:'L'},eta:{n:'بازده',u:'%',t:'\\eta'},Wn:{n:'کار مفید',u:'J',t:'W'},
+ Qin:{n:'گرمای ورودی',u:'J',t:'Q_{in}'},U:{n:'ولتاژ',u:'V',t:'U'},I:{n:'جریان',u:'A',t:'I'},
+ R:{n:'مقاومت',u:'Ω',t:'R'},q:{n:'بار الکتریکی',u:'C',t:'q'},kq:{n:'ثابت کولن',u:'N·m²/C²',t:'k_e'},
+ q1:{n:'بار ۱',u:'C',t:'q_1'},q2:{n:'بار ۲',u:'C',t:'q_2'},r:{n:'فاصله',u:'m',t:'r'},
+ C:{n:'ظرفیت خازن',u:'F',t:'C'},E:{n:'انرژی ذخیره‌شده',u:'J',t:'E'},lam:{n:'طول موج',u:'m',t:'\\lambda'},
+ f:{n:'فرکانس',u:'Hz',t:'f'},n1:{n:'ضریب شکست ۱',u:'—',t:'n_1'},n2:{n:'ضریب شکست ۲',u:'—',t:'n_2'},
+ th1:{n:'زاویه تابش',u:'°',t:'\\theta_1'},th2:{n:'زاویه شکست',u:'°',t:'\\theta_2'},
+ T:{n:'دوره تناوب',u:'s',t:'T'},M:{n:'جرم مولی',u:'g/mol',t:'M'},n:{n:'مول',u:'mol',t:'n'},
+ Cm:{n:'غلظت مولی',u:'mol/L',t:'C'},V:{n:'حجم',u:'m³ / L',t:'V'},Rg:{n:'ثابت گازها',u:'atm·L/(mol·K)',t:'R'},
+ Tm:{n:'دما',u:'K',t:'T'},Pm:{n:'فشار گاز',u:'atm',t:'P'},R1:{n:'مقاومت ۱',u:'Ω',t:'R_1'},R2:{n:'مقاومت ۲',u:'Ω',t:'R_2'}
+};
+const DEFAULTS={g:9.8,kq:9e9,Rg:0.0821};
+const CATS={mech:['مکانیک','fa-person-running'],heat:['گرما','fa-temperature-full'],elec:['الکتریسیته','fa-bolt'],wave:['موج و نور','fa-water'],chem:['شیمی','fa-flask']};
+
+/* ====== formula library ====== */
+const FORMULAS=[
+{id:'vst',cat:'mech',name:'سرعت متوسط',tex:'v=\\dfrac{s}{t}',vars:['v','s','t'],f:{v:'s/t',s:'v*t',t:'s/v'}},
+{id:'acc',cat:'mech',name:'شتاب',tex:'a=\\dfrac{v-v_0}{t}',vars:['a','v','v0','t'],f:{a:'(v-v0)/t',v:'v0+a*t',v0:'v-a*t',t:'(v-v0)/a'}},
+{id:'newton',cat:'mech',name:'قانون دوم نیوتن',tex:'F=m\\,a',vars:['F','m','a'],f:{F:'m*a',m:'F/a',a:'F/m'}},
+{id:'weight',cat:'mech',name:'وزن (نیروی گرانش)',tex:'W=m\\,g',vars:['W','m','g'],f:{W:'m*g',m:'W/g',g:'W/m'}},
+{id:'mom',cat:'mech',name:'تکانه',tex:'p=m\\,v',vars:['p','m','v'],f:{p:'m*v',m:'p/v',v:'p/m'}},
+{id:'work',cat:'mech',name:'کار (نیرو × جابه‌جایی)',tex:'W=F\\,d',vars:['W','F','d'],f:{W:'F*d',F:'W/d',d:'W/F'}},
+{id:'power',cat:'mech',name:'توان',tex:'P=\\dfrac{W}{t}',vars:['P','W','t'],f:{P:'W/t',W:'P*t',t:'W/P'}},
+{id:'ekin',cat:'mech',name:'انرژی جنبشی',tex:'E_k=\\tfrac{1}{2}m\\,v^2',vars:['Ek','m','v'],f:{Ek:'0.5*m*v*v',m:'2*Ek/(v*v)',v:'sqrt(2*Ek/m)'}},
+{id:'epot',cat:'mech',name:'انرژی پتانسیل گرانش',tex:'E_p=m\\,g\\,h',vars:['Ep','m','g','h'],f:{Ep:'m*g*h',m:'Ep/(g*h)',h:'Ep/(m*g)',g:'Ep/(m*h)'}},
+{id:'press',cat:'mech',name:'فشار',tex:'P=\\dfrac{F}{A}',vars:['Pr','F','A'],f:{Pr:'F/A',F:'Pr*A',A:'F/Pr'}},
+{id:'dens',cat:'mech',name:'چگالی',tex:'\\rho=\\dfrac{m}{V}',vars:['rho','m','V'],f:{rho:'m/V',m:'rho*V',V:'m/rho'}},
+{id:'hooke',cat:'mech',name:'قانون هوک (فنر)',tex:'F=k\\,x',vars:['F','k','x'],f:{F:'k*x',k:'F/x',x:'F/k'}},
+{id:'fric',cat:'mech',name:'نیروی اصطکاک',tex:'f=\\mu\\,N',vars:['fr','mu','N'],f:{fr:'mu*N',mu:'fr/N',N:'fr/mu'}},
+{id:'heat',cat:'heat',name:'گرمای لازم برای تغییر دما',tex:'Q=m\\,c\\,\\Delta T',vars:['Q','m','c','dT'],f:{Q:'m*c*dT',m:'Q/(c*dT)',c:'Q/(m*dT)',dT:'Q/(m*c)'}},
+{id:'exp',cat:'heat',name:'انبساط طولی',tex:'\\Delta L=\\alpha\\,L\\,\\Delta T',vars:['dL','alpha','L','dT'],qz:false,f:{dL:'alpha*L*dT',alpha:'dL/(L*dT)',L:'dL/(alpha*dT)',dT:'dL/(alpha*L)'}},
+{id:'eff',cat:'heat',name:'بازده',tex:'\\eta=\\dfrac{W}{Q_{in}}\\times100',vars:['eta','Wn','Qin'],f:{eta:'Wn/Qin*100',Wn:'eta*Qin/100',Qin:'Wn*100/eta'}},
+{id:'ohm',cat:'elec',name:'قانون اهم',tex:'U=I\\,R',vars:['U','I','R'],f:{U:'I*R',I:'U/R',R:'U/I'}},
+{id:'epow',cat:'elec',name:'توان الکتریکی',tex:'P=U\\,I',vars:['P','U','I'],f:{P:'U*I',U:'P/I',I:'P/U'}},
+{id:'chg',cat:'elec',name:'بار الکتریکی',tex:'q=I\\,t',vars:['q','I','t'],f:{q:'I*t',I:'q/t',t:'q/I'}},
+{id:'cou',cat:'elec',name:'قانون کولن',tex:'F=k_e\\dfrac{q_1\\,q_2}{r^2}',vars:['F','kq','q1','q2','r'],f:{F:'kq*q1*q2/(r*r)',q1:'F*r*r/(kq*q2)',q2:'F*r*r/(kq*q1)',r:'sqrt(kq*q1*q2/F)'}},
+{id:'cap',cat:'elec',name:'انرژی ذخیره‌شده در خازن',tex:'E=\\tfrac{1}{2}C\\,U^2',vars:['E','C','U'],f:{E:'0.5*C*U*U',C:'2*E/(U*U)',U:'sqrt(2*E/C)'}},
+{id:'rs',cat:'elec',name:'مقاومت معادل سری',tex:'R=R_1+R_2',vars:['R','R1','R2'],f:{R:'R1+R2',R1:'R-R2',R2:'R-R1'}},
+{id:'wave',cat:'wave',name:'سرعت موج',tex:'v=\\lambda\\,f',vars:['v','lam','f'],f:{v:'lam*f',lam:'v/f',f:'v/lam'}},
+{id:'snell',cat:'wave',name:'قانون اسنل (شکست نور)',tex:'n_1\\sin\\theta_1=n_2\\sin\\theta_2',vars:['n1','th1','n2','th2'],qz:false,
+ f:{th2:'deg(asin(n1*sin(rad(th1))/n2))',th1:'deg(asin(n2*sin(rad(th2))/n1))',n1:'n2*sin(rad(th2))/sin(rad(th1))',n2:'n1*sin(rad(th1))/sin(rad(th2))'},
+ ftx:{th2:'\\theta_2=\\deg\\!\\left(\\sin^{-1}\\dfrac{n_1\\sin\\theta_1}{n_2}\\right)',th1:'\\theta_1=\\deg\\!\\left(\\sin^{-1}\\dfrac{n_2\\sin\\theta_2}{n_1}\\right)',n1:'n_1=\\dfrac{n_2\\sin\\theta_2}{\\sin\\theta_1}',n2:'n_2=\\dfrac{n_1\\sin\\theta_1}{\\sin\\theta_2}'}},
+{id:'per',cat:'wave',name:'دوره تناوب و فرکانس',tex:'T=\\dfrac{1}{f}',vars:['T','f'],f:{T:'1/f',f:'1/T'}},
+{id:'mole',cat:'chem',name:'تعداد مول',tex:'n=\\dfrac{m}{M}',vars:['n','m','M'],f:{n:'m/M',m:'n*M',M:'m/n'}},
+{id:'mola',cat:'chem',name:'غلظت مولی',tex:'C=\\dfrac{n}{V}',vars:['Cm','n','V'],note:'V بر حسب لیتر',f:{Cm:'n/V',n:'Cm*V',V:'n/Cm'}},
+{id:'gas',cat:'chem',name:'قانون گاز کامل',tex:'P\\,V=n\\,R\\,T',vars:['Pm','V','n','Rg','Tm'],note:'V بر حسب لیتر، P بر حسب atm',
+ f:{Pm:'n*Rg*Tm/V',V:'n*Rg*Tm/Pm',n:'Pm*V/(Rg*Tm)',Tm:'Pm*V/(n*Rg)'},
+ ftx:{Pm:'P=\\dfrac{nRT}{V}',V:'V=\\dfrac{nRT}{P}',n:'n=\\dfrac{PV}{RT}',Tm:'T=\\dfrac{PV}{nR}'}}
+];
+const FBY=Object.fromEntries(FORMULAS.map(f=>[f.id,f]));
+
+const TEXV={v0:'v_0',dT:'\\Delta T',dL:'\\Delta L',Ek:'E_k',Ep:'E_p',rho:'\\rho',mu:'\\mu',alpha:'\\alpha',eta:'\\eta',lam:'\\lambda',th1:'\\theta_1',th2:'\\theta_2',q1:'q_1',q2:'q_2',kq:'k_e',R1:'R_1',R2:'R_2',Rg:'R',Tm:'T',Pm:'P',Cm:'C',fr:'f',Wn:'W',Qin:'Q_{in}'};
+function texFromExpr(ex){
+  const keys=Object.keys(TEXV).sort((a,b)=>b.length-a.length);
+  let s=String(ex).replace(/\*/g,' \\cdot ').replace(/\^/g,'^');
+  s=s.replace(/sqrt\(([^()]*)\)/g,'\\sqrt{$1}');
+  for(const k of keys)s=s.replace(new RegExp('\\b'+k+'\\b','g'),TEXV[k]);
+  return s;}
+function subExpr(ex,vals){
+  const keys=Object.keys(vals).sort((a,b)=>b.length-a.length);
+  let s=PREP(ex);
+  for(const k of keys)s=s.replace(new RegExp('\\b'+k+'\\b','g'),'('+vals[k]+')');
+  return s;}
+
+/* ====== numeric root finding ====== */
+function findRoot(fn){
+  const passes=[[0,1000,8001],[-1000,0,4001],[-1000,1000,4001]];
+  for(const [a,b,n] of passes){
+    let px=a,pv=fn(a);
+    for(let i=1;i<=n;i++){const x=a+(b-a)*i/n;let v;try{v=fn(x);}catch(e){v=NaN;}
+      if(isFinite(pv)&&isFinite(v)){
+        if(pv===0)return px;
+        if(pv*v<0){let lo=px,hi=x,flo=pv;
+          for(let j=0;j<60;j++){const mid=(lo+hi)/2;let fm;try{fm=fn(mid);}catch(e){fm=NaN;}
+            if(!isFinite(fm))break;
+            if(flo*fm<=0)hi=mid;else{lo=mid;flo=fm;}}
+          return (lo+hi)/2;}}
+      px=x;pv=v;}}
+  for(let e0=-9;e0<=9;e0+=0.5){
+    const a=Math.pow(10,e0),b=Math.pow(10,e0+0.5);
+    for(const [lo,hi] of [[a,b],[-b,-a]]){
+      let va,va2;try{va=fn(lo);va2=fn(hi);}catch(e){continue;}
+      if(isFinite(va)&&isFinite(va2)&&va*va2<0){let l=lo,h=hi,fl=va;
+        for(let j=0;j<80;j++){const md=(l+h)/2;let fm;try{fm=fn(md);}catch(e){fm=NaN;}
+          if(!isFinite(fm))break;
+          if(fl*fm<=0)h=md;else{l=md;fl=fm;}}
+        return (l+h)/2;}}}
+  return null;}
+
+/* ====== quiz ranges ====== */
+const RANGE={v:[2,40],s:[5,500],t:[2,120],v0:[0,20],a:[0.5,10],F:[5,500],m:[0.5,50],W:[10,5000],d:[1,100],P:[10,2000],p:[1,200],Ek:[10,5000],Ep:[10,5000],h:[1,50],A:[0.5,20],Pr:[100,2e5],rho:[0.5,500],k:[10,500],x:[0.01,0.5],fr:[1,200],mu:[0.05,0.9],N:[10,500],Q:[100,5e4],c:[200,4000],dT:[5,80],dL:[0.001,0.05],alpha:[0.00001,0.00003],L:[0.5,10],eta:[20,90],Wn:[50,4000],Qin:[100,8000],I:[0.1,10],U:[1.5,220],R:[1,500],q:[0.5,100],q1:[1e-6,5e-5],q2:[1e-6,5e-5],r:[0.01,0.5],C:[1e-6,1e-3],E:[0.001,10],lam:[0.5,20],f:[0.5,500],th1:[10,80],n1:[1,2.5],n2:[1,2.5],T:[0.1,10],M:[2,200],n:[0.1,5],Cm:[0.1,3],V:[0.1,10],Pm:[0.5,5],Tm:[200,400],R1:[1,100],R2:[1,100]};
+function randVal(k,diff){const [lo,hi]=RANGE[k]||[1,50];let v=lo+Math.random()*(hi-lo);
+  const dp=diff===0?(v>=1?0:2):diff===1?1:2;return rnd(v,dp);}
+
+/* ====== steps builder ====== */
+function buildSteps(fid,tgt,vals){
+  const F=FBY[fid];const ftx=(F.ftx&&F.ftx[tgt])||(V[tgt].t+' = '+texFromExpr(F.f[tgt]));
+  const sub=texFromExpr(subExpr(F.f[tgt],vals));
+  let h='<div class="step-item"><div class="st-h">۱ — بازآرایی رابطه</div><div class="st-b">\\('+ftx+'\\)</div></div>';
+  h+='<div class="step-item"><div class="st-h">۲ — جای‌گذاری مقادیر</div><div class="st-b">\\('+sub+'\\)</div></div>';
+  return h;}
+
+/* ====== tabs ====== */
+function showTab(id){
+  $$('nav.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));
+  $$('.tab-panel').forEach(p=>p.classList.toggle('on',p.id==='tab-'+id));}
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(b)showTab(b.dataset.t);});
+
+/* ====== formula library ====== */
+let curCat='all',curSearch='';
+function renderCatBar(){
+  $('#catBar').innerHTML='<button data-c="all" class="'+(curCat==='all'?'on':'')+'"><i class="fa-solid fa-layer-group"></i> همه</button>'+
+    Object.entries(CATS).map(([k,[n,ic]])=>'<button data-c="'+k+'" class="'+(curCat===k?'on':'')+'"><i class="fa-solid '+ic+'"></i> '+n+'</button>').join('');}
+function renderLib(){
+  const list=FORMULAS.filter(f=>(curCat==='all'||f.cat===curCat)&&(!curSearch||f.name.includes(curSearch)||(V[f.vars[0]]&&V[f.vars[0]].n.includes(curSearch))));
+  $('#flist').innerHTML=list.length?list.map(f=>'<button class="fcard" data-f="'+f.id+'"><b>'+f.name+'</b><small>'+f.vars.map(k=>V[k].n).join(' · ')+'</small><div class="tex-mini">\\('+f.tex+'\\)</div></button>').join('')
+    :'<p class="muted">چیزی پیدا نشد.</p>';
+  typeset();}
+$('#catBar').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;curCat=b.dataset.c;renderCatBar();renderLib();});
+$('#fSearch').addEventListener('input',e=>{curSearch=e.target.value.trim();renderLib();});
+$('#flist').addEventListener('click',e=>{const b=e.target.closest('.fcard');if(!b)return;selectFormula(b.dataset.f);});
+
+/* ====== solver ====== */
+let curF=null;
+function selectFormula(fid,vals,tgt){
+  const F=FBY[fid];curF=fid;
+  const area=$('#solveArea');area.style.display='block';
+  const others=F.vars.filter(k=>k!==tgt);
+  const inputs=F.vars.map(k=>{
+    const val=vals&&vals[k]!==undefined?vals[k]:(DEFAULTS[k]!==undefined?DEFAULTS[k]:'');
+    return '<div class="vfield"><label>'+V[k].n+(DEFAULTS[k]!==undefined?' <span class="muted">(پیش‌فرض)</span>':'')+'</label><input class="vin" data-k="'+k+'" value="'+val+'" inputmode="decimal"><small>'+k+' ['+V[k].u+']</small></div>';}).join('');
+  area.innerHTML=
+    '<h3><i class="fa-solid fa-square-root-variable"></i> '+F.name+(F.note?' <span class="muted">('+F.note+')</span>':'')+'</h3>'+
+    '<div class="tex-mini" style="font-size:16px;margin:4px 0 12px">\\['+F.tex+'\\]</div>'+
+    '<div class="target-row"><span class="muted">مجهول:</span><select id="tgtSel">'+
+      F.vars.map(k=>'<option value="'+k+'"'+(k===tgt?' selected':'')+'>'+V[k].n+' ('+k+')</option>').join('')+'</select>'+
+      '<button class="btn primary" id="solveBtn"><i class="fa-solid fa-equals"></i> حل کن</button></div>'+
+    '<div class="var-grid">'+inputs+'</div><div id="solveOut"></div>';
+  $('#solveBtn').addEventListener('click',solveNow);
+  $('#tgtSel').addEventListener('change',()=>{const t=$('#tgtSel').value;selectFormula(fid,collectVals(false),t);});
+  area.querySelectorAll('.vin').forEach(inp=>inp.addEventListener('keydown',e=>{if(e.key==='Enter')solveNow();}));
+  renderLib();typeset();
+  if(vals)solveNow();}
+function collectVals(mark){
+  const out={};let ok=true;
+  $$('#solveArea .vin').forEach(inp=>{
+    const raw=inp.value.trim().replace(/[،]/g,'.');
+    if(raw===''){if(mark){inp.classList.add('miss');}if(DEFAULTS[inp.dataset.k]===undefined)ok=false;return;}
+    inp.classList.remove('miss');
+    const v=parseFloat(raw);
+    if(!isFinite(v)){ok=false;if(mark)inp.classList.add('miss');return;}
+    out[inp.dataset.k]=v;});
+  return ok?out:null;}
+function solveNow(){
+  if(!curF)return;
+  const F=FBY[curF],tgt=$('#tgtSel').value,vals=collectVals(true);
+  const out=$('#solveOut');
+  if(!vals){out.innerHTML='<div class="result-box err"><div class="val">همهٔ معلوم‌ها را کامل و عددی وارد کن</div></div>';return;}
+  try{
+    const val=evalExpr(F.f[tgt],vals);
+    renderResult(curF,tgt,vals,val);
+  }catch(e){out.innerHTML='<div class="result-box err"><div class="val">'+e+'</div></div>';}}
+function renderResult(fid,tgt,vals,val,container){
+  const F=FBY[fid];
+  const rels=FORMULAS.filter(o=>o.id!==fid&&o.vars.includes(tgt)).slice(0,4);
+  const relHtml=rels.length?'<div class="steps"><h4><i class="fa-solid fa-diagram-project"></i> ادامهٔ حل — فرمول‌های مرتبط با '+V[tgt].n+'</h4>'+
+    rels.map(o=>'<div class="rel-item"><b>'+o.name+'</b><div class="tex-mini">\\('+o.tex+'\\)</div><button class="mini-btn pr" data-rel="'+o.id+'">انتخاب</button></div>').join('')+'</div>':'';
+  const html='<div class="result-box"><div class="lbl">مقدار '+V[tgt].n+' ('+tgt+')</div>'+
+    '<div class="val">'+fmt(val)+'<span class="unit">'+V[tgt].u+'</span></div>'+
+    '<div class="expr">'+tgt+' = '+F.f[tgt]+'</div></div>'+
+    '<div class="steps"><h4><i class="fa-solid fa-list-ol"></i> راه‌حل گام‌به‌گام</h4>'+buildSteps(fid,tgt,vals)+
+    '<div class="step-item"><div class="st-h">۳ — نتیجه</div><div class="st-b">\\('+V[tgt].t+' = '+fmt(val)+'\\ \\text{'+V[tgt].u+'}\\)</div></div></div>'+
+    relHtml+
+    '<div class="act-row"><button class="btn" id="rsSave"><i class="fa-solid fa-bookmark"></i> ذخیرهٔ نتیجه</button>'+
+    '<button class="btn" id="rsCopy"><i class="fa-solid fa-copy"></i> کپی</button>'+
+    '<button class="btn" id="rsShare"><i class="fa-solid fa-share-nodes"></i> اشتراک لینک مسئله</button></div>';
+  const box=container||$('#solveOut');box.innerHTML=html;typeset();
+  $('#rsSave').addEventListener('click',()=>addSaved('solve',F.name+' → '+tgt+' = '+fmt(val)+' '+V[tgt].u,{fid,tgt,vals}));
+  $('#rsCopy').addEventListener('click',()=>copyText(F.name+': '+tgt+' = '+fmt(val)+' '+V[tgt].u+'   (با '+Object.entries(vals).map(([k,v])=>k+'='+v).join(', ')+')'));
+  $('#rsShare').addEventListener('click',()=>shareProblem({m:'s',fid,tgt,vals},'solveShare'));
+  box.querySelectorAll('[data-rel]').forEach(b=>b.addEventListener('click',()=>selectFormula(b.dataset.rel)));
+  showTab('solve');}
+function miniBtn(){const st=document.createElement('style');st.textContent='.mini-btn{background:var(--p2);border:1px solid var(--bd);border-radius:8px;padding:5px 12px;color:#cbd5e1;font-size:12px;font-weight:700}.mini-btn.pr{background:var(--ac);border-color:var(--ac);color:#fff}.mini-btn:hover{border-color:var(--ac2);color:var(--ac2)}';document.head.appendChild(st);}
+miniBtn();
+
+/* ====== share / hash ====== */
+function enc(o){return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+function dec(s){try{return JSON.parse(decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/')))));}catch(e){return null;}}
+function shareProblem(obj,boxId){
+  const url=location.origin+location.pathname+'#p='+enc(obj);
+  const box=$('#'+boxId);
+  box.style.display='block';
+  box.innerHTML='<b><i class="fa-solid fa-share-nodes"></i> لینک مسئله ساخته شد</b> — هر کسی این لینک را باز کند دقیقاً همین مسئله را می‌بیند:<br><span style="direction:ltr;display:inline-block;font-size:11.5px;word-break:break-all;color:#67e8f9">'+url+'</span>'+
+    '<div class="act-row"><button class="btn sm" id="shCopy"><i class="fa-solid fa-copy"></i> کپی لینک</button></div>';
+  $('#shCopy').addEventListener('click',()=>copyText(url));
+  box.scrollIntoView({behavior:'smooth',block:'center'});}
+function copyText(t){
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>toast('کپی شد ✓'),()=>fallbackCopy(t));}
+  else fallbackCopy(t);}
+function fallbackCopy(t){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('کپی شد ✓');}catch(e){toast('کپی ناموفق بود',true);}ta.remove();}
+window.addEventListener('load',()=>{
+  if(location.hash.startsWith('#p=')){
+    const o=dec(location.hash.slice(3));
+    if(!o)return;
+    if(o.m==='s'&&FBY[o.fid]){showTab('solve');selectFormula(o.fid,o.vals,o.tgt);}
+    if(o.m==='q'&&FBY[o.fid]){showTab('quiz');quizFrom(o);}
+    if(o.m==='f'){showTab('free');$('#freeEq').value=o.eq;parseFree();if(o.tgt){$('#freeTarget').value=o.tgt;}if(o.vals){freeFill(o.vals);}}
+  }});
+
+/* ====== saved ====== */
+function getSaved(){try{return JSON.parse(localStorage.getItem('mpcalc_saved')||'[]');}catch(e){return [];}}
+function setSaved(a){localStorage.setItem('mpcalc_saved',JSON.stringify(a.slice(0,50)));renderSavedCount();}
+function addSaved(type,title,data){
+  const a=getSaved();
+  if(a.some(x=>x.title===title&&x.type===type)){toast('این مورد قبلاً ذخیره شده است');return;}
+  a.unshift({type,title,data,ts:Date.now()});setSaved(a);toast('ذخیره شد ✓');}
+function renderSavedCount(){const n=getSaved().length;$('#savedCount').textContent=n===0?'۰ ذخیره':n.toLocaleString('fa-IR')+' ذخیره';}
+function renderSavedList(){
+  const a=getSaved(),el=$('#savedList');
+  if(!a.length){el.innerHTML='<p class="muted">هنوز چیزی ذخیره نکرده‌ای.</p>';return;}
+  const names={solve:'حل فرمول',quiz:'مسئلهٔ تمرین',free:'ورود آزاد'};
+  el.innerHTML=a.map((it,i)=>'<div class="saved-item"><b>'+it.title+'</b><span class="meta">'+(names[it.type]||it.type)+' · '+new Date(it.ts).toLocaleDateString('fa-IR')+'</span>'+
+    '<button class="btn sm" data-load="'+i+'">بازکردن</button><button class="btn sm" data-del="'+i+'"><i class="fa-solid fa-trash"></i></button></div>').join('');
+  el.querySelectorAll('[data-del]').forEach(b=>b.addEventListener('click',()=>{const arr=getSaved();arr.splice(+b.dataset.del,1);setSaved(arr);renderSavedList();}));
+  el.querySelectorAll('[data-load]').forEach(b=>b.addEventListener('click',()=>{
+    const it=getSaved()[+b.dataset.load];if(!it)return;
+    $('#savedPanel').classList.remove('on');
+    if(it.type==='solve'&&FBY[it.data.fid]){showTab('solve');selectFormula(it.data.fid,it.data.vals,it.data.tgt);}
+    if(it.type==='quiz'){showTab('quiz');quizFrom(it.data);}
+    if(it.type==='free'){showTab('free');$('#freeEq').value=it.data.eq;parseFree();if(it.data.tgt)$('#freeTarget').value=it.data.tgt;if(it.data.vals)freeFill(it.data.vals);}}));}
+$('#btnSaved').addEventListener('click',()=>{renderSavedList();$('#savedPanel').classList.add('on');});
+$('#savedClose').addEventListener('click',()=>$('#savedPanel').classList.remove('on'));
+$('#savedPanel').addEventListener('click',e=>{if(e.target.id==='savedPanel')$('#savedPanel').classList.remove('on');});
+
+/* ====== chain solver ====== */
+let chain=[];
+$('#chainF').innerHTML=FORMULAS.map(f=>'<option value="'+f.id+'">'+f.name+'</option>').join('');
+$('#chainAdd').addEventListener('click',()=>{
+  chain.push({fid:$('#chainF').value,tgt:null,vals:{}});
+  chain[chain.length-1].tgt=FBY[chain[chain.length-1].fid].vars[0];
+  renderChain();});
+$('#chainClear').addEventListener('click',()=>{chain=[];$('#chainResult').innerHTML='';$('#chainDiagram').style.display='none';renderChain();});
+$('#chainExample').addEventListener('click',()=>{
+  chain=[{fid:'dens',tgt:'m',vals:{V:0.002,rho:800}},{fid:'newton',tgt:'F',vals:{a:3}}];
+  renderChain();toast('مثال آماده: چگالی → جرم → نیرو');});
+function chainKnowns(i){
+  const env={...DEFAULTS};
+  for(let j=0;j<i;j++){if(chain[j].out)env[chain[j].tgt]=chain[j].out.v;}
+  return env;}
+function renderChain(){
+  $('#chainSteps').innerHTML=chain.length?chain.map((st,i)=>{
+    const F=FBY[st.fid];
+    const needed=tokens(F.f[st.tgt]).concat([st.tgt]);
+    const inputs=[...new Set(needed)].filter(k=>k!==st.tgt&&DEFAULTS[k]===undefined).map(k=>{
+      const carried=chainKnowns(i)[k]!==undefined&&!st.vals[k];
+      return '<div class="vfield"><label>'+V[k].n+(carried?' <span style="color:#6ee7b7">(از گام قبل ✓)</span>':'')+'</label><input class="cin" data-i="'+i+'" data-k="'+k+'" value="'+(st.vals[k]!==undefined?st.vals[k]:(carried?chainKnowns(i)[k]:''))+'" inputmode="decimal"><small>'+k+' ['+V[k].u+']</small></div>';}).join('');
+    return '<div class="chain-node"><h4>گام '+(i+1)+' — '+F.name+'<button class="btn sm" data-cdel="'+i+'"><i class="fa-solid fa-xmark"></i></button></h4>'+
+      '<div class="target-row"><span class="muted">مجهول این گام:</span><select data-ctgt="'+i+'">'+
+      F.vars.map(k=>'<option value="'+k+'"'+(k===st.tgt?' selected':'')+'>'+V[k].n+' ('+k+')</option>').join('')+'</select></div>'+
+      '<div class="var-grid">'+inputs+'</div>'+(st.out?'<div class="chain-out">✓ '+st.tgt+' = '+fmt(st.out.v)+' '+V[st.tgt].u+'</div>':'')+'</div>';}).join('')
+    :'<p class="muted">هنوز گامی اضافه نشده — اول فرمول را از فهرست بالا انتخاب کن.</p>';
+  $$('#chainSteps [data-cdel]').forEach(b=>b.addEventListener('click',()=>{chain.splice(+b.dataset.cdel,1);renderChain();}));
+  $$('#chainSteps [data-ctgt]').forEach(s=>s.addEventListener('change',()=>{chain[+s.dataset.ctgt].tgt=s.value;chain[+s.dataset.ctgt].out=null;renderChain();}));
+  $$('#chainSteps .cin').forEach(inp=>inp.addEventListener('input',()=>{chain[+inp.dataset.i].vals[inp.dataset.k]=inp.value;}));
+  typeset();}
+$('#chainRun').addEventListener('click',()=>{
+  if(!chain.length){toast('اول گام اضافه کن',true);return;}
+  chain.forEach(st=>st.out=null);
+  const results=[];let failed=null;
+  for(let i=0;i<chain.length;i++){
+    const st=chain[i],F=FBY[st.fid],env=chainKnowns(i);
+    $$('#chainSteps .cin').forEach(inp=>{if(+inp.dataset.i===i){const v=parseFloat(inp.value.trim().replace(/[،]/g,'.'));if(isFinite(v))st.vals[inp.dataset.k]=v;}});
+    const missing=[...new Set(tokens(F.f[st.tgt]))].filter(k=>k!==st.tgt&&env[k]===undefined&&!(k in st.vals));
+    if(missing.length){failed={i,missing};break;}
+    const vals={...env};
+    Object.entries(st.vals).forEach(([k,v])=>{const n=parseFloat(String(v).replace(/[،]/g,'.'));if(isFinite(n))vals[k]=n;});
+    try{const v=evalExpr(F.f[st.tgt],vals);st.out={v};env[st.tgt]=v;results.push({i,F,st,val:v});}
+    catch(e){failed={i,err:e};break;}}
+  if(failed){
+    $('#chainResult').innerHTML='<div class="result-box err"><div class="val">'+(failed.err?('خطا در گام '+(failed.i+1)+': '+failed.err):('در گام '+(failed.i+1)+' این معلوم‌ها ناقص است: '+failed.missing.map(k=>V[k].n).join('، ')+' — یا از گام قبلی می‌آید یا اینجا بنویس.'))+'</div></div>';
+    renderChain();return;}
+  renderChain();
+  $('#chainResult').innerHTML='<div class="result-box"><div class="lbl">نتیجهٔ نهایی زنجیره</div><div class="val">'+fmt(chain[chain.length-1].out.v)+'<span class="unit">'+V[chain[chain.length-1].tgt].u+'</span></div></div>'+
+    '<div class="steps"><h4>جزئیات گام‌ها</h4>'+results.map(r=>'<div class="step-item"><div class="st-h">گام '+(r.i+1)+' — '+r.F.name+': '+r.st.tgt+' = '+fmt(r.val)+' '+V[r.st.tgt].u+'</div><div class="st-b">\\('+texFromExpr(subExpr(r.F.f[r.st.tgt],{...chainKnowns(r.i),...r.st.vals}))+'\\)</div></div>').join('')+'</div>';
+  renderChainDiagram();typeset();});
+function renderChainDiagram(){
+  const w=560,rh=112,n=chain.length,H=n*rh+30;
+  let s='<svg viewBox="0 0 '+w+' '+H+'" xmlns="http://www.w3.org/2000/svg">';
+  chain.forEach((st,i)=>{
+    const y=i*rh+16;
+    s+='<rect x="130" y="'+y+'" width="300" height="58" rx="14" fill="#0b1120" stroke="#e8971f" stroke-width="1.6"/>';
+    s+='<text x="280" y="'+(y+24)+'" text-anchor="middle" fill="#f1f5f9" font-size="13" font-weight="700" font-family="Vazirmatn">'+FBY[st.fid].name+'</text>';
+    s+='<text x="280" y="'+(y+45)+'" text-anchor="middle" fill="#fbbf24" font-size="12" font-family="Vazirmatn">'+st.tgt+' = '+fmt(st.out.v)+' '+V[st.tgt].u+'</text>';
+    if(i<n-1){
+      s+='<line x1="280" y1="'+(y+58)+'" x2="280" y2="'+(y+rh-14)+'" stroke="#475569" stroke-width="2" marker-end="url(#arw)"/>';
+      s+='<text x="300" y="'+(y+rh-22)+'" fill="#fbbf24" font-size="11" font-family="Consolas">→ '+st.tgt+'</text>';}});
+  s+='<defs><marker id="arw" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#e8971f"/></marker></defs></svg>';
+  $('#chainDiagram').style.display='block';
+  $('#chainDiagram').innerHTML='<h3><i class="fa-solid fa-diagram-project"></i> نمودار زنجیرهٔ حل</h3>'+s;}
+
+/* ====== free input ====== */
+let freeVars=[];
+function parseFree(){
+  const eq=$('#freeEq').value.trim();
+  const box=$('#freeParsed');
+  if(!eq){box.innerHTML='';$('#freeTargetRow').style.display='none';$('#freeVars').innerHTML='';freeVars=[];return;}
+  const parts=eq.split('=');
+  if(parts.length>2){box.innerHTML='<span class="bad">بیش از یک «=» مجاز نیست</span>';return;}
+  const ids=[...new Set(parts.flatMap(p=>tokens(p)))];
+  freeVars=ids;
+  box.innerHTML=ids.length?ids.map(k=>'<span>'+k+'</span>').join(''):'<span>عدد ثابت — بدون متغیر</span>';
+  if(parts.length===2&&ids.length){
+    $('#freeTargetRow').style.display='flex';
+    const sel=$('#freeTarget');
+    sel.innerHTML=ids.map(k=>'<option value="'+k+'">'+k+' — '+((V[k]&&V[k].n)||'')+'</option>').join('');
+    renderFreeVars(ids.filter(k=>true));
+  }else{$('#freeTargetRow').style.display='none';$('#freeVars').innerHTML='';}}
+function renderFreeVars(ids){
+  $('#freeVars').innerHTML=ids.map(k=>'<div class="vfield"><label>'+(V[k]?V[k].n:k)+'</label><input class="fvin" data-k="'+k+'" inputmode="decimal" placeholder="مقدار '+k+'"><small>'+k+(V[k]?' ['+V[k].u+']':'')+'</small></div>').join('');}
+function freeFill(vals){
+  $$('#freeVars .fvin').forEach(inp=>{if(vals[inp.dataset.k]!==undefined)inp.value=vals[inp.dataset.k];});}
+$('#freeEq').addEventListener('input',parseFree);
+$('#freeTarget').addEventListener('change',()=>{if(freeVars.length)renderFreeVars(freeVars);});
+$('#freeSamples').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;$('#freeEq').value=b.dataset.eq;parseFree();});
+$('#freeSolve').addEventListener('click',()=>{
+  const eq=$('#freeEq').value.trim(),parts=eq.split('='),tgt=$('#freeTarget').value;
+  const vals={};let ok=true;
+  $$('#freeVars .fvin').forEach(inp=>{
+    if(inp.dataset.k===tgt)return;
+    const raw=inp.value.trim().replace(/[،]/g,'.');
+    if(raw===''){ok=false;inp.style.borderColor='var(--err)';return;}
+    const v=parseFloat(raw);
+    if(!isFinite(v)){ok=false;inp.style.borderColor='var(--err)';return;}
+    vals[inp.dataset.k]=v;inp.style.borderColor='';});
+  const out=$('#freeOut');
+  if(parts.length===1&&!tokens(eq).length){
+    try{const v=evalExpr(eq,{});out.innerHTML='<div class="result-box"><div class="lbl">نتیجهٔ عبارت</div><div class="val">'+fmt(v)+'</div></div>';}catch(e){out.innerHTML='<div class="result-box err"><div class="val">'+e+'</div></div>';}
+    return;}
+  if(!tgt){toast('مجهول را انتخاب کن',true);return;}
+  if(!ok){out.innerHTML='<div class="result-box err"><div class="val">مقدار همهٔ متغیرهای دیگر را کامل وارد کن</div></div>';return;}
+  const lhs=parts[0],rhs=parts[1]||'0';
+  const fnAt=x=>{try{return evalExpr(lhs,{...vals,[tgt]:x})-evalExpr(rhs,{...vals,[tgt]:x});}catch(e){return NaN;}};
+  const root=findRoot(fnAt);
+  if(root===null){out.innerHTML='<div class="result-box err"><div class="val">در بازهٔ جست‌وجو (۱۰⁻۹ تا ۱۰⁹) ریشه‌ای پیدا نشد — مقادیر را بررسی کن یا مجهول دیگری را امتحان کن.</div></div>';return;}
+  const subS=texFromExpr? '':'';const lhsTex=lhs, rhsTex=rhs;
+  out.innerHTML='<div class="result-box"><div class="lbl">حل عددی برای '+tgt+'</div><div class="val">'+fmt(root)+'<span class="unit">'+(V[tgt]?V[tgt].u:'')+'</span></div>'+
+    '<div class="expr">'+lhs.trim()+' = '+rhs.trim()+'   →   '+tgt+' ≈ '+fmt(root)+'</div></div>'+
+    '<div class="steps"><h4>چه اتفاقی افتاد؟</h4><div class="step-item"><div class="st-h">معادلهٔ شما</div><div class="st-b">\\('+lhsTex+' = '+rhsTex+'\\)</div></div>'+
+    '<div class="step-item"><div class="st-h">روش حل</div><div class="st-b" style="direction:rtl;text-align:right;font-family:Vazirmatn">معادله به شکل تابع f('+tgt+') = چپ − راست درآمد و ریشهٔ آن با جست‌وجوی بازه‌ای + تنصیف عددی (bisection) با دقت ۱۵ رقم پیدا شد.</div></div></div>';
+  addSaved('free','ورود آزاد: '+eq+' → '+tgt+' = '+fmt(root),{eq,tgt,vals});
+  typeset();});
+
+/* ====== constants ====== */
+const CONST=[['سرعت نور','c','299792458','m/s'],['شتاب گرانش','g','9.8','m/s²'],['بار بنیادی','e','1.602e-19','C'],['ثابت پلانک','h','6.626e-34','J·s'],['عدد آووگادرو','N_A','6.022e23','1/mol'],['ثابت بولتزمان','k_B','1.381e-23','J/K'],['ثابت گازها (SI)','R','8.314','J/(mol·K)'],['ثابت گرانش','G','6.674e-11','N·m²/kg²'],['ثابت کولن','k_e','8.99e9','N·m²/C²'],['فشار جوّ','atm','101325','Pa'],['گرمای ویژهٔ آب','c_w','4186','J/(kg·K)']];
+function renderConst(elId){
+  $('#'+elId).innerHTML=CONST.map(c=>'<button data-v="'+c[2]+'"><b>'+c[1]+' — '+c[0]+'</b><span>'+c[2]+' '+c[3]+'</span></button>').join('');
+  $('#'+elId).querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>copyText(b.dataset.v)));}
+renderConst('constGrid');renderConst('constGrid2');
+
+/* ====== graph ====== */
+let curves=[],gs=null;
+const GCOLORS=['#e8971f','#10b981','#38bdf8','#f472b6'];
+function renderCurves(){
+  $('#curveRows').innerHTML=curves.length?curves.map((c,i)=>'<div class="target-row" style="margin:6px 0"><span style="width:14px;height:14px;border-radius:4px;background:'+c.color+';display:inline-block;flex:none"></span>'+
+    '<span class="chip" style="direction:ltr">'+c.expr+'</span>'+
+    '<button class="btn sm" data-gtgl="'+i+'">'+(c.on?'پنهان':'نمایش')+'</button><button class="btn sm" data-gdel="'+i+'"><i class="fa-solid fa-xmark"></i></button></div>').join(''):'<p class="muted">هنوز منحنی‌ای اضافه نشده.</p>';
+  $$('#curveRows [data-gdel]').forEach(b=>b.addEventListener('click',()=>{curves.splice(+b.dataset.gdel,1);renderCurves();drawChart();}));
+  $$('#curveRows [data-gtgl]').forEach(b=>b.addEventListener('click',()=>{const c=curves[+b.dataset.gtgl];c.on=!c.on;renderCurves();drawChart();}));}
+$('#gAdd').addEventListener('click',()=>{
+  const ex=$('#gNew').value.trim();
+  if(!ex){toast('عبارت را بنویس',true);return;}
+  if(!tokens(ex).includes('x')){toast('عبارت باید شامل x باشد',true);return;}
+  try{evalExpr(ex,{x:1});}catch(e){toast(e,true);return;}
+  if(curves.length>=4){toast('حداکثر ۴ منحنی',true);return;}
+  curves.push({expr:ex,color:GCOLORS[curves.length%4],on:true});
+  $('#gNew').value='';renderCurves();drawChart();});
+function fmtAx(v){const a=Math.abs(v);
+  if(a>=1e6)return (v/1e6).toFixed(a>=1e7?0:1)+'M';
+  if(a>=1e3)return (v/1e3).toFixed(a>=1e4?0:1)+'k';
+  if(a>0&&a<0.01)return v.toExponential(1);
+  if(Number.isInteger(v))return String(v);
+  return String(parseFloat(v.toPrecision(3)));}
+function niceTicks(lo,hi,n){const raw=(hi-lo)/n,mag=Math.pow(10,Math.floor(Math.log10(raw))),norm=raw/mag;
+  const step=mag*(norm<1.5?1:norm<3.5?2:norm<7.5?5:10);
+  const t=[];let v=Math.ceil(lo/step)*step;
+  while(v<=hi+1e-12){t.push(parseFloat(v.toPrecision(12)));v+=step;}
+  return t;}
+$('#gDraw').addEventListener('click',drawChart);
+function drawChart(){
+  if(!curves.some(c=>c.on)){toast('اول یک منحنی اضافه کن',true);return;}
+  const x1=parseFloat($('#gx1').value),x2=parseFloat($('#gx2').value);
+  if(!isFinite(x1)||!isFinite(x2)||x1===x2){toast('بازهٔ x نامعتبر است',true);return;}
+  const lo0=Math.min(x1,x2),hi0=Math.max(x1,x2),N=280;
+  const data=curves.filter(c=>c.on).map(c=>{
+    const ys=[];for(let i=0;i<=N;i++){const x=lo0+(hi0-lo0)*i/N;let y;try{y=evalExpr(c.expr,{x});}catch(e){y=NaN;}ys.push(y);}
+    return {expr:c.expr,color:c.color,ys};});
+  const all=data.flatMap(d=>d.ys.filter(isFinite)).sort((a,b)=>a-b);
+  if(!all.length){toast('هیچ نقطهٔ معتبری روی بازه نیست',true);return;}
+  let plo=all[Math.floor(all.length*0.05)],phi=all[Math.floor(all.length*0.95)];
+  if(plo===phi){plo-=1;phi+=1;}
+  const pad=(phi-plo)*0.12;let ylo=plo-pad,yhi=phi+pad;
+  const W=880,H=460,ml=64,mr=18,mt=16,mb=42,pw=W-ml-mr,ph=H-mt-mb;
+  const X=x=>ml+(x-lo0)/(hi0-lo0)*pw, Y=y=>mt+ph-(y-ylo)/(yhi-ylo)*ph;
+  const clampY=y=>Math.max(mt-40,Math.min(mt+ph+40,Y(y)));
+  let s='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">';
+  const xt=niceTicks(lo0,hi0,8),yt=niceTicks(ylo,yhi,7);
+  xt.forEach(t=>{const px=X(t);s+='<line x1="'+px+'" y1="'+mt+'" x2="'+px+'" y2="'+(mt+ph)+'" stroke="#1e293b" stroke-width="1"/><text x="'+px+'" y="'+(mt+ph+16)+'" text-anchor="middle" fill="#94a3b8" font-size="10.5" font-family="Consolas">'+fmtAx(t)+'</text>';});
+  yt.forEach(t=>{const py=Y(t);if(py>=mt-2&&py<=mt+ph+2){s+='<line x1="'+ml+'" y1="'+py+'" x2="'+(W-mr)+'" y2="'+py+'" stroke="#1e293b" stroke-width="1"/><text x="'+(ml-6)+'" y="'+(py+3.5)+'" text-anchor="end" fill="#94a3b8" font-size="10.5" font-family="Consolas">'+fmtAx(t)+'</text>';}});
+  s+='<line x1="'+ml+'" y1="'+Y(0)+'" x2="'+(W-mr)+'" y2="'+Y(0)+'" stroke="#475569" stroke-width="1.3"/>';
+  s+='<line x1="'+X(0)+'" y1="'+mt+'" x2="'+X(0)+'" y2="'+(mt+ph)+'" stroke="#475569" stroke-width="1.3"/>';
+  data.forEach((d,ci)=>{let path='';d.ys.forEach((y,i)=>{if(!isFinite(y))return;path+=(path?' L':'M')+X(lo0+(hi0-lo0)*i/N).toFixed(1)+','+clampY(y).toFixed(1);});
+    s+='<path d="'+path+'" fill="none" stroke="'+d.color+'" stroke-width="2.4" stroke-linejoin="round"/>';});
+  let mn=null,mx=null;
+  data.forEach(d=>d.ys.forEach((y,i)=>{if(!isFinite(y))return;if(y>=ylo&&y<=yhi){const x=lo0+(hi0-lo0)*i/N;if(!mn||y<mn.y)mn={x,y};if(!mx||y>mx.y)mx={x,y};}}));
+  if(mn)s+='<circle cx="'+X(mn.x)+'" cy="'+Y(mn.y)+'" r="4" fill="none" stroke="#10b981" stroke-width="2"/><text x="'+X(mn.x)+'" y="'+(Y(mn.y)+16)+'" text-anchor="middle" fill="#10b981" font-size="10" font-family="Consolas">min '+fmtAx(mn.y)+'</text>';
+  if(mx)s+='<circle cx="'+X(mx.x)+'" cy="'+Y(mx.y)+'" r="4" fill="none" stroke="#f87171" stroke-width="2"/><text x="'+X(mx.x)+'" y="'+(Y(mx.y)-8)+'" text-anchor="middle" fill="#f87171" font-size="10" font-family="Consolas">max '+fmtAx(mx.y)+'</text>';
+  s+='<line id="gxline" x1="0" y1="'+mt+'" x2="0" y2="'+(mt+ph)+'" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 4" visibility="hidden"/>';
+  data.forEach((d,i)=>{s+='<circle id="gdot'+i+'" r="4.5" fill="'+d.color+'" stroke="#0f172a" stroke-width="1.5" visibility="hidden"/>';});
+  s+='</svg>';
+  const wrap=$('#graphWrap');wrap.style.display='block';
+  $('#gsvg').outerHTML='<svg id="gsvg" viewBox="0 0 '+W+' '+H+'">'+s.slice(s.indexOf('>')+1);
+  gs={lo0,hi0,ylo,yhi,data,N,ml,pw,mt,ph,W,H};
+  const svgEl=$('#gsvg'),tip=$('#gtip');
+  svgEl.onmousemove=e=>{
+    const rect=svgEl.getBoundingClientRect();
+    const sx=(e.clientX-rect.left)*gs.W/rect.width;
+    if(sx<gs.ml||sx>gs.ml+gs.pw){tip.style.display='none';setLine(0,true);return;}
+    const dx=gs.lo0+(sx-gs.ml)/gs.pw*(gs.hi0-gs.lo0);
+    const idx=Math.round((dx-gs.lo0)/(gs.hi0-gs.lo0)*gs.N);
+    let html='<b>x = '+fmt(dx)+'</b>';
+    let any=false;
+    gs.data.forEach((d,i)=>{const y=d.ys[idx];
+      const dot=document.getElementById('gdot'+i);
+      if(dot){if(isFinite(y)&&y>=gs.ylo&&y<=gs.yhi){dot.setAttribute('cx',sx);dot.setAttribute('cy',gs.mt+gs.ph-(y-gs.ylo)/(gs.yhi-gs.ylo)*gs.ph);dot.setAttribute('visibility','visible');html+='<br><span style="color:'+d.color+'">●</span> '+d.expr.slice(0,14)+' = '+fmt(y);any=true;}else dot.setAttribute('visibility','hidden');}});
+    const ln=document.getElementById('gxline');
+    if(ln){ln.setAttribute('x1',sx);ln.setAttribute('x2',sx);ln.setAttribute('visibility',any?'visible':'hidden');}
+    tip.innerHTML=html;tip.style.display='block';};
+  svgEl.onmouseleave=()=>{tip.style.display='none';setLine(0,true);};}
+function setLine(v,hide){const ln=document.getElementById('gxline');if(!ln)return;if(hide){ln.setAttribute('visibility','hidden');for(let i=0;i<4;i++){const d=document.getElementById('gdot'+i);if(d)d.setAttribute('visibility','hidden');}}}
+
+/* ====== quiz ====== */
+const qState={score:0,streak:0,solved:0,best:parseInt(localStorage.getItem('mpcalc_best')||'0',10)};
+$('#qBest').textContent=qState.best.toLocaleString('fa-IR');
+let curQ=null;
+function quizPool(){
+  const list=[];
+  FORMULAS.forEach(F=>{
+    if(F.qz===false)return;
+    Object.keys(F.f).forEach(tgt=>{
+      if(tgt in DEFAULTS)return;
+      const others=F.vars.filter(k=>k!==tgt);
+      if(others.length>=1)list.push({F,tgt,others});});});
+  return list;}
+function quizFrom(o){
+  const F=FBY[o.fid];if(!F)return;
+  const diff=o.diff!==undefined?o.diff:parseInt($('#qDiff').value,10);
+  $('#qDiff').value=String(diff);
+  const vals={...o.vals};
+  let ans;try{ans=evalExpr(F.f[o.tgt],vals);}catch(e){qNew();return;}
+  curQ={F,tgt:o.tgt,vals,ans,diff,opts:makeOpts(ans,V[o.tgt].u),answered:false};
+  renderQuiz();qState.solved++;}
+function qNew(){
+  const pool=quizPool(),pick=pool[Math.floor(Math.random()*pool.length)];
+  const diff=parseInt($('#qDiff').value,10);
+  const vals={};pick.others.forEach(k=>{vals[k]=DEFAULTS[k]!==undefined?DEFAULTS[k]:randVal(k,diff);});
+  let ans;try{ans=evalExpr(pick.F.f[pick.tgt],vals);}catch(e){qNew();return;}
+  curQ={F:pick.F,tgt:pick.tgt,vals,ans,diff,opts:makeOpts(ans,V[pick.tgt].u),answered:false};
+  renderQuiz();qState.solved++;$('#qSolved').textContent=qState.solved.toLocaleString('fa-IR');}
+function makeOpts(ans,unit){
+  const set=[ans];const cands=[ans/2,ans*2,ans*(1+(Math.random()<0.5?1:-1)*(0.08+Math.random()*0.22))];
+  cands.forEach(c=>{let v=c,i=0;while(set.some(x=>Math.abs(x-v)<Math.abs(ans)*0.005)&&i<8){v=c*(1+(Math.random()<0.5?1:-1)*0.1*(i+1));i++;}set.push(v);});
+  const dp=Math.abs(ans)>=1?(Math.abs(ans)>=100?1:2):4;
+  const labels=[...new Set(set.map(v=>fmt(rnd(v,dp))+' '+unit))];
+  while(labels.length<4)labels.push(fmt(ans*(1.5+labels.length))+' '+unit);
+  const correct=fmt(rnd(ans,dp))+' '+unit;
+  return {list:labels.sort(()=>Math.random()-0.5),correct};}
+function renderQuiz(){
+  const q=curQ,box=$('#quizBox');
+  const given=q.F.vars.filter(k=>k!==q.tgt).map(k=>'<span class="chip">'+k+' = '+fmt(q.vals[k])+' '+V[k].u+'</span>').join('');
+  const hint=q.diff===0?'<div class="tex-mini">\\('+q.F.tex+'\\)</div>':'<p class="muted">فرمول را خودت به یاد بیاور — سطح '+['آسان','متوسط','سخت'][q.diff]+'.</p>';
+  box.innerHTML='<h3 style="font-size:14.5px;color:#f8fafc">مسئله: مقدار <span style="color:var(--ac2)">'+V[q.tgt].n+' ('+q.tgt+')</span> را بیاب</h3>'+
+    '<p class="muted">از رابطهٔ: '+q.F.name+'</p>'+hint+
+    '<div class="chip-row">'+given+'</div>'+
+    '<div class="quiz-opt-row">'+q.opts.list.map(o=>'<button class="quiz-opt" data-opt="'+o+'">'+o+'</button>').join('')+'</div>'+
+    '<div class="act-row"><button class="btn" id="qShare"><i class="fa-solid fa-share-nodes"></i> اشتراک این مسئله</button><button class="btn" id="qGive"><i class="fa-solid fa-lightbulb"></i> نمایش راه‌حل</button></div>'+
+    '<div id="qFeed"></div>';
+  box.querySelectorAll('[data-opt]').forEach(b=>b.addEventListener('click',()=>answerQuiz(b)));
+  $('#qShare').addEventListener('click',()=>shareProblem({m:'q',fid:q.F.id,tgt:q.tgt,vals:q.vals,diff:q.diff},'quizShare'));
+  $('#qGive').addEventListener('click',()=>{if(!q.answered)answerQuiz(null);});}
+function answerQuiz(btn){
+  const q=curQ;if(!q||q.answered)return;q.answered=true;
+  const chosen=btn?btn.dataset.opt:null,ok=chosen===q.opts.correct;
+  $$('#quizBox [data-opt]').forEach(b=>{b.disabled=true;if(b.dataset.opt===q.opts.correct)b.classList.add('correct');});
+  if(btn&&!ok)btn.classList.add('wrong');
+  const mult=[1,1.5,2][q.diff];
+  if(ok){qState.streak++;qState.score+=Math.round(10*mult);
+    if(qState.streak>qState.best){qState.best=qState.streak;localStorage.setItem('mpcalc_best',String(qState.best));toast('رکورد جدید! 🔥');}}
+  else qState.streak=0;
+  $('#qScore').textContent=qState.score.toLocaleString('fa-IR');
+  $('#qStreak').textContent=qState.streak.toLocaleString('fa-IR');
+  $('#qBest').textContent=qState.best.toLocaleString('fa-IR');
+  $('#qFeed').innerHTML=(ok?'<div class="result-box"><div class="lbl">'+(qState.streak>=3?'آفرین! زنجیرهٔ '+qState.streak+'تایی 🔥':'درست بود! ✓')+'</div><div class="val" style="font-size:22px">'+q.opts.correct+'</div></div>'
+    :'<div class="result-box err"><div class="val">پاسخ درست: '+q.opts.correct+'</div></div>')+
+    '<div class="steps"><h4>راه‌حل گام‌به‌گام</h4>'+buildSteps(q.F.id,q.tgt,q.vals)+
+    '<div class="step-item"><div class="st-h">نتیجه</div><div class="st-b">\\('+V[q.tgt].t+' = '+fmt(rnd(q.ans,6))+'\\ \\text{'+V[q.tgt].u+'}\\)</div></div></div>'+
+    '<div class="act-row"><button class="btn primary" id="qNext"><i class="fa-solid fa-forward"></i> مسئلهٔ بعدی</button></div>';
+  $('#qNext').addEventListener('click',qNew);
+  typeset();}
+$('#qNew').addEventListener('click',qNew);
+$('#qDiff').addEventListener('change',qNew);
+
+/* ====== converter ====== */
+const UNITS={
+ len:{n:'طول',u:[['mm',0.001],['cm',0.01],['m',1],['km',1000],['in',0.0254],['ft',0.3048],['mi',1609.344]]},
+ mass:{n:'جرم',u:[['mg',1e-6],['g',0.001],['kg',1],['t',1000],['lb',0.45359237]]},
+ time:{n:'زمان',u:[['ms',0.001],['s',1],['min',60],['h',3600],['روز',86400]]},
+ speed:{n:'سرعت',u:[['m/s',1],['km/h',1/3.6],['mph',0.44704],['knot',0.514444]]},
+ energy:{n:'انرژی',u:[['J',1],['kJ',1000],['cal',4.184],['kcal',4184],['Wh',3600],['kWh',3.6e6],['eV',1.602e-19]]},
+ power:{n:'توان',u:[['W',1],['kW',1000],['hp',745.7]]},
+ press:{n:'فشار',u:[['Pa',1],['kPa',1000],['bar',1e5],['atm',101325],['mmHg',133.322]]},
+ temp:{n:'دما',u:[['°C'],['°F'],['K']],special:true}};
+let convCat='len';
+function renderConvCat(){
+  $('#convCat').innerHTML=Object.entries(UNITS).map(([k,v])=>'<button data-cv="'+k+'" class="'+(convCat===k?'on':'')+'">'+v.n+'</button>').join('');}
+function renderConvUnits(){
+  const U=UNITS[convCat];
+  const opts=U.u.map(x=>'<option>'+x[0]+'</option>').join('');
+  $('#cvFrom').innerHTML=opts;$('#cvTo').innerHTML=opts;
+  $('#cvTo').selectedIndex=Math.min(2,U.u.length-1);}
+function tempK(v,u){return u==='°C'?v+273.15:u==='°F'?(v-32)*5/9+273.15:v;}
+function fromK(k,u){return u==='°C'?k-273.15:u==='°F'?(k-273.15)*9/5+32:k;}
+function doConv(){
+  const v=parseFloat($('#cvVal').value.trim().replace(/[،]/g,'.'));
+  const U=UNITS[convCat],fu=$('#cvFrom').value,tu=$('#cvTo').value;
+  if(!isFinite(v)){$('#cvOut').innerHTML='<div class="result-box err"><div class="val">یک عدد وارد کن</div></div>';return;}
+  let out;
+  if(U.special)out=fromK(tempK(v,fu),tu);
+  else out=v*U.u.find(x=>x[0]===fu)[1]/U.u.find(x=>x[0]===tu)[1];
+  $('#cvOut').innerHTML='<div class="result-box"><div class="lbl">'+fmt(v)+' '+fu+' برابر است با</div><div class="val">'+fmt(out)+'<span class="unit">'+tu+'</span></div></div>';}
+$('#convCat').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;convCat=b.dataset.cv;renderConvCat();renderConvUnits();});
+$('#cvGo').addEventListener('click',doConv);
+$('#cvSwap').addEventListener('click',()=>{const a=$('#cvFrom').selectedIndex;$('#cvFrom').selectedIndex=$('#cvTo').selectedIndex;$('#cvTo').selectedIndex=a;doConv();});
+$('#cvVal').addEventListener('keydown',e=>{if(e.key==='Enter')doConv();});
+renderConvCat();renderConvUnits();
+
+/* ====== init ====== */
+renderCatBar();renderLib();renderSavedCount();renderCurves();typeset();
+</script>
+</body>
+</html>
