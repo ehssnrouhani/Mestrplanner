@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>شبیه‌ساز آزمون | مستر پلنر</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #07080C;
+      --surface: rgba(19, 23, 32, 0.72);
+      --surface-solid: #12151D;
+      --surface-2: #181D27;
+      --primary: #D4AF37;
+      --gold-light: #F3E5AB;
+      --gold-deep: #AA771C;
+      --text: #F5F7FA;
+      --text-soft: #CBD3DE;
+      --muted: #9AA4B2;
+      --line: rgba(212, 175, 55, 0.22);
+      --line-soft: rgba(255, 255, 255, 0.08);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --pill: 999px;
+      --shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
+      --t: 0.3s cubic-bezier(.4, 0, .2, 1);
+      --ok: #10B981;
+      --warn: #F59E0B;
+      --danger: #EF4444;
+      --info: #8B5CF6;
+      --font-fa: 'Vazirmatn', Tahoma, sans-serif;
+      --font-en: 'Outfit', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-fa);
+      background: var(--bg);
+      background-image:
+        radial-gradient(1100px 520px at 50% -160px, rgba(212, 175, 55, 0.10), transparent 65%),
+        radial-gradient(900px 620px at 100% 8%, #12161f 0%, transparent 60%);
+      color: var(--text);
+      line-height: 1.9;
+      min-height: 100vh;
+    }
+    ::selection { background: rgba(212, 175, 55, 0.35); color: #fff; }
+    :focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
+    button { font-family: inherit; cursor: pointer; }
+    a { color: inherit; }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 1.1rem; }
+    .hide { display: none !important; }
+
+    /* ===== Header ===== */
+    .app-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7,8,12,0.9); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(212,175,55,0.16);
+    }
+    .header-inner { display: flex; align-items: center; gap: 1rem; padding: 0.65rem 0; flex-wrap: wrap; }
+    .brand { font-weight: 800; color: var(--primary); font-size: 1rem; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+    .brand small { font-family: var(--font-en); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.2em; }
+    .mode-switch { display: flex; gap: 0.3rem; margin-inline-start: auto; background: rgba(255,255,255,0.04); padding: 0.25rem; border-radius: var(--pill); border: 1px solid var(--line-soft); }
+    .mode-switch button {
+      padding: 0.35rem 0.95rem; border-radius: var(--pill); border: none;
+      background: transparent; color: var(--muted); font-weight: 700; font-size: 0.82rem; transition: var(--t);
+    }
+    .mode-switch button.active { background: var(--primary); color: #0B0B0B; }
+    .home-link {
+      font-size: 0.8rem; color: var(--muted); text-decoration: none;
+      padding: 0.35rem 0.8rem; border: 1px solid var(--line-soft); border-radius: var(--pill);
+    }
+    .home-link:hover { color: var(--gold-light); border-color: var(--line); }
+
+    /* ===== Steps ===== */
+    .step { display: none; padding: 1.6rem 0 3rem; animation: fadeIn .35s ease; }
+    .step.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    .step-title { font-size: clamp(1.25rem, 2.8vw, 1.6rem); font-weight: 800; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.7rem; }
+    .step-title::before { content: ""; width: 6px; height: 1.4em; border-radius: 3px; background: linear-gradient(180deg, var(--gold-light), var(--primary)); box-shadow: 0 0 12px rgba(212,175,55,0.5); }
+    .step-subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.4rem; }
+    .step-footer { display: flex; gap: 0.7rem; justify-content: space-between; margin-top: 1.5rem; flex-wrap: wrap; align-items: center; }
+
+    /* ===== Buttons ===== */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem; padding: 0.75rem 1.4rem; border-radius: var(--radius-sm); font-size: 0.92rem; font-weight: 700; border: 1px solid transparent; transition: var(--t); text-decoration: none; }
+    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--gold-deep)); color: #0B0B0B; }
+    .btn-primary:hover { background: linear-gradient(135deg, var(--gold-light), var(--primary)); transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn-secondary { background: transparent; color: var(--primary); border-color: rgba(212,175,55,0.5); }
+    .btn-secondary:hover { background: rgba(212,175,55,0.1); }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-danger:hover { filter: brightness(1.1); }
+    .btn-sm { padding: 0.42rem 0.9rem; font-size: 0.82rem; }
+    .btn-info { background: rgba(139,92,246,0.15); color: #c4b5fd; border: 1px solid rgba(139,92,246,0.4); }
+    .btn-info:hover { background: rgba(139,92,246,0.25); }
+
+    /* ===== Cards ===== */
+    .card { background: linear-gradient(160deg, rgba(26,31,44,0.85), rgba(13,16,23,0.94)); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 1.3rem; }
+    .card h3 { font-size: 0.98rem; color: var(--gold-light); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+    .card h3 i { color: var(--primary); }
+
+    /* ===== Stage 1: Template ===== */
+    .templates { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 0.9rem; margin-bottom: 1.3rem; }
+    .tpl-card { position: relative; text-align: center; padding: 1.5rem 0.9rem 1.2rem; background: linear-gradient(160deg, rgba(26,31,44,0.85), rgba(13,16,23,0.94)); border: 1.5px solid var(--line-soft); border-radius: var(--radius); cursor: pointer; transition: var(--t); }
+    .tpl-card:hover { transform: translateY(-3px); border-color: rgba(212,175,55,0.5); }
+    .tpl-card.selected { border-color: var(--primary); background: linear-gradient(160deg, rgba(212,175,55,0.12), rgba(13,16,23,0.95)); }
+    .tpl-card.selected::after { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; top: 0.55rem; left: 0.7rem; color: var(--primary); font-size: 0.85rem; }
+    .tpl-icon { font-size: 1.9rem; color: var(--primary); margin-bottom: 0.5rem; }
+    .tpl-card h3 { font-size: 0.95rem; color: var(--text); margin-bottom: 0.25rem; }
+    .tpl-card p { font-size: 0.76rem; color: var(--muted); line-height: 1.6; }
+
+    /* ===== Stage 2: Loading ===== */
+    .upload-area { border: 2px dashed var(--line); border-radius: var(--radius); padding: 1.8rem 1rem; text-align: center; margin-bottom: 1rem; transition: var(--t); cursor: pointer; display: block; }
+    .upload-area:hover { border-color: var(--primary); background: rgba(212,175,55,0.04); }
+    .upload-area i { font-size: 1.9rem; color: var(--primary); display: block; margin-bottom: 0.5rem; }
+    .upload-area strong { display: block; color: var(--text); margin-bottom: 0.25rem; }
+    .upload-area small { color: var(--muted); font-size: 0.78rem; }
+    .demo-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .json-input { width: 100%; min-height: 130px; padding: 0.85rem; background: rgba(24,28,38,0.8); border: 1px solid var(--line-soft); border-radius: var(--radius-sm); color: var(--text); font-family: 'Courier New', monospace; font-size: 0.82rem; direction: ltr; resize: vertical; }
+    .json-input:focus { outline: none; border-color: var(--primary); }
+    .preview-box { background: var(--surface-2); border: 1px solid var(--line-soft); border-radius: var(--radius-sm); padding: 1rem; margin-top: 0.8rem; max-height: 200px; overflow-y: auto; font-size: 0.84rem; }
+    .q-item { padding: 0.45rem 0; border-bottom: 1px dashed var(--line-soft); display: flex; gap: 0.5rem; align-items: center; }
+    .q-item:last-child { border-bottom: none; }
+    .q-type { font-size: 0.68rem; padding: 0.15rem 0.55rem; border-radius: var(--pill); background: rgba(212,175,55,0.15); color: var(--primary); font-weight: 700; }
+
+    /* ===== Stage 3: Control ===== */
+    .control-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @media (min-width: 800px) { .control-grid { grid-template-columns: 1fr 1fr; } }
+    .ctrl-section { background: var(--surface-2); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 1.2rem; }
+    .ctrl-section h3 { font-size: 0.95rem; color: var(--gold-light); margin-bottom: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+    .ctrl-section h3 i { color: var(--primary); }
+    .field-row { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; margin-bottom: 0.75rem; }
+    .field-row label { font-size: 0.85rem; color: var(--text-soft); }
+    .field-row input[type="number"], .field-row select { width: 120px; padding: 0.4rem 0.6rem; background: rgba(24,28,38,0.9); border: 1px solid var(--line-soft); border-radius: 8px; color: var(--text); font-family: inherit; font-size: 0.85rem; }
+    .field-row input:focus, .field-row select:focus { outline: none; border-color: var(--primary); }
+    .toggle { position: relative; width: 42px; height: 24px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle span { position: absolute; inset: 0; background: rgba(255,255,255,0.1); border-radius: var(--pill); cursor: pointer; transition: var(--t); }
+    .toggle span::before { content: ""; position: absolute; width: 18px; height: 18px; border-radius: 50%; top: 3px; right: 3px; background: var(--muted); transition: var(--t); }
+    .toggle input:checked + span { background: rgba(212,175,55,0.35); }
+    .toggle input:checked + span::before { transform: translateX(-18px); background: var(--primary); }
+    .tech-options { display: grid; gap: 0.5rem; }
+    .tech-card { padding: 0.7rem 0.85rem; border: 1.5px solid var(--line-soft); border-radius: var(--radius-sm); cursor: pointer; transition: var(--t); background: rgba(24,28,38,0.6); }
+    .tech-card:hover { border-color: rgba(212,175,55,0.4); }
+    .tech-card.selected { border-color: var(--primary); background: rgba(212,175,55,0.08); }
+    .tech-card strong { display: block; color: var(--text); font-size: 0.86rem; margin-bottom: 0.15rem; }
+    .tech-card small { color: var(--muted); font-size: 0.74rem; line-height: 1.6; }
+
+    /* ===== Stage 4: Exam ===== */
+    .exam-bar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(7,8,12,0.94); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line); padding: 0.6rem 0;
+    }
+    .exam-bar-inner { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+    .timer-box { display: flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.85rem; border-radius: var(--radius-sm); background: rgba(212,175,55,0.1); border: 1px solid var(--line); font-family: var(--font-en); font-weight: 700; font-size: 1rem; color: var(--gold-light); min-width: 100px; justify-content: center; }
+    .timer-box.warn { background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.5); color: #fbbf24; }
+    .timer-box.danger { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.5); color: #fca5a5; animation: pulse 1s infinite; }
+    @keyframes pulse { 50% { opacity: 0.7; } }
+    .progress-info { font-size: 0.82rem; color: var(--muted); }
+    .progress-info strong { color: var(--text); font-family: var(--font-en); }
+    .phase-badge { font-size: 0.75rem; padding: 0.28rem 0.75rem; border-radius: var(--pill); background: rgba(139,92,246,0.15); color: #c4b5fd; border: 1px solid rgba(139,92,246,0.4); margin-inline-start: auto; font-weight: 700; }
+    .phase-badge.phase-1 { background: rgba(16,185,129,0.15); color: #6ee7b7; border-color: rgba(16,185,129,0.4); }
+    .phase-badge.phase-2 { background: rgba(245,158,11,0.15); color: #fbbf24; border-color: rgba(245,158,11,0.4); }
+    .phase-badge.phase-3 { background: rgba(239,68,68,0.15); color: #fca5a5; border-color: rgba(239,68,68,0.4); }
+    .per-q-timer { font-size: 0.75rem; font-family: var(--font-en); padding: 0.25rem 0.7rem; border-radius: var(--pill); background: rgba(255,255,255,0.06); color: var(--text-soft); border: 1px solid var(--line-soft); }
+    .per-q-timer.warn { color: var(--warn); border-color: rgba(245,158,11,0.4); }
+
+    .exam-body { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1rem; }
+    @media (min-width: 900px) { .exam-body { grid-template-columns: 260px 1fr; } }
+    .exam-sidebar { order: 2; }
+    @media (min-width: 900px) { .exam-sidebar { order: 1; } }
+    .overview-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px; padding: 0.7rem; background: var(--surface-2); border: 1px solid var(--line-soft); border-radius: var(--radius-sm); }
+    .ov-cell { aspect-ratio: 1; display: grid; place-items: center; font-size: 0.7rem; font-weight: 700; border-radius: 5px; background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid transparent; cursor: pointer; transition: var(--t); padding: 0; }
+    .ov-cell.answered { background: rgba(16,185,129,0.25); color: #6ee7b7; border-color: rgba(16,185,129,0.4); }
+    .ov-cell.current { outline: 2px solid var(--primary); outline-offset: 1px; }
+    .ov-cell.tagged-hard { border-color: var(--danger); border-style: dashed; }
+    .ov-cell.tagged-time { border-color: var(--warn); border-style: dashed; }
+    .ov-cell.tagged-skip { opacity: 0.4; }
+    .ov-cell.tagged-guess { background: rgba(139,92,246,0.25); color: #c4b5fd; }
+    .ov-cell.locked { opacity: 0.6; }
+    .ov-cell:hover { background: rgba(212,175,55,0.15); }
+    .sidebar-label { font-size: 0.72rem; color: var(--muted); margin-bottom: 0.4rem; margin-top: 0.9rem; font-weight: 700; }
+    .sidebar-legend { font-size: 0.7rem; color: var(--muted); line-height: 1.85; }
+    .skip-counter { font-size: 0.78rem; color: var(--warn); padding: 0.35rem 0.7rem; background: rgba(245,158,11,0.1); border-radius: var(--radius-sm); border: 1px solid rgba(245,158,11,0.3); margin-top: 0.5rem; }
+
+    .question-card { background: linear-gradient(160deg, rgba(26,31,44,0.9), rgba(13,16,23,0.96)); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 1.4rem; min-height: 360px; display: flex; flex-direction: column; }
+    .q-head { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .q-num { font-size: 0.85rem; color: var(--muted); font-weight: 700; }
+    .q-num strong { color: var(--primary); font-family: var(--font-en); font-size: 1rem; }
+    .q-lock-badge { font-size: 0.7rem; color: var(--danger); padding: 0.2rem 0.5rem; border: 1px dashed var(--danger); border-radius: var(--pill); margin-inline-start: 0.5rem; }
+    .tag-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.8rem; border-radius: var(--pill); font-size: 0.76rem; font-weight: 700; background: rgba(212,175,55,0.1); border: 1px solid var(--line); color: var(--primary); transition: var(--t); }
+    .tag-btn:hover { background: rgba(212,175,55,0.2); }
+    .tag-btn.active-tag { background: rgba(139,92,246,0.2); border-color: rgba(139,92,246,0.5); color: #c4b5fd; }
+    .q-text { font-size: 1rem; color: var(--text); line-height: 2; margin-bottom: 1.2rem; flex: 1; }
+
+    .options-list { display: grid; gap: 0.6rem; }
+    .option-row { display: flex; align-items: center; gap: 0.7rem; padding: 0.8rem 0.9rem; border: 1.5px solid var(--line-soft); border-radius: var(--radius-sm); background: rgba(24,28,38,0.6); cursor: pointer; transition: var(--t); text-align: right; }
+    .option-row:hover { border-color: rgba(212,175,55,0.5); }
+    .option-row.filled { border-color: var(--primary); background: rgba(212,175,55,0.12); }
+    .option-row.filling { border-color: var(--primary); background: rgba(212,175,55,0.06); }
+    .option-row.filling::after { content: ""; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--primary); border-top-color: transparent; animation: spin 0.5s linear; margin-inline-start: auto; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .option-num { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: rgba(212,175,55,0.15); color: var(--primary); font-weight: 700; font-size: 0.82rem; flex-shrink: 0; }
+    .option-row.filled .option-num { background: var(--primary); color: #0B0B0B; }
+    .option-text { flex: 1; color: var(--text); font-size: 0.9rem; }
+
+    .short-input, .blank-input, .essay-textarea { width: 100%; padding: 0.8rem 0.9rem; background: rgba(24,28,38,0.9); border: 1.5px solid var(--line-soft); border-radius: var(--radius-sm); color: var(--text); font-family: inherit; font-size: 0.92rem; }
+    .short-input:focus, .blank-input:focus, .essay-textarea:focus { outline: none; border-color: var(--primary); }
+    .blank-input { width: auto; display: inline-block; min-width: 100px; margin: 0 0.2rem; text-align: center; }
+    .essay-textarea { min-height: 170px; line-height: 1.9; resize: vertical; }
+
+    .matching-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .match-col h4 { font-size: 0.8rem; color: var(--primary); margin-bottom: 0.5rem; }
+    .match-item { padding: 0.55rem 0.75rem; margin-bottom: 0.4rem; border: 1.5px solid var(--line-soft); border-radius: 8px; background: rgba(24,28,38,0.6); cursor: pointer; transition: var(--t); font-size: 0.86rem; }
+    .match-item.selected { border-color: var(--primary); background: rgba(212,175,55,0.12); }
+    .match-item.matched { opacity: 0.55; }
+    .match-item .match-tag { font-size: 0.7rem; color: var(--primary); margin-inline-start: 0.35rem; }
+
+    .q-foot { display: flex; justify-content: space-between; gap: 0.5rem; margin-top: 1.2rem; flex-wrap: wrap; }
+    .hunter-btn { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.5); color: var(--warn); }
+
+    /* ===== Tag popover ===== */
+    .tag-popover { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.65); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; padding: 1rem; }
+    .tag-popover.open { display: flex; }
+    .tag-panel { background: #12151D; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.3rem; width: min(440px, 100%); box-shadow: var(--shadow); }
+    .tag-panel h4 { color: var(--gold-light); font-size: 0.92rem; margin-bottom: 0.9rem; display: flex; justify-content: space-between; align-items: center; }
+    .tag-panel h4 button { background: none; border: none; color: var(--muted); font-size: 1.1rem; cursor: pointer; }
+    .tag-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-bottom: 1rem; }
+    .tag-option { padding: 0.65rem; border: 1.5px solid var(--line-soft); border-radius: var(--radius-sm); background: rgba(24,28,38,0.6); text-align: right; font-size: 0.8rem; color: var(--text-soft); transition: var(--t); cursor: pointer; }
+    .tag-option:hover { border-color: rgba(212,175,55,0.5); }
+    .tag-option.active { border-color: var(--primary); background: rgba(212,175,55,0.12); color: var(--primary); }
+    .tag-option strong { display: block; color: inherit; margin-bottom: 0.12rem; font-size: 0.84rem; }
+    .tag-option small { color: var(--muted); font-size: 0.7rem; }
+    .snooze-row { border-top: 1px dashed var(--line-soft); padding-top: 0.85rem; }
+    .snooze-row p { font-size: 0.76rem; color: var(--muted); margin-bottom: 0.4rem; }
+    .snooze-btns { display: flex; gap: 0.35rem; }
+    .snooze-btns button { flex: 1; padding: 0.5rem; border: 1px solid var(--line-soft); border-radius: 8px; background: rgba(24,28,38,0.6); color: var(--text-soft); font-size: 0.78rem; transition: var(--t); cursor: pointer; }
+    .snooze-btns button:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ===== Toast ===== */
+    .toast { position: fixed; bottom: 1.3rem; left: 50%; transform: translateX(-50%) translateY(100px); background: #12151D; border: 1px solid var(--primary); border-radius: var(--radius-sm); padding: 0.65rem 1.1rem; font-size: 0.85rem; color: var(--text); box-shadow: var(--shadow); z-index: 300; opacity: 0; transition: all .35s cubic-bezier(.4,0,.2,1); display: flex; align-items: center; gap: 0.5rem; max-width: 90vw; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast i { color: var(--primary); }
+    .toast.ok i { color: var(--ok); }
+    .toast.warn i { color: var(--warn); }
+    .toast.danger i { color: var(--danger); }
+
+    /* ===== Results ===== */
+    .result-hero { text-align: center; padding: 1.8rem 1rem; background: linear-gradient(160deg, rgba(212,175,55,0.10), rgba(13,16,23,0.95)); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 1.2rem; }
+    .result-hero .score { font-family: var(--font-en); font-size: 2.8rem; font-weight: 800; background: linear-gradient(135deg, var(--gold-light), var(--primary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .result-hero .label { color: var(--muted); font-size: 0.85rem; }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 0.7rem; margin-bottom: 1.2rem; }
+    .stat-card { background: var(--surface-2); border: 1px solid var(--line-soft); border-radius: var(--radius-sm); padding: 0.8rem; text-align: center; }
+    .stat-card .num { font-family: var(--font-en); font-size: 1.4rem; font-weight: 800; }
+    .stat-card .num.ok { color: var(--ok); }
+    .stat-card .num.danger { color: var(--danger); }
+    .stat-card .num.warn { color: var(--warn); }
+    .stat-card .num.muted { color: var(--muted); }
+    .stat-card .lbl { font-size: 0.73rem; color: var(--muted); margin-top: 0.15rem; }
+
+    .tag-summary { background: var(--surface-2); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 1.1rem; margin-bottom: 1.2rem; }
+    .tag-summary h3 { font-size: 0.92rem; color: var(--gold-light); margin-bottom: 0.7rem; display: flex; align-items: center; gap: 0.5rem; }
+    .tag-bar { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .tag-chip { font-size: 0.78rem; padding: 0.32rem 0.75rem; border-radius: var(--pill); background: rgba(255,255,255,0.05); }
+    .tag-chip strong { color: var(--primary); margin-inline-start: 0.3rem; }
+
+    .breakdown { background: var(--surface-2); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 1.1rem; margin-bottom: 1.2rem; }
+    .breakdown h3 { font-size: 0.92rem; color: var(--gold-light); margin-bottom: 0.7rem; display: flex; align-items: center; gap: 0.5rem; }
+    .breakdown table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .breakdown th, .breakdown td { padding: 0.5rem; text-align: right; border-bottom: 1px dashed var(--line-soft); }
+    .breakdown th { color: var(--primary); font-weight: 700; font-size: 0.78rem; }
+    .breakdown tr:last-child td { border-bottom: none; }
+    .breakdown td.correct { color: var(--ok); }
+    .breakdown td.wrong { color: var(--danger); }
+    .breakdown td.blank { color: var(--muted); }
+    .breakdown .topic-bar { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; margin-top: 0.25rem; }
+    .breakdown .topic-bar > span { display: block; height: 100%; background: var(--primary); }
+
+    /* ===== Teacher mode ===== */
+    .teacher-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @media (min-width: 700px) { .teacher-grid { grid-template-columns: 1fr 1fr; } }
+    .teacher-option { background: linear-gradient(160deg, rgba(26,31,44,0.85), rgba(13,16,23,0.94)); border: 1.5px solid var(--line-soft); border-radius: var(--radius); padding: 1.5rem; transition: var(--t); }
+    .teacher-option:hover { border-color: rgba(212,175,55,0.4); }
+    .teacher-option h2 { font-size: 1.05rem; color: var(--gold-light); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .teacher-option p { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.8; }
+    .code-box { background: rgba(24,28,38,0.9); border: 1px solid var(--line-soft); border-radius: var(--radius-sm); padding: 0.8rem; font-family: 'Courier New', monospace; font-size: 0.72rem; color: var(--text-soft); word-break: break-all; max-height: 140px; overflow-y: auto; direction: ltr; }
+    .code-box:focus { outline: none; border-color: var(--primary); }
+    .code-actions { display: flex; gap: 0.4rem; margin-top: 0.5rem; flex-wrap: wrap; }
+
+    .code-modal { position: fixed; inset: 0; z-index: 250; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 1rem; }
+    .code-modal.open { display: flex; }
+    .code-modal-inner { background: #12151D; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem; width: min(540px, 100%); max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow); }
+    .code-modal-inner h3 { color: var(--gold-light); font-size: 1rem; margin-bottom: 0.6rem; display: flex; justify-content: space-between; align-items: center; }
+    .code-modal-inner p { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.9rem; line-height: 1.8; }
+    .code-modal-inner textarea { width: 100%; min-height: 110px; background: rgba(24,28,38,0.9); border: 1px solid var(--line-soft); border-radius: var(--radius-sm); padding: 0.7rem; color: var(--text); font-family: 'Courier New', monospace; font-size: 0.72rem; direction: ltr; word-break: break-all; resize: vertical; }
+    .code-modal-inner textarea:focus { outline: none; border-color: var(--primary); }
+    .code-modal-actions { display: flex; gap: 0.5rem; margin-top: 0.8rem; flex-wrap: wrap; }
+
+    /* ===== Emotional check-in modal ===== */
+    .emo-modal { position: fixed; inset: 0; z-index: 240; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 1rem; }
+    .emo-modal.open { display: flex; }
+    .emo-inner { background: #12151D; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; width: min(400px, 100%); text-align: center; }
+    .emo-inner h3 { color: var(--gold-light); font-size: 1rem; margin-bottom: 0.5rem; }
+    .emo-inner p { color: var(--muted); font-size: 0.85rem; margin-bottom: 1rem; line-height: 1.8; }
+    .emo-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; }
+    .emo-btns button { padding: 0.7rem 0.5rem; border-radius: var(--radius-sm); border: 1.5px solid var(--line-soft); background: rgba(24,28,38,0.6); color: var(--text-soft); font-size: 0.82rem; font-weight: 700; transition: var(--t); cursor: pointer; }
+    .emo-btns button:hover { border-color: var(--primary); color: var(--primary); }
+    .emo-btns button.high { border-color: rgba(239,68,68,0.5); }
+    .emo-btns button.high:hover { background: rgba(239,68,68,0.15); color: #fca5a5; border-color: var(--danger); }
+
+    @media (max-width: 520px) {
+      .templates { grid-template-columns: 1fr 1fr; }
+      .mode-switch button { padding: 0.3rem 0.65rem; font-size: 0.76rem; }
+      .overview-grid { grid-template-columns: repeat(6, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== Header ========== -->
+<header class="app-header">
+  <div class="container header-inner">
+    <a href="index.html" class="brand">
+      <i class="fa-solid fa-stopwatch"></i>
+      <span>مستر پلنر <small>EXAM SIM</small></span>
+    </a>
+    <nav class="mode-switch" role="tablist">
+      <button data-mode="student" class="active" role="tab">دانش‌آموز</button>
+      <button data-mode="teacher" role="tab">معلم</button>
+    </nav>
+    <a href="index.html" class="home-link"><i class="fa-solid fa-house"></i> خانه</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- ===================================================== -->
+  <!-- ==================== STUDENT MODE ==================== -->
+  <!-- ===================================================== -->
+  <div id="studentMode">
+
+    <!-- Stage 1: Template -->
+    <section class="step active" id="step-template">
+      <h1 class="step-title">۱. انتخاب قالب سوال</h1>
+      <p class="step-subtitle">قالب پیش‌فرض آزمون را مشخص کن. سوالات بعداً بارگذاری می‌شوند و می‌توانند قالب خودشان را داشته باشند.</p>
+      <div class="templates" id="templateGrid">
+        <div class="tpl-card" data-tpl="mcq"><div class="tpl-icon"><i class="fa-solid fa-list-check"></i></div><h3>چهارگزینه‌ای</h3><p>پایهٔ کنکور — با نمرهٔ منفی</p></div>
+        <div class="tpl-card" data-tpl="short"><div class="tpl-icon"><i class="fa-solid fa-keyboard"></i></div><h3>کوتاه‌پاسخ</h3><p>ورودی متنی + تطبیق فازی</p></div>
+        <div class="tpl-card" data-tpl="blank"><div class="tpl-icon"><i class="fa-solid fa-highlighter"></i></div><h3>جاخالی</h3><p>چند جای خالی در یک سوال</p></div>
+        <div class="tpl-card" data-tpl="matching"><div class="tpl-icon"><i class="fa-solid fa-arrows-left-right"></i></div><h3>اتصال</h3><p>جفت‌کردن دو ستون</p></div>
+        <div class="tpl-card" data-tpl="essay"><div class="tpl-icon"><i class="fa-solid fa-pen-fancy"></i></div><h3>تشریحی</h3><p>پاسخ بلند — تصحیح دستی</p></div>
+      </div>
+      <div class="step-footer">
+        <span></span>
+        <button class="btn btn-primary" id="toLoading" disabled>مرحلهٔ بعد <i class="fa-solid fa-arrow-left"></i></button>
+      </div>
+    </section>
+
+    <!-- Stage 2: Loading -->
+    <section class="step" id="step-loading">
+      <h1 class="step-title">۲. بارگذاری سوالات</h1>
+      <p class="step-subtitle">فایل JSON را آپلود کن، مستقیم Paste کن، یا با کد اشتراک آزمون (از معلم) بارگذاری کن.</p>
+
+      <div class="demo-actions">
+        <button class="btn btn-secondary btn-sm" id="loadDemo"><i class="fa-solid fa-bolt"></i> نمونهٔ چهارگزینه‌ای</button>
+        <button class="btn btn-secondary btn-sm" id="loadMixedDemo"><i class="fa-solid fa-shuffle"></i> نمونهٔ ترکیبی</button>
+        <button class="btn btn-secondary btn-sm" id="openExamCode"><i class="fa-solid fa-key"></i> بارگذاری با کد اشتراک</button>
+        <button class="btn btn-secondary btn-sm" id="clearQuestions"><i class="fa-solid fa-trash"></i> پاک کردن</button>
+      </div>
+
+      <label class="upload-area" for="fileInput">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        <strong>آپلود فایل JSON</strong>
+        <small>فایل بانک سوال خود را انتخاب کنید</small>
+        <input type="file" id="fileInput" accept=".json,application/json" hidden />
+      </label>
+
+      <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 0.4rem;">یا JSON را اینجا Paste کن:</p>
+      <textarea class="json-input" id="jsonInput" placeholder='{ "examId": "...", "questions": [...] }'></textarea>
+      <div style="margin-top: 0.5rem;">
+        <button class="btn btn-secondary btn-sm" id="parseJson"><i class="fa-solid fa-check"></i> بررسی و بارگذاری</button>
+      </div>
+
+      <div class="preview-box hide" id="previewBox"></div>
+
+      <div class="step-footer">
+        <button class="btn btn-secondary" data-prev="template"><i class="fa-solid fa-arrow-right"></i> مرحلهٔ قبل</button>
+        <button class="btn btn-primary" id="toControl" disabled>اتاق کنترل <i class="fa-solid fa-arrow-left"></i></button>
+      </div>
+    </section>
+
+    <!-- Stage 3: Control Room -->
+    <section class="step" id="step-control">
+      <h1 class="step-title">۳. اتاق کنترل جلسه</h1>
+      <p class="step-subtitle">پنج تنظیم‌گر را قبل از شروع مشخص کن. در طول آزمون، پنهان و خودکار کار می‌کنند.</p>
+
+      <div class="control-grid">
+
+        <!-- Time -->
+        <div class="ctrl-section">
+          <h3><i class="fa-solid fa-clock"></i> تنظیم‌گر زمان</h3>
+          <div class="field-row"><label for="durationInput">مدت آزمون (دقیقه)</label><input type="number" id="durationInput" min="1" max="300" value="60" /></div>
+          <div class="field-row"><label for="negativeInput">نمرهٔ منفی</label>
+            <select id="negativeInput">
+              <option value="0">بدون نمرهٔ منفی</option>
+              <option value="0.25">۱/۴</option>
+              <option value="0.333" selected>۱/۳</option>
+            </select>
+          </div>
+          <div class="field-row"><label for="speedInput">سرعت پاسخ‌برگ</label>
+            <select id="speedInput">
+              <option value="500">طبیعی (۵۰۰ms)</option>
+              <option value="350">سریع (۳۵۰ms)</option>
+              <option value="700">کند (۷۰۰ms)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Time management -->
+        <div class="ctrl-section">
+          <h3><i class="fa-solid fa-gauge-high"></i> مدیریت زمان (یکی الزامی)</h3>
+          <div class="tech-options" id="techOptions">
+            <div class="tech-card" data-tech="linear"><strong>خطی</strong><small>فقط شمارندهٔ کل — بدون هشدار وسطی</small></div>
+            <div class="tech-card" data-tech="three-pass"><strong>سه‌پاس</strong><small>آسان (۴۰٪) → متوسط (۳۵٪) → سخت (۲۵٪) — با هشدار و قفل فاز</small></div>
+            <div class="tech-card" data-tech="timebox"><strong>تایم‌باکس</strong><small>سهم زمانی هر سوال + تایمر کوچک هر سوال</small></div>
+            <div class="tech-card" data-tech="hunter"><strong>شکارچی</strong><small>فقط مطمئن‌ها — دکمهٔ «رد کن» همیشه در دسترس</small></div>
+          </div>
+          <div class="field-row hide" id="passLockRow" style="margin-top: 0.75rem;">
+            <label>قفل پاسخ‌های فاز قبل</label>
+            <label class="toggle"><input type="checkbox" id="passLockToggle" checked><span></span></label>
+          </div>
+        </div>
+
+        <!-- Emotional -->
+        <div class="ctrl-section">
+          <h3><i class="fa-solid fa-heart-pulse"></i> تنظیم‌گر عاطفی–هیجانی</h3>
+          <div class="field-row"><label>فعال باشد؟</label><label class="toggle"><input type="checkbox" id="emoToggle"><span></span></label></div>
+          <div id="emoBody" class="hide">
+            <div class="field-row"><label for="preArousal">برانگیختگی فعلی (۱ آرام – ۵ مضطرب)</label><input type="number" id="preArousal" min="1" max="5" value="3" /></div>
+            <p style="font-size: 0.76rem; color: var(--muted);">هر ۱۵ دقیقه یک چک‌این سه‌ثانیه‌ای اختیاری (قابل رد کردن).</p>
+          </div>
+        </div>
+
+        <!-- Cognitive -->
+        <div class="ctrl-section">
+          <h3><i class="fa-solid fa-brain"></i> مدیریت شناختی (برچسب‌ها)</h3>
+          <div class="field-row"><label>فعال باشد؟</label><label class="toggle"><input type="checkbox" id="cogToggle" checked><span></span></label></div>
+          <div id="cogBody">
+            <div class="field-row"><label for="snoozeDefault">یادآوری پیش‌فرض بازبینی</label>
+              <select id="snoozeDefault">
+                <option value="5" selected>۵ دقیقه</option>
+                <option value="10">۱۰ دقیقه</option>
+                <option value="15">۱۵ دقیقه</option>
+              </select>
+            </div>
+            <p style="font-size: 0.76rem; color: var(--muted);">برچسب‌ها: 🔴 سخت، ⏳ نیاز به وقت، ⛔ نزدن، ❓ شانسی</p>
+          </div>
+        </div>
+
+        <!-- Focus -->
+        <div class="ctrl-section" style="grid-column: 1 / -1;">
+          <h3><i class="fa-solid fa-chart-line"></i> تنظیم‌گر اوج و افت تمرکز</h3>
+          <div class="field-row"><label>فعال باشد؟</label><label class="toggle"><input type="checkbox" id="focusToggle"><span></span></label></div>
+          <div id="focusBody" class="hide">
+            <div class="field-row"><label for="chronotype">کرونوتایپ</label>
+              <select id="chronotype">
+                <option value="morning">صبح‌زی</option>
+                <option value="evening">عصرزی</option>
+                <option value="night">شب‌زی</option>
+              </select>
+            </div>
+            <p style="font-size: 0.76rem; color: var(--muted);">در لحظهٔ افت (دقیقهٔ ۲۵)، فقط یک نشانهٔ ظریف نمایش داده می‌شود.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="step-footer">
+        <button class="btn btn-secondary" data-prev="loading"><i class="fa-solid fa-arrow-right"></i> مرحلهٔ قبل</button>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button class="btn btn-info" id="genExamCodeBtn"><i class="fa-solid fa-key"></i> ساخت کد اشتراک آزمون</button>
+          <button class="btn btn-primary" id="startExamBtn"><i class="fa-solid fa-play"></i> شروع جلسه</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stage 4: Exam -->
+    <section class="step" id="step-exam">
+      <div class="exam-bar">
+        <div class="container exam-bar-inner">
+          <div class="timer-box" id="timerBox"><i class="fa-solid fa-clock"></i><span id="timerDisplay">۰۰:۰۰</span></div>
+          <div class="progress-info">سوال <strong id="progCurrent">۱</strong> از <strong id="progTotal">۰</strong> · پاسخ‌داده: <strong id="progAnswered">۰</strong></div>
+          <span class="phase-badge hide" id="phaseBadge"></span>
+          <span class="per-q-timer hide" id="perQTimer"></span>
+          <button class="btn btn-danger btn-sm" id="endExamBtn" style="margin-inline-start: auto;"><i class="fa-solid fa-flag-checkered"></i> پایان آزمون</button>
+        </div>
+      </div>
+      <div class="exam-body">
+        <aside class="exam-sidebar">
+          <div class="sidebar-label">نمای کلی</div>
+          <div class="overview-grid" id="overviewGrid"></div>
+          <div class="sidebar-label">راهنما</div>
+          <div class="sidebar-legend">
+            <div>🟢 پاسخ‌داده · 🔴 سخت · 🟡 وقت‌بر · 🟣 شانسی · ⚪ بی‌پاسخ</div>
+            <div>🔒 فاز قفل‌شده</div>
+          </div>
+          <div class="skip-counter hide" id="skipCounter"><i class="fa-solid fa-person-running"></i> رد‌شده: <strong>۰</strong></div>
+        </aside>
+        <main class="question-card" id="questionCard">
+          <div class="q-head">
+            <span class="q-num">سوال <strong id="qNumBig">۱</strong><span class="q-lock-badge hide" id="lockBadge"><i class="fa-solid fa-lock"></i> فاز قفل</span></span>
+            <button class="tag-btn" id="tagBtn"><i class="fa-solid fa-tag"></i> برچسب‌ها</button>
+          </div>
+          <div class="q-text" id="qText"></div>
+          <div id="qInputArea"></div>
+          <div class="q-foot">
+            <button class="btn btn-secondary btn-sm" id="prevBtn"><i class="fa-solid fa-arrow-right"></i> قبلی</button>
+            <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+              <button class="btn hunter-btn btn-sm hide" id="skipBtn"><i class="fa-solid fa-person-running"></i> رد کن</button>
+              <button class="btn btn-primary btn-sm" id="nextBtn">بعدی <i class="fa-solid fa-arrow-left"></i></button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </section>
+
+    <!-- Stage 5: Results -->
+    <section class="step" id="step-results">
+      <h1 class="step-title">کارنامه</h1>
+      <p class="step-subtitle">نتیجهٔ تصحیح خودکار + تحلیل برچسب‌های شناختی + انتقال به ابزار تحلیل آزمون.</p>
+      <div class="result-hero">
+        <div class="label">درصد کسب‌شده</div>
+        <div class="score" id="resScore">۰٪</div>
+        <div class="label" id="resDetail"></div>
+      </div>
+      <div class="stat-grid" id="resStats"></div>
+      <div class="tag-summary" id="resTags"></div>
+      <div class="breakdown" id="resBreakdown"></div>
+      <div class="step-footer">
+        <button class="btn btn-secondary" id="restartBtn"><i class="fa-solid fa-rotate-right"></i> آزمون جدید</button>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button class="btn btn-info" id="genResultCodeBtn"><i class="fa-solid fa-key"></i> کد نتیجه برای معلم</button>
+          <button class="btn btn-secondary" id="exportBtn"><i class="fa-solid fa-download"></i> خروجی JSON</button>
+          <a href="exam-analysis.html?from=simulator" class="btn btn-primary" id="toAnalysisBtn"><i class="fa-solid fa-chart-pie"></i> تحلیل در ابزار تحلیل آزمون</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===================================================== -->
+  <!-- ==================== TEACHER MODE ==================== -->
+  <!-- ===================================================== -->
+  <div id="teacherMode" class="hide">
+    <section id="teacherHome">
+      <h1 class="step-title">حالت معلم</h1>
+      <p class="step-subtitle">نتیجهٔ دانش‌آموز را از کد بررسی کن، یا برایش آزمون آماده کن و کد اشتراک بساز.</p>
+      <div class="teacher-grid">
+        <div class="teacher-option">
+          <h2><i class="fa-solid fa-inbox"></i> مشاهدهٔ نتیجهٔ دانش‌آموز</h2>
+          <p>کد نتیجه‌ای که دانش‌آموز پس از آزمون دریافت کرده را اینجا Paste کنید.</p>
+          <textarea class="code-box" id="resultCodeInput" placeholder="MP-R-..."></textarea>
+          <div class="code-actions">
+            <button class="btn btn-primary btn-sm" id="viewResultBtn"><i class="fa-solid fa-eye"></i> مشاهدهٔ نتیجه</button>
+          </div>
+        </div>
+        <div class="teacher-option">
+          <h2><i class="fa-solid fa-share-nodes"></i> ساخت آزمون برای دانش‌آموز</h2>
+          <p>در حالت دانش‌آموز، آزمون را بساز و از اتاق کنترل، دکمهٔ «ساخت کد اشتراک آزمون» را بزن. سپس آن کد را به دانش‌آموز بده.</p>
+          <button class="btn btn-secondary btn-sm" id="goStudentBtn"><i class="fa-solid fa-arrow-left"></i> رفتن به حالت دانش‌آموز</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="teacherResult" class="hide">
+      <h1 class="step-title">نتیجهٔ دانش‌آموز</h1>
+      <p class="step-subtitle" id="teacherResultMeta"></p>
+      <div class="result-hero">
+        <div class="label">درصد کسب‌شده</div>
+        <div class="score" id="teacherScore">۰٪</div>
+        <div class="label" id="teacherDetail"></div>
+      </div>
+      <div class="stat-grid" id="teacherStats"></div>
+      <div class="tag-summary" id="teacherTags"></div>
+      <div class="breakdown" id="teacherBreakdown"></div>
+      <div class="step-footer">
+        <button class="btn btn-secondary" id="backToTeacherHome"><i class="fa-solid fa-arrow-right"></i> بازگشت</button>
+        <a href="exam-analysis.html?from=simulator" class="btn btn-primary" id="teacherToAnalysis"><i class="fa-solid fa-chart-pie"></i> تحلیل در ابزار تحلیل آزمون</a>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<!-- Tag popover -->
+<div class="tag-popover" id="tagPopover">
+  <div class="tag-panel">
+    <h4>برچسب شناختی <button id="closeTagPop" aria-label="بستن"><i class="fa-solid fa-xmark"></i></button></h4>
+    <div class="tag-grid" id="tagGrid">
+      <button class="tag-option" data-tag="hard"><strong>🔴 سخت است</strong><small>بعداً برگردم</small></button>
+      <button class="tag-option" data-tag="needs-time"><strong>⏳ نیاز به وقت</strong><small>الان نه، وقت می‌خواهد</small></button>
+      <button class="tag-option" data-tag="skip"><strong>⛔ برای نزدن</strong><small>صرفاً نزن</small></button>
+      <button class="tag-option" data-tag="guessed"><strong>❓ شانسی زدم</strong><small>نیاز به بررسی</small></button>
+    </div>
+    <div class="snooze-row">
+      <p>ذخیره برای بازبینی در تایم تنظیم‌شده:</p>
+      <div class="snooze-btns">
+        <button data-snooze="5">۵ دقیقه</button>
+        <button data-snooze="10">۱۰ دقیقه</button>
+        <button data-snooze="15">۱۵ دقیقه</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Code modal -->
+<div class="code-modal" id="codeModal">
+  <div class="code-modal-inner">
+    <h3><span id="codeModalTitle">کد اشتراک آزمون</span><button style="background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;" id="closeCodeModal"><i class="fa-solid fa-xmark"></i></button></h3>
+    <p id="codeModalDesc"></p>
+    <textarea id="codeModalBody" readonly></textarea>
+    <div class="code-modal-actions">
+      <button class="btn btn-primary btn-sm" id="copyCodeBtn"><i class="fa-solid fa-copy"></i> کپی کد</button>
+      <button class="btn btn-secondary btn-sm" id="closeCodeModal2">بستن</button>
+    </div>
+  </div>
+</div>
+
+<!-- Emotional check-in modal -->
+<div class="emo-modal" id="emoModal">
+  <div class="emo-inner">
+    <h3>چک‌این عاطفی</h3>
+    <p>الان چطوری؟ پاسخ سریع، بعد به آزمون برمی‌گردی.</p>
+    <div class="emo-btns">
+      <button data-emo="1">خوبم</button>
+      <button data-emo="3">کمی مضطرب</button>
+      <button data-emo="5" class="high">خیلی مضطرب</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><i class="fa-solid fa-bell"></i><span id="toastMsg"></span></div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ==================== Utilities ==================== */
+  const $ = s => document.querySelector(s);
+  const $$ = s => document.querySelectorAll(s);
+  const faDigits = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+  const fmtTime = ms => {
+    const t = Math.max(0, Math.floor(ms / 1000));
+    return faDigits(String(Math.floor(t/60)).padStart(2,'0') + ':' + String(t%60).padStart(2,'0'));
+  };
+  const b64enc = str => btoa(unescape(encodeURIComponent(str))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  const b64dec = str => {
+    str = str.replace(/-/g,'+').replace(/_/g,'/');
+    while (str.length % 4) str += '=';
+    return decodeURIComponent(escape(atob(str)));
+  };
+  const LS_RESULT_KEY = 'mesterplanner:examResult';
+  const LS_HISTORY_KEY = 'mesterplanner:examHistory';
+
+  function toast(msg, type='info') {
+    const el = $('#toast');
+    const iconMap = { ok: 'check', warn: 'clock', danger: 'triangle-exclamation', info: 'bell' };
+    el.className = 'toast show ' + type;
+    el.querySelector('i').className = 'fa-solid fa-' + (iconMap[type] || 'bell');
+    $('#toastMsg').textContent = msg;
+    clearTimeout(el._t);
+    el._t = setTimeout(() => el.classList.remove('show'), 3500);
+  }
+
+  /* ==================== State ==================== */
+  const S = {
+    mode: 'student',
+    template: null,
+    exam: null,
+    questions: [],
+    settings: {
+      durationMin: 60,
+      negativeMarking: 0.333,
+      speed: 500,
+      timeManagement: null,
+      passLock: true,
+      emotional: { enabled: false, preArousal: 3 },
+      cognitive: { enabled: true, snoozeDefault: 5 },
+      focus: { enabled: false, chronotype: 'morning' }
+    },
+    answers: {},
+    currentIndex: 0,
+    startedAt: 0,
+    endsAt: 0,
+    totalMs: 0,
+    timerId: null,
+    perQDeadline: 0,
+    currentPhase: 1,
+    notified: {},
+    matchSelection: null,
+    dipNotified: false,
+    emoNext: 0
+  };
+
+  /* ==================== Mode Switch ==================== */
+  $$('.mode-switch button').forEach(b => {
+    b.addEventListener('click', () => {
+      const mode = b.dataset.mode;
+      S.mode = mode;
+      $$('.mode-switch button').forEach(x => x.classList.toggle('active', x === b));
+      $('#studentMode').classList.toggle('hide', mode !== 'student');
+      $('#teacherMode').classList.toggle('hide', mode !== 'teacher');
+      if (mode === 'teacher') {
+        $('#teacherHome').classList.remove('hide');
+        $('#teacherResult').classList.add('hide');
+      }
+    });
+  });
+  $('#goStudentBtn').addEventListener('click', () => {
+    document.querySelector('.mode-switch button[data-mode="student"]').click();
+  });
+
+  /* ==================== Step Navigation ==================== */
+  function goStep(name) {
+    $$('.step').forEach(s => s.classList.toggle('active', s.id === 'step-' + name));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  $$('[data-prev]').forEach(b => b.addEventListener('click', () => goStep(b.dataset.prev)));
+
+  /* ==================== Stage 1 ==================== */
+  $$('#templateGrid .tpl-card').forEach(card => {
+    card.addEventListener('click', () => {
+      $$('#templateGrid .tpl-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      S.template = card.dataset.tpl;
+      $('#toLoading').disabled = false;
+    });
+  });
+  $('#toLoading').addEventListener('click', () => { if (S.template) goStep('loading'); });
+
+  /* ==================== Stage 2: Loading ==================== */
+  const DEMO_MCQ = {
+    examId: 'demo-mcq',
+    title: 'آزمون نمونهٔ چهارگزینه‌ای',
+    durationMin: 10,
+    negativeMarking: 0.333,
+    questions: [
+      { id:'q1', type:'mcq', topic:'مشتق', difficulty:2, text:'مشتق تابع f(x)=x² در x=3 چند است؟', options:['۳','۶','۹','۱۸'], answer:1 },
+      { id:'q2', type:'mcq', topic:'نجوم', difficulty:1, text:'کدام سیاره به خورشید نزدیک‌تر است؟', options:['زهره','مریخ','عطارد','زمین'], answer:2 },
+      { id:'q3', type:'mcq', topic:'ریاضی', difficulty:1, text:'حاصل ۱۵ × ۴ چند است؟', options:['۵۰','۵۵','۶۰','۶۵'], answer:2 },
+      { id:'q4', type:'mcq', topic:'جغرافیا', difficulty:1, text:'پایتخت فرانسه کدام است؟', options:['لندن','پاریس','برلین','رم'], answer:1 },
+      { id:'q5', type:'mcq', topic:'شیمی', difficulty:3, text:'کدام فلز در دمای اتاق مایع است؟', options:['آهن','جیوه','طلا','مس'], answer:1 }
+    ]
+  };
+  const DEMO_MIXED = {
+    examId: 'demo-mixed',
+    title: 'آزمون ترکیبی نمونه',
+    durationMin: 15,
+    negativeMarking: 0,
+    questions: [
+      { id:'q1', type:'mcq', topic:'ریاضی', difficulty:1, text:'حاصل ۲+۲ چند است؟', options:['۳','۴','۵','۶'], answer:1 },
+      { id:'q2', type:'short', topic:'جغرافیا', difficulty:1, text:'پایتخت ایران کدام شهر است؟', acceptedAnswers:['تهران','Tehran'] },
+      { id:'q3', type:'blank', topic:'شیمی', difficulty:2, text:'آب از [[۱]] و [[۲]] تشکیل شده است.', blanks:[
+        { index:0, acceptedAnswers:['هیدروژن','H'] },
+        { index:1, acceptedAnswers:['اکسیژن','O'] }
+      ]},
+      { id:'q4', type:'matching', topic:'جغرافیا', difficulty:2, text:'هر کشور را به پایتختش وصل کن:',
+        left:['ایران','فرانسه','ژاپن'], right:['توکیو','تهران','پاریس'],
+        pairs:[{left:0,right:1},{left:1,right:2},{left:2,right:0}] },
+      { id:'q5', type:'essay', topic:'مطالعه', difficulty:3, text:'در سه خط توضیح بده چرا تمرکز در مطالعه اهمیت دارد.', minWords:10 }
+    ]
+  };
+
+  function loadExam(exam) {
+    if (!exam || !Array.isArray(exam.questions)) { toast('فرمت نامعتبر', 'danger'); return; }
+    S.exam = exam;
+    S.questions = exam.questions;
+    $('#jsonInput').value = JSON.stringify(exam, null, 2);
+    renderPreview();
+  }
+  function renderPreview() {
+    const box = $('#previewBox');
+    if (!S.questions.length) { box.classList.add('hide'); $('#toControl').disabled = true; return; }
+    box.classList.remove('hide');
+    box.innerHTML = '<div style="color:var(--primary);font-weight:700;margin-bottom:0.4rem;">' + faDigits(S.questions.length) + ' سوال بارگذاری شد · ' + (S.exam.title || '') + '</div>' +
+      S.questions.map((q,i) => '<div class="q-item"><span class="q-type">' + (q.type||S.template) + '</span><span>' + faDigits(i+1) + '. ' + String(q.text||'').slice(0,80) + (q.text && q.text.length>80?'…':'') + '</span></div>').join('');
+    $('#toControl').disabled = false;
+  }
+
+  $('#loadDemo').addEventListener('click', () => { loadExam(DEMO_MCQ); toast('نمونهٔ چهارگزینه‌ای بارگذاری شد', 'ok'); });
+  $('#loadMixedDemo').addEventListener('click', () => { loadExam(DEMO_MIXED); toast('نمونهٔ ترکیبی بارگذاری شد', 'ok'); });
+  $('#clearQuestions').addEventListener('click', () => { S.exam = null; S.questions = []; $('#jsonInput').value=''; renderPreview(); });
+
+  $('#fileInput').addEventListener('change', e => {
+    const f = e.target.files[0]; if (!f) return;
+    const r = new FileReader();
+    r.onload = ev => {
+      try { loadExam(JSON.parse(ev.target.result)); toast('فایل با موفقیت بارگذاری شد', 'ok'); }
+      catch (err) { toast('خطا در فایل: ' + err.message, 'danger'); }
+    };
+    r.readAsText(f);
+  });
+  $('#parseJson').addEventListener('click', () => {
+    try { loadExam(JSON.parse($('#jsonInput').value)); toast('JSON بارگذاری شد', 'ok'); }
+    catch (err) { toast('JSON نامعتبر: ' + err.message, 'danger'); }
+  });
+
+  /* ==================== Stage 3: Control ==================== */
+  $('#emoToggle').addEventListener('change', e => $('#emoBody').classList.toggle('hide', !e.target.checked));
+  $('#focusToggle').addEventListener('change', e => $('#focusBody').classList.toggle('hide', !e.target.checked));
+  $('#cogToggle').addEventListener('change', e => $('#cogBody').classList.toggle('hide', !e.target.checked));
+
+  $$('#techOptions .tech-card').forEach(c => {
+    c.addEventListener('click', () => {
+      $$('#techOptions .tech-card').forEach(x => x.classList.remove('selected'));
+      c.classList.add('selected');
+      S.settings.timeManagement = c.dataset.tech;
+      $('#passLockRow').classList.toggle('hide', c.dataset.tech !== 'three-pass');
+    });
+  });
+
+  $('#startExamBtn').addEventListener('click', () => {
+    if (!S.settings.timeManagement) { toast('ابتدا یک تکنیک مدیریت زمان انتخاب کن', 'danger'); return; }
+    S.settings.durationMin = +$('#durationInput').value || 60;
+    S.settings.negativeMarking = +$('#negativeInput').value;
+    S.settings.speed = +$('#speedInput').value;
+    S.settings.passLock = $('#passLockToggle').checked;
+    S.settings.emotional.enabled = $('#emoToggle').checked;
+    S.settings.emotional.preArousal = +$('#preArousal').value || 3;
+    S.settings.cognitive.enabled = $('#cogToggle').checked;
+    S.settings.cognitive.snoozeDefault = +$('#snoozeDefault').value;
+    S.settings.focus.enabled = $('#focusToggle').checked;
+    S.settings.focus.chronotype = $('#chronotype').value;
+    startExam();
+  });
+
+  /* ==================== Exam Start ==================== */
+  function startExam() {
+    S.answers = {};
+    S.currentIndex = 0;
+    S.notified = {};
+    S.matchSelection = null;
+    S.dipNotified = false;
+    S.startedAt = Date.now();
+    S.totalMs = S.settings.durationMin * 60 * 1000;
+    S.endsAt = S.startedAt + S.totalMs;
+    S.currentPhase = 1;
+    S.perQDeadline = 0;
+
+    $('#progTotal').textContent = faDigits(S.questions.length);
+    $('#skipCounter').classList.toggle('hide', S.settings.timeManagement !== 'hunter');
+    $('#phaseBadge').classList.toggle('hide', S.settings.timeManagement !== 'three-pass');
+    $('#perQTimer').classList.toggle('hide', S.settings.timeManagement !== 'timebox');
+    $('#skipBtn').classList.toggle('hide', S.settings.timeManagement !== 'hunter');
+
+    buildOverview();
+    renderQuestion();
+    goStep('exam');
+    S.timerId = setInterval(tick, 500);
+    tick();
+  }
+
+  function buildOverview() {
+    const grid = $('#overviewGrid');
+    grid.innerHTML = '';
+    S.questions.forEach((q, i) => {
+      const cell = document.createElement('button');
+      cell.type = 'button';
+      cell.className = 'ov-cell';
+      cell.dataset.idx = i;
+      cell.textContent = faDigits(i + 1);
+      cell.addEventListener('click', () => { S.currentIndex = i; renderQuestion(); });
+      grid.appendChild(cell);
+    });
+    updateOverview();
+  }
+
+  function getQuestionPhase(q, idx) {
+    if (typeof q.difficulty === 'number') {
+      if (q.difficulty <= 2) return 1;
+      if (q.difficulty === 3) return 2;
+      return 3;
+    }
+    const r = idx / S.questions.length;
+    if (r < 0.40) return 1;
+    if (r < 0.75) return 2;
+    return 3;
+  }
+  function getCurrentPhaseByTime() {
+    const r = (Date.now() - S.startedAt) / S.totalMs;
+    if (r < 0.40) return 1;
+    if (r < 0.75) return 2;
+    return 3;
+  }
+
+  function updateOverview() {
+    $$('#overviewGrid .ov-cell').forEach((cell, i) => {
+      const q = S.questions[i];
+      const a = S.answers[q.id];
+      cell.className = 'ov-cell';
+      if (i === S.currentIndex) cell.classList.add('current');
+      if (a && a.value !== undefined && a.value !== null && a.value !== '') cell.classList.add('answered');
+      if (a && a.tag === 'hard') cell.classList.add('tagged-hard');
+      if (a && a.tag === 'needs-time') cell.classList.add('tagged-time');
+      if (a && a.tag === 'skip') cell.classList.add('tagged-skip');
+      if (a && a.tag === 'guessed') cell.classList.add('tagged-guess');
+      if (S.settings.timeManagement === 'three-pass' && S.settings.passLock) {
+        const qPhase = getQuestionPhase(q, i);
+        if (qPhase < S.currentPhase) cell.classList.add('locked');
+      }
+    });
+    const answered = Object.values(S.answers).filter(a => a.value !== undefined && a.value !== null && a.value !== '').length;
+    $('#progAnswered').textContent = faDigits(answered);
+    $('#progCurrent').textContent = faDigits(S.currentIndex + 1);
+
+    if (S.settings.timeManagement === 'hunter') {
+      const skipped = Object.values(S.answers).filter(a => a.tag === 'skip').length;
+      $('#skipCounter').querySelector('strong').textContent = faDigits(skipped);
+    }
+  }
+
+  function renderQuestion() {
+    const q = S.questions[S.currentIndex];
+    if (!q) return;
+    $('#qNumBig').textContent = faDigits(S.currentIndex + 1);
+    $('#qText').textContent = q.text || '';
+
+    const isLocked = S.settings.timeManagement === 'three-pass' && S.settings.passLock && getQuestionPhase(q, S.currentIndex) < S.currentPhase;
+    $('#lockBadge').classList.toggle('hide', !isLocked);
+
+    const area = $('#qInputArea');
+    area.innerHTML = '';
+    const cur = S.answers[q.id] || {};
+    const type = q.type || S.template;
+
+    if (type === 'mcq') {
+      const list = document.createElement('div');
+      list.className = 'options-list';
+      (q.options || []).forEach((opt, idx) => {
+        const row = document.createElement('button');
+        row.type = 'button';
+        row.className = 'option-row';
+        if (cur.value === idx) row.classList.add('filled');
+        row.innerHTML = '<span class="option-num">' + faDigits(idx+1) + '</span><span class="option-text">' + opt + '</span>';
+        row.addEventListener('click', () => tryAnswer(q.id, idx, row));
+        list.appendChild(row);
+      });
+      area.appendChild(list);
+    } else if (type === 'short') {
+      const inp = document.createElement('input');
+      inp.type = 'text'; inp.className = 'short-input'; inp.placeholder = 'پاسخ خود را بنویسید…';
+      inp.value = cur.value || '';
+      inp.addEventListener('input', () => tryAnswer(q.id, inp.value, null, true));
+      area.appendChild(inp);
+    } else if (type === 'blank') {
+      const wrap = document.createElement('div');
+      wrap.style.lineHeight = '2.8';
+      let html = q.text || '';
+      (q.blanks || []).forEach((b, i) => {
+        const v = (cur.value && cur.value[i]) || '';
+        html = html.replace('[[' + (i+1) + ']]', '<input class="blank-input" data-bidx="' + i + '" value="' + v + '" placeholder="…" />');
+      });
+      wrap.innerHTML = html;
+      wrap.querySelectorAll('.blank-input').forEach(inp => {
+        inp.addEventListener('input', () => {
+          const arr = (S.answers[q.id] && S.answers[q.id].value) ? [...S.answers[q.id].value] : [];
+          arr[+inp.dataset.bidx] = inp.value;
+          tryAnswer(q.id, arr, null, true);
+        });
+      });
+      area.appendChild(wrap);
+    } else if (type === 'matching') {
+      const grid = document.createElement('div');
+      grid.className = 'matching-grid';
+      const pairs = cur.value || {};
+      const leftCol = document.createElement('div');
+      leftCol.className = 'match-col';
+      leftCol.innerHTML = '<h4>ستون الف</h4>';
+      (q.left || []).forEach((item, i) => {
+        const b = document.createElement('div');
+        b.className = 'match-item';
+        if (pairs[i] !== undefined) b.classList.add('matched');
+        b.innerHTML = item + (pairs[i] !== undefined ? '<span class="match-tag">→ ' + q.right[pairs[i]] + '</span>' : '');
+        b.addEventListener('click', () => {
+          S.matchSelection = i;
+          $$('.match-item').forEach(el => el.classList.remove('selected'));
+          b.classList.add('selected');
+        });
+        leftCol.appendChild(b);
+      });
+      const rightCol = document.createElement('div');
+      rightCol.className = 'match-col';
+      rightCol.innerHTML = '<h4>ستون ب</h4>';
+      (q.right || []).forEach((item, i) => {
+        const b = document.createElement('div');
+        b.className = 'match-item';
+        b.textContent = item;
+        b.addEventListener('click', () => {
+          if (S.matchSelection === null) { toast('ابتدا از ستون الف انتخاب کن', 'warn'); return; }
+          const p = { ...(S.answers[q.id]?.value || {}) };
+          p[S.matchSelection] = i;
+          tryAnswer(q.id, p);
+          S.matchSelection = null;
+        });
+        rightCol.appendChild(b);
+      });
+      grid.appendChild(leftCol); grid.appendChild(rightCol);
+      area.appendChild(grid);
+    } else if (type === 'essay') {
+      const ta = document.createElement('textarea');
+      ta.className = 'essay-textarea';
+      ta.placeholder = 'پاسخ تشریحی…';
+      ta.value = cur.value || '';
+      ta.addEventListener('input', () => tryAnswer(q.id, ta.value, null, true));
+      area.appendChild(ta);
+    }
+
+    // Start per-question timer for timebox
+    if (S.settings.timeManagement === 'timebox') {
+      S.perQDeadline = Date.now() + (S.totalMs / S.questions.length);
+    }
+
+    updateOverview();
+    updateTagButton();
+  }
+
+  function updateTagButton() {
+    const q = S.questions[S.currentIndex];
+    const a = S.answers[q.id];
+    const btn = $('#tagBtn');
+    if (a && a.tag) {
+      const lbl = ({hard:'🔴 سخت', 'needs-time':'⏳ وقت‌بر', skip:'⛔ نزدن', guessed:'❓ شانسی'})[a.tag] || a.tag;
+      btn.innerHTML = '<i class="fa-solid fa-tag"></i> ' + lbl;
+      btn.classList.add('active-tag');
+    } else {
+      btn.innerHTML = '<i class="fa-solid fa-tag"></i> برچسب‌ها';
+      btn.classList.remove('active-tag');
+    }
+  }
+
+  function tryAnswer(qid, value, rowEl, silent) {
+    const q = S.questions.find(x => x.id === qid);
+    const qIdx = S.questions.indexOf(q);
+
+    // Three-pass lock check
+    if (!silent && S.settings.timeManagement === 'three-pass' && S.settings.passLock) {
+      const qPhase = getQuestionPhase(q, qIdx);
+      if (qPhase < S.currentPhase) {
+        if (!confirm('این سوال مربوط به فاز قبلی است. آیا پاسخ را تغییر می‌دهید؟')) return;
+      }
+    }
+
+    if (!S.answers[qid]) S.answers[qid] = {};
+
+    if (rowEl && !silent) {
+      if (rowEl.classList.contains('filling')) return;
+      rowEl.classList.add('filling');
+      $$('.option-row').forEach(r => { if (r !== rowEl) r.classList.remove('filled'); });
+      const speed = S.settings.speed;
+      setTimeout(() => {
+        rowEl.classList.remove('filling');
+        rowEl.classList.add('filled');
+        S.answers[qid] = { ...S.answers[qid], value, registeredAt: Date.now() - S.startedAt };
+        updateOverview();
+      }, speed);
+    } else {
+      S.answers[qid] = { ...S.answers[qid], value, registeredAt: Date.now() - S.startedAt };
+      if (!silent) updateOverview();
+    }
+  }
+
+  /* Navigation */
+  $('#prevBtn').addEventListener('click', () => {
+    if (S.currentIndex > 0) { S.currentIndex--; renderQuestion(); }
+  });
+  $('#nextBtn').addEventListener('click', () => {
+    if (S.currentIndex < S.questions.length - 1) { S.currentIndex++; renderQuestion(); }
+  });
+  $('#skipBtn').addEventListener('click', () => {
+    const q = S.questions[S.currentIndex];
+    if (!S.answers[q.id]) S.answers[q.id] = {};
+    S.answers[q.id].tag = 'skip';
+    // Find next unanswered non-skip question
+    let next = -1;
+    for (let i = 1; i <= S.questions.length; i++) {
+      const idx = (S.currentIndex + i) % S.questions.length;
+      const qq = S.questions[idx];
+      const aa = S.answers[qq.id];
+      if (!aa || !aa.tag || aa.tag !== 'skip') { next = idx; break; }
+    }
+    if (next !== -1 && next !== S.currentIndex) S.currentIndex = next;
+    updateOverview(); updateTagButton(); renderQuestion();
+  });
+
+  /* Timer */
+  function tick() {
+    const remaining = S.endsAt - Date.now();
+    const box = $('#timerBox');
+    box.classList.remove('warn', 'danger');
+    if (remaining <= 60 * 1000) box.classList.add('danger');
+    else if (remaining <= 5 * 60 * 1000) box.classList.add('warn');
+    $('#timerDisplay').textContent = fmtTime(remaining);
+
+    if (remaining <= 0) { endExam(true); return; }
+
+    // Three-pass phase tracking
+    if (S.settings.timeManagement === 'three-pass') {
+      const newPhase = getCurrentPhaseByTime();
+      if (newPhase !== S.currentPhase) {
+        S.currentPhase = newPhase;
+        const phaseNames = { 1: 'فاز ۱: آسان (۴۰٪)', 2: 'فاز ۲: متوسط (۳۵٪)', 3: 'فاز ۳: سخت (۲۵٪)' };
+        const badge = $('#phaseBadge');
+        badge.textContent = phaseNames[newPhase];
+        badge.className = 'phase-badge phase-' + newPhase;
+        if (newPhase > 1) toast('⏰ ' + phaseNames[newPhase - 1] + ' تمام شد — ' + phaseNames[newPhase], 'warn');
+        updateOverview();
+      }
+    }
+
+    // Timebox per-question timer
+    if (S.settings.timeManagement === 'timebox' && S.perQDeadline) {
+      const pqRem = S.perQDeadline - Date.now();
+      const el = $('#perQTimer');
+      el.classList.remove('hide');
+      if (pqRem > 0) {
+        el.textContent = 'این سوال: ' + fmtTime(pqRem);
+        el.classList.toggle('warn', pqRem < 30000);
+        $('#nextBtn').style.transform = '';
+      } else {
+        el.textContent = 'زمان سوال تمام شد';
+        el.classList.add('warn');
+        $('#nextBtn').style.transform = 'scale(1.06)';
+      }
+    }
+
+    // Snooze reminders
+    const now = Date.now();
+    Object.keys(S.answers).forEach(qid => {
+      const a = S.answers[qid];
+      if (a.snoozedAt && a.snoozedAt <= now && !S.notified[qid]) {
+        S.notified[qid] = true;
+        const idx = S.questions.findIndex(q => q.id === qid);
+        toast('⏰ زمان بازبینی سوال ' + faDigits(idx + 1) + ' رسید', 'warn');
+      }
+    });
+
+    // Focus dip
+    if (S.settings.focus.enabled && !S.dipNotified) {
+      const elapsedMin = Math.floor((now - S.startedAt) / 60000);
+      if (elapsedMin >= 25) {
+        S.dipNotified = true;
+        toast('افت تمرکز معمول — یک سوال آسان‌تر انتخاب کن یا ۱۵ ثانیه مکث', 'warn');
+      }
+    }
+
+    // Emotional check-in every 15 min
+    if (S.settings.emotional.enabled && now >= S.emoNext && S.emoNext > 0) {
+      S.emoNext = now + 15 * 60 * 1000;
+      openEmoCheckin();
+    }
+  }
+
+  function openEmoCheckin() {
+    $('#emoModal').classList.add('open');
+  }
+  function closeEmoCheckin() { $('#emoModal').classList.remove('open'); }
+  $$('#emoModal .emo-btns button').forEach(b => {
+    b.addEventListener('click', () => {
+      const v = +b.dataset.emo;
+      if (v >= 5) toast('چند نفس عمیق: ۴ ثانیه دم، ۷ ثانیه نگه، ۸ ثانیه بازدم — ۳ بار', 'warn');
+      closeEmoCheckin();
+    });
+  });
+
+  /* End exam */
+  function endExam(auto) {
+    if (!auto) {
+      const unanswered = S.questions.filter(q => {
+        const a = S.answers[q.id];
+        return !a || a.value === undefined || a.value === null || a.value === '';
+      }).length;
+      if (unanswered > 0 && !confirm('هنوز ' + unanswered + ' سوال بی‌پاسخ داری. پایان می‌دهی؟')) return;
+    }
+    clearInterval(S.timerId);
+    closeEmoCheckin();
+    computeResults();
+  }
+  $('#endExamBtn').addEventListener('click', () => endExam(false));
+
+  /* ==================== Results ==================== */
+  function getCorrectAnswer(q) {
+    const type = q.type || S.template;
+    if (type === 'mcq') return q.answer;
+    if (type === 'short') return q.acceptedAnswers;
+    if (type === 'blank') return (q.blanks || []).map(b => b.acceptedAnswers);
+    if (type === 'matching') return q.pairs;
+    return null;
+  }
+
+  function isCorrectAnswer(q, userVal) {
+    const type = q.type || S.template;
+    if (userVal === undefined || userVal === null || userVal === '') return false;
+    if (type === 'mcq') return userVal === q.answer;
+    if (type === 'short') {
+      const u = String(userVal).trim().toLowerCase();
+      return (q.acceptedAnswers || []).some(x => String(x).trim().toLowerCase() === u);
+    }
+    if (type === 'blank') {
+      return (q.blanks || []).every((b, i) => {
+        const u = String(userVal[i] || '').trim().toLowerCase();
+        return (b.acceptedAnswers || []).some(x => String(x).trim().toLowerCase() === u);
+      });
+    }
+    if (type === 'matching') {
+      return (q.pairs || []).every(p => userVal[p.left] === p.right);
+    }
+    if (type === 'essay') return null; // needs manual grading
+    return false;
+  }
+
+  function computeResults() {
+    const perQuestion = [];
+    let correct = 0, wrong = 0, blank = 0;
+    const tags = { hard: 0, 'needs-time': 0, skip: 0, guessed: 0 };
+    const topicMap = {};
+    let essayCount = 0;
+
+    S.questions.forEach((q, i) => {
+      const a = S.answers[q.id];
+      const type = q.type || S.template;
+      let status = 'blank';
+
+      if (!a || a.value === undefined || a.value === null || a.value === '') {
+        blank++;
+      } else {
+        const ok = isCorrectAnswer(q, a.value);
+        if (ok === null) { status = 'essay'; essayCount++; }
+        else if (ok) { correct++; status = 'correct'; }
+        else { wrong++; status = 'wrong'; }
+      }
+      if (a && a.tag) tags[a.tag]++;
+
+      const topic = q.topic || 'بدون موضوع';
+      if (!topicMap[topic]) topicMap[topic] = { total: 0, correct: 0, wrong: 0, blank: 0 };
+      topicMap[topic].total++;
+      if (status === 'correct') topicMap[topic].correct++;
+      else if (status === 'wrong') topicMap[topic].wrong++;
+      else if (status === 'blank') topicMap[topic].blank++;
+
+      perQuestion.push({
+        id: q.id, index: i, type, topic: q.topic, difficulty: q.difficulty,
+        text: q.text, userAnswer: a?.value, correctAnswer: getCorrectAnswer(q),
+        tag: a?.tag || null, snoozedAt: a?.snoozedAt || null,
+        timeSpent: a?.registeredAt || null, status
+      });
+    });
+
+    const total = S.questions.length;
+    const scored = correct - wrong * S.settings.negativeMarking;
+    const percent = Math.max(0, Math.round((scored / Math.max(1, total)) * 100));
+
+    // Build result object
+    const result = {
+      source: 'simulator',
+      examId: S.exam.examId,
+      title: S.exam.title,
+      finishedAt: Date.now(),
+      startedAt: S.startedAt,
+      durationMin: S.settings.durationMin,
+      actualDurationMin: Math.round((Date.now() - S.startedAt) / 60000),
+      settings: { ...S.settings },
+      stats: { total, correct, wrong, blank, essay: essayCount, percent, tags },
+      topics: topicMap,
+      questions: perQuestion
+    };
+
+    // Save to localStorage for exam-analysis
+    try {
+      localStorage.setItem(LS_RESULT_KEY, JSON.stringify(result));
+      const hist = JSON.parse(localStorage.getItem(LS_HISTORY_KEY) || '[]');
+      hist.push({ examId: result.examId, title: result.title, finishedAt: result.finishedAt, percent, correct, wrong, blank });
+      localStorage.setItem(LS_HISTORY_KEY, JSON.stringify(hist.slice(-50)));
+    } catch (e) { /* storage full */ }
+
+    // UI
+    $('#resScore').textContent = faDigits(percent) + '٪';
+    $('#resDetail').textContent = 'از ' + faDigits(total) + ' سوال · ' + faDigits(correct) + ' صحیح · ' + faDigits(wrong) + ' غلط · ' + faDigits(blank) + ' بی‌پاسخ' + (essayCount ? ' · ' + faDigits(essayCount) + ' تشریحی' : '');
+
+    $('#resStats').innerHTML = [
+      { n: correct, c: 'ok', l: 'صحیح' },
+      { n: wrong, c: 'danger', l: 'غلط' },
+      { n: blank, c: 'muted', l: 'بی‌پاسخ' },
+      { n: percent + '٪', c: 'warn', l: 'درصد' }
+    ].map(s => '<div class="stat-card"><div class="num ' + s.c + '">' + (typeof s.n === 'number' ? faDigits(s.n) : s.n) + '</div><div class="lbl">' + s.l + '</div></div>').join('');
+
+    $('#resTags').innerHTML = '<h3><i class="fa-solid fa-tags"></i> جمع‌بندی برچسب‌ها</h3><div class="tag-bar">' +
+      ['hard','needs-time','skip','guessed'].map(t => {
+        const lbl = ({hard:'🔴 سخت', 'needs-time':'⏳ وقت‌بر', skip:'⛔ نزدن', guessed:'❓ شانسی'})[t];
+        return '<span class="tag-chip">' + lbl + '<strong>' + faDigits(tags[t]) + '</strong></span>';
+      }).join('') + '</div>';
+
+    // Topic breakdown
+    $('#resBreakdown').innerHTML = '<h3><i class="fa-solid fa-chart-column"></i> تحلیل مبحثی</h3>' +
+      '<table><thead><tr><th>مبحث</th><th>کل</th><th>صحیح</th><th>غلط</th><th>بی‌پاسخ</th><th>درصد</th></tr></thead><tbody>' +
+      Object.keys(topicMap).map(tp => {
+        const d = topicMap[tp];
+        const p = Math.round(((d.correct - d.wrong * S.settings.negativeMarking) / d.total) * 100);
+        return '<tr><td>' + tp + '<div class="topic-bar"><span style="width:' + Math.max(0, p) + '%"></span></div></td><td>' + faDigits(d.total) + '</td><td class="correct">' + faDigits(d.correct) + '</td><td class="wrong">' + faDigits(d.wrong) + '</td><td class="blank">' + faDigits(d.blank) + '</td><td>' + faDigits(p) + '٪</td></tr>';
+      }).join('') + '</tbody></table>';
+
+    goStep('results');
+  }
+
+  /* ==================== Restart / Export ==================== */
+  $('#restartBtn').addEventListener('click', () => {
+    if (!confirm('آزمون جدید شروع شود؟ پاسخ‌های فعلی پاک می‌شوند.')) return;
+    S.answers = {}; S.currentIndex = 0; S.template = null; S.questions = []; S.exam = null;
+    S.settings.timeManagement = null;
+    $$('#templateGrid .tpl-card').forEach(c => c.classList.remove('selected'));
+    $$('#techOptions .tech-card').forEach(c => c.classList.remove('selected'));
+    $('#toLoading').disabled = true; $('#toControl').disabled = true;
+    $('#jsonInput').value = ''; $('#previewBox').classList.add('hide');
+    goStep('template');
+  });
+
+  $('#exportBtn').addEventListener('click', () => {
+    const result = JSON.parse(localStorage.getItem(LS_RESULT_KEY) || '{}');
+    const blob = new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'exam-result-' + Date.now() + '.json';
+    a.click();
+  });
+
+  /* ==================== Tag Popover ==================== */
+  $('#tagBtn').addEventListener('click', () => {
+    const q = S.questions[S.currentIndex];
+    const a = S.answers[q.id];
+    $$('#tagGrid .tag-option').forEach(o => o.classList.toggle('active', a && a.tag === o.dataset.tag));
+    $('#tagPopover').classList.add('open');
+  });
+  $('#closeTagPop').addEventListener('click', () => $('#tagPopover').classList.remove('open'));
+  $('#tagPopover').addEventListener('click', e => { if (e.target.id === 'tagPopover') e.currentTarget.classList.remove('open'); });
+  $('#tagGrid').addEventListener('click', e => {
+    const btn = e.target.closest('.tag-option'); if (!btn) return;
+    const q = S.questions[S.currentIndex];
+    if (!S.answers[q.id]) S.answers[q.id] = {};
+    S.answers[q.id].tag = btn.dataset.tag;
+    toast('برچسب ثبت شد', 'ok');
+    updateOverview(); updateTagButton();
+    $('#tagPopover').classList.remove('open');
+  });
+  document.querySelectorAll('.snooze-btns button').forEach(b => {
+    b.addEventListener('click', () => {
+      const q = S.questions[S.currentIndex];
+      if (!S.answers[q.id]) S.answers[q.id] = {};
+      const min = +b.dataset.snooze;
+      S.answers[q.id].snoozedAt = Date.now() + min * 60000;
+      S.notified[q.id] = false;
+      toast('یادآوری برای ' + faDigits(min) + ' دقیقهٔ دیگر تنظیم شد', 'ok');
+      $('#tagPopover').classList.remove('open');
+    });
+  });
+
+  /* ==================== Code Generation ==================== */
+  function openCodeModal(title, desc, code) {
+    $('#codeModalTitle').textContent = title;
+    $('#codeModalDesc').textContent = desc;
+    $('#codeModalBody').value = code;
+    $('#codeModal').classList.add('open');
+  }
+  function closeCodeModal() { $('#codeModal').classList.remove('open'); }
+  $('#closeCodeModal').addEventListener('click', closeCodeModal);
+  $('#closeCodeModal2').addEventListener('click', closeCodeModal);
+  $('#codeModal').addEventListener('click', e => { if (e.target.id === 'codeModal') closeCodeModal(); });
+
+  $('#copyCodeBtn').addEventListener('click', async () => {
+    const ta = $('#codeModalBody');
+    ta.select();
+    try {
+      if (navigator.clipboard) await navigator.clipboard.writeText(ta.value);
+      else document.execCommand('copy');
+      toast('کد کپی شد', 'ok');
+    } catch (e) { toast('کپی نشد. دستی انتخاب کن.', 'danger'); }
+  });
+
+  /* Exam code */
+  $('#genExamCodeBtn').addEventListener('click', () => {
+    if (!S.exam || !S.questions.length) { toast('ابتدا سوالات را بارگذاری کن', 'danger'); return; }
+    const payload = {
+      type: 'exam',
+      exam: S.exam,
+      recommended: {
+        timeManagement: S.settings.timeManagement,
+        durationMin: S.settings.durationMin
+      }
+    };
+    const code = 'MP-E-' + b64enc(JSON.stringify(payload));
+    openCodeModal(
+      'کد اشتراک آزمون',
+      'این کد را به دانش‌آموز بده. او در مرحلهٔ بارگذاری، «بارگذاری با کد اشتراک» را می‌زند و این کد را وارد می‌کند. توجه: کد طولانی است؛ اگر کپی نشد، از فایل JSON استفاده کن.',
+      code
+    );
+  });
+
+  /* Import exam code */
+  $('#openExamCode').addEventListener('click', () => {
+    const code = prompt('کد اشتراک آزمون را وارد کنید (با MP-E- شروع می‌شود):');
+    if (!code) return;
+    try {
+      const c = code.trim();
+      if (!c.startsWith('MP-E-')) throw new Error('کد باید با MP-E- شروع شود');
+      const payload = JSON.parse(b64dec(c.slice(5)));
+      if (!payload.exam) throw new Error('ساختار کد ناقص است');
+      loadExam(payload.exam);
+      if (payload.recommended?.timeManagement) {
+        S.settings.timeManagement = payload.recommended.timeManagement;
+        $$('#techOptions .tech-card').forEach(c => c.classList.toggle('selected', c.dataset.tech === payload.recommended.timeManagement));
+      }
+      toast('آزمون با موفقیت بارگذاری شد', 'ok');
+    } catch (e) { toast('کد نامعتبر: ' + e.message, 'danger'); }
+  });
+
+  /* Result code */
+  $('#genResultCodeBtn').addEventListener('click', () => {
+    const result = JSON.parse(localStorage.getItem(LS_RESULT_KEY) || 'null');
+    if (!result) { toast('نتیجه‌ای برای اشتراک وجود ندارد', 'danger'); return; }
+    const code = 'MP-R-' + b64enc(JSON.stringify(result));
+    openCodeModal(
+      'کد نتیجه برای معلم',
+      'این کد را به معلم بده. او در حالت معلم، آن را وارد می‌کند و تحلیل کامل را می‌بیند. توجه: کد طولانی است؛ اگر کپی نشد، فایل JSON را دانلود کن.',
+      code
+    );
+  });
+
+  /* ==================== Teacher Mode ==================== */
+  $('#viewResultBtn').addEventListener('click', () => {
+    const code = $('#resultCodeInput').value.trim();
+    if (!code) { toast('کد نتیجه را وارد کن', 'danger'); return; }
+    try {
+      if (!code.startsWith('MP-R-')) throw new Error('کد باید با MP-R- شروع شود');
+      const result = JSON.parse(b64dec(code.slice(5)));
+      showTeacherResult(result);
+    } catch (e) { toast('کد نامعتبر: ' + e.message, 'danger'); }
+  });
+
+  function showTeacherResult(r) {
+    $('#teacherResultMeta').textContent = (r.title || 'آزمون') + ' · ' + new Date(r.finishedAt).toLocaleString('fa-IR');
+    $('#teacherScore').textContent = faDigits(r.stats.percent) + '٪';
+    $('#teacherDetail').textContent = 'از ' + faDigits(r.stats.total) + ' سوال · ' + faDigits(r.stats.correct) + ' صحیح · ' + faDigits(r.stats.wrong) + ' غلط · ' + faDigits(r.stats.blank) + ' بی‌پاسخ';
+
+    $('#teacherStats').innerHTML = [
+      { n: r.stats.correct, c: 'ok', l: 'صحیح' },
+      { n: r.stats.wrong, c: 'danger', l: 'غلط' },
+      { n: r.stats.blank, c: 'muted', l: 'بی‌پاسخ' },
+      { n: r.stats.percent + '٪', c: 'warn', l: 'درصد' }
+    ].map(s => '<div class="stat-card"><div class="num ' + s.c + '">' + (typeof s.n === 'number' ? faDigits(s.n) : s.n) + '</div><div class="lbl">' + s.l + '</div></div>').join('');
+
+    $('#teacherTags').innerHTML = '<h3><i class="fa-solid fa-tags"></i> برچسب‌ها</h3><div class="tag-bar">' +
+      ['hard','needs-time','skip','guessed'].map(t => {
+        const lbl = ({hard:'🔴 سخت', 'needs-time':'⏳ وقت‌بر', skip:'⛔ نزدن', guessed:'❓ شانسی'})[t];
+        return '<span class="tag-chip">' + lbl + '<strong>' + faDigits(r.stats.tags[t] || 0) + '</strong></span>';
+      }).join('') + '</div>';
+
+    $('#teacherBreakdown').innerHTML = '<h3><i class="fa-solid fa-chart-column"></i> تحلیل مبحثی</h3>' +
+      '<table><thead><tr><th>مبحث</th><th>کل</th><th>صحیح</th><th>غلط</th><th>بی‌پاسخ</th></tr></thead><tbody>' +
+      Object.keys(r.topics || {}).map(tp => {
+        const d = r.topics[tp];
+        return '<tr><td>' + tp + '</td><td>' + faDigits(d.total) + '</td><td class="correct">' + faDigits(d.correct) + '</td><td class="wrong">' + faDigits(d.wrong) + '</td><td class="blank">' + faDigits(d.blank) + '</td></tr>';
+      }).join('') + '</tbody></table>';
+
+    // Save to localStorage so teacher's exam-analysis can use it
+    try { localStorage.setItem(LS_RESULT_KEY, JSON.stringify(r)); } catch (e) {}
+
+    $('#teacherHome').classList.add('hide');
+    $('#teacherResult').classList.remove('hide');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  $('#backToTeacherHome').addEventListener('click', () => {
+    $('#teacherResult').classList.add('hide');
+    $('#teacherHome').classList.remove('hide');
+  });
+
+  /* ==================== Auto-save / Resume ==================== */
+  window.addEventListener('beforeunload', e => {
+    if ($('#step-exam').classList.contains('active')) {
+      e.preventDefault();
+      e.returnValue = '';
+    }
+  });
+
+  /* ==================== Start ==================== */
+  if (S.settings.emotional.enabled) {
+    S.emoNext = Date.now() + 15 * 60 * 1000;
+  }
+
+})();
+</script>
+</body>
+</html>
