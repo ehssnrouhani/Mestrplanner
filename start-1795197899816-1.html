@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>شروع هوشمند | مستر پلنر — کدام ابزار برای من؟</title>
+  <meta name="description" content="با سه سؤال کوتاه در کمتر از ۹۰ ثانیه، بهترین نقطهٔ شروع را بین ابزارهای آموزشی مستر پلنر پیدا کنید؛ بدون ثبت‌نام." />
+  <meta name="author" content="احسان روحانی راوری" />
+  <meta name="theme-color" content="#07080C" />
+
+  <link rel="icon" type="image/jpeg" href="assets/logo/logo.jpg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ehssnrouhani.github.io/Mestrplanner/start.html" />
+  <meta property="og:title" content="شروع هوشمند | مستر پلنر — کدام ابزار برای من؟" />
+  <meta property="og:description" content="سه سؤال، کمتر از ۹۰ ثانیه — کدام ابزار مستر پلنر برای تو؟" />
+  <meta property="og:site_name" content="مستر پلنر" />
+  <meta property="og:locale" content="fa_IR" />
+
+  <link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/start.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "شروع هوشمند — کدام ابزار برای من؟",
+    "url": "https://ehssnrouhani.github.io/Mestrplanner/start.html",
+    "description": "با سه سؤال کوتاه، بهترین نقطهٔ شروع را بین ابزارهای مستر پلنر پیدا کنید.",
+    "inLanguage": "fa-IR",
+    "isPartOf": { "@type": "WebSite", "name": "مستر پلنر", "url": "https://ehssnrouhani.github.io/Mestrplanner/" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "مستر پلنر",
+      "url": "https://ehssnrouhani.github.io/Mestrplanner/",
+      "founder": { "@type": "Person", "name": "احسان روحانی راوری" }
+    }
+  }
+  </script>
+
+  <style>
+    /* ====================================================
+       مستر پلنر — «شروع هوشمند» (start.html)
+       مفهوم: اتاق مطالعهٔ شبانه — همان زبان اُبسیدین و طلایی
+       نقش: روتر ورودی؛ کاربر را در ۳ گام به نقطهٔ شروع درست می‌رساند
+       ==================================================== */
+
+    /* ===== ریست و توکن‌ها (هم‌ریخت با index) ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07080C;
+      --surface: rgba(19, 23, 32, 0.72);
+      --surface-2: #181D27;
+      --primary: #D4AF37;
+      --gold-light: #F3E5AB;
+      --gold-deep: #AA771C;
+      --text: #F5F7FA;
+      --text-soft: #CBD3DE;
+      --muted: #9AA4B2;
+      --line: rgba(212, 175, 55, 0.22);
+      --line-soft: rgba(255, 255, 255, 0.08);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --pill: 999px;
+      --shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
+      --t: 0.3s cubic-bezier(.4, 0, .2, 1);
+      --font-fa: 'Vazirmatn', Tahoma, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-fa);
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(1100px 520px at 50% -160px, rgba(212, 175, 55, 0.10), transparent 65%),
+        radial-gradient(900px 620px at 100% 8%, #12161f 0%, transparent 60%);
+      color: var(--text);
+      line-height: 1.9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: rgba(212, 175, 55, 0.35); color: #fff; }
+    :focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
+    a { color: inherit; }
+    button { font-family: inherit; }
+
+    .skip-link {
+      position: absolute; top: -52px; right: 16px; z-index: 300;
+      background: var(--primary); color: #0B0B0B; font-weight: 800;
+      padding: 10px 18px; border-radius: 0 0 10px 10px; text-decoration: none; transition: top .2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    .container { max-width: 760px; margin: 0 auto; padding: 0 1.25rem; width: 100%; }
+
+    /* ===== نوار بالا ===== */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7, 8, 12, 0.84);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.16);
+    }
+    .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.7rem 0; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-fa { font-weight: 800; font-size: 1.1rem; color: var(--primary); display: block; line-height: 1.35; }
+    .logo-en { font-size: 0.62rem; color: var(--muted); letter-spacing: 0.22em; text-transform: uppercase; display: block; }
+    .topbar-link {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-size: 0.85rem; font-weight: 700; color: var(--muted); text-decoration: none;
+      padding: 0.45rem 0.95rem; border-radius: var(--pill);
+      border: 1px solid var(--line-soft); transition: var(--t); white-space: nowrap;
+    }
+    .topbar-link:hover { color: var(--gold-light); background: rgba(212, 175, 55, 0.08); }
+
+    /* ===== هیروی سبک ===== */
+    .hero-lite { text-align: center; padding: 2.8rem 1rem 1.6rem; }
+    .kicker {
+      font-size: 0.78rem; letter-spacing: 0.24em; color: var(--primary);
+      text-transform: uppercase; margin-bottom: 0.5rem; font-weight: 700;
+    }
+    .hero-lite h1 { font-size: clamp(1.7rem, 4.5vw, 2.3rem); font-weight: 800; line-height: 1.4; margin-bottom: 0.4rem; }
+    .hero-lite .sub { color: var(--muted); font-size: 0.98rem; max-width: 48ch; margin: 0 auto; }
+
+    /* ===== امضا: خط نور طلایی ===== */
+    .goldline {
+      height: 2px; width: min(220px, 60%); margin: 1.2rem auto 0;
+      border-radius: 2px; position: relative; overflow: hidden;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.7), transparent);
+    }
+    .goldline::after {
+      content: ""; position: absolute; top: 0; bottom: 0; width: 40%;
+      background: linear-gradient(90deg, transparent, rgba(243, 229, 171, 0.95), transparent);
+      animation: shine 3.4s ease-in-out infinite;
+    }
+    @keyframes shine { 0% { right: -40%; } 100% { right: 110%; } }
+
+    /* ===== چیپ پیشنهاد قبلی ===== */
+    .lastchip-row { text-align: center; margin-top: 1.4rem; }
+    .lastchip {
+      display: none; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; font-weight: 700; color: var(--gold-light); text-decoration: none;
+      background: rgba(212, 175, 55, 0.07); border: 1px solid var(--line);
+      padding: 0.5rem 1.1rem; border-radius: var(--pill); transition: var(--t);
+    }
+    .lastchip.show { display: inline-flex; }
+    .lastchip:hover { background: rgba(212, 175, 55, 0.14); }
+    .lastchip i { color: var(--primary); }
+
+    /* ===== پیشرفت گام‌ها ===== */
+    .prog { display: flex; align-items: center; gap: 0.6rem; justify-content: center; margin: 2rem 0 1.4rem; }
+    .prog .seg { width: 54px; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, 0.10); transition: var(--t); }
+    .prog .seg.on, .prog .seg.done { background: linear-gradient(90deg, var(--gold-deep), var(--primary)); }
+    .prog .lbl { font-size: 0.78rem; color: var(--muted); font-weight: 700; min-width: 8ch; }
+
+    /* ===== پنل‌ها ===== */
+    main { flex: 1; padding-bottom: 3rem; }
+    .panel { display: none; }
+    .panel.active { display: block; animation: fadeUp 0.35s ease; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+    .q-title {
+      font-size: clamp(1.25rem, 3vw, 1.6rem); font-weight: 800;
+      margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.8rem; line-height: 1.5;
+    }
+    .q-title::before {
+      content: ""; width: 6px; height: 1.4em; border-radius: 3px; flex-shrink: 0;
+      background: linear-gradient(180deg, var(--gold-light), var(--primary));
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+    }
+    .q-hint { color: var(--muted); font-size: 0.86rem; margin-bottom: 1.4rem; }
+
+    /* ===== گزینه‌ها ===== */
+    .opts { display: grid; gap: 0.75rem; }
+    .opt {
+      display: flex; align-items: center; gap: 1rem; width: 100%; text-align: start;
+      background: linear-gradient(160deg, rgba(26, 31, 44, 0.85), rgba(13, 16, 23, 0.94));
+      border: 1px solid var(--line-soft); border-radius: var(--radius);
+      padding: 1rem 1.1rem; cursor: pointer; color: var(--text); transition: var(--t);
+    }
+    .opt:hover {
+      transform: translateY(-2px);
+      border-color: rgba(212, 175, 55, 0.5);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+    }
+    .o-icon {
+      width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0;
+      display: grid; place-items: center; font-size: 1.15rem; color: var(--primary);
+      background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.28);
+    }
+    .opt h3 { font-size: 0.98rem; font-weight: 800; margin-bottom: 0.1rem; }
+    .opt p { font-size: 0.78rem; color: var(--muted); margin: 0; }
+    .opt .go { margin-inline-start: auto; color: var(--muted); font-size: 0.9rem; transition: var(--t); }
+    .opt:hover .go { color: var(--primary); transform: translateX(-4px); }
+
+    .back-step {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      margin-top: 1.2rem; background: none; border: none; cursor: pointer;
+      color: var(--muted); font-size: 0.85rem; font-weight: 700; transition: var(--t);
+    }
+    .back-step:hover { color: var(--gold-light); }
+
+    /* ===== دکمه‌ها ===== */
+    .btn-primary, .btn-secondary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
+      padding: 0.8rem 1.6rem; border-radius: var(--radius-sm);
+      font-size: 0.98rem; font-weight: 700; text-decoration: none; cursor: pointer;
+      transition: var(--t); border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--gold-deep));
+      color: #0B0B0B; box-shadow: 0 6px 18px rgba(212, 175, 55, 0.28);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--gold-light), var(--primary));
+      transform: translateY(-2px); box-shadow: 0 10px 24px rgba(212, 175, 55, 0.4); color: #0B0B0B;
+    }
+    .btn-secondary { background: transparent; color: var(--primary); border-color: rgba(212, 175, 55, 0.5); }
+    .btn-secondary:hover { background: rgba(212, 175, 55, 0.1); transform: translateY(-2px); }
+
+    /* ===== نتیجه ===== */
+    .res {
+      background: linear-gradient(150deg, rgba(212, 175, 55, 0.10), rgba(10, 12, 18, 0.95));
+      border: 1.5px solid rgba(212, 175, 55, 0.55);
+      border-radius: var(--radius); padding: 2.2rem 1.6rem 2rem;
+      text-align: center; position: relative; overflow: hidden; box-shadow: var(--shadow);
+    }
+    .res::before {
+      content: ""; position: absolute; top: 0; right: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+    .res-badge {
+      display: inline-block; padding: 0.3rem 1rem; border-radius: var(--pill);
+      background: rgba(212, 175, 55, 0.14); border: 1px solid var(--line);
+      color: var(--gold-light); font-weight: 800; font-size: 0.78rem; letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+    .res-icon {
+      width: 68px; height: 68px; border-radius: 16px; margin: 0 auto 1rem;
+      display: grid; place-items: center; font-size: 1.7rem; color: var(--primary);
+      background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+    .res h2 { font-size: clamp(1.3rem, 3vw, 1.6rem); font-weight: 800; margin-bottom: 0.4rem; }
+    .res .desc { color: var(--text-soft); font-size: 0.94rem; max-width: 46ch; margin: 0 auto; }
+    .res .why {
+      font-size: 0.85rem; color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.08); border: 1px dashed rgba(212, 175, 55, 0.35);
+      border-radius: var(--radius-sm); padding: 0.65rem 1rem; margin: 1.2rem auto 0; max-width: 52ch;
+    }
+    .res .btn-primary { margin-top: 1.5rem; padding: 0.95rem 2rem; font-size: 1.02rem; }
+
+    .alts-title { margin-top: 1.7rem; font-size: 0.8rem; color: var(--muted); font-weight: 700; }
+    .alts { display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center; margin-top: 0.7rem; }
+    .alt {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.5rem 0.95rem; border-radius: var(--pill);
+      border: 1px solid rgba(212, 175, 55, 0.35); color: var(--gold-light);
+      font-size: 0.83rem; font-weight: 700; text-decoration: none;
+      background: rgba(212, 175, 55, 0.06); transition: var(--t);
+    }
+    .alt:hover { background: rgba(212, 175, 55, 0.14); transform: translateY(-2px); }
+    .alt i { color: var(--primary); font-size: 0.8rem; }
+
+    .res-actions { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-top: 1.8rem; }
+    .save-note {
+      margin-top: 1.3rem; font-size: 0.76rem; color: var(--muted);
+      display: inline-flex; align-items: center; gap: 0.4rem;
+    }
+    .save-note i { color: var(--primary); }
+
+    /* ===== یادداشت حریم خصوصی و noscript ===== */
+    .privacy {
+      margin-top: 1.6rem; text-align: center; font-size: 0.76rem; color: var(--muted);
+      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+    }
+    .privacy i { color: var(--primary); }
+    .noscript-box {
+      background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 1.4rem; margin-top: 2rem; text-align: center; font-size: 0.9rem; color: var(--text-soft);
+    }
+    .noscript-box a { color: var(--gold-light); font-weight: 700; }
+
+    /* ===== فوتر ===== */
+    .foot {
+      background: #050608; border-top: 1px solid rgba(212, 175, 55, 0.16);
+      padding: 1.4rem 0; text-align: center; font-size: 0.8rem; color: var(--muted);
+    }
+    .foot a { color: var(--gold-light); text-decoration: none; font-weight: 700; }
+    .foot a:hover { color: var(--primary); }
+
+    /* ===== ریسپانسیو ===== */
+    @media (max-width: 520px) {
+      .hero-lite { padding: 2rem 0.8rem 1rem; }
+      .opt { padding: 0.85rem 0.9rem; gap: 0.75rem; }
+      .o-icon { width: 40px; height: 40px; font-size: 1rem; }
+      .res { padding: 1.8rem 1.1rem 1.6rem; }
+      .prog .seg { width: 40px; }
+    }
+
+    /* ===== کاهش حرکت ===== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+      .goldline::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<a class="skip-link" href="#quiz">پرش به سؤال‌ها</a>
+
+<!-- ====== نوار بالا ====== -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a href="index.html" class="logo" aria-label="مستر پلنر — صفحهٔ اصلی">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="42" height="42" role="img" aria-label="لوگوی مستر پلنر">
+        <title>مستر پلنر | برنامه‌ریزی و مطالعه</title>
+        <defs>
+          <linearGradient id="logoGoldS" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f5b041" />
+            <stop offset="100%" stop-color="#e8971f" />
+          </linearGradient>
+        </defs>
+        <path d="M 15 75 Q 35 65 50 72 Q 65 65 85 75 L 85 88 Q 65 78 50 85 Q 35 78 15 88 Z" fill="url(#logoGoldS)" opacity="0.9" />
+        <path d="M 22 68 L 22 28 L 50 52 L 78 28 L 78 68" fill="none" stroke="url(#logoGoldS)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M 82 12 L 84 20 L 92 22 L 84 24 L 82 32 L 80 24 L 72 22 L 80 20 Z" fill="#f8fafc" />
+      </svg>
+      <span>
+        <span class="logo-fa">مستر پلنر</span>
+        <span class="logo-en">Mesterplanner</span>
+      </span>
+    </a>
+    <a href="index.html" class="topbar-link"><i class="fa-solid fa-arrow-right"></i> بازگشت به صفحهٔ اصلی</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- ====== هیروی سبک ====== -->
+  <section class="hero-lite">
+    <div class="kicker">شروع هوشمند</div>
+    <h1>کدام ابزار، برای تو؟</h1>
+    <p class="sub">سه سؤال کوتاه، کمتر از ۹۰ ثانیه، بدون ثبت‌نام. نقطهٔ شروع درست، نصفِ راه است.</p>
+    <div class="goldline" aria-hidden="true"></div>
+    <div class="lastchip-row">
+      <a href="#" class="lastchip" id="lastChip">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span id="lastChipText">پیشنهاد قبلی</span>
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- ====== مسیر ۳ گامی ====== -->
+  <section id="quiz">
+    <div class="prog">
+      <span class="lbl" id="progLbl" aria-live="polite">گام ۱ از ۳</span>
+      <span class="seg on" id="seg1"></span>
+      <span class="seg" id="seg2"></span>
+      <span class="seg" id="seg3"></span>
+    </div>
+
+    <!-- گام ۱: پایه -->
+    <div class="panel active" id="stepGrade">
+      <h2 class="q-title">کجای مسیر ایستادی؟</h2>
+      <p class="q-hint">مسیر تو با پایه‌ات فرق می‌کند؛ این را بدانم پیشنهاد دقیق‌تر می‌شود.</p>
+      <div class="opts" id="optsGrade"></div>
+    </div>
+
+    <!-- گام ۲: نیاز -->
+    <div class="panel" id="stepNeed">
+      <h2 class="q-title">الان بزرگ‌ترین نیازت چیست؟</h2>
+      <p class="q-hint">یکی را انتخاب کن؛ همان که امروز بیشتر از همه ذهنت را مشغول کرده.</p>
+      <div class="opts" id="optsNeed"></div>
+      <button type="button" class="back-step" data-back="1"><i class="fa-solid fa-arrow-right"></i> گام قبل</button>
+    </div>
+
+    <!-- گام ۳: سبک شروع -->
+    <div class="panel" id="stepStyle">
+      <h2 class="q-title">از کدام مسیر شروع کنی راحت‌تری؟</h2>
+      <p class="q-hint">سه راه برای رسیدن به یک مقصد؛ هر کس با یکی جورتر است.</p>
+      <div class="opts" id="optsStyle"></div>
+      <button type="button" class="back-step" data-back="2"><i class="fa-solid fa-arrow-right"></i> گام قبل</button>
+    </div>
+
+    <!-- نتیجه -->
+    <div class="panel" id="stepResult">
+      <div class="res">
+        <span class="res-badge">پیشنهاد ما</span>
+        <div class="res-icon"><i class="fa-solid fa-compass" id="resIcon"></i></div>
+        <h2 id="resName">—</h2>
+        <p class="desc" id="resDesc">—</p>
+        <p class="why" id="resWhy">—</p>
+        <a href="#" class="btn-primary" id="resCta">
+          <span id="resCtaText">ورود به ابزار</span>
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <p class="alts-title">یا از این مسیرها شروع کن</p>
+        <div class="alts" id="resAlts"></div>
+        <div class="res-actions">
+          <button type="button" class="btn-secondary" id="resRestart">
+            <i class="fa-solid fa-rotate-left"></i> از اول
+          </button>
+          <a href="index.html" class="btn-secondary">
+            <i class="fa-solid fa-table-cells"></i> دیدن همهٔ ابزارها
+          </a>
+        </div>
+        <span class="save-note"><i class="fa-solid fa-lock"></i> انتخابت فقط در همین مرورگر ذخیره می‌شود؛ هیچ داده‌ای جایی نمی‌رود.</span>
+      </div>
+    </div>
+  </section>
+
+  <p class="privacy"><i class="fa-solid fa-shield-halved"></i> این صفحه بدون سرور کار می‌کند؛ سریع، محلی و بدون ثبت‌نام.</p>
+
+  <noscript>
+    <div class="noscript-box">
+      برای استفاده از «شروع هوشمند» جاوااسکریپت را فعال کن؛ یا مستقیم از این‌ها شروع کن:
+      <a href="planner.html">برنامه‌ریز چندبعدی</a> ·
+      <a href="practice.html">تمرین‌ساز آنلاین</a> ·
+      <a href="error-analyzer.html">تحلیل‌گر الگوی خطا</a> ·
+      <a href="index.html">همهٔ ابزارها</a>
+    </div>
+  </noscript>
+</main>
+
+<!-- ====== فوتر ====== -->
+<footer class="foot">
+  <div class="container">
+    © ۱۴۰۴ مستر پلنر — <a href="index.html">همهٔ ابزارها و منابع</a> · طراحی و مدیریت: احسان روحانی راوری
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ====================================================
+     قرارداد دادهٔ مشترک مستر پلنر (MP)
+     - mestr.profile : {grade, need, style, result, ts}  ← پروفایل ورودی از start.html
+     - mestr.events  : [{t, tool, event, data}] (حداکثر ۵۰۰ رویداد) ← گزارش مشترک
+     ابزارهای دیگر می‌توانند با window.MP.log(tool, event, data) در همین گزارش بنویسند.
+     ==================================================== */
+  var EVKEY = 'mestr.events';
+  window.MP = {
+    log: function (tool, event, data) {
+      try {
+        var arr = JSON.parse(localStorage.getItem(EVKEY) || '[]');
+        arr.push({ t: new Date().toISOString(), tool: tool, event: event, data: data || null });
+        while (arr.length > 500) arr.shift();
+        localStorage.setItem(EVKEY, JSON.stringify(arr));
+      } catch (e) { /* حالت خصوصی مرورگر: بی‌صدا رد شو */ }
+    }
+  };
+
+  /* ===== دادهٔ گام‌ها ===== */
+  var GRADES = [
+    { key: '78',   icon: 'fa-user-graduate',   label: 'پایهٔ هفتم یا هشتم', hint: 'متوسطهٔ اول' },
+    { key: '9',    icon: 'fa-compass',         label: 'پایهٔ نهم',            hint: 'سال هدایت تحصیلی' },
+    { key: '1011', icon: 'fa-ruler-combined',  label: 'دهم یا یازدهم',        hint: 'متوسطهٔ دوم' },
+    { key: '12',   icon: 'fa-bullseye',        label: 'پایهٔ دوازدهم',        hint: 'سال کنکور' },
+    { key: 'pt',   icon: 'fa-chalkboard-user', label: 'معلم یا والدین',       hint: 'پیگیری و مشاهدات' }
+  ];
+
+  var NEEDS = [
+    { key: 'plan',   icon: 'fa-calendar-check',  label: 'می‌خواهم برنامهٔ درسی بچینم',            hint: 'نقشهٔ هفتگی و اولویت مباحث' },
+    { key: 'learn',  icon: 'fa-pen-to-square',   label: 'می‌خواهم بخوانم و تمرین کنم',            hint: 'تمرین، محاسبه و تسلط' },
+    { key: 'exam',   icon: 'fa-chart-pie',       label: 'آزمون داده‌ام و باید تحلیلش کنم',        hint: 'الگوی خطا و مدیریت زمان' },
+    { key: 'future', icon: 'fa-route',           label: 'برای انتخاب رشته و آینده‌ام گیر کرده‌ام', hint: 'مسیر تحصیلی' },
+    { key: 'start',  icon: 'fa-bolt',            label: 'می‌خواهم شروع کنم ولی شروع نمی‌شود',     hint: 'تمرکز و انگیزه' },
+    { key: 'memory', icon: 'fa-brain',           label: 'می‌خوانم ولی یادم نمی‌ماند',             hint: 'حافظه و تثبیت' }
+  ];
+
+  var STYLES = [
+    { key: 'tool', icon: 'fa-screwdriver-wrench', label: 'یک ابزار تعاملی امتحان کنم', hint: 'مستقیم عمل می‌کنم' },
+    { key: 'test', icon: 'fa-clipboard-question', label: 'اول خودم را بسنجم',          hint: 'آزمون کوتاه آنلاین' },
+    { key: 'read', icon: 'fa-book-open-reader',   label: 'اول یک متن کوتاه بخوانم',    hint: 'بعد عمل می‌کنم' }
+  ];
+
+  /* ===== کتابخانهٔ مقصدها ===== */
+  var TOOLS = {
+    planner:   { href: 'planner.html',                  icon: 'fa-table-cells',            name: 'برنامه‌ریز چندبعدی',        desc: 'افق‌های زمانی و اولویت‌بندی مباحث؛ نقشهٔ هفتگی واقع‌بینانه.', kind: 'tool' },
+    daily:     { href: 'daily-notebook.html',           icon: 'fa-book-open',              name: 'دفترچهٔ روزانه',            desc: 'کارهای امروز، پیشرفت و یادداشت — قلب حلقهٔ روزانه.', kind: 'tool' },
+    practice:  { href: 'practice.html',                 icon: 'fa-calculator',             name: 'تمرین‌ساز آنلاین',          desc: 'محاسبات ذهنی؛ روزی چند دقیقه، دقت و سرعت.', kind: 'tool' },
+    placevalue:{ href: 'place-value.html',              icon: 'fa-calculator',             name: 'ارزش مکانی و چهار عمل',     desc: 'پایهٔ محاسبات صحیح و اعشاری، بدون ماشین‌حساب.', kind: 'tool' },
+    calc:      { href: 'calculator.html',               icon: 'fa-square-root-variable',   name: 'محاسبه‌گر فیزیک و شیمی',    desc: 'حل زنجیره‌ای فرمول‌ها، قدم‌به‌قدم.', kind: 'tool' },
+    mastery:   { href: 'assets/mastery/mastery.html',   icon: 'fa-dumbbell',               name: 'ابزار تمرین',               desc: 'تمرین هدفمند روی نقطهٔ ضعف.', kind: 'tool' },
+    error:     { href: 'error-analyzer.html',           icon: 'fa-magnifying-glass-chart', name: 'تحلیل‌گر الگوی خطا',        desc: 'بعد از آزمون بفهم چرا غلط زدی؛ نوع خطا را ثبت کن.', kind: 'tool' },
+    examan:    { href: 'exam-analysis.html',            icon: 'fa-chart-pie',              name: 'میزکار تحلیل آزمون',        desc: 'نوع خطا، مدیریت زمان و کالیبراسیون اطمینان.', kind: 'tool' },
+    guidance9: { href: 'guidance-9.html',               icon: 'fa-route',                  name: 'هدایت تحصیلی نهم',          desc: 'مصلحت، ماهیت درس و سبک یادگیری — مخصوص نهمی‌ها.', kind: 'tool' },
+    quadrants: { href: 'thinking-quadrants.html',       icon: 'fa-table-cells-large',      name: 'چهار ربع تفکر',             desc: 'ترجیح‌های فکری و راهنمای مطالعهٔ اختصاصی.', kind: 'tool' },
+    major:     { href: 'major-selection.html',          icon: 'fa-compass',                name: 'مهندسی انتخاب رشته',        desc: 'خودشناسی، محدودیت‌ها و سبد انتخاب.', kind: 'tool' },
+    atlas:     { href: 'assets/atlas/atlas.html',       icon: 'fa-map',                    name: 'اطلس مشاغل',                desc: 'نقشهٔ مشاغل برای یک تصمیم آگاهانه.', kind: 'tool' },
+    actions:   { href: 'action-cards.html',             icon: 'fa-list-check',             name: 'کارت‌های اقدام',            desc: 'اقدام‌های کوچک برای وقتی که شروع نمی‌شود.', kind: 'tool' },
+    mission:   { href: 'mission-today.html',            icon: 'fa-bolt',                   name: 'مأموریت امروز',            desc: '۷ دقیقه بازیابی فعال روی چیزی که در حال فراموشی است.', kind: 'tool' },
+    concept:   { href: 'concept-maker.html',            icon: 'fa-diagram-project',        name: 'مفهوم‌ساز',                 desc: 'نقشهٔ مفهومی بساز تا مفهوم در ذهنت جای بیفتد.', kind: 'tool' },
+    observ:    { href: 'observation-log.html',          icon: 'fa-clipboard-user',         name: 'دفترچهٔ مشاهدات',           desc: 'ثبت جلسه و گزارش رشد — برای معلمان و والدین.', kind: 'tool' }
+  };
+
+  var TESTS = {
+    plan:   { href: 'assets/files/test-strategy-selection.html',  icon: 'fa-chess',       name: 'آزمون راهبرد گزینی',     desc: 'چهار ستون سیستم مطالعه‌ات را ارزیابی کن.', kind: 'test' },
+    learn:  { href: 'assets/files/test-calculation-skills.html',  icon: 'fa-calculator',  name: 'آزمون مهارت محاسباتی',   desc: 'مشکل از مفهوم است، دقت، راهبرد یا استرس؟', kind: 'test' },
+    exam:   { href: 'assets/files/test-spielberger.html',         icon: 'fa-heart-pulse', name: 'اضطراب امتحان (TAI)',    desc: '۲۰ سؤال؛ سطح اضطراب و راهکارهای علمی.', kind: 'test' },
+    future: { href: 'assets/files/test-holland.html',             icon: 'fa-briefcase',   name: 'آزمون هالند (RIASEC)',   desc: 'کدهای شغلی تو و بهترین رشته‌ها برایت.', kind: 'test' },
+    start:  { href: 'assets/files/test-emotional.html',           icon: 'fa-heart-pulse', name: 'سنجش عاطفی آمادگی',      desc: 'سطح استرس تحصیلی و راهکارهای آن.', kind: 'test' },
+    memory: { href: 'assets/files/test-memorization-skills.html', icon: 'fa-book',        name: 'آزمون مهارت حفظی',       desc: 'چرا یادم نمی‌ماند؟ عمق پردازش یا بازیابی؟', kind: 'test' }
+  };
+
+  var READS = {
+    plan:   { href: 'assets/files/planning.html',                   icon: 'fa-calendar-check',    name: 'مقالهٔ برنامه‌ریزی مطالعه',  desc: 'از نقشهٔ راه تا اجرای روزانه؛ سه لایهٔ برنامه‌ریزی.', kind: 'read' },
+    learn:  { href: 'assets/files/study-methods.html',              icon: 'fa-book-open-reader',  name: 'روش مطالعهٔ درس‌به‌درس',     desc: 'راهبرد علمی برای هر درس، از ریاضی تا زیست.', kind: 'read' },
+    exam:   { href: 'assets/files/exam-review.html',                icon: 'fa-clipboard-check',   name: 'بررسی و تحلیل آزمون',        desc: 'هر آزمون را به نقشهٔ پیشرفت تبدیل کن.', kind: 'read' },
+    future: { href: 'assets/files/informed-hedayat-mafhum.html',    icon: 'fa-compass',           name: 'هدایت تحصیلی چیست؟',         desc: 'چهار عامل بنیادین و فرایند عملی تصمیم.', kind: 'read' },
+    start:  { href: 'assets/files/informed-engizeh-tahavol.html',   icon: 'fa-fire-flame-curved', name: 'هنوز دیر نشده',              desc: 'علم قدم‌های کوچک روزانه و شکست رو به جلو.', kind: 'read' },
+    memory: { href: 'assets/files/memory.html',                     icon: 'fa-brain',             name: 'حافظه و تثبیت اطلاعات',      desc: 'تکرار فاصله‌دار، بازیابی فعال، جعبهٔ لایتنر.', kind: 'read' }
+  };
+
+  /* ===== ماتریس پیشنهاد اصلی (نیاز × پایه) ===== */
+  var PRIMARY = {
+    plan:   function () { return 'planner'; },
+    learn:  function (g) { if (g === '78' || g === '9') return 'placevalue'; if (g === 'pt') return 'mastery'; return 'practice'; },
+    exam:   function () { return 'error'; },
+    future: function (g) { if (g === '9') return 'guidance9'; if (g === '78') return 'quadrants'; if (g === 'pt') return 'atlas'; return 'major'; },
+    start:  function () { return 'actions'; },
+    memory: function () { return 'mission'; }
+  };
+
+  var GRADE_LABEL = { '78': 'پایهٔ هفتم/هشتم', '9': 'پایهٔ نهم', '1011': 'دهم/یازدهم', '12': 'دوازدهم', 'pt': 'معلمان و والدین' };
+  var NEED_PHRASE = {
+    plan: 'می‌خواهد برنامهٔ درسی بچیند', learn: 'می‌خواهد بخواند و تمرین کند', exam: 'تازه آزمون داده',
+    future: 'سر مسیر آینده‌اش گیر کرده', start: 'می‌خواهد شروع کند ولی شروع نمی‌شود', memory: 'می‌خواند ولی یادش نمی‌ماند'
+  };
+  var CTA_LABEL = { tool: 'ورود به ابزار', test: 'شروع آزمون', read: 'مطالعهٔ راهنما' };
+
+  /* ===== وضعیت ===== */
+  var state = { grade: null, need: null, style: null };
+
+  /* ===== عناصر ===== */
+  var panels = {
+    1: document.getElementById('stepGrade'),
+    2: document.getElementById('stepNeed'),
+    3: document.getElementById('stepStyle'),
+    4: document.getElementById('stepResult')
+  };
+  var segs = [document.getElementById('seg1'), document.getElementById('seg2'), document.getElementById('seg3')];
+  var progLbl = document.getElementById('progLbl');
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function optHTML(item, group) {
+    return '<button type="button" class="opt" data-group="' + group + '" data-value="' + esc(item.key) + '">' +
+      '<span class="o-icon"><i class="fa-solid ' + esc(item.icon) + '"></i></span>' +
+      '<span><h3>' + esc(item.label) + '</h3><p>' + esc(item.hint) + '</p></span>' +
+      '<span class="go"><i class="fa-solid fa-arrow-left"></i></span>' +
+    '</button>';
+  }
+
+  document.getElementById('optsGrade').innerHTML = GRADES.map(function (g) { return optHTML(g, 'grade'); }).join('');
+  document.getElementById('optsNeed').innerHTML  = NEEDS.map(function (n) { return optHTML(n, 'need'); }).join('');
+  document.getElementById('optsStyle').innerHTML = STYLES.map(function (s) { return optHTML(s, 'style'); }).join('');
+
+  function showStep(n) {
+    Object.keys(panels).forEach(function (k) {
+      panels[k].classList.toggle('active', Number(k) === n);
+    });
+    segs.forEach(function (s, i) {
+      s.classList.toggle('done', i + 1 < n && n <= 4);
+      s.classList.toggle('on', n <= 3 ? i + 1 === n : false);
+    });
+    progLbl.textContent = n <= 3 ? 'گام ' + ['۱', '۲', '۳'][n - 1] + ' از ۳' : 'نتیجه';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* کلیک گزینه‌ها */
+  document.getElementById('quiz').addEventListener('click', function (e) {
+    var btn = e.target.closest('.opt');
+    if (btn) {
+      var group = btn.getAttribute('data-group');
+      state[group] = btn.getAttribute('data-value');
+      showStep(group === 'grade' ? 2 : group === 'need' ? 3 : 4);
+      if (group === 'style') renderResult();
+      return;
+    }
+    var back = e.target.closest('[data-back]');
+    if (back) showStep(Number(back.getAttribute('data-back')));
+  });
+
+  /* ===== محاسبهٔ نتیجه ===== */
+  function compute() {
+    var toolKey = PRIMARY[state.need](state.grade);
+    var candidates = [TOOLS[toolKey], TESTS[state.need], READS[state.need]];
+    var prim;
+    if (state.style === 'test') prim = TESTS[state.need];
+    else if (state.style === 'read') prim = READS[state.need];
+    else prim = TOOLS[toolKey];
+    var alts = candidates.filter(function (c) { return c && c.href !== prim.href; }).slice(0, 2);
+    return { prim: prim, alts: alts };
+  }
+
+  function whyText(prim) {
+    var g = GRADE_LABEL[state.grade] || '';
+    if (prim.kind === 'test') return 'چون خواستی اول خودت را بسنجی: این آزمون کوتاه، تصویر دقیق‌تری از نقطهٔ شروع می‌دهد.';
+    if (prim.kind === 'read') return 'چون خواستی اول بخوانی: این راهنما قبل از عمل، ذهنت را آماده می‌کند.';
+    return 'برای ' + g + ' که ' + NEED_PHRASE[state.need] + '، معمولاً مستقیم‌ترین راه همین است.';
+  }
+
+  function renderResult() {
+    var r = compute();
+    document.getElementById('resIcon').className = 'fa-solid ' + r.prim.icon;
+    document.getElementById('resName').textContent = r.prim.name;
+    document.getElementById('resDesc').textContent = r.prim.desc;
+    document.getElementById('resWhy').textContent = whyText(r.prim);
+    var cta = document.getElementById('resCta');
+    cta.href = r.prim.href;
+    document.getElementById('resCtaText').textContent = CTA_LABEL[r.prim.kind] || 'شروع';
+    document.getElementById('resAlts').innerHTML = r.alts.map(function (a) {
+      return '<a class="alt" href="' + esc(a.href) + '"><i class="fa-solid ' + esc(a.icon) + '"></i>' + esc(a.name) + '</a>';
+    }).join('');
+
+    /* ذخیرهٔ پروفایل + ثبت رویداد (قرارداد MP) */
+    try {
+      localStorage.setItem('mestr.profile', JSON.stringify({
+        grade: state.grade, need: state.need, style: state.style, result: r.prim.href, ts: Date.now()
+      }));
+    } catch (e) { }
+    MP.log('start', 'result', { grade: state.grade, need: state.need, style: state.style, tool: r.prim.href });
+  }
+
+  /* شروع دوباره */
+  document.getElementById('resRestart').addEventListener('click', function () {
+    state = { grade: null, need: null, style: null };
+    showStep(1);
+  });
+
+  /* ===== چیپ «پیشنهاد قبلی» ===== */
+  (function initLastChip() {
+    try {
+      var p = JSON.parse(localStorage.getItem('mestr.profile') || 'null');
+      if (!p || !p.result) return;
+      var all = {};
+      [TOOLS, TESTS, READS].forEach(function (set) {
+        Object.keys(set).forEach(function (k) { all[set[k].href] = set[k]; });
+      });
+      var hit = all[p.result];
+      if (!hit) return;
+      var chip = document.getElementById('lastChip');
+      chip.href = hit.href;
+      document.getElementById('lastChipText').textContent = 'پیشنهاد قبلی برایت: ' + hit.name;
+      chip.classList.add('show');
+    } catch (e) { }
+  })();
+
+  /* ===== ثبت ورود ===== */
+  MP.log('start', 'open', null);
+})();
+</script>
+
+</body>
+</html>
