@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>کتابخانهٔ ابزار زبان انگلیسی | مستر پلنر</title>
+  <meta name="description" content="میزکار درک مطلب، حدس واژگان، ترکیب واژگانی و دستور انگلیسی — با معماری کتابخانه‌ای و رویکرد L1 Trap." />
+  <meta name="theme-color" content="#07080C" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    /* ===== ریست و توکن‌ها ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07080C;
+      --surface: rgba(19, 23, 32, 0.72);
+      --surface-solid: #12151D;
+      --surface-2: #181D27;
+      --primary: #D4AF37;
+      --gold-light: #F3E5AB;
+      --gold-deep: #AA771C;
+      --text: #F5F7FA;
+      --text-soft: #CBD3DE;
+      --muted: #9AA4B2;
+      --line: rgba(212, 175, 55, 0.22);
+      --line-soft: rgba(255, 255, 255, 0.08);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --pill: 999px;
+      --shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
+      --t: 0.3s cubic-bezier(.4, 0, .2, 1);
+
+      /* اکسنت انگلیسی — بنفش */
+      --en: #8B5CF6;
+      --en-light: #A78BFA;
+      --en-deep: #6D28D9;
+      --en-soft: rgba(139, 92, 246, 0.14);
+      --en-border: rgba(167, 139, 250, 0.28);
+
+      --c-ok: #34D399;
+      --c-err: #F87171;
+      --c-info: #60A5FA;
+      --c-warn: #FBBF24;
+
+      --font-fa: 'Vazirmatn', Tahoma, sans-serif;
+      --font-en: 'Outfit', sans-serif;
+      --font-code: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-fa);
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(1100px 520px at 50% -160px, rgba(139, 92, 246, 0.10), transparent 65%),
+        radial-gradient(900px 620px at 100% 8%, #12161f 0%, transparent 60%);
+      color: var(--text);
+      line-height: 1.9;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: rgba(139, 92, 246, 0.35); color: #fff; }
+    :focus-visible { outline: 2px solid var(--en); outline-offset: 3px; border-radius: 4px; }
+
+    .en { direction: ltr; unicode-bidi: isolate; font-family: var(--font-en); }
+    code, pre { direction: ltr; unicode-bidi: isolate; }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 1.25rem; width: 100%; }
+
+    /* ===== هدر ===== */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7, 8, 12, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--en-border);
+    }
+    .header-inner { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-fa { font-weight: 800; font-size: 1.15rem; color: var(--primary); display: block; line-height: 1.35; }
+    .logo-en { font-family: var(--font-en); font-size: 0.64rem; color: var(--muted); letter-spacing: 0.22em; text-transform: uppercase; display: block; }
+    .back-link {
+      margin-inline-start: auto;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 1.1rem; border-radius: var(--pill);
+      font-size: 0.86rem; font-weight: 700; color: var(--en-light);
+      text-decoration: none; border: 1px solid var(--en-border);
+      background: var(--en-soft);
+      transition: var(--t);
+    }
+    .back-link:hover { background: rgba(139, 92, 246, 0.22); transform: translateY(-1px); }
+
+    /* ===== هیرو ===== */
+    .hero {
+      position: relative; text-align: center;
+      padding: 2.8rem 1.5rem 2.2rem; margin: 1.5rem 0 1.6rem;
+      background: linear-gradient(150deg, rgba(139, 92, 246, 0.12), rgba(24, 28, 38, 0.6) 55%, rgba(12, 14, 20, 0.88));
+      border: 1px solid var(--en-border); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden;
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(560px 260px at 50% -60px, rgba(139, 92, 246, 0.16), transparent 70%);
+    }
+    .hero > * { position: relative; z-index: 2; }
+    .hero h1 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 800; line-height: 1.4; margin-bottom: 0.4rem; }
+    .hero p { color: var(--muted); font-size: 0.98rem; max-width: 60ch; margin: 0 auto; }
+    .hero .philosophy {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-top: 1rem; padding: 0.4rem 1rem;
+      background: var(--en-soft); border: 1px solid var(--en-border);
+      border-radius: var(--pill); font-size: 0.8rem; color: var(--en-light);
+    }
+
+    /* ===== تب‌بار ===== */
+    .tabs {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 1.6rem;
+      background: var(--surface-2); border: 1px solid var(--line-soft);
+      border-radius: var(--radius); padding: 0.5rem;
+    }
+    .tab {
+      flex: 1 1 120px; min-width: 92px;
+      display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+      padding: 0.7rem 0.4rem; border-radius: var(--radius-sm);
+      background: transparent; border: 1px solid transparent;
+      color: var(--muted); font-family: inherit; font-size: 0.8rem; font-weight: 700;
+      cursor: pointer; transition: var(--t);
+    }
+    .tab i { font-size: 1rem; }
+    .tab:hover { color: var(--en-light); background: var(--en-soft); }
+    .tab.active {
+      color: #fff;
+      background: linear-gradient(135deg, var(--en), var(--en-deep));
+      border-color: var(--en); box-shadow: 0 4px 14px rgba(139, 92, 246, 0.3);
+    }
+
+    /* ===== پنل ===== */
+    .panel { display: none; animation: fadeIn 0.4s ease; }
+    .panel.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    .panel-head { margin-bottom: 1.2rem; }
+    .panel-head h2 {
+      font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem;
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .panel-head h2 i {
+      width: 40px; height: 40px; border-radius: 12px;
+      display: inline-grid; place-items: center; font-size: 1.1rem;
+      background: var(--en-soft); color: var(--en-light);
+    }
+    .panel-head p { color: var(--muted); font-size: 0.9rem; }
+
+    .workbench {
+      background: linear-gradient(160deg, rgba(26, 31, 44, 0.85), rgba(13, 16, 23, 0.94));
+      border: 1px solid var(--line-soft); border-radius: var(--radius);
+      padding: 1.6rem; box-shadow: var(--shadow);
+    }
+
+    /* ===== فرم ===== */
+    .field-group { margin-bottom: 1rem; }
+    .field-group label {
+      display: block; font-size: 0.85rem; font-weight: 700;
+      color: var(--en-light); margin-bottom: 0.4rem;
+    }
+    .field-group .hint { font-size: 0.75rem; color: var(--muted); font-weight: 400; margin-top: 0.25rem; }
+    .field {
+      width: 100%; padding: 0.85rem 1rem;
+      background: rgba(11, 13, 19, 0.7); border: 1px solid var(--line-soft);
+      border-radius: var(--radius-sm); color: var(--text);
+      font-family: inherit; font-size: 0.95rem;
+      transition: var(--t); resize: vertical;
+    }
+    .field:focus { outline: none; border-color: var(--en); box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15); }
+    textarea.field { min-height: 100px; line-height: 1.8; font-family: var(--font-en); direction: ltr; }
+    select.field { cursor: pointer; }
+
+    .actions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.6rem; }
+    .btn-primary, .btn-secondary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.7rem 1.4rem; border-radius: var(--radius-sm);
+      font-family: inherit; font-size: 0.92rem; font-weight: 700;
+      cursor: pointer; transition: var(--t); border: 1px solid transparent;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--en), var(--en-deep));
+      color: #fff; box-shadow: 0 4px 14px rgba(139, 92, 246, 0.3);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 7px 18px rgba(139, 92, 246, 0.45); }
+    .btn-secondary {
+      background: transparent; color: var(--en-light);
+      border-color: var(--en-border);
+    }
+    .btn-secondary:hover { background: var(--en-soft); }
+
+    /* ===== خروجی ===== */
+    .output {
+      margin-top: 1.4rem; padding: 1.3rem;
+      background: rgba(11, 13, 19, 0.5);
+      border: 1px solid var(--line-soft); border-radius: var(--radius-sm);
+      font-size: 0.92rem; line-height: 1.95;
+    }
+    .output:empty { display: none; }
+    .output h3 {
+      font-size: 1rem; color: var(--en-light); font-weight: 800;
+      margin: 0 0 0.7rem; padding-bottom: 0.5rem;
+      border-bottom: 1px dashed var(--line-soft);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .output h4 {
+      font-size: 0.9rem; color: var(--gold-light); font-weight: 700;
+      margin: 1rem 0 0.5rem;
+    }
+    .output ul { padding-right: 1.4rem; margin: 0.4rem 0; }
+    .output li { margin: 0.2rem 0; color: var(--text-soft); }
+    .output p { margin: 0.5rem 0; color: var(--text-soft); }
+    .output strong { color: var(--text); }
+
+    .out-table {
+      width: 100%; border-collapse: collapse; margin: 0.6rem 0; font-size: 0.86rem;
+    }
+    .out-table th, .out-table td {
+      padding: 0.55rem 0.7rem; text-align: right;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .out-table th { color: var(--en-light); font-weight: 700; background: var(--en-soft); }
+
+    .result-card {
+      background: var(--en-soft);
+      border: 1px solid var(--line-soft); border-right: 3px solid var(--en);
+      border-radius: var(--radius-sm); padding: 0.9rem 1.1rem;
+      margin: 0.7rem 0; font-size: 0.9rem;
+    }
+    .result-card strong { color: var(--en-light); }
+    .result-card.error { border-right-color: var(--c-err); background: rgba(248, 113, 113, 0.06); }
+    .result-card.ok { border-right-color: var(--c-ok); background: rgba(52, 211, 153, 0.06); }
+    .result-card.warn { border-right-color: var(--c-warn); background: rgba(251, 191, 36, 0.06); }
+
+    .badges { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.25rem 0.7rem; border-radius: var(--pill);
+      font-size: 0.75rem; font-weight: 700;
+      background: var(--en-soft); color: var(--en-light);
+      border: 1px solid var(--en-border);
+    }
+    .badge.ok { background: rgba(52, 211, 153, 0.12); color: var(--c-ok); border-color: rgba(52, 211, 153, 0.3); }
+    .badge.err { background: rgba(248, 113, 113, 0.12); color: var(--c-err); border-color: rgba(248, 113, 113, 0.3); }
+    .badge.cefr-A1 { background: rgba(52, 211, 153, 0.15); color: #34D399; border-color: rgba(52,211,153,0.3); }
+    .badge.cefr-A2 { background: rgba(96, 165, 250, 0.15); color: #60A5FA; border-color: rgba(96,165,250,0.3); }
+    .badge.cefr-B1 { background: rgba(251, 191, 36, 0.15); color: #FBBF24; border-color: rgba(251,191,36,0.3); }
+    .badge.cefr-B2 { background: rgba(251, 146, 60, 0.15); color: #FB923C; border-color: rgba(251,146,60,0.3); }
+    .badge.cefr-C1 { background: rgba(248, 113, 113, 0.15); color: #F87171; border-color: rgba(248,113,113,0.3); }
+    .badge.cefr-C2 { background: rgba(167, 139, 250, 0.15); color: #A78BFA; border-color: rgba(167,139,250,0.3); }
+
+    /* گزینه‌های تمرین */
+    .options { display: grid; gap: 0.5rem; margin: 0.8rem 0; }
+    .option {
+      padding: 0.8rem 1rem; background: rgba(11, 13, 19, 0.6);
+      border: 1px solid var(--line-soft); border-radius: var(--radius-sm);
+      cursor: pointer; transition: var(--t); font-family: var(--font-en);
+      color: var(--text-soft); text-align: left; font-size: 0.95rem;
+      direction: ltr;
+    }
+    .option:hover { border-color: var(--en); background: var(--en-soft); }
+    .option.correct { border-color: var(--c-ok); background: rgba(52, 211, 153, 0.12); color: var(--text); }
+    .option.wrong { border-color: var(--c-err); background: rgba(248, 113, 113, 0.12); color: var(--text); }
+    .option[disabled] { cursor: default; }
+
+    /* متن انگلیسی */
+    .en-line {
+      display: block; direction: ltr; text-align: left;
+      font-family: var(--font-en); font-size: 0.95rem;
+      background: rgba(139, 92, 246, 0.06); border-left: 3px solid var(--en);
+      padding: 0.6rem 0.9rem; margin: 0.5rem 0; border-radius: 4px;
+      color: var(--text); line-height: 1.9;
+    }
+    .en-line .highlight {
+      background: rgba(251, 191, 36, 0.25); padding: 0 4px; border-radius: 3px;
+      color: var(--gold-light); font-weight: 700;
+    }
+
+    .empty {
+      text-align: center; padding: 2rem 1rem; color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .empty i { display: block; font-size: 2rem; color: rgba(139, 92, 246, 0.3); margin-bottom: 0.6rem; }
+
+    /* CEFR bar */
+    .cefr-bar {
+      display: flex; height: 24px; border-radius: 6px; overflow: hidden;
+      margin: 0.6rem 0; border: 1px solid var(--line-soft);
+    }
+    .cefr-seg {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.68rem; font-weight: 800; color: #fff; min-width: 0;
+      transition: flex 0.3s;
+    }
+    .cefr-seg.A1 { background: #34D399; }
+    .cefr-seg.A2 { background: #60A5FA; }
+    .cefr-seg.B1 { background: #FBBF24; }
+    .cefr-seg.B2 { background: #FB923C; }
+    .cefr-seg.C1 { background: #F87171; }
+    .cefr-seg.C2 { background: #A78BFA; }
+
+    /* Morph */
+    .morph-breakdown {
+      display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center;
+      margin: 0.8rem 0; direction: ltr; justify-content: flex-start;
+      font-family: var(--font-en);
+    }
+    .morph-part {
+      padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: 700;
+      border: 1px solid;
+    }
+    .morph-part.prefix { background: rgba(139,92,246,0.15); border-color: rgba(139,92,246,0.4); color: #A78BFA; }
+    .morph-part.root   { background: rgba(251,191,36,0.15); border-color: rgba(251,191,36,0.4); color: #FBBF24; }
+    .morph-part.suffix { background: rgba(52,211,153,0.15); border-color: rgba(52,211,153,0.4); color: #34D399; }
+    .morph-plus { color: var(--muted); font-size: 1.2rem; font-weight: 800; }
+
+    /* آمار / درباره */
+    .stat-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.8rem; margin: 0.8rem 0;
+    }
+    .stat-card {
+      background: var(--en-soft); border: 1px solid var(--en-border);
+      border-radius: var(--radius-sm); padding: 0.9rem 1rem; text-align: center;
+    }
+    .stat-card .stat-num {
+      font-size: 1.6rem; font-weight: 800; color: var(--en-light);
+      display: block; line-height: 1.2;
+    }
+    .stat-card .stat-label {
+      font-size: 0.78rem; color: var(--muted); margin-top: 0.3rem;
+    }
+    .about-block {
+      background: rgba(11,13,19,0.6); border: 1px solid var(--line-soft);
+      border-radius: var(--radius-sm); padding: 1.2rem 1.3rem;
+      margin: 0.8rem 0; font-size: 0.92rem; line-height: 1.95;
+      color: var(--text-soft);
+    }
+    .about-block strong { color: var(--en-light); }
+    .about-block .lead {
+      font-size: 1rem; color: var(--text); font-weight: 700;
+      margin-bottom: 0.6rem; display: block;
+      background: linear-gradient(90deg, var(--en-light), var(--en));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* فوتر */
+    .footer {
+      background: #050608; border-top: 1px solid var(--en-border);
+      margin-top: 3rem; padding: 2rem 0 1.2rem;
+      font-size: 0.82rem; color: var(--muted); text-align: center;
+    }
+    .footer strong { color: var(--en-light); }
+
+    /* ریسپانسیو */
+    @media (max-width: 640px) {
+      .hero { padding: 2rem 1rem 1.6rem; }
+      .workbench { padding: 1.1rem; }
+      .tab { flex: 1 1 45%; min-width: 0; font-size: 0.74rem; }
+      .tab i { font-size: 0.9rem; }
+      .actions .btn-primary, .actions .btn-secondary { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== هدر ===== -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <span>
+        <span class="logo-fa">مستر پلنر</span>
+        <span class="logo-en">Mesterplanner</span>
+      </span>
+    </a>
+    <a href="index.html" class="back-link">
+      <i class="fa-solid fa-arrow-right"></i> بازگشت به خانه
+    </a>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- ===== هیرو ===== -->
+  <section class="hero">
+    <h1>کتابخانهٔ ابزار زبان انگلیسی</h1>
+    <p>میزکار حدس واژگان از بافت، ترکیب واژگانی، دستور و درک مطلب — با رویکرد L1 Trap برای فارسی‌زبان.</p>
+    <span class="philosophy">
+      <i class="fa-solid fa-cube"></i>
+      Sense، نه Word — حدس از بافت، نه فهرست معنا
+    </span>
+  </section>
+
+  <!-- ===== تب‌بار ===== -->
+  <nav class="tabs" id="tabs" role="tablist">
+    <button class="tab active" data-panel="guess" role="tab"><i class="fa-solid fa-lightbulb"></i> حدس‌یار</button>
+    <button class="tab" data-panel="colloc" role="tab"><i class="fa-solid fa-handshake"></i> ترکیب‌سنج</button>
+    <button class="tab" data-panel="grammar" role="tab"><i class="fa-solid fa-sitemap"></i> جمله‌ساز</button>
+    <button class="tab" data-panel="cloze" role="tab"><i class="fa-solid fa-book-open-reader"></i> درک‌مطلب‌ساز</button>
+    <button class="tab" data-panel="morph" role="tab"><i class="fa-solid fa-puzzle-piece"></i> واژه‌ساز</button>
+    <button class="tab" data-panel="cefr" role="tab"><i class="fa-solid fa-gauge"></i> سطح‌سنج</button>
+    <button class="tab" data-panel="exercise" role="tab"><i class="fa-solid fa-dumbbell"></i> تمرین‌ساز</button>
+    <button class="tab" data-panel="about" role="tab"><i class="fa-solid fa-circle-info"></i> درباره</button>
+  </nav>
+
+  <!-- ===== پنل ۱: حدس‌یار ===== -->
+  <section class="panel active" id="panel-guess" role="tabpanel">
+    <div class="panel-head">
+      <h2><i class="fa-solid fa-lightbulb"></i> حدس‌یار — حدس واژگان از بافت</h2>
+      <p>جمله‌ای انگلیسی بنویس که یک واژه در آن برجسته شده باشد؛ ابزار نشانه‌های بافتی را پیدا و معنای محتمل را حدس می‌زند.</p>
+    </div>
+    <div class="workbench">
+      <div class="field-group">
+        <label for="guessInput">جمله (انگلیسی)</label>
+        <textarea id="guessInput" class="field" placeholder="Although he was tired, he continued working. He was persistent.">Although he was tired, he continued working. He was **persistent**.</textarea>
+        <div class="hint">واژهٔ هدف را بین ** یا [ ] قرار بده؛ اگر نگذاری، آخرین کلمه هدف فرض می‌شود.</div>
+      </div>
+      <div class="actions">
+        <button class="btn-primary" id="btn-guess">
+          <i class="fa-solid fa-lightbulb"></i> تحلیل بافت
+        </button>
+      </div>
+      <div class="output" id="out-guess"></div>
+    </div>
+  </section>
+
+  <!-- ===== پنل ۲: ترکیب‌سنج ===== -->
+  <section class="panel" id="panel-colloc" role="tabpanel">
+    <div class="panel-head">
+      <h2><i class="fa-solid fa-handshake"></i> ترکیب‌سنج — کدام واژه با کدام می‌نشیند؟</h2>
+      <p>ترکیب دو واژهٔ انگلیسی را بررسی کن و L1 Trap های فارسی‌زبان را ببین.</p>
+    </div>
+    <div class="workbench">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+        <div class="field-group">
+          <label for="colLeft">واژهٔ اول (فعل/اسم/صفت)</label>
+          <input id="colLeft" class="field en" type="text" value="make" style="direction:ltr;" />
+        </div>
+        <div class="field-group">
+          <label for="colRight">واژهٔ دوم</label>
+          <input id="colRight" class="field en" type="text" value="decision" style="direction:ltr;" />
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn-primary" id="btn-colloc">
+          <i class="fa-solid fa-check-double"></i> بررسی ترکیب
+        </button>
+        <button class="btn-secondary" id="btn-colloc-ex">
+          <i class="fa-solid fa-shuffle"></i> تمرین ترکیب
+        </button>
+      </div>
+      <div class="output" id="out-colloc"></div>
+    </div>
+  </section>
+
+  <!-- ===== پنل ۳: جمله‌ساز ===== -->
+  <section class="panel" id="panel-grammar" role="tabpanel">
+    <div class="panel-head">
+      <h2><i class="fa-solid fa-sitemap"></i> جمله‌ساز — دستور زبان</h2>
+      <p>جمله‌ای انگلیسی بنویس و تبدیل زمان، مجهول، منفی، سؤالی، نقل قول، شرطی را ببین.</p>
+    </div>
+    <div class="workbench">
+      <div class="field-group">
+        <label for="gramInput">جمله (انگلیسی)</label>
+        <textarea id="gramInput" class="field" placeholder="The teacher wrote a letter.">The teacher wrote a letter.</textarea>
+        <div class="hint">الگوی پیشنهادی: Subject + Verb (گذشته/حال ساده) + Object</div>
+      </div>
+      <div class="field-group">
+        <label for="gramOp">تبدیل</label>
+        <select id="gramOp" class="field">
+          <option value="VALIDATE">بررسی خطاها (بدون تغییر)</option>
+          <option value="TENSE_SHIFT">تغییر زمان (حال ↔ گذشته)</option>
+          <option value="VOICE_SHIFT">مجهول کردن</option>
+          <option value="NEGATE">منفی کردن</option>
+          <option value="QUESTION_FORM">سؤالی کردن</option>
+          <option value="REPORTED_SPEECH">نقل قول غیرمستقیم</option>
+          <option value="CONDITIONAL_SHIFT">تبدیل به شرطی</option>
+          <option value="ARTICLE_INSERT">افزودن حرف تعریف</option>
+        </select>
+      </div>
+      <div class="actions">
+        <button class="btn-primary" id="btn-grammar">
+          <i class="fa-solid fa-rotate"></i> اعمال
+        </button>
+      </div>
+      <div class="output" id="out-grammar"></div>
+    </div>
+  </section>
+
+  <!-- ===== پنل ۴: درک‌مطلب‌ساز ===== -->
+  <section class="panel" id="panel-cloze" role="tabpanel">
+    <div class="panel-head">
+      <h2><i class="fa-solid fa-book-open-reader"></i> درک‌مطلب‌ساز</h2>
+      <p>از یک متن، کلوز و سؤال درک مطلب بساز. یا متن خودت را وارد کن.</p>
+    </div>
+    <div class="workbench">
+      <div class="field-group">
+        <label for="clozeMode">حالت</label>
+        <select id="clozeMode" class="field">
+          <option value="passage">از متن‌های آماده</option>
+          <option value="custom">متن دلخواه من</option>
+        </select>
+      </div>
+      <div id="clozePassageSection">
+        <div class="field-group">
+          <label for="clozePassage">متن</label>
+          <select id="clozePassage" class="field"></select>
+        </div>
+      </div>
+      <div id="clozeCustomSection" style="display:none;">
+        <div class="field-group">
+          <label for="clozeCustom">متن انگلیسی</label>
+          <textarea id="clozeCustom" class="field" placeholder="Paste your English passage here..."></textarea>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+        <div class="field-group">
+          <label for="clozeLevel">سطح</label>
+          <select id="clozeLevel" class="field">
+            <option value="A2">A2</option>
+            <option value="B1" selected>B1</option>
+            <option value="B2">B2</option>
+            <option value="C1">C1</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="clozeCount">تعداد جای خالی</label>
+          <select id="clozeCount" class="field">
+            <option value="3">۳</option>
+            <option value="5" selected>۵</option>
+            <option value="7">۷</option>
+          </select>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn-primary" id="btn-cloze">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> ساخت کلوز
+        </button>
+        <button class="btn-secondary" id="btn-questions">
+          <i class="fa-solid fa-circle-question"></i> سؤال درک مطلب
+        </button>
+      </div>
+      <div class="output" id="out-cloze"></div>
+    </div>
+  </section>
+
+  <!-- ===== پنل ۵: واژه‌ساز ===== -->
+  <section class="panel" id="panel-morph" role="tabpanel">
+    <div class="panel-head">
+      <h2><i class="fa-solid fa-puzzle-piece"></i> واژه‌ساز — Word Formation</h2>
+      <p>واژه را به پیشوند، ریشه و پسوند بشکن و معنا را از وندها حدس بزن.</p>
+    </div>
+    <div class="workbench">
+      <div class="field-group">
+        <label for="morphInput">واژهٔ انگلیسی</label>
+        <input id="morphInput" class="field en" type="text" value="unbelievable" style="direction:ltr;" />
+      </div>
+      <div class="actions">
+        <button class="btn-primary" id="btn-morph">
+          <i class="fa-solid fa-magnifying-glass"></i> تحلیل
+        </button>
+      </div>
+      <div class="output" id="out-morph"></div>
+    </div>
+  </section>
+
+  <!-- ===== پنل ۶: سطح‌سنج ===== -->
+  <section class="panel" id="panel-cefr" role="tabpanel">
+    <div class="panel-head">
+      <h2><i class="fa-solid fa-gauge"></i> سطح‌سنج CEFR</h2>
+      <p>متن انگلیسی را بچسبان تا سطح تقریبی (A1–C2) و پروفایل واژگانی‌اش را ببینی.</p>
+    </div>
+    <div class="workbench">
+      <div class="field-group">
+        <label for="cefrInput">متن انگلیسی</label>
+        <textarea id="cefrInput" class="field" placeholder="Paste an English text here..." style="min-height:140px;"></textarea>
+      </div>
+      <div class="actions">
+        <button class="btn-primary" id="btn-cefr">
+          <i class="fa-solid fa-chart-simple"></i> تحلیل سطح
+        </button>
+      </div>
+      <div class="output" id="out-cefr"></div>
+    </div>
+  </section>
+
+  <!-- ===== پنل ۷: تمرین‌ساز ===== -->
+  <section class="panel" id="panel-exercise" role="tabpanel">
+    <div class="panel-head">
+      <h2><i class="fa-solid fa-dumbbell"></i> تمرین‌ساز</h2>
+      <p>با هر کلیک، یک تمرین تازه از ترکیب ابزارهای کتابخانه ساخته می‌شود.</p>
+    </div>
+    <div class="workbench">
+      <div class="field-group">
+        <label for="exType">نوع تمرین</label>
+        <select id="exType" class="field">
+          <option value="l1trap">L1 Trap (خطای فارسی‌زبان)</option>
+          <option value="colloc">همنشینی واژگان</option>
+          <option value="guess">حدس واژگان از بافت</option>
+          <option value="grammar">دستور (مجهول/منفی)</option>
+          <option value="cefr">واژه در سطح CEFR</option>
+          <option value="combined">ترکیبی (Preset چندلایه)</option>
+        </select>
+      </div>
+      <div class="actions">
+        <button class="btn-primary" id="btn-exercise">
+          <i class="fa-solid fa-shuffle"></i> تمرین تازه
+        </button>
+      </div>
+      <div class="output" id="out-exercise"></div>
+    </div>
+  </section>
+
+  <!-- ===== پنل ۸: درباره ===== -->
+  <section class="panel" id="panel-about" role="tabpanel">
+    <div class="panel-head">
+      <h2><i class="fa-solid fa-circle-info"></i> دربارهٔ کتابخانه</h2>
+      <p>فلسفهٔ طراحی، آمار استفادهٔ شما، و گسترهٔ ابزارها.</p>
+    </div>
+    <div class="workbench">
+      <div class="output" id="out-about"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== فوتر ===== -->
+<footer class="footer">
+  <div class="container">
+    <p><strong>کتابخانهٔ ابزار زبان انگلیسی</strong> — بخشی از مستر پلنر — طراحی: احسان روحانی راوری</p>
+    <p style="margin-top:0.4rem;">Sense-based · Context Clues · L1 Trap · CEFR</p>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   جاوااسکریپت — در قسمت ۳/۳ می‌آید
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ============================================================
+     ۱) هسته — Result + ابزارهای کمکی
+     ============================================================ */
+  function R_ok(value, deriv) { return { ok: true, value: value, derivation: deriv || null }; }
+  function R_err(code, message) { return { ok: false, error: { code: code, message: message } }; }
+  var FA_D = '۰۱۲۳۴۵۶۷۸۹';
+  function fa(n) { return String(n).replace(/\d/g, function (d) { return FA_D[+d]; }); }
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+
+  /* ============================================================
+     ۲) بذر Sense با CEFR — ۲۵۰+ Sense
+     ============================================================ */
+  var SENSES = {
+    // ---- چندمعنایی ----
+    'bank': [
+      { pos: 'N', cefr: 'A2', def: 'مؤسسه مالی', fa: 'بانک', domain: 'business' },
+      { pos: 'N', cefr: 'B1', def: 'کناره رود', fa: 'ساحل رود', domain: 'nature' }
+    ],
+    'book': [
+      { pos: 'N', cefr: 'A1', def: 'کتاب', fa: 'کتاب', domain: 'everyday' },
+      { pos: 'V', cefr: 'B1', def: 'رزرو کردن', fa: 'رزرو', domain: 'everyday' }
+    ],
+    'light': [
+      { pos: 'N', cefr: 'A1', def: 'نور', fa: 'نور', domain: 'everyday' },
+      { pos: 'ADJ', cefr: 'A2', def: 'سبک', fa: 'سبک', domain: 'everyday' }
+    ],
+    'run': [
+      { pos: 'V', cefr: 'A1', def: 'دویدن', fa: 'دویدن', domain: 'everyday' },
+      { pos: 'V', cefr: 'B1', def: 'مدیریت کردن', fa: 'اداره کردن', domain: 'business' }
+    ],
+    'right': [
+      { pos: 'ADJ', cefr: 'A1', def: 'درست', fa: 'درست', domain: 'everyday' },
+      { pos: 'N', cefr: 'A2', def: 'سمت راست', fa: 'راست', domain: 'everyday' }
+    ],
+    'play': [
+      { pos: 'V', cefr: 'A1', def: 'بازی کردن', fa: 'بازی', domain: 'everyday' },
+      { pos: 'N', cefr: 'A2', def: 'نمایشنامه', fa: 'نمایش', domain: 'everyday' }
+    ],
+    'mean': [
+      { pos: 'V', cefr: 'A2', def: 'معنی دادن', fa: 'معنی دادن', domain: 'everyday' },
+      { pos: 'ADJ', cefr: 'B1', def: 'بدجنس', fa: 'بدجنس', domain: 'informal' }
+    ],
+    'plant': [
+      { pos: 'N', cefr: 'A1', def: 'گیاه', fa: 'گیاه', domain: 'nature' },
+      { pos: 'V', cefr: 'B1', def: 'کاشتن', fa: 'کاشتن', domain: 'nature' }
+    ],
+    'match': [
+      { pos: 'N', cefr: 'A2', def: 'مسابقه', fa: 'مسابقه', domain: 'sport' },
+      { pos: 'V', cefr: 'B1', def: 'تطبیق دادن', fa: 'تطبیق', domain: 'everyday' }
+    ],
+    'issue': [
+      { pos: 'N', cefr: 'B1', def: 'مسئله', fa: 'مسئله', domain: 'academic' },
+      { pos: 'V', cefr: 'B2', def: 'صادر کردن', fa: 'صادر کردن', domain: 'academic' }
+    ],
+    'approach': [
+      { pos: 'N', cefr: 'B2', def: 'رویکرد', fa: 'رویکرد', domain: 'academic' },
+      { pos: 'V', cefr: 'B2', def: 'نزدیک شدن', fa: 'نزدیک شدن', domain: 'academic' }
+    ],
+    'benefit': [
+      { pos: 'N', cefr: 'B1', def: 'مزیت', fa: 'مزیت', domain: 'academic' },
+      { pos: 'V', cefr: 'B2', def: 'بهره‌مند شدن', fa: 'بهره‌مند', domain: 'academic' }
+    ],
+    'articulate': [
+      { pos: 'V', cefr: 'C1', def: 'رسا بیان کردن', fa: 'رسا بیان کردن', domain: 'academic' },
+      { pos: 'ADJ', cefr: 'C1', def: 'رسا', fa: 'رسا', domain: 'academic' }
+    ],
+    'elaborate': [
+      { pos: 'V', cefr: 'C1', def: 'بسط دادن', fa: 'بسط', domain: 'academic' },
+      { pos: 'ADJ', cefr: 'C1', def: 'پیچیده', fa: 'پیچیده', domain: 'academic' }
+    ],
+    'close': [
+      { pos: 'V', cefr: 'A1', def: 'بستن', fa: 'بستن', domain: 'everyday' },
+      { pos: 'ADJ', cefr: 'A2', def: 'نزدیک', fa: 'نزدیک', domain: 'everyday' }
+    ],
+    'open': [
+      { pos: 'V', cefr: 'A1', def: 'باز کردن', fa: 'باز کردن', domain: 'everyday' },
+      { pos: 'ADJ', cefr: 'A1', def: 'باز', fa: 'باز', domain: 'everyday' }
+    ],
+
+    // ---- A1 ----
+    'house': [{ pos: 'N', cefr: 'A1', def: 'خانه', fa: 'خانه', domain: 'everyday' }],
+    'water': [{ pos: 'N', cefr: 'A1', def: 'آب', fa: 'آب', domain: 'everyday' }],
+    'food': [{ pos: 'N', cefr: 'A1', def: 'غذا', fa: 'غذا', domain: 'everyday' }],
+    'friend': [{ pos: 'N', cefr: 'A1', def: 'دوست', fa: 'دوست', domain: 'everyday' }],
+    'school': [{ pos: 'N', cefr: 'A1', def: 'مدرسه', fa: 'مدرسه', domain: 'everyday' }],
+    'teacher': [{ pos: 'N', cefr: 'A1', def: 'معلم', fa: 'معلم', domain: 'everyday' }],
+    'student': [{ pos: 'N', cefr: 'A1', def: 'دانش‌آموز', fa: 'دانش‌آموز', domain: 'everyday' }],
+    'happy': [{ pos: 'ADJ', cefr: 'A1', def: 'خوشحال', fa: 'خوشحال', domain: 'everyday' }],
+    'sad': [{ pos: 'ADJ', cefr: 'A1', def: 'غمگین', fa: 'غمگین', domain: 'everyday' }],
+    'big': [{ pos: 'ADJ', cefr: 'A1', def: 'بزرگ', fa: 'بزرگ', domain: 'everyday' }],
+    'small': [{ pos: 'ADJ', cefr: 'A1', def: 'کوچک', fa: 'کوچک', domain: 'everyday' }],
+    'fast': [{ pos: 'ADJ', cefr: 'A1', def: 'سریع', fa: 'سریع', domain: 'everyday' }],
+    'slow': [{ pos: 'ADJ', cefr: 'A1', def: 'کند', fa: 'کند', domain: 'everyday' }],
+    'hot': [{ pos: 'ADJ', cefr: 'A1', def: 'گرم', fa: 'گرم', domain: 'everyday' }],
+    'cold': [{ pos: 'ADJ', cefr: 'A1', def: 'سرد', fa: 'سرد', domain: 'everyday' }],
+    'eat': [{ pos: 'V', cefr: 'A1', def: 'خوردن', fa: 'خوردن', domain: 'everyday' }],
+    'drink': [{ pos: 'V', cefr: 'A1', def: 'نوشیدن', fa: 'نوشیدن', domain: 'everyday' }],
+    'go': [{ pos: 'V', cefr: 'A1', def: 'رفتن', fa: 'رفتن', domain: 'everyday' }],
+    'come': [{ pos: 'V', cefr: 'A1', def: 'آمدن', fa: 'آمدن', domain: 'everyday' }],
+    'see': [{ pos: 'V', cefr: 'A1', def: 'دیدن', fa: 'دیدن', domain: 'everyday' }],
+    'give': [{ pos: 'V', cefr: 'A1', def: 'دادن', fa: 'دادن', domain: 'everyday' }],
+    'take': [{ pos: 'V', cefr: 'A1', def: 'گرفتن', fa: 'گرفتن', domain: 'everyday' }],
+    'work': [{ pos: 'V', cefr: 'A1', def: 'کار کردن', fa: 'کار کردن', domain: 'everyday' }],
+    'study': [{ pos: 'V', cefr: 'A1', def: 'درس خواندن', fa: 'درس خواندن', domain: 'everyday' }],
+    'read': [{ pos: 'V', cefr: 'A1', def: 'خواندن', fa: 'خواندن', domain: 'everyday' }],
+    'write': [{ pos: 'V', cefr: 'A2', def: 'نوشتن', fa: 'نوشتن', domain: 'everyday' }],
+    'speak': [{ pos: 'V', cefr: 'A1', def: 'صحبت کردن', fa: 'صحبت کردن', domain: 'everyday' }],
+    'listen': [{ pos: 'V', cefr: 'A1', def: 'گوش دادن', fa: 'گوش دادن', domain: 'everyday' }],
+    'think': [{ pos: 'V', cefr: 'A1', def: 'فکر کردن', fa: 'فکر کردن', domain: 'everyday' }],
+    'know': [{ pos: 'V', cefr: 'A1', def: 'دانستن', fa: 'دانستن', domain: 'everyday' }],
+    'want': [{ pos: 'V', cefr: 'A1', def: 'خواستن', fa: 'خواستن', domain: 'everyday' }],
+    'need': [{ pos: 'V', cefr: 'A1', def: 'نیاز داشتن', fa: 'نیاز', domain: 'everyday' }],
+    'like': [{ pos: 'V', cefr: 'A1', def: 'دوست داشتن', fa: 'دوست داشتن', domain: 'everyday' }],
+    'love': [{ pos: 'V', cefr: 'A1', def: 'عشق ورزیدن', fa: 'عشق', domain: 'everyday' }],
+    'help': [{ pos: 'V', cefr: 'A1', def: 'کمک کردن', fa: 'کمک', domain: 'everyday' }],
+    'time': [{ pos: 'N', cefr: 'A1', def: 'زمان', fa: 'زمان', domain: 'everyday' }],
+    'day': [{ pos: 'N', cefr: 'A1', def: 'روز', fa: 'روز', domain: 'everyday' }],
+    'night': [{ pos: 'N', cefr: 'A1', def: 'شب', fa: 'شب', domain: 'everyday' }],
+    'year': [{ pos: 'N', cefr: 'A1', def: 'سال', fa: 'سال', domain: 'everyday' }],
+    'week': [{ pos: 'N', cefr: 'A1', def: 'هفته', fa: 'هفته', domain: 'everyday' }],
+    'month': [{ pos: 'N', cefr: 'A1', def: 'ماه', fa: 'ماه', domain: 'everyday' }],
+    'life': [{ pos: 'N', cefr: 'A1', def: 'زندگی', fa: 'زندگی', domain: 'everyday' }],
+    'money': [{ pos: 'N', cefr: 'A1', def: 'پول', fa: 'پول', domain: 'business' }],
+    'country': [{ pos: 'N', cefr: 'A1', def: 'کشور', fa: 'کشور', domain: 'everyday' }],
+    'city': [{ pos: 'N', cefr: 'A1', def: 'شهر', fa: 'شهر', domain: 'everyday' }],
+    'place': [{ pos: 'N', cefr: 'A1', def: 'مکان', fa: 'مکان', domain: 'everyday' }],
+    'thing': [{ pos: 'N', cefr: 'A1', def: 'چیز', fa: 'چیز', domain: 'everyday' }],
+    'person': [{ pos: 'N', cefr: 'A1', def: 'شخص', fa: 'شخص', domain: 'everyday' }],
+    'family': [{ pos: 'N', cefr: 'A1', def: 'خانواده', fa: 'خانواده', domain: 'everyday' }],
+    'child': [{ pos: 'N', cefr: 'A1', def: 'کودک', fa: 'کودک', domain: 'everyday' }],
+    'question': [{ pos: 'N', cefr: 'A1', def: 'سؤال', fa: 'سؤال', domain: 'everyday' }],
+    'answer': [{ pos: 'N', cefr: 'A1', def: 'پاسخ', fa: 'پاسخ', domain: 'everyday' }],
+    'language': [{ pos: 'N', cefr: 'A1', def: 'زبان', fa: 'زبان', domain: 'everyday' }],
+    'word': [{ pos: 'N', cefr: 'A1', def: 'واژه', fa: 'واژه', domain: 'everyday' }],
+    'class': [{ pos: 'N', cefr: 'A1', def: 'کلاس', fa: 'کلاس', domain: 'academic' }],
+    'animal': [{ pos: 'N', cefr: 'A1', def: 'حیوان', fa: 'حیوان', domain: 'nature' }],
+    'good': [{ pos: 'ADJ', cefr: 'A1', def: 'خوب', fa: 'خوب', domain: 'everyday' }],
+    'bad': [{ pos: 'ADJ', cefr: 'A1', def: 'بد', fa: 'بد', domain: 'everyday' }],
+    'new': [{ pos: 'ADJ', cefr: 'A1', def: 'نو', fa: 'نو', domain: 'everyday' }],
+    'old': [{ pos: 'ADJ', cefr: 'A1', def: 'قدیمی', fa: 'قدیمی', domain: 'everyday' }],
+    'young': [{ pos: 'ADJ', cefr: 'A1', def: 'جوان', fa: 'جوان', domain: 'everyday' }],
+    'long': [{ pos: 'ADJ', cefr: 'A1', def: 'بلند', fa: 'بلند', domain: 'everyday' }],
+    'short': [{ pos: 'ADJ', cefr: 'A1', def: 'کوتاه', fa: 'کوتاه', domain: 'everyday' }],
+    'easy': [{ pos: 'ADJ', cefr: 'A1', def: 'آسان', fa: 'آسان', domain: 'everyday' }],
+    'difficult': [{ pos: 'ADJ', cefr: 'A1', def: 'سخت', fa: 'سخت', domain: 'everyday' }],
+    'important': [{ pos: 'ADJ', cefr: 'A1', def: 'مهم', fa: 'مهم', domain: 'everyday' }],
+    'different': [{ pos: 'ADJ', cefr: 'A1', def: 'متفاوت', fa: 'متفاوت', domain: 'everyday' }],
+    'strong': [{ pos: 'ADJ', cefr: 'A1', def: 'قوی', fa: 'قوی', domain: 'everyday' }],
+
+    // ---- A2 ----
+    'buy': [{ pos: 'V', cefr: 'A1', def: 'خریدن', fa: 'خریدن', domain: 'everyday' }],
+    'sell': [{ pos: 'V', cefr: 'A2', def: 'فروختن', fa: 'فروختن', domain: 'everyday' }],
+    'pay': [{ pos: 'V', cefr: 'A2', def: 'پرداخت کردن', fa: 'پرداخت', domain: 'business' }],
+    'save': [{ pos: 'V', cefr: 'A2', def: 'پس‌انداز کردن', fa: 'پس‌انداز', domain: 'business' }],
+    'start': [{ pos: 'V', cefr: 'A1', def: 'شروع کردن', fa: 'شروع', domain: 'everyday' }],
+    'stop': [{ pos: 'V', cefr: 'A1', def: 'متوقف کردن', fa: 'توقف', domain: 'everyday' }],
+    'finish': [{ pos: 'V', cefr: 'A2', def: 'تمام کردن', fa: 'پایان', domain: 'everyday' }],
+    'find': [{ pos: 'V', cefr: 'A2', def: 'یافتن', fa: 'یافتن', domain: 'everyday' }],
+    'lose': [{ pos: 'V', cefr: 'A2', def: 'از دست دادن', fa: 'از دست دادن', domain: 'everyday' }],
+    'win': [{ pos: 'V', cefr: 'A2', def: 'بردن', fa: 'بردن', domain: 'everyday' }],
+    'problem': [{ pos: 'N', cefr: 'A2', def: 'مشکل', fa: 'مشکل', domain: 'everyday' }],
+    'idea': [{ pos: 'N', cefr: 'A2', def: 'ایده', fa: 'ایده', domain: 'everyday' }],
+    'reason': [{ pos: 'N', cefr: 'A2', def: 'دلیل', fa: 'دلیل', domain: 'academic' }],
+    'example': [{ pos: 'N', cefr: 'A2', def: 'مثال', fa: 'مثال', domain: 'academic' }],
+    'information': [{ pos: 'N', cefr: 'A2', def: 'اطلاعات', fa: 'اطلاعات', domain: 'academic' }],
+    'sentence': [{ pos: 'N', cefr: 'A2', def: 'جمله', fa: 'جمله', domain: 'academic' }],
+    'text': [{ pos: 'N', cefr: 'A2', def: 'متن', fa: 'متن', domain: 'academic' }],
+    'story': [{ pos: 'N', cefr: 'A2', def: 'داستان', fa: 'داستان', domain: 'everyday' }],
+    'course': [{ pos: 'N', cefr: 'A2', def: 'دوره', fa: 'دوره', domain: 'academic' }],
+    'lesson': [{ pos: 'N', cefr: 'A2', def: 'درس', fa: 'درس', domain: 'academic' }],
+    'exam': [{ pos: 'N', cefr: 'A2', def: 'آزمون', fa: 'آزمون', domain: 'academic' }],
+    'test': [{ pos: 'N', cefr: 'A2', def: 'آزمون', fa: 'آزمون', domain: 'academic' }],
+    'forest': [{ pos: 'N', cefr: 'A2', def: 'جنگل', fa: 'جنگل', domain: 'nature' }],
+    'ocean': [{ pos: 'N', cefr: 'A2', def: 'اقیانوس', fa: 'اقیانوس', domain: 'nature' }],
+    'river': [{ pos: 'N', cefr: 'A2', def: 'رود', fa: 'رود', domain: 'nature' }],
+    'mountain': [{ pos: 'N', cefr: 'A2', def: 'کوه', fa: 'کوه', domain: 'nature' }],
+    'plant': [
+      { pos: 'N', cefr: 'A1', def: 'گیاه', fa: 'گیاه', domain: 'nature' },
+      { pos: 'V', cefr: 'B1', def: 'کاشتن', fa: 'کاشتن', domain: 'nature' }
+    ],
+    'world': [{ pos: 'N', cefr: 'A2', def: 'جهان', fa: 'جهان', domain: 'everyday' }],
+    'modern': [{ pos: 'ADJ', cefr: 'A2', def: 'مدرن', fa: 'مدرن', domain: 'everyday' }],
+    'possible': [{ pos: 'ADJ', cefr: 'A2', def: 'ممکن', fa: 'ممکن', domain: 'academic' }],
+    'impossible': [{ pos: 'ADJ', cefr: 'A2', def: 'غیرممکن', fa: 'غیرممکن', domain: 'academic' }],
+    'similar': [{ pos: 'ADJ', cefr: 'A2', def: 'مشابه', fa: 'مشابه', domain: 'everyday' }],
+    'clear': [{ pos: 'ADJ', cefr: 'A2', def: 'روشن', fa: 'روشن', domain: 'everyday' }],
+    'simple': [{ pos: 'ADJ', cefr: 'A2', def: 'ساده', fa: 'ساده', domain: 'everyday' }],
+    'weak': [{ pos: 'ADJ', cefr: 'A2', def: 'ضعیف', fa: 'ضعیف', domain: 'everyday' }],
+
+    // ---- B1 ----
+    'achieve': [{ pos: 'V', cefr: 'B1', def: 'دست یافتن', fa: 'دست یافتن', domain: 'academic' }],
+    'improve': [{ pos: 'V', cefr: 'B1', def: 'بهبود دادن', fa: 'بهبود', domain: 'academic' }],
+    'suggest': [{ pos: 'V', cefr: 'B1', def: 'پیشنهاد دادن', fa: 'پیشنهاد', domain: 'academic' }],
+    'continue': [{ pos: 'V', cefr: 'B1', def: 'ادامه دادن', fa: 'ادامه', domain: 'everyday' }],
+    'create': [{ pos: 'V', cefr: 'B1', def: 'خلق کردن', fa: 'خلق', domain: 'academic' }],
+    'build': [{ pos: 'V', cefr: 'B1', def: 'ساختن', fa: 'ساختن', domain: 'everyday' }],
+    'produce': [{ pos: 'V', cefr: 'B1', def: 'تولید کردن', fa: 'تولید', domain: 'business' }],
+    'provide': [{ pos: 'V', cefr: 'B1', def: 'فراهم کردن', fa: 'فراهم', domain: 'academic' }],
+    'require': [{ pos: 'V', cefr: 'B1', def: 'نیاز داشتن', fa: 'نیاز', domain: 'academic' }],
+    'include': [{ pos: 'V', cefr: 'B1', def: 'شامل شدن', fa: 'شامل', domain: 'academic' }],
+    'protect': [{ pos: 'V', cefr: 'B1', def: 'محافظت کردن', fa: 'محافظت', domain: 'academic' }],
+    'support': [{ pos: 'V', cefr: 'B1', def: 'حمایت کردن', fa: 'حمایت', domain: 'academic' }],
+    'develop': [{ pos: 'V', cefr: 'B1', def: 'توسعه دادن', fa: 'توسعه', domain: 'academic' }],
+    'increase': [{ pos: 'V', cefr: 'B1', def: 'افزایش دادن', fa: 'افزایش', domain: 'academic' }],
+    'convey': [{ pos: 'V', cefr: 'B2', def: 'انتقال دادن', fa: 'انتقال', domain: 'academic' }],
+    'result': [{ pos: 'N', cefr: 'B1', def: 'نتیجه', fa: 'نتیجه', domain: 'academic' }],
+    'knowledge': [{ pos: 'N', cefr: 'B1', def: 'دانش', fa: 'دانش', domain: 'academic' }],
+    'science': [{ pos: 'N', cefr: 'B1', def: 'علم', fa: 'علم', domain: 'academic' }],
+    'research': [{ pos: 'N', cefr: 'B1', def: 'پژوهش', fa: 'پژوهش', domain: 'academic' }],
+    'theory': [{ pos: 'N', cefr: 'B1', def: 'نظریه', fa: 'نظریه', domain: 'academic' }],
+    'data': [{ pos: 'N', cefr: 'B1', def: 'داده', fa: 'داده', domain: 'academic' }],
+    'method': [{ pos: 'N', cefr: 'B1', def: 'روش', fa: 'روش', domain: 'academic' }],
+    'structure': [{ pos: 'N', cefr: 'B1', def: 'ساختار', fa: 'ساختار', domain: 'academic' }],
+    'system': [{ pos: 'N', cefr: 'B1', def: 'سیستم', fa: 'سیستم', domain: 'academic' }],
+    'relationship': [{ pos: 'N', cefr: 'B1', def: 'رابطه', fa: 'رابطه', domain: 'academic' }],
+    'advantage': [{ pos: 'N', cefr: 'B1', def: 'مزیت', fa: 'مزیت', domain: 'academic' }],
+    'disadvantage': [{ pos: 'N', cefr: 'B1', def: 'عیب', fa: 'عیب', domain: 'academic' }],
+    'environment': [{ pos: 'N', cefr: 'B1', def: 'محیط', fa: 'محیط', domain: 'academic' }],
+    'species': [{ pos: 'N', cefr: 'B1', def: 'گونه', fa: 'گونه', domain: 'nature' }],
+    'oxygen': [{ pos: 'N', cefr: 'B1', def: 'اکسیژن', fa: 'اکسیژن', domain: 'nature' }],
+    'climate': [{ pos: 'N', cefr: 'B1', def: 'اقلیم', fa: 'اقلیم', domain: 'nature' }],
+    'process': [{ pos: 'N', cefr: 'B1', def: 'فرایند', fa: 'فرایند', domain: 'academic' }],
+    'factor': [{ pos: 'N', cefr: 'B1', def: 'عامل', fa: 'عامل', domain: 'academic' }],
+    'necessary': [{ pos: 'ADJ', cefr: 'B1', def: 'لازم', fa: 'لازم', domain: 'academic' }],
+    'common': [{ pos: 'ADJ', cefr: 'B1', def: 'رایج', fa: 'رایج', domain: 'academic' }],
+    'various': [{ pos: 'ADJ', cefr: 'B1', def: 'گوناگون', fa: 'گوناگون', domain: 'academic' }],
+    'recent': [{ pos: 'ADJ', cefr: 'B1', def: 'اخیر', fa: 'اخیر', domain: 'academic' }],
+    'general': [{ pos: 'ADJ', cefr: 'B1', def: 'عمومی', fa: 'عمومی', domain: 'academic' }],
+    'specific': [{ pos: 'ADJ', cefr: 'B1', def: 'مشخص', fa: 'مشخص', domain: 'academic' }],
+    'complex': [{ pos: 'ADJ', cefr: 'B1', def: 'پیچیده', fa: 'پیچیده', domain: 'academic' }],
+    'serious': [{ pos: 'ADJ', cefr: 'B1', def: 'جدی', fa: 'جدی', domain: 'academic' }],
+    'persistent': [{ pos: 'ADJ', cefr: 'B2', def: 'پیگیر', fa: 'پیگیر', domain: 'everyday' }],
+
+    // ---- B2 ----
+    'reduce': [{ pos: 'V', cefr: 'B2', def: 'کاهش دادن', fa: 'کاهش', domain: 'academic' }],
+    'analyze': [{ pos: 'V', cefr: 'B2', def: 'تحلیل کردن', fa: 'تحلیل', domain: 'academic' }],
+    'evaluate': [{ pos: 'V', cefr: 'B2', def: 'ارزیابی کردن', fa: 'ارزیابی', domain: 'academic' }],
+    'consider': [{ pos: 'V', cefr: 'B2', def: 'در نظر گرفتن', fa: 'در نظر گرفتن', domain: 'academic' }],
+    'determine': [{ pos: 'V', cefr: 'B2', def: 'تعیین کردن', fa: 'تعیین', domain: 'academic' }],
+    'establish': [{ pos: 'V', cefr: 'B2', def: 'تأسیس کردن', fa: 'تأسیس', domain: 'academic' }],
+    'identify': [{ pos: 'V', cefr: 'B2', def: 'شناسایی کردن', fa: 'شناسایی', domain: 'academic' }],
+    'destroy': [{ pos: 'V', cefr: 'B2', def: 'نابود کردن', fa: 'نابود', domain: 'academic' }],
+    'concept': [{ pos: 'N', cefr: 'B2', def: 'مفهوم', fa: 'مفهوم', domain: 'academic' }],
+    'context': [{ pos: 'N', cefr: 'B2', def: 'زمینه', fa: 'بافت', domain: 'academic' }],
+    'evidence': [{ pos: 'N', cefr: 'B2', def: 'شواهد', fa: 'شواهد', domain: 'academic' }],
+    'ecosystem': [{ pos: 'N', cefr: 'B2', def: 'اکوسیستم', fa: 'اکوسیستم', domain: 'nature' }],
+    'significant': [{ pos: 'ADJ', cefr: 'B2', def: 'قابل توجه', fa: 'قابل توجه', domain: 'academic' }],
+
+    // ---- C1/C2 ----
+    'ambiguous': [{ pos: 'ADJ', cefr: 'C1', def: 'مبهم', fa: 'مبهم', domain: 'academic' }],
+    'profound': [{ pos: 'ADJ', cefr: 'C1', def: 'عمیق', fa: 'عمیق', domain: 'literary' }],
+    'reluctant': [{ pos: 'ADJ', cefr: 'C1', def: 'کراهت‌آمیز', fa: 'کراهت', domain: 'academic' }],
+    'inevitable': [{ pos: 'ADJ', cefr: 'C1', def: 'اجتناب‌ناپذیر', fa: 'اجتناب‌ناپذیر', domain: 'academic' }],
+    'candid': [{ pos: 'ADJ', cefr: 'C1', def: 'صادق', fa: 'صادق', domain: 'academic' }],
+    'obsolete': [{ pos: 'ADJ', cefr: 'C1', def: 'منسوخ', fa: 'منسوخ', domain: 'academic' }],
+    'coherent': [{ pos: 'ADJ', cefr: 'C1', def: 'منسجم', fa: 'منسجم', domain: 'academic' }],
+    'succinct': [{ pos: 'ADJ', cefr: 'C1', def: 'موجز', fa: 'موجز', domain: 'academic' }],
+    'perceive': [{ pos: 'V', cefr: 'C1', def: 'درک کردن', fa: 'درک', domain: 'academic' }],
+    'sustain': [{ pos: 'V', cefr: 'C1', def: 'حفظ کردن', fa: 'حفظ', domain: 'academic' }],
+    'assert': [{ pos: 'V', cefr: 'C1', def: 'ادعا کردن', fa: 'ادعا', domain: 'academic' }],
+
+    // ---- نشانه‌های بافتی ----
+    'however': [{ pos: 'ADV', cefr: 'B1', def: 'با این حال', fa: 'با این حال', domain: 'connector', clueType: 'CONTRAST' }],
+    'because': [{ pos: 'CONJ', cefr: 'A2', def: 'زیرا', fa: 'زیرا', domain: 'connector', clueType: 'CAUSE_EFFECT' }],
+    'therefore': [{ pos: 'ADV', cefr: 'B1', def: 'بنابراین', fa: 'بنابراین', domain: 'connector', clueType: 'CAUSE_EFFECT' }],
+    'although': [{ pos: 'CONJ', cefr: 'B1', def: 'اگرچه', fa: 'اگرچه', domain: 'connector', clueType: 'CONTRAST' }],
+    'similarly': [{ pos: 'ADV', cefr: 'B1', def: 'به همین ترتیب', fa: 'به همین ترتیب', domain: 'connector', clueType: 'COMPARISON' }],
+    'unlike': [{ pos: 'PREP', cefr: 'B2', def: 'برخلاف', fa: 'برخلاف', domain: 'connector', clueType: 'CONTRAST' }]
+  };
+
+  /* ============================================================
+     ۳) Clue Words
+     ============================================================ */
+  var CLUE_WORDS = {
+    DEFINITION: ['that is', 'which means', 'defined as', 'in other words'],
+    EXAMPLE: ['such as', 'for example', 'e.g.', 'including', 'for instance'],
+    CONTRAST: ['but', 'however', 'unlike', 'in contrast', 'although', 'though', 'while'],
+    COMPARISON: ['like', 'similarly', 'also', 'as well', 'likewise'],
+    CAUSE_EFFECT: ['because', 'so', 'therefore', 'as a result', 'since', 'thus', 'consequently'],
+    WORD_PARTS: ['un-', 're-', 'dis-', '-less', '-able', '-ful', '-ness', '-ment']
+  };
+
+  /* ============================================================
+     ۴) Collocations + L1 Traps
+     ============================================================ */
+  var COLLOCATIONS = [
+    { v: 'make', n: 'decision', l1Trap: true, fa: 'تصمیم گرفتن', trap: 'do a decision' },
+    { v: 'make', n: 'mistake', l1Trap: true, fa: 'اشتباه کردن', trap: 'do a mistake' },
+    { v: 'make', n: 'progress', l1Trap: true, fa: 'پیشرفت کردن', trap: 'do a progress' },
+    { v: 'make', n: 'effort', l1Trap: true, fa: 'تلاش کردن', trap: 'do an effort' },
+    { v: 'make', n: 'friends', l1Trap: true },
+    { v: 'do', n: 'homework', l1Trap: true, fa: 'تکلیف انجام دادن', trap: 'make homework' },
+    { v: 'do', n: 'research', l1Trap: true, fa: 'تحقیق انجام دادن', trap: 'make research' },
+    { v: 'do', n: 'business', l1Trap: true, fa: 'تجارت کردن', trap: 'make business' },
+    { v: 'do', n: 'harm', l1Trap: true },
+    { v: 'have', n: 'breakfast', l1Trap: true, fa: 'صبحانه خوردن' },
+    { v: 'have', n: 'fun', l1Trap: true, fa: 'تفریح کردن' },
+    { v: 'take', n: 'photo', l1Trap: true, fa: 'عکس گرفتن', trap: 'make a photo' },
+    { v: 'take', n: 'decision', l1Trap: false },
+    { v: 'give', n: 'advice', l1Trap: true, fa: 'نصیحت کردن' },
+    { v: 'give', n: 'permission', l1Trap: true },
+    { v: 'give', n: 'a hand', l1Trap: true },
+    { v: 'pay', n: 'attention', l1Trap: true, fa: 'توجه کردن' },
+    { v: 'keep', n: 'in touch', l1Trap: true },
+    { v: 'keep', n: 'a promise', l1Trap: true },
+    { v: 'catch', n: 'a cold', l1Trap: true, fa: 'سرما خوردن' },
+    { v: 'tell', n: 'a story', l1Trap: true },
+    { v: 'break', n: 'a record', l1Trap: true },
+    { v: 'heavy', n: 'rain', l1Trap: true, fa: 'باران شدید' },
+    { v: 'strong', n: 'coffee', l1Trap: true },
+    { v: 'high', n: 'school', l1Trap: true },
+    { v: 'large', n: 'number', l1Trap: true },
+    { v: 'great', n: 'deal', l1Trap: true },
+    { v: 'lose', n: 'weight', l1Trap: true },
+    { v: 'gain', n: 'weight', l1Trap: true },
+    { v: 'fast', n: 'food', l1Trap: false }
+  ];
+
+  var L1_TRAPS = [
+    { wrong: 'do a decision', right: 'make a decision', why: 'فارسی: «تصمیم گرفتن»' },
+    { wrong: 'I am agree', right: 'I agree', why: 'فارسی: «موافق هستم»' },
+    { wrong: 'She is teacher', right: 'She is a teacher', why: 'حذف «است» در فارسی' },
+    { wrong: 'informations', right: 'information', why: 'غیرشمارش‌پذیر' },
+    { wrong: 'discuss about', right: 'discuss', why: 'فارسی: «درباره بحث کردن»' },
+    { wrong: 'married with', right: 'married to', why: 'فارسی: «ازدواج با»' },
+    { wrong: 'depend to', right: 'depend on', why: 'فارسی: «وابسته به»' },
+    { wrong: 'interested about', right: 'interested in', why: 'فارسی: «علاقمند به»' },
+    { wrong: 'I have 20 years old', right: 'I am 20 years old', why: 'فارسی: «۲۰ سال دارم»' },
+    { wrong: 'explain me', right: 'explain to me', why: 'فارسی: «برای من توضیح بده»' },
+    { wrong: 'listen music', right: 'listen to music', why: 'فارسی: «گوش دادن موسیقی»' },
+    { wrong: 'go to home', right: 'go home', why: 'فارسی: «به خانه رفتن»' },
+    { wrong: 'in the last night', right: 'last night', why: 'فارسی: «در شب گذشته»' },
+    { wrong: 'very much tired', right: 'very tired', why: 'فارسی: «خیلی خسته»' }
+  ];
+
+  /* ============================================================
+     ۵) افعال بی‌قاعده + regular
+     ============================================================ */
+  var IRREGULAR = {
+    be: { p: 'was', pp: 'been', ing: 'being', s: 'is' },
+    have: { p: 'had', pp: 'had', ing: 'having', s: 'has' },
+    do: { p: 'did', pp: 'done', ing: 'doing', s: 'does' },
+    go: { p: 'went', pp: 'gone', ing: 'going', s: 'goes' },
+    write: { p: 'wrote', pp: 'written', ing: 'writing', s: 'writes' },
+    read: { p: 'read', pp: 'read', ing: 'reading', s: 'reads' },
+    see: { p: 'saw', pp: 'seen', ing: 'seeing', s: 'sees' },
+    eat: { p: 'ate', pp: 'eaten', ing: 'eating', s: 'eats' },
+    drink: { p: 'drank', pp: 'drunk', ing: 'drinking', s: 'drinks' },
+    give: { p: 'gave', pp: 'given', ing: 'giving', s: 'gives' },
+    take: { p: 'took', pp: 'taken', ing: 'taking', s: 'takes' },
+    make: { p: 'made', pp: 'made', ing: 'making', s: 'makes' },
+    come: { p: 'came', pp: 'come', ing: 'coming', s: 'comes' },
+    run: { p: 'ran', pp: 'run', ing: 'running', s: 'runs' },
+    speak: { p: 'spoke', pp: 'spoken', ing: 'speaking', s: 'speaks' },
+    find: { p: 'found', pp: 'found', ing: 'finding', s: 'finds' },
+    think: { p: 'thought', pp: 'thought', ing: 'thinking', s: 'thinks' },
+    know: { p: 'knew', pp: 'known', ing: 'knowing', s: 'knows' },
+    buy: { p: 'bought', pp: 'bought', ing: 'buying', s: 'buys' },
+    bring: { p: 'brought', pp: 'brought', ing: 'bringing', s: 'brings' },
+    teach: { p: 'taught', pp: 'taught', ing: 'teaching', s: 'teaches' },
+    learn: { p: 'learned', pp: 'learned', ing: 'learning', s: 'learns' },
+    study: { p: 'studied', pp: 'studied', ing: 'studying', s: 'studies' },
+    work: { p: 'worked', pp: 'worked', ing: 'working', s: 'works' },
+    play: { p: 'played', pp: 'played', ing: 'playing', s: 'plays' },
+    help: { p: 'helped', pp: 'helped', ing: 'helping', s: 'helps' },
+    love: { p: 'loved', pp: 'loved', ing: 'loving', s: 'loves' },
+    want: { p: 'wanted', pp: 'wanted', ing: 'wanting', s: 'wants' },
+    need: { p: 'needed', pp: 'needed', ing: 'needing', s: 'needs' },
+    start: { p: 'started', pp: 'started', ing: 'starting', s: 'starts' },
+    finish: { p: 'finished', pp: 'finished', ing: 'finishing', s: 'finishes' },
+    destroy: { p: 'destroyed', pp: 'destroyed', ing: 'destroying', s: 'destroys' },
+    protect: { p: 'protected', pp: 'protected', ing: 'protecting', s: 'protects' },
+    produce: { p: 'produced', pp: 'produced', ing: 'producing', s: 'produces' },
+    reduce: { p: 'reduced', pp: 'reduced', ing: 'reducing', s: 'reduces' },
+    increase: { p: 'increased', pp: 'increased', ing: 'increasing', s: 'increases' },
+    continue: { p: 'continued', pp: 'continued', ing: 'continuing', s: 'continues' }
+  };
+
+  function getVerbParts(base) {
+    var b = base.toLowerCase();
+    if (IRREGULAR[b]) return IRREGULAR[b];
+    if (/[^aeiou]y$/.test(b)) return { p: b.slice(0, -1) + 'ied', pp: b.slice(0, -1) + 'ied', ing: b + 'ing', s: b.slice(0, -1) + 'ies' };
+    if (/e$/.test(b)) return { p: b + 'd', pp: b + 'd', ing: b.slice(0, -1) + 'ing', s: b + 's' };
+    return { p: b + 'ed', pp: b + 'ed', ing: b + 'ing', s: b + 's' };
+  }
+
+  /* ============================================================
+     ۶) متن‌های آماده — ۶ متن
+     ============================================================ */
+  var PASSAGES = [
+    {
+      id: 'amazon',
+      title: 'The Amazon Rainforest',
+      cefr: 'B1',
+      text: "The Amazon rainforest is often called the lungs of the planet. It produces about twenty percent of the world's oxygen and is home to millions of species. However, deforestation has become a serious problem. Each year, large areas of forest are cut down for farming and logging. Scientists warn that if this continues, the entire ecosystem could collapse.",
+      questions: [
+        { type: 'MAIN_IDEA', q: 'What is the passage mainly about?', options: ['The beauty of the Amazon', 'The importance and threats to the Amazon', 'How to plant trees', 'The Amazon in winter'], answer: 1 },
+        { type: 'DETAIL', q: 'How much of the world\'s oxygen does the Amazon produce?', options: ['10%', '20%', '50%', '80%'], answer: 1 },
+        { type: 'INFERENCE', q: 'What does "this" refer to in "if this continues"?', options: ['The rainforest', 'The oxygen production', 'Deforestation', 'Scientists\' warning'], answer: 2 },
+        { type: 'VOCAB_IN_CONTEXT', q: 'In this passage, "collapse" most likely means:', options: ['grow', 'fail completely', 'become famous', 'expand'], answer: 1 }
+      ]
+    },
+    {
+      id: 'sleep',
+      title: 'Why Sleep Matters',
+      cefr: 'B1',
+      text: "Sleep is essential for good health. During sleep, the brain processes information and stores memories. Studies show that people who sleep less than six hours a night are more likely to get sick. Unfortunately, many students sacrifice sleep to study more. This is a mistake. Research shows that sleep improves learning, not the other way around. If you want to succeed, prioritize sleep.",
+      questions: [
+        { type: 'MAIN_IDEA', q: 'What is the writer\'s main message?', options: ['Students should study more', 'Sleep is essential and improves learning', 'Six hours of sleep is enough', 'Memory is not important'], answer: 1 },
+        { type: 'DETAIL', q: 'What happens in the brain during sleep?', options: ['It stops working', 'It processes information', 'It forgets memories', 'It gets sick'], answer: 1 },
+        { type: 'INFERENCE', q: 'What does the writer think about students who sacrifice sleep?', options: ['They are smart', 'They are making a mistake', 'They should study more', 'They are healthy'], answer: 1 }
+      ]
+    },
+    {
+      id: 'internet',
+      title: 'The Internet and Learning',
+      cefr: 'B2',
+      text: "The internet has transformed how we learn. On one hand, it provides access to a vast amount of information, enabling students to explore topics deeply. On the other hand, it can be a source of distraction. Studies suggest that students who use the internet for learning, rather than entertainment, perform better. The key is intentionality: using technology with a clear purpose leads to positive outcomes.",
+      questions: [
+        { type: 'MAIN_IDEA', q: 'What is the passage mainly about?', options: ['The internet is always bad', 'The internet has both benefits and drawbacks for learning', 'Technology should be banned', 'Students are lazy'], answer: 1 },
+        { type: 'INFERENCE', q: 'What does "intentionality" mean in this context?', options: ['Using technology randomly', 'Using technology with a clear purpose', 'Avoiding technology', 'Learning without technology'], answer: 1 }
+      ]
+    },
+    {
+      id: 'coffee',
+      title: 'The History of Coffee',
+      cefr: 'A2',
+      text: "Coffee is one of the most popular drinks in the world. People drink it every morning to wake up. The coffee plant first grew in Ethiopia, and from there it spread to Arabia, Europe, and the rest of the world. Today, millions of people work in the coffee industry. However, climate change is threatening coffee farms. If we do not act, coffee could become much more expensive.",
+      questions: [
+        { type: 'MAIN_IDEA', q: 'What is the passage mainly about?', options: ['How to make coffee', 'The history and future of coffee', 'Why coffee is bad', 'Coffee in Arabia'], answer: 1 },
+        { type: 'DETAIL', q: 'Where did the coffee plant first grow?', options: ['Europe', 'Arabia', 'Ethiopia', 'America'], answer: 2 },
+        { type: 'INFERENCE', q: 'What does the writer suggest about coffee in the future?', options: ['It will be free', 'It may become expensive', 'It will disappear', 'It will get cheaper'], answer: 1 }
+      ]
+    },
+    {
+      id: 'language',
+      title: 'How Children Learn Language',
+      cefr: 'B2',
+      text: "Children learn their first language with remarkable speed. By the age of four, most children can speak in complete sentences, even though no one has taught them grammar rules. Researchers believe that humans are born with a natural ability to acquire language. Children learn by listening, imitating, and experimenting with sounds. Errors such as 'goed' instead of 'went' actually show that the child has understood a rule and is applying it too broadly. This suggests that language learning is an active, creative process.",
+      questions: [
+        { type: 'MAIN_IDEA', q: 'What is the main idea of the passage?', options: ['Grammar rules are essential', 'Children learn language naturally and creatively', 'Children make many mistakes', 'Adults learn better than children'], answer: 1 },
+        { type: 'INFERENCE', q: 'What does the error "goed" show?', options: ['The child is confused', 'The child has learned a rule and overapplied it', 'The child cannot speak', 'The child is not intelligent'], answer: 1 },
+        { type: 'VOCAB_IN_CONTEXT', q: 'In this passage, "acquire" means:', options: ['buy', 'learn', 'teach', 'forget'], answer: 1 }
+      ]
+    },
+    {
+      id: 'space',
+      title: 'The Future of Space Travel',
+      cefr: 'C1',
+      text: "Space travel, once the exclusive domain of governments, is increasingly being driven by private companies. This shift has accelerated innovation and lowered costs, but it has also raised profound questions about regulation, safety, and the equitable distribution of benefits. Some argue that space exploration should remain a public good, accessible to all nations. Others contend that private enterprise is the only sustainable path forward. Regardless of the outcome, the decisions made in the coming decades will shape humanity's relationship with space for generations.",
+      questions: [
+        { type: 'MAIN_IDEA', q: 'What is the passage mainly about?', options: ['How to build rockets', 'The shift to private space travel and its implications', 'The history of NASA', 'Space tourism'], answer: 1 },
+        { type: 'VOCAB_IN_CONTEXT', q: 'In this context, "profound" means:', options: ['shallow', 'deep and significant', 'unclear', 'temporary'], answer: 1 },
+        { type: 'INFERENCE', q: 'What can be inferred about the writer\'s stance?', options: ['The writer supports private space travel', 'The writer is neutral and presents both sides', 'The writer opposes all space travel', 'The writer thinks governments should stop'], answer: 1 },
+        { type: 'TONE', q: 'What is the tone of the passage?', options: ['Humorous', 'Balanced and analytical', 'Angry', 'Sad'], answer: 1 }
+      ]
+    }
+  ];
+
+  /* ============================================================
+     ۷) ابزار analyzeClues
+     ============================================================ */
+  function analyzeClues(sentence, targetWord) {
+    if (!sentence || !sentence.trim()) return R_err('E_EMPTY', 'جمله‌ای وارد نشده');
+    var lower = sentence.toLowerCase();
+    var clues = [];
+    Object.keys(CLUE_WORDS).forEach(function (type) {
+      CLUE_WORDS[type].forEach(function (kw) {
+        if (lower.indexOf(kw.toLowerCase()) > -1) {
+          var idx = lower.indexOf(kw.toLowerCase());
+          clues.push({
+            type: type, marker: kw, position: idx,
+            snippet: sentence.substring(Math.max(0, idx - 20), Math.min(sentence.length, idx + kw.length + 40))
+          });
+        }
+      });
+    });
+    if (targetWord) {
+      var tw = targetWord.toLowerCase();
+      if (/^(un|re|dis|pre|mis|over|under|sub)/.test(tw)) clues.push({ type: 'WORD_PARTS', marker: 'prefix', snippet: targetWord });
+      if (/(less|able|ful|ness|ment|tion|ity|ous)$/.test(tw)) clues.push({ type: 'WORD_PARTS', marker: 'suffix', snippet: targetWord });
+    }
+    if (!clues.length) clues.push({ type: 'INFERENCE', marker: '—', snippet: 'هیچ نشانهٔ صریحی یافت نشد؛ از بافت کلی استنباط کن.' });
+    return R_ok({ sentence: sentence, targetWord: targetWord, clues: clues, count: clues.length }, { rule: 'analyzeClues' });
+  }
+
+  /* ============================================================
+     ۸) ابزار guessMeaning
+     ============================================================ */
+  function guessMeaning(sentence, targetWord) {
+    if (!targetWord) return R_err('E_NO_TARGET', 'واژهٔ هدف پیدا نشد');
+    var lower = targetWord.toLowerCase();
+    if (!SENSES[lower]) return R_err('E_NO_SENSE', 'معنای «' + targetWord + '» در بذر نیست. نمونه‌ها: ' + Object.keys(SENSES).slice(0, 8).join('، '));
+    var senses = SENSES[lower];
+    var clueRes = analyzeClues(sentence, targetWord);
+    var clueTypes = clueRes.ok ? clueRes.value.clues.map(function (c) { return c.type; }) : [];
+    var suggested = senses[0];
+    var reasoning = '';
+    if (senses.length === 1) {
+      reasoning = '«' + targetWord + '» فقط یک معنای رایج دارد: «' + senses[0].fa + '».';
+    } else {
+      reasoning = '«' + targetWord + '» چندمعناست (' + fa(senses.length) + ' معنا). ';
+      if (clueTypes.indexOf('CONTRAST') > -1 && senses[1]) {
+        suggested = senses[1];
+        reasoning += 'نشانهٔ تضاد معمولاً معنای کمتر رایج را فعال می‌کند.';
+      } else {
+        reasoning += 'بدون نشانهٔ قوی، معنای رایج‌تر پیشنهاد می‌شود.';
+      }
+    }
+    return R_ok({
+      target: targetWord,
+      senses: senses.map(function (s) { return Object.assign({}, s, { isSuggested: s === suggested }); }),
+      suggested: suggested,
+      clues: clueRes.ok ? clueRes.value.clues : [],
+      reasoning: reasoning
+    }, { rule: 'guessMeaning' });
+  }
+
+  /* ============================================================
+     ۹) ابزار checkCollocation
+     ============================================================ */
+  function checkCollocation(left, right) {
+    var l = String(left).trim().toLowerCase();
+    var r = String(right).trim().toLowerCase();
+    if (!l || !r) return R_err('E_EMPTY', 'دو واژه لازم است');
+    var found = COLLOCATIONS.find(function (c) {
+      return (c.v.toLowerCase() === l && c.n.toLowerCase() === r) ||
+             (c.v.toLowerCase() === r && c.n.toLowerCase() === l);
+    });
+    if (found) {
+      return R_ok({
+        match: true, strength: 'strong', pair: [found.v, found.n],
+        l1Trap: found.l1Trap || false,
+        l1Note: found.trap ? '⚠️ خطای رایج فارسی‌زبان: «' + found.trap + '» به‌جای «' + found.v + ' a ' + found.n + '»' : null,
+        fa: found.fa || null,
+        note: '«' + found.v + ' ' + found.n + '» ترکیب طبیعی است.'
+      }, { rule: 'collocation.match' });
+    }
+    var altLefts = COLLOCATIONS.filter(function (c) { return c.v.toLowerCase() === l; }).map(function (c) { return c.n; });
+    var altRights = COLLOCATIONS.filter(function (c) { return c.n.toLowerCase() === r; }).map(function (c) { return c.v; });
+    return R_ok({
+      match: false, strength: 'none',
+      alternatives: { leftPartners: altLefts, rightPartners: altRights },
+      note: '«' + l + '» و «' + r + '» ترکیب طبیعی نیستند.'
+    }, { rule: 'collocation.miss' });
+  }
+
+  /* ============================================================
+     ۱۰) parseSentence + transform + validateSentence
+     ============================================================ */
+  function parseSentence(sentence) {
+    var clean = sentence.trim().replace(/[.?!]+$/, '').trim();
+    var tokens = clean.split(/\s+/);
+    if (tokens.length < 2) return null;
+    var verbIdx = -1, verbBase = null, verbForm = 'unknown';
+    for (var i = 1; i < tokens.length; i++) {
+      var w = tokens[i].toLowerCase();
+      if (IRREGULAR[w] && IRREGULAR[w].p !== w) { verbIdx = i; verbBase = w; verbForm = 'base'; break; }
+      if (/ed$/.test(w) && w.length > 3) {
+        var base = w.replace(/ed$/, '');
+        var irrMatch = Object.keys(IRREGULAR).find(function (k) { return IRREGULAR[k].p === w; });
+        if (irrMatch) { verbIdx = i; verbBase = irrMatch; verbForm = 'past'; break; }
+        if (IRREGULAR[base]) { verbIdx = i; verbBase = base; verbForm = 'past'; break; }
+        verbIdx = i; verbBase = base; verbForm = 'past'; break;
+      }
+      if (/s$/.test(w) && w.length > 2 && !/ss$/.test(w)) {
+        var sBase = w.slice(0, -1);
+        if (IRREGULAR[sBase]) { verbIdx = i; verbBase = sBase; verbForm = 's'; break; }
+        if (IRREGULAR[w.slice(0, -2) + 'y']) { verbIdx = i; verbBase = w.slice(0, -2) + 'y'; verbForm = 's'; break; }
+      }
+      if (IRREGULAR[w]) { verbIdx = i; verbBase = w; verbForm = 'past'; break; }
+    }
+    if (verbIdx < 0) return null;
+    return {
+      subject: tokens.slice(0, verbIdx).join(' '),
+      verb: verbBase,
+      verbForm: verbForm, verbSurface: tokens[verbIdx],
+      rest: tokens.slice(verbIdx + 1).join(' '),
+      original: sentence
+    };
+  }
+
+  function transform(sentence, op) {
+    if (!sentence || !sentence.trim()) return R_err('E_EMPTY', 'جمله‌ای وارد نشده');
+    if (op === 'VALIDATE') return validateSentence(sentence);
+    var parsed = parseSentence(sentence);
+    if (!parsed) return R_err('E_PARSE', 'ساختار جمله تشخیص داده نشد. لطفاً ساده بنویس: Subject + Verb + Object');
+    var parts = getVerbParts(parsed.verb);
+    var subj = parsed.subject;
+    var rest = parsed.rest;
+    var isPlural = /\b(we|they|you|people|children|students)\b/i.test(subj) || /\w+s$/.test((subj.split(/\s+/).pop() || '').toLowerCase());
+
+    if (op === 'TENSE_SHIFT') {
+      var wasPast = parsed.verbForm === 'past';
+      if (wasPast) {
+        var newV = isPlural ? parsed.verb : parts.s;
+        return R_ok({ original: sentence, result: subj + ' ' + newV + ' ' + rest + '.', note: 'گذشته → حال' }, { rule: 'TENSE_SHIFT' });
+      }
+      return R_ok({ original: sentence, result: subj + ' ' + parts.p + ' ' + rest + '.', note: 'حال → گذشته' }, { rule: 'TENSE_SHIFT' });
+    }
+    if (op === 'VOICE_SHIFT') {
+      if (!rest) return R_err('E_NO_OBJ', 'مفعول لازم است');
+      var obj = rest.replace(/\s+(?:by|to|for|in|on|at)\s+.*$/, '');
+      var wasPast2 = parsed.verbForm === 'past';
+      var aux = wasPast2 ? (isPlural ? 'were' : 'was') : (isPlural ? 'are' : 'is');
+      return R_ok({ original: sentence, result: obj + ' ' + aux + ' ' + parts.pp + ' by ' + subj.toLowerCase() + '.', note: 'مجهول: Object + ' + aux + ' + pp + by + Subject' }, { rule: 'VOICE_SHIFT' });
+    }
+    if (op === 'NEGATE') {
+      var wasPast3 = parsed.verbForm === 'past';
+      var doForm = wasPast3 ? 'did not' : (isPlural ? 'do not' : 'does not');
+      return R_ok({ original: sentence, result: subj + ' ' + doForm + ' ' + parsed.verb + ' ' + rest + '.', note: 'منفی با ' + doForm }, { rule: 'NEGATE' });
+    }
+    if (op === 'QUESTION_FORM') {
+      var wasPast4 = parsed.verbForm === 'past';
+      var dForm = wasPast4 ? 'Did' : (isPlural ? 'Do' : 'Does');
+      return R_ok({ original: sentence, result: dForm + ' ' + subj.toLowerCase() + ' ' + parsed.verb + ' ' + rest + '?', note: 'سؤالی: ' + dForm + ' + Subject + Base verb' }, { rule: 'QUESTION_FORM' });
+    }
+    if (op === 'REPORTED_SPEECH') {
+      var wasPast5 = parsed.verbForm === 'past';
+      if (wasPast5) {
+        return R_ok({ original: sentence, result: 'She said (that) ' + subj.toLowerCase() + ' had ' + parts.pp + ' ' + rest + '.', note: 'نقل قول: گذشته → گذشته کامل' }, { rule: 'REPORTED_SPEECH' });
+      }
+      return R_ok({ original: sentence, result: 'She said (that) ' + subj.toLowerCase() + ' ' + parts.p + ' ' + rest + '.', note: 'نقل قول: حال → گذشته' }, { rule: 'REPORTED_SPEECH' });
+    }
+    if (op === 'CONDITIONAL_SHIFT') {
+      var wasPast6 = parsed.verbForm === 'past';
+      if (wasPast6) {
+        return R_ok({ original: sentence, result: 'If she had ' + parts.pp + ' ' + rest + ', everything would have been different.', note: 'شرطی نوع سوم' }, { rule: 'CONDITIONAL_SHIFT' });
+      }
+      return R_ok({ original: sentence, result: 'If she ' + parts.s + ' ' + rest + ', we will be happy.', note: 'شرطی نوع اول' }, { rule: 'CONDITIONAL_SHIFT' });
+    }
+    if (op === 'ARTICLE_INSERT') {
+      var firstWord = (rest.split(/\s+/)[0] || '');
+      if (!firstWord) return R_err('E_NO_OBJ', 'مفعولی نیست');
+      if (/^(a|an|the)\s/i.test(rest)) return R_ok({ original: sentence, result: sentence, note: 'حرف تعریف از قبل وجود دارد' }, { rule: 'ARTICLE_INSERT' });
+      var needsAn = /^[aeiou]/i.test(firstWord);
+      return R_ok({ original: sentence, result: subj + ' ' + parsed.verbSurface + ' ' + (needsAn ? 'an' : 'a') + ' ' + rest + '.', note: 'حرف تعریف: ' + (needsAn ? 'an' : 'a') + ' + اسم مفرد' }, { rule: 'ARTICLE_INSERT' });
+    }
+    return R_err('E_UNKNOWN_OP', 'عملگر «' + op + '» ناشناخته');
+  }
+
+  function validateSentence(sentence) {
+    var errors = [];
+    var s = String(sentence).trim();
+    var lower = s.toLowerCase();
+    L1_TRAPS.forEach(function (trap) {
+      if (lower.indexOf(trap.wrong.toLowerCase()) > -1) {
+        errors.push({ type: 'L1 Trap', span: trap.wrong, fix: trap.right, msg: trap.why });
+      }
+    });
+    var parsed = parseSentence(s);
+    if (parsed) {
+      var subjLast = (parsed.subject.split(/\s+/).pop() || '').toLowerCase();
+      var subjPlural = /\b(we|they|you|people|children|students)\b/i.test(parsed.subject) || /\w+s$/.test(subjLast);
+      var verbLower = parsed.verbSurface.toLowerCase();
+      if (/^(he|she|it|the teacher|the student|the boy|the girl|the man|the woman)$/i.test(parsed.subject) && ['go','have','do','come','write','read','see','eat','drink','give','take','make','run','speak','find','think','know','buy','bring','teach'].indexOf(verbLower) > -1) {
+        errors.push({ type: 'S-V Agreement', span: parsed.subject + ' ' + parsed.verbSurface, fix: parsed.verbSurface + 's', msg: 'نهاد مفرد سوم‌شخص → فعل s می‌گیرد' });
+      }
+      if (subjPlural && verbLower.endsWith('s') && !verbLower.endsWith('ss')) {
+        errors.push({ type: 'S-V Agreement', span: parsed.subject + ' ' + parsed.verbSurface, fix: parsed.verbSurface.replace(/s$/, ''), msg: 'نهاد جمع → فعل بدون s' });
+      }
+    }
+    if (/\b(is|are|was|were)\s+(teacher|student|doctor|engineer|nurse)\b/.test(lower) && !/\b(a|an|the)\s+(teacher|student|doctor|engineer|nurse)/.test(lower)) {
+      errors.push({ type: 'Article', span: 'is teacher', fix: 'is a teacher', msg: 'اسم شغلی مفرد با a/an' });
+    }
+    if (!errors.length) return R_ok({ errors: [], clean: true, sentence: sentence }, { rule: 'validate.clean' });
+    return R_ok({ errors: errors, clean: false, sentence: sentence }, { rule: 'validate.found', count: errors.length });
+  }
+
+  /* ============================================================
+     ۱۱) Cloze + Question + Morph + CEFR
+     ============================================================ */
+  function generateCloze(text, level, count) {
+    if (!text || !text.trim()) return R_err('E_EMPTY', 'متنی نیست');
+    var words = text.match(/[A-Za-z]+/g) || [];
+    var targets = [];
+    words.forEach(function (w) {
+      var clean = w.toLowerCase();
+      if (SENSES[clean] && SENSES[clean][0].cefr === level && clean.length > 3) {
+        targets.push({ word: w, clean: clean });
+      }
+    });
+    if (targets.length < count) {
+      return R_err('E_NOT_ENOUGH', 'واژه‌های سطح ' + level + ' کافی نیست (' + fa(targets.length) + ' < ' + fa(count) + ')');
+    }
+    var chosen = [];
+    var seen = new Set();
+    var shuffled = targets.sort(function () { return Math.random() - 0.5; });
+    for (var i = 0; i < shuffled.length; i++) {
+      if (!seen.has(shuffled[i].clean)) {
+        chosen.push(shuffled[i]);
+        seen.add(shuffled[i].clean);
+      }
+      if (chosen.length >= count) break;
+    }
+    var clozeText = text;
+    var answers = [];
+    chosen.forEach(function (t, idx) {
+      var re = new RegExp('\\b' + t.word + '\\b');
+      var blank = '___(' + fa(idx + 1) + ')___';
+      clozeText = clozeText.replace(re, blank);
+      answers.push({ n: idx + 1, word: t.word, fa: SENSES[t.clean][0].fa });
+    });
+    return R_ok({ clozeText: clozeText, answers: answers, level: level }, { rule: 'cloze' });
+  }
+
+  function generateQuestions(passageId) {
+    var p = PASSAGES.find(function (x) { return x.id === passageId; });
+    if (!p) return R_err('E_NOT_FOUND', 'متن آماده یافت نشد');
+    var typeFa = { MAIN_IDEA: 'موضوع اصلی', DETAIL: 'جزئیات', INFERENCE: 'استنتاج', VOCAB_IN_CONTEXT: 'واژه در بافت', REFERENCE: 'مرجع ضمیر', TONE: 'لحن' };
+    return R_ok({
+      passage: p.text, title: p.title, cefr: p.cefr,
+      questions: p.questions.map(function (q) { return Object.assign({}, q, { typeFa: typeFa[q.type] || q.type }); })
+    }, { rule: 'questionSet' });
+  }
+
+  var PREFIXES = {
+    'un': 'not (منفی)', 're': 'again (دوباره)', 'dis': 'not (منفی)',
+    'pre': 'before (قبل)', 'post': 'after (بعد)', 'mis': 'wrongly (اشتباه)',
+    'over': 'too much (بیش)', 'under': 'too little (کم)', 'sub': 'under (زیر)',
+    'inter': 'between (بین)', 'in': 'not (منفی)', 'im': 'not (قبل از p/b/m)',
+    'il': 'not (قبل از l)', 'ir': 'not (قبل از r)', 'anti': 'against (ضد)',
+    'auto': 'self (خود)', 'bi': 'two (دو)', 'co': 'with (هم)', 'ex': 'out (بیرون)'
+  };
+  var SUFFIXES = {
+    'less': 'without (بدون)', 'able': 'can be (قابل)', 'ible': 'can be (قابل)',
+    'ful': 'full of (پر از)', 'ness': 'state of (حالت)', 'ment': 'action (عمل)',
+    'tion': 'action (عمل)', 'sion': 'action (عمل)', 'ity': 'quality (کیفیت)',
+    'ous': 'full of (پر از)', 'ly': 'in manner (به‌صورت)', 'er': 'person (کسی که)',
+    'ist': 'person (کسی که)', 'ism': 'belief (باور)', 'ize': 'make (کردن)',
+    'ify': 'make (کردن)', 'en': 'make (کردن)', 'al': 'related (مربوط)',
+    'ic': 'related (مربوط)', 'ish': 'like (شبیه)'
+  };
+
+  function analyzeMorph(word) {
+    var w = String(word).toLowerCase().trim();
+    if (!w) return R_err('E_EMPTY', 'واژه‌ای وارد نشده');
+    var parts = [];
+    var rest = w;
+    var prefixC = Object.keys(PREFIXES).sort(function (a, b) { return b.length - a.length; });
+    for (var i = 0; i < prefixC.length; i++) {
+      var pref = prefixC[i];
+      if (rest.indexOf(pref) === 0 && rest.length > pref.length + 2) {
+        parts.push({ type: 'prefix', text: pref + '-', meaning: PREFIXES[pref] });
+        rest = rest.slice(pref.length);
+        break;
+      }
+    }
+    var suffixC = Object.keys(SUFFIXES).sort(function (a, b) { return b.length - a.length; });
+    var suffix = null;
+    for (var j = 0; j < suffixC.length; j++) {
+      var suff = suffixC[j];
+      if (rest.slice(-suff.length) === suff && rest.length > suff.length + 1) {
+        suffix = { type: 'suffix', text: '-' + suff, meaning: SUFFIXES[suff] };
+        rest = rest.slice(0, -suff.length);
+        break;
+      }
+    }
+    parts.push({ type: 'root', text: rest, meaning: 'ریشه' });
+    if (suffix) parts.push(suffix);
+    var guess = '«' + w + '» ≈ ' + parts.map(function (p) { return p.meaning; }).join(' + ');
+    var known = SENSES[w];
+    var knownMeaning = known ? known[0].fa : null;
+    return R_ok({
+      word: w, parts: parts, guess: guess, knownMeaning: knownMeaning,
+      note: knownMeaning ? 'معنای ثبت‌شده: «' + knownMeaning + '»' : 'این واژه در بذر نیست؛ از وندها حدس زده شد.'
+    }, { rule: 'analyzeMorph' });
+  }
+
+  var CEFR_LEVELS = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 };
+
+  function vocabularyProfile(text) {
+    var words = (String(text).toLowerCase().match(/[a-z]+/g) || []);
+    var profile = { A1: 0, A2: 0, B1: 0, B2: 0, C1: 0, C2: 0, unknown: 0 };
+    words.forEach(function (w) {
+      if (SENSES[w]) profile[SENSES[w][0].cefr]++;
+      else profile.unknown++;
+    });
+    return { profile: profile, totalWords: words.length };
+  }
+
+  function cefrLevel(text) {
+    var vp = vocabularyProfile(text);
+    var known = vp.totalWords - vp.profile.unknown;
+    if (known < 3) return R_err('E_TOO_FEW', 'واژه‌های شناخته‌شده کم است');
+    var sum = 0;
+    Object.keys(CEFR_LEVELS).forEach(function (lvl) { sum += vp.profile[lvl] * CEFR_LEVELS[lvl]; });
+    var avg = sum / known;
+    var level = 'A1';
+    if (avg >= 5.5) level = 'C2';
+    else if (avg >= 4.5) level = 'C1';
+    else if (avg >= 3.5) level = 'B2';
+    else if (avg >= 2.5) level = 'B1';
+    else if (avg >= 1.5) level = 'A2';
+    return R_ok({ level: level, avg: avg, profile: vp.profile, totalWords: vp.totalWords, known: known }, { rule: 'cefrLevel' });
+  }
+
+  /* ============================================================
+     ۱۲) ذخیرهٔ پیشرفت
+     ============================================================ */
+  var STORAGE_KEY = 'mestrplanner.english-tutor.stats.v1';
+  function loadStats() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+  function saveStats(s) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
+  }
+  function trackUsage(tool) {
+    var s = loadStats();
+    if (!s[tool]) s[tool] = { count: 0, firstUsed: Date.now(), lastUsed: Date.now() };
+    s[tool].count += 1;
+    s[tool].lastUsed = Date.now();
+    saveStats(s);
+  }
+  function resetStats() {
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+  }
+
+  /* ============================================================
+     ۱۳) ۶ تمرین‌ساز
+     ============================================================ */
+  function exerciseL1Trap() {
+    var trap = pick(L1_TRAPS);
+    return R_ok({
+      prompt: 'کدام جمله در انگلیسی درست است؟',
+      options: [trap.right, trap.wrong].sort(function () { return Math.random() - 0.5; }),
+      answer: trap.right,
+      feedback: '«' + trap.wrong + '» → «' + trap.right + '» — ' + trap.why
+    }, { rule: 'ex.l1trap' });
+  }
+  function exerciseColloc() {
+    var c = pick(COLLOCATIONS);
+    var wrongVerbs = ['do', 'make', 'have', 'take', 'give', 'pay'].filter(function (v) { return v !== c.v; });
+    var wrongV = pick(wrongVerbs);
+    return R_ok({
+      prompt: 'کدام ترکیب با «' + c.n + '» طبیعی است؟',
+      options: [c.v, wrongV].sort(function () { return Math.random() - 0.5; }).map(function (v) { return v + ' ' + c.n; }),
+      answer: c.v + ' ' + c.n,
+      feedback: '«' + c.v + ' ' + c.n + '» ترکیب طبیعی است' + (c.l1Trap && c.trap ? ' — و «' + c.trap + '» خطای رایج است' : '') + '.'
+    }, { rule: 'ex.colloc' });
+  }
+  function exerciseGuess() {
+    var multi = Object.keys(SENSES).filter(function (w) { return SENSES[w].length > 1; });
+    if (!multi.length) return R_err('E_NO_DATA', 'واژهٔ چندمعنا نیست');
+    var word = pick(multi);
+    var senses = SENSES[word];
+    var correct = pick(senses);
+    var wrong = pick(senses.filter(function (s) { return s !== correct; }));
+    return R_ok({
+      prompt: 'کدام معادل «' + word + '» به معنای «' + correct.def + '» درست است؟',
+      options: [correct.fa, wrong.fa].sort(function () { return Math.random() - 0.5; }),
+      answer: correct.fa,
+      feedback: '«' + word + '» در این بافت «' + correct.fa + '» است (' + correct.cefr + ').'
+    }, { rule: 'ex.guess' });
+  }
+  function exerciseGrammar() {
+    var pool = [
+      { s: 'She writes a letter.', op: 'VOICE_SHIFT' },
+      { s: 'The teacher wrote a book.', op: 'NEGATE' },
+      { s: 'They bought a house.', op: 'QUESTION_FORM' },
+      { s: 'He plays football.', op: 'TENSE_SHIFT' },
+      { s: 'The boy broke the window.', op: 'VOICE_SHIFT' }
+    ];
+    var ex = pick(pool);
+    var r = transform(ex.s, ex.op);
+    if (!r.ok) return exerciseGrammar();
+    var opFa = { VOICE_SHIFT: 'مجهول', NEGATE: 'منفی', QUESTION_FORM: 'سؤالی', TENSE_SHIFT: 'تغییر زمان' }[ex.op];
+    return R_ok({
+      prompt: 'جملهٔ «' + ex.s + '» را ' + opFa + ' کن.',
+      options: [r.value.result, ex.s].sort(function () { return Math.random() - 0.5; }),
+      answer: r.value.result,
+      feedback: r.value.note
+    }, { rule: 'ex.grammar' });
+  }
+  function exerciseCEFR() {
+    var word = pick(Object.keys(SENSES));
+    var sense = SENSES[word][0];
+    var wrongLevels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].filter(function (l) { return l !== sense.cefr; });
+    var wrong = pick(wrongLevels);
+    return R_ok({
+      prompt: 'سطح CEFR واژهٔ «' + word + '» (' + sense.fa + ') کدام است؟',
+      options: [sense.cefr, wrong].sort(function () { return Math.random() - 0.5; }),
+      answer: sense.cefr,
+      feedback: '«' + word + '» → «' + sense.fa + '» سطح ' + sense.cefr
+    }, { rule: 'ex.cefr' });
+  }
+  function exerciseCombined() {
+    var ps = PASSAGES.filter(function (p) { return p.cefr === 'B1' || p.cefr === 'B2'; });
+    var passage = pick(ps);
+    var q = pick(passage.questions);
+    var relatedTrap = pick(L1_TRAPS);
+    var correctOpt = q.options[q.answer];
+    var wrongOpt = relatedTrap.wrong;
+    return R_ok({
+      prompt: '[' + passage.title + ' · ' + passage.cefr + '] ' + q.q,
+      passage: passage.text,
+      options: [correctOpt, wrongOpt].sort(function () { return Math.random() - 0.5; }),
+      answer: correctOpt,
+      feedback: 'پاسخ از متن. نکتهٔ مرتبط: «' + relatedTrap.wrong + '» → «' + relatedTrap.right + '»',
+      trail: ['PASSAGES', 'question', 'L1_TRAP', 'distractors']
+    }, { rule: 'ex.combined' });
+  }
+
+  var EXERCISE_GEN = {
+    l1trap: exerciseL1Trap,
+    colloc: exerciseColloc,
+    guess: exerciseGuess,
+    grammar: exerciseGrammar,
+    cefr: exerciseCEFR,
+    combined: exerciseCombined
+  };
+  function generateExercise(type) {
+    var gen = EXERCISE_GEN[type];
+    if (!gen) return R_err('E_UNKNOWN', 'نوع تمرین ناشناخته');
+    return gen();
+  }
+
+  /* ============================================================
+     ۱۴) Presetها
+     ============================================================ */
+  var PRESETS = {
+    guessFromContext: function (text) {
+      if (!text || !text.trim()) return R_err('E_EMPTY', 'جمله‌ای وارد نشده');
+      var target = null;
+      var sentence = text.trim();
+      var starMatch = sentence.match(/\*\*([A-Za-z]+)\*\*/);
+      if (starMatch) {
+        target = starMatch[1];
+        sentence = sentence.replace(/\*\*[A-Za-z]+\*\*/, starMatch[1]);
+      } else {
+        var words = sentence.match(/[A-Za-z]+/g);
+        if (words && words.length) target = words[words.length - 1];
+      }
+      if (!target) return R_err('E_NO_TARGET', 'واژهٔ هدف پیدا نشد');
+      return guessMeaning(sentence, target);
+    },
+    collocation: function (l, r) { return checkCollocation(l, r); }
+  };
+
+  /* ============================================================
+     ۱۵) رندرها
+     ============================================================ */
+  function renderGuess(res) {
+    if (!res.ok) return '<div class="result-card error">' + esc(res.error.message) + '</div>';
+    var d = res.value;
+    var html = '<h3><i class="fa-solid fa-lightbulb"></i> تحلیل «' + esc(d.target) + '»</h3>';
+    var highlighted = d.sentence.replace(new RegExp('\\b' + d.target.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'),
+      function (m) { return '<span class="highlight">' + esc(m) + '</span>'; });
+    html += '<div class="en-line">' + highlighted + '</div>';
+    html += '<h4>معانی در بذر (' + fa(d.senses.length) + ')</h4>';
+    html += '<table class="out-table"><thead><tr><th>#</th><th>معنا</th><th>نوع</th><th>CEFR</th></tr></thead><tbody>';
+    d.senses.forEach(function (s, i) {
+      html += '<tr><td>' + fa(i + 1) + (s.isSuggested ? ' ✅' : '') + '</td><td>' + esc(s.fa) + ' <small style="opacity:0.7;">(' + esc(s.def) + ')</small></td><td class="en">' + esc(s.pos) + '</td><td><span class="badge cefr-' + esc(s.cefr) + '">' + esc(s.cefr) + '</span></td></tr>';
+    });
+    html += '</tbody></table>';
+    html += '<div class="result-card ok"><strong>پیشنهاد:</strong> «' + esc(d.suggested.fa) + '» <span class="badge cefr-' + esc(d.suggested.cefr) + '">' + esc(d.suggested.cefr) + '</span></div>';
+    html += '<div class="result-card"><strong>استدلال:</strong> ' + esc(d.reasoning) + '</div>';
+    if (d.clues.length) {
+      html += '<h4>نشانه‌های بافتی (' + fa(d.clues.length) + ')</h4>';
+      var typeFa = { DEFINITION: 'تعریف', EXAMPLE: 'مثال', CONTRAST: 'تضاد', COMPARISON: 'مقایسه', CAUSE_EFFECT: 'علت-معلول', WORD_PARTS: 'وند', INFERENCE: 'استنباط' };
+      d.clues.forEach(function (c) {
+        html += '<div class="result-card"><strong>' + esc(typeFa[c.type] || c.type) + '</strong> — «<span class="en">' + esc(c.marker) + '</span>»<br>' + esc(c.snippet) + '</div>';
+      });
+    }
+    return html;
+  }
+
+  function renderColloc(res) {
+    if (!res.ok) return '<div class="result-card error">' + esc(res.error.message) + '</div>';
+    var d = res.value;
+    var html = '<h3><i class="fa-solid fa-handshake"></i> نتیجهٔ ترکیب</h3>';
+    if (d.match) {
+      html += '<div class="result-card ok"><strong>✅ ترکیب طبیعی</strong><br><span class="en" style="font-size:1.1rem;">' + esc(d.pair[0]) + ' + ' + esc(d.pair[1]) + '</span></div>';
+      if (d.fa) html += '<div class="result-card"><strong>معادل:</strong> «' + esc(d.fa) + '»</div>';
+    } else {
+      html += '<div class="result-card error"><strong>⚠️ ترکیب طبیعی نیست</strong><br>' + esc(d.note) + '</div>';
+    }
+    if (d.l1Note) html += '<div class="result-card warn"><strong>🎯 L1 Trap:</strong><br>' + esc(d.l1Note) + '</div>';
+    if (d.alternatives) {
+      if (d.alternatives.leftPartners.length) {
+        html += '<h4>همنشین‌های واژهٔ اول</h4><div class="badges">';
+        d.alternatives.leftPartners.forEach(function (p) { html += '<span class="badge">' + esc(p) + '</span>'; });
+        html += '</div>';
+      }
+      if (d.alternatives.rightPartners.length) {
+        html += '<h4>همنشین‌های واژهٔ دوم</h4><div class="badges">';
+        d.alternatives.rightPartners.forEach(function (p) { html += '<span class="badge">' + esc(p) + '</span>'; });
+        html += '</div>';
+      }
+    }
+    return html;
+  }
+
+  function renderGrammar(res) {
+    if (!res.ok) return '<div class="result-card error">' + esc(res.error.message) + '</div>';
+    var d = res.value;
+    if (d.clean !== undefined) {
+      if (d.clean) return '<div class="result-card ok"><strong>✅ جمله سالم است</strong></div>';
+      var html = '<h3><i class="fa-solid fa-triangle-exclamation"></i> ' + fa(d.errors.length) + ' خطا</h3>';
+      d.errors.forEach(function (e, i) {
+        html += '<div class="result-card error"><strong>خطا ' + fa(i + 1) + ' — ' + esc(e.type) + '</strong><br>' + esc(e.msg);
+        if (e.span) html += '<br><span style="opacity:0.7;">بخش: «<span class="en">' + esc(e.span) + '</span>»</span>';
+        if (e.fix) html += '<br><span style="color:var(--c-ok);">پیشنهاد: <span class="en">' + esc(e.fix) + '</span></span>';
+        html += '</div>';
+      });
+      return html;
+    }
+    var html2 = '<h3><i class="fa-solid fa-rotate"></i> نتیجهٔ تبدیل</h3>';
+    html2 += '<h4>متن اصلی</h4><div class="en-line">' + esc(d.original) + '</div>';
+    html2 += '<h4>نتیجه</h4><div class="en-line" style="border-left-color:var(--c-ok);color:var(--c-ok);">' + esc(d.result) + '</div>';
+    if (d.note) html2 += '<div class="result-card ok"><strong>تبدیل:</strong> ' + esc(d.note) + '</div>';
+    return html2;
+  }
+
+  function renderCloze(res) {
+    if (!res.ok) return '<div class="result-card error">' + esc(res.error.message) + '</div>';
+    var d = res.value;
+    var html = '<h3><i class="fa-solid fa-book-open-reader"></i> کلوز (سطح ' + esc(d.level) + ')</h3>';
+    html += '<div class="en-line" style="line-height:2.2;padding:1rem;background:rgba(139,92,246,0.04);">' + esc(d.clozeText) + '</div>';
+    html += '<h4>پاسخ‌ها</h4><div class="badges">';
+    d.answers.forEach(function (a) {
+      html += '<span class="badge">' + fa(a.n) + '. <span class="en">' + esc(a.word) + '</span> — ' + esc(a.fa) + '</span>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderQuestions(res) {
+    if (!res.ok) return '<div class="result-card error">' + esc(res.error.message) + '</div>';
+    var d = res.value;
+    var html = '<h3><i class="fa-solid fa-circle-question"></i> ' + esc(d.title) + ' — ' + esc(d.cefr) + '</h3>';
+    html += '<div class="en-line" style="line-height:2.1;padding:1rem;">' + esc(d.passage) + '</div>';
+    d.questions.forEach(function (q, i) {
+      var id = 'q_' + Date.now() + '_' + i;
+      html += '<h4>سؤال ' + fa(i + 1) + ' — ' + esc(q.typeFa) + '</h4>';
+      html += '<p class="en" style="direction:ltr;text-align:left;font-weight:700;margin:0.4rem 0;">' + esc(q.q) + '</p>';
+      html += '<div class="options" id="' + id + '">';
+      q.options.forEach(function (o, oi) {
+        html += '<button class="option" data-correct="' + (oi === q.answer ? 'true' : 'false') + '">' + esc(o) + '</button>';
+      });
+      html += '</div>';
+      setTimeout(function () {
+        var wrap = document.getElementById(id);
+        if (!wrap) return;
+        wrap.querySelectorAll('.option').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var isCorrect = btn.dataset.correct === 'true';
+            btn.classList.add(isCorrect ? 'correct' : 'wrong');
+            if (!isCorrect) wrap.querySelectorAll('.option').forEach(function (b) {
+              if (b.dataset.correct === 'true') b.classList.add('correct');
+            });
+            wrap.querySelectorAll('.option').forEach(function (b) { b.disabled = true; });
+          });
+        });
+      }, 0);
+    });
+    return html;
+  }
+
+  function renderMorph(res) {
+    if (!res.ok) return '<div class="result-card error">' + esc(res.error.message) + '</div>';
+    var d = res.value;
+    var html = '<h3><i class="fa-solid fa-puzzle-piece"></i> تحلیل <span class="en">' + esc(d.word) + '</span></h3>';
+    html += '<div class="morph-breakdown">';
+    d.parts.forEach(function (p, i) {
+      if (i > 0) html += '<span class="morph-plus">+</span>';
+      html += '<span class="morph-part ' + p.type + '">' + esc(p.text) + '</span>';
+    });
+    html += '</div>';
+    html += '<h4>معنای وندها</h4><ul>';
+    d.parts.forEach(function (p) {
+      if (p.meaning && p.type !== 'root') html += '<li><strong class="en">' + esc(p.text) + '</strong> — ' + esc(p.meaning) + '</li>';
+    });
+    html += '</ul>';
+    html += '<div class="result-card ok"><strong>حدس از وندها:</strong> ' + esc(d.guess) + '</div>';
+    if (d.knownMeaning) html += '<div class="result-card ok"><strong>معنای ثبت‌شده:</strong> «' + esc(d.knownMeaning) + '»</div>';
+    else html += '<div class="result-card">' + esc(d.note) + '</div>';
+    return html;
+  }
+
+  function renderCEFR(res) {
+    if (!res.ok) return '<div class="result-card error">' + esc(res.error.message) + '</div>';
+    var d = res.value;
+    var total = Object.keys(d.profile).reduce(function (s, k) { return s + d.profile[k]; }, 0);
+    var html = '<h3><i class="fa-solid fa-gauge"></i> سطح: <span class="badge cefr-' + esc(d.level) + '">' + esc(d.level) + '</span></h3>';
+    html += '<div class="result-card ok"><strong>میانگین:</strong> ' + fa(d.avg.toFixed(2)) + ' — از ' + fa(d.known) + '/' + fa(d.totalWords) + ' واژهٔ شناخته‌شده</div>';
+    html += '<h4>پروفایل واژگانی</h4><div class="cefr-bar">';
+    ['A1','A2','B1','B2','C1','C2'].forEach(function (lvl) {
+      var pct = total > 0 ? (d.profile[lvl] / total * 100) : 0;
+      if (pct > 3) html += '<div class="cefr-seg ' + lvl + '" style="flex:' + pct + ';">' + (pct > 8 ? lvl : '') + '</div>';
+    });
+    html += '</div>';
+    html += '<table class="out-table"><thead><tr><th>سطح</th><th>تعداد</th><th>درصد</th></tr></thead><tbody>';
+    ['A1','A2','B1','B2','C1','C2'].forEach(function (lvl) {
+      var pct = total > 0 ? Math.round(d.profile[lvl] / total * 100) : 0;
+      html += '<tr><td><span class="badge cefr-' + lvl + '">' + lvl + '</span></td><td>' + fa(d.profile[lvl]) + '</td><td>' + fa(pct) + '٪</td></tr>';
+    });
+    html += '<tr><td><span class="badge">نامشخص</span></td><td>' + fa(d.profile.unknown) + '</td><td>' + fa(total > 0 ? Math.round(d.profile.unknown / total * 100) : 0) + '٪</td></tr>';
+    html += '</tbody></table>';
+    return html;
+  }
+
+  function renderExercise(res) {
+    if (!res.ok) return '<div class="result-card error">' + esc(res.error.message) + '</div>';
+    var ex = res.value;
+    var id = 'ex_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5);
+    var html = '<h3><i class="fa-solid fa-dumbbell"></i> ' + esc(ex.prompt) + '</h3>';
+    if (ex.passage) html += '<div class="en-line" style="line-height:2.1;padding:1rem;font-size:0.9rem;">' + esc(ex.passage) + '</div>';
+    if (ex.trail) {
+      html += '<div class="badges" style="margin:0.6rem 0;">';
+      ex.trail.forEach(function (s, i) {
+        if (i > 0) html += '<span style="color:var(--muted);">→</span>';
+        html += '<span class="badge">' + esc(s) + '</span>';
+      });
+      html += '</div>';
+    }
+    html += '<div class="options" id="' + id + '">';
+    ex.options.forEach(function (opt) {
+      html += '<button class="option" data-correct="' + (opt === ex.answer ? 'true' : 'false') + '">' + esc(opt) + '</button>';
+    });
+    html += '</div><div style="margin-top:0.5rem;" id="' + id + '_fb"></div>';
+    setTimeout(function () {
+      var wrap = document.getElementById(id);
+      if (!wrap) return;
+      wrap.querySelectorAll('.option').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var isCorrect = btn.dataset.correct === 'true';
+          btn.classList.add(isCorrect ? 'correct' : 'wrong');
+          if (!isCorrect) wrap.querySelectorAll('.option').forEach(function (b) {
+            if (b.dataset.correct === 'true') b.classList.add('correct');
+          });
+          wrap.querySelectorAll('.option').forEach(function (b) { b.disabled = true; });
+          var fb = document.getElementById(id + '_fb');
+          if (fb) fb.innerHTML = '<div class="result-card ' + (isCorrect ? 'ok' : 'error') + '"><strong>' + (isCorrect ? '✅ درست!' : '❌ نه') + '</strong><br>' + esc(ex.feedback) + '</div>';
+        });
+      });
+    }, 0);
+    return html;
+  }
+
+  function renderAbout() {
+    var stats = loadStats();
+    var tools = Object.keys(stats);
+    var totalUses = tools.reduce(function (s, t) { return s + stats[t].count; }, 0);
+    var html = '<h3><i class="fa-solid fa-circle-info"></i> دربارهٔ کتابخانهٔ انگلیسی</h3>';
+    html += '<div class="about-block"><span class="lead">Sense، نه Word.</span>این کتابخانه روی <strong>واحد معنا</strong> کار می‌کند، نه روی واژهٔ خام. «bank» هم «بانک» است هم «کنارهٔ رود» — هر یک سطح CEFR جداگانه دارد.</div>';
+    html += '<div class="about-block"><span class="lead">حدس از بافت.</span>به‌جای فهرست مترادف، ابزار <strong>نشانه‌های بافتی</strong> را پیدا و معنای محتمل را با استدلال پیشنهاد می‌دهد.</div>';
+    html += '<div class="about-block"><span class="lead">L1 Trap.</span>گزینه‌های انحرافی از <strong>تداخل زبان اول</strong> مشتق می‌شوند. «do a decision» از «تصمیم گرفتن» فارسی می‌آید.</div>';
+    html += '<div class="about-block"><span class="lead">چه چیزی در دسترس است؟</span><ul style="padding-right:1.2rem;margin:0.4rem 0;">';
+    html += '<li><strong>Sense + CEFR:</strong> ۲۵۰+ Sense</li>';
+    html += '<li><strong>Context Clues:</strong> ۷ نوع + وند</li>';
+    html += '<li><strong>Guess Meaning:</strong> با استدلال</li>';
+    html += '<li><strong>Collocation:</strong> ۳۰+ ترکیب + L1 Trap</li>';
+    html += '<li><strong>Grammar:</strong> ۷ عملگر</li>';
+    html += '<li><strong>Cloze + Questions:</strong> ۶ متن + ۴ نوع سؤال</li>';
+    html += '<li><strong>Word Formation:</strong> ۱۹+۱۸ وند</li>';
+    html += '<li><strong>CEFR:</strong> تخمین سطح + پروفایل</li>';
+    html += '</ul></div>';
+    html += '<h4>آمار استفادهٔ شما</h4><div class="stat-grid">';
+    html += '<div class="stat-card"><span class="stat-num">' + fa(totalUses) + '</span><span class="stat-label">استفادهٔ کل</span></div>';
+    html += '<div class="stat-card"><span class="stat-num">' + fa(tools.length) + '</span><span class="stat-label">ابزار استفاده‌شده</span></div>';
+    html += '<div class="stat-card"><span class="stat-num">' + fa(7) + '</span><span class="stat-label">ابزار موجود</span></div>';
+    html += '</div>';
+    if (tools.length) {
+      html += '<table class="out-table"><thead><tr><th>ابزار</th><th>تعداد</th><th>آخرین استفاده</th></tr></thead><tbody>';
+      tools.forEach(function (t) {
+        var s = stats[t];
+        var when = '—';
+        try { when = new Date(s.lastUsed).toLocaleDateString('fa-IR'); } catch (e) {}
+        html += '<tr><td>' + esc(t) + '</td><td>' + fa(s.count) + '</td><td>' + when + '</td></tr>';
+      });
+      html += '</tbody></table>';
+    } else {
+      html += '<div class="empty"><i class="fa-solid fa-chart-simple"></i>هنوز از هیچ ابزاری استفاده نکردی.</div>';
+    }
+    html += '<div class="actions" style="margin-top:1rem;"><button class="btn-secondary" id="btn-reset-stats"><i class="fa-solid fa-trash"></i> پاک کردن آمار</button></div>';
+    return html;
+  }
+
+  /* ============================================================
+     ۱۶) اتصال UI
+     ============================================================ */
+  function wireUI() {
+    // تب‌ها
+    var tabs = document.querySelectorAll('.tab');
+    var panels = document.querySelectorAll('.panel');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabs.forEach(function (t) { t.classList.remove('active'); });
+        panels.forEach(function (p) { p.classList.remove('active'); });
+        tab.classList.add('active');
+        var panel = document.getElementById('panel-' + tab.dataset.panel);
+        if (panel) panel.classList.add('active');
+      });
+    });
+
+    // پر کردن dropdown متن‌های آماده
+    var passSel = document.getElementById('clozePassage');
+    if (passSel) {
+      PASSAGES.forEach(function (p) {
+        var opt = document.createElement('option');
+        opt.value = p.id;
+        opt.textContent = p.title + ' — ' + p.cefr;
+        passSel.appendChild(opt);
+      });
+    }
+
+    // حدس‌یار
+    document.getElementById('btn-guess').addEventListener('click', function () {
+      var res = PRESETS.guessFromContext(document.getElementById('guessInput').value);
+      document.getElementById('out-guess').innerHTML = renderGuess(res);
+      trackUsage('حدس‌یار');
+    });
+
+    // ترکیب‌سنج
+    document.getElementById('btn-colloc').addEventListener('click', function () {
+      var res = PRESETS.collocation(
+        document.getElementById('colLeft').value,
+        document.getElementById('colRight').value
+      );
+      document.getElementById('out-colloc').innerHTML = renderColloc(res);
+      trackUsage('ترکیب‌سنج');
+    });
+    document.getElementById('btn-colloc-ex').addEventListener('click', function () {
+      var res = generateExercise('l1trap');
+      document.getElementById('out-colloc').innerHTML = renderExercise(res);
+      trackUsage('ترکیب‌سنج — تمرین');
+    });
+
+    // جمله‌ساز
+    document.getElementById('btn-grammar').addEventListener('click', function () {
+      var res = transform(
+        document.getElementById('gramInput').value,
+        document.getElementById('gramOp').value
+      );
+      document.getElementById('out-grammar').innerHTML = renderGrammar(res);
+      trackUsage('جمله‌ساز');
+    });
+
+    // کلوز mode switch
+    var clozeMode = document.getElementById('clozeMode');
+    if (clozeMode) {
+      clozeMode.addEventListener('change', function () {
+        var pass = document.getElementById('clozePassageSection');
+        var custom = document.getElementById('clozeCustomSection');
+        if (clozeMode.value === 'passage') {
+          pass.style.display = 'block';
+          custom.style.display = 'none';
+        } else {
+          pass.style.display = 'none';
+          custom.style.display = 'block';
+        }
+      });
+    }
+
+    // کلوز
+    document.getElementById('btn-cloze').addEventListener('click', function () {
+      var mode = document.getElementById('clozeMode').value;
+      var text = '';
+      if (mode === 'passage') {
+        var id = document.getElementById('clozePassage').value;
+        var p = PASSAGES.find(function (x) { return x.id === id; });
+        text = p ? p.text : '';
+      } else {
+        text = document.getElementById('clozeCustom').value;
+      }
+      var level = document.getElementById('clozeLevel').value;
+      var count = parseInt(document.getElementById('clozeCount').value, 10);
+      var res = generateCloze(text, level, count);
+      document.getElementById('out-cloze').innerHTML = renderCloze(res);
+      trackUsage('کلوز');
+    });
+
+    // سؤال
+    document.getElementById('btn-questions').addEventListener('click', function () {
+      var mode = document.getElementById('clozeMode').value;
+      if (mode !== 'passage') {
+        document.getElementById('out-cloze').innerHTML = '<div class="result-card warn">سؤال‌های درک مطلب فقط برای متن‌های آماده فعال است.</div>';
+        return;
+      }
+      var id = document.getElementById('clozePassage').value;
+      var res = generateQuestions(id);
+      document.getElementById('out-cloze').innerHTML = renderQuestions(res);
+      trackUsage('درک مطلب');
+    });
+
+    // واژه‌ساز
+    document.getElementById('btn-morph').addEventListener('click', function () {
+      var res = analyzeMorph(document.getElementById('morphInput').value);
+      document.getElementById('out-morph').innerHTML = renderMorph(res);
+      trackUsage('واژه‌ساز');
+    });
+
+    // سطح‌سنج
+    document.getElementById('btn-cefr').addEventListener('click', function () {
+      var res = cefrLevel(document.getElementById('cefrInput').value);
+      document.getElementById('out-cefr').innerHTML = renderCEFR(res);
+      trackUsage('سطح‌سنج');
+    });
+
+    // تمرین‌ساز
+    document.getElementById('btn-exercise').addEventListener('click', function () {
+      var res = generateExercise(document.getElementById('exType').value);
+      document.getElementById('out-exercise').innerHTML = renderExercise(res);
+      trackUsage('تمرین‌ساز');
+    });
+
+    // درباره
+    var outAbout = document.getElementById('out-about');
+    outAbout.innerHTML = renderAbout();
+    outAbout.addEventListener('click', function (e) {
+      if (e.target.closest('#btn-reset-stats')) {
+        if (confirm('آمار استفاده پاک شود؟')) {
+          resetStats();
+          outAbout.innerHTML = renderAbout();
+        }
+      }
+    });
+  }
+
+  /* ============================================================
+     ۱۷) شروع
+     ============================================================ */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wireUI);
+  } else {
+    wireUI();
+  }
+
+})();
+</script>
+
+</body>
+</html>
