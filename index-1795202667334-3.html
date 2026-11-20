@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مستر پلنر | نقشهٔ کامل ابزارها و کتابخانهٔ یادگیری</title>
+<meta name="description" content="مستر پلنر — اثر احسان روحانی راوی: ۲۵ ابزار تعاملی رایگان برنامه‌ریزی، تمرین، تحلیل آزمون و خودشناسی به‌همراه کتابخانهٔ ۳۹ عنوان مقاله، ابلاغیه و آزمونک. بدون ثبت‌نام، همه‌چیز در مرورگر.">
+<meta name="author" content="احسان روحانی راوی">
+<meta name="theme-color" content="#07080C">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307080C'/%3E%3Ctext x='32' y='44' font-size='34' font-weight='800' text-anchor='middle' fill='%23D4AF37' font-family='Tahoma'%3Eم%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"مستر پلنر — نقشهٔ ابزارها و کتابخانه","url":"https://ehssnrouhani.github.io/Mestrplanner/index.html","applicationCategory":"EducationalApplication","operatingSystem":"Web Browser","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"IRR"},"inLanguage":"fa-IR","description":"مرکز ابزارهای آموزشی مستر پلنر: برنامه‌ریزی، تمرین، تحلیل آزمون، خودشناسی و کتابخانهٔ مقالات و آزمونک‌ها؛ بدون ثبت‌نام و کاملاً رایگان.","author":{"@type":"Person","name":"احسان روحانی راوی"},"publisher":{"@type":"Organization","name":"مستر پلنر","url":"https://ehssnrouhani.github.io/Mestrplanner/"}}
+</script>
+<style>
+/* ====== TOKENS ====== */
+:root{
+  --bg:#07080C; --surface:rgba(19,23,32,.72); --surface-solid:#12151D; --surface-2:#181D27;
+  --primary:#D4AF37; --gold-light:#F3E5AB; --gold-deep:#AA771C;
+  --text:#F5F7FA; --text-soft:#CBD3DE; --muted:#9AA4B2;
+  --line:rgba(212,175,55,.22); --line-soft:rgba(255,255,255,.08);
+  --radius:16px; --radius-sm:10px; --pill:999px;
+  --shadow:0 18px 44px rgba(0,0,0,.5);
+  --t:.3s cubic-bezier(.4,0,.2,1);
+  --font-fa:'Vazirmatn',Tahoma,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-fa);background:var(--bg);color:var(--text);line-height:1.9;min-height:100vh;
+  background-image:radial-gradient(1100px 520px at 50% -160px,rgba(212,175,55,.10),transparent 65%),
+                   radial-gradient(900px 620px at 100% 8%,#12161f 0%,transparent 60%);
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:rgba(212,175,55,.35);color:#fff}
+:focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:4px}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;color:inherit}
+img,canvas{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;right:-9999px;top:8px;background:var(--primary);color:#0B0B0B;padding:8px 16px;border-radius:0 0 8px 8px;z-index:99;font-weight:700}
+.skip:focus{right:12px}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+
+/* ====== HEADER ====== */
+.app-header{position:sticky;top:0;z-index:100;background:rgba(7,8,12,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.header-inner{display:flex;align-items:center;gap:1rem;padding:.65rem 0;flex-wrap:wrap}
+.brand{font-weight:900;color:var(--primary);font-size:1.05rem;display:flex;align-items:center;gap:.55rem}
+.brand .badge{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--gold-light),var(--gold-deep));color:#0B0B0B;font-size:1.25rem;font-weight:900}
+.brand small{font-family:var(--font-fa);font-size:.62rem;color:var(--muted);letter-spacing:.18em;display:block;line-height:1.4}
+.nav{display:flex;gap:.4rem;align-items:center;margin-inline-start:auto;flex-wrap:wrap}
+.nav a,.nav button{font-size:.85rem;padding:.4rem .85rem;border-radius:var(--pill);border:1px solid transparent;color:var(--muted);background:transparent;transition:var(--t)}
+.nav a:hover,.nav button:hover{color:var(--gold-light)}
+.nav a.active{color:var(--gold-light);border-color:var(--line)}
+.nav .sales-link{background:linear-gradient(135deg,var(--gold-deep),var(--primary));color:#0B0B0B;font-weight:800;border-color:rgba(255,200,0,.4)}
+.nav .sales-link:hover{filter:brightness(1.08);color:#0B0B0B}
+#burger{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:12px;background:transparent;font-size:1.1rem;color:var(--gold-light)}
+@media (max-width:820px){
+  .nav{display:none}
+  #burger{display:grid;place-items:center;margin-inline-start:auto}
+}
+
+/* ====== MEGA MENU / DRAWER ====== */
+.mega{display:none;position:absolute;inset-inline:0;top:100%;background:rgba(7,8,12,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.mega.open{display:block;animation:fadeIn .25s ease}
+.mega-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:26px 0 30px}
+.mega h4{font-size:.8rem;color:var(--primary);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.mega ul{list-style:none}
+.mega li a{display:flex;gap:8px;align-items:baseline;padding:5px 0;font-size:.83rem;color:var(--text-soft);transition:var(--t)}
+.mega li a i{color:var(--gold-deep);width:16px;text-align:center}
+.mega li a:hover{color:var(--gold-light)}
+.drawer{position:fixed;inset-inline:0;top:0;bottom:0;background:var(--bg);z-index:90;overflow:auto;padding:84px 20px 40px;display:none}
+.drawer.open{display:block;animation:fadeIn .25s ease}
+.drawer .mega-grid{grid-template-columns:1fr 1fr;padding:0}
+@media (max-width:560px){.drawer .mega-grid{grid-template-columns:1fr}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ====== HERO ====== */
+.hero{position:relative;padding:84px 0 56px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset-inline-start:-120px;top:-100px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.14),transparent 70%);pointer-events:none}
+.hero .kick{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;color:var(--gold-light);background:rgba(212,175,55,.08);border:1px solid var(--line);border-radius:var(--pill);padding:6px 14px;margin-bottom:18px}
+.hero h1{font-size:clamp(1.9rem,5vw,3rem);font-weight:900;line-height:1.5;max-width:22ch}
+.hero h1 em{font-style:normal;color:var(--primary)}
+.hero .lead{color:var(--muted);max-width:62ch;margin:16px 0 26px;font-size:1rem}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.6rem;border-radius:var(--pill);font-size:.95rem;font-weight:800;border:1px solid transparent;transition:var(--t)}
+.btn-primary{background:linear-gradient(135deg,var(--gold-light),var(--primary) 60%,var(--gold-deep));color:#0B0B0B}
+.btn-primary:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.btn-ghost{border-color:var(--line);color:var(--gold-light);background:rgba(212,175,55,.05)}
+.btn-ghost:hover{background:rgba(212,175,55,.14)}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+.stat{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius-sm);padding:10px 18px;text-align:center;min-width:110px}
+.stat b{display:block;font-size:1.35rem;font-weight:900;color:var(--primary)}
+.stat span{font-size:.72rem;color:var(--muted)}
+
+/* ====== TWO PATHS ====== */
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0 20px}
+@media (max-width:720px){.paths{grid-template-columns:1fr}}
+.path{background:var(--surface-solid);border:1px solid var(--line-soft);border-radius:var(--radius);padding:22px;display:flex;flex-direction:column;gap:10px;transition:var(--t)}
+.path:hover{border-color:var(--line);transform:translateY(-2px)}
+.path.hot{border-color:var(--line);background:linear-gradient(160deg,rgba(212,175,55,.09),transparent 60%),var(--surface-solid);box-shadow:var(--shadow)}
+.path .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:1.25rem;background:rgba(212,175,55,.12);color:var(--primary)}
+.path h3{font-size:1.1rem;font-weight:800}
+.path p{color:var(--muted);font-size:.86rem;flex:1}
+.path .go{align-self:flex-start}
+.streak{font-size:.78rem;color:var(--gold-light);background:rgba(212,175,55,.08);border:1px dashed var(--line);border-radius:var(--pill);padding:5px 12px;width:fit-content}
+
+/* ====== SECTIONS ====== */
+section{padding:64px 0 8px;scroll-margin-top:90px}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.sec-head h2{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:900}
+.sec-head h2::after{content:"";display:block;width:64px;height:3px;border-radius:2px;background:linear-gradient(to left,var(--primary),transparent);margin-top:8px}
+.sec-head .hint{font-size:.8rem;color:var(--muted)}
+
+/* ====== TOOL CARDS ====== */
+.group{margin-bottom:30px}
+.group h3{font-size:.95rem;color:var(--gold-light);display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.group h3 i{color:var(--gold-deep)}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:12px}
+.tcard{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:8px;transition:var(--t)}
+.tcard:hover{border-color:var(--line);background:var(--surface-2);transform:translateY(-3px)}
+.tcard .ti{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:rgba(212,175,55,.1);color:var(--primary);font-size:1rem}
+.tcard b{font-size:.92rem;font-weight:800}
+.tcard span{font-size:.76rem;color:var(--muted);flex:1}
+.tcard .arr{font-size:.75rem;color:var(--gold-deep)}
+
+/* ====== LIBRARY ====== */
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.search-wrap{position:relative;flex:1 1 240px;display:flex;align-items:center}
+.search-wrap i{position:absolute;inset-inline-start:14px;color:var(--muted);font-size:.9rem;pointer-events:none}
+.search-wrap input{width:100%;padding:11px 42px 11px 14px;border:1.5px solid var(--line-soft);border-radius:12px;background:#0B0E14;color:var(--text);font-family:inherit;font-size:.92rem;outline:none;transition:var(--t)}
+.search-wrap input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(212,175,55,.12)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-family:inherit;font-size:.8rem;padding:7px 14px;border-radius:var(--pill);border:1.5px solid var(--line-soft);background:#0B0E14;color:var(--text-soft);transition:var(--t);display:inline-flex;align-items:center;gap:7px}
+.chip .n{font-size:.68rem;background:rgba(255,255,255,.06);padding:1px 7px;border-radius:var(--pill);color:var(--muted)}
+.chip:hover{border-color:var(--primary);color:var(--gold-light)}
+.chip.on{background:var(--primary);border-color:var(--primary);color:#0B0B0B;font-weight:800}
+.chip.on .n{background:rgba(0,0,0,.18);color:#0B0B0B}
+.lib-count{font-size:.78rem;color:var(--muted);margin-bottom:14px}
+.lib-count b{color:var(--gold-light)}
+.lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.lcard{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius);padding:15px;display:flex;gap:12px;align-items:flex-start;transition:var(--t)}
+.lcard:hover{border-color:var(--line);background:var(--surface-2);transform:translateY(-2px)}
+.lcard .ti{flex-shrink:0;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:rgba(212,175,55,.1);color:var(--primary);font-size:.95rem}
+.lcard b{display:block;font-size:.87rem;font-weight:800;margin-bottom:2px}
+.lcard span{font-size:.75rem;color:var(--muted);line-height:1.7}
+.lcard .tag{display:inline-block;font-size:.62rem;color:var(--gold-deep);border:1px solid var(--line-soft);border-radius:var(--pill);padding:1px 8px;margin-top:8px}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);border:1px dashed var(--line-soft);border-radius:var(--radius);padding:34px;font-size:.9rem}
+.guides{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:26px}
+.gcard{background:linear-gradient(150deg,rgba(212,175,55,.07),transparent 55%),var(--surface-solid);border:1px solid var(--line);border-radius:var(--radius);padding:18px;transition:var(--t)}
+.gcard:hover{transform:translateY(-3px);filter:brightness(1.05)}
+.gcard .ti{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:rgba(212,175,55,.14);color:var(--gold-light);font-size:1rem;margin-bottom:10px}
+.gcard b{font-size:.9rem;display:block}
+.gcard span{font-size:.73rem;color:var(--muted)}
+
+/* ====== SALES BAND ====== */
+.sales-band{background:linear-gradient(135deg,var(--gold-deep),var(--primary) 55%,var(--gold-light));color:#100C02;border-radius:20px;padding:34px 28px;margin-top:56px;display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.sales-band h2{font-size:clamp(1.2rem,2.6vw,1.6rem);font-weight:900;line-height:1.6}
+.sales-band p{font-size:.88rem;opacity:.85;max-width:52ch;margin-top:4px}
+.sales-band .btn{background:#100C02;color:var(--gold-light);border-color:rgba(0,0,0,.3)}
+.sales-band .btn:hover{transform:translateY(-2px);filter:brightness(1.25)}
+.sales-links{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ====== PAGES ROW ====== */
+.page-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.pcard{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius-sm);padding:13px 15px;display:flex;align-items:center;gap:10px;font-size:.85rem;font-weight:700;transition:var(--t)}
+.pcard i{color:var(--gold-deep)}
+.pcard:hover{border-color:var(--line);color:var(--gold-light);transform:translateY(-2px)}
+
+/* ====== FOOTER ====== */
+footer{border-top:1px solid var(--line-soft);margin-top:70px;padding:44px 0 26px;background:rgba(11,14,20,.6)}
+.foot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+@media (max-width:820px){.foot-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.foot-grid{grid-template-columns:1fr}}
+.foot-grid h4{font-size:.82rem;color:var(--primary);margin-bottom:12px}
+.foot-grid ul{list-style:none}
+.foot-grid li a{display:block;font-size:.78rem;color:var(--muted);padding:4px 0;transition:var(--t)}
+.foot-grid li a:hover{color:var(--gold-light)}
+.foot-note{border-top:1px solid var(--line-soft);margin-top:30px;padding-top:18px;font-size:.72rem;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* ====== NOSCRIPT ====== */
+.nojs{background:#3b1212;border:1px solid #ef4444;border-radius:var(--radius);padding:18px;margin:18px 0;font-size:.85rem}
+.nojs a{color:var(--gold-light);text-decoration:underline;margin-inline:4px}
+@media print{.app-header,.cta-row,.sales-band,footer{display:none!important}body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">پرش به محتوای اصلی</a>
+
+<!-- ====== HEADER ====== -->
+<header class="app-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html" data-tool data-kind="brand">
+      <span class="badge">م</span>
+      <span>مستر پلنر<small>MEHR PLANNER</small></span>
+    </a>
+    <nav class="nav" aria-label="ناوبری اصلی">
+      <a href="index.html" class="active">خانه</a>
+      <button id="megaBtn" aria-expanded="false" aria-controls="mega">همهٔ ابزارها <i class="fa-solid fa-chevron-down" style="font-size:.65rem"></i></button>
+      <a href="#library">کتابخانه</a>
+      <a href="about.html">دربارهٔ احسان</a>
+      <a href="sales.html" class="sales-link">مشاوره و کوچینگ</a>
+    </nav>
+    <button id="burger" aria-expanded="false" aria-controls="drawer" aria-label="باز کردن منو"><i class="fa-solid fa-bars"></i></button>
+  </div>
+  <div class="mega" id="mega"><div class="wrap"><div class="mega-grid" id="megaGrid"></div></div></div>
+</header>
+
+<div class="drawer" id="drawer"><div class="wrap"><div class="mega-grid" id="drawerGrid"></div></div></div>
+
+<noscript>
+  <div class="wrap"><div class="nojs">
+    برای شمارنده‌ها، فیلترها و منوی کامل، جاوااسکریپت لازم است. مهم‌ترین مسیرها:
+    <a href="start.html">شروع در ۹۰ ثانیه</a> ·
+    <a href="mission-today.html">مأموریت امروز</a> ·
+    <a href="planner.html">برنامه‌ریزی هفتگی</a> ·
+    <a href="practice.html">تمرین هدفمند</a> ·
+    <a href="calculator.html">محاسبه‌گر معدل</a> ·
+    <a href="library.html">کتابخانه</a> ·
+    <a href="teachers.html">معلمان</a> ·
+    <a href="videos.html">ویدیوها</a>
+  </div></div>
+</noscript>
+
+<main id="main">
+
+<!-- ====== HERO ====== -->
+<section class="hero" aria-label="معرفی">
+  <div class="wrap">
+    <span class="kick"><i class="fa-solid fa-wand-magic-sparkles"></i> بدون ثبت‌نام · بدون ارسال داده · همه‌چیز در مرورگر خودت</span>
+    <h1>یک <em>میز کار کامل</em> برای درس خواندن؛ نه فقط چند ابزار پراکنده.</h1>
+    <p class="lead">مستر پلنر اثر احسان روحانی راوی است: از شروعِ نودثانیه‌ای تا برنامه‌ریزی هفتگی، تمرین هدفمند، تحلیل آزمون و خودشناسی — همه با هم صحبت می‌کنند و همه رایگان‌اند. اگر نمی‌دانی از کجا شروع کنی، ربات راهنما جواب می‌دهد.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="start.html" data-tool data-kind="cta"><i class="fa-solid fa-compass"></i> شروع کن — ۹۰ ثانیه</a>
+      <a class="btn btn-ghost" href="mission-today.html" data-tool data-kind="cta"><i class="fa-solid fa-bolt"></i> مأموریت امروز</a>
+    </div>
+    <div class="stats" role="list" aria-label="آمار سایت">
+      <div class="stat" role="listitem"><b id="stTools">—</b><span>ابزار تعاملی</span></div>
+      <div class="stat" role="listitem"><b id="stLib">—</b><span>عنوان کتابخانه</span></div>
+      <div class="stat" role="listitem"><b id="stGuides">—</b><span>راهنمای جامع</span></div>
+      <div class="stat" role="listitem"><b>۰</b><span>تومان، همیشه</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== TWO PATHS ====== -->
+<section aria-label="دو مسیر شروع" style="padding-top:8px">
+  <div class="wrap">
+    <div class="paths">
+      <a class="path hot" href="mission-today.html" data-tool data-kind="cta">
+        <span class="ic"><i class="fa-solid fa-bolt"></i></span>
+        <h3>مأموریت امروز — ۷ دقیقه</h3>
+        <p>حلقهٔ کوتاه بازیابی فعال: مرور فاصله‌دار خودکار، استریک متصل به کیفیت کارت‌ها و «DNA یادگیری من». هر روز فقط هفت دقیقه.</p>
+        <span class="streak" id="streakLine">اولین مأموریتت از همین امروز شروع می‌شود</span>
+        <span class="btn btn-primary go"><i class="fa-solid fa-play"></i> باز کردن مأموریت</span>
+      </a>
+      <a class="path" href="start.html" data-tool data-kind="cta">
+        <span class="ic"><i class="fa-solid fa-compass"></i></span>
+        <h3>ربات راهنمای شروع</h3>
+        <p>سه سؤال کوتاه — پایهٔ تحصیلی، نیاز امروز، سبک شروع — و در کمتر از ۹۰ ثانیه مسیرِ مناسبِ خودت را پیشنهاد می‌گیرم.</p>
+        <span class="streak">نیازی به ثبت‌نام یا ایمیل نیست</span>
+        <span class="btn btn-ghost go"><i class="fa-solid fa-arrow-left"></i> پاسخ به سه سؤال</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ====== TOOLS ====== -->
+<section id="tools" aria-label="ابزارها">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>ابزارها — از برنامه تا تحلیل</h2>
+      <span class="hint">هر کارت یک ابزار مستقل است؛ داده‌ها فقط در مرورگر خودت ذخیره می‌شوند.</span>
+    </div>
+    <div id="toolGroups"></div>
+  </div>
+</section>
+
+<!-- ====== LIBRARY ====== -->
+<section id="library" aria-label="کتابخانه">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>کتابخانهٔ یادگیری</h2>
+      <span class="hint">مقالات، ابلاغیه‌ها، آزمونک‌های خودشناسی و راهنماهای جامع — همه در یک جا.</span>
+    </div>
+    <div class="toolbar">
+      <div class="search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="libq" type="search" placeholder="جست‌وجو در عنوان و توضیح… (مثلاً تیزهوشان، حافظه)" aria-label="جست‌وجو در کتابخانه">
+      </div>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="فیلتر دسته‌ها"></div>
+    <p class="lib-count"><b id="libCount">—</b> عنوان نمایش داده شده</p>
+    <div class="lib-grid" id="libGrid"></div>
+    <h3 style="font-size:.95rem;color:var(--gold-light);margin:34px 0 4px;display:flex;align-items:center;gap:8px"><i class="fa-solid fa-book-open" style="color:var(--gold-deep)"></i> راهنماهای جامع</h3>
+    <div class="guides" id="guideGrid"></div>
+  </div>
+</section>
+
+<!-- ====== SALES ====== -->
+<section aria-label="مشاوره" style="padding-top:8px">
+  <div class="wrap">
+    <div class="sales-band">
+      <div>
+        <h2>وقتی ابزار کافی نیست، همراه هم کافی نیست؟</h2>
+        <p>مشاورهٔ تلفنی، کوچینگ اختصاصی و بستهٔ «۵ دقیقه تا شروع» — برای دانش‌آموزانی که می‌خواهند مسیرشان را با یک متخصص مرور کنند.</p>
+      </div>
+      <div class="sales-links">
+        <a class="btn" href="sales.html" data-tool data-kind="sales">صفحهٔ خدمات</a>
+        <a class="btn" href="coaching.html" data-tool data-kind="sales">کوچینگ</a>
+        <a class="btn" href="five-minutes.html" data-tool data-kind="sales">۵ دقیقه تا شروع</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== PAGES ====== -->
+<section aria-label="صفحات سایت">
+  <div class="wrap">
+    <div class="sec-head"><h2>دیگر صفحات</h2></div>
+    <div class="page-grid" id="pageGrid"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>شروع و برنامه</h4>
+        <ul>
+          <li><a href="start.html">ربات راهنمای شروع</a></li>
+          <li><a href="mission-today.html">مأموریت امروز</a></li>
+          <li><a href="planner.html">برنامه‌ریزی هفتگی</a></li>
+          <li><a href="daily-notebook.html">دفترچهٔ روزانه</a></li>
+          <li><a href="learning-map.html">نقشهٔ یادگیری</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>تمرین و تحلیل</h4>
+        <ul>
+          <li><a href="practice.html">تمرین هدفمند</a></li>
+          <li><a href="exam-simulator.html">شبیه‌ساز آزمون</a></li>
+          <li><a href="exam-analysis.html">تحلیل آزمون</a></li>
+          <li><a href="error-analyzer.html">تحلیل‌گر خطا</a></li>
+          <li><a href="calculator.html">محاسبه‌گر معدل</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>خودشناسی</h4>
+        <ul>
+          <li><a href="assets/atlas/atlas.html">اطلس مشاغل</a></li>
+          <li><a href="major-selection.html">انتخاب رشته</a></li>
+          <li><a href="thinking-quadrants.html">ربع‌های تفکر</a></li>
+          <li><a href="assets/mastery/mastery.html">مسیر تسلط</a></li>
+          <li><a href="library.html">کتابخانه و آزمونک‌ها</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>مستر پلنر</h4>
+        <ul>
+          <li><a href="about.html">دربارهٔ احسان روحانی راوی</a></li>
+          <li><a href="teachers.html">معلمان</a></li>
+          <li><a href="videos.html">ویدیوها</a></li>
+          <li><a href="schools.html">مدارس و مراکز</a></li>
+          <li><a href="sales.html">مشاوره و کوچینگ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>مستر پلنر — احسان روحانی راوی · همهٔ ابزارها داخل مرورگر اجرا می‌شوند و هیچ داده‌ای به سروری ارسال نمی‌شود.</span>
+      <span>ساخته‌شده برای یادگیریِ واقعی، نه نشان‌دادنِ عدد.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ====== MP — رویدادنگار مشترک سایت (مرجع تعریف) ====== */
+(function(){
+  const K='mestr.events'; let ev=[];
+  try{ ev=JSON.parse(localStorage.getItem(K)||'[]'); if(!Array.isArray(ev)) ev=[]; }catch(e){ ev=[]; }
+  window.MP={
+    log(tool,event,data){
+      try{
+        ev.push({tool:tool||'index',event:event||'na',data:data||{},ts:Date.now()});
+        if(ev.length>500) ev=ev.slice(ev.length-500);
+        localStorage.setItem(K,JSON.stringify(ev));
+      }catch(e){}
+    }
+  };
+})();
+
+/* ====== داده‌ها — تک‌منبع: مگامنو، کارت‌ها، فوتر و اسکیما همه از همین‌جا رندر می‌شوند ====== */
+const CATS={start:'شروع و برنامه‌ریزی',drill:'تمرین و آزمون',self:'خودشناسی و تصمیم',bench:'میزهای تخصصی'};
+const CAT_ICON={start:'fa-compass',drill:'fa-pen-ruler',self:'fa-shuffle',bench:'fa-network-wired'};
+const TOOLS=[
+ {t:'شروع در ۹۰ ثانیه',d:'سه سؤال کوتاه؛ مسیر مناسب امروزت را پیدا کن.',h:'start.html',i:'fa-compass',c:'start'},
+ {t:'مأموریت امروز',d:'۷ دقیقه بازیابی فعال با مرور فاصله‌دار خودکار.',h:'mission-today.html',i:'fa-bolt',c:'start'},
+ {t:'برنامه‌ریزی هفتگی',d:'جدول زمانی، مودی‌ها و پیگیری اجرا.',h:'planner.html',i:'fa-calendar-check',c:'start'},
+ {t:'دفترچهٔ روزانه',d:'ثبت روز، یادداشت و بازتاب کوتاه.',h:'daily-notebook.html',i:'fa-book',c:'start'},
+ {t:'نقشهٔ یادگیری',d:'تشخیص فرسودگی، سبک‌ها و مسیر اصلاح.',h:'learning-map.html',i:'fa-map',c:'start'},
+ {t:'راهبردهای مطالعه',d:'روش متناسب با هر درس و هر زمان.',h:'study-strategies.html',i:'fa-chess-knight',c:'start'},
+ {t:'راهنمایی نهم',d:'انتخاب دهم: هنرستان یا نظری؟',h:'guidance-9.html',i:'fa-graduation-cap',c:'start'},
+ {t:'تمرین هدفمند',d:'حل سؤال با تحلیل خطا و پیشرفت.',h:'practice.html',i:'fa-pen-ruler',c:'drill'},
+ {t:'شبیه‌ساز آزمون',d:'آزمون زمان‌دار در شرایط واقعی.',h:'exam-simulator.html',i:'fa-stopwatch',c:'drill'},
+ {t:'تحلیل آزمون',d:'تشخیص دلایل افت و برنامهٔ جبران.',h:'exam-analysis.html',i:'fa-magnifying-glass-chart',c:'drill'},
+ {t:'تحلیل‌گر خطا',d:'شمارش خطاها، دلایل و درمانشان.',h:'error-analyzer.html',i:'fa-triangle-exclamation',c:'drill'},
+ {t:'محاسبه‌گر معدل',d:'معدل ترم و سال با سهم هر درس.',h:'calculator.html',i:'fa-calculator',c:'drill'},
+ {t:'ارزش مکانی اعداد',d:'تمرین مبتنی: گرد کردن، مقایسه، مکان.',h:'place-value.html',i:'fa-1',c:'drill'},
+ {t:'ربع‌های تفکر',d:'شیوهٔ تصمیم‌گیری‌ات را بشناس و اصلاح کن.',h:'thinking-quadrants.html',i:'fa-shuffle',c:'self'},
+ {t:'انتخاب رشتهٔ دهم',d:'علاقه، استعداد و بازار کار کنار هم.',h:'major-selection.html',i:'fa-route',c:'self'},
+ {t:'تصمیم‌ساز',d:'ماتریس وزن‌دهی برای انتخاب‌های بزرگ.',h:'decision-maker.html',i:'fa-scale-balanced',c:'self'},
+ {t:'اطلس مشاغل',d:'از علایق تا شغل‌های واقعی و آینده‌شان.',h:'assets/atlas/atlas.html',i:'fa-map-location-dot',c:'self'},
+ {t:'مسیر تسلط',d:'پیشرفت درس‌به‌درس، هدف‌محور و قابل سنجش.',h:'assets/mastery/mastery.html',i:'fa-medal',c:'self'},
+ {t:'کارت‌های اقدام',d:'بیست کارت آماده برای شروع سریع روز.',h:'action-cards.html',i:'fa-layer-group',c:'self'},
+ {t:'مفهوم‌ساز',d:'مفهوم‌های سخت را گام‌به‌گام ساده بساز.',h:'concept-maker.html',i:'fa-wand-magic-sparkles',c:'bench'},
+ {t:'آزمایشگاه شبکهٔ عصبی',d:'یادگیری ماشین را با دست بازی کن.',h:'nnlab.html',i:'fa-network-wired',c:'bench'},
+ {t:'معلم خصوصی فارسی',d:'املا، نگارش و دستور با تمرین تعاملی.',h:'persian-tutor.html',i:'fa-book',c:'bench'},
+ {t:'معلم خصوصی انگلیسی',d:'واژگان و گرامر مرحله‌به‌مرحله.',h:'english-tutor.html',i:'fa-earth-asia',c:'bench'},
+ {t:'دفتر مشاهدهٔ رفتار',d:'برای والدین: ثبت، تحلیل و بازخورد رفتار.',h:'observation-log.html',i:'fa-clipboard-user',c:'bench'},
+ {t:'میزکار روابط',d:'دعوت وسیلهٔ مطالعه با دوستان و هم‌کلاسی‌ها.',h:'relations-workbench.html',i:'fa-people-arrows',c:'bench'}
+];
+const LCATS={method:'روش و برنامه',mind:'ذهن و انگیزه',field:'منابع رشته‌ای',inform:'ابلاغیه‌ها',test:'آزمونک‌ها'};
+const LIB=[
+ {t:'راهنمای عملی برنامه‌ریزی و پیگیری',d:'از هدف‌گذاری تا جدول زمانی و پیگیری روزانه.',h:'assets/files/planning.html',i:'fa-calendar-check',c:'method'},
+ {t:'چطور درس بخوانم؟',d:'روش‌های مؤثر مطالعه بر اساس شواهد یادگیری.',h:'assets/files/study-methods.html',i:'fa-book-open-reader',c:'method'},
+ {t:'مرور و آزمون',d:'چگونه خود را برای آزمون آماده کنیم.',h:'assets/files/exam-review.html',i:'fa-clipboard-check',c:'method'},
+ {t:'یادداشت‌برداری و مرور مؤثر',d:'از کلاس تا شبِ آزمون؛ سیستم یادداشت درست.',h:'assets/files/notes.html',i:'fa-pen-to-square',c:'method'},
+ {t:'تمرکز',d:'مهار حواس‌پرتی و ساختن جلسه‌های عمیق.',h:'assets/files/focus.html',i:'fa-bullseye',c:'mind'},
+ {t:'حافظه',d:'تثبیت یادگیری و تکنیک‌های به‌یادسپاری.',h:'assets/files/memory.html',i:'fa-brain',c:'mind'},
+ {t:'انگیزه',d:'چگونه وقتی حوصله نداری، ادامه بدهی.',h:'assets/files/motivation.html',i:'fa-fire',c:'mind'},
+ {t:'منابع تجربی',d:'راهنمای منابع و برنامهٔ رشتهٔ تجربی.',h:'assets/files/tajrobi.html',i:'fa-dna',c:'field'},
+ {t:'منابع ریاضی و فیزیک',d:'انتخاب درست منبع و برنامهٔ رشتهٔ ریاضی.',h:'assets/files/riazi-physics.html',i:'fa-square-root-variable',c:'field'},
+ {t:'منابع انسانی',d:'برنامه و منابع پیشنهادی رشتهٔ انسانی.',h:'assets/files/ensani.html',i:'fa-scale-balanced',c:'field'},
+ {t:'زبان انگلیسی؛ انتخاب‌های هم‌راه',d:'راهنمای منابع زبان از پایه تا کنکور.',h:'assets/files/zaban.html',i:'fa-language',c:'field'},
+ {t:'منابع هنر',d:'برنامهٔ ویژهٔ هنرستان و کنکور هنر.',h:'assets/files/honar.html',i:'fa-palette',c:'field'},
+ {t:'منابع کاردانی فنی',d:'راهنمای فنی‌حرفه‌ای و کاردانش.',h:'assets/files/kardani-fanni.html',i:'fa-screwdriver-wrench',c:'field'},
+ {t:'ابلاغیه: انگیزه و توسعه فردی',d:'مسیر انگیزه‌ای در ابلاغیه‌های این ماه.',h:'assets/files/informed-engizeh-tahavol.html',i:'fa-seedling',c:'inform'},
+ {t:'ابلاغیه: تربیت‌معلم',d:'انتخاب رشتهٔ معلم تربیت‌معلم؛ مسیرها و شرایط.',h:'assets/files/informed-tarbiat-moallem.html',i:'fa-person-chalkboard',c:'inform'},
+ {t:'ابلاغیه: آزمون روان‌شناسی',d:'روان‌شناسی و علوم تربیتی؛ منابع و برنامه.',h:'assets/files/informed-azmoon-ravani.html',i:'fa-brain',c:'inform'},
+ {t:'ابلاغیه: انسانی',d:'خلاصهٔ ابلاغیهٔ رشتهٔ انسانی.',h:'assets/files/informed-ensani.html',i:'fa-bullhorn',c:'inform'},
+ {t:'ابلاغیه: هنر',d:'خلاصهٔ ابلاغیهٔ رشتهٔ هنر.',h:'assets/files/informed-honar.html',i:'fa-bullhorn',c:'inform'},
+ {t:'ابلاغیه: کاردانی',d:'خلاصهٔ ابلاغیهٔ کاردانی فنی.',h:'assets/files/informed-kardani.html',i:'fa-bullhorn',c:'inform'},
+ {t:'ابلاغیه: ریاضی',d:'خلاصهٔ ابلاغیهٔ رشتهٔ ریاضی.',h:'assets/files/informed-riazi.html',i:'fa-bullhorn',c:'inform'},
+ {t:'ابلاغیه: تجربی',d:'خلاصهٔ ابلاغیهٔ رشتهٔ تجربی.',h:'assets/files/informed-tajrobi.html',i:'fa-bullhorn',c:'inform'},
+ {t:'ابلاغیه: زبان',d:'انتخاب‌های هم‌راه رشتهٔ زبان.',h:'assets/files/informed-zaban.html',i:'fa-bullhorn',c:'inform'},
+ {t:'ابلاغیه: تیپ‌شناسی',d:'شخصیت و تیپ‌شناسی در انتخاب مسیر.',h:'assets/files/informed-tip-shenasi.html',i:'fa-user-tag',c:'inform'},
+ {t:'ابلاغیه: هدایت مفهومی',d:'هدایت تحصیلی بر پایهٔ مفاهیم، نه حدس.',h:'assets/files/informed-hedayat-mafhum.html',i:'fa-signs-post',c:'inform'},
+ {t:'تیزهوشان: دفترچه',d:'آنالیز دفترچهٔ آزمون تیزهوشان.',h:'assets/files/informed-tizhooshan-daftarche.html',i:'fa-file-lines',c:'inform'},
+ {t:'تیزهوشان: منابع',d:'منابع مطالعه برای آزمون تیزهوشان.',h:'assets/files/informed-tizhooshan-manabe.html',i:'fa-box-archive',c:'inform'},
+ {t:'تیزهوشان: راهکار',d:'راهکار عملی ورود به مدارس تیزهوشان.',h:'assets/files/informed-tizhooshan-rahkar.html',i:'fa-compass',c:'inform'},
+ {t:'آزمونک سبک یادگیری VARK',d:'بینایی، شنیداری، خواندن-نوشتار یا حرکتی؟',h:'assets/files/test-vark.html',i:'fa-eye',c:'test'},
+ {t:'آزمونک هوش هیجانی',d:'خودآگاهی، خودتنظیمی و همدلی.',h:'assets/files/test-emotional.html',i:'fa-heart-pulse',c:'test'},
+ {t:'آزمونک انگیزش',d:'انگیزهٔ درونی یا بیرونی؟',h:'assets/files/test-motivation.html',i:'fa-battery-three-quarters',c:'test'},
+ {t:'آزمونک هالند',d:'علاقه و مسیر شغلی بر پایهٔ RIASEC.',h:'assets/files/test-holland.html',i:'fa-compass-drafting',c:'test'},
+ {t:'آزمونک مهارت محاسبه',d:'سرعت و دقت در کار با عدد.',h:'assets/files/test-calculation-skills.html',i:'fa-calculator',c:'test'},
+ {t:'آزمونک مهارت تحلیل',d:'تحلیل داده و حل مسئله.',h:'assets/files/test-analytical-skills.html',i:'fa-diagram-project',c:'test'},
+ {t:'آزمونک مهارت حفظ',d:'قدرت به‌یادسپاری و تثبیت.',h:'assets/files/test-memorization-skills.html',i:'fa-brain',c:'test'},
+ {t:'آزمونک انتخاب راهبرد',d:'کدام راهبرد مطالعه به تو می‌خورد؟',h:'assets/files/test-strategy-selection.html',i:'fa-chess',c:'test'},
+ {t:'آزمونک کولب',d:'سبک یادگیری کولب؛ تجربه تا مفهوم.',h:'assets/files/test-kolb.html',i:'fa-arrows-rotate',c:'test'},
+ {t:'آزمونک استرنبرگ',d:'سبک تفکر و پردازش اطلاعات.',h:'assets/files/test-sternberg.html',i:'fa-lightbulb',c:'test'},
+ {t:'آزمونک باومریند',d:'سبک فرزندپروری و پیامدهایش.',h:'assets/files/test-baumrind.html',i:'fa-people-roof',c:'test'},
+ {t:'آزمونک اشپییلبرگر',d:'سنجش اضطراب حالت و ویژگی.',h:'assets/files/test-spielberger.html',i:'fa-gauge-high',c:'test'}
+];
+const GUIDES=[
+ {t:'راهنمای کنکور',d:'از ثبت‌نام تا شب آزمون، گام‌به‌گام.',h:'assets/guides/konkoor-guide.html',i:'fa-flag-checkered'},
+ {t:'راهنمای انتخاب رشته',d:'منطق انتخاب رشته و اشتباهات رایج.',h:'assets/guides/major-selection-guide.html',i:'fa-route'},
+ {t:'راهنمای هدایت تحصیلی',d:'برای پایهٔ نهم: نظری یا هنرستان؟',h:'assets/guides/educational-guidance-guide.html',i:'fa-signs-post'},
+ {t:'راهنمای آزمونک‌های آنلاین',d:'چگونه از آزمونک‌ها نتیجهٔ درست بگیریم.',h:'assets/guides/online-tests-guide.html',i:'fa-circle-question'},
+ {t:'راهنمای جامع روش مطالعه',d:'مستند بلند مطالعهٔ مؤثر، کامل و مرتب.',h:'assets/guides/study-methods-guide.html',i:'fa-book-open'}
+];
+const PAGES=[
+ {t:'معلمان',h:'teachers.html',i:'fa-chalkboard-user'},
+ {t:'ویدیوها',h:'videos.html',i:'fa-tv'},
+ {t:'مدارس و مراکز',h:'schools.html',i:'fa-school'},
+ {t:'شبکهٔ معلمان',h:'teacher-network.html',i:'fa-people-group'},
+ {t:'مقالات معلم انسانی',h:'human-teacher-articles.html',i:'fa-newspaper'},
+ {t:'کتابخانه',h:'library.html',i:'fa-book'},
+ {t:'مشاوره و کوچینگ',h:'sales.html',i:'fa-handshake'},
+ {t:'۵ دقیقه تا شروع',h:'five-minutes.html',i:'fa-clock'},
+ {t:'دربارهٔ احسان',h:'about.html',i:'fa-circle-info'},
+ {t:'نمونه‌ها',h:'cases.html',i:'fa-briefcase'}
+];
+
+/* ====== ابزارهای کمکی ====== */
+const $=s=>document.querySelector(s);
+const faNum=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ====== رندر مگامنو و کشوی موبایل ====== */
+function megaHTML(){
+  let h='';
+  for(const key in CATS){
+    h+=`<div><h4><i class="fa-solid ${CAT_ICON[key]}"></i> ${CATS[key]}</h4><ul>`;
+    TOOLS.filter(x=>x.c===key).forEach(x=>{ h+=`<li><a href="${x.h}" data-tool data-kind="tool"><i class="fa-solid ${x.i}"></i> ${esc(x.t)}</a></li>`; });
+    h+='</ul></div>';
+  }
+  return h;
+}
+$('#megaGrid').innerHTML=megaHTML();
+$('#drawerGrid').innerHTML=megaHTML()+`<div><h4><i class="fa-solid fa-sitemap"></i> صفحات سایت</h4><ul>`+
+  PAGES.map(p=>`<li><a href="${p.h}" data-tool data-kind="page"><i class="fa-solid ${p.i}"></i> ${p.t}</a></li>`).join('')+'</ul></div>';
+
+/* ====== رندر کارت‌های ابزار ====== */
+$('#toolGroups').innerHTML=Object.keys(CATS).map(key=>`
+  <div class="group">
+    <h3><i class="fa-solid ${CAT_ICON[key]}"></i> ${CATS[key]}</h3>
+    <div class="tool-grid">${TOOLS.filter(x=>x.c===key).map(x=>`
+      <a class="tcard" href="${x.h}" data-tool data-kind="tool">
+        <span class="ti"><i class="fa-solid ${x.i}"></i></span>
+        <b>${esc(x.t)}</b>
+        <span>${esc(x.d)}</span>
+        <span class="arr">ورود به ابزار <i class="fa-solid fa-arrow-left"></i></span>
+      </a>`).join('')}
+    </div>
+  </div>`).join('');
+
+/* ====== رندر صفحات ====== */
+$('#pageGrid').innerHTML=PAGES.map(p=>`<a class="pcard" href="${p.h}" data-tool data-kind="page"><i class="fa-solid ${p.i}"></i> ${p.t}</a>`).join('');
+
+/* ====== کتابخانه: فیلتر، جست‌وجو، pushState ====== */
+const chipsEl=$('#chips'),grid=$('#libGrid'),cnt=$('#libCount'),qIn=$('#libq');
+let flt={cat:'all',q:''};
+function libCard(x){
+  return `<a class="lcard" href="${x.h}" data-tool data-kind="lib">
+    <span class="ti"><i class="fa-solid ${x.i}"></i></span>
+    <span style="flex:1"><b>${esc(x.t)}</b><span>${esc(x.d)}</span><span class="tag">${LCATS[x.c]||'مقاله'}</span></span>
+  </a>`;
+}
+function renderLib(){
+  const q=flt.q.trim();
+  let items=LIB.filter(x=> flt.cat==='all' || x.cat===flt.cat);
+  if(q) items=items.filter(x=>(x.t+' '+x.d).indexOf(q)>-1);
+  grid.innerHTML=items.length?items.map(libCard).join(''):'<div class="empty">چیزی پیدا نشد؛ عبارت دیگری امتحان کن یا فیلتر را بردار.</div>';
+  cnt.textContent=faNum(items.length);
+}
+function syncChips(){
+  const counts={all:LIB.length};
+  LIB.forEach(x=>counts[x.c]=(counts[x.c]||0)+1);
+  const rows=[['all','همه']].concat(Object.keys(LCATS).map(k=>[k,LCATS[k]]));
+  chipsEl.innerHTML=rows.map(([k,label])=>`<button class="chip ${flt.cat===k?'on':''}" data-cat="${k}" aria-pressed="${flt.cat===k}">${label}<span class="n">${faNum(counts[k]||0)}</span></button>`).join('');
+}
+chipsEl.addEventListener('click',e=>{
+  const b=e.target.closest('.chip'); if(!b) return;
+  setF({cat:b.dataset.cat}); MP.log('lib','filter',{cat:b.dataset.cat,q:flt.q});
+});
+let qT;
+qIn.addEventListener('input',()=>{
+  clearTimeout(qT);
+  qT=setTimeout(()=>{ const v=qIn.value.trim(); if(v!==flt.q){ setF({q:v}); MP.log('lib','search',{q:v}); } },400);
+});
+function setF(patch){
+  const p=new URLSearchParams(location.search);
+  ['cat','q'].forEach(k=>{ if(patch[k]!==undefined){ if(patch[k]&&patch[k]!=='all') p.set(k,patch[k]); else p.delete(k); } });
+  const qs=p.toString();
+  history.pushState({},'',location.pathname+(qs?'?'+qs:''));
+  applyFromURL();
+}
+function applyFromURL(){
+  const p=new URLSearchParams(location.search);
+  flt={cat:p.get('cat')||'all',q:p.get('q')||''};
+  qIn.value=flt.q;
+  syncChips(); renderLib();
+}
+window.addEventListener('popstate',applyFromURL);
+
+/* ====== راهنماها ====== */
+$('#guideGrid').innerHTML=GUIDES.map(g=>`
+  <a class="gcard" href="${g.h}" data-tool data-kind="guide">
+    <span class="ti"><i class="fa-solid ${g.i}"></i></span>
+    <b>${esc(g.t)}</b><span>${esc(g.d)}</span>
+  </a>`).join('');
+
+/* ====== منوها ====== */
+const megaBtn=$('#megaBtn'),mega=$('#mega'),burger=$('#burger'),drawer=$('#drawer');
+megaBtn.addEventListener('click',()=>{
+  const o=mega.classList.toggle('open');
+  megaBtn.setAttribute('aria-expanded',o);
+  if(o) MP.log('index','mega_open',{});
+});
+burger.addEventListener('click',()=>{
+  const o=drawer.classList.toggle('open');
+  burger.setAttribute('aria-expanded',o);
+  document.body.style.overflow=o?'hidden':'';
+  if(o) MP.log('index','drawer_open',{});
+});
+drawer.addEventListener('click',e=>{ if(e.target.closest('a')){ drawer.classList.remove('open'); document.body.style.overflow=''; } });
+document.addEventListener('click',e=>{
+  if(!mega.contains(e.target)&&!megaBtn.contains(e.target)) mega.classList.remove('open');
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){ mega.classList.remove('open'); drawer.classList.remove('open'); document.body.style.overflow=''; megaBtn.setAttribute('aria-expanded','false'); burger.setAttribute('aria-expanded','false'); }
+});
+
+/* ====== رویدادنگاری کلیک‌ها ====== */
+document.addEventListener('click',e=>{
+  const a=e.target.closest('[data-tool]'); if(!a) return;
+  MP.log('index',a.dataset.kind||'open',{href:a.getAttribute('href')});
+});
+
+/* ====== وضعیت مأموریت و شمارنده‌ها ====== */
+function fillStats(){
+  $('#stTools').textContent=faNum(TOOLS.length);
+  $('#stLib').textContent=faNum(LIB.length);
+  $('#stGuides').textContent=faNum(GUIDES.length);
+}
+(function streak(){
+  let line='اولین مأموریتت از همین امروز شروع می‌شود';
+  try{
+    const st=JSON.parse(localStorage.getItem('mestr.state')||'null');
+    if(st&&st.streak>0) line=`زنجیرهٔ فعلی: ${faNum(st.streak)} روز · بهترین رکورد: ${faNum(st.best||0)}`;
+  }catch(e){}
+  $('#streakLine').textContent=line;
+})();
+
+/* ====== اسکیمای ItemList — از همان منبع داده ====== */
+function injectItemList(){
+  const base=location.origin+location.pathname.replace(/[^/]*$/,'');
+  const items=TOOLS.concat(PAGES.map(p=>({t:p.t,h:p.h})),LIB,GUIDES.map(g=>({t:g.t,h:g.h,d:g.d})));
+  const il={"@context":"https://schema.org","@type":"ItemList",name:"ابزارها و محتوای مستر پلنر",
+    itemListElement:items.map((x,i)=>({"@type":"ListItem",position:i+1,name:x.t,url:base+x.h}))};
+  const s=document.createElement('script');
+  s.type='application/ld+json'; s.textContent=JSON.stringify(il);
+  document.head.appendChild(s);
+}
+
+/* ====== همگام‌سازی اختیاری با downloads.json (با fallback داخلی) ====== */
+function guessCat(link){ return /test-/.test(link)?'test':/informed/.test(link)?'inform':'method'; }
+fetch('downloads.json')
+  .then(r=>{ if(!r.ok) throw 0; return r.json(); })
+  .then(list=>{
+    if(!Array.isArray(list)) return;
+    const have=new Set(LIB.map(x=>x.h)); let added=0;
+    list.forEach(e=>{
+      if(e&&e.link&&!have.has(e.link)){
+        have.add(e.link);
+        LIB.push({t:e.title||'مقاله',d:e.desc||'',i:e.icon||'fa-book',h:e.link,c:guessCat(e.link)});
+        added++;
+      }
+    });
+    if(added){ renderLib(); fillStats(); MP.log('lib','downloads_json_merged',{added}); }
+    else MP.log('lib','downloads_json_in_sync',{});
+  })
+  .catch(()=>{ MP.log('lib','downloads_json_offline',{}); });
+
+/* ====== راه‌اندازی ====== */
+applyFromURL();
+fillStats();
+injectItemList();
+MP.log('index','view',{tools:TOOLS.length,lib:LIB.length});
+</script>
+</body>
+</html>
