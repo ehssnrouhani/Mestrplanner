@@ -1374,6 +1374,465 @@ function renderFigures(res) {
     document.getElementById('out-figure').innerHTML = renderFigures(res);
   });
 })();
+/* ==================================================================
+   بذر گسترده — فعل با ستاک و صفت مفعولی
+   ================================================================== */
+Object.assign(SEED.verbs, {
+  'فروختن':  { past: 'فروخت', present: 'فروش', trans: 'trans', pp: 'فروخته' },
+  'خریدن':   { past: 'خرید', present: 'خر', trans: 'trans', pp: 'خریده' },
+  'ساختن':   { past: 'ساخت', present: 'ساز', trans: 'trans', pp: 'ساخته' },
+  'شکستن':   { past: 'شکست', present: 'شکن', trans: 'trans', pp: 'شکسته' },
+  'بستن':    { past: 'بست', present: 'بند', trans: 'trans', pp: 'بسته' },
+  'کشتن':    { past: 'کشت', present: 'کش', trans: 'trans', pp: 'کشته' },
+  'آویختن':  { past: 'آویخت', present: 'آویز', trans: 'trans', pp: 'آویخته' },
+  'انجام دادن': { past: 'انجام داد', present: 'انجام ده', trans: 'trans', pp: 'انجام داده' },
+  'کمک کردن': { past: 'کمک کرد', present: 'کمک کن', trans: 'trans', pp: 'کمک کرده' },
+  'آغازیدن': { past: 'آغازید', present: 'آغاز', trans: 'trans', pp: 'آغازیده' },
+  'پذیرفتن': { past: 'پذیرفت', present: 'پذیر', trans: 'trans', pp: 'پذیرفته' },
+  'رد کردن':  { past: 'رد کرد', present: 'رد کن', trans: 'trans', pp: 'رد کرده' },
+  'فرستادن': { past: 'فرستاد', present: 'فرست', trans: 'trans', pp: 'فرستاده' },
+  'دریافت کردن': { past: 'دریافت کرد', present: 'دریافت کن', trans: 'trans', pp: 'دریافت کرده' },
+  'نگاه کردن': { past: 'نگاه کرد', present: 'نگاه کن', trans: 'trans', pp: 'نگاه کرده' },
+  'گوش دادن': { past: 'گوش داد', present: 'گوش ده', trans: 'trans', pp: 'گوش داده' },
+  'جستجو کردن': { past: 'جستجو کرد', present: 'جستجو کن', trans: 'trans', pp: 'جستجو کرده' },
+  'بازی کردن': { past: 'بازی کرد', present: 'بازی کن', trans: 'intrans', pp: 'بازی کرده' },
+  'خوابیدن': { past: 'خوابید', present: 'خواب', trans: 'intrans', pp: 'خوابیده' },
+  'بیدار شدن': { past: 'بیدار شد', present: 'بیدار شو', trans: 'intrans', pp: 'بیدار شده' },
+  'بلند شدن': { past: 'بلند شد', present: 'بلند شو', trans: 'intrans', pp: 'بلند شده' },
+  'نشستن':   { past: 'نشست', present: 'نشین', trans: 'intrans', pp: 'نشسته' },
+  'افتادن':  { past: 'افتاد', present: 'افت', trans: 'intrans', pp: 'افتاده' },
+  'رسیدن':   { past: 'رسید', present: 'رس', trans: 'intrans', pp: 'رسیده' },
+  'پریدن':   { past: 'پرید', present: 'پر', trans: 'intrans', pp: 'پریده' },
+  'دویدن':   { past: 'دوید', present: 'دو', trans: 'intrans', pp: 'دویده' },
+  'خندیدن':  { past: 'خندید', present: 'خند', trans: 'intrans', pp: 'خندیده' },
+  'گریستن':  { past: 'گریست', present: 'گری', trans: 'intrans', pp: 'گریسته' },
+  'ترسیدن':  { past: 'ترسید', present: 'ترس', trans: 'intrans', pp: 'ترسیده' },
+  'شاد شدن': { past: 'شاد شد', present: 'شاد شو', trans: 'intrans', pp: 'شاد شده' },
+  'غمگین شدن': { past: 'غمگین شد', present: 'غمگین شو', trans: 'intrans', pp: 'غمگین شده' },
+  'پرسیدن':  { past: 'پرسید', present: 'پرس', trans: 'trans', pp: 'پرسیده' },
+  'پاسخ دادن': { past: 'پاسخ داد', present: 'پاسخ ده', trans: 'trans', pp: 'پاسخ داده' },
+  'فهمیدن':  { past: 'فهمید', present: 'فهم', trans: 'trans', pp: 'فهمیده' },
+  'آموختن':  { past: 'آموخت', present: 'آموز', trans: 'trans', pp: 'آموخته' },
+  'آموزش دادن': { past: 'آموزش داد', present: 'آموزش ده', trans: 'trans', pp: 'آموزش داده' },
+  'یاد گرفتن': { past: 'یاد گرفت', present: 'یاد گیر', trans: 'trans', pp: 'یاد گرفته' },
+  'فراموش کردن': { past: 'فراموش کرد', present: 'فراموش کن', trans: 'trans', pp: 'فراموش کرده' },
+  'به یاد آوردن': { past: 'به یاد آورد', present: 'به یاد آور', trans: 'trans', pp: 'به یاد آورده' },
+  'شناختن':  { past: 'شناخت', present: 'شناس', trans: 'trans', pp: 'شناخته' },
+  'اندیشیدن': { past: 'اندیشید', present: 'اندیش', trans: 'intrans', pp: 'اندیشیده' },
+  'فکر کردن': { past: 'فکر کرد', present: 'فکر کن', trans: 'intrans', pp: 'فکر کرده' },
+  'باور کردن': { past: 'باور کرد', present: 'باور کن', trans: 'trans', pp: 'باور کرده' },
+  'امید داشتن': { past: 'امید داشت', present: 'امید دار', trans: 'trans', pp: 'امید داشته' },
+  'عشق ورزیدن': { past: 'عشق ورزید', present: 'عشق ورز', trans: 'trans', pp: 'عشق ورزیده' },
+  'دوست داشتن': { past: 'دوست داشت', present: 'دوست دار', trans: 'trans', pp: 'دوست داشته' },
+  'احترام گذاشتن': { past: 'احترام گذاشت', present: 'احترام گذار', trans: 'trans', pp: 'احترام گذاشته' },
+  'تشکر کردن': { past: 'تشکر کرد', present: 'تشکر کن', trans: 'intrans', pp: 'تشکر کرده' },
+  'عذرخواهی کردن': { past: 'عذرخواهی کرد', present: 'عذرخواهی کن', trans: 'intrans', pp: 'عذرخواهی کرده' }
+});
+
+/* ==================================================================
+   مدل جمله و ساخت آن
+   ================================================================== */
+function buildClause(verb, opts) {
+  const o = Object.assign({
+    subject: 'او', object: null, tense: 'past',
+    person: 3, number: 'sg', negative: false
+  }, opts);
+  if (!SEED.verbs[verb]) return Result_err('E_VERB', `فعل «${verb}» در بذر نیست`);
+  return Result_ok({
+    kind: 'Clause',
+    verb, tense: o.tense, person: o.person, number: o.number,
+    negative: o.negative,
+    subject: o.subject ? String(o.subject).trim() : null,
+    object: o.object ? String(o.object).trim() : null,
+    voice: 'active',
+    derivation: makeDerivation('buildClause',
+      `${verb}/${o.tense}/${o.person}${o.number}`, [], { verb })
+  }, { rule: 'buildClause' });
+}
+
+function makeDerivation(rule, output, inputs, features) {
+  return {
+    id: 'd_' + Math.random().toString(36).slice(2, 9),
+    rule, output: String(output),
+    inputs: inputs || [],
+    features: features || {}
+  };
+}
+
+/* ==================================================================
+   خطی‌سازی — جملهٔ فارسی SOV
+   ================================================================== */
+function conjugateForClause(clause) {
+  const r = conjugate(clause.verb, {
+    tense: clause.tense, person: clause.person,
+    number: clause.number, negative: clause.negative
+  });
+  return r.ok ? r.value : '—';
+}
+
+function linearize(clause) {
+  if (!clause || clause.kind !== 'Clause') {
+    return Result_err('E_NOT_CLAUSE', 'ورودی جمله نیست');
+  }
+  // Passive voice
+  if (clause.voice === 'passive') {
+    const v = SEED.verbs[clause.verb];
+    if (!v || !v.pp) return Result_err('E_NO_PP', `صفت مفعولی «${clause.verb}» نیست`);
+    const aux = conjugate('شدن', {
+      tense: clause.tense, person: clause.person || 3,
+      number: clause.number || 'sg', negative: clause.negative
+    });
+    const auxForm = aux.ok ? aux.value : 'شد';
+    const agent = clause.agent ? ` توسط ${clause.agent}` : '';
+    const subj = clause.subject || '—';
+    return Result_ok(`${subj}${agent} ${v.pp} ${auxForm}.`, { rule: 'linearize.passive' });
+  }
+  // Active voice
+  const parts = [];
+  if (clause.subject) parts.push(clause.subject);
+  if (clause.object) {
+    const marker = clause.objectMarker === false ? '' : ' را';
+    parts.push(clause.object + marker);
+  }
+  if (clause.complement) parts.push(clause.complement);
+  parts.push(conjugateForClause(clause));
+  let text = parts.join(' ') + '.';
+  // Interrogative
+  if (clause.interrogative) {
+    text = (clause.questionParticle ? 'آیا ' : '') + text.replace(/\.$/, '؟');
+  }
+  // Imperative
+  if (clause.imperative) {
+    const imp = imperative(clause.verb, clause.number === 'pl');
+    text = imp + (clause.object ? ' ' + clause.object + ' را' : '') + '!';
+  }
+  return Result_ok(text, { rule: 'linearize.active' });
+}
+
+/* ==================================================================
+   فعل امری
+   ================================================================== */
+function imperative(verbName, plural) {
+  const v = SEED.verbs[verbName];
+  if (!v) return '—';
+  if (verbName === 'بودن') return plural ? 'باشید' : 'باش';
+  if (verbName === 'داشتن') return plural ? 'داشته باشید' : 'داشته باش';
+  let stem = v.present;
+  let prefix = 'ب';
+  if (stem.startsWith('آ')) { prefix = 'بی'; stem = stem.slice(1); }
+  // Compound verbs: use last word
+  if (stem.includes(' ')) {
+    const parts = stem.split(' ');
+    const last = parts.pop();
+    return [...parts, prefix + last + (plural ? 'ید' : '')].join(' ');
+  }
+  return prefix + stem + (plural ? 'ید' : '');
+}
+
+/* ==================================================================
+   ۸ عملگر نحوی
+   ================================================================== */
+const TRANSFORMS = {
+  PASSIVIZE(c) {
+    const v = SEED.verbs[c.verb];
+    if (!v) return Result_err('E_VERB', 'فعل ناشناخته');
+    if (v.trans === 'intrans') return Result_err('E_INTRANS', `«${c.verb}» ناگذر است، مجهول نمی‌شود`);
+    if (!c.object) return Result_err('E_NO_OBJ', 'برای مجهول‌سازی، مفعول لازم است');
+    const nc = Object.assign({}, c, {
+      voice: 'passive',
+      subject: c.object,
+      agent: c.subject,
+      object: null
+    });
+    nc.derivation = makeDerivation('PASSIVIZE', 'passive',
+      [c.derivation], { verb: c.verb });
+    return Result_ok(nc, { rule: 'PASSIVIZE' });
+  },
+  NEGATE(c) {
+    const nc = Object.assign({}, c, { negative: !c.negative });
+    nc.derivation = makeDerivation('NEGATE', !c.negative ? 'negative' : 'positive',
+      [c.derivation]);
+    return Result_ok(nc, { rule: 'NEGATE' });
+  },
+  INTERROGATE(c) {
+    const nc = Object.assign({}, c, { interrogative: true, questionParticle: true });
+    nc.derivation = makeDerivation('INTERROGATE', 'interrogative', [c.derivation]);
+    return Result_ok(nc, { rule: 'INTERROGATE' });
+  },
+  IMPERATIVE(c) {
+    if (c.voice === 'passive') return Result_err('E_NO_IMP', 'مجهول امری ندارد');
+    const nc = Object.assign({}, c, {
+      imperative: true, person: 2, negative: c.negative
+    });
+    nc.derivation = makeDerivation('IMPERATIVE', 'imperative', [c.derivation]);
+    return Result_ok(nc, { rule: 'IMPERATIVE' });
+  },
+  TOPICALIZE(c) {
+    if (!c.object) return Result_err('E_NO_OBJ', 'بدون مفعول امکان‌پذیر نیست');
+    const nc = Object.assign({}, c, { topicalized: true });
+    nc.derivation = makeDerivation('TOPICALIZE', 'topical', [c.derivation]);
+    return Result_ok(nc, { rule: 'TOPICALIZE' });
+  },
+  RELATIVIZE(c) {
+    const nc = Object.assign({}, c, { relative: true });
+    nc.derivation = makeDerivation('RELATIVIZE', 'relative-clause', [c.derivation]);
+    return Result_ok(nc, { rule: 'RELATIVIZE' });
+  },
+  COLLOQUIALIZE(c) {
+    const nc = Object.assign({}, c, { register: 'colloquial' });
+    nc.derivation = makeDerivation('COLLOQUIALIZE', 'colloquial', [c.derivation]);
+    return Result_ok(nc, { rule: 'COLLOQUIALIZE' });
+  },
+  NOMINALIZE(c) {
+    const v = SEED.verbs[c.verb];
+    if (!v) return Result_err('E_VERB', 'فعل ناشناخته');
+    const masdar = v.past + 'ن';
+    const agent = c.subject ? ` توسط ${c.subject}` : '';
+    const obj = c.object ? `ِ ${c.object}` : '';
+    const nc = Object.assign({}, c, {
+      nominalized: true,
+      nominalForm: masdar + obj + agent
+    });
+    nc.derivation = makeDerivation('NOMINALIZE', masdar, [c.derivation]);
+    return Result_ok(nc, { rule: 'NOMINALIZE' });
+  }
+};
+
+function applyTransform(clause, opName) {
+  const op = TRANSFORMS[opName];
+  if (!op) return Result_err('E_UNKNOWN_OP', `عملگر «${opName}» نیست`);
+  return op(clause);
+}
+
+/* ==================================================================
+   خط لولهٔ اجراکننده
+   ================================================================== */
+function runPipeline(input, steps) {
+  let current = input;
+  const trail = [];
+  for (const step of steps) {
+    const r = applyTransform(current, step);
+    if (!r.ok) return Result_err(r.error.code, `در گام «${step}»: ${r.error.message}`);
+    current = r.value;
+    trail.push(step);
+  }
+  return Result_ok({ value: current, trail }, { rule: 'runPipeline' });
+}
+
+/* ==================================================================
+   همنشینی
+   ================================================================== */
+const COLLOCATIONS = [
+  ['نامه','نوشتن'], ['کتاب','خواندن'], ['تصمیم','گرفتن'], ['غذا','خوردن'],
+  ['آب','نوشیدن'], ['حرف','زدن'], ['کار','کردن'], ['درس','خواندن'],
+  ['فیلم','دیدن'], ['آهنگ','شنیدن'], ['سؤال','پرسیدن'], ['جواب','دادن'],
+  ['یاد','گرفتن'], ['فراموش','کردن'], ['فکر','کردن'], ['باور','کردن'],
+  ['امید','داشتن'], ['دوست','داشتن'], ['احترام','گذاشتن'], ['تشکر','کردن'],
+  ['عذرخواهی','کردن'], ['کمک','کردن'], ['شروع','کردن'], ['پایان','دادن'],
+  ['نگاه','کردن'], ['گوش','دادن'], ['دست','دادن'], ['پا','زدن'],
+  ['چشم','دیدن'], ['گوش','شنیدن'], ['سفر','رفتن'], ['بازگشت','آمدن'],
+  ['پول','دادن'], ['پول','گرفتن'], ['کتاب','خریدن'], ['لباس','پوشیدن'],
+  ['غذا','پختن'], ['چای','نوشیدن'], ['قند','خوردن'], ['نفس','کشیدن']
+];
+
+function checkCollocation(left, right) {
+  const l = String(left).trim(), r = String(right).trim();
+  if (!l || !r) return Result_err('E_EMPTY', 'دو واژه لازم است');
+  const found = COLLOCATIONS.find(([a, b]) =>
+    (a === l && b === r) || (a === r && b === l)
+  );
+  if (found) return Result_ok({
+    match: true, strength: 'strong', pair: found,
+    note: `«${l}» و «${r}» همنشین طبیعی هستند.`
+  }, { rule: 'collocation.match' });
+  const lefts = COLLOCATIONS.filter(([a]) => a === l).map(([_, b]) => b);
+  const rights = COLLOCATIONS.filter(([, b]) => b === r).map(([a]) => a);
+  return Result_ok({
+    match: false, strength: 'none',
+    alternatives: { leftPartners: lefts, rightPartners: rights },
+    note: `«${l}» و «${r}» همنشین طبیعی نیستند.`
+  }, { rule: 'collocation.miss' });
+}
+
+/* ==================================================================
+   Presetهای جدید
+   ================================================================== */
+PRESETS.buildAndTransform = function(params) {
+  const built = buildClause(params.verb, params);
+  if (!built.ok) return built;
+  return built;
+};
+
+PRESETS.collocation = function(left, right) {
+  return checkCollocation(left, right);
+};
+
+/* ==================================================================
+   رندرهای جدید
+   ================================================================== */
+function renderDerivationTree(d, depth) {
+  depth = depth || 0;
+  const pad = '  '.repeat(depth);
+  let out = `${pad}<span class="d-rule">${escapeHtml(d.rule)}</span> → <span class="d-val">${escapeHtml(d.output)}</span>\n`;
+  if (d.inputs && d.inputs.length) {
+    d.inputs.forEach(inp => {
+      out += `${pad}<span class="d-indent">\n`;
+      out += renderDerivationTree(inp, depth + 1);
+      out += `${pad}</span>`;
+    });
+  }
+  return out;
+}
+
+function renderSyntax(clause, transforms) {
+  const lin = linearize(clause);
+  if (!lin.ok) return `<div class="result-card error">${escapeHtml(lin.error.message)}</div>`;
+  let html = `<h3><i class="fa-solid fa-sitemap"></i> جملهٔ ساخته‌شده</h3>`;
+  html += `<div class="bayt-card" style="color:var(--gold-light);font-size:1.1rem;">${escapeHtml(lin.value)}</div>`;
+  html += `<div class="badges">
+    <span class="badge">${escapeHtml(clause.verb)}</span>
+    <span class="badge">${clause.tense === 'past' ? 'گذشته' : 'حال'}</span>
+    <span class="badge">${clause.person}${clause.number === 'pl' ? 'جمع' : 'مفرد'}</span>
+    ${clause.negative ? '<span class="badge err">منفی</span>' : '<span class="badge ok">مثبت</span>'}
+    ${clause.voice === 'passive' ? '<span class="badge">مجهول</span>' : ''}
+  </div>`;
+  if (clause.derivation) {
+    html += `<h4>درخت اشتقاق</h4>`;
+    html += `<div class="deriv-tree">${renderDerivationTree(clause.derivation)}</div>`;
+  }
+  return html;
+}
+
+function renderTransformResult(clause, opName) {
+  const lin = linearize(clause);
+  if (!lin.ok) return `<div class="result-card error">${escapeHtml(lin.error.message)}</div>`;
+  let html = `<h3><i class="fa-solid fa-arrows-rotate"></i> نتیجهٔ ${escapeHtml(opName)}</h3>`;
+  html += `<div class="bayt-card" style="color:var(--c-ok);font-size:1.1rem;">${escapeHtml(lin.value)}</div>`;
+  if (clause.derivation) {
+    html += `<h4>درخت اشتقاق (پس از تبدیل)</h4>`;
+    html += `<div class="deriv-tree">${renderDerivationTree(clause.derivation)}</div>`;
+  }
+  return html;
+}
+
+function renderCollocation(res) {
+  if (!res.ok) return `<div class="result-card error">${escapeHtml(res.error.message)}</div>`;
+  const d = res.value;
+  if (d.match) {
+    return `<div class="result-card ok">
+      <strong>✅ همنشین طبیعی</strong><br>
+      <span class="colloc-pair">${escapeHtml(d.pair[0])} + ${escapeHtml(d.pair[1])}</span><br>
+      ${escapeHtml(d.note)}
+    </div>`;
+  }
+  let html = `<div class="result-card error"><strong>⚠️ همنشین طبیعی نیست</strong><br>${escapeHtml(d.note)}</div>`;
+  if (d.alternatives.leftPartners.length) {
+    html += `<h4>همنشین‌های «${escapeHtml(d.alternatives.leftPartners[0] ? '' : '')}»</h4>`;
+    html += `<div class="badges">`;
+    d.alternatives.leftPartners.forEach(p => {
+      html += `<span class="badge">${escapeHtml(p)}</span>`;
+    });
+    html += `</div>`;
+  }
+  if (d.alternatives.rightPartners.length) {
+    html += `<h4>همنشین‌های «${escapeHtml(d.alternatives.rightPartners[0] ? '' : '')}»</h4>`;
+    html += `<div class="badges">`;
+    d.alternatives.rightPartners.forEach(p => {
+      html += `<span class="badge">${escapeHtml(p)}</span>`;
+    });
+    html += `</div>`;
+  }
+  return html;
+}
+
+/* ==================================================================
+   اتصال پنل‌های جدید
+   ================================================================== */
+(function wireSyntaxAndColloc() {
+  // پر کردن dropdown فعل‌ها
+  const verbSel = document.getElementById('synVerb');
+  if (verbSel) {
+    const verbs = Object.keys(SEED.verbs).sort();
+    verbs.forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v; opt.textContent = v;
+      if (v === 'نوشتن') opt.selected = true;
+      verbSel.appendChild(opt);
+    });
+  }
+
+  let currentClause = null;
+
+  // ساخت جمله
+  const btnBuild = document.getElementById('btn-build');
+  if (btnBuild) {
+    btnBuild.addEventListener('click', () => {
+      const params = {
+        verb: document.getElementById('synVerb').value,
+        subject: document.getElementById('synSubject').value,
+        object: document.getElementById('synObject').value,
+        tense: document.getElementById('synTense').value,
+        person: parseInt(document.getElementById('synPerson').value, 10),
+        number: document.getElementById('synNumber').value
+      };
+      const r = PRESETS.buildAndTransform(params);
+      const out = document.getElementById('out-syntax');
+      if (!r.ok) {
+        out.innerHTML = `<div class="result-card error">${escapeHtml(r.error.message)}</div>`;
+        document.getElementById('synTransformBar').style.display = 'none';
+        return;
+      }
+      currentClause = r.value;
+      out.innerHTML = renderSyntax(currentClause);
+      showTransformButtons(currentClause);
+    });
+  }
+
+  function showTransformButtons(clause) {
+    const bar = document.getElementById('synTransformBar');
+    const btnBox = document.getElementById('synTransformButtons');
+    if (!bar || !btnBox) return;
+    bar.style.display = 'block';
+    btnBox.innerHTML = '';
+    const ops = [
+      { key: 'PASSIVIZE', label: 'مجهول' },
+      { key: 'NEGATE', label: 'منفی' },
+      { key: 'INTERROGATE', label: 'سؤالی' },
+      { key: 'IMPERATIVE', label: 'امری' },
+      { key: 'TOPICALIZE', label: 'ایجاز/تقدیم' },
+      { key: 'RELATIVIZE', label: 'موصولی' },
+      { key: 'COLLOQUIALIZE', label: 'محاوره' },
+      { key: 'NOMINALIZE', label: 'اسم‌سازی' }
+    ];
+    ops.forEach(op => {
+      const btn = document.createElement('button');
+      btn.className = 'transform-btn';
+      btn.textContent = op.label;
+      btn.addEventListener('click', () => {
+        const r = applyTransform(clause, op.key);
+        const out = document.getElementById('out-syntax');
+        if (!r.ok) {
+          out.innerHTML += `<div class="result-card error">⚠️ ${escapeHtml(r.error.message)}</div>`;
+          return;
+        }
+        currentClause = r.value;
+        out.innerHTML = renderTransformResult(currentClause, op.label);
+      });
+      btnBox.appendChild(btn);
+    });
+  }
+
+  // همنشینی
+  const btnColloc = document.getElementById('btn-collocation');
+  if (btnColloc) {
+    btnColloc.addEventListener('click', () => {
+      const left = document.getElementById('colLeft').value;
+      const right = document.getElementById('colRight').value;
+      const r = PRESETS.collocation(left, right);
+      document.getElementById('out-collocation').innerHTML = renderCollocation(r);
+    });
+  }
+})();
 </script>
 </body>
 </html>
