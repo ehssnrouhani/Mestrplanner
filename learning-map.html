@@ -1,673 +1,159 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>نقشهٔ شناختی یادگیری | نشانه‌ها و فرایندهای زیربنایی | مستر پلنر</title>
-<meta name="description" content="۳۹ نشانهٔ مشاهده‌پذیر در یادگیری را به هشت فرایند شناختی زیربنایی وصل کن، نمایهٔ بصری رادار ببین و راهنمای گام بعد بگیر. رایگان، بدون ثبت‌نام، صرفاً ابزار آگاهی — نه تشخیص.">
-<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/learning-map.html">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<meta name="theme-color" content="#07080C">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="مستر پلنر">
-<meta property="og:locale" content="fa_IR">
-<meta property="og:title" content="نقشهٔ شناختی یادگیری | مستر پلنر">
-<meta property="og:description" content="۳۹ نشانهٔ مشاهده‌پذیر را به هشت فرایند شناختی زیربنایی وصل کن و راهنمای گام بعد بگیر. رایگان — نه تشخیص.">
-<meta property="og:url" content="https://ehssnrouhani.github.io/Mestrplanner/learning-map.html">
-<meta name="author" content="احسان روحانی راوری">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🧭%3C/text%3E%3C/svg%3E">
+<html lang="fa" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>نقشهٔ شناختی یادگیری | میز کار پیگیری</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #07080C;
-    --surface: rgba(19, 23, 32, 0.72);
-    --surface-solid: #12151D;
-    --surface-2: #181D27;
-    --primary: #D4AF37;
-    --gold-light: #F3E5AB;
-    --gold-deep: #AA771C;
-    --text: #F5F7FA;
-    --text-soft: #CBD3DE;
-    --muted: #9AA4B2;
-    --line: rgba(212, 175, 55, 0.22);
-    --line-soft: rgba(255, 255, 255, 0.08);
-    --radius: 16px;
-    --radius-sm: 10px;
-    --pill: 999px;
-    --shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
-    --t: 0.3s cubic-bezier(.4, 0, .2, 1);
-    --ok: #10B981;
-    --warn: #F59E0B;
-    --danger: #EF4444;
-    --font-fa: 'Vazirmatn', Tahoma, sans-serif;
-    --font-en: 'Outfit', sans-serif;
-    /* رنگ فرایندها — هم‌خوان با تم */
-    --c-attention: #ef4444;
-    --c-executive: #f59e0b;
-    --c-memory: #10b981;
-    --c-speed: #3b82f6;
-    --c-visual: #8b5cf6;
-    --c-auditory: #06b6d4;
-    --c-language: #ec4899;
-    --c-motor: #14b8a6;
-  }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: var(--font-fa);
-    background: var(--bg);
-    background-image:
-      radial-gradient(1100px 520px at 50% -160px, rgba(212, 175, 55, 0.10), transparent 65%),
-      radial-gradient(900px 620px at 100% 8%, #12161f 0%, transparent 60%);
-    color: var(--text);
-    line-height: 1.9;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-  }
-  ::selection { background: rgba(212, 175, 55, 0.35); color: #fff; }
-  :focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
-  a { color: inherit; }
-  button { font-family: inherit; cursor: pointer; }
-  .container { max-width: 960px; margin: 0 auto; padding: 0 1.1rem; }
-
-  /* ===== Header ===== */
-  .app-header {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(7,8,12,0.9); backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(212,175,55,0.16);
-  }
-  .header-inner { display: flex; align-items: center; gap: 1rem; padding: 0.65rem 0; flex-wrap: wrap; }
-  .brand { font-weight: 800; color: var(--primary); font-size: 1rem; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
-  .brand small { font-family: var(--font-en); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.2em; }
-  .home-link {
-    font-size: 0.8rem; color: var(--muted); text-decoration: none;
-    padding: 0.35rem 0.8rem; border: 1px solid var(--line-soft); border-radius: var(--pill);
-    margin-inline-start: auto;
-  }
-  .home-link:hover { color: var(--gold-light); border-color: var(--line); }
-
-  /* ===== Steps ===== */
-  .step { display: none; padding: 1.6rem 0 3rem; animation: fadeIn .35s ease; }
-  .step.active { display: block; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-  .step-title { font-size: clamp(1.25rem, 2.8vw, 1.6rem); font-weight: 800; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.7rem; }
-  .step-title::before { content: ""; width: 6px; height: 1.4em; border-radius: 3px; background: linear-gradient(180deg, var(--gold-light), var(--primary)); box-shadow: 0 0 12px rgba(212,175,55,0.5); }
-  .step-subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.4rem; }
-
-  /* ===== Cards ===== */
-  .card {
-    background: linear-gradient(160deg, rgba(26,31,44,0.85), rgba(13,16,23,0.94));
-    border: 1px solid var(--line-soft); border-radius: var(--radius);
-    padding: 1.4rem; margin-bottom: 1.1rem;
-  }
-  .card h2 { font-size: 1.15rem; color: var(--gold-light); margin-bottom: 0.7rem; }
-  .card p { color: var(--text-soft); font-size: 0.92rem; margin-bottom: 0.6rem; }
-
-  .hero { border-top: 4px solid var(--primary); }
-  .hero h2 { font-size: 1.35rem; }
-
-  .warnbox {
-    background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.45);
-    border-radius: var(--radius-sm); padding: 0.9rem 1.1rem;
-    font-size: 0.86rem; color: #fbbf24; margin: 0.9rem 0; line-height: 1.85;
-  }
-  .warnbox b { color: #fcd34d; }
-
-  .info-line { font-size: 0.82rem; color: var(--muted); border-right: 3px solid var(--line); padding-right: 10px; margin-top: 0.7rem; line-height: 1.85; }
-
-  /* ===== 8 Quadrants ===== */
-  .quad8 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; margin: 1.2rem 0; }
-  @media (max-width: 720px) { .quad8 { grid-template-columns: 1fr 1fr; } }
-  .qd {
-    background: var(--surface-2); border: 1px solid var(--line-soft);
-    border-right: 4px solid var(--c); border-radius: var(--radius-sm);
-    padding: 0.8rem 0.6rem; text-align: center;
-  }
-  .qd-icon { font-size: 1.6rem; display: block; margin-bottom: 0.3rem; }
-  .qd b { color: var(--c); font-size: 0.82rem; display: block; line-height: 1.4; }
-
-  /* ===== Buttons ===== */
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
-    padding: 0.75rem 1.4rem; border-radius: var(--radius-sm);
-    font-size: 0.92rem; font-weight: 700; border: 1px solid transparent;
-    transition: var(--t); text-decoration: none; color: var(--text);
-  }
-  .btn-primary { background: linear-gradient(135deg, var(--primary), var(--gold-deep)); color: #0B0B0B; }
-  .btn-primary:hover { background: linear-gradient(135deg, var(--gold-light), var(--primary)); transform: translateY(-1px); }
-  .btn-secondary { background: transparent; color: var(--primary); border-color: rgba(212,175,55,0.5); }
-  .btn-secondary:hover { background: rgba(212,175,55,0.1); }
-  .btn-sm { padding: 0.45rem 0.9rem; font-size: 0.82rem; }
-  .btn-block { width: 100%; }
-  .btn-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1rem; }
-
-  /* ===== Progress ===== */
-  .prog-head { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--muted); margin-bottom: 0.5rem; }
-  .prog { height: 8px; background: rgba(255,255,255,0.06); border-radius: 6px; overflow: hidden; margin: 0.4rem 0 1.2rem; }
-  .prog i { display: block; height: 100%; background: linear-gradient(90deg, var(--gold-deep), var(--primary)); transition: width .3s; }
-
-  /* ===== Quiz ===== */
-  .q-text { font-size: 1.08rem; font-weight: 700; line-height: 2; margin: 0.8rem 0 1.2rem; color: var(--text); }
-  .likert { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; }
-  @media (max-width: 560px) { .likert { grid-template-columns: 1fr 1fr; } }
-  .likert button {
-    background: var(--surface-2); border: 2px solid var(--line-soft);
-    border-radius: var(--radius-sm); padding: 0.8rem 0.4rem;
-    color: var(--text-soft); font-size: 0.85rem; font-weight: 700;
-    transition: var(--t); line-height: 1.5;
-  }
-  .likert button:hover, .likert button:focus-visible { border-color: var(--primary); }
-  .likert button.on { border-color: var(--primary); background: rgba(212,175,55,0.15); color: var(--gold-light); }
-  .likert kbd {
-    display: block; color: var(--muted); font-size: 0.7rem; margin-top: 0.2rem;
-    font-family: var(--font-en);
-  }
-
-  /* ===== Results ===== */
-  .result-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 1.4rem; align-items: center; }
-  @media (max-width: 700px) { .result-grid { grid-template-columns: 1fr; } }
-  .radar { width: 100%; max-width: 360px; margin: 0 auto; display: block; }
-
-  .res-list .row2 { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.7rem; font-size: 0.85rem; }
-  .res-list .row2 .sw { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
-  .res-list .row2 .nm { flex: 1; color: var(--text-soft); }
-  .res-list .row2 .nm small { display: block; color: var(--muted); font-size: 0.72rem; }
-  .res-list .row2 .pc { font-weight: 800; min-width: 42px; text-align: left; font-family: var(--font-en); }
-  .res-list .bar { height: 6px; background: rgba(255,255,255,0.06); border-radius: 5px; overflow: hidden; margin-top: 0.3rem; }
-  .res-list .bar i { display: block; height: 100%; }
-
-  .compare { background: var(--surface-2); border: 1px solid var(--line-soft); border-radius: var(--radius-sm); padding: 0.9rem 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: var(--text-soft); }
-  .compare b { color: var(--primary); }
-
-  /* ===== Guide ===== */
-  .rx { border-right: 5px solid var(--c); background: var(--surface-2); border-radius: var(--radius-sm); padding: 1rem 1.1rem; margin-bottom: 0.9rem; }
-  .rx h3 { color: var(--c); margin-bottom: 0.4rem; font-size: 0.95rem; }
-  .rx p { color: var(--text-soft); font-size: 0.87rem; line-height: 1.85; margin-bottom: 0.5rem; }
-  .rx ol { margin: 0.5rem 0; padding-right: 1.2rem; color: var(--text-soft); font-size: 0.87rem; }
-  .rx li { margin-bottom: 0.3rem; line-height: 1.8; }
-  .rx .note { background: rgba(245,158,11,.08); border-right: 3px solid var(--warn); border-radius: 6px; padding: 0.5rem 0.8rem; font-size: 0.82rem; color: #fbbf24; margin: 0.6rem 0; }
-  .rx .links { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.6rem; }
-  .rx .links a {
-    color: var(--text); background: var(--surface-solid); border: 1px solid var(--line-soft);
-    border-radius: var(--pill); padding: 0.28rem 0.75rem; font-size: 0.78rem; text-decoration: none;
-    transition: var(--t);
-  }
-  .rx .links a:hover { border-color: var(--primary); color: var(--gold-light); }
-
-  /* ===== FAQ ===== */
-  details.faq { border-top: 1px solid var(--line-soft); padding: 0.7rem 0; }
-  details.faq summary { cursor: pointer; font-weight: 700; font-size: 0.92rem; color: var(--text); }
-  details.faq summary:hover { color: var(--gold-light); }
-  details.faq div { color: var(--text-soft); font-size: 0.87rem; margin-top: 0.4rem; line-height: 1.85; }
-
-  /* ===== HowTo ===== */
-  ol.howto { padding-right: 1.3rem; color: var(--text-soft); line-height: 1.9; font-size: 0.9rem; }
-  ol.howto li { margin-bottom: 0.4rem; }
-
-  /* ===== Toast ===== */
-  .toast {
-    position: fixed; bottom: 1.3rem; left: 50%; transform: translateX(-50%) translateY(100px);
-    background: var(--surface-solid); border: 1px solid var(--primary); border-radius: var(--radius-sm);
-    padding: 0.6rem 1.1rem; font-size: 0.85rem; color: var(--text);
-    box-shadow: var(--shadow); z-index: 300; opacity: 0;
-    transition: all .35s cubic-bezier(.4,0,.2,1); display: flex; align-items: center; gap: 0.5rem;
-    max-width: 90vw;
-  }
-  .toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-  /* ===== Skip link ===== */
-  .skip { position: absolute; right: -999px; }
-  .skip:focus { right: 8px; top: 8px; background: #000; color: #fff; padding: 8px; z-index: 999; }
-
-  /* ===== Print ===== */
-  @media print {
-    .app-header, .noprint, .btn-row, .home-link { display: none !important; }
-    body { background: #fff; color: #000; }
-    .card { background: #fff; border: 1px solid #ccc; box-shadow: none; }
-    .qd, .rx { background: #f9f9f9; }
-  }
-</style>
-</head>
-<body>
-<a class="skip" href="#main">رفتن به محتوا</a>
-
-<header class="app-header">
-  <div class="container header-inner">
-    <a href="index.html" class="brand">
-      <i class="fa-solid fa-compass"></i>
-      <span>مستر پلنر <small>LEARNING MAP</small></span>
-    </a>
-    <a href="index.html" class="home-link"><i class="fa-solid fa-house"></i> خانه</a>
-  </div>
-</header>
-
-<main id="main" class="container">
-  <div id="app" aria-live="polite"></div>
-
-  <section class="card" aria-labelledby="how">
-    <h2 id="how">نحوهٔ استفاده</h2>
-    <ol class="howto">
-      <li>روی «شروع ارزیابی» بزن و برای هر ۳۹ جمله، میزان مشاهده‌ات را در ۵ گزینه انتخاب کن.</li>
-      <li>به آنچه واقعاً مشاهده کرده‌ای پاسخ بده، نه آنچه فکر می‌کنی باید باشد.</li>
-      <li>نمایهٔ رادار و سه حوزهٔ اولویت‌دار را ببین.</li>
-      <li>راهکارهای هر حوزه را ۴ هفته اجرا کن و در دفترچهٔ روزانه ثبت کن؛ سپس بازبینی کن.</li>
-    </ol>
-  </section>
-
-  <section class="card" aria-labelledby="faqh">
-    <h2 id="faqh">پرسش‌های پرتکرار</h2>
-    <details class="faq"><summary>آیا این ابزار تشخیص اختلال یادگیری می‌دهد؟</summary><div>نه. این ابزار صرفاً نشانه‌های مشاهده‌پذیر را به فرایندهای شناختی زیربنایی مرتبط می‌کند تا نقطهٔ شروع گفت‌وگو با معلم یا مشاور باشد. تشخیص اختلال یادگیری فقط با ارزیابی تخصصی توسط روان‌شناس یا متخصص انجام می‌شود.</div></details>
-    <details class="faq"><summary>این نشانه‌ها از کجا آمده‌اند؟</summary><div>الهام‌گرفته از مدل نروسایکولوژی آموزشگاهی (SNP) و چارچوب‌های استاندارد ارزیابی فرایندهای شناختی در کودکان. نسخهٔ رسمی هیچ ابزار تشخیصی نیست و صرفاً برای آگاهی اولیه طراحی شده است.</div></details>
-    <details class="faq"><summary>اگر نتیجه در یک حوزه خیلی بالا باشد یعنی فرزندم مشکل دارد؟</summary><div>نه. نمرهٔ بالا یعنی نشانه‌های مشاهده‌شده در آن حوزه بیشتر بوده، نه وجود اختلال. برخی نشانه‌ها موقتی‌اند (استرس، بیماری، تغییر محیط) و ممکن است با مداخله‌های سادهٔ کلاس کاهش یابند.</div></details>
-    <details class="faq"><summary>اطلاعات من کجا ذخیره می‌شود؟</summary><div>فقط در حافظهٔ مرورگر همین دستگاه (localStorage). هیچ داده‌ای به سرور فرستاده نمی‌شود. هر زمان بخواهید می‌توانید نتیجه را پاک کنید.</div></details>
-    <details class="faq"><summary>چه زمانی باید به متخصص مراجعه کنم؟</summary><div>اگر بعد از ۴ تا ۶ هفته اجرای راهکارهای کلاس، تغییر معناداری ندیدید؛ اگر افت تحصیلی چشمگیر است؛ یا اگر نشانه‌ها با نگرانی‌های دیگر (خواب، خلق، رفتار) همراه‌اند. ابتدا با مشاور مدرسه گفت‌وگو کنید.</div></details>
-  </section>
-</main>
-
-<noscript><p style="padding:20px;text-align:center;color:#F3E5AB;">این ابزار برای اجرا به جاوااسکریپت نیاز دارد.</p></noscript>
-<div id="toast" role="status" aria-live="polite" class="toast"></div>
-
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0A0C11;--s1:#12161F;--s2:#1A202C;--tx:#F3F5F8;--sf:#C3CCD8;--mu:#8F9AAB;--g:#D4AF37;--gl:#F3E5AB;--ln:rgba(255,255,255,.09);--ok:#10B981;--wn:#F59E0B;--dg:#EF4444;--nav:rgba(10,12,17,.94);color-scheme:dark;padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:light){:root:not([data-theme=dark]){--bg:#F6F4EE;--s1:#fff;--s2:#EFECE3;--tx:#1B1E26;--sf:#3C4352;--mu:#666F7F;--g:#8A6A0B;--gl:#6B5208;--ln:rgba(0,0,0,.12);--nav:rgba(246,244,238,.95);color-scheme:light}}
+html{height:100%}
+body{font-family:'Vazirmatn',Tahoma,sans-serif;background:var(--bg);color:var(--tx);line-height:1.85;min-height:100%;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+button,select,input,textarea{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+.w{max-width:920px;margin:0 auto;padding:0 1rem}
+header{position:sticky;top:0;z-index:20;background:var(--nav);backdrop-filter:blur(12px);border-bottom:1px solid var(--ln);padding-top:env(safe-area-inset-top,0px)}
+.hd{display:flex;gap:.6rem;align-items:center;padding:.6rem 0}
+.brand{font-weight:800;color:var(--g)}
+.hd select{flex:1;min-width:0;background:var(--s1);border:1px solid var(--ln);border-radius:10px;padding:.4rem .6rem}
+nav{position:fixed;bottom:0;inset-inline:0;z-index:20;background:var(--nav);backdrop-filter:blur(12px);border-top:1px solid var(--ln);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav .w{display:grid;grid-template-columns:repeat(6,1fr);padding:0}
+nav button{background:none;border:0;padding:.55rem 0 .4rem;font-size:.72rem;color:var(--mu);display:flex;flex-direction:column;align-items:center;gap:0}
+nav button b{font-size:1.15rem;line-height:1.5}nav button.on{color:var(--g);font-weight:800}
+.card{background:var(--s1);border:1px solid var(--ln);border-radius:14px;padding:1.1rem;margin:1rem 0}
+h1{font-size:1.35rem;font-weight:800;margin:1.2rem 0 .2rem}h2{font-size:1.05rem;font-weight:800;color:var(--gl);margin-bottom:.5rem}
+p,li{color:var(--sf);font-size:.9rem}.mu{color:var(--mu);font-size:.8rem}
+.btn{border:1px solid var(--g);background:none;color:var(--g);border-radius:10px;padding:.55rem 1.1rem;font-weight:700;font-size:.88rem}
+.btn.p{background:var(--g);color:#14110A}.btn.sm{padding:.25rem .7rem;font-size:.78rem}.row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem;align-items:center}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:center}@media(max-width:700px){.grid{grid-template-columns:1fr}}
+.pr{display:flex;align-items:center;gap:.5rem;font-size:.85rem;margin:.45rem 0}.pr i{width:11px;height:11px;border-radius:3px;flex:none}
+.pr span.n{flex:1}.bar{height:6px;background:var(--s2);border-radius:4px;overflow:hidden;margin-top:3px}.bar u{display:block;height:100%}
+.pr em{font-style:normal;font-weight:800;min-width:2.6rem;text-align:left}.d{font-size:.72rem;min-width:2rem}
+.note{border-inline-start:3px solid var(--wn);background:var(--s2);border-radius:8px;padding:.6rem .8rem;font-size:.84rem;color:var(--sf);margin:.5rem 0}
+.note.ok{border-color:var(--ok)}.note.dg{border-color:var(--dg)}
+.lk{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}.lk button{background:var(--s2);border:2px solid var(--ln);border-radius:10px;padding:.7rem .3rem;font-weight:700;font-size:.85rem}.lk button.on,.lk button:hover{border-color:var(--g)}
+.lk small{display:block;color:var(--mu);font-size:.7rem}
+.pg{height:7px;background:var(--s2);border-radius:5px;overflow:hidden;margin:.4rem 0 1rem}.pg u{display:block;height:100%;background:var(--g);transition:width .3s}
+.chips{display:flex;gap:.4rem;flex-wrap:wrap;margin:.5rem 0}.chip{border:1px solid var(--ln);background:var(--s2);border-radius:99px;padding:.2rem .7rem;font-size:.78rem}.chip.on{border-color:var(--c);color:var(--c);font-weight:800}
+input,select,textarea{background:var(--s2);border:1px solid var(--ln);border-radius:10px;padding:.5rem .7rem;width:100%}textarea{min-height:80px}label{font-size:.8rem;color:var(--mu);display:block;margin:.6rem 0 .2rem}
+.pl{width:100%;border-collapse:collapse;font-size:.84rem}.pl td,.pl th{padding:.35rem .3rem;border-bottom:1px solid var(--ln);text-align:right;font-weight:400}.pl th{color:var(--mu);font-size:.75rem}
+.pl input{width:20px;height:20px;accent-color:var(--g)}.pl td.c{text-align:center;width:38px}
+.tw{overflow-x:auto}.lg{border-inline-start:3px solid var(--c);padding:.2rem .7rem;margin:.6rem 0}
+#toast{position:fixed;inset-inline:0;bottom:calc(90px + env(safe-area-inset-bottom,0px));margin:auto;width:max-content;max-width:88vw;background:var(--s1);border:1px solid var(--g);border-radius:10px;padding:.5rem 1rem;font-size:.85rem;opacity:0;pointer-events:none;transition:opacity .3s;z-index:40}#toast.on{opacity:1}
+svg text{font-family:inherit}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{header,nav,.np{display:none!important}:root{--bg:#fff;--s1:#fff;--s2:#f3f3f3;--tx:#000;--sf:#222;--mu:#555;--g:#7a5c00;--gl:#000;--ln:#ccc}body{padding:0}.card{break-inside:avoid}}
+</style></head><body>
+<header><div class="w hd"><span class="brand">🧭 نقشهٔ یادگیری</span><select id="ss" aria-label="دانشآموز"></select><button class="btn sm" data-a="new">+ پرونده</button></div></header>
+<main class="w" id="app" aria-live="polite"></main>
+<nav><div class="w" id="nav"></div></nav><div id="toast" role="status"></div>
 <script>
-(function(){
-  'use strict';
-
-  const $ = s => document.querySelector(s);
-  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const fa = n => Number(n).toLocaleString('fa-IR', { maximumFractionDigits: 0 });
-  const faDigits = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
-
-  function toast(t, type = 'info') {
-    const el = $('#toast');
-    const colors = { info: 'var(--primary)', ok: 'var(--ok)', warn: 'var(--warn)', danger: 'var(--danger)' };
-    el.style.borderColor = colors[type] || colors.info;
-    el.textContent = t;
-    el.classList.add('on');
-    clearTimeout(toast.t);
-    toast.t = setTimeout(() => el.classList.remove('on'), 2600);
-  }
-
-  const PROCESSES = {
-    attention:  { name: 'توجه', color: 'var(--c-attention)', icon: 'fa-crosshairs' },
-    executive:  { name: 'کارکردهای اجرایی', color: 'var(--c-executive)', icon: 'fa-brain' },
-    memory:     { name: 'حافظه و یادگیری', color: 'var(--c-memory)', icon: 'fa-database' },
-    speed:      { name: 'سرعت پردازش', color: 'var(--c-speed)', icon: 'fa-bolt' },
-    visual:     { name: 'پردازش دیداری-فضایی', color: 'var(--c-visual)', icon: 'fa-eye' },
-    auditory:   { name: 'پردازش شنیداری', color: 'var(--c-auditory)', icon: 'fa-ear-listen' },
-    language:   { name: 'مهارت‌های زبانی', color: 'var(--c-language)', icon: 'fa-comment-dots' },
-    motor:      { name: 'حسی-حرکتی', color: 'var(--c-motor)', icon: 'fa-hand' }
-  };
-
-  const ITEMS = [
-    ['attention','با کوچک‌ترین صدا یا حرکت اطراف حواسش پرت می‌شود.'],
-    ['attention','برای تمام کردن یک تکلیف، نیاز به یادآوری مکرر دارد.'],
-    ['attention','در خواندن یا نوشتن، جاهایی از متن را جا می‌اندازد.'],
-    ['attention','برای تمرکز روی یک کار، بیش از هم‌سن‌هایش تلاش می‌کند.'],
-    ['attention','وقتی چند دستور پشت‌سرهم می‌گیرد، فقط بخشی را انجام می‌دهد.'],
-    ['executive','برای شروع تکالیف، نیاز به تشویق یا یادآوری بیرونی دارد.'],
-    ['executive','برنامه‌ریزی یک کار چندمرحله‌ای برایش سخت است.'],
-    ['executive','وقتی از کاری خسته می‌شود، نمی‌تواند تا پایان تحمل کند.'],
-    ['executive','در حل مسئله، بدون فکر کردن به راه‌حل می‌پرد.'],
-    ['executive','تغییر از یک فعالیت به فعالیت دیگر برایش دشوار است.'],
-    ['memory','مطلبی که دیروز یاد گرفته، امروز فراموش کرده است.'],
-    ['memory','برای یادگیری، به تکرار بیشتر از هم‌سن‌ها نیاز دارد.'],
-    ['memory','در به‌خاطر آوردن اسامی یا کلمات مشکل دارد.'],
-    ['memory','پس از چند روز، جزئیات مطلب را به یاد نمی‌آورد.'],
-    ['memory','برای ذخیرهٔ مطلب، به کمک بصری یا نوشتاری نیاز دارد.'],
-    ['speed','در تکالیف زمان‌دار، خیلی کندتر از هم‌سن‌ها عمل می‌کند.'],
-    ['speed','پاسخ دادن به سؤال‌های کلاس برایش وقت‌گیر است.'],
-    ['speed','تکلیف را درست می‌فهمد اما خیلی دیر تحویل می‌دهد.'],
-    ['speed','در آزمون‌های زمان‌دار، بخشی از سؤال‌ها را ناتمام می‌گذارد.'],
-    ['visual','در کپی کردن از تخته یا کتاب، خطاهای زیاد دارد.'],
-    ['visual','جهت‌ها (چپ/راست، بالا/پایین) را اشتباه می‌گیرد.'],
-    ['visual','در مرتب کردن یا پیدا کردن وسایل، مشکل دارد.'],
-    ['visual','حروف یا اعداد را مشابه می‌بیند و اشتباه می‌خواند.'],
-    ['visual','نقشه یا نمودار را سخت می‌فهمد.'],
-    ['auditory','در محیط شلوغ، حرف‌های معلم را نمی‌فهمد.'],
-    ['auditory','وقتی کسی بلند صحبت می‌کند، بهتر یاد می‌گیرد.'],
-    ['auditory','صدای پس‌زمینه (پنکه، ترافیک) تمرکزش را به هم می‌زند.'],
-    ['auditory','دستور شفاهی را اشتباه می‌شنود یا کامل نمی‌فهمد.'],
-    ['auditory','برای درک مطلب، باید متن را با صدای بلند بخواند.'],
-    ['language','کلمه‌ای که می‌خواهد بگوید را پیدا نمی‌کند.'],
-    ['language','جمله‌هایش کوتاه یا ناقص‌اند.'],
-    ['language','در بیان داستان یا توضیح، ترتیب منطقی را گم می‌کند.'],
-    ['language','در خواندن، روانی کم است و مکث زیاد دارد.'],
-    ['language','در نوشتن، ساختار جمله‌اش اشتباه است.'],
-    ['motor','دست‌خطش ناخواناست یا خیلی کج است.'],
-    ['motor','در گرفتن مداد یا قیچی، مهارت کمی دارد.'],
-    ['motor','در بازی‌های حرکتی (توپ، طناب) مشکل دارد.'],
-    ['motor','از فعالیت‌های حرکتی اجتناب می‌کند.'],
-    ['motor','هنگام نوشتن، خیلی زود خسته می‌شود.']
-  ];
-
-  const GUIDE = {
-    attention: {
-      desc: 'این حوزه به توانایی تمرکز پایدار و مقاومت در برابر حواس‌پرتی مربوط است. اگر نشانه‌های زیادی دیدید، ممکن است تمرکز در محیط‌های شلوغ یا زمان‌های طولانی برایش دشوار باشد.',
-      tips: ['زمان کار را به بلوک‌های کوتاه (۱۰ تا ۱۵ دقیقه) بشکنید.', 'محیط مطالعه را از صدا و حرکت اضافی خالی کنید.', 'قبل از شروع، هدف را یک‌بار شفاهی بگویید: «الان فقط این ۵ سؤال».'],
-      refer: 'اگر بعد از ۴ هفته تغییر معناداری ندید، با مشاور مدرسه گفت‌وگو کنید.',
-      link: { url: 'daily-notebook.html', label: 'ثبت مشاهده در دفترچهٔ روزانه' }
-    },
-    executive: {
-      desc: 'این حوزه به برنامه‌ریزی، شروع کار، مهار رفتار و انعطاف ذهنی مربوط است. اگر نشانه‌های زیادی دیدید، احتمالاً کارهای چندمرحله‌ای برایش دشوار است.',
-      tips: ['تکالیف را به قدم‌های کوچک‌تر بشکنید و هر قدم را جدا بنویسید.', 'برای شروع کار، یک زمان‌بند ۵ دقیقه‌ای بگذارید و بگویید «فقط ۵ دقیقه».', 'چک‌لیست بصری روی میز بگذارید تا ترتیب کارها را ببیند.'],
-      refer: 'اگر بعد از ۴ هفته تغییر معناداری ندید، ارزیابی تخصصی توصیه می‌شود.',
-      link: { url: 'planner.html', label: 'برنامه‌ریز چندبعدی' }
-    },
-    memory: {
-      desc: 'این حوزه به توانایی نگه‌داشتن و بازیابی اطلاعات مربوط است. اگر نشانه‌های زیادی دیدید، ممکن است به تکرار و ابزار کمکی بیشتری نیاز داشته باشد.',
-      tips: ['از مرور فاصله‌دار استفاده کنید (امروز، ۳ روز بعد، ۷ روز بعد).', 'مطلب را با تصویر و نقشهٔ ذهنی همراه کنید.', 'در پایان هر جلسه، از او بخواهید با کتاب بسته خلاصه بگوید.'],
-      refer: 'اگر فراموشی شدید و مداوم است (نه فقط درسی)، با متخصص گفت‌وگو کنید.',
-      link: { url: 'study-strategies.html', label: 'راهبردهای مطالعه' }
-    },
-    speed: {
-      desc: 'این حوزه به سرعت پردازش اطلاعات مربوط است. اگر نشانه‌های زیادی دیدید، ممکن است زمان بیشتری برای انجام همان کار نیاز داشته باشد — نه اینکه نفهمد.',
-      tips: ['زمان تکالیف را بر اساس توان او تنظیم کنید، نه میانگین کلاس.', 'در آزمون‌ها، زمان اضافه بدهید (نه کاهش سؤال).', 'کیفیت را بر سرعت ترجیح دهید تا اعتماد به نفس حفظ شود.'],
-      refer: 'اگر افت تحصیلی چشمگیر است، ارزیابی برای تمایز از کندی طبیعی توصیه می‌شود.',
-      link: { url: 'exam-analysis.html', label: 'تحلیل آزمون' }
-    },
-    visual: {
-      desc: 'این حوزه به پردازش اطلاعات دیداری و فضایی مربوط است. اگر نشانه‌های زیادی دیدید، ممکن است در کپی کردن، جهت‌یابی و تفسیر نمودار دشواری داشته باشد.',
-      tips: ['متن‌ها را با فونت درشت و فاصلهٔ خط بیشتر ارائه دهید.', 'برای آموزش، از رنگ، نمودار و نقشه استفاده کنید.', 'در کپی از تخته، به او وقت اضافه یا برگهٔ کمکی بدهید.'],
-      refer: 'اگر مشکل پایدار است، ارزیابی بینایی‌سنجی و روان‌شناختی توصیه می‌شود.',
-      link: { url: 'concept-maker.html', label: 'مفهوم‌ساز (نقشهٔ مفهومی)' }
-    },
-    auditory: {
-      desc: 'این حوزه به پردازش اطلاعات شنیداری مربوط است. اگر نشانه‌های زیادی دیدید، ممکن است در محیط شلوغ نتواند حرف‌ها را از هم تفکیک کند.',
-      tips: ['او را در ردیف جلو و دور از پنجره بنشانید.', 'دستورها را کوتاه و شفاف بدهید و از او بخواهید تکرار کند.', 'برای مطالعه، از متن نوشتاری و ویدیوی زیرنویس‌دار استفاده کنید.'],
-      refer: 'اگر شک به مشکل شنوایی دارید، اول با شنوایی‌سنجی شروع کنید.',
-      link: { url: 'study-strategies.html', label: 'راهبردهای مطالعه' }
-    },
-    language: {
-      desc: 'این حوزه به توانایی درک و بیان زبان مربوط است. اگر نشانه‌های زیادی دیدید، ممکن است در خواندن روان، نوشتن ساختارمند و بیان داستان دشواری داشته باشد.',
-      tips: ['برای درک مطلب، از متن‌های کوتاه‌تر و تصویردار شروع کنید.', 'قبل از نوشتن، ایده‌ها را با او شفاهی مرور کنید.', 'در خواندن، از کتاب‌های صوتی یا متن همراه با صدا استفاده کنید.'],
-      refer: 'اگر مشکل در خواندن یا نوشتن پایدار است، ارزیابی گفتاردرمانی یا روان‌شناختی توصیه می‌شود.',
-      link: { url: 'error-analyzer.html', label: 'تحلیل خطا' }
-    },
-    motor: {
-      desc: 'این حوزه به هماهنگی حرکتی ظریف و درشت مربوط است. اگر نشانه‌های زیادی دیدید، ممکن است در دست‌خط، گرفتن مداد و فعالیت‌های حرکتی دشواری داشته باشد.',
-      tips: ['برای نوشتن، از مدادهای ضخیم‌تر یا گیرهٔ مداد استفاده کنید.', 'مدت نوشتن را کوتاه کنید و بین بخش‌ها استراحت分段.', 'فعالیت‌های حرکتی روزانه (بازی با توپ، طناب) را تشویق کنید.'],
-      refer: 'اگر مشکل حرکتی مانع پیشرفت تحصیلی است، ارزیابی کاردرمانی توصیه می‌شود.',
-      link: { url: 'teachers.html', label: 'دبیران متخصص' }
-    }
-  };
-
-  const LIK = ['هرگز','کم','گاهی','زیاد','همیشه'];
-  const KEY = 'mp_learning_map_v2';
-  const SESSION_KEY = 'mp_learning_map_session';
-
-  function loadLast() {
-    try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch(e) { return null; }
-  }
-  function saveLast(answers) {
-    try { localStorage.setItem(KEY, JSON.stringify({ answers, date: new Date().toISOString() })); } catch(e) {}
-  }
-  function saveSession(state) {
-    try { localStorage.setItem(SESSION_KEY, JSON.stringify(state)); } catch(e) {}
-  }
-  function loadSession() {
-    try { return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); } catch(e) { return null; }
-  }
-  function clearSession() {
-    try { localStorage.removeItem(SESSION_KEY); } catch(e) {}
-  }
-
-  let last = loadLast();
-  let st = { step: 'intro', order: [], ans: {}, i: 0, res: null, notes: {} };
-
-  const shuffle = a => {
-    a = a.slice();
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  };
-
-  function score(answers) {
-    const buckets = {};
-    Object.keys(PROCESSES).forEach(k => buckets[k] = []);
-    ITEMS.forEach(([p], i) => buckets[p].push(answers[i] || 1));
-    const res = {};
-    for (const k in buckets) {
-      const arr = buckets[k];
-      const sum = arr.reduce((a, b) => a + b, 0);
-      const min = arr.length * 1, max = arr.length * 5;
-      const pct = Math.round(((sum - min) / (max - min)) * 100);
-      res[k] = { pct, count: arr.length, sum };
-    }
-    const sorted = Object.keys(PROCESSES).sort((a, b) => res[b].pct - res[a].pct);
-    res._top = sorted.slice(0, 3);
-    return res;
-  }
-
-  function radar(res) {
-    const S = 340, C = S / 2, R = 120;
-    const keys = Object.keys(PROCESSES);
-    const ang = i => (Math.PI * 2 * i) / keys.length - Math.PI / 2;
-    const rings = [0.25, 0.5, 0.75, 1].map(p =>
-      `<polygon points="${keys.map((k, i) => { const r = R * p; return `${C + r * Math.cos(ang(i))},${C + r * Math.sin(ang(i))}`; }).join(' ')}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>`
-    ).join('');
-    const axes = keys.map((_, i) => {
-      const x = C + R * Math.cos(ang(i)), y = C + R * Math.sin(ang(i));
-      return `<line x1="${C}" y1="${C}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>`;
-    }).join('');
-    const data = keys.map((k, i) => {
-      const r = R * (res[k].pct / 100);
-      return `${C + r * Math.cos(ang(i))},${C + r * Math.sin(ang(i))}`;
-    }).join(' ');
-    const labels = keys.map((k, i) => {
-      const x = C + (R + 30) * Math.cos(ang(i));
-      const y = C + (R + 30) * Math.sin(ang(i));
-      return `<text x="${x}" y="${y}" text-anchor="middle" font-size="13" fill="${PROCESSES[k].color}" font-weight="700">${fa(res[k].pct)}</text>`;
-    }).join('');
-    const lbl = keys.map(k => `${PROCESSES[k].name}: ${fa(res[k].pct)} درصد`).join('، ');
-    return `<svg viewBox="0 0 ${S} ${S}" class="radar" role="img" aria-label="نمودار رادار هشت فرایند شناختی. ${esc(lbl)}">${rings}${axes}<polygon points="${data}" fill="rgba(212,175,55,0.18)" stroke="#D4AF37" stroke-width="2"/>${labels}</svg>`;
-  }
-
-  function vIntro() {
-    return `<section class="card hero">
-      <h2>نشانه‌ها را ببین، فرایندها را بشناس</h2>
-      <p>وقتی دانش‌آموزی در یادگیری مشکل دارد، اغلب می‌گوییم «تنبل است» یا «بیشتر تلاش کند». اما مشکل اغلب در یکی از هشت فرایند شناختی زیربنایی است. این ابزار نشانه‌های قابل مشاهده را به آن فرایندها وصل می‌کند تا بدانی اول کجا را نگاه کنی.</p>
-      <div class="warnbox"><b>⚠ مهم:</b> این ابزار تشخیص پزشکی یا روان‌شناختی نیست. نتیجه را برچسب نکن. برای هر تصمیم مهم، با مشاور مدرسه یا متخصص گفت‌وگو کن.</div>
-      <div class="quad8">${Object.keys(PROCESSES).map(k => `<div class="qd" style="--c:${PROCESSES[k].color}"><span class="qd-icon"><i class="fa-solid ${PROCESSES[k].icon}"></i></span><b>${PROCESSES[k].name}</b></div>`).join('')}</div>
-      <p class="info-line">هر حوزه ۴ تا ۵ نشانهٔ قابل مشاهده دارد. مجموعاً ۳۹ جمله — حدود ۶ دقیقه.</p>
-      <div class="btn-row">
-        <button class="btn btn-primary btn-block" data-a="start"><i class="fa-solid fa-play"></i> شروع ارزیابی — حدود ۶ دقیقه</button>
-        ${last ? `<button class="btn btn-secondary" data-a="last"><i class="fa-solid fa-clock-rotate-left"></i> آخرین نتیجه</button>` : ''}
-      </div>
-    </section>`;
-  }
-
-  function vQuiz() {
-    const i = st.i, n = ITEMS.length, idx = st.order[i], cur = st.ans[idx];
-    return `<section class="card">
-      <div class="prog-head"><span>سؤال ${fa(i + 1)} از ${fa(n)}</span><span>${fa(Math.round(i / n * 100))}٪</span></div>
-      <div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${i}"><i style="width:${i / n * 100}%"></i></div>
-      <p class="q-text">${esc(ITEMS[idx][1])}</p>
-      <div class="likert" role="radiogroup" aria-label="میزان مشاهده">
-        ${LIK.map((t, k) => `<button role="radio" aria-checked="${cur === k + 1}" class="${cur === k + 1 ? 'on' : ''}" data-v="${k + 1}">${t}<kbd>${fa(k + 1)}</kbd></button>`).join('')}
-      </div>
-      <div class="btn-row">
-        <button class="btn btn-secondary" data-a="prev">${i ? 'قبلی' : 'خروج'}</button>
-        <span class="info-line" style="margin:0;flex:1;text-align:left;border:none;padding:0;">کلید ۱ تا ۵ هم کار می‌کند</span>
-      </div>
-    </section>`;
-  }
-
-  function vResult() {
-    const r = st.res;
-    const prev = last && last.answers ? score(last.answers) : null;
-    const top = r._top;
-    const compareHTML = prev ? `
-      <div class="compare">
-        <b>مقایسه با نتیجهٔ قبلی:</b>
-        ${top.map(k => {
-          const diff = r[k].pct - prev[k].pct;
-          const arrow = diff > 0 ? '↑' : diff < 0 ? '↓' : '=';
-          const color = diff > 0 ? 'var(--danger)' : diff < 0 ? 'var(--ok)' : 'var(--muted)';
-          return `<span style="margin-inline-end:0.8rem;">${PROCESSES[k].name}: <b style="color:${color}">${arrow} ${fa(Math.abs(diff))}</b></span>`;
-        }).join('')}
-      </div>` : '';
-    return `<section class="card">
-      <h2>نمایهٔ هشت فرایند</h2>
-      <div class="result-grid">
-        ${radar(r)}
-        <div class="res-list">
-          ${Object.keys(PROCESSES).map(k => `
-            <div class="row2">
-              <span class="sw" style="background:${PROCESSES[k].color}"></span>
-              <span class="nm">${PROCESSES[k].name}<div class="bar"><i style="width:${r[k].pct}%;background:${PROCESSES[k].color}"></i></div></span>
-              <span class="pc">${fa(r[k].pct)}٪</span>
-            </div>`).join('')}
-        </div>
-      </div>
-      ${compareHTML}
-      <p class="info-line">درصد هر حوزه = نسبت نشانه‌های مشاهده‌شده در آن حوزه به بیشترین حالت ممکن. هرچه بالاتر، نشانه‌های بیشتری در آن حوزه دیده شده.</p>
-      <div class="btn-row">
-        <button class="btn btn-primary" data-a="guide" style="flex:1"><i class="fa-solid fa-arrow-left"></i> دیدن راهنمای گام بعد</button>
-      </div>
-    </section>`;
-  }
-
-  function vGuide() {
-    const r = st.res;
-    return `<section class="card">
-      <h2>راهنمای گام بعد برای سه حوزهٔ اولویت‌دار</h2>
-      <p class="info-line">این سه حوزه بیشترین نشانه را داشتند. برای هر کدام، ۳ راهکار عملی و شرط ارجاع به متخصص آمده است.</p>
-      ${r._top.map(k => {
-        const p = PROCESSES[k], g = GUIDE[k];
-        return `<div class="rx" style="--c:${p.color}">
-          <h3><i class="fa-solid ${p.icon}"></i> ${p.name} — ${fa(r[k].pct)}٪</h3>
-          <p>${g.desc}</p>
-          <ol>${g.tips.map(t => `<li>${t}</li>`).join('')}</ol>
-          <p class="note">⚠ <b>کِی به متخصص ارجاع بدهیم؟</b> ${g.refer}</p>
-          <div class="links"><a href="${g.link.url}">${g.link.label} →</a></div>
-        </div>`;
-      }).join('')}
-      <div class="btn-row noprint">
-        <button class="btn btn-primary" data-a="again"><i class="fa-solid fa-rotate-right"></i> تحلیل تازه</button>
-        <button class="btn btn-secondary" data-a="copy"><i class="fa-solid fa-copy"></i> کپی خلاصه</button>
-        <button class="btn btn-secondary" onclick="window.print()"><i class="fa-solid fa-print"></i> چاپ</button>
-        <button class="btn btn-secondary" data-a="export"><i class="fa-solid fa-download"></i> خروجی JSON</button>
-        <button class="btn btn-secondary" data-a="clear"><i class="fa-solid fa-trash"></i> پاک کردن نتیجه</button>
-      </div>
-    </section>
-    <section class="card">
-      <div class="warnbox"><b>⚠ هشدار نهایی:</b> این نمایه صرفاً بر اساس مشاهدهٔ شما است و جای ارزیابی تخصصی را نمی‌گیرد. برای تشخیص و مداخله، با متخصص گفت‌وگو کنید.</div>
-    </section>`;
-  }
-
-  function render() {
-    $('#app').innerHTML = st.step === 'intro' ? vIntro() : st.step === 'quiz' ? vQuiz() : st.step === 'result' ? vResult() : vGuide();
-  }
-
-  function begin() {
-    st = { step: 'quiz', order: shuffle(ITEMS.map((_, i) => i)), ans: {}, i: 0, res: null, notes: {} };
-    saveSession(st);
-    render();
-    window.scrollTo(0, 0);
-  }
-
-  function answer(v) {
-    const idx = st.order[st.i];
-    st.ans[idx] = v;
-    if (st.i + 1 >= ITEMS.length) {
-      const ans = ITEMS.map((_, i) => st.ans[i]);
-      st.res = score(ans);
-      st.step = 'result';
-      saveLast(ans);
-      clearSession();
-      render();
-      window.scrollTo(0, 0);
-      return;
-    }
-    st.i++;
-    saveSession(st);
-    render();
-    window.scrollTo(0, 0);
-  }
-
-  function summary() {
-    const r = st.res;
-    return 'نقشهٔ شناختی یادگیری (مستر پلنر)\n' +
-      Object.keys(PROCESSES).map(k => `${PROCESSES[k].name}: ${fa(r[k].pct)}٪`).join('\n') +
-      `\n\nسه حوزهٔ اولویت‌دار:\n${r._top.map(k => `• ${PROCESSES[k].name} (${fa(r[k].pct)}٪)`).join('\n')}` +
-      '\n\n(ابزار آگاهی؛ نه تشخیص تخصصی)';
-  }
-
-  function exportJSON() {
-    const data = {
-      tool: 'learning-map',
-      date: new Date().toISOString(),
-      answers: st.ans,
-      result: st.res,
-      summary: summary()
-    };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'learning-map-' + Date.now() + '.json';
-    a.click();
-  }
-
-  // Event delegation
-  $('#app').addEventListener('click', e => {
-    const g = s => e.target.closest(s);
-    let t;
-    if (t = g('[data-v]')) { answer(+t.dataset.v); return; }
-    if (t = g('[data-a]')) {
-      const a = t.dataset.a;
-      if (a === 'start' || a === 'again') begin();
-      if (a === 'prev') {
-        if (st.i > 0) { st.i--; render(); }
-        else { st = { step: 'intro', order: [], ans: {}, i: 0, res: null, notes: {} }; render(); }
-      }
-      if (a === 'guide') { st.step = 'guide'; render(); window.scrollTo(0, 0); }
-      if (a === 'last' && last) {
-        st = { step: 'result', res: score(last.answers) };
-        render();
-        window.scrollTo(0, 0);
-      }
-      if (a === 'copy') {
-        if (!navigator.clipboard) { toast('مرورگر شما از کپی پشتیبانی نمی‌کند', 'warn'); return; }
-        navigator.clipboard.writeText(summary()).then(() => toast('خلاصه کپی شد', 'ok'), () => toast('کپی نشد', 'danger'));
-      }
-      if (a === 'export') exportJSON();
-      if (a === 'clear') {
-        try { localStorage.removeItem(KEY); } catch(x) {}
-        last = null;
-        st = { step: 'intro', order: [], ans: {}, i: 0, res: null, notes: {} };
-        render();
-        toast('نتیجه پاک شد', 'ok');
-      }
-    }
-  });
-
-  // Keyboard navigation
-  document.addEventListener('keydown', e => {
-    if (/INPUT|TEXTAREA/.test(e.target.tagName)) return;
-    if (st.step === 'quiz') {
-      if (/^[1-5۱-۵]$/.test(e.key)) {
-        const k = '۱۲۳۴۵'.indexOf(e.key);
-        answer(k >= 0 ? k + 1 : +e.key);
-        e.preventDefault();
-      } else if (e.key === 'ArrowRight') {
-        if (st.i > 0) { st.i--; render(); }
-        e.preventDefault();
-      } else if (e.key === 'Escape') {
-        st = { step: 'intro', order: [], ans: {}, i: 0, res: null, notes: {} }; render();
-      }
-    }
-  });
-
-  // Resume session if exists
-  const sess = loadSession();
-  if (sess && sess.step === 'quiz' && sess.order && sess.order.length === ITEMS.length) {
-    st = sess;
-  }
-  render();
+(()=>{
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fa=n=>Number(n).toLocaleString('fa-IR',{maximumFractionDigits:0}),dt=t=>new Date(t).toLocaleDateString('fa-IR');
+const P={attention:['توجه','#ef4444','🎯'],executive:['کارکردهای اجرایی','#f59e0b','🧩'],memory:['حافظه و یادگیری','#10b981','🗄️'],speed:['سرعت پردازش','#3b82f6','⚡'],visual:['دیداری-فضایی','#8b5cf6','👁️'],auditory:['پردازش شنیداری','#06b6d4','👂'],language:['مهارتهای زبانی','#ec4899','💬'],motor:['حسی-حرکتی','#14b8a6','✋']};
+const K=Object.keys(P);
+const ITEMS=[['attention','با کوچکترین صدا یا حرکت اطراف حواسش پرت میشود.'],['attention','برای تمام کردن یک تکلیف، نیاز به یادآوری مکرر دارد.'],['attention','در خواندن یا نوشتن، جاهایی از متن را جا میاندازد.'],['attention','برای تمرکز روی یک کار، بیش از همسنهایش تلاش میکند.'],['attention','وقتی چند دستور پشتسرهم میگیرد، فقط بخشی را انجام میدهد.'],['executive','برای شروع تکالیف، نیاز به تشویق یا یادآوری بیرونی دارد.'],['executive','برنامهریزی یک کار چندمرحلهای برایش سخت است.'],['executive','وقتی از کاری خسته میشود، نمیتواند تا پایان تحمل کند.'],['executive','در حل مسئله، بدون فکر کردن به راهحل میپرد.'],['executive','تغییر از یک فعالیت به فعالیت دیگر برایش دشوار است.'],['memory','مطلبی که دیروز یاد گرفته، امروز فراموش کرده است.'],['memory','برای یادگیری، به تکرار بیشتر از همسنها نیاز دارد.'],['memory','در بهخاطر آوردن اسامی یا کلمات مشکل دارد.'],['memory','پس از چند روز، جزئیات مطلب را به یاد نمیآورد.'],['memory','برای ذخیرهٔ مطلب، به کمک بصری یا نوشتاری نیاز دارد.'],['speed','در تکالیف زماندار، خیلی کندتر از همسنها عمل میکند.'],['speed','پاسخ دادن به سؤالهای کلاس برایش وقتگیر است.'],['speed','تکلیف را درست میفهمد اما خیلی دیر تحویل میدهد.'],['speed','در آزمونهای زماندار، بخشی از سؤالها را ناتمام میگذارد.'],['visual','در کپی کردن از تخته یا کتاب، خطاهای زیاد دارد.'],['visual','جهتها (چپ/راست، بالا/پایین) را اشتباه میگیرد.'],['visual','در مرتب کردن یا پیدا کردن وسایل، مشکل دارد.'],['visual','حروف یا اعداد را مشابه میبیند و اشتباه میخواند.'],['visual','نقشه یا نمودار را سخت میفهمد.'],['auditory','در محیط شلوغ، حرفهای معلم را نمیفهمد.'],['auditory','وقتی کسی بلند صحبت میکند، بهتر یاد میگیرد.'],['auditory','صدای پسزمینه (پنکه، ترافیک) تمرکزش را به هم میزند.'],['auditory','دستور شفاهی را اشتباه میشنود یا کامل نمیفهمد.'],['auditory','برای درک مطلب، باید متن را با صدای بلند بخواند.'],['language','کلمهای که میخواهد بگوید را پیدا نمیکند.'],['language','جملههایش کوتاه یا ناقصاند.'],['language','در بیان داستان یا توضیح، ترتیب منطقی را گم میکند.'],['language','در خواندن، روانی کم است و مکث زیاد دارد.'],['language','در نوشتن، ساختار جملهاش اشتباه است.'],['motor','دستخطش ناخواناست یا خیلی کج است.'],['motor','در گرفتن مداد یا قیچی، مهارت کمی دارد.'],['motor','در بازیهای حرکتی (توپ، طناب) مشکل دارد.'],['motor','از فعالیتهای حرکتی اجتناب میکند.'],['motor','هنگام نوشتن، خیلی زود خسته میشود.']];
+const G={attention:[['زمان کار را به بلوکهای ۱۰ تا ۱۵ دقیقهای بشکنید.','محیط مطالعه را از صدا و حرکت اضافی خالی کنید.','قبل از شروع، هدف را شفاهی بگویید: «الان فقط این ۵ سؤال».'],'اگر بعد از ۴ هفته تغییر معناداری دیده نشد، با مشاور مدرسه گفتوگو کنید.'],
+executive:[['تکالیف را به قدمهای کوچک بشکنید و هر قدم را جدا بنویسید.','برای شروع، زمانبند ۵ دقیقهای بگذارید: «فقط ۵ دقیقه».','چکلیست بصری روی میز بگذارید.'],'اگر بعد از ۴ هفته تغییر معناداری دیده نشد، ارزیابی تخصصی توصیه میشود.'],
+memory:[['از مرور فاصلهدار استفاده کنید (امروز، ۳ روز بعد، ۷ روز بعد).','مطلب را با تصویر و نقشهٔ ذهنی همراه کنید.','پایان هر جلسه، با کتاب بسته خلاصه بگوید.'],'اگر فراموشی شدید و مداوم است (نه فقط درسی)، با متخصص گفتوگو کنید.'],
+speed:[['زمان تکالیف را بر اساس توان او تنظیم کنید، نه میانگین کلاس.','در آزمونها زمان اضافه بدهید، نه سؤال کمتر.','کیفیت را بر سرعت ترجیح دهید.'],'اگر افت تحصیلی چشمگیر است، ارزیابی تخصصی توصیه میشود.'],
+visual:[['متن را با فونت درشت و فاصلهٔ خط بیشتر ارائه دهید.','از رنگ، نمودار و نقشه برای آموزش استفاده کنید.','در کپی از تخته، وقت اضافه یا برگهٔ کمکی بدهید.'],'اگر مشکل پایدار است، بیناییسنجی و ارزیابی روانشناختی توصیه میشود.'],
+auditory:[['او را در ردیف جلو و دور از پنجره بنشانید.','دستورها را کوتاه بدهید و بخواهید تکرار کند.','از متن نوشتاری و ویدیوی زیرنویسدار کمک بگیرید.'],'اگر به مشکل شنوایی شک دارید، ابتدا شنواییسنجی انجام دهید.'],
+language:[['از متنهای کوتاه و تصویردار شروع کنید.','قبل از نوشتن، ایدهها را شفاهی مرور کنید.','از کتاب صوتی یا متن همراه با صدا استفاده کنید.'],'اگر مشکل خواندن یا نوشتن پایدار است، ارزیابی گفتاردرمانی یا روانشناختی توصیه میشود.'],
+motor:[['برای نوشتن از مداد ضخیمتر یا گیرهٔ مداد استفاده کنید.','مدت نوشتن را کوتاه و بین بخشها استراحت بگذارید.','بازیهای حرکتی روزانه (توپ، طناب) را تشویق کنید.'],'اگر مشکل حرکتی مانع پیشرفت تحصیلی است، ارزیابی کاردرمانی توصیه میشود.']};
+const LK=['نمیدانم','هرگز','کم','گاهی','زیاد','همیشه'],WHO=['والدین','معلم','مشاور','خود دانشآموز'],CTX=['خانه','کلاس','هر دو'];
+const uid=()=>Math.random().toString(36).slice(2,9);
+const mk=(n,a)=>({id:uid(),name:n,age:a||'',as:[],logs:[],plan:null});
+function load(){try{const d=JSON.parse(localStorage.getItem('mp_lm3'));if(d&&d.students)return d}catch(e){}
+const d={cur:null,students:[],q:null};try{const o=JSON.parse(localStorage.getItem('mp_learning_map_v2')||'null');if(o&&o.answers){const s=mk('دانشآموز من');s.as.push({id:uid(),t:o.date,who:'والدین',ans:o.answers});d.students.push(s);d.cur=s.id}}catch(e){}return d}
+let db=load(),ui={tab:'home',tp:null};
+const save=()=>{try{localStorage.setItem('mp_lm3',JSON.stringify(db))}catch(e){}};
+const S=()=>db.students.find(s=>s.id===db.cur);
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>e.classList.remove('on'),2400)}
+function sc(ans){const o={};K.forEach(k=>{const a=ITEMS.map((x,i)=>x[0]===k&&ans[i]>0?ans[i]:0).filter(Boolean);o[k]=a.length<3?null:Math.round((a.reduce((x,y)=>x+y,0)/a.length-1)*25)});o.cov=Math.round(ans.filter(v=>v>0).length/ITEMS.length*100);return o}
+const top=r=>K.filter(k=>r[k]!=null).sort((a,b)=>r[b]-r[a]).slice(0,3),pc=v=>v==null?'—':fa(v)+'٪';
+const flat=a=>{const v=a.ans.filter(x=>x>0);return v.length>10&&v.every(x=>x===v[0])};
+function radar(r,p){const C=150,R=105,an=i=>Math.PI*2*i/8-Math.PI/2,pt=(i,f)=>`${C+R*f*Math.cos(an(i))},${C+R*f*Math.sin(an(i))}`;
+const rg=[.25,.5,.75,1].map(f=>`<polygon points="${K.map((_,i)=>pt(i,f)).join(' ')}" fill="none" stroke="var(--ln)"/>`).join('');
+const ax=K.map((_,i)=>`<line x1="${C}" y1="${C}" x2="${pt(i,1).split(',')[0]}" y2="${pt(i,1).split(',')[1]}" stroke="var(--ln)"/>`).join('');
+const poly=(x,st)=>`<polygon points="${K.map((k,i)=>pt(i,(x[k]||0)/100)).join(' ')}" ${st}/>`;
+const lb=K.map((k,i)=>`<text x="${C+(R+24)*Math.cos(an(i))}" y="${C+(R+24)*Math.sin(an(i))+5}" text-anchor="middle" font-size="15">${P[k][2]}</text>`).join('');
+return `<svg viewBox="0 0 300 300" style="width:100%;max-width:340px;margin:auto;display:block" role="img" aria-label="رادار هشت فرایند: ${K.map(k=>P[k][0]+' '+pc(r[k])).join('، ')}">${rg}${ax}${p?poly(p,'fill="none" stroke="var(--mu)" stroke-dasharray="4 3"'):''}${poly(r,'fill="rgba(212,175,55,.22)" stroke="var(--g)" stroke-width="2"')}${lb}</svg>`}
+function ins(r){const o=[],h=k=>(r[k]||0)>=60;
+if(h('attention')&&h('executive'))o.push('توجه و کارکرد اجرایی هر دو بالا هستند: پیش از تکلیف بیشتر، ساختار محیط و چکلیست را اصلاح کنید.');
+if(h('auditory')&&h('attention'))o.push('نشانههای شنیداری و توجه با هم دیده میشوند: پیش از نتیجهگیری دربارهٔ تمرکز، شنواییسنجی را در نظر بگیرید.');
+if(h('speed')&&h('motor'))o.push('سرعت و حرکت ظریف با هم بالا هستند: حجم نوشتن و زمان تکالیف نوشتاری را کم کنید.');
+if(h('language')&&h('memory'))o.push('زبان و حافظه با هم بالا هستند: مرور فاصلهدار با تصویر و بیان شفاهی مفیدتر است.');
+return o}
+function vNew(){return `<h1>پروندهٔ تازه</h1><div class="card"><label for="nn">نام یا کد (برای حفظ حریم، نام مستعار هم کافی است)</label><input id="nn" maxlength="40"><label for="na">سن یا پایه (اختیاری)</label><input id="na" maxlength="20"><div class="row"><button class="btn p" data-a="add">ساخت پرونده</button>${db.students.length?'<button class="btn" data-a="go" data-t="home">انصراف</button>':''}</div></div>
+<div class="card"><h2>این میز کار چه میکند؟</h2><p>نشانهها را در چند نوبت و از چند نگاه (والدین، معلم) ثبت میکند، روند را نشان میدهد، برنامهٔ ۴ هفتهای میسازد و گزارش قابلچاپ برای مشاور تولید میکند. ابزار آگاهی است، نه تشخیص.</p><div class="row np"><button class="btn sm" data-a="imp">بازیابی از فایل پشتیبان</button></div></div>`}
+function vHome(s){const a=s.as;if(!a.length)return `<h1>${esc(s.name)}</h1><div class="card"><h2>هنوز ارزیابیای ثبت نشده</h2><p>اولین ارزیابی حدود ۶ دقیقه طول میکشد و پایهٔ همهٔ مقایسههای بعدی است.</p><div class="row"><button class="btn p" data-a="go" data-t="test">شروع اولین ارزیابی</button></div></div>`;
+const L=a[a.length-1],r=sc(L.ans),pv=a.length>1?sc(a[a.length-2].ans):null,T=top(r);
+const flags=pv?K.filter(k=>r[k]>=70&&pv[k]>=70):[];
+return `<h1>${esc(s.name)}</h1><p class="mu">${fa(a.length)} ارزیابی · آخرین: ${dt(L.t)} · ناظر: ${esc(L.who)} · پوشش پاسخ: ${fa(r.cov)}٪</p>
+<div class="card"><div class="grid">${radar(r,pv)}<div>${K.map(k=>{const df=pv&&r[k]!=null&&pv[k]!=null?r[k]-pv[k]:null;return `<div class="pr"><i style="background:${P[k][1]}"></i><span class="n">${P[k][2]} ${P[k][0]}<div class="bar"><u style="width:${r[k]||0}%;background:${P[k][1]}"></u></div></span><span class="d" style="color:${df>0?'var(--dg)':df<0?'var(--ok)':'var(--mu)'}">${df==null?'':(df>0?'↑':df<0?'↓':'=')+fa(Math.abs(df))}</span><em>${pc(r[k])}</em></div>`}).join('')}</div></div>
+<p class="mu">خطچین = ارزیابی قبلی. فلش سبز یعنی کاهش نشانهها.</p></div>
+${flat(L)?'<div class="note dg">همهٔ پاسخها یکسان بود؛ اعتبار این نمایه کم است. برای پاسخدهی دقیقتر، ارزیابی را دوباره انجام دهید.</div>':''}${r.cov<70?'<div class="note">بیش از ۳۰٪ پاسخها «نمیدانم» بود. ناظر دیگری هم ارزیابی کند تا تصویر کاملتر شود.</div>':''}
+${flags.map(k=>`<div class="note dg"><b>${P[k][0]}</b> در دو ارزیابی پیاپی بالای ۷۰٪ بوده است. ${G[k][1]}</div>`).join('')}
+<div class="card"><h2>الگوهای ترکیبی</h2>${ins(r).map(x=>`<div class="note ok">${x}</div>`).join('')||'<p>الگوی ترکیبی برجستهای دیده نمیشود.</p>'}<p class="mu">اینها فرضیهٔ کاری برای گفتوگو هستند، نه تشخیص.</p></div>
+<div class="card"><h2>سه حوزهٔ اولویت</h2>${T.map(k=>`<div class="lg" style="--c:${P[k][1]}"><b>${P[k][2]} ${P[k][0]} — ${pc(r[k])}</b><p>${G[k][0][0]}</p></div>`).join('')}<div class="row"><button class="btn p" data-a="go" data-t="plan">ساخت برنامهٔ ۴ هفتهای</button><button class="btn" data-a="go" data-t="test">ارزیابی تازه</button></div></div>`}
+function vTest(s){const q=db.q&&db.q.sid===s.id?db.q:null;
+if(!q)return `<h1>ارزیابی تازه</h1><div class="card"><p>هر جمله را بر اساس آنچه واقعاً مشاهده کردهاید پاسخ دهید. اگر چیزی را ندیدهاید، «نمیدانم» را بزنید تا نمایه گمراه نشود.</p><label for="who">ناظر</label><select id="who">${WHO.map(w=>`<option>${w}</option>`).join('')}</select><div class="row"><button class="btn p" data-a="start">شروع (۳۹ جمله)</button></div></div>${s.as.length?`<div class="card"><h2>سابقه</h2>${s.as.slice().reverse().map(x=>`<div class="pr"><span class="n">${dt(x.t)} — ${esc(x.who)}</span><button class="btn sm" data-a="delas" data-id="${x.id}">حذف</button></div>`).join('')}</div>`:''}`;
+const i=q.i,idx=q.order[i],cur=q.ans[idx];
+return `<div class="card"><div class="pr"><span class="n">سؤال ${fa(i+1)} از ${fa(ITEMS.length)} · ناظر: ${esc(q.who)}</span></div><div class="pg" role="progressbar" aria-valuemin="0" aria-valuemax="39" aria-valuenow="${i}"><u style="width:${i/39*100}%"></u></div><p style="font-size:1.1rem;font-weight:600;color:var(--tx);margin-bottom:1rem">${esc(ITEMS[idx][1])}</p><div class="lk">${[1,2,3,4,5,0].map(v=>`<button class="${cur===v?'on':''}" data-v="${v}">${LK[v]}<small>${fa(v)}</small></button>`).join('')}</div><div class="row"><button class="btn sm" data-a="back">${i?'قبلی':'خروج'}</button><span class="mu">کلیدهای ۰ تا ۵ فعالاند</span></div></div>`}
+function trendSvg(s,k){const a=s.as.map(x=>sc(x.ans)[k]),n=a.length,W=320,H=150,x=i=>20+i*(W-40)/Math.max(n-1,1),y=v=>H-15-v*(H-30)/100;
+const pts=a.map((v,i)=>v==null?null:[x(i),y(v)]).filter(Boolean);
+return `<svg viewBox="0 0 ${W} ${H}" style="width:100%" role="img" aria-label="روند ${P[k][0]}">${[0,50,100].map(v=>`<line x1="20" x2="${W-20}" y1="${y(v)}" y2="${y(v)}" stroke="var(--ln)"/><text x="2" y="${y(v)+4}" font-size="9" fill="var(--mu)">${fa(v)}</text>`).join('')}<polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${P[k][1]}" stroke-width="2.5"/>${pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="${P[k][1]}"/>`).join('')}</svg>`}
+function vTrend(s){if(s.as.length<1)return `<h1>روند</h1><div class="card"><p>پس از اولین ارزیابی، روند اینجا نشان داده میشود.</p></div>`;
+const tp=ui.tp||top(sc(s.as[s.as.length-1].ans))[0]||K[0],by={};s.as.forEach(x=>by[x.who]=x);const ws=Object.keys(by);
+return `<h1>روند و همسویی ناظرها</h1><div class="card"><h2>تغییر در زمان</h2><div class="chips">${K.map(k=>`<button class="chip ${k===tp?'on':''}" style="--c:${P[k][1]}" data-a="tp" data-k="${k}">${P[k][2]} ${P[k][0]}</button>`).join('')}</div>${s.as.length>1?trendSvg(s,tp):'<p>برای دیدن روند حداقل دو ارزیابی لازم است. پیشنهاد: ۴ هفته پس از اجرای برنامه.</p>'}</div>
+<div class="card"><h2>مقایسهٔ ناظرها (آخرین ارزیابی هر ناظر)</h2>${ws.length<2?'<p>اگر والد و معلم هر دو ارزیابی کنند، تفاوت رفتار در خانه و کلاس مشخص میشود؛ این تفاوت برای مشاور اطلاعات ارزشمندی است.</p>':`<div class="tw"><table class="pl"><tr><th>حوزه</th>${ws.map(w=>`<th>${esc(w)}</th>`).join('')}<th></th></tr>${K.map(k=>{const v=ws.map(w=>sc(by[w].ans)[k]),f=v.filter(x=>x!=null),g=f.length>1&&Math.max(...f)-Math.min(...f)>=25;return `<tr><td>${P[k][2]} ${P[k][0]}</td>${v.map(x=>`<td>${pc(x)}</td>`).join('')}<td>${g?'⚠ تفاوت':''}</td></tr>`}).join('')}</table></div><p class="mu">⚠ یعنی اختلاف ۲۵ واحد یا بیشتر؛ ممکن است نشانهها وابسته به محیط باشند.</p>`}</div>`}
+function vPlan(s){if(!s.as.length)return `<h1>برنامهٔ ۴ هفتهای</h1><div class="card"><p>ابتدا یک ارزیابی ثبت کنید.</p></div>`;
+const p=s.plan;if(!p)return `<h1>برنامهٔ ۴ هفتهای</h1><div class="card"><p>برنامه از سه حوزهٔ اولویت آخرین ارزیابی ساخته میشود: هر حوزه ۳ راهکار، و تیک هفتگی برای پیگیری.</p><div class="row"><button class="btn p" data-a="mkplan">ساخت برنامه</button></div></div>`;
+const wk=Math.min(4,Math.floor((Date.now()-new Date(p.start))/6048e5)+1),tot=p.focus.length*12,dn=Object.keys(p.d).length;
+return `<h1>برنامهٔ ۴ هفتهای</h1><p class="mu">شروع: ${dt(p.start)} · هفتهٔ ${fa(wk)}</p><div class="card"><div class="pr"><span class="n">پایبندی</span><em>${pc(Math.round(dn/tot*100))}</em></div><div class="pg"><u style="width:${dn/tot*100}%"></u></div>${Date.now()-new Date(p.start)>=24192e5?'<div class="note ok">چهار هفته گذشت. حالا ارزیابی تازه بگیرید تا اثر برنامه روی نمودار روند دیده شود.</div><div class="row"><button class="btn p" data-a="go" data-t="test">ارزیابی مجدد</button></div>':''}</div>
+${p.focus.map(k=>`<div class="card" style="border-inline-start:4px solid ${P[k][1]}"><h2>${P[k][2]} ${P[k][0]}</h2><div class="tw"><table class="pl"><tr><th>راهکار</th>${[1,2,3,4].map(w=>`<th class="c">هفتهٔ ${fa(w)}</th>`).join('')}</tr>${G[k][0].map((t,i)=>`<tr><td>${t}</td>${[1,2,3,4].map(w=>`<td class="c"><input type="checkbox" aria-label="${esc(t)} هفتهٔ ${w}" data-a="ck" data-key="${k}${i}w${w}" ${p.d[k+i+'w'+w]?'checked':''}></td>`).join('')}</tr>`).join('')}</table></div><div class="note">${G[k][1]}</div></div>`).join('')}
+<div class="row np"><button class="btn sm" data-a="delplan">حذف برنامه</button></div>`}
+function vLog(s){const f=ui.lf||'';return `<h1>دفترچهٔ مشاهده</h1><div class="card"><label for="lp">حوزه</label><select id="lp">${K.map(k=>`<option value="${k}">${P[k][0]}</option>`).join('')}</select><label for="lc">محیط</label><select id="lc">${CTX.map(c=>`<option>${c}</option>`).join('')}</select><label for="lt">چه دیدید؟ (واقعیت، نه برداشت)</label><textarea id="lt" maxlength="500" placeholder="مثال: امروز با زمانبند ۵ دقیقهای، تکلیف ریاضی را بدون یادآوری شروع کرد."></textarea><div class="row"><button class="btn p" data-a="addlog">ثبت</button></div></div>
+<div class="chips"><button class="chip ${f?'':'on'}" style="--c:var(--g)" data-a="lf" data-k="">همه</button>${K.map(k=>`<button class="chip ${f===k?'on':''}" style="--c:${P[k][1]}" data-a="lf" data-k="${k}">${P[k][2]}</button>`).join('')}</div>
+${s.logs.filter(l=>!f||l.p===f).slice().reverse().map(l=>`<div class="lg" style="--c:${P[l.p][1]}"><div class="mu">${P[l.p][2]} ${P[l.p][0]} · ${esc(l.c)} · ${dt(l.t)} <button class="btn sm np" data-a="dellog" data-id="${l.id}">حذف</button></div><p>${esc(l.x)}</p></div>`).join('')||'<p class="mu">یادداشتی نیست.</p>'}`}
+function vRep(s){if(!s.as.length)return `<h1>گزارش</h1><div class="card"><p>پس از اولین ارزیابی، گزارش ساخته میشود.</p></div>`;
+const L=s.as[s.as.length-1],r=sc(L.ans),pv=s.as.length>1?sc(s.as[s.as.length-2].ans):null,T=top(r),fl=pv?K.filter(k=>r[k]>=70&&pv[k]>=70):[];
+return `<h1>گزارش مشاهدهای</h1><div class="card"><h2>${esc(s.name)} ${s.age?'· '+esc(s.age):''}</h2><p class="mu">تاریخ گزارش: ${dt(Date.now())} · ${fa(s.as.length)} ارزیابی · آخرین ناظر: ${esc(L.who)}</p>${radar(r,pv)}
+<table class="pl">${K.map(k=>`<tr><td>${P[k][2]} ${P[k][0]}</td><td>${pc(r[k])}</td><td>${pv?pc(pv[k]):''}</td></tr>`).join('')}</table></div>
+<div class="card"><h2>یافتهها برای مشاور</h2><p>حوزههای اولویت: ${T.map(k=>P[k][0]).join('، ')}.</p>${fl.length?`<p><b>تداوم نشانهها (≥۷۰٪ در دو ارزیابی):</b> ${fl.map(k=>P[k][0]).join('، ')}</p>`:''}${ins(r).map(x=>`<p>• ${x}</p>`).join('')}${s.plan?`<p>برنامه از ${dt(s.plan.start)}: پایبندی ${pc(Math.round(Object.keys(s.plan.d).length/(s.plan.focus.length*12)*100))}.</p>`:''}</div>
+${s.logs.length?`<div class="card"><h2>مشاهدات ثبتشده</h2>${s.logs.slice(-8).map(l=>`<p>• ${dt(l.t)} (${P[l.p][0]}، ${esc(l.c)}): ${esc(l.x)}</p>`).join('')}</div>`:''}
+<div class="note">این گزارش بر مشاهدهٔ غیرتخصصی استوار است و تشخیص نیست. تصمیم دربارهٔ ارزیابی تخصصی با مشاور یا متخصص است.</div>
+<div class="row np"><button class="btn p" onclick="print()">چاپ / ذخیره PDF</button><button class="btn" data-a="copy">کپی خلاصه</button><button class="btn" data-a="exp">پشتیبان JSON</button><button class="btn" data-a="imp">بازیابی</button><button class="btn" data-a="delst">حذف پرونده</button></div>`}
+const TABS=[['home','نمای کلی','◉'],['test','ارزیابی','✎'],['trend','روند','📈'],['plan','برنامه','✓'],['log','دفترچه','📓'],['rep','گزارش','🗎']];
+function render(){const s=S(),t=!s?'new':ui.tab;$('#ss').innerHTML=db.students.map(x=>`<option value="${x.id}" ${x.id===db.cur?'selected':''}>${esc(x.name)}</option>`).join('');
+$('#nav').innerHTML=TABS.map(([k,n,i])=>`<button data-a="go" data-t="${k}" class="${k===t?'on':''}" ${k===t?'aria-current="page"':''}><b>${i}</b>${n}</button>`).join('');
+$('#app').innerHTML=!s||t==='new'?vNew():({home:vHome,test:vTest,trend:vTrend,plan:vPlan,log:vLog,rep:vRep})[t](s)}
+const go=t=>{ui.tab=t;render();scrollTo(0,0)};
+function ans(v){const q=db.q,idx=q.order[q.i];q.ans[idx]=v;if(q.i+1>=ITEMS.length){const s=S();s.as.push({id:uid(),t:new Date().toISOString(),who:q.who,ans:ITEMS.map((_,i)=>q.ans[i]??0)});db.q=null;save();toast('ارزیابی ذخیره شد');go('home');return}q.i++;save();render();scrollTo(0,0)}
+function summary(s){const r=sc(s.as[s.as.length-1].ans);return `نقشهٔ شناختی یادگیری — ${s.name}\n`+K.map(k=>`${P[k][0]}: ${pc(r[k])}`).join('\n')+'\n(ابزار آگاهی؛ نه تشخیص)'}
+$('#ss').onchange=e=>{db.cur=e.target.value;save();render()};
+$('#app').addEventListener('change',e=>{const t=e.target;if(t.dataset.a==='ck'){const p=S().plan;t.checked?p.d[t.dataset.key]=1:delete p.d[t.dataset.key];save();render()}});
+document.addEventListener('click',e=>{const t=e.target.closest('[data-a],[data-v]');if(!t)return;const s=S(),D=t.dataset;
+if(D.v!==undefined){ans(+D.v);return}
+switch(D.a){case'go':go(D.t);break;case'new':ui.tab='new';render();break;
+case'add':{const n=$('#nn').value.trim();if(!n){toast('نام را وارد کنید');return}const x=mk(n,$('#na').value.trim());db.students.push(x);db.cur=x.id;save();go('home');break}
+case'start':db.q={sid:s.id,who:$('#who').value,order:ITEMS.map((_,i)=>i).sort(()=>Math.random()-.5),i:0,ans:{}};save();render();break;
+case'back':if(db.q.i>0)db.q.i--;else db.q=null;save();render();break;
+case'delas':if(confirm('این ارزیابی حذف شود؟')){s.as=s.as.filter(x=>x.id!==D.id);save();render()}break;
+case'tp':ui.tp=D.k;render();break;case'lf':ui.lf=D.k;render();break;
+case'mkplan':s.plan={start:new Date().toISOString(),focus:top(sc(s.as[s.as.length-1].ans)),d:{}};save();render();break;
+case'delplan':if(confirm('برنامه حذف شود؟')){s.plan=null;save();render()}break;
+case'addlog':{const x=$('#lt').value.trim();if(!x){toast('متن مشاهده را بنویسید');return}s.logs.push({id:uid(),t:new Date().toISOString(),p:$('#lp').value,c:$('#lc').value,x});save();render();toast('ثبت شد');break}
+case'dellog':s.logs=s.logs.filter(l=>l.id!==D.id);save();render();break;
+case'copy':navigator.clipboard?.writeText(summary(s)).then(()=>toast('کپی شد'),()=>toast('کپی نشد'));break;
+case'exp':{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(db)],{type:'application/json'}));a.download='learning-map-backup.json';a.click();break}
+case'imp':{const i=document.createElement('input');i.type='file';i.accept='.json';i.onchange=()=>{const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.students))throw 0;d.students.forEach(x=>{if(!db.students.some(y=>y.id===x.id))db.students.push(x)});db.cur=db.cur||d.students[0]?.id;save();go('home');toast('بازیابی شد')}catch(x){toast('فایل معتبر نیست')}};r.readAsText(f)};i.click();break}
+case'delst':if(confirm('کل پروندهٔ '+s.name+' برای همیشه حذف شود؟')){db.students=db.students.filter(x=>x.id!==s.id);db.cur=db.students[0]?.id||null;save();ui.tab='home';render()}break}});
+document.addEventListener('keydown',e=>{if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||!db.q||ui.tab!=='test')return;const k='۰۱۲۳۴۵'.indexOf(e.key),v=k>=0?k:/^[0-5]$/.test(e.key)?+e.key:-1;if(v>=0){ans(v);e.preventDefault()}});
+if(!db.cur&&db.students[0])db.cur=db.students[0].id;
+render();
 })();
-</script>
-</body>
-</html>
+</script></body></html>
