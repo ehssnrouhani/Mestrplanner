@@ -1,0 +1,2419 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>موتور زبان و ادب فارسی | مستر پلنر</title>
+  <meta name="description" content="موتور قاعده‌محور فارسی: ویرایشگر، صرف فعل، تحلیل، کارگاه جمله، واژه‌ورز، اعداد، عروض، آرایه و تمرین — بدون وابستگی به فهرست واژه." />
+  <meta name="theme-color" content="#07080C" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* ===== ریست و توکن‌ها ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07080C;
+      --surface: rgba(19, 23, 32, 0.72);
+      --surface-solid: #12151D;
+      --surface-2: #181D27;
+      --primary: #D4AF37;
+      --gold-light: #F3E5AB;
+      --gold-deep: #AA771C;
+      --text: #F5F7FA;
+      --text-soft: #CBD3DE;
+      --muted: #9AA4B2;
+      --line: rgba(212, 175, 55, 0.22);
+      --line-soft: rgba(255, 255, 255, 0.08);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --pill: 999px;
+      --shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
+      --t: 0.3s cubic-bezier(.4, 0, .2, 1);
+      --c-ok: #34D399;
+      --c-err: #F87171;
+      --c-info: #60A5FA;
+      --c-warn: #FBBF24;
+      --font-fa: 'Vazirmatn', Tahoma, sans-serif;
+      --font-en: 'Outfit', sans-serif;
+      --font-code: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-fa);
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(1100px 520px at 50% -160px, rgba(212, 175, 55, 0.10), transparent 65%),
+        radial-gradient(900px 620px at 100% 8%, #12161f 0%, transparent 60%);
+      color: var(--text);
+      line-height: 1.9;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: rgba(212, 175, 55, 0.35); color: #fff; }
+    :focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 1.25rem; width: 100%; }
+
+    /* ===== هدر ===== */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7, 8, 12, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.16);
+    }
+    .header-inner { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-fa { font-weight: 800; font-size: 1.15rem; color: var(--primary); display: block; line-height: 1.35; }
+    .logo-en { font-family: var(--font-en); font-size: 0.64rem; color: var(--muted); letter-spacing: 0.22em; text-transform: uppercase; display: block; }
+    .back-link {
+      margin-inline-start: auto;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 1.1rem; border-radius: var(--pill);
+      font-size: 0.86rem; font-weight: 700; color: var(--gold-light);
+      text-decoration: none; border: 1px solid var(--line);
+      background: rgba(212, 175, 55, 0.08);
+      transition: var(--t);
+    }
+    .back-link:hover { background: rgba(212, 175, 55, 0.16); transform: translateY(-1px); }
+
+    /* ===== هیرو ===== */
+    .hero {
+      position: relative; text-align: center;
+      padding: 2.8rem 1.5rem 2.2rem; margin: 1.5rem 0 1.6rem;
+      background: linear-gradient(180deg, rgba(24, 28, 38, 0.6), rgba(12, 14, 20, 0.88));
+      border: 1px solid var(--line); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden;
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(560px 260px at 50% -60px, rgba(212, 175, 55, 0.16), transparent 70%);
+    }
+    .hero > * { position: relative; z-index: 2; }
+    .hero h1 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 800; line-height: 1.4; margin-bottom: 0.4rem; }
+    .hero p { color: var(--muted); font-size: 0.98rem; max-width: 60ch; margin: 0 auto; }
+    .hero .philosophy {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-top: 1rem; padding: 0.4rem 1rem;
+      background: rgba(212, 175, 55, 0.08); border: 1px solid var(--line);
+      border-radius: var(--pill); font-size: 0.8rem; color: var(--gold-light);
+    }
+
+    /* ===== تب‌بار ===== */
+    .tabs {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 1.6rem;
+      background: var(--surface-2); border: 1px solid var(--line-soft);
+      border-radius: var(--radius); padding: 0.5rem;
+    }
+    .tab {
+      flex: 1 1 95px; min-width: 82px;
+      display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+      padding: 0.7rem 0.4rem; border-radius: var(--radius-sm);
+      background: transparent; border: 1px solid transparent;
+      color: var(--muted); font-family: inherit; font-size: 0.8rem; font-weight: 700;
+      cursor: pointer; transition: var(--t);
+    }
+    .tab i { font-size: 1rem; }
+    .tab:hover { color: var(--gold-light); background: rgba(212, 175, 55, 0.06); }
+    .tab.active {
+      color: #0B0B0B;
+      background: linear-gradient(135deg, var(--gold-light), var(--primary));
+      border-color: var(--primary); box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
+    }
+    .tab.active i { color: #0B0B0B; }
+
+    /* ===== پنل‌ها ===== */
+    .panel { display: none; animation: fadeIn 0.4s ease; }
+    .panel.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    .panel-head { margin-bottom: 1.2rem; }
+    .panel-head h2 {
+      font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem;
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .panel-head h2 i {
+      width: 40px; height: 40px; border-radius: 12px;
+      display: inline-grid; place-items: center; font-size: 1.1rem;
+      background: rgba(212, 175, 55, 0.12); color: var(--primary);
+    }
+    .panel-head p { color: var(--muted); font-size: 0.9rem; }
+
+    .workbench {
+      background: linear-gradient(160deg, rgba(26, 31, 44, 0.85), rgba(13, 16, 23, 0.94));
+      border: 1px solid var(--line-soft); border-radius: var(--radius);
+      padding: 1.6rem; box-shadow: var(--shadow);
+    }
+
+    /* ===== فرم ===== */
+    .field-group { margin-bottom: 1rem; }
+    .field-group label {
+      display: block; font-size: 0.85rem; font-weight: 700;
+      color: var(--gold-light); margin-bottom: 0.4rem;
+    }
+    .field-group .hint { font-size: 0.75rem; color: var(--muted); font-weight: 400; margin-top: 0.25rem; }
+    .field {
+      width: 100%; padding: 0.85rem 1rem;
+      background: rgba(11, 13, 19, 0.7); border: 1px solid var(--line-soft);
+      border-radius: var(--radius-sm); color: var(--text);
+      font-family: inherit; font-size: 0.95rem;
+      transition: var(--t); resize: vertical;
+    }
+    .field:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15); }
+    textarea.field { min-height: 100px; line-height: 1.8; }
+    select.field { cursor: pointer; }
+
+    .actions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.6rem; }
+    .btn-primary, .btn-secondary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.7rem 1.4rem; border-radius: var(--radius-sm);
+      font-family: inherit; font-size: 0.92rem; font-weight: 700;
+      cursor: pointer; transition: var(--t); border: 1px solid transparent;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--gold-deep));
+      color: #0B0B0B; box-shadow: 0 4px 14px rgba(212, 175, 55, 0.25);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 7px 18px rgba(212, 175, 55, 0.4); }
+    .btn-secondary {
+      background: transparent; color: var(--primary);
+      border-color: rgba(212, 175, 55, 0.4);
+    }
+    .btn-secondary:hover { background: rgba(212, 175, 55, 0.08); }
+
+    /* ===== خروجی ===== */
+    .output {
+      margin-top: 1.4rem; padding: 1.3rem;
+      background: rgba(11, 13, 19, 0.5);
+      border: 1px solid var(--line-soft); border-radius: var(--radius-sm);
+      font-size: 0.92rem; line-height: 1.95;
+    }
+    .output:empty { display: none; }
+    .output h3 {
+      font-size: 1rem; color: var(--primary); font-weight: 800;
+      margin: 0 0 0.7rem; padding-bottom: 0.5rem;
+      border-bottom: 1px dashed var(--line-soft);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .output h4 {
+      font-size: 0.9rem; color: var(--gold-light); font-weight: 700;
+      margin: 1rem 0 0.5rem;
+    }
+    .output ul { padding-right: 1.4rem; margin: 0.4rem 0; }
+    .output li { margin: 0.2rem 0; color: var(--text-soft); }
+    .output p { margin: 0.5rem 0; color: var(--text-soft); }
+    .output strong { color: var(--text); }
+
+    /* جدول */
+    .out-table {
+      width: 100%; border-collapse: collapse; margin: 0.6rem 0;
+      font-size: 0.86rem;
+    }
+    .out-table th, .out-table td {
+      padding: 0.55rem 0.7rem; text-align: right;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .out-table th { color: var(--primary); font-weight: 700; background: rgba(212, 175, 55, 0.05); }
+    .out-table tr:hover td { background: rgba(212, 175, 55, 0.03); }
+
+    /* کارت نتیجه */
+    .result-card {
+      background: rgba(212, 175, 55, 0.05);
+      border: 1px solid var(--line-soft); border-right: 3px solid var(--primary);
+      border-radius: var(--radius-sm); padding: 0.9rem 1.1rem;
+      margin: 0.7rem 0; font-size: 0.9rem;
+    }
+    .result-card strong { color: var(--gold-light); }
+    .result-card.error { border-right-color: var(--c-err); background: rgba(248, 113, 113, 0.06); }
+    .result-card.ok { border-right-color: var(--c-ok); background: rgba(52, 211, 153, 0.06); }
+    .result-card.warn { border-right-color: var(--c-warn); background: rgba(251, 191, 36, 0.06); }
+
+    /* درخت اشتقاق */
+    .deriv-tree {
+      background: rgba(15,17,24,0.85); border: 1px solid var(--line-soft);
+      border-radius: var(--radius-sm); padding: 1rem;
+      font-family: var(--font-code); font-size: 0.78rem;
+      direction: ltr; text-align: left; color: #c9d6e4;
+      line-height: 1.7; overflow-x: auto;
+    }
+    .deriv-tree .d-rule { color: var(--primary); font-weight: 700; }
+    .deriv-tree .d-node { color: var(--gold-light); }
+    .deriv-tree .d-val { color: var(--c-ok); }
+    .deriv-tree .d-indent { padding-left: 1.2rem; border-left: 1px dashed rgba(212,175,55,0.2); }
+
+    /* بج/چیپ */
+    .badges { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.25rem 0.7rem; border-radius: var(--pill);
+      font-size: 0.75rem; font-weight: 700;
+      background: rgba(212, 175, 55, 0.12); color: var(--gold-light);
+      border: 1px solid var(--line);
+    }
+    .badge.ok { background: rgba(52, 211, 153, 0.12); color: var(--c-ok); border-color: rgba(52, 211, 153, 0.3); }
+    .badge.err { background: rgba(248, 113, 113, 0.12); color: var(--c-err); border-color: rgba(248, 113, 113, 0.3); }
+
+    /* گزینه‌های تمرین */
+    .options { display: grid; gap: 0.5rem; margin: 0.8rem 0; }
+    .option {
+      padding: 0.8rem 1rem; background: rgba(11, 13, 19, 0.6);
+      border: 1px solid var(--line-soft); border-radius: var(--radius-sm);
+      cursor: pointer; transition: var(--t); font-family: inherit;
+      color: var(--text-soft); text-align: right; font-size: 0.92rem;
+    }
+    .option:hover { border-color: var(--primary); background: rgba(212, 175, 55, 0.06); }
+    .option.correct { border-color: var(--c-ok); background: rgba(52, 211, 153, 0.12); color: var(--text); }
+    .option.wrong { border-color: var(--c-err); background: rgba(248, 113, 113, 0.12); color: var(--text); }
+    .option[disabled] { cursor: default; }
+
+    /* حالت خالی */
+    .empty {
+      text-align: center; padding: 2rem 1rem; color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .empty i { display: block; font-size: 2rem; color: rgba(212, 175, 55, 0.3); margin-bottom: 0.6rem; }
+
+    /* عروض — جدول تطبیق */
+    .meter-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.85rem; margin: 0.6rem 0;
+    }
+    .meter-table th, .meter-table td {
+      padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--line-soft);
+      text-align: right;
+    }
+    .meter-table th { color: var(--primary); font-weight: 700; background: rgba(212,175,55,0.05); }
+    .meter-table tr.match td { background: rgba(52,211,153,0.1); }
+    .meter-table .rhythm { font-family: var(--font-code); direction: ltr; text-align: left; color: var(--c-ok); }
+
+    /* خط هجاها */
+    .syllable-line {
+      display: flex; flex-wrap: wrap; gap: 0.3rem;
+      margin: 0.6rem 0; direction: rtl;
+    }
+    .syllable-line .syl {
+      padding: 0.3rem 0.7rem; border-radius: 8px;
+      font-family: var(--font-fa); font-size: 0.9rem;
+      border: 1px solid var(--line-soft);
+    }
+    .syl.short { background: rgba(96,165,250,0.15); color: #60A5FA; }
+    .syl.long  { background: rgba(168,139,250,0.15); color: #A78BFA; }
+
+    /* بیت — کارت */
+    .bayt-card {
+      background: rgba(11,13,19,0.6); border: 1px solid var(--line-soft);
+      border-radius: var(--radius-sm); padding: 1rem 1.2rem;
+      margin: 0.6rem 0; text-align: center;
+      font-family: var(--font-fa); font-size: 1.02rem;
+      line-height: 2.2; color: var(--gold-light);
+    }
+    .bayt-card .mesra { display: block; }
+    .bayt-card .mesra + .mesra { border-top: 1px dashed var(--line-soft); padding-top: 0.4rem; margin-top: 0.4rem; }
+
+    /* بلاغت — نسخه‌ها */
+    .rhetoric-version {
+      padding: 0.9rem 1.1rem; margin: 0.5rem 0;
+      background: rgba(212,175,55,0.05); border: 1px solid var(--line-soft);
+      border-right: 3px solid var(--primary); border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+    }
+    .rhetoric-version .label {
+      display: block; font-size: 0.75rem; font-weight: 700;
+      color: var(--gold-light); margin-bottom: 0.3rem;
+    }
+    .rhetoric-version .text { color: var(--text); line-height: 1.85; }
+
+    /* گزینه‌های تبدیل نحوی */
+    .transform-btn {
+      padding: 0.5rem 0.9rem; border-radius: var(--radius-sm);
+      background: rgba(212,175,55,0.08); border: 1px solid var(--line);
+      color: var(--gold-light); font-family: inherit; font-size: 0.82rem;
+      cursor: pointer; transition: var(--t); font-weight: 600;
+    }
+    .transform-btn:hover { background: rgba(212,175,55,0.16); }
+    .transform-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* خط لوله */
+    .pipeline-steps {
+      display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center;
+      margin: 0.6rem 0; font-size: 0.8rem;
+    }
+    .pipeline-steps .step {
+      padding: 0.3rem 0.7rem; border-radius: var(--pill);
+      background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3);
+      color: var(--c-ok); font-family: var(--font-code); font-size: 0.72rem;
+    }
+    .pipeline-steps .arrow { color: var(--muted); }
+
+    /* همنشینی */
+    .colloc-pair {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.35rem 0.8rem; border-radius: var(--pill);
+      background: rgba(212,175,55,0.08); border: 1px solid var(--line);
+      font-size: 0.82rem; margin: 0.2rem 0.1rem;
+    }
+
+    /* آمار و درباره */
+    .stat-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.8rem; margin: 0.8rem 0;
+    }
+    .stat-card {
+      background: rgba(212,175,55,0.06); border: 1px solid var(--line);
+      border-radius: var(--radius-sm); padding: 0.9rem 1rem; text-align: center;
+    }
+    .stat-card .stat-num {
+      font-size: 1.6rem; font-weight: 800; color: var(--primary);
+      display: block; line-height: 1.2;
+    }
+    .stat-card .stat-label {
+      font-size: 0.78rem; color: var(--muted); margin-top: 0.3rem;
+    }
+    .about-block {
+      background: rgba(11,13,19,0.6); border: 1px solid var(--line-soft);
+      border-radius: var(--radius-sm); padding: 1.2rem 1.3rem;
+      margin: 0.8rem 0; font-size: 0.92rem; line-height: 1.95;
+      color: var(--text-soft);
+    }
+    .about-block strong { color: var(--gold-light); }
+    .about-block .lead {
+      font-size: 1rem; color: var(--text); font-weight: 700;
+      margin-bottom: 0.6rem; display: block;
+      background: linear-gradient(90deg, var(--gold-light), var(--primary));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* فوتر */
+    .footer {
+      background: #050608; border-top: 1px solid rgba(212, 175, 55, 0.16);
+      margin-top: 3rem; padding: 2rem 0 1.2rem;
+      font-size: 0.82rem; color: var(--muted); text-align: center;
+    }
+    .footer strong { color: var(--primary); }
+
+    /* ریسپانسیو */
+    @media (max-width: 640px) {
+      .hero { padding: 2rem 1rem 1.6rem; }
+      .workbench { padding: 1.1rem; }
+      .tab { flex: 1 1 45%; min-width: 0; font-size: 0.74rem; }
+      .tab i { font-size: 0.9rem; }
+      .actions .btn-primary, .actions .btn-secondary { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ===== افزوده‌های نسخهٔ ۲ ===== */
+    .muted { color: var(--muted); font-size: .82rem; }
+    .ok-t { color: var(--c-ok); font-weight: 800; } .err-t { color: var(--c-err); font-weight: 800; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 1rem; }
+    .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 1rem; }
+    @media (max-width: 760px) { .grid2, .grid3, .grid4 { grid-template-columns: 1fr; } }
+    .field.sm { width: auto; padding: .45rem .7rem; font-size: .82rem; display: inline-block; }
+    .opt-row { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; align-items: center; margin: .4rem 0 .6rem; }
+    .chk { display: inline-flex; align-items: center; gap: .4rem; font-size: .85rem; color: var(--text-soft); cursor: pointer; }
+    .chk input { accent-color: var(--primary); width: 16px; height: 16px; }
+    h4.sec { margin: 1.6rem 0 .6rem; padding-top: 1.1rem; border-top: 1px dashed var(--line-soft); color: var(--primary); font-size: 1rem; }
+    h4.sec:first-child { margin-top: 0; border-top: 0; padding-top: 0; }
+    .mini { font-family: inherit; font-size: .76rem; font-weight: 700; padding: .25rem .7rem; border-radius: var(--pill); cursor: pointer; background: rgba(212,175,55,.16); color: var(--gold-light); border: 1px solid var(--line); transition: var(--t); }
+    .mini:hover { background: rgba(212,175,55,.3); } .mini.ghost { background: transparent; color: var(--muted); border-color: var(--line-soft); }
+    .badge .x { background: none; border: 0; color: var(--c-err); cursor: pointer; font-size: 1rem; line-height: 1; margin-inline-start: .2rem; font-family: inherit; }
+    .tbl-wrap { overflow-x: auto; border-radius: var(--radius-sm); }
+    table.conj td, table.conj th { white-space: nowrap; text-align: center; font-size: .84rem; }
+    table.conj td.tn { text-align: right; font-weight: 700; color: var(--gold-light); position: sticky; right: 0; background: #12151D; }
+    .cf { cursor: pointer; padding: .1rem .3rem; border-radius: 6px; } .cf:hover { background: rgba(212,175,55,.14); color: #fff; }
+    .dash { color: rgba(255,255,255,.18); }
+    .ed-view { white-space: pre-wrap; line-height: 2.1; padding: 1rem 1.2rem; margin-top: 1rem; border: 1px solid var(--line-soft); border-radius: var(--radius-sm); background: rgba(11,13,19,.5); font-size: 1rem; max-height: 320px; overflow: auto; }
+    .ed-view:empty { display: none; }
+    mark { color: inherit; padding: 0 .1rem; border-radius: 4px; background: transparent; }
+    mark.m-error { background: rgba(248,113,113,.22); border-bottom: 2px solid var(--c-err); }
+    mark.m-warn { background: rgba(251,191,36,.2); border-bottom: 2px solid var(--c-warn); }
+    mark.m-info { background: rgba(96,165,250,.18); border-bottom: 2px solid var(--c-info); }
+    .issue-list { display: grid; gap: .55rem; margin-top: .6rem; }
+    .issue { display: flex; gap: 1rem; justify-content: space-between; align-items: flex-start; padding: .75rem 1rem; border-radius: var(--radius-sm); background: rgba(255,255,255,.025); border: 1px solid var(--line-soft); border-right: 3px solid var(--c-info); }
+    .issue.sev-error { border-right-color: var(--c-err); } .issue.sev-warn { border-right-color: var(--c-warn); }
+    .issue .cat { font-size: .7rem; padding: .1rem .55rem; border-radius: var(--pill); background: rgba(212,175,55,.12); color: var(--gold-light); }
+    .issue-msg { color: var(--text-soft); font-size: .86rem; margin-top: .15rem; }
+    .issue-diff { font-size: .88rem; margin-top: .2rem; } .issue-diff .from { color: var(--c-err); text-decoration: line-through; opacity: .85; } .issue-diff .to { color: var(--c-ok); font-weight: 700; }
+    .issue-act { display: flex; gap: .35rem; flex-wrap: wrap; justify-content: flex-end; }
+    .reading { padding: .8rem 1rem; margin: .5rem 0; border: 1px solid var(--line-soft); border-radius: var(--radius-sm); background: rgba(212,175,55,.04); }
+    .sent { margin: .8rem 0; padding: .9rem 1rem; border: 1px solid var(--line-soft); border-radius: var(--radius-sm); }
+    .sent-t { font-weight: 700; color: var(--gold-light); margin-bottom: .5rem; }
+    .clause { display: flex; flex-wrap: wrap; gap: .4rem; align-items: stretch; margin: .35rem 0; }
+    .cl-n { font-size: .72rem; color: var(--muted); align-self: center; margin-inline-end: .3rem; }
+    .role { display: inline-flex; flex-direction: column; padding: .2rem .7rem; border-radius: 10px; background: rgba(255,255,255,.04); border: 1px solid var(--line-soft); font-size: .88rem; }
+    .role small { font-size: .65rem; color: var(--muted); } .role.r-s { border-color: rgba(96,165,250,.5); } .role.r-o { border-color: rgba(52,211,153,.5); } .role.r-v { border-color: rgba(212,175,55,.7); background: rgba(212,175,55,.08); }
+    .clause-v { font-size: .8rem; color: var(--muted); }
+    .ops { display: flex; flex-wrap: wrap; gap: .45rem; margin: .8rem 0; align-items: center; } .ops:empty { display: none; }
+    .steps { display: grid; gap: .5rem; } .step-row { display: flex; gap: .8rem; padding: .6rem .8rem; border: 1px solid var(--line-soft); border-radius: var(--radius-sm); }
+    .sn { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: rgba(212,175,55,.15); color: var(--primary); font-weight: 800; flex: none; }
+    .s-out { color: var(--text); margin-top: .15rem; }
+    .line-card { margin: .9rem 0; padding: .9rem 1rem; border: 1px solid var(--line-soft); border-radius: var(--radius-sm); background: rgba(11,13,19,.45); }
+    .line-t { font-size: 1.05rem; color: var(--gold-light); } .line-t .ln { color: var(--muted); font-size: .75rem; margin-inline-end: .6rem; } .line-t .rh { float: left; font-family: var(--font-en); color: var(--primary); font-weight: 700; }
+    .syl-w { display: inline-flex; flex-direction: column; align-items: center; padding: .25rem .6rem; border-radius: 8px; border: 1px solid var(--line-soft); background: rgba(255,255,255,.03); color: var(--text); font-family: inherit; cursor: pointer; }
+    .syl-w:hover { border-color: var(--primary); } .syl-w .p { font-family: var(--font-code); color: var(--c-ok); direction: ltr; font-size: .85rem; letter-spacing: .1em; } .syl-w.conj { opacity: .65; }
+    .pat { direction: ltr; text-align: left; margin: .4rem 0; letter-spacing: .12em; }
+    details.ref { margin-top: 1.2rem; } details.ref summary { cursor: pointer; color: var(--gold-light); font-weight: 700; padding: .4rem 0; }
+    .modes { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .8rem; }
+    .mode { padding: .5rem 1.1rem; border-radius: var(--pill); border: 1px solid var(--line); background: transparent; color: var(--muted); font-family: inherit; font-weight: 700; cursor: pointer; transition: var(--t); }
+    .mode.active, .mode:hover { background: rgba(212,175,55,.15); color: var(--gold-light); border-color: var(--primary); }
+    .q-card { margin-top: 1rem; padding: 1.2rem; border: 1px solid var(--line-soft); border-radius: var(--radius-sm); background: rgba(11,13,19,.5); }
+    .q-t { color: var(--text-soft); margin-bottom: .6rem; } .q-spec { margin-bottom: .8rem; }
+    .skip { position: absolute; right: -999px; } .skip:focus { right: 8px; top: 8px; z-index: 200; background: var(--primary); color: #000; padding: .5rem 1rem; border-radius: 8px; }
+    @media (max-width: 640px) { .issue { flex-direction: column; } .issue-act { justify-content: flex-start; } }
+
+  </style>
+</head>
+<body>
+<a class="skip" href="#panels">پرش به محتوا</a>
+<header class="header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo"><span><span class="logo-fa">مستر پلنر</span><span class="logo-en">Mesterplanner</span></span></a>
+    <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-right"></i> بازگشت به خانه</a>
+  </div>
+</header>
+<main class="container">
+  <section class="hero">
+    <h1>موتور زبان و ادب فارسی</h1>
+    <p>ورودی «واژه» است و منطق «فرایند»: هر فعل، جمع، عدد، تقطیع و خطای نگارشی از روی قاعده محاسبه می‌شود، نه جست‌وجو در یک فهرست.</p>
+    <span class="philosophy"><i class="fa-solid fa-gears"></i> قاعده‌محور · قابل‌گسترش · آزمون‌پذیر · کاملاً آفلاین</span>
+  </section>
+  <nav class="tabs" id="tabs" aria-label="ابزارها"></nav>
+  <div id="panels"></div>
+</main>
+<footer class="footer">
+  <div class="container">
+    <p><strong>موتور زبان و ادب فارسی</strong> — بخشی از مستر پلنر — طراحی و مدیریت: احسان روحانی راوری</p>
+    <p style="margin-top:0.4rem;">توکنایزر · موتور قواعد · موتور فعل · نحو · عروض · تمرین مولد</p>
+  </div>
+</footer>
+<script>
+(function(){"use strict";
+/* ============================================================
+   موتور زبان فارسی — بخش ۱: هسته، متن، قواعد، اعداد
+   ============================================================ */
+var PT = { version: '2.0.0', packs: {}, res: {} };
+var ZW = '\u200c';
+var NONJOIN = 'آاأإءؤدذرزژو';
+var FADIG = '۰۱۲۳۴۵۶۷۸۹';
+
+function ok(v, x) { var r = { ok: true, value: v }; if (x) for (var k in x) r[k] = x[k]; return r; }
+function err(code, msg) { return { ok: false, error: { code: code, message: msg } }; }
+
+function isLetter(ch) {
+  if (!ch) return false; var c = ch.charCodeAt(0);
+  return (c >= 0x621 && c <= 0x63A) || (c >= 0x641 && c <= 0x64A) || c === 0x67E || c === 0x686 ||
+    c === 0x698 || c === 0x6A9 || c === 0x6AF || c === 0x6CC || c === 0x6C0 || c === 0x6D2 || c === 0x649;
+}
+function isMark(ch) { if (!ch) return false; var c = ch.charCodeAt(0); return (c >= 0x64B && c <= 0x652) || c === 0x654 || c === 0x670; }
+function isDigitCh(ch) { if (!ch) return false; var c = ch.charCodeAt(0); return (c >= 48 && c <= 57) || (c >= 0x660 && c <= 0x669) || (c >= 0x6F0 && c <= 0x6F9); }
+function isJoiner(ch) { return isLetter(ch) && NONJOIN.indexOf(ch) < 0; }
+function stripZ(s) { return String(s).replace(/\u200c/g, ''); }
+function stripMarks(s) { return String(s).replace(/[\u064B-\u0652\u0654\u0670]/g, ''); }
+function canon(s) {
+  return stripMarks(String(s == null ? '' : s).replace(/ي/g, 'ی').replace(/[كڪ]/g, 'ک').replace(/ى/g, 'ی').replace(/\u0640/g, ''));
+}
+function lastCh(s) { return s.charAt(s.length - 1); }
+function toFa(s) {
+  return String(s).replace(/[0-9]/g, function (d) { return FADIG[+d]; })
+    .replace(/[\u0660-\u0669]/g, function (d) { return FADIG[d.charCodeAt(0) - 0x660]; });
+}
+function toLatin(s) {
+  return String(s).replace(/[\u06F0-\u06F9]/g, function (d) { return String(d.charCodeAt(0) - 0x6F0); })
+    .replace(/[\u0660-\u0669]/g, function (d) { return String(d.charCodeAt(0) - 0x660); });
+}
+function esc(s) {
+  return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function uniq(a) { var s = {}, o = []; a.forEach(function (x) { if (!s[x]) { s[x] = 1; o.push(x); } }); return o; }
+/* اتصال پسوند: اگر آخر واژه حرف چسبان باشد، نیم‌فاصله می‌گذارد */
+function joinZ(word, suf) { return (isJoiner(lastCh(word)) ? word + ZW : word) + suf; }
+
+/* ---------- توکنایزر ---------- */
+function tokenize(text) {
+  var toks = [], i = 0, n = text.length;
+  while (i < n) {
+    var ch = text.charAt(i), j = i;
+    if (/\s/.test(ch)) { while (j < n && /\s/.test(text.charAt(j))) j++; toks.push({ t: 'space', s: i, e: j, x: text.slice(i, j) }); }
+    else if (isLetter(ch) || isMark(ch)) {
+      while (j < n && (isLetter(text.charAt(j)) || isMark(text.charAt(j)) || text.charAt(j) === ZW || text.charAt(j) === '\u0640')) j++;
+      // نیم‌فاصلهٔ انتهایی جزو واژه نیست
+      while (j > i + 1 && text.charAt(j - 1) === ZW) j--;
+      toks.push({ t: 'word', s: i, e: j, x: text.slice(i, j) });
+    }
+    else if (isDigitCh(ch)) {
+      while (j < n && (isDigitCh(text.charAt(j)) || ('.,٫٬'.indexOf(text.charAt(j)) >= 0 && j + 1 < n && isDigitCh(text.charAt(j + 1))))) j++;
+      toks.push({ t: 'num', s: i, e: j, x: text.slice(i, j) });
+    }
+    else if (/[A-Za-z]/.test(ch)) { while (j < n && /[A-Za-z0-9_'\-]/.test(text.charAt(j))) j++; toks.push({ t: 'latin', s: i, e: j, x: text.slice(i, j) }); }
+    else { j = i + 1; toks.push({ t: 'punct', s: i, e: j, x: ch }); }
+    i = j;
+  }
+  return toks;
+}
+var SENT_END = '.!؟?…';
+function splitSentences(text, toks) {
+  toks = toks || tokenize(text);
+  var out = [], cur = [], start = null;
+  function flush(endPos) {
+    if (cur.length) out.push({ s: cur[0].s, e: endPos, text: text.slice(cur[0].s, endPos), tokens: cur });
+    cur = [];
+  }
+  for (var i = 0; i < toks.length; i++) {
+    var t = toks[i];
+    if (t.t === 'space') { if (t.x.indexOf('\n') >= 0 && cur.length) { flush(cur[cur.length - 1].e); } continue; }
+    cur.push(t);
+    if (t.t === 'punct' && SENT_END.indexOf(t.x) >= 0) {
+      var nx = toks[i + 1];
+      if (!nx || nx.t === 'space' || (nx.t === 'punct' && ')»"'.indexOf(nx.x) >= 0)) {
+        if (nx && nx.t === 'punct') { cur.push(nx); i++; flush(nx.e); } else flush(t.e);
+      }
+    }
+  }
+  if (cur.length) flush(cur[cur.length - 1].e);
+  return out;
+}
+function wordsOf(text) { return tokenize(text).filter(function (t) { return t.t === 'word'; }).map(function (t) { return t.x; }); }
+
+function textStats(text) {
+  var toks = tokenize(text), words = toks.filter(function (t) { return t.t === 'word'; });
+  var sents = splitSentences(text, toks);
+  var freq = {}, total = 0, letters = 0;
+  words.forEach(function (w) { var k = canon(stripZ(w.x)); freq[k] = (freq[k] || 0) + 1; total++; letters += k.length; });
+  var types = Object.keys(freq).length;
+  var top = Object.keys(freq).map(function (k) { return [k, freq[k]]; }).filter(function (p) { return p[0].length > 2; })
+    .sort(function (a, b) { return b[1] - a[1]; }).slice(0, 8);
+  var wps = sents.length ? total / sents.length : 0;
+  return {
+    chars: text.length, words: total, sentences: sents.length, types: types,
+    avgWordLen: total ? letters / total : 0, avgSentLen: wps, ttr: total ? types / total : 0,
+    readMinutes: total / 180, top: top, numbers: toks.filter(function (t) { return t.t === 'num'; }).length,
+    zwnj: (text.match(/\u200c/g) || []).length, longest: sents.reduce(function (m, s) { return Math.max(m, s.tokens.filter(function (t) { return t.t === 'word'; }).length); }, 0)
+  };
+}
+
+/* ---------- موتور قواعد ---------- */
+var RULES = [];
+function defRule(r) { RULES.push(r); return r; }
+function runRules(text, opts) {
+  opts = opts || {}; var issues = [];
+  RULES.forEach(function (r) {
+    if (opts.disabled && opts.disabled[r.id]) return;
+    if (opts.cats && opts.cats.indexOf(r.cat) < 0) return;
+    if (r.styleOnly && r.styleOnly !== opts.style) return;
+    var out = []; try { out = r.scan(text, opts) || []; } catch (e) { out = []; }
+    out.forEach(function (it) {
+      it.rule = r.id; it.cat = r.cat; it.sev = it.sev || r.sev; it.name = r.name;
+      if (it.auto === undefined) it.auto = !!r.auto;
+      issues.push(it);
+    });
+  });
+  var ign = opts.ignore || null;
+  if (ign) issues = issues.filter(function (i) { return !ign[canon(stripZ(text.slice(i.s, i.e)))]; });
+  issues.sort(function (a, b) { return a.s - b.s || a.e - b.e; });
+  return issues;
+}
+function applyFixes(text, issues, onlyAuto) {
+  var list = issues.filter(function (i) { return i.r !== undefined && i.r !== null && (!onlyAuto || i.auto); })
+    .sort(function (a, b) { return a.s - b.s || (b.e - b.s) - (a.e - a.s); });
+  var chosen = [], lastEnd = -1;
+  list.forEach(function (i) { if (i.s >= lastEnd) { chosen.push(i); lastEnd = i.e; } });
+  var out = text, n = 0;
+  for (var k = chosen.length - 1; k >= 0; k--) { var c = chosen[k]; out = out.slice(0, c.s) + c.r + out.slice(c.e); n++; }
+  return { text: out, applied: n, skipped: list.length - n };
+}
+var LCLS = '\\u0621-\\u063A\\u0641-\\u064A\\u067E\\u0686\\u0698\\u06A9\\u06AF\\u06CC\\u06C0\\u200c';
+/* قاعدهٔ مبتنی بر regex؛ build باید {s,e,r,msg} برگرداند */
+function rxRule(id, cat, sev, name, re, build, auto) {
+  return defRule({
+    id: id, cat: cat, sev: sev, name: name, auto: !!auto,
+    scan: function (text) {
+      var out = [], m, rg = new RegExp(re.source, re.flags.indexOf('g') >= 0 ? re.flags : re.flags + 'g');
+      while ((m = rg.exec(text)) !== null) {
+        if (m[0] === '') { rg.lastIndex++; continue; }
+        var it = build(m, text); if (it) out.push(it);
+      }
+      return out;
+    }
+  });
+}
+
+/* ---------- اعداد ---------- */
+var ONES = ['صفر', 'یک', 'دو', 'سه', 'چهار', 'پنج', 'شش', 'هفت', 'هشت', 'نه', 'ده', 'یازده', 'دوازده', 'سیزده', 'چهارده', 'پانزده', 'شانزده', 'هفده', 'هجده', 'نوزده'];
+var TENS = ['', '', 'بیست', 'سی', 'چهل', 'پنجاه', 'شصت', 'هفتاد', 'هشتاد', 'نود'];
+var HUND = ['', 'صد', 'دویست', 'سیصد', 'چهارصد', 'پانصد', 'ششصد', 'هفتصد', 'هشتصد', 'نهصد'];
+var SCALES = ['', 'هزار', 'میلیون', 'میلیارد', 'تریلیون', 'کوادریلیون'];
+function below1000(n) {
+  var parts = [], h = Math.floor(n / 100), r = n % 100;
+  if (h) parts.push(HUND[h]);
+  if (r) { if (r < 20) parts.push(ONES[r]); else { parts.push(TENS[Math.floor(r / 10)]); if (r % 10) parts.push(ONES[r % 10]); } }
+  return parts.join(' و ');
+}
+function intToWords(str) {
+  str = String(str).replace(/^0+(?=\d)/, '');
+  if (str === '0') return 'صفر';
+  if (str.length > 18) return null;
+  var groups = [];
+  for (var i = str.length; i > 0; i -= 3) groups.unshift(parseInt(str.slice(Math.max(0, i - 3), i), 10));
+  var parts = [], n = groups.length;
+  groups.forEach(function (g, idx) {
+    if (!g) return; var sc = n - 1 - idx, w = below1000(g);
+    if (sc === 1 && g === 1) w = 'هزار'; else if (sc > 0) w = w + ' ' + SCALES[sc];
+    parts.push(w);
+  });
+  return parts.join(' و ');
+}
+var FRAC_DEN = ['', 'دهم', 'صدم', 'هزارم', 'ده‌هزارم', 'صدهزارم', 'میلیونیم'];
+function numberToWords(input) {
+  var s = toLatin(String(input)).replace(/[\s,٬]/g, '').replace(/٫/g, '.');
+  if (!/^-?\d+(\.\d+)?$/.test(s)) return err('E_NUM', 'عدد معتبر نیست');
+  var neg = s.charAt(0) === '-'; if (neg) s = s.slice(1);
+  var p = s.split('.'), ip = intToWords(p[0]);
+  if (ip === null) return err('E_RANGE', 'عدد بیش از حد بزرگ است (حداکثر ۱۸ رقم)');
+  var out = ip;
+  if (p[1] !== undefined) {
+    var fr = p[1].replace(/0+$/, '');
+    if (fr) {
+      if (fr.length <= 6) out += ' ممیز ' + intToWords(fr) + ' ' + FRAC_DEN[fr.length];
+      else out += ' ممیز ' + fr.split('').map(function (d) { return ONES[+d]; }).join(' ');
+    }
+  }
+  return ok((neg ? 'منفی ' : '') + out);
+}
+function ordinalWords(input) {
+  var s = toLatin(String(input)).replace(/[\s,٬]/g, '');
+  if (!/^\d+$/.test(s)) return err('E_NUM', 'عدد صحیح نامنفی لازم است');
+  var w = intToWords(s); if (w === null) return err('E_RANGE', 'عدد بیش از حد بزرگ است');
+  if (s === '0') return ok('صفرم');
+  var parts = w.split(' '), last = parts[parts.length - 1];
+  if (last === 'سه') last = 'سوم'; else if (last === 'سی') last = 'سی‌ام'; else last = last + 'م';
+  parts[parts.length - 1] = last;
+  var res = parts.join(' ');
+  if (s === '1') res = 'یکم';
+  return ok(res, { alt: s === '1' ? 'اول' : null });
+}
+var NUMWORD = {};
+ONES.forEach(function (w, i) { NUMWORD[w] = { v: i, k: 'u' }; });
+TENS.forEach(function (w, i) { if (w) NUMWORD[w] = { v: i * 10, k: 'u' }; });
+HUND.forEach(function (w, i) { if (w) NUMWORD[w] = { v: i * 100, k: 'u' }; });
+NUMWORD['پونصد'] = { v: 500, k: 'u' }; NUMWORD['سی‌ام'] = null;
+var SCALEV = { 'هزار': 1e3, 'میلیون': 1e6, 'میلیارد': 1e9, 'بیلیون': 1e9, 'تریلیون': 1e12, 'کوادریلیون': 1e15 };
+function parseNumberWords(text) {
+  var t = canon(text).replace(/‌/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!t) return err('E_EMPTY', 'متنی وارد نشده');
+  var neg = false, toks = t.split(' ');
+  if (toks[0] === 'منفی') { neg = true; toks.shift(); }
+  var total = 0, cur = 0, seen = false;
+  for (var i = 0; i < toks.length; i++) {
+    var w = toks[i]; if (w === 'و') continue;
+    if (NUMWORD[w]) { cur += NUMWORD[w].v; seen = true; }
+    else if (SCALEV[w]) { if (cur === 0) cur = 1; total += cur * SCALEV[w]; cur = 0; seen = true; }
+    else return err('E_WORD', 'واژهٔ عددی ناشناخته: «' + w + '»');
+  }
+  if (!seen) return err('E_EMPTY', 'عددی یافت نشد');
+  total += cur; return ok(neg ? -total : total);
+}
+function groupDigits(s) { return String(s).replace(/\B(?=(\d{3})+(?!\d))/g, '٬'); }
+
+/* ============================================================
+   بخش ۲: موتور فعل
+   ============================================================ */
+var LEX_SRC = [
+'آمدن|آمد|آ|i','آوردن|آورد|آور|t','آموختن|آموخت|آموز|t','آزمودن|آزمود|آزما|t','آراستن|آراست|آرا|t','آسودن|آسود|آسا|i','آفریدن|آفرید|آفرین|t','آمرزیدن|آمرزید|آمرز|t',
+'افتادن|افتاد|افت|i','افروختن|افروخت|افروز|t','افزودن|افزود|افزا|t','انداختن|انداخت|انداز|t','اندیشیدن|اندیشید|اندیش|b','ایستادن|ایستاد|ایست|i',
+'باختن|باخت|باز|t','بافتن|بافت|باف|t','باریدن|بارید|بار|i','بخشیدن|بخشید|بخش|t','بخشودن|بخشود|بخشا|t','بردن|برد|بر|t','بریدن|برید|بر|t','بستن|بست|بند|t','بودن|بود|باش|is','بوسیدن|بوسید|بوس|t','بوییدن|بویید|بو|tg','بیختن|بیخت|بیز|t',
+'پاشیدن|پاشید|پاش|t','پختن|پخت|پز|t','پذیرفتن|پذیرفت|پذیر|t','پراکندن|پراکند|پراکن|t','پرداختن|پرداخت|پرداز|b','پرسیدن|پرسید|پرس|t','پروردن|پرورد|پرور|t','پریدن|پرید|پر|i','پنداشتن|پنداشت|پندار|t','پوشیدن|پوشید|پوش|t','پیچیدن|پیچید|پیچ|b','پیمودن|پیمود|پیما|t','پیوستن|پیوست|پیوند|b',
+'تابیدن|تابید|تاب|b','تاختن|تاخت|تاز|b','تپیدن|تپید|تپ|i','تراشیدن|تراشید|تراش|t','ترسیدن|ترسید|ترس|i','ترکیدن|ترکید|ترک|i','توانستن|توانست|توان|is',
+'جستن|جست|جو|bg','جنگیدن|جنگید|جنگ|i','جهیدن|جهید|جه|i','جویدن|جوید|جو|tg',
+'چرخیدن|چرخید|چرخ|i','چسبیدن|چسبید|چسب|i','چشیدن|چشید|چش|t','چکیدن|چکید|چک|i','چیدن|چید|چین|t',
+'خاستن|خاست|خیز|i','خراشیدن|خراشید|خراش|t','خریدن|خرید|خر|t','خزیدن|خزید|خز|i','خمیدن|خمید|خم|i','خندیدن|خندید|خند|i','خوابیدن|خوابید|خواب|i','خواستن|خواست|خواه|t','خواندن|خواند|خوان|t','خوردن|خورد|خور|t',
+'دادن|داد|ده|t','داشتن|داشت|دار|tsB','دانستن|دانست|دان|ts','درخشیدن|درخشید|درخش|i','دریدن|درید|در|t','دزدیدن|دزدید|دزد|t','دمیدن|دمید|دم|b','دوختن|دوخت|دوز|t','دوشیدن|دوشید|دوش|t','دویدن|دوید|دو|i','دیدن|دید|بین|t',
+'ربودن|ربود|ربا|t','رساندن|رساند|رسان|t','رسیدن|رسید|رس|i','رفتن|رفت|رو|i','رقصیدن|رقصید|رقص|i','رمیدن|رمید|رم|i','رنجیدن|رنجید|رنج|i','روبیدن|روبید|روب|t','روییدن|رویید|روی|i','ریختن|ریخت|ریز|b',
+'زادن|زاد|زا|t','زدن|زد|زن|t','زدودن|زدود|زدا|t','زیستن|زیست|زی|i',
+'ساختن|ساخت|ساز|t','ستادن|ستاد|ستان|t','ستودن|ستود|ستا|t','سپردن|سپرد|سپار|t','سرودن|سرود|سرا|t','سودن|سود|سا|t','سوختن|سوخت|سوز|b',
+'شتافتن|شتافت|شتاب|i','شدن|شد|شو|i','شستن|شست|شوی|t','شکستن|شکست|شکن|b','شکفتن|شکفت|شکف|i','شمردن|شمرد|شمار|t','شناختن|شناخت|شناس|t','شنیدن|شنید|شنو|t',
+'طلبیدن|طلبید|طلب|t','غلتیدن|غلتید|غلت|i',
+'فرستادن|فرستاد|فرست|t','فرمودن|فرمود|فرما|t','فروختن|فروخت|فروش|t','فشردن|فشرد|فشار|t','فهمیدن|فهمید|فهم|t',
+'کاستن|کاست|کاه|b','کاشتن|کاشت|کار|t','کردن|کرد|کن|t','کشتن|کشت|کش|t','کشیدن|کشید|کش|t','کندن|کند|کن|t','کوبیدن|کوبید|کوب|t','کوچیدن|کوچید|کوچ|i','کوشیدن|کوشید|کوش|i',
+'گذاشتن|گذاشت|گذار|t','گذشتن|گذشت|گذر|i','گرداندن|گرداند|گردان|t','گردیدن|گردید|گرد|i','گرفتن|گرفت|گیر|t','گریختن|گریخت|گریز|i','گریستن|گریست|گری|i','گزیدن|گزید|گزین|t','گشتن|گشت|گرد|i','گشودن|گشود|گشا|t','گفتن|گفت|گو|tg','گنجیدن|گنجید|گنج|i','گماشتن|گماشت|گمار|t',
+'لرزیدن|لرزید|لرز|i','لغزیدن|لغزید|لغز|i','لیسیدن|لیسید|لیس|t',
+'مالیدن|مالید|مال|t','ماندن|ماند|مان|i','مردن|مرد|میر|i','مکیدن|مکید|مک|t',
+'نامیدن|نامید|نام|t','نالیدن|نالید|نال|i','نازیدن|نازید|ناز|i','نشاندن|نشاند|نشان|t','نشستن|نشست|نشین|i','نگاشتن|نگاشت|نگار|t','نگریستن|نگریست|نگر|i','نمودن|نمود|نما|t','نهادن|نهاد|نه|t','نوردیدن|نوردید|نورد|t','نوشتن|نوشت|نویس|t','نوشیدن|نوشید|نوش|t',
+'وزیدن|وزید|وز|i','ورزیدن|ورزید|ورز|t','هراسیدن|هراسید|هراس|i','یافتن|یافت|یاب|t'
+];
+var LEX = Object.create(null);
+var PREFIXES = ['بر', 'باز', 'در', 'فرا', 'فرو', 'وا', 'ور'];
+function mkVerb(src) {
+  var a = src.split('|'), fl = a[3] || '';
+  return {
+    inf: a[0], past: a[1], pres: a[2],
+    trans: fl.indexOf('t') >= 0 ? 't' : fl.indexOf('i') >= 0 ? 'i' : fl.indexOf('b') >= 0 ? 'b' : null,
+    glide: fl.indexOf('g') >= 0, stative: fl.indexOf('s') >= 0, bare: fl.indexOf('B') >= 0,
+    prefix: '', pre: '', src: 'lexicon', conf: 1, notes: []
+  };
+}
+LEX_SRC.forEach(function (s) { var v = mkVerb(s); LEX[v.inf] = v; });
+function cloneV(v) { var c = {}; for (var k in v) c[k] = v[k]; c.notes = (v.notes || []).slice(); return c; }
+var SHODAN = LEX['شدن'], DASHTAN = LEX['داشتن'];
+
+/* حل مصدر: واژهٔ بی‌قاعده از فرهنگ، پیشوندی، سببی، یا حدس قاعده‌مند */
+function resolveSimple(inf) {
+  if (LEX[inf]) return cloneV(LEX[inf]);
+  for (var i = 0; i < PREFIXES.length; i++) {
+    var p = PREFIXES[i];
+    if (inf.indexOf(p) === 0 && LEX[inf.slice(p.length)]) {
+      var v = cloneV(LEX[inf.slice(p.length)]); v.prefix = p; v.inf = inf; v.src = 'prefix'; v.conf = 0.9; v.bare = false;
+      v.notes.push('فعل پیشوندی: «' + p + '» + «' + inf.slice(p.length) + '»'); return v;
+    }
+  }
+  var n = inf.length;
+  if (n < 4 || inf.slice(-1) !== 'ن') return null;
+  var base = { inf: inf, trans: null, glide: false, stative: false, bare: false, prefix: '', pre: '', src: 'rule', conf: 0.5, notes: [] };
+  var past, pres, note = null;
+  if (/اندن$/.test(inf) && n >= 6) { past = inf.slice(0, -1); pres = past.slice(0, -1); base.trans = 't'; base.conf = 0.9; note = 'فعل سببی (بن مضارع + اندن)'; }
+  else if (/انیدن$/.test(inf) && n >= 7) { past = inf.slice(0, -1); pres = past.slice(0, -2); base.trans = 't'; base.conf = 0.9; note = 'فعل سببی (بن مضارع + انیدن)'; }
+  else if (/ودن$/.test(inf)) { past = inf.slice(0, -1); pres = inf.slice(0, -3) + 'ا'; base.conf = 0.7; note = 'قاعدهٔ «ـودن ← ـا»'; }
+  else if (/یدن$/.test(inf)) { past = inf.slice(0, -1); pres = inf.slice(0, -3); base.conf = 0.65; note = 'قاعدهٔ منظم «ـیدن»'; }
+  else if (/ختن$/.test(inf)) { past = inf.slice(0, -1); pres = inf.slice(0, -3) + 'ز'; base.conf = 0.45; note = 'حدس: ـختن ← ـز'; }
+  else if (/ردن$/.test(inf)) { past = inf.slice(0, -1); pres = inf.slice(0, -3) + 'ر'; base.conf = 0.4; note = 'حدس: ـردن ← ـر'; }
+  else if (/فتن$/.test(inf)) { past = inf.slice(0, -1); pres = inf.slice(0, -3) + 'ف'; base.conf = 0.35; note = 'حدس: ـفتن ← ـف'; }
+  else if (/ستن$/.test(inf)) { past = inf.slice(0, -1); pres = inf.slice(0, -3); base.conf = 0.3; note = 'حدس بن مضارع'; }
+  else if (/ادن$/.test(inf)) { past = inf.slice(0, -1); pres = inf.slice(0, -3) + 'ه'; base.conf = 0.3; note = 'حدس: ـادن ← ـه'; }
+  else if (/[تد]ن$/.test(inf)) { past = inf.slice(0, -1); pres = inf.slice(0, -2); base.conf = 0.2; note = 'حدس بن مضارع'; }
+  else return null;
+  base.past = past; base.pres = pres;
+  if (base.conf < 0.8) base.notes.push('بن مضارع «' + pres + '» حدس قاعده‌مند است؛ اگر نادرست است از تب «منابع» ثبتش کنید.');
+  else base.notes.push(note);
+  if (base.conf < 0.8 && note) base.notes.push(note);
+  return base;
+}
+function resolveVerb(input) {
+  var s = canon(input).replace(/\s+/g, ' ').trim();
+  if (!s) return err('E_EMPTY', 'مصدری وارد نشده');
+  var parts = s.split(' '), last = parts[parts.length - 1];
+  var v = resolveSimple(last);
+  if (!v) return err('E_VERB', 'مصدر «' + last + '» شناخته نشد؛ باید با «ـن» پایان یابد (مانند خندیدن، تلاش کردن).');
+  if (parts.length > 1) {
+    v.pre = parts.slice(0, -1).join(' '); v.inf = s; v.light = last;
+    v.notes.unshift('فعل مرکب: «' + v.pre + '» + فعل کمکی «' + last + '»');
+    v.src = 'compound';
+  }
+  return ok(v);
+}
+
+var PEND = ['م', 'ی', '', 'یم', 'ید', 'ند'];
+var SEND = ['م', 'ی', 'د', 'یم', 'ید', 'ند'];
+var COP = ['ام', 'ای', 'است', 'ایم', 'اید', 'اند'];
+var PERSONS = ['من', 'تو', 'او', 'ما', 'شما', 'آن‌ها'];
+var TENSES = [
+  { id: 'pastSimple', name: 'ماضی ساده' }, { id: 'pastImperfect', name: 'ماضی استمراری' },
+  { id: 'pastProgressive', name: 'ماضی ملموس' }, { id: 'presentPerfect', name: 'ماضی نقلی' },
+  { id: 'pastPerfect', name: 'ماضی بعید' }, { id: 'pastSubjunctive', name: 'ماضی التزامی' },
+  { id: 'presentIndicative', name: 'مضارع اخباری' }, { id: 'presentProgressive', name: 'مضارع ملموس' },
+  { id: 'presentSubjunctive', name: 'مضارع التزامی' }, { id: 'future', name: 'آینده' }, { id: 'imperative', name: 'امر' }
+];
+function tenseName(id) { for (var i = 0; i < TENSES.length; i++) if (TENSES[i].id === id) return TENSES[i].name; return id; }
+
+function negStem(st) {
+  var c = st.charAt(0);
+  if (c === 'آ') return 'نیا' + st.slice(1);
+  if (c === 'ا' && st.length > 1 && 'اوی'.indexOf(st.charAt(1)) < 0) return 'نی' + st.slice(1);
+  return 'ن' + st;
+}
+function posSubj(st) {
+  var c = st.charAt(0);
+  if (c === 'آ') return 'بیا' + st.slice(1);
+  if (c === 'ا' && st.length > 1 && 'اوی'.indexOf(st.charAt(1)) < 0) return 'بی' + st.slice(1);
+  return 'ب' + st;
+}
+function presEnd(v, pi) {
+  var st = v.pres, l = st.slice(-1);
+  return (l === 'ا' || l === 'آ' || (v.glide && l === 'و')) ? 'ی' + SEND[pi] : SEND[pi];
+}
+function isBe(v) { return v.inf === 'بودن' && !v.prefix && !v.pre; }
+function participle(v, neg) { return v.prefix + (neg ? negStem(v.past) : v.past) + 'ه'; }
+function copAttach(part, pi) { return pi === 2 ? part + ' است' : part + ZW + COP[pi]; }
+function subjStem(v, neg) {
+  if (v.prefix) return v.prefix + (neg ? negStem(v.pres) : v.pres);
+  return neg ? negStem(v.pres) : posSubj(v.pres);
+}
+var BE_PRES = ['هستم', 'هستی', 'است', 'هستیم', 'هستید', 'هستند'];
+var BE_NEG = ['نیستم', 'نیستی', 'نیست', 'نیستیم', 'نیستید', 'نیستند'];
+
+function gen(v, t, pi, neg) {
+  var mi = neg ? 'نمی' : 'می';
+  switch (t) {
+    case 'pastSimple': return { rest: v.prefix + (neg ? negStem(v.past) : v.past) + PEND[pi] };
+    case 'pastImperfect': return { rest: v.prefix + mi + ZW + v.past + PEND[pi] };
+    case 'pastProgressive': {
+      if (v.stative) return null;
+      return { lead: 'داشت' + PEND[pi], rest: v.prefix + mi + ZW + v.past + PEND[pi] };
+    }
+    case 'presentPerfect': return { rest: copAttach(participle(v, neg), pi) };
+    case 'pastPerfect': return { rest: participle(v, neg) + ' بود' + PEND[pi] };
+    case 'pastSubjunctive': return { rest: participle(v, neg) + ' باش' + SEND[pi] };
+    case 'presentIndicative':
+      if (isBe(v)) return { rest: neg ? BE_NEG[pi] : BE_PRES[pi] };
+      if (v.bare && !v.prefix) return { rest: (neg ? 'ن' : '') + v.pres + presEnd(v, pi) };
+      return { rest: v.prefix + mi + ZW + v.pres + presEnd(v, pi) };
+    case 'presentProgressive': {
+      if (v.stative) return null;
+      return { lead: 'دار' + SEND[pi], rest: v.prefix + mi + ZW + v.pres + presEnd(v, pi) };
+    }
+    case 'presentSubjunctive':
+      if (isBe(v)) return { rest: (neg ? 'ن' : '') + 'باش' + SEND[pi] };
+      if (v.bare && !v.prefix) return { rest: participle(v, neg) + ' باش' + SEND[pi] };
+      return { rest: subjStem(v, neg) + presEnd(v, pi) };
+    case 'future':
+      if (isBe(v) || true) return { rest: (neg ? 'ن' : '') + 'خواه' + SEND[pi] + ' ' + v.prefix + v.past };
+      break;
+    case 'imperative':
+      if (pi !== 1 && pi !== 4) return null;
+      if (isBe(v)) return { rest: (neg ? 'ن' : '') + 'باش' + (pi === 4 ? 'ید' : '') };
+      if (v.bare && !v.prefix) return { rest: participle(v, neg) + ' باش' + (pi === 4 ? 'ید' : '') };
+      return { rest: subjStem(v, neg) + (pi === 4 ? presEnd(v, 4) : '') };
+  }
+  return null;
+}
+function passiveGen(v, t, pi, neg) {
+  if (t === 'presentProgressive' || t === 'pastProgressive' || t === 'imperative') return null;
+  if (v.trans === 'i' || isBe(v)) return null;
+  if (v.pre) {
+    if (v.light === 'کردن') return gen(SHODAN, t, pi, neg);
+    return null;
+  }
+  var g = gen(SHODAN, t, pi, neg); if (!g) return null;
+  return { lead: g.lead, rest: participle(v, false) + ' ' + g.rest };
+}
+function conj(v, t, pi, neg, voice) {
+  var g = voice === 'passive' ? passiveGen(v, t, pi, neg) : gen(v, t, pi, neg);
+  if (!g) return null;
+  var s = ''; if (g.lead) s += g.lead + ' '; if (v.pre) s += v.pre + ' '; s += g.rest;
+  return s;
+}
+function paradigm(v, opts) {
+  opts = opts || {}; var rows = [];
+  TENSES.forEach(function (T) {
+    var persons = [];
+    for (var pi = 0; pi < 6; pi++) {
+      persons.push({
+        p: PERSONS[pi], aff: conj(v, T.id, pi, false), neg: conj(v, T.id, pi, true),
+        affP: conj(v, T.id, pi, false, 'passive'), negP: conj(v, T.id, pi, true, 'passive')
+      });
+    }
+    rows.push({ id: T.id, name: T.name, persons: persons });
+  });
+  return rows;
+}
+
+/* ---------- سببی و واژه‌های برگرفته ---------- */
+var CAUS_IRREG = { 'رفتن': 'راندن', 'نشستن': 'نشاندن', 'افتادن': 'انداختن', 'آمدن': 'آوردن', 'گشتن': 'گرداندن', 'مردن': 'کشتن', 'رسیدن': 'رساندن', 'ایستادن': 'ایستاندن' };
+function causativeOf(v) {
+  if (v.pre) return err('E_CAUS', 'سببی‌سازی فعل مرکب پشتیبانی نمی‌شود.');
+  var inf = v.prefix ? v.inf.slice(v.prefix.length) : v.inf, nv;
+  if (CAUS_IRREG[inf]) { var r = resolveSimple(CAUS_IRREG[inf]); if (!r) return err('E_CAUS', 'نامشخص'); nv = r; if (v.prefix) { nv = resolveSimple(v.prefix + CAUS_IRREG[inf]) || nv; } nv.notes.unshift('سببی بی‌قاعدهٔ «' + v.inf + '»'); return ok(nv); }
+  if (v.stative || isBe(v)) return err('E_CAUS', 'این فعل سببی ندارد.');
+  var pres = v.pres; if (pres === 'آ') return err('E_CAUS', 'سببی «آمدن» «آوردن» است.');
+  var s = (v.prefix || '') + pres + 'اندن', r2 = resolveSimple(s);
+  if (!r2) return err('E_CAUS', 'ناموفق');
+  r2.notes.unshift('ساختهٔ قاعده‌مند از «' + v.inf + '»' + (v.trans === 't' ? ' — توجه: این فعل خود گذراست و سببی‌شدنش معمولاً رایج نیست.' : ''));
+  return ok(r2);
+}
+function deriveFromVerb(v) {
+  var st = v.pres, l = st.slice(-1), out = [];
+  var glideY = (l === 'ا' || l === 'آ' || (v.glide && l === 'و')) ? 'ی' : '';
+  var core = v.prefix + st;
+  function add(name, form, note) { out.push({ name: name, form: form, note: note || '' }); }
+  add('مصدر', v.inf);
+  add('بن ماضی', v.prefix + v.past); add('بن مضارع', core);
+  add('صفت مفعولی', participle(v, false), 'بن ماضی + ه');
+  add('اسم فاعل', core + glideY + 'نده', 'بن مضارع + ـنده');
+  add('صفت فاعلی', (l === 'ا' ? core : core + (glideY ? 'یا' : 'ا')), 'بن مضارع + ـا');
+  add('اسم مصدر (کنش)', core + glideY + 'ش', 'بن مضارع + ـش');
+  add('حاصل مصدر', v.prefix + v.past + 'ار', 'بن ماضی + ـار (گفتار، رفتار)');
+  add('صفت حالیه', core + (glideY ? 'ی' : '') + 'ان', 'بن مضارع + ـان');
+  add('صفت لیاقت', v.inf + 'ی', 'مصدر + ـی (خوردنی)');
+  return out.map(function (o) { o.note = o.note; return o; });
+}
+
+/* ---------- فعل محاوره‌ای ---------- */
+var CQ_STEM = { 'رو': 'ر', 'شو': 'ش', 'گو': 'گ', 'دو': 'د', 'ده': 'د', 'خواه': 'خوا' };
+function cqPres(p) {
+  if (CQ_STEM[p] !== undefined) return CQ_STEM[p];
+  if (/ان$/.test(p) && p.length >= 3) return p.slice(0, -2) + 'ون';
+  return p;
+}
+function cqPast(p) {
+  if (p === 'خواند') return 'خوند'; if (p === 'توانست') return 'تونست'; if (p === 'آمد') return 'اومد';
+  if (/ان(د|ست)$/.test(p) && p !== 'ایستاد') return p.replace(/ان(د|ست)$/, 'ون$1');
+  return p;
+}
+var CPEND = ['م', 'ی', '', 'یم', 'ین', 'ن'];
+function cqEnds(st) { return st.slice(-1) === 'ا' ? ['م', 'ی', 'د', 'یم', 'ین', 'ن'] : ['م', 'ی', 'ه', 'یم', 'ین', 'ن']; }
+function cq(v, t, pi, neg) {
+  var pf = v.prefix, mi = neg ? 'نمی' : 'می';
+  if (isBe(v)) {
+    var bp = ['هستم', 'هستی', 'هست', 'هستیم', 'هستین', 'هستن'], bn = ['نیستم', 'نیستی', 'نیست', 'نیستیم', 'نیستین', 'نیستن'];
+    if (t === 'presentIndicative') return neg ? bn[pi] : bp[pi];
+    if (t === 'presentSubjunctive') return (neg ? 'ن' : '') + 'باش' + ['م', 'ی', 'ه', 'یم', 'ین', 'ن'][pi];
+    if (t === 'pastSimple') return (neg ? 'ن' : '') + 'بود' + CPEND[pi];
+    if (t === 'imperative') { if (pi !== 1 && pi !== 4) return null; return (neg ? 'ن' : '') + 'باش' + (pi === 4 ? 'ین' : ''); }
+    return null;
+  }
+  var pastC = cqPast(v.past);
+  var pre = v.pre ? v.pre + ' ' : '';
+  function presBase(mode) { // mode: ind|sub
+    var p = v.pres, st;
+    if (p === 'آ') return { head: mode === 'ind' ? mi + 'ا' : (neg ? 'نیا' : 'بیا'), st: 'ا' };
+    if (p === 'آور') return { head: mode === 'ind' ? mi + 'ار' : (neg ? 'نیار' : 'بیار'), st: 'ر' };
+    st = cqPres(p);
+    if (pf) return { head: pf + (mode === 'ind' ? mi + ZW + st : (neg ? negStem(st) : st)), st: st };
+    return { head: mode === 'ind' ? mi + ZW + st : (neg ? negStem(st) : posSubj(st)), st: st };
+  }
+  switch (t) {
+    case 'pastSimple': return pre + pf + (neg ? negStem(pastC) : pastC) + CPEND[pi];
+    case 'pastImperfect': return pre + pf + mi + ZW + pastC + CPEND[pi];
+    case 'pastProgressive': if (v.stative) return null; return 'داشت' + CPEND[pi] + ' ' + pre + pf + mi + ZW + pastC + CPEND[pi];
+    case 'presentIndicative': {
+      if (v.bare && !pf) { var s0 = cqPres(v.pres); return pre + (neg ? 'ن' : '') + s0 + cqEnds(s0)[pi]; }
+      var b = presBase('ind'); return pre + b.head + cqEnds(b.st)[pi];
+    }
+    case 'presentProgressive': {
+      if (v.stative) return null; var b2 = presBase('ind');
+      return 'دار' + ['م', 'ی', 'ه', 'یم', 'ین', 'ن'][pi] + ' ' + pre + b2.head + cqEnds(b2.st)[pi];
+    }
+    case 'presentSubjunctive': {
+      if (v.bare && !pf) return pre + (neg ? negStem(v.past) : v.past) + 'ه باش' + ['م', 'ی', 'ه', 'یم', 'ین', 'ن'][pi];
+      var b3 = presBase('sub'); return pre + b3.head + cqEnds(b3.st)[pi];
+    }
+    case 'imperative': {
+      if (pi !== 1 && pi !== 4) return null;
+      var b4 = presBase('sub'); return pre + b4.head + (pi === 4 ? 'ین' : '');
+    }
+  }
+  return null;
+}
+var CQ_TENSES = ['pastSimple', 'pastImperfect', 'pastProgressive', 'presentIndicative', 'presentProgressive', 'presentSubjunctive', 'imperative'];
+
+/* ---------- نمایهٔ معکوس و تحلیل صورت فعل ---------- */
+var FORM_INDEX = null, PFX_CACHE = Object.create(null);
+var CUSTOM_VERBS = [];
+function addIdx(key, rd) { (FORM_INDEX[key] = FORM_INDEX[key] || []).push(rd); }
+function buildIndex() {
+  FORM_INDEX = Object.create(null); PFX_CACHE = Object.create(null);
+  var verbs = Object.keys(LEX).map(function (k) { return LEX[k]; });
+  verbs.forEach(function (v) {
+    var base = { inf: v.inf };
+    [false, true].forEach(function (neg) {
+      TENSES.forEach(function (T) {
+        if (T.id === 'pastProgressive' || T.id === 'presentProgressive' || T.id === 'future' || T.id === 'pastPerfect' || T.id === 'pastSubjunctive') return;
+        for (var pi = 0; pi < 6; pi++) {
+          var s = conj(v, T.id, pi, neg); if (!s || s.indexOf(' ') >= 0) continue;
+          addIdx(stripZ(s), { inf: v.inf, t: T.id, pi: pi, neg: neg, reg: 'f', form: s });
+        }
+      });
+      var pp = participle(v, neg); addIdx(stripZ(pp), { inf: v.inf, t: 'participle', pi: -1, neg: neg, reg: 'f', form: pp });
+      CQ_TENSES.forEach(function (tn) {
+        for (var pi = 0; pi < 6; pi++) {
+          var s = cq(v, tn, pi, neg); if (!s || s.indexOf(' ') >= 0) continue;
+          addIdx(stripZ(s), { inf: v.inf, t: tn, pi: pi, neg: neg, reg: 'c', form: s });
+        }
+      });
+    });
+    // ماضی و مضارع ساده بدون پیشوند ب (نمونه‌های نوشتاری کهن) نادیده
+  });
+}
+function ensureIndex() { if (!FORM_INDEX) buildIndex(); }
+function lookupForm(tok) {
+  ensureIndex();
+  var k = stripZ(canon(tok)), r = FORM_INDEX[k];
+  if (r) return r.map(function (x) { var c = {}; for (var q in x) c[q] = x[q]; c.conf = 1; return c; });
+  if (PFX_CACHE[k] !== undefined) return PFX_CACHE[k].map(function (x) { var c = {}; for (var q in x) c[q] = x[q]; return c; });
+  var found = [];
+  for (var i = 0; i < PREFIXES.length && !found.length; i++) {
+    var p = PREFIXES[i];
+    if (k.indexOf(p) !== 0 || k.length <= p.length + 2) continue;
+    var rest = k.slice(p.length);
+    Object.keys(LEX).forEach(function (bk) {
+      var b = LEX[bk]; if (b.prefix || b.bare && false) return;
+      if (rest.indexOf(stripZ(b.pres)) < 0 && rest.indexOf(stripZ(b.past)) < 0) return;
+      var vv = resolveSimple(p + bk); if (!vv || vv.src !== 'prefix') return;
+      [false, true].forEach(function (neg) {
+        ['pastSimple', 'pastImperfect', 'presentIndicative', 'presentSubjunctive', 'imperative'].forEach(function (tn) {
+          for (var pi = 0; pi < 6; pi++) {
+            var f = conj(vv, tn, pi, neg); if (f && f.indexOf(' ') < 0 && stripZ(f) === k) found.push({ inf: p + bk, t: tn, pi: pi, neg: neg, reg: 'f', form: f, conf: 0.85 });
+            var g = cq(vv, tn, pi, neg); if (g && g.indexOf(' ') < 0 && stripZ(g) === k && stripZ(g) !== stripZ(f || '')) found.push({ inf: p + bk, t: tn, pi: pi, neg: neg, reg: 'c', form: g, conf: 0.85 });
+          }
+        });
+        var pp = participle(vv, neg); if (stripZ(pp) === k) found.push({ inf: p + bk, t: 'participle', pi: -1, neg: neg, reg: 'f', form: pp, conf: 0.85 });
+      });
+    });
+  }
+  PFX_CACHE[k] = found;
+  return found.map(function (x) { return x; });
+}
+function guessForm(tok) {
+  var k = stripZ(canon(tok)), res = [], m;
+  m = k.match(/^(ن?)(می)?(.{2,}?)ید(م|ی|یم|ید|ند)?$/);
+  if (m && (m[1] || m[2] || m[4])) {
+    var X = m[3], inf = X + 'یدن', ei = { 'م': 0, 'ی': 1, 'یم': 3, 'ید': 4, 'ند': 5 };
+    var pi = m[4] ? ei[m[4]] : 2;
+    res.push({ inf: inf, t: m[2] ? 'pastImperfect' : 'pastSimple', pi: pi, neg: !!m[1], reg: 'f', form: tok, conf: 0.4, guess: true });
+  }
+  m = k.match(/^(ن?)می(.{2,}?)(م|ی|د|یم|ید|ند)$/);
+  if (m) {
+    var ei2 = { 'م': 0, 'ی': 1, 'د': 2, 'یم': 3, 'ید': 4, 'ند': 5 };
+    res.push({ inf: m[2] + 'یدن', t: 'presentIndicative', pi: ei2[m[3]], neg: !!m[1], reg: 'f', form: tok, conf: 0.25, guess: true });
+  }
+  return res;
+}
+function describeReading(r) {
+  var s = (r.t === 'participle' ? 'صفت مفعولی' : tenseName(r.t));
+  if (r.pi >= 0) s += ' — ' + ['اول', 'دوم', 'سوم'][r.pi % 3] + ' شخص ' + (r.pi < 3 ? 'مفرد' : 'جمع');
+  s += r.neg ? ' — منفی' : ' — مثبت';
+  if (r.reg === 'c') s += ' — گفتاری';
+  return s;
+}
+function dedupeReadings(r) {
+  var seen = {}, out = [];
+  r.forEach(function (x) { var k = x.inf + '|' + x.t + '|' + x.pi + '|' + x.neg; if (seen[k] === undefined) { seen[k] = out.length; out.push(x); } else if (x.reg === 'f' && out[seen[k]].reg === 'c') out[seen[k]] = x; });
+  return out;
+}
+function analyzeToken(tok, withGuess) {
+  var r = dedupeReadings(lookupForm(tok));
+  if (!r.length && withGuess) r = guessForm(tok);
+  return r;
+}
+/* تحلیل عبارت فعلی (تک‌واژه یا چندواژه‌ای) */
+function analyzePhrase(text) {
+  var toks = canon(text).split(/\s+/).filter(Boolean), out = [];
+  function push(inf, t, pi, neg, extra, conf) { out.push({ inf: inf, t: t, pi: pi, neg: neg, kind: extra, conf: conf || 1, voice: 'active', words: toks.length }); }
+  if (!toks.length) return out;
+  if (toks.length === 1) {
+    analyzeToken(toks[0], true).forEach(function (r) { r.voice = 'active'; r.words = 1; r.kind = r.guess ? 'حدس' : 'ساده'; out.push(r); });
+    return out;
+  }
+  var t0 = toks[0], t1 = toks[1], t2 = toks[2];
+  var A0 = analyzeToken(t0), A1 = analyzeToken(t1);
+  // آینده
+  var fm = stripZ(t0).match(/^(ن?)خواه(م|ی|د|یم|ید|ند)$/);
+  if (fm && toks.length === 2) {
+    var pi = { 'م': 0, 'ی': 1, 'د': 2, 'یم': 3, 'ید': 4, 'ند': 5 }[fm[2]];
+    A1.filter(function (r) { return r.t === 'pastSimple' && r.pi === 2 && !r.neg && r.reg === 'f'; }).forEach(function (r) { push(r.inf, 'future', pi, !!fm[1], 'آینده'); });
+  }
+  // ماضی نقلی/بعید/التزامی
+  A0.filter(function (r) { return r.t === 'participle'; }).forEach(function (p) {
+    if (toks.length === 2) {
+      if (t1 === 'است') push(p.inf, 'presentPerfect', 2, p.neg, 'ماضی نقلی');
+      A1.filter(function (r) { return r.inf === 'بودن' && r.reg === 'f' && !r.neg; }).forEach(function (b) {
+        if (b.t === 'pastSimple') push(p.inf, 'pastPerfect', b.pi, p.neg, 'ماضی بعید');
+        if (b.t === 'presentSubjunctive') push(p.inf, 'pastSubjunctive', b.pi, p.neg, 'ماضی التزامی');
+      });
+      A1.filter(function (r) { return r.inf === 'شدن' && r.reg === 'f' && r.t !== 'participle' && r.t !== 'imperative'; }).forEach(function (s) {
+        var o = { inf: p.inf, t: s.t, pi: s.pi, neg: s.neg || p.neg, kind: 'مجهول', conf: 0.9, voice: 'passive', words: 2 }; out.push(o);
+      });
+    }
+    if (toks.length === 3) {
+      var A1p = A1.filter(function (r) { return r.inf === 'شدن' && r.t === 'participle'; });
+      if (A1p.length) {
+        var tt = stripZ(t2);
+        if (tt === 'است') out.push({ inf: p.inf, t: 'presentPerfect', pi: 2, neg: p.neg || A1p[0].neg, kind: 'مجهول', conf: 0.9, voice: 'passive', words: 3 });
+        analyzeToken(t2).filter(function (r) { return r.inf === 'بودن' && !r.neg; }).forEach(function (b) {
+          if (b.t === 'pastSimple') out.push({ inf: p.inf, t: 'pastPerfect', pi: b.pi, neg: p.neg || A1p[0].neg, kind: 'مجهول', conf: 0.9, voice: 'passive', words: 3 });
+        });
+      }
+      var fm2 = stripZ(t1).match(/^(ن?)خواه(م|ی|د|یم|ید|ند)$/);
+      if (fm2) analyzeToken(t2).filter(function (r) { return r.inf === 'شدن' && r.t === 'pastSimple' && r.pi === 2; }).forEach(function () {
+        var pi2 = { 'م': 0, 'ی': 1, 'د': 2, 'یم': 3, 'ید': 4, 'ند': 5 }[fm2[2]];
+        out.push({ inf: p.inf, t: 'future', pi: pi2, neg: !!fm2[1] || p.neg, kind: 'مجهول', conf: 0.9, voice: 'passive', words: 3 });
+      });
+    }
+  });
+  // ملموس
+  if (toks.length === 2) {
+    A0.filter(function (r) { return r.inf === 'داشتن' && !r.neg; }).forEach(function (d) {
+      A1.filter(function (r) { return r.pi === d.pi && ((d.t === 'presentIndicative' && r.t === 'presentIndicative') || (d.t === 'pastSimple' && r.t === 'pastImperfect')); }).forEach(function (m) {
+        push(m.inf, d.t === 'presentIndicative' ? 'presentProgressive' : 'pastProgressive', m.pi, m.neg, 'ملموس');
+      });
+    });
+  }
+  // مرکب: غیرفعل + فعل
+  if (!out.length) {
+    var last = toks[toks.length - 1], pre = toks.slice(0, -1).join(' ');
+    analyzeToken(last).forEach(function (r) {
+      if (r.t === 'participle') return;
+      out.push({ inf: pre + ' ' + r.inf, t: r.t, pi: r.pi, neg: r.neg, kind: 'فعل مرکب (حدس)', conf: 0.6, voice: 'active', words: toks.length, reg: r.reg });
+    });
+  }
+  return out;
+}
+/* اصلاح شخص/شمار یک صورت فعلی بر اساس تحلیل */
+function reconjugate(reading, pi) {
+  var v = resolveSimple(reading.inf); if (!v) return null;
+  var f = reading.reg === 'c' ? cq(v, reading.t, pi, reading.neg) : conj(v, reading.t, pi, reading.neg, reading.voice);
+  return f;
+}
+
+/* ============================================================
+   بخش ۳: واژه‌سازی، گروه اسمی، برچسب‌گذار و نحو
+   ============================================================ */
+PT.res.plurals = {}; PT.res.ignore = {}; PT.res.rules = []; PT.res.pron = {};
+
+var AGENT_SUF = /(نده|گر|گار|کار|جو|دان|شناس|پرداز|نویس|خوان|بان|چی|ور|مند|پژوه|خواه|پیما|یاب)$/;
+function pluralForms(word, opts) {
+  opts = opts || {};
+  var w = canon(word).trim(); if (!w) return err('E_EMPTY', 'واژه‌ای وارد نشده');
+  if (/\s/.test(w)) return err('E_MULTI', 'فقط یک واژه وارد کنید (برای عبارت از «گروه اسمی» استفاده کنید).');
+  var l = lastCh(w), anim = opts.animacy || 'auto';
+  var forms = [], rec = null;
+  var ha = joinZ(w, 'ها');
+  var an = l === 'ه' ? w.slice(0, -1) + 'گان' : (l === 'ا' || l === 'و') ? w + 'یان' : w + 'ان';
+  var human = anim === 'yes' || (anim === 'auto' && (AGENT_SUF.test(w)));
+  if (PT.res.plurals[w]) { forms.push({ form: PT.res.plurals[w], kind: 'استثنای ثبت‌شده', note: 'از منابع کاربر', rec: true }); rec = PT.res.plurals[w]; }
+  forms.push({ form: ha, kind: 'ها', note: 'همیشه درست؛ پیش‌فرض نوشتار امروز', rec: !rec && !human });
+  forms.push({ form: an, kind: 'ان', note: l === 'ه' ? 'تبدیل «ه» به «گ» پیش از «ان»؛ ویژهٔ جانداران/ادبی' : 'ویژهٔ جانداران (به‌ویژه انسان) و نوشتار رسمی/ادبی', rec: !rec && human });
+  if (l === 'ه') forms.push({ form: w.slice(0, -1) + 'ات', kind: 'ات', note: 'جمع مؤنث سالم عربی؛ فقط برای واژه‌های عربی (کلمه ← کلمات)', rec: false });
+  if (!/[اوی]$/.test(w) && anim !== 'no') forms.push({ form: w + 'ین', kind: 'ین', note: 'جمع مذکر سالم عربی (معلم ← معلمین)؛ در فارسی «ان» ترجیح دارد', rec: false });
+  return ok({ word: w, forms: forms, human: human });
+}
+function ezafeForms(word) {
+  var w = canon(word).trim(); if (!w) return err('E_EMPTY', 'واژه‌ای وارد نشده');
+  var l = lastCh(w);
+  if (l === 'ه') return ok({ written: w + 'ٔ', alt: w + ZW + 'ی', display: w + 'ٔ', note: 'واژه به «ه» ناملفوظ ختم می‌شود: «ـهٔ» یا «ـه‌ی»' });
+  if (l === 'ا' || l === 'و') return ok({ written: w + 'ی', alt: null, display: w + 'ی' + 'ِ', note: 'پس از مصوت بلند «ی» میانجی می‌آید' });
+  if (l === 'ی') return ok({ written: w, alt: w + 'ٔ', display: w + 'ِ', note: 'پس از «ی»: کسرهٔ ملفوظ (در نوشتار معمولاً بی‌نشان)' });
+  return ok({ written: w, alt: null, display: w + 'ِ', note: 'کسرهٔ اضافه در نوشتار معمولاً نمایش داده نمی‌شود' });
+}
+function indefiniteForms(word) {
+  var w = canon(word).trim(); if (!w) return err('E_EMPTY', 'واژه‌ای وارد نشده');
+  var l = lastCh(w), f;
+  if (l === 'ه') f = w + ZW + 'ای'; else if (l === 'ا' || l === 'و') f = w + 'یی'; else if (l === 'ی') f = null; else f = w + 'ی';
+  return ok({ form: f, withYek: 'یک ' + w, note: f ? 'یای نکره' : 'واژه به «ی» ختم می‌شود؛ از «یک ' + w + '» استفاده کنید' });
+}
+function possessiveForms(word) {
+  var w = canon(word).trim(); if (!w) return err('E_EMPTY', 'واژه‌ای وارد نشده');
+  var l = lastCh(w), S = ['م', 'ت', 'ش', 'مان', 'تان', 'شان'], who = ['من', 'تو', 'او', 'ما', 'شما', 'آن‌ها'];
+  return ok(S.map(function (s, i) {
+    var f;
+    if (l === 'ا' || l === 'و') f = w + 'ی' + s;
+    else if (l === 'ه' || l === 'ی') f = w + ZW + (i < 3 ? 'ا' + s : s);
+    else f = w + s;
+    return { who: who[i], form: f };
+  }));
+}
+function comparativeForms(word) {
+  var w = canon(word).trim(); if (!w) return err('E_EMPTY', 'واژه‌ای وارد نشده');
+  return ok({ comp: joinZ(w, 'تر'), sup: joinZ(w, 'ترین'), note: 'نیم‌فاصله پس از حرف‌های چسبان' });
+}
+
+/* ---------- وندها ---------- */
+var AFFIXES = [
+  { id: 'p-na', kind: 'p', form: 'نا', zw: 'none', name: 'نفی', desc: 'منفی‌ساز صفت/اسم (ناامید)', out: 'صفت' },
+  { id: 'p-bi', kind: 'p', form: 'بی', zw: 'auto', name: 'بی‌ـ', desc: 'فقدان (بی‌ادب)', out: 'صفت' },
+  { id: 'p-ba', kind: 'p', form: 'با', zw: 'none', name: 'با‌ـ', desc: 'دارندگی (باهوش)', out: 'صفت' },
+  { id: 'p-ham', kind: 'p', form: 'هم', zw: 'none', name: 'هم‌ـ', desc: 'مشارکت (همکار)', out: 'اسم/صفت' },
+  { id: 'p-par', kind: 'p', form: 'پر', zw: 'auto', name: 'پر‌ـ', desc: 'فراوانی (پرتلاش)', out: 'صفت' },
+  { id: 'p-kam', kind: 'p', form: 'کم', zw: 'auto', name: 'کم‌ـ', desc: 'کمی (کم‌تجربه)', out: 'صفت' },
+  { id: 'p-khosh', kind: 'p', form: 'خوش', zw: 'auto', name: 'خوش‌ـ', desc: 'نیکویی (خوش‌قلب)', out: 'صفت' },
+  { id: 'p-pish', kind: 'p', form: 'پیش', zw: 'auto', name: 'پیش‌ـ', desc: 'پیشی (پیش‌بینی)', out: 'اسم' },
+  { id: 'p-baz', kind: 'p', form: 'باز', zw: 'none', name: 'باز‌ـ', desc: 'تکرار/بازگشت (بازنویسی)', out: 'اسم/فعل' },
+  { id: 'p-gheyr', kind: 'p', form: 'غیر', zw: 'none', name: 'غیر‌ـ', desc: 'نفی (غیرقانونی)', out: 'صفت' },
+  { id: 'p-nim', kind: 'p', form: 'نیم', zw: 'auto', name: 'نیم‌ـ', desc: 'نیمه (نیم‌فاصله)', out: 'اسم' },
+  { id: 'p-shebh', kind: 'p', form: 'شبه', zw: 'auto', name: 'شبه‌ـ', desc: 'همانندی (شبه‌جزیره)', out: 'اسم' },
+  { id: 'p-fara', kind: 'p', form: 'فرا', zw: 'none', name: 'فرا‌ـ', desc: 'فراتر (فراملی)', out: 'صفت' },
+  { id: 'p-abar', kind: 'p', form: 'ابر', zw: 'none', name: 'ابر‌ـ', desc: 'بزرگ/برتر (ابرقدرت)', out: 'اسم' },
+  { id: 's-y', kind: 's', form: 'ی', type: 'y', name: 'ـی', desc: 'نسبت یا اسم معنی (ایرانی، خوبی)', out: 'صفت/اسم' },
+  { id: 's-ane', kind: 's', form: 'انه', type: 'ane', name: 'ـانه', desc: 'همانندی/قید (مردانه)', out: 'صفت/قید' },
+  { id: 's-stan', kind: 's', form: 'ستان', zw: 'none', name: 'ـستان', desc: 'جای فراوانی (گلستان)', out: 'اسم' },
+  { id: 's-gah', kind: 's', form: 'گاه', zw: 'none', name: 'ـگاه', desc: 'جای/زمان (دانشگاه)', out: 'اسم' },
+  { id: 's-zar', kind: 's', form: 'زار', zw: 'none', name: 'ـزار', desc: 'جای رویش (لاله‌زار)', out: 'اسم' },
+  { id: 's-mand', kind: 's', form: 'مند', zw: 'none', name: 'ـمند', desc: 'دارندگی (خردمند)', out: 'صفت' },
+  { id: 's-nak', kind: 's', form: 'ناک', zw: 'none', name: 'ـناک', desc: 'آکنده (غمناک)', out: 'صفت' },
+  { id: 's-var', kind: 's', form: 'وار', zw: 'none', name: 'ـوار', desc: 'همانندی/شایستگی (مردوار)', out: 'صفت/قید' },
+  { id: 's-gar', kind: 's', form: 'گر', zw: 'none', name: 'ـگر', desc: 'پیشه/سازنده (آهنگر)', out: 'اسم' },
+  { id: 's-kar', kind: 's', form: 'کار', zw: 'none', name: 'ـکار', desc: 'انجام‌دهنده (خطاکار)', out: 'اسم/صفت' },
+  { id: 's-dar', kind: 's', form: 'دار', zw: 'auto', name: 'ـدار', desc: 'دارنده (خانه‌دار)', out: 'اسم/صفت' },
+  { id: 's-var2', kind: 's', form: 'ور', zw: 'none', name: 'ـور', desc: 'دارنده (دانشور)', out: 'صفت' },
+  { id: 's-che', kind: 's', form: 'چه', zw: 'none', name: 'ـچه', desc: 'تصغیر (باغچه)', out: 'اسم' },
+  { id: 's-ak', kind: 's', form: 'ک', zw: 'none', name: 'ـک', desc: 'تصغیر/مهر (پسرک)', out: 'اسم' },
+  { id: 's-in', kind: 's', form: 'ین', zw: 'none', name: 'ـین', desc: 'جنس (زرین)', out: 'صفت' },
+  { id: 's-gin', kind: 's', form: 'گین', zw: 'none', name: 'ـگین', desc: 'آکنده (غمگین)', out: 'صفت' },
+  { id: 's-tar', kind: 's', form: 'تر', zw: 'auto', name: 'ـتر', desc: 'برتری (بزرگ‌تر)', out: 'صفت' },
+  { id: 's-tarin', kind: 's', form: 'ترین', zw: 'auto', name: 'ـترین', desc: 'برترین (بزرگ‌ترین)', out: 'صفت' },
+  { id: 's-ha', kind: 's', form: 'ها', zw: 'auto', name: 'ـها', desc: 'جمع', out: 'اسم' }
+];
+function deriveWord(base, affId) {
+  var b = canon(base).trim(); if (!b) return err('E_EMPTY', 'پایه خالی است');
+  var a = null; AFFIXES.forEach(function (x) { if (x.id === affId) a = x; });
+  if (!a) return err('E_AFFIX', 'وند ناشناخته');
+  var l = lastCh(b), out, rule;
+  if (a.kind === 'p') {
+    var z = (a.zw === 'auto' && isJoiner(lastCh(a.form))) ? ZW : '';
+    out = a.form + z + b; rule = z ? 'پیشوند + نیم‌فاصله (پس از حرف چسبان)' : 'اتصال مستقیم';
+  } else if (a.type === 'y') {
+    if (l === 'ه') { out = b.slice(0, -1) + 'گی'; rule = 'ه ← گ پیش از «ی» (زنده ← زندگی)'; }
+    else if (l === 'ا' || l === 'و') { out = b + 'یی'; rule = 'میانجی «ی» پس از مصوت بلند'; }
+    else if (l === 'ی') { out = b + 'ی'; rule = 'واژه به «ی» ختم می‌شود؛ کاربرد نامعمول'; }
+    else { out = b + 'ی'; rule = 'اتصال مستقیم'; }
+  } else if (a.type === 'ane') {
+    if (l === 'ه') { out = b.slice(0, -1) + 'گانه'; rule = 'ه ← گ (بچه ← بچگانه)'; }
+    else if (l === 'ا' || l === 'و') { out = b + 'یانه'; rule = 'میانجی «ی»'; }
+    else { out = b + 'انه'; rule = 'اتصال مستقیم'; }
+  } else {
+    if (a.zw === 'auto') { out = joinZ(b, a.form); rule = isJoiner(l) ? 'نیم‌فاصله پس از حرف چسبان' : 'اتصال مستقیم'; }
+    else if (l === 'ه' && (a.form === 'گر' || a.form === 'گاه' || a.form === 'ستان')) { out = b.slice(0, -1) + 'گ' + a.form.replace(/^گ/, ''); rule = 'ه ← گ'; }
+    else { out = b + a.form; rule = 'اتصال مستقیم'; }
+  }
+  return ok({ base: b, form: out, affix: a, rule: rule, note: 'ساختهٔ قاعده‌مند است؛ رایج‌بودن آن در زبان تضمین نمی‌شود.' });
+}
+
+/* ---------- گروه اسمی ---------- */
+function buildNP(o) {
+  var head = canon(o.head || '').trim();
+  if (!head) return err('E_EMPTY', 'هستهٔ گروه اسمی لازم است');
+  var adjs = (o.adjs || []).map(function (x) { return canon(x).trim(); }).filter(Boolean);
+  var gens = (o.gens || []).map(function (x) { return canon(x).trim(); }).filter(Boolean);
+  var det = o.det ? canon(o.det).trim() : '', num = o.num ? canon(o.num).trim() : '';
+  var items = [], steps = [];
+  if (o.plural && !num) { var p = pluralForms(head, { animacy: o.animacy || 'auto' }); if (p.ok) { var rf = p.value.forms.filter(function (f) { return f.rec; })[0] || p.value.forms[0]; head = rf.form; steps.push('جمع: «' + rf.form + '»'); } }
+  var indef = !!o.indef;
+  if (indef) { var d = indefiniteForms(head); if (d.ok && d.value.form) { head = d.value.form; steps.push('نکره: «' + head + '»'); } else if (d.ok) { det = det || 'یک'; steps.push('نکره با «یک»'); } }
+  items.push(head); adjs.forEach(function (a) { items.push(a); }); if (!indef) gens.forEach(function (g) { items.push(g); });
+  var k = o.clitic;
+  if (k !== undefined && k !== null && k !== '' && !indef) {
+    var pf = possessiveForms(items[items.length - 1]); if (pf.ok) { items[items.length - 1] = pf.value[+k].form; steps.push('ضمیر متصل: «' + pf.value[+k].form + '»'); }
+  }
+  var disp = items.map(function (it, i) {
+    if (i === items.length - 1 || indef) return it;
+    var e = ezafeForms(it); return e.ok ? e.value.display : it;
+  });
+  var pre = [det, num].filter(Boolean).join(' ');
+  var join = function (arr) { return (pre ? pre + ' ' : '') + arr.join(' '); };
+  return ok({ written: join(items), display: join(disp), steps: steps });
+}
+
+/* ---------- واژه‌های بستهٔ دستوری و برچسب‌گذار ---------- */
+var PRON_PI = { 'من': 0, 'تو': 1, 'او': 2, 'ما': 3, 'شما': 4, 'ایشان': 5, 'آنها': 5, 'آنان': 5, 'اینها': 5, 'ایشون': 5, 'اونا': 5, 'اینا': 5, 'خودم': 0, 'خودت': 1, 'خودش': 2, 'خودمان': 3, 'خودتان': 4, 'خودشان': 5, 'من‌': 0 };
+var SETS = {
+  PREP: 'از به با در بر برای تا مثل مانند همچون بدون بی روی زیر کنار میان بین درباره پیش نزد طی طبق سوی جز علیه مقابل بالای پایین کنار دنبال بعد قبل',
+  CONJ: 'و یا اما ولی ولیکن اگر که چون زیرا چنانچه هرچند اگرچه تا پس بلکه وگرنه سپس',
+  DET: 'این آن همین همان هر همه هیچ چند چه کدام بعضی برخی دیگر تمام همهٔ',
+  ADV: 'خیلی بسیار فقط تنها هم نیز هنوز همیشه هرگز اکنون امروز دیروز فردا حالا اینجا آنجا همانجا هرگاه بارها گاهی اغلب معمولاً شاید حتماً واقعاً کاملاً بعداً قبلاً دوباره باز نه آیا مگر',
+  PART: 'را'
+};
+var SETMAP = {};
+Object.keys(SETS).forEach(function (k) { SETS[k].split(' ').forEach(function (w) { if (!SETMAP[w]) SETMAP[w] = k; }); });
+function wkey(x) { return stripZ(canon(x)); }
+function tagToken(t) {
+  if (t.t === 'punct') return 'PUNCT'; if (t.t === 'num') return 'NUM'; if (t.t === 'latin') return 'LATIN';
+  var k = wkey(t.x);
+  if (PRON_PI[k] !== undefined) return 'PRON';
+  if (LEX[k]) return 'NOUN';
+  if (/^ن?خواه(م|ی|د|یم|ید|ند)$/.test(k)) return 'VERB';
+  if (SETMAP[k]) return SETMAP[k];
+  var rr = lookupForm(t.x).filter(function (x) { return x.conf >= 0.85; });
+  if (rr.some(function (x) { return x.t !== 'participle'; })) return 'VERB';
+  if (rr.length) return 'PTCP';
+  if (/^(یک|دو|سه|چهار|پنج|شش|هفت|هشت|نه|ده|صد|هزار)$/.test(k)) return 'NUM';
+  return 'NOUN';
+}
+function npish(tag) { return tag === 'NOUN' || tag === 'PTCP' || tag === 'DET' || tag === 'NUM' || tag === 'PRON' || tag === 'LATIN'; }
+function parseClauses(sentText, toks) {
+  var words = toks.filter(function (t) { return t.t !== 'space'; });
+  words.forEach(function (w) { w.tag = tagToken(w); if (w.tag === 'VERB') w.readings = dedupeReadings(lookupForm(w.x).filter(function (x) { return x.conf >= 0.85 && x.t !== 'participle'; })); });
+  for (var pi0 = 0; pi0 < words.length - 1; pi0++) { if (words[pi0].tag === 'PTCP' && words[pi0 + 1].tag === 'VERB') { var nr = words[pi0 + 1].readings || []; if (nr.some(function (x) { return x.inf === 'بودن' || x.inf === 'شدن'; })) words[pi0].tag = 'VERB'; else words[pi0].tag = 'NOUN'; } else if (words[pi0].tag === 'PTCP') words[pi0].tag = 'NOUN'; }
+  if (words.length && words[words.length - 1].tag === 'PTCP') words[words.length - 1].tag = 'NOUN';
+  var clauses = [], cur = { items: [], verb: null, subject: null }, n = words.length, i = 0;
+  function closeClause() { if (cur.items.length) clauses.push(cur); cur = { items: [], verb: null, subject: null }; }
+  while (i < n) {
+    var t = words[i], j;
+    if (t.tag === 'CONJ') { if (cur.items.length && cur.verb) closeClause(); else if (cur.subject && !cur.verb) cur.subject.coord = true; cur.items.push({ role: 'ربط', toks: [t] }); i++; }
+    else if (t.tag === 'PREP') {
+      j = i + 1; while (j < n && npish(words[j].tag) && !(words[j].tag === 'PRON' && false)) j++;
+      cur.items.push({ role: 'متمم/قید (حرف اضافه)', toks: words.slice(i, j) }); i = j;
+    }
+    else if (npish(t.tag)) {
+      j = i; while (j < n && npish(words[j].tag)) j++;
+      var chunk = words.slice(i, j);
+      if (j < n && words[j].tag === 'PART') { chunk = chunk.concat([words[j]]); cur.items.push({ role: 'مفعول', toks: chunk }); j++; }
+      else if (!cur.subject) { var it = { role: 'نهاد', toks: chunk }; cur.subject = it; cur.items.push(it); }
+      else cur.items.push({ role: 'گروه اسمی/متمم', toks: chunk });
+      i = j;
+    }
+    else if (t.tag === 'VERB') {
+      var grp = [t]; i++; while (i < n && words[i].tag === 'VERB' && grp.length < 3) { grp.push(words[i]); i++; }
+      var vi = { role: 'فعل', toks: grp }; cur.items.push(vi); cur.verb = vi; closeClause();
+      if (grp.length > 1) { var joined = grp.map(function (g) { return g.x; }).join(' '); var an = analyzePhrase(joined); vi.phrase = joined; if (an.length) grp[0].readings = an; }
+    }
+    else if (t.tag === 'ADV') { cur.items.push({ role: 'قید', toks: [t] }); i++; }
+    else if (t.tag === 'PART') { cur.items.push({ role: 'را (بی‌مفعول)', toks: [t] }); i++; }
+    else { i++; }
+  }
+  closeClause();
+  return { words: words, clauses: clauses };
+}
+function agreementFindings(parsed) {
+  var res = [];
+  parsed.clauses.forEach(function (c) {
+    if (!c.verb || !c.subject || c.subject.coord) return;
+    var vt = c.verb.toks[0], rd = vt.readings || []; if (!rd.length) return;
+    if (rd.every(function (r) { return r.t === 'imperative'; })) return;
+    var pron = null;
+    c.subject.toks.forEach(function (t) { if (t.tag === 'PRON' && PRON_PI[wkey(t.x)] !== undefined && !/^خود/.test(wkey(t.x))) pron = t; });
+    var spi = null, why = '';
+    if (pron) { spi = PRON_PI[wkey(pron.x)]; why = '«' + pron.x + '»'; }
+    else {
+      var lt = c.subject.toks[c.subject.toks.length - 1], k = wkey(lt.x);
+      if (lt.tag === 'NOUN' && /(گان|یان)$/.test(k) && !PT.packs.sgAn[k] && k.length > 4) { spi = 5; why = '«' + lt.x + '» (جمع جاندار)'; }
+    }
+    if (spi === null) return;
+    var allowed = [spi]; if (spi === 5 && pron && /^ایشان$/.test(wkey(pron.x))) allowed.push(2);
+    var rr = rd.filter(function (r) { return r.pi >= 0; });
+    if (!rr.length) return;
+    if (rr.some(function (r) { return allowed.indexOf(r.pi) >= 0; })) return;
+    var r0 = rr[0], fix = reconjugate(r0, spi);
+    res.push({ tok: vt, span: [c.verb.toks[0].s, c.verb.toks[c.verb.toks.length - 1].e], subj: why, expected: fix, pi: spi, reading: r0 });
+  });
+  return res;
+}
+
+/* ---------- ساخت و تبدیل جمله ---------- */
+function npPI(text, override) {
+  if (override !== undefined && override !== null && override !== '' && override !== 'auto') return +override;
+  var k = wkey(text).split(' ').pop();
+  if (PRON_PI[wkey(text)] !== undefined) return PRON_PI[wkey(text)];
+  if (/(ها|ان|گان|یان)$/.test(k) && k.length > 3) return 5;
+  return 2;
+}
+function isDefNP(text) {
+  var first = wkey(text).split(' ')[0];
+  return PRON_PI[wkey(text)] !== undefined || /^(این|آن|همین|همان)$/.test(first);
+}
+function newClause(o) {
+  var rv = resolveVerb(o.verb); if (!rv.ok) return rv;
+  return ok({
+    subject: (o.subject || '').trim(), subjPI: npPI(o.subject || '', o.subjPI), object: (o.object || '').trim(), def: o.def || 'auto',
+    adv: (o.adv || '').trim(), verb: rv.value, tense: o.tense || 'pastSimple', neg: !!o.neg, voice: 'active', mood: 'decl',
+    topic: false, relative: false, nominal: false, colloq: false, agent: '', trail: []
+  });
+}
+function cloneC(c) { var n = {}; for (var k in c) n[k] = c[k]; n.trail = c.trail.slice(); return n; }
+function linearize(c) {
+  if (c.nominal) {
+    var nm = c.verb.inf + (c.object ? ' ' + c.object : '') + (c.subject ? ' ' + (c.voice === 'passive' ? 'توسط ' : 'از سوی ') + c.subject : '');
+    return ok(nm.trim());
+  }
+  var pi, subj = c.subject, obj = c.object, agent = '';
+  if (c.voice === 'passive') { if (!obj) return err('E_NO_OBJ', 'برای مجهول، مفعول لازم است.'); subj = obj; obj = ''; agent = c.subject; pi = npPI(subj, null); }
+  else pi = c.mood === 'imperative' ? (c.subjPI === 5 || c.subjPI === 4 || c.subjPI === 3 ? 4 : 1) : c.subjPI;
+  var vt = c.colloq && c.voice !== 'passive' ? cq(c.verb, c.tense, pi, c.neg) : conj(c.verb, c.mood === 'imperative' ? 'imperative' : c.tense, pi, c.neg, c.voice);
+  if (!vt) return err('E_FORM', 'این صورت فعلی (' + tenseName(c.tense) + (c.voice === 'passive' ? '، مجهول' : '') + ') برای این فعل/شخص وجود ندارد.');
+  var raM = c.colloq ? ' رو' : ' را';
+  var objTxt = obj ? (c.def === 'indef' ? (function () { var w = obj.split(' '), d = indefiniteForms(w[w.length - 1]); if (d.ok && d.value.form) { w[w.length - 1] = d.value.form; return w.join(' '); } return 'یک ' + obj; })() : obj + ((c.def === 'def' || (c.def === 'auto' && isDefNP(obj))) ? raM : '')) : '';
+  var parts = [];
+  if (c.relative) {
+    if (!obj) return err('E_NO_OBJ', 'برای جملهٔ موصولی، مفعول (هستهٔ گروه اسمی) لازم است.');
+    var hd = obj.split(' '), di = indefiniteForms(hd[hd.length - 1]); if (di.ok && di.value.form) hd[hd.length - 1] = di.value.form;
+    parts = [hd.join(' '), 'که']; if (c.mood !== 'imperative' && subj) parts.push(subj); if (c.adv) parts.push(c.adv); parts.push(vt);
+    return ok(parts.join(' ') + '.');
+  }
+  if (c.mood !== 'imperative' && subj && !(c.colloq && false)) { }
+  if (c.topic && objTxt) { parts.push(objTxt); if (c.mood !== 'imperative' && subj) parts.push(subj); if (c.adv) parts.push(c.adv); }
+  else { if (c.mood !== 'imperative' && subj) parts.push(subj); if (c.adv) parts.push(c.adv); if (objTxt) parts.push(objTxt); }
+  if (agent) parts.push('توسط ' + agent);
+  parts.push(vt);
+  var s = parts.join(' ');
+  if (c.mood === 'question') s = (c.colloq ? '' : 'آیا ') + s + '؟';
+  else if (c.mood === 'imperative') s = s + '!';
+  else s = s + '.';
+  return ok(s);
+}
+var TRANSFORMS = {
+  PASSIVE: { label: 'مجهول', fn: function (c) {
+    if (c.voice === 'passive') { var n = cloneC(c); n.voice = 'active'; return ok(n, { desc: 'بازگشت به معلوم' }); }
+    if (c.verb.trans === 'i') return err('E_INTRANS', 'فعل «' + c.verb.inf + '» ناگذر است و مجهول نمی‌شود.');
+    if (!c.object) return err('E_NO_OBJ', 'برای مجهول‌سازی باید مفعول داشته باشید.');
+    if (c.mood === 'imperative') return err('E_IMP', 'امر مجهول ندارد.');
+    var n2 = cloneC(c); n2.voice = 'passive'; return ok(n2, { desc: 'مفعول ← نهاد؛ فعل: صفت مفعولی + شدن' });
+  } },
+  NEGATE: { label: 'منفی/مثبت', fn: function (c) { var n = cloneC(c); n.neg = !n.neg; return ok(n, { desc: n.neg ? 'افزودن «ن» به فعل' : 'حذف نفی' }); } },
+  QUESTION: { label: 'پرسشی', fn: function (c) { if (c.mood === 'imperative') return err('E_IMP', 'امر پرسشی نمی‌شود.'); var n = cloneC(c); n.mood = n.mood === 'question' ? 'decl' : 'question'; return ok(n, { desc: n.mood === 'question' ? 'افزودن «آیا» و «؟»' : 'بازگشت به خبری' }); } },
+  IMPERATIVE: { label: 'امری', fn: function (c) { if (c.voice === 'passive') return err('E_IMP', 'مجهول امر ندارد.'); var n = cloneC(c); n.mood = 'imperative'; n.neg = c.neg; return ok(n, { desc: 'نهاد حذف، فعل امر دوم شخص' }); } },
+  TOPIC: { label: 'تقدیم مفعول', fn: function (c) { if (!c.object || c.voice === 'passive') return err('E_NO_OBJ', 'برای تقدیم، مفعول معلوم لازم است.'); var n = cloneC(c); n.topic = true; n.def = 'def'; return ok(n, { desc: 'مفعولِ «را»دار به آغاز جمله می‌رود' }); } },
+  RELATIVE: { label: 'موصولی', fn: function (c) { if (!c.object) return err('E_NO_OBJ', 'برای موصولی‌سازی، مفعول لازم است.'); var n = cloneC(c); n.relative = true; return ok(n, { desc: 'مفعول ← هستهٔ گروه اسمی + «که» + بند' }); } },
+  NOMINAL: { label: 'اسم‌سازی', fn: function (c) { var n = cloneC(c); n.nominal = true; return ok(n, { desc: 'مصدر + متمم' }); } },
+  COLLOQ: { label: 'محاوره', fn: function (c) { var n = cloneC(c); n.colloq = !n.colloq; return ok(n, { desc: n.colloq ? 'فعل گفتاری و «رو»' : 'بازگشت به رسمی' }); } }
+};
+function applyTransform(c, op) {
+  var T = TRANSFORMS[op]; if (!T) return err('E_OP', 'عملگر ناشناخته');
+  var r = T.fn(c); if (!r.ok) return r;
+  var n = r.value, lin = linearize(n); if (!lin.ok) return lin;
+  n.trail = c.trail.concat([{ op: op, label: T.label, desc: r.desc, out: lin.value }]);
+  return ok(n);
+}
+function setTense(c, tense) { var n = cloneC(c); n.tense = tense; var l = linearize(n); if (!l.ok) return l; n.trail = c.trail.concat([{ op: 'TENSE', label: 'زمان: ' + tenseName(tense), desc: 'تغییر زمان فعل', out: l.value }]); return ok(n); }
+
+/* ============================================================
+   بخش ۴: بسته‌های داده (قابل‌گسترش)، قواعد ویرایش، عروض، آرایه
+   ============================================================ */
+PT.packs.sgAn = { 'بازیگران': 0 };  /* واژه‌هایی که با «ان/گان» پایان می‌یابند ولی جمع نیستند؛ از منابع قابل‌افزودن */
+(function () { 'خیابان باران زمان مکان آسمان جهان دهان زبان ایران میدان انسان پایان سازمان کاروان دبستان دانشگاه بستان گلستان آبادان استان خاقان شروان نان جان تابستان زمستان'.split(' ').forEach(function (w) { PT.packs.sgAn[w] = 1; }); })();
+PT.packs.sgAn['گاه'] = 0;
+
+/* ---------- قواعد ویرایش ---------- */
+/* ۱) نشانه‌گذاری و فاصله */
+rxRule('sp-before-punct', 'punct', 'info', 'فاصلهٔ پیش از نشانه', /[ \t]+([.,;:!؟?،؛…»\)])/, function (m) { return { s: m.index, e: m.index + m[0].length, r: m[1], msg: 'پیش از «' + m[1] + '» فاصله نگذارید.' }; }, true);
+rxRule('sp-after-punct', 'punct', 'info', 'فاصلهٔ پس از نشانه', new RegExp('([،؛:!؟?.])(?=[' + LCLS.replace('\\u200c', '') + '])', 'g'), function (m, t) {
+  var prev = t.charAt(m.index - 1); if (m[1] === '.' && /[A-Za-z0-9۰-۹]/.test(prev)) return null; if (m[1] === ':' && isDigitCh(prev)) return null;
+  return { s: m.index, e: m.index + 1, r: m[1] + ' ', msg: 'پس از «' + m[1] + '» فاصله بگذارید.' };
+}, true);
+rxRule('latin-punct', 'punct', 'info', 'نشانهٔ لاتین در متن فارسی', /(\p{Script=Arabic}[^\S\n]*)([,;?])/u, function (m) { var map = { ',': '،', ';': '؛', '?': '؟' }; return { s: m.index + m[1].length, e: m.index + m[0].length, r: map[m[2]], msg: 'نشانهٔ فارسی «' + map[m[2]] + '» را به‌کار ببرید.' }; }, true);
+rxRule('multi-space', 'punct', 'info', 'فاصلهٔ اضافی', /[ \t]{2,}/, function (m) { return { s: m.index, e: m.index + m[0].length, r: ' ', msg: 'فاصلهٔ اضافی.' }; }, true);
+rxRule('dup-punct', 'punct', 'info', 'نشانهٔ تکراری', /([،؛])\1+|(؟)\2+(?!؟)|(?<![.…])\.\.(?!\.)/, function (m) { return { s: m.index, e: m.index + m[0].length, r: m[1] || m[2] || '.', msg: 'نشانهٔ تکراری.' }; }, true);
+rxRule('ellipsis', 'punct', 'info', 'سه‌نقطه', /\.{3,}/, function (m) { return { s: m.index, e: m.index + m[0].length, r: '…', msg: 'از نویسهٔ «…» استفاده کنید.' }; }, true);
+rxRule('quote-ascii', 'punct', 'info', 'گیومهٔ لاتین', /"([^"\n]{1,200})"/, function (m, t) { if (!/\p{Script=Arabic}/u.test(m[1])) return null; return { s: m.index, e: m.index + m[0].length, r: '«' + m[1] + '»', msg: 'گیومهٔ فارسی «…» ترجیح دارد.' }; }, true);
+/* ۲) نویسه */
+rxRule('arabic-chars', 'char', 'warn', 'ی/ک عربی', /[يكىڪ]/, function (m) { var map = { 'ي': 'ی', 'ى': 'ی', 'ك': 'ک', 'ڪ': 'ک' }; return { s: m.index, e: m.index + 1, r: map[m[0]], msg: 'نویسهٔ عربی؛ به «' + map[m[0]] + '» فارسی تبدیل شود.' }; }, true);
+rxRule('tatweel', 'char', 'info', 'کشیده', /ـ+/, function (m) { return { s: m.index, e: m.index + m[0].length, r: '', msg: 'کشیده (ـ) حذف شود.' }; }, true);
+rxRule('digit-mix', 'char', 'info', 'ارقام مخلوط', /[0-9]+|[٠-٩]+/, function (m, t) {
+  var before = t.slice(Math.max(0, m.index - 12), m.index), after = t.slice(m.index + m[0].length, m.index + m[0].length + 12);
+  if (/[A-Za-z]/.test(before.slice(-1)) || /^[A-Za-z%]/.test(after)) return null;
+  if (!/\p{Script=Arabic}/u.test(t)) return null;
+  return { s: m.index, e: m.index + m[0].length, r: toFa(m[0]), msg: 'رقم فارسی در متن فارسی.' };
+}, true);
+rxRule('zwnj-multi', 'char', 'info', 'نیم‌فاصلهٔ تکراری', /‌{2,}/, function (m) { return { s: m.index, e: m.index + m[0].length, r: ZW, msg: 'نیم‌فاصلهٔ تکراری.' }; }, true);
+rxRule('zwnj-edge', 'char', 'info', 'نیم‌فاصلهٔ اضافی', /‌(?=[\s.،؛:!؟?])|(?<=\s)‌/, function (m) { return { s: m.index, e: m.index + 1, r: '', msg: 'نیم‌فاصلهٔ بی‌جا.' }; }, true);
+rxRule('zwnj-space', 'char', 'info', 'نیم‌فاصله کنار فاصله', /‌ +| +‌/, function (m) { return { s: m.index, e: m.index + m[0].length, r: ' ', msg: 'نیم‌فاصله کنار فاصله.' }; }, true);
+/* ۳) نیم‌فاصله و پیوسته‌نویسی */
+var Z = '[' + LCLS + ']';
+rxRule('mi-prefix', 'zwnj', 'warn', 'می/نمی', new RegExp('(?<![' + LCLS + '])(ن?م[یي])(?:\\s|\\u200c)?(?=([' + LCLS + ']{2,}))', 'gu'), function (m, t) {
+  var after = m[2], rest = t.slice(m.index + m[0].length), w = rest.match(new RegExp('^[' + LCLS + ']+'))[0];
+  var sep = t.slice(m.index + m[1].length, m.index + m[0].length);
+  if (sep === ZW) return null;
+  if (/^(یم|ید|ن|زبان|توان|خواه)$/.test(w) && false) return null;
+  var full = m[1] + w, un = wkey(w);
+  if (PT.packs.miWords[wkey(m[1] + w)]) return null;
+  var cand = lookupForm(m[1] + ZW + w); if (!cand.length && !(function () { var x = guessIsVerb(w, m[1]); return x; })()) return null;
+  return { s: m.index, e: m.index + m[0].length + w.length, r: canon(m[1]) + ZW + w, msg: '«' + m[1] + '» پیشوند فعل است؛ با نیم‌فاصله بنویسید.' };
+}, true);
+PT.packs.miWords = {};
+'میز میل میدان میوه میخ میهن میان میراث میثاق میگو میمون میکرو میلاد میدانی میانه میمنت میزبان مینا میرزا میرا میکروب میگسار میخانه میکده نمی نمیر نمیرم'.split(' ').forEach(function (w) { PT.packs.miWords[w] = 1; });
+function guessIsVerb(w, pfx) {
+  var k = wkey(w);
+  if (/(م|ی|د|یم|ید|ند)$/.test(k) && k.length >= 3) { if (/^(ن?می)$/.test(pfx) || true) { var stem = k.replace(/(م|ی|د|یم|ید|ند)$/, ''); return stem.length >= 2 && !PT.packs.miWords[pfx + k]; } }
+  return false;
+}
+rxRule('ha-suffix', 'zwnj', 'warn', 'ـها/ـهای', new RegExp('(' + '[' + LCLS.replace('\\u200c', '') + ']{2,})\\s(ها|های|هایی|هایم|هایت|هایش|هایمان|هایتان|هایشان)(?![' + LCLS + '])', 'g'), function (m, t) {
+  var w = m[1];
+  return { s: m.index, e: m.index + m[0].length, r: joinZ(w, m[2]), msg: 'پسوند جمع باید به واژه بچسبد (نیم‌فاصله).' };
+}, true);
+rxRule('ha-joined', 'zwnj', 'warn', 'ـها بی‌نیم‌فاصله', new RegExp('(?<![' + LCLS + '])([' + LCLS.replace('\\u200c', '') + ']{1,}?[ابدذرزژوآأؤءةه ای])(ها|های|هایی)(?![' + LCLS + '])', 'gu'), function (m) {
+  var w = m[1]; if (!isJoiner(lastCh(w)) && lastCh(w) !== 'ا') { }
+  if (isJoiner(lastCh(w))) return null; // already connect-joined (ex: کتاب‌ها)
+  return null;
+}, false);
+rxRule('ha-glued', 'zwnj', 'warn', 'ـها چسبیده', new RegExp('(?<![' + LCLS + '])([' + LCLS.replace('\\u200c', '') + ']{2,}?)(ها|های|هایی)(?![' + LCLS + '])', 'gu'), function (m, t) {
+  var w = m[1]; if (!isJoiner(lastCh(w))) return null; var full = w + m[2], k = wkey(full);
+  if (PT.packs.noSplit[k] || PT.packs.noSplit[wkey(w)]) return null;
+  if (/^(ن?می|ب|ها)$/.test(w)) return null;
+  return { s: m.index, e: m.index + m[0].length, r: w + ZW + m[2], msg: 'برای خوانایی بین «' + w + '» و «' + m[2] + '» نیم‌فاصله بگذارید.' };
+}, false);
+PT.packs.noSplit = {}; 'ها لها پنجها شبها نامها خانها'.split(' ').forEach(function (w) { PT.packs.noSplit[w] = 1; });
+rxRule('tar-suffix', 'zwnj', 'warn', 'ـتر/ـترین', new RegExp('(' + '[' + LCLS.replace('\\u200c', '') + ']{2,})\\s(تر|ترین|تری)(?![' + LCLS + '])', 'g'), function (m) {
+  var w = m[1]; if (/^(آن|این|همین|ان|ای|بیش|کم|هر|هیچ|چند|چه|که|را|با|از|در|به|تا|و|پس)$/.test(wkey(w))) return null;
+  return { s: m.index, e: m.index + m[0].length, r: joinZ(w, m[2]), msg: 'پسوند تفضیلی باید به واژه بچسبد.' };
+}, false);
+rxRule('ast-merge', 'zwnj', 'info', 'است/ام/ایم', new RegExp('(?<![' + LCLS + '])(' + '[' + LCLS.replace('\\u200c', '') + ']{2,}ه)\\s(ام|ای|ایم|اید|اند)(?![' + LCLS + '])', 'gu'), function (m) {
+  return { s: m.index, e: m.index + m[0].length, r: m[1] + ZW + m[2], msg: 'ضمیر پیوندی فعل به صفت مفعولی متصل می‌شود.' };
+}, true);
+rxRule('ezafe-ye', 'zwnj', 'info', 'ـهٔ / ـه‌ی', /(?<![ء-يپچژکگی‌])([ء-يپچژکگی]{2,}ه)\s?ی(?=\s[ء-ي])/, function (m, t) { return null; }, false);
+rxRule('be-prefix', 'zwnj', 'info', 'پیشوند ب‌ـ', /(?<![ء-يپچژکگی‌])(ب)\s(?=(?:رو|گو|کن|شو|ده|بین|بر|خور|گیر|نویس)(?:[مدیتن]|ید|یم|ند)?(?![ء-ي]))/, function (m) { return null; }, false);
+rxRule('prep-be', 'zwnj', 'info', 'به‌ـ پیوسته', /(?<![ء-يپچژکگی‌])(به)(?=(?:خاطر|دلیل|عنوان|منظور|هرحال|ناچار|طور|راستی|زودی|سرعت|تازگی|آرامی|وضوح|تدریج|نظر|کار|قدری|صورت|شرطی|سبب|سمت|جای|علاوه|رغم|ویژه|عمد)(?![ء-ي]))/, function (m, t) { return null; }, false);
+/* ۴) واژگان (از فهرست‌های قابل‌گسترش) */
+PT.packs.misspell = {
+  'اتوبوس': 0, 'امضا': 0, 'ضروری': 0, 'غذا': 0
+};
+PT.packs.spell = [
+  ['اطلاعاتی', 'اطلاعاتي'], ['صحیح', 'صحیح'], ['بلاخره', 'بالاخره'], ['بنابراین', 'بنابراین'], ['مجبوراً', 'مجبوراً'], ['انشاالله', 'ان‌شاءالله'], ['انشالله', 'ان‌شاءالله'],
+  ['اشتباها', 'اشتباهاً'], ['مثلا', 'مثلاً'], ['حتما', 'حتماً'], ['قطعا', 'قطعاً'], ['واقعا', 'واقعاً'], ['کاملا', 'کاملاً'], ['اصلا', 'اصلاً'], ['اخیرا', 'اخیراً'], ['فعلا', 'فعلاً'], ['معمولا', 'معمولاً'], ['ظاهرا', 'ظاهراً'], ['عملا', 'عملاً'], ['نسبتا', 'نسبتاً'], ['تقریبا', 'تقریباً'], ['قبلا', 'قبلاً'], ['بعدا', 'بعداً'], ['شخصا', 'شخصاً'], ['مستقیما', 'مستقیماً'], ['دقیقا', 'دقیقاً'], ['صرفا', 'صرفاً'], ['اساسا', 'اساساً'], ['اتفاقا', 'اتفاقاً'], ['احتمالا', 'احتمالاً'], ['مخصوصا', 'مخصوصاً'], ['خصوصا', 'خصوصاً'], ['غالبا', 'غالباً'], ['عمدا', 'عمداً'], ['لطفا', 'لطفاً'],
+  ['اهمیت دادن', null], ['مذبوحانه', 'مذبوحانه'],
+  ['درصورتیکه', 'در صورتی که'], ['درحالیکه', 'در حالی که'], ['بطوریکه', 'به طوری که'], ['بطور', 'به طور'], ['بنظر', 'به نظر'], ['بدلیل', 'به دلیل'], ['بخاطر', 'به خاطر'], ['بعنوان', 'به عنوان'], ['باوجود', 'با وجود'], ['درباره', 'درباره'], ['برای اینکه', 'برای اینکه'],
+  ['درنتیجه', 'در نتیجه'], ['درضمن', 'ضمناً'], ['بااینکه', 'با این که'], ['علیرغم', 'علی‌رغم'], ['علی رغم', 'علی‌رغم'], ['خوشحالم', 'خوشحالم'], ['ازاین', 'از این'], ['ازآن', 'از آن'], ['دراین', 'در این'], ['دران', 'در آن'], ['بااین', 'با این'], ['براین', 'بر این'], ['بدین', 'بدین'],
+  ['اینکه', 'این‌که'], ['آنکه', 'آن‌که'], ['چنانکه', 'چنان‌که'], ['همانطور', 'همان‌طور'], ['همین طور', 'همین‌طور'], ['همینطور', 'همین‌طور'], ['اینطور', 'این‌طور'], ['آنطور', 'آن‌طور'], ['اینجور', 'این‌جور'], ['هرچه', 'هر چه'], ['هرکس', 'هر کس'], ['هرکسی', 'هر کسی'], ['هیچکس', 'هیچ‌کس'], ['هیچکدام', 'هیچ‌کدام'], ['هیچوقت', 'هیچ‌وقت'], ['همیشگی', 'همیشگی'],
+  ['اظطراب', 'اضطراب'], ['اظطرار', 'اضطرار'], ['مزاحم', 'مزاحم'], ['متاسفانه', 'متأسفانه'], ['متاسفم', 'متأسفم'], ['مسئله', 'مسئله'], ['مساله', 'مسئله'], ['مسايل', 'مسائل'], ['مسایل', 'مسائل'], ['مئسسه', 'مؤسسه'], ['موسسه', 'مؤسسه'], ['مومن', 'مؤمن'], ['مسول', 'مسئول'], ['مسوول', 'مسئول'], ['مسئوليت', 'مسئولیت'], ['رویه', 'رویه'], ['شروع کردم', 'شروع کردم'],
+  ['استثنا', 'استثنا'], ['املاء', 'املا'], ['اضافه تر', 'اضافه‌تر'], ['ابهام', 'ابهام'], ['اطلاع رسانی', 'اطلاع‌رسانی'], ['خسته نباشید', 'خسته نباشید'], ['زحمت', 'زحمت'], ['ازین', 'از این'], ['ازبین', 'از بین'], ['اززمان', 'از زمان'],
+  ['ماهیانه', 'ماهانه'], ['سالیانه', 'سالانه'], ['روزانه', 'روزانه'], ['هفتگی', 'هفتگی'], ['بدست', 'به دست'], ['بدون', 'بدون'], ['بسیاری', 'بسیاری'], ['اگرچه', 'اگرچه'], ['نیازمندیها', 'نیازمندی‌ها'],
+  ['ممنونم', 'ممنونم'], ['تشکر', 'تشکر'], ['هزینه ها', 'هزینه‌ها'], ['اختیاری', 'اختیاری']
+].filter(function (p) { return p[1] && p[0] !== p[1]; });
+(function () { var t = [['اسراف', ''], ['مشاهده', '']]; })();
+(function () {
+  var map = {}; PT.packs.spell.forEach(function (p) { map[wkey(p[0])] = p[1]; }); PT.packs.spellMap = map;
+  var multi = PT.packs.spell.filter(function (p) { return p[0].indexOf(' ') >= 0; });
+  PT.packs.spellMulti = multi;
+})();
+defRule({
+  id: 'spell-common', cat: 'spell', sev: 'warn', name: 'املای پرخطا', auto: true,
+  scan: function (text) {
+    var out = [], toks = tokenize(text);
+    toks.forEach(function (t) {
+      if (t.t !== 'word') return; var k = wkey(t.x), r = PT.packs.spellMap[k]; if (r === undefined || r === t.x) return;
+      if (/ً$/.test(r) && /[آ-ی]ً$/.test(t.x)) return;
+      out.push({ s: t.s, e: t.e, r: r, msg: 'املای رایج‌تر یا درست: «' + r + '»' });
+    });
+    PT.packs.spellMulti.forEach(function (p) {
+      var idx = -1; while ((idx = text.indexOf(p[0], idx + 1)) >= 0) {
+        var pre = text.charAt(idx - 1), post = text.charAt(idx + p[0].length);
+        if (isLetter(pre) || isLetter(post)) continue; out.push({ s: idx, e: idx + p[0].length, r: p[1], msg: 'نوشتار درست: «' + p[1] + '»' });
+      }
+    });
+    return out;
+  }
+});
+/* ۵) ساختار فعل ← با موتور فعل */
+defRule({
+  id: 'verb-agree', cat: 'grammar', sev: 'error', name: 'مطابقت نهاد و فعل', auto: false,
+  scan: function (text) {
+    var out = [];
+    splitSentences(text).forEach(function (s) {
+      var parsed = parseClauses(s.text, s.tokens.map(function (t) { var c = {}; for (var k in t) c[k] = t[k]; c.s = t.s - s.s; c.e = t.e - s.s; return c; }));
+      agreementFindings(parsed).forEach(function (f) {
+        var vt = f.tok; out.push({ s: s.s + f.span[0], e: s.s + f.span[1], r: f.expected, msg: 'نهاد ' + f.subj + ' شخص ' + ['اول مفرد', 'دوم مفرد', 'سوم مفرد', 'اول جمع', 'دوم جمع', 'سوم جمع'][f.pi] + ' است؛ فعل باید «' + f.expected + '» باشد.' });
+      });
+    });
+    return out;
+  }
+});
+rxRule('ra-after-prep', 'grammar', 'warn', 'نشانهٔ «را» پس از حرف اضافه', new RegExp('(?<![' + LCLS + '])(از|به|با|در|بر|برای|تا)\\s+(?:[' + LCLS + ']+\\s+){0,2}?([' + LCLS + ']+)\\s+را(?![' + LCLS + '])', 'g'), function (m) { return null; }, false);
+rxRule('ke-dup', 'grammar', 'info', 'تکرار واژه', new RegExp('(?<![' + LCLS + '])([' + LCLS + ']{2,})\\s+\\1(?![' + LCLS + '])', 'g'), function (m) {
+  var w = wkey(m[1]); if (/^(خیلی|کم|آرام|تند|دانه|گاه|چند|بارها|رنگ|ریز|درشت|پی|دم|روز|شب|مو|بهبه|پارسال|زود|دیر|دست|جا|سر|چهار|دو|سه|یواش|بلند|کوتاه|آهسته|راست|چپ|تک|ده|قدم|لحظه|یک)$/.test(w)) return null;
+  return { s: m.index, e: m.index + m[0].length, r: m[1], msg: 'واژهٔ «' + m[1] + '» پشت‌سرهم تکرار شده است.' };
+}, false);
+/* ۶) سبک و خوانایی */
+PT.packs.colloq = [
+  ['می‌خوام', 'می‌خواهم'], ['می‌دونم', 'می‌دانم'], ['میدونم', 'می‌دانم'], ['نمی‌دونم', 'نمی‌دانم'], ['میخوام', 'می‌خواهم'], ['میگم', 'می‌گویم'], ['می‌گم', 'می‌گویم'],
+  ['اومد', 'آمد'], ['اومدم', 'آمدم'], ['اومدن', 'آمدن'], ['میاد', 'می‌آید'], ['می‌اد', 'می‌آید'], ['میرم', 'می‌روم'], ['می‌رم', 'می‌روم'], ['میره', 'می‌رود'], ['می‌ره', 'می‌رود'],
+  ['خونه', 'خانه'], ['نون', 'نان'], ['بوم', 'بام'], ['دونه', 'دانه'], ['جون', 'جان'], ['آسمون', 'آسمان'], ['خیابون', 'خیابان'], ['بچه‌ها', 'بچه‌ها'], ['اینجا', 'اینجا'], ['چیه', 'چیست'], ['کیه', 'کیست'],
+  ['اینو', 'این را'], ['اونو', 'آن را'], ['اون', 'آن'], ['اونجا', 'آنجا'], ['اینجوری', 'این‌گونه'], ['اینطوری', 'این‌طور'], ['همینجوری', 'همین‌گونه'], ['بابا', 'پدر'], ['مامان', 'مادر'],
+  ['کردم', 'کردم'], ['باهاش', 'با او'], ['باهام', 'با من'], ['برام', 'برایم'], ['برات', 'برایت'], ['براش', 'برایش'], ['ازش', 'از او'], ['ازم', 'از من'], ['بهش', 'به او'], ['بهم', 'به من'], ['بهت', 'به تو'],
+  ['نیست', 'نیست'], ['هست', 'هست'], ['خیلی', 'بسیار'], ['الان', 'اکنون'], ['فقط', 'فقط'], ['اینکه', 'این‌که'], ['چطوری', 'چگونه'], ['چجوری', 'چگونه'], ['چی', 'چه'], ['چرا', 'چرا'], ['کجا', 'کجا'], ['بیخود', 'بیهوده']
+].filter(function (p) { return p[0] !== p[1]; });
+defRule({
+  id: 'colloq', cat: 'style', sev: 'info', name: 'واژهٔ گفتاری', auto: false, styleOnly: 'formal',
+  scan: function (text) {
+    var map = {}; PT.packs.colloq.forEach(function (p) { map[wkey(p[0])] = p[1]; });
+    var out = [], toks = tokenize(text);
+    toks.forEach(function (t) { if (t.t !== 'word') return; var r = map[wkey(t.x)]; if (r && !LEX[wkey(t.x)]) out.push({ s: t.s, e: t.e, r: r, msg: 'واژهٔ گفتاری؛ در نوشتار رسمی «' + r + '».' }); });
+    // فعل‌های گفتاری از روی موتور
+    toks.forEach(function (t) {
+      if (t.t !== 'word' || map[wkey(t.x)] || LEX[wkey(t.x)]) return;
+      var r = analyzeToken(t.x).filter(function (x) { return x.reg === 'c' && x.conf >= 0.85; }); var rf = analyzeToken(t.x).filter(function (x) { return x.reg === 'f'; });
+      if (r.length && !rf.length) { var fm = reconjugate({ inf: r[0].inf, t: r[0].t, neg: r[0].neg, reg: 'f' }, r[0].pi); if (fm) out.push({ s: t.s, e: t.e, r: fm, msg: 'فعل گفتاری؛ صورت رسمی: «' + fm + '».' }); }
+    });
+    return out;
+  }
+});
+rxRule('long-sentence', 'style', 'info', 'جملهٔ بلند', /[^.!؟?\n]{1,}[.!؟?\n]?/, function (m, t) { return null; }, false);
+defRule({
+  id: 'long-sent', cat: 'style', sev: 'info', name: 'جملهٔ بلند', auto: false,
+  scan: function (text, o) {
+    var out = [], lim = (o && o.longLimit) || 40;
+    splitSentences(text).forEach(function (s) { var n = s.tokens.filter(function (t) { return t.t === 'word'; }).length; if (n > lim) out.push({ s: s.s, e: Math.min(s.e, s.s + 30), r: null, msg: 'جمله ' + toFa(n) + ' واژه دارد؛ آن را کوتاه یا تقسیم کنید.', whole: [s.s, s.e] }); });
+    return out;
+  }
+});
+defRule({
+  id: 'filler', cat: 'style', sev: 'info', name: 'واژهٔ زائد', auto: false,
+  scan: function (text) {
+    var re = /(?<![ء-يپچژکگی‌])(بسیار بسیار|کاملاً|دقیقاً|به نوعی|به طور کلی|در واقع|به هر حال|همان‌طور که می‌دانید|لازم به ذکر است که|گفتنی است که)(?![ء-يپچژکگی‌])/g, out = [], m;
+    while ((m = re.exec(text)) !== null) out.push({ s: m.index, e: m.index + m[0].length, r: null, msg: 'عبارت پرکننده؛ در صورت نبود بار معنایی حذف شود.' });
+    return out;
+  }
+});
+defRule({
+  id: 'passive-overuse', cat: 'style', sev: 'info', name: 'مجهول زیاد', auto: false,
+  scan: function (text) {
+    var out = [], sents = splitSentences(text), n = 0, hits = [];
+    sents.forEach(function (s) {
+      var ws = s.tokens.filter(function (t) { return t.t === 'word'; });
+      for (var i = 0; i < ws.length - 1; i++) {
+        var p = analyzeToken(ws[i].x).filter(function (x) { return x.t === 'participle'; }), sh = analyzeToken(ws[i + 1].x).filter(function (x) { return x.inf === 'شدن'; });
+        if (p.length && sh.length) { n++; hits.push({ s: ws[i].s, e: ws[i + 1].e }); }
+      }
+    });
+    if (sents.length >= 3 && n / sents.length > 0.5) hits.forEach(function (h) { out.push({ s: h.s, e: h.e, r: null, msg: 'ساختار مجهول؛ در متن‌های روان معلوم خواناتر است.' }); });
+    return out;
+  }
+});
+/* ---------- خلاصهٔ قاعده‌ها برای UI ---------- */
+var RULE_CATS = { punct: 'نشانه‌گذاری', char: 'نویسه', zwnj: 'نیم‌فاصله', spell: 'املا', grammar: 'دستور', style: 'سبک' };
+
+/* ============================================================
+   عروض و قافیه
+   ============================================================ */
+var SHORT_V = { 'َ': 1, 'ِ': 1, 'ُ': 1 };
+var VOW_LONG = 'اآویی';
+/* تبدیل متن به الگوی هجایی: هر هجا L (بلند) / S (کوتاه) / X (کشیده) ؛ مقدار تقریبی با قواعد حرف‌محور */
+function wordSyllables(word) {
+  var w = canon(word).replace(/‌/g, ''), chars = w.split(''), out = [], n = chars.length;
+  /* مرحلهٔ ۱: نگاشت واج‌گونه: ردیف C (همخوان) و V (مصوت: s/l) */
+  var seq = [];
+  for (var i = 0; i < n; i++) {
+    var ch = chars[i], nx = chars[i + 1], pv = seq.length ? seq[seq.length - 1] : null;
+    if (ch === 'آ') { seq.push({ t: 'C', c: 'ʔ' }); seq.push({ t: 'V', l: 1, c: 'â' }); continue; }
+    if (i === 0 && ch === 'ا' && nx === 'ی') { seq.push({ t: 'C', c: 'ʔ' }); seq.push({ t: 'V', l: n === 2 ? 1 : 0, c: 'i' }); i++; continue; }
+    if (i === 0 && ch === 'ا' && nx === 'و' && n === 2) { seq.push({ t: 'C', c: 'ʔ' }); seq.push({ t: 'V', l: 1, c: 'u' }); i++; continue; }
+    if (ch === 'ا') { if (i === 0) { seq.push({ t: 'C', c: 'ʔ' }); seq.push({ t: 'V', l: 0, c: 'a' }); if (nx === 'ی' && false) { } } else seq.push({ t: 'V', l: 1, c: 'â' }); continue; }
+    if (ch === 'و') {
+      if (pv && pv.t === 'C' && nx !== undefined && (i === n - 1 || !VOWELLETTER(nx))) {
+        // خواب/خواست: و پس از خ و پیش از ا ← بی‌آوا
+        if (pv.c === 'x' && (nx === 'ا' || nx === 'آ')) continue;
+        seq.push({ t: 'V', l: 1, c: 'u' }); continue;
+      }
+      if (pv && pv.t === 'V') { seq.push({ t: 'C', c: 'v' }); continue; }
+      if (i === 0 || (nx && VOWELLETTER(nx))) { seq.push({ t: 'C', c: 'v' }); continue; }
+      seq.push({ t: 'V', l: 1, c: 'u' }); continue;
+    }
+    if (ch === 'ی') {
+      if (pv && pv.t === 'V') { seq.push({ t: 'C', c: 'y' }); continue; }
+      if (i === 0 || (nx && (nx === 'ا' || nx === 'آ' || nx === 'و'))) { seq.push({ t: 'C', c: 'y' }); continue; }
+      if (i === n - 1 || !VOWELLETTER(nx)) { seq.push({ t: 'V', l: 1, c: 'i' }); continue; }
+      seq.push({ t: 'C', c: 'y' }); continue;
+    }
+    if (ch === 'ه' && i === n - 1) { if (pv && pv.t === 'C') { seq.push({ t: 'V', l: 0, c: 'e' }); } else if (pv && pv.t === 'V' && pv.l) seq.push({ t: 'C', c: 'h' }); continue; }
+    if (ch === 'ع' || ch === 'ء' || ch === 'أ' || ch === 'ئ' || ch === 'ؤ') { seq.push({ t: 'C', c: 'ʔ' }); continue; }
+    if (ch === 'ة') { seq.push({ t: 'V', l: 0, c: 'e' }); continue; }
+    if (ch === 'ّ') { var last = seq[seq.length - 1]; if (last) seq.push({ t: 'C', c: last.c, gem: true }); continue; }
+    if (ch === 'َ' || ch === 'ِ' || ch === 'ُ') { seq.push({ t: 'V', l: 0, c: ch === 'َ' ? 'a' : ch === 'ِ' ? 'e' : 'o', exp: true }); continue; }
+    seq.push({ t: 'C', c: ch });
+  }
+  /* مرحلهٔ ۲: افزودن مصوت کوتاه پیش‌فرض: پس از همخوان‌هایی که مصوت بعدی ندارند، /a/ فرض می‌شود جز در پایان یا خوشه */
+  var res = [];
+  for (var k = 0; k < seq.length; k++) {
+    var x = seq[k], nx2 = seq[k + 1];
+    res.push(x);
+    if (x.t === 'C' && !(nx2 && nx2.t === 'V')) {
+      // همخوان بدون مصوت: اگر همخوان بعدی هست و پیش از آن همخوان نبوده، مصوت میان‌گذار (a)
+      var prev = res.length > 1 ? res[res.length - 2] : null;
+      if (nx2 && nx2.t === 'C' && !nx2.gem && prev && prev.t === 'V') { /* پایان هجا: CVC */ }
+      else if (nx2 && nx2.t === 'C' && (!prev || prev.t === 'C') && !x.gem) { res.push({ t: 'V', l: 0, c: 'a', inf: 1 }); }
+      else if (nx2 && nx2.t === 'C' && x.gem) { res.push({ t: 'V', l: 0, c: 'a', inf: 1 }); }
+    }
+  }
+  /* مرحلهٔ ۳: هجابندی ساده */
+  var syl = [], cur = null;
+  for (var q = 0; q < res.length; q++) {
+    var y = res[q];
+    if (y.t === 'V') { cur = { onset: 0, v: y, coda: 0 }; syl.push(cur); }
+    else {
+      var nxt = res[q + 1];
+      if (nxt && nxt.t === 'V') { if (cur) cur.onsetNext = true; }
+      else if (cur) { cur.coda++; }
+    }
+  }
+  var lens = syl.map(function (s) { var long = s.v.l ? 1 : 0; return { l: long, coda: s.coda }; });
+  return { syl: lens, seq: res };
+}
+function VOWELLETTER(c) { return 'اآویئ'.indexOf(c) >= 0; }
+/* وزن هجا: S کوتاه ، L بلند (CVV یا CVC) ، X کشیده (CVVC یا CVCC) */
+function patternOf(word) {
+  var ov = PT.res.pron && PT.res.pron[wkey(word)]; if (ov) return ov;
+  var r = wordSyllables(word), out = '';
+  r.syl.forEach(function (s, i) {
+    var isLast = i === r.syl.length - 1;
+    if (s.l && s.coda >= 1) out += 'X'; else if (s.l) out += 'L'; else if (s.coda >= 1) out += 'L'; else out += 'S';
+  });
+  return out;
+}
+function patternOfWord(word, atLineEnd) { var p = patternOf(word); return p; }
+/* فهرست افاعیل و بحور پرکاربرد؛ هر الگو با نماد: - بلند ، u کوتاه */
+/* ---------- بحور (قابل‌گسترش از تب منابع) ---------- */
+var FEET = { 'مفاعیلن': 'u---', 'فعولن': 'u--', 'فاعلاتن': '-u--', 'فعلاتن': 'uu--', 'مستفعلن': '--u-', 'مفاعلن': 'u-u-', 'مفتعلن': '-uu-', 'فاعلن': '-u-', 'فعلن': 'uu-', 'فعل': 'uu', 'فاعلات': '-u-u', 'مفعول': '--u', 'مفاعیل': 'u--u', 'فع': '-' };
+var FOOT_VARIANTS = { 'فاعلاتن': ['-u--', 'uu--'], 'مستفعلن': ['--u-', '-uu-', 'u-u-'], 'فاعلن': ['-u-', 'uu-'], 'مفاعیلن': ['u---'], 'فعولن': ['u--'] };
+var AROOZ_METERS = [
+  { name: 'هزج مثمن سالم', feet: 'مفاعیلن مفاعیلن مفاعیلن مفاعیلن', ex: '' },
+  { name: 'هزج مسدس محذوف', feet: 'مفاعیلن مفاعیلن فعولن', ex: 'بسی رنج بردم در این سال سی' },
+  { name: 'هزج مثمن اخرب مکفوف محذوف', feet: 'مفعول مفاعیل مفاعیل فعولن', ex: 'ای ساقی گلرخ بده آن جام صبوحی' },
+  { name: 'رمل مثمن سالم', feet: 'فاعلاتن فاعلاتن فاعلاتن فاعلاتن', ex: '' },
+  { name: 'رمل مثمن مخبون محذوف', feet: 'فاعلاتن فاعلاتن فاعلاتن فاعلن', ex: 'عاشقی را که چنین باده ز مینا ریزند' },
+  { name: 'رمل مسدس مخبون محذوف', feet: 'فاعلاتن فاعلاتن فاعلن', ex: 'ای نسیم سحری یار کجاست' },
+  { name: 'رجز مثمن سالم', feet: 'مستفعلن مستفعلن مستفعلن مستفعلن', ex: '' },
+  { name: 'متقارب مثمن سالم', feet: 'فعولن فعولن فعولن فعولن', ex: '' },
+  { name: 'متقارب مثمن محذوف', feet: 'فعولن فعولن فعولن فعل', ex: 'بنام خداوند جان و خرد' },
+  { name: 'مضارع مثمن اخرب', feet: 'مفعول فاعلات مفاعیل فاعلن', ex: '' },
+  { name: 'مجتث مثمن مخبون', feet: 'مفاعلن فعلاتن مفاعلن فعلاتن', ex: '' },
+  { name: 'مجتث مثمن مخبون محذوف', feet: 'مفاعلن فعلاتن مفاعلن فعلن', ex: '' },
+  { name: 'خفیف مسدس مخبون محذوف', feet: 'فاعلاتن مفاعلن فعلن', ex: '' },
+  { name: 'منسرح مثمن مطوی منحور', feet: 'مفتعلن فاعلات مفتعلن فع', ex: '' },
+  { name: 'سریع مسدس مطوی مکشوف', feet: 'مفتعلن مفتعلن فاعلن', ex: '' }
+];
+function expandMeter(m) {
+  var parts = m.feet.split(' '), opts = parts.map(function (f) { var v = (FOOT_VARIANTS[f] || [FEETS(f)]).slice(); var base = FEETS(f); if (v.indexOf(base) < 0) v.unshift(base); return v; });
+  var out = [''], i;
+  for (i = 0; i < opts.length; i++) { var nx = []; out.forEach(function (p) { opts[i].forEach(function (o) { if (nx.length < 400) nx.push(p + o); }); }); out = nx; }
+  return out;
+}
+function FEETS(f) { return FEET[f] || ''; }
+function lineSyls(line) {
+  var ws = wordsOf(line), syl = [], words = [];
+  ws.forEach(function (w, wi) {
+    var k = wkey(w);
+    if (k === 'و') { syl.push({ c: 'u', opt: true, wi: wi }); words.push({ w: w, p: 'u', conj: true }); return; }
+    var p = patternOf(w), seg = '';
+    for (var q = 0; q < p.length; q++) {
+      var ch = p.charAt(q), c = (ch === 'S' || ch === 'u') ? 'u' : '-';
+      var wf = (q === p.length - 1) && c === '-' && ch !== 'X' && /[اویآ]$/.test(k);
+      syl.push({ c: c, wf: wf, wi: wi }); seg += c;
+    }
+    words.push({ w: w, p: seg });
+  });
+  return { syl: syl, words: words };
+}
+function scanLine(line) {
+  var r = lineSyls(line); if (!r.syl.length) return null;
+  return { words: r.words, syl: r.syl, pat: r.syl.map(function (s) { return s.c; }).join(''), count: r.syl.length };
+}
+function wDist(syl, target) {
+  var n = syl.length, m = target.length, d = [], i, j;
+  for (i = 0; i <= n; i++) { d[i] = []; for (j = 0; j <= m; j++) d[i][j] = 0; }
+  for (i = 1; i <= n; i++) d[i][0] = d[i - 1][0] + (syl[i - 1].opt ? 0.2 : 1);
+  for (j = 1; j <= m; j++) d[0][j] = j;
+  for (i = 1; i <= n; i++) for (j = 1; j <= m; j++) {
+    var s = syl[i - 1], t = target.charAt(j - 1), sub;
+    if (i === 1 || i === n) sub = 0; else if (s.c === t) sub = 0; else if (s.c === '-' && t === 'u') sub = s.wf ? 0.35 : 1; else sub = s.wf ? 0.9 : 1;
+    d[i][j] = Math.min(d[i - 1][j - 1] + sub, d[i - 1][j] + (s.opt ? 0.2 : 1), d[i][j - 1] + 1);
+  }
+  return d[n][m];
+}
+function matchMeter(patOrSyl) {
+  var syl = typeof patOrSyl === 'string' ? patOrSyl.split('').map(function (c) { return { c: c }; }) : patOrSyl;
+  if (!syl.length) return [];
+  var res = [];
+  AROOZ_METERS.forEach(function (m) {
+    var best = null;
+    expandMeter(m).forEach(function (t) {
+      [t, t + t].forEach(function (tt, k) {
+        if (k === 1 && tt.length > syl.length + 4) return;
+        var d = wDist(syl, tt), sc = 1 - d / Math.max(syl.length, tt.length);
+        if (!best || sc > best.score) best = { meter: m, score: sc, dist: d, target: tt };
+      });
+    });
+    if (best) res.push(best);
+  });
+  res.sort(function (a, b) { return b.score - a.score; });
+  return res.slice(0, 4);
+}
+
+function rhymeKey(word) {
+  var w = canon(word).replace(/‌/g, ''), n = w.length;
+  var m = w.match(/(.?[اآوی]?[^اآویه]{0,2}[هی]?)$/);
+  var tail = w.slice(Math.max(0, n - 3));
+  var vowel = /[اآوی]/.test(w.slice(-3, -1));
+  return { word: w, tail: tail, last: w.slice(-1), last2: w.slice(-2) };
+}
+function analyzeRhyme(lines) {
+  var keys = lines.map(function (l) { var ws = wordsOf(l); return ws.length ? rhymeKey(ws[ws.length - 1]) : null; });
+  var res = [];
+  for (var i = 0; i < keys.length; i++) {
+    if (!keys[i]) { res.push(null); continue; }
+    var tag = null, rad = keys[i].last2;
+    res.push({ key: keys[i], tail: keys[i].last2 });
+  }
+  var groups = {}, labels = 'ABCDEFGH', li = 0, out = [];
+  keys.forEach(function (k, i) {
+    if (!k) { out.push('-'); return; }
+    var found = null;
+    Object.keys(groups).forEach(function (g) { var kk = groups[g]; if (kk.last === k.last && (kk.last2 === k.last2 || kk.tail.slice(-2) === k.tail.slice(-2))) found = g; });
+    if (found === null) { var lab = labels.charAt(li++ % labels.length); groups[lab] = k; found = lab; }
+    out.push(found);
+  });
+  return out;
+}
+function classifyForm(labels) {
+  var l = labels.filter(function (x) { return x !== '-'; }), n = l.length; if (n < 2) return 'داده کافی نیست';
+  var counts = {}; l.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+  var distinct = Object.keys(counts).length;
+  if (n === 2) return l[0] === l[1] ? 'بیت (هم‌قافیه)' : 'بیت (بدون قافیه)';
+  if (n % 2 === 0 && l.every(function (x, i) { return i % 2 === 0 ? l[i + 1] === x : true; }) && distinct === n / 2) return 'مثنوی (AABBCC…)';
+  if (l[1] === l[0] && l.every(function (x, i) { return i % 2 === 1 ? x === l[1] : true; }) && n % 2 === 0) return 'غزل/قصیده (مصراع‌های زوج هم‌قافیه)';
+  if (n === 4 && l[0] === l[1] && l[1] === l[3]) return 'رباعی (AABA)';
+  if (n === 4 && l[0] === l[1] && l[1] === l[2] && l[2] === l[3]) return 'رباعی/قطعه (AAAA)';
+  if (n === 4 && l[0] === l[2] && l[1] === l[3]) return 'دوبیتی (ABAB)';
+  if (distinct === 1) return 'قصیده/مسمط (همه هم‌قافیه)';
+  return 'قالب نامشخص';
+}
+
+/* ============================================================
+   آرایه‌یاب (الگومحور)
+   ============================================================ */
+function strippedEnds(w) { return wkey(w); }
+function detectDevices(text) {
+  var out = [], sents = splitSentences(text), ws = tokenize(text).filter(function (t) { return t.t === 'word'; });
+  /* جناس */
+  for (var i = 0; i < ws.length; i++) for (var j = i + 1; j < Math.min(ws.length, i + 8); j++) {
+    var a = wkey(ws[i].x), b = wkey(ws[j].x); if (a.length < 3 || b.length < 3 || a === b) continue;
+    var d = lev(a, b), mx = Math.max(a.length, b.length);
+    if (d === 1 && mx >= 3 && a.length === b.length && a.charAt(0) !== b.charAt(0) === false) { }
+    if (d === 1 && a.length === b.length && Math.min(a.length, b.length) >= 3) { var pos = 0; for (var q = 0; q < a.length; q++) if (a.charAt(q) !== b.charAt(q)) pos = q; out.push({ type: 'جناس', sub: pos === 0 ? 'جناس مضارع/لاحق' : 'جناس ناقص', a: ws[i], b: ws[j], note: '«' + ws[i].x + '» و «' + ws[j].x + '» یک نویسه تفاوت دارند' }); }
+    else if (d === 0) { }
+  }
+  /* تکرار و واج‌آرایی */
+  var freq = {}; ws.forEach(function (t, i) { var k = wkey(t.x); if (k.length >= 3 && !SETMAP[k] && !PRON_PI[k]) (freq[k] = freq[k] || []).push(t); });
+  Object.keys(freq).forEach(function (k) { if (freq[k].length >= 3) out.push({ type: 'تکرار', sub: 'ترداد', a: freq[k][0], b: null, note: '«' + k + '» ' + toFa(freq[k].length) + ' بار تکرار شده' }); });
+  /* سجع / قافیهٔ درونی: واژه‌های پایان بندهای میان‌ویرگول */
+  var segs = text.split(/[،؛.!؟?\n]/).map(function (s) { return s.trim(); }).filter(Boolean);
+  var ends = segs.map(function (s) { var w = wordsOf(s); return w.length ? w[w.length - 1] : ''; });
+  for (var s1 = 0; s1 < ends.length - 1; s1++) { var e1 = wkey(ends[s1]), e2 = wkey(ends[s1 + 1]); if (e1.length >= 4 && e2.length >= 4 && e1 !== e2 && e1.slice(-3) === e2.slice(-3)) out.push({ type: 'سجع', sub: 'سجع متوازی/مطرف', a: null, note: 'پایان دو بند «' + ends[s1] + '» و «' + ends[s1 + 1] + '» هم‌آوا هستند' }); }
+  /* تشبیه */
+  var simRe = /([^،؛.!؟?\n]{2,40}?)\s(مانند|همچون|چون|همانند|به سان|به‌سان|چو|همچو)\s([^،؛.!؟?\n]{2,40}?)(?=[،؛.!؟?\n]|$)/g, m;
+  while ((m = simRe.exec(text)) !== null) out.push({ type: 'تشبیه', sub: 'ادات تشبیه: «' + m[2] + '»', a: { s: m.index, e: m.index + m[0].length, x: m[0] }, note: 'مشبه: «' + m[1].trim() + '» ← مشبه‌به: «' + m[3].trim() + '»' });
+  var simRe2 = /(?<![ء-يپچژکگی‌])([ء-يپچژکگی‌]+)\sمثل\s([ء-يپچژکگی‌]+)/g;
+  while ((m = simRe2.exec(text)) !== null) out.push({ type: 'تشبیه', sub: 'ادات: «مثل»', a: { s: m.index, e: m.index + m[0].length, x: m[0] }, note: m[1] + ' ~ ' + m[2] });
+  /* اضافهٔ تشبیهی/استعاری (الگوی گروه اضافی دو اسم انتزاعی-عینی) */
+  var ABST = 'عشق غم شادی امید زندگی روزگار عمر دل جان شب صبح خیال یاد دوران زمان مرگ آرزو دنیا';
+  var ABSTM = {}; ABST.split(' ').forEach(function (w) { ABSTM[w] = 1; });
+  var CONC = 'دریا آتش باد باران ابر سایه گل خار طوفان کوه موج چراغ آینه سنگ شمع آسمان خنجر شراب ستاره ماه خورشید کشتی پرنده';
+  var CONCM = {}; CONC.split(' ').forEach(function (w) { CONCM[w] = 1; });
+  var ezRe = /([ء-يپچژکگی]+)(?:ِ|‌ی|ٔ)?\s([ء-يپچژکگی]+)/g; // بدون نشانهٔ کسره این به heuristics محدود است
+  sents.forEach(function (s) {
+    var tk = s.tokens.filter(function (t) { return t.t === 'word'; });
+    for (var i = 0; i < tk.length - 1; i++) { var A = wkey(tk[i].x), B = wkey(tk[i + 1].x); if (ABSTM[A] && CONCM[B] && /[ِٔ]$/.test(tk[i].x)) out.push({ type: 'استعاره/اضافه تشبیهی', sub: 'مشبه انتزاعی + مشبه‌به عینی', a: tk[i], note: '«' + tk[i].x + ' ' + tk[i + 1].x + '»' }); }
+  });
+  /* تضاد (جفت‌های ثبت‌شده) */
+  var ANT = PT.packs.antonyms || {}; ws.forEach(function (t, i) { var k = wkey(t.x); if (ANT[k]) for (var j = i + 1; j < Math.min(ws.length, i + 12); j++) if (wkey(ws[j].x) === ANT[k]) out.push({ type: 'تضاد', sub: 'طباق', a: t, b: ws[j], note: '«' + t.x + '» در برابر «' + ws[j].x + '»' }); });
+  /* تکرار آغازین (آنافورا) */
+  for (var si = 0; si < segs.length - 1; si++) { var w1 = wordsOf(segs[si])[0], w2 = wordsOf(segs[si + 1])[0]; if (w1 && w2 && wkey(w1) === wkey(w2) && w1.length >= 2 && !SETMAP[wkey(w1)]) out.push({ type: 'تکرار', sub: 'تکرار آغازین', a: null, note: 'بندها با «' + w1 + '» آغاز می‌شوند' }); }
+  /* پرسش انکاری */
+  var qRe = /([^.!؟?\n]{4,}؟)/g; while ((m = qRe.exec(text)) !== null) { if (/آیا|مگر|کجا|کی |چه کسی|چگونه/.test(m[1])) out.push({ type: 'پرسش', sub: 'پرسش انکاری/بلاغی (احتمالی)', a: { s: m.index, e: m.index + m[0].length, x: m[0] }, note: 'جملهٔ پرسشی بلاغی' }); }
+  var seenD = {}, ded = [];
+  out.forEach(function (o) { var k = o.type + '|' + (o.note.indexOf('«') >= 0 && o.type === 'تضاد' ? o.note.split('').sort().join('') : o.note); if (!seenD[k]) { seenD[k] = 1; ded.push(o); } });
+  return ded;
+}
+PT.packs.antonyms = {};
+(function () { var pairs = 'روز:شب سیاه:سفید خوب:بد خوشی:ناخوشی بالا:پایین گرم:سرد آغاز:پایان زندگی:مرگ شادی:غم امید:ناامیدی دوست:دشمن صلح:جنگ نور:تاریکی عشق:نفرت زمین:آسمان پیر:جوان کوچک:بزرگ دور:نزدیک بلند:کوتاه تلخ:شیرین راست:دروغ هستی:نیستی وصل:هجر'.split(' '); pairs.forEach(function (p) { var a = p.split(':'); PT.packs.antonyms[a[0]] = a[1]; PT.packs.antonyms[a[1]] = a[0]; }); })();
+function lev(a, b) { var d = [], i, j; for (i = 0; i <= a.length; i++) { d[i] = [i]; } for (j = 0; j <= b.length; j++) d[0][j] = j; for (i = 1; i <= a.length; i++) for (j = 1; j <= b.length; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a.charAt(i - 1) === b.charAt(j - 1) ? 0 : 1)); return d[a.length][b.length]; }
+
+/* ============================================================
+   بخش ۵: لایهٔ ذخیره‌سازی و رابط کاربری
+   ============================================================ */
+var $ = function (id) { return document.getElementById(id); };
+var STORE_KEY = 'mp_persian_engine_v2';
+var STATE = { verbs: [], plurals: {}, ignore: {}, spell: [], pron: {}, antonyms: [], score: {} };
+function store(k, v) { try { if (v === undefined) { var r = localStorage.getItem(k); return r ? JSON.parse(r) : null; } localStorage.setItem(k, JSON.stringify(v)); } catch (e) { return null; } }
+function saveState() { store(STORE_KEY, STATE); }
+function applyState() {
+  PT.res.plurals = STATE.plurals; PT.res.ignore = STATE.ignore; PT.res.pron = STATE.pron;
+  STATE.verbs.forEach(function (s) { var v = mkVerb(s); v.src = 'user'; LEX[v.inf] = v; });
+  STATE.spell.forEach(function (p) { PT.packs.spellMap[wkey(p[0])] = p[1]; });
+  STATE.antonyms.forEach(function (p) { PT.packs.antonyms[p[0]] = p[1]; PT.packs.antonyms[p[1]] = p[0]; });
+  FORM_INDEX = null;
+}
+(function loadState() {
+  var s = store(STORE_KEY); if (s) { for (var k in STATE) if (s[k] !== undefined) STATE[k] = s[k]; }
+  applyState();
+})();
+function badge(txt, cls) { return '<span class="badge ' + (cls || '') + '">' + esc(txt) + '</span>'; }
+function card(html, cls) { return '<div class="result-card ' + (cls || '') + '">' + html + '</div>'; }
+function errCard(e) { return card('<strong>' + esc(e.message) + '</strong>', 'error'); }
+function chipRow(a) { return '<div class="badges">' + a.join('') + '</div>'; }
+function copyText(t, btn) {
+  function done() { if (btn) { var o = btn.innerHTML; btn.innerHTML = '<i class="fa-solid fa-check"></i> کپی شد'; setTimeout(function () { btn.innerHTML = o; }, 1200); } }
+  try { navigator.clipboard.writeText(t).then(done, function () { fb(); }); } catch (e) { fb(); }
+  function fb() { var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) { } document.body.removeChild(ta); }
+}
+function persons6() { return ['اول مفرد', 'دوم مفرد', 'سوم مفرد', 'اول جمع', 'دوم جمع', 'سوم جمع']; }
+function persOpts(auto) { return (auto ? '<option value="auto">خودکار</option>' : '') + persons6().map(function (p, i) { return '<option value="' + i + '">' + PERSONS[i] + ' (' + p + ')</option>'; }).join(''); }
+function tenseOpts(sel) { return TENSES.map(function (t) { return '<option value="' + t.id + '"' + (t.id === sel ? ' selected' : '') + '>' + t.name + '</option>'; }).join(''); }
+
+/* ---------- تب‌ها ---------- */
+var TABS = [
+  ['editor', 'fa-spell-check', 'ویرایشگر'], ['verb', 'fa-table-cells', 'صرف فعل'], ['analyze', 'fa-magnifying-glass-chart', 'تحلیل'],
+  ['lab', 'fa-diagram-project', 'کارگاه جمله'], ['words', 'fa-cubes', 'واژه‌ورز'], ['numbers', 'fa-hashtag', 'اعداد'],
+  ['prosody', 'fa-music', 'عروض و قافیه'], ['rhetoric', 'fa-feather-pointed', 'آرایه و سبک'], ['practice', 'fa-dumbbell', 'تمرین'],
+  ['resources', 'fa-database', 'منابع'], ['about', 'fa-circle-info', 'راهنما']
+];
+function switchTab(id) {
+  TABS.forEach(function (t) { $('tab-' + t[0]).classList.toggle('active', t[0] === id); $('p-' + t[0]).classList.toggle('active', t[0] === id); });
+  try { history.replaceState(null, '', '#' + id); } catch (e) { }
+}
+function buildShell() {
+  $('tabs').innerHTML = TABS.map(function (t) { return '<button class="tab" id="tab-' + t[0] + '" data-tab="' + t[0] + '"><i class="fa-solid ' + t[1] + '"></i>' + t[2] + '</button>'; }).join('');
+  $('tabs').addEventListener('click', function (e) { var b = e.target.closest('.tab'); if (b) switchTab(b.getAttribute('data-tab')); });
+}
+function head(icon, title, desc) { return '<div class="panel-head"><h2><i class="fa-solid ' + icon + '"></i>' + title + '</h2><p>' + desc + '</p></div>'; }
+
+/* ============ ویرایشگر ============ */
+var ED = { issues: [], timer: null };
+var SAMPLE_ED = 'من و دوستانم دیروز به خانه رفتیم. او ميخواهد بداند که کتاب ها چه زمانی چاپ می شوند ,اما بنظر میرسد که اطلاعات كافي نیست.\nبچه ها مثلا خیلی خوب بازی میکنند. ما فردا برای دیدن آن ها خواهد رفت...';
+function initEditor() {
+  var cats = Object.keys(RULE_CATS);
+  $('p-editor').innerHTML = head('fa-spell-check', 'ویرایشگر هوشمند', 'متن را بنویسید یا بچسبانید؛ بیش از ' + toFa(RULES.length) + ' قاعده، از نشانه‌گذاری و نیم‌فاصله تا مطابقت نهاد و فعل (با موتور صرف)، روی آن اجرا می‌شود. خطاها دقیق جایابی می‌شوند و بیشترشان با یک کلیک اصلاح می‌گردند.') +
+    '<div class="workbench">' +
+    '<div class="field-group"><label for="ed-in">متن</label><textarea id="ed-in" class="field" style="min-height:170px" placeholder="متن فارسی را اینجا بنویسید…"></textarea></div>' +
+    '<div class="opt-row"><label class="chk"><span>سبک:</span><select id="ed-style" class="field sm"><option value="formal">رسمی/نوشتاری</option><option value="neutral">آزاد (بدون هشدار گفتاری)</option></select></label>' +
+    cats.map(function (c) { return '<label class="chk"><input type="checkbox" class="ed-cat" value="' + c + '" checked> ' + RULE_CATS[c] + '</label>'; }).join('') + '</div>' +
+    '<div class="actions"><button class="btn-primary" id="ed-fixall"><i class="fa-solid fa-wand-magic-sparkles"></i> اصلاح خودکار موارد مطمئن</button><button class="btn-secondary" id="ed-sample"><i class="fa-solid fa-flask"></i> نمونه</button><button class="btn-secondary" id="ed-copy"><i class="fa-solid fa-copy"></i> کپی متن</button><button class="btn-secondary" id="ed-clear"><i class="fa-solid fa-eraser"></i> پاک</button></div>' +
+    '<div id="ed-stats" class="stat-grid"></div><div id="ed-view" class="ed-view" aria-live="polite"></div><div id="ed-list" class="output"></div></div>';
+  var run = function () { edRun(); };
+  $('ed-in').addEventListener('input', function () { clearTimeout(ED.timer); ED.timer = setTimeout(run, 350); });
+  $('ed-style').addEventListener('change', run);
+  Array.prototype.forEach.call(document.querySelectorAll('.ed-cat'), function (c) { c.addEventListener('change', run); });
+  $('ed-sample').onclick = function () { $('ed-in').value = SAMPLE_ED; edRun(); };
+  $('ed-clear').onclick = function () { $('ed-in').value = ''; edRun(); };
+  $('ed-copy').onclick = function () { copyText($('ed-in').value, $('ed-copy')); };
+  $('ed-fixall').onclick = function () {
+    var t = $('ed-in').value, tot = 0;
+    for (var pass = 0; pass < 4; pass++) { var r = applyFixes(t, runRules(t, edOpts()), true); if (!r.applied) break; t = r.text; tot += r.applied; }
+    $('ed-in').value = t; edRun(); $('ed-list').insertAdjacentHTML('afterbegin', card('<strong>' + toFa(tot) + '</strong> اصلاح خودکار اعمال شد.', 'ok'));
+  };
+  $('ed-list').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-a]'); if (!b) return; var i = +b.getAttribute('data-i'), it = ED.issues[i]; if (!it) return;
+    var ta = $('ed-in'), t = ta.value;
+    if (b.getAttribute('data-a') === 'fix') { ta.value = t.slice(0, it.s) + it.r + t.slice(it.e); edRun(); }
+    else if (b.getAttribute('data-a') === 'ign') { STATE.ignore[canon(stripZ(t.slice(it.s, it.e)))] = 1; PT.res.ignore = STATE.ignore; saveState(); edRun(); }
+    else if (b.getAttribute('data-a') === 'go') { ta.focus(); ta.setSelectionRange(it.s, it.e); }
+  });
+}
+function edOpts() {
+  var cats = []; Array.prototype.forEach.call(document.querySelectorAll('.ed-cat'), function (c) { if (c.checked) cats.push(c.value); });
+  return { style: $('ed-style').value, cats: cats, ignore: STATE.ignore };
+}
+function edRun() {
+  var t = $('ed-in').value, st = textStats(t);
+  $('ed-stats').innerHTML = [[st.words, 'واژه'], [st.sentences, 'جمله'], [st.chars, 'نویسه'], [st.types, 'واژهٔ یکتا'], [toFa(st.readMinutes < 1 ? '<۱' : Math.round(st.readMinutes)), 'دقیقه مطالعه']].map(function (x) { return '<div class="stat-card"><span class="stat-num">' + (typeof x[0] === 'number' ? toFa(x[0]) : x[0]) + '</span><div class="stat-label">' + x[1] + '</div></div>'; }).join('');
+  if (!t.trim()) { ED.issues = []; $('ed-view').innerHTML = ''; $('ed-list').innerHTML = '<div class="empty"><i class="fa-solid fa-pen-to-square"></i>متنی برای بررسی وجود ندارد.</div>'; return; }
+  var is = runRules(t, edOpts()); ED.issues = is;
+  var html = '', pos = 0, last = -1;
+  is.forEach(function (it, i) {
+    var a = it.whole ? it.whole[0] : it.s, b = it.whole ? it.whole[1] : it.e; if (a < pos) return;
+    html += esc(t.slice(pos, a)) + '<mark class="m-' + it.sev + '" title="' + esc(it.msg) + '">' + esc(t.slice(a, b) || '␣') + '</mark>'; pos = b;
+  });
+  html += esc(t.slice(pos)); $('ed-view').innerHTML = html;
+  var by = { error: 0, warn: 0, info: 0 }; is.forEach(function (i) { by[i.sev]++; });
+  var autos = is.filter(function (i) { return i.auto && i.r !== null && i.r !== undefined; }).length;
+  var out = '<h3><i class="fa-solid fa-list-check"></i> ' + (is.length ? toFa(is.length) + ' مورد' : 'مشکلی یافت نشد') + '</h3>';
+  if (!is.length) out += card('متن شما از نظر قواعد فعال، پاک است. ✓', 'ok');
+  else {
+    out += chipRow([badge(toFa(by.error) + ' خطا', 'err'), badge(toFa(by.warn) + ' هشدار', ''), badge(toFa(by.info) + ' پیشنهاد', 'ok'), badge(toFa(autos) + ' اصلاح‌پذیر خودکار', '')]);
+    out += '<div class="issue-list">' + is.map(function (it, i) {
+      var seg = t.slice(it.s, it.e);
+      return '<div class="issue sev-' + it.sev + '"><div class="issue-main"><span class="cat">' + esc(RULE_CATS[it.cat] || it.cat) + '</span> <strong>' + esc(it.name) + '</strong><div class="issue-msg">' + esc(it.msg) + '</div>' +
+        '<div class="issue-diff"><span class="from">' + esc(seg || '␣') + '</span>' + (it.r !== null && it.r !== undefined ? ' <i class="fa-solid fa-arrow-left"></i> <span class="to">' + esc(it.r || '(حذف)') + '</span>' : '') + '</div></div>' +
+        '<div class="issue-act">' + (it.r !== null && it.r !== undefined ? '<button class="mini" data-a="fix" data-i="' + i + '">اعمال</button>' : '') + '<button class="mini ghost" data-a="go" data-i="' + i + '">نمایش</button><button class="mini ghost" data-a="ign" data-i="' + i + '" title="این مورد دیگر گزارش نشود">نادیده</button></div></div>';
+    }).join('') + '</div>';
+  }
+  var top = st.top.length ? '<h4>پرتکرارترین واژه‌ها</h4>' + chipRow(st.top.map(function (p) { return badge(p[0] + ' ×' + toFa(p[1])); })) : '';
+  $('ed-list').innerHTML = out + top;
+}
+
+/* ============ صرف فعل ============ */
+var VB = { v: null };
+function initVerb() {
+  $('p-verb').innerHTML = head('fa-table-cells', 'موتور صرف فعل', 'هر مصدری را وارد کنید؛ موتور از روی بن‌ها و قواعد، ۱۱ زمان را با شش شخص، مثبت و منفی، معلوم و مجهول و گفتاری می‌سازد. فعل‌های پیشوندی و مرکب خودکار تشخیص داده می‌شوند.') +
+    '<div class="workbench"><div class="grid2"><div class="field-group"><label for="vb-in">مصدر</label><input id="vb-in" class="field" list="vb-list" placeholder="مثلاً: برگشتن، تلاش کردن، پذیرفتن" autocomplete="off"><datalist id="vb-list"></datalist></div>' +
+    '<div class="field-group"><label>گزینه‌ها</label><div class="opt-row"><label class="chk"><input type="checkbox" id="vb-neg"> منفی</label><label class="chk"><input type="checkbox" id="vb-pas"> مجهول</label><label class="chk"><input type="checkbox" id="vb-col"> گفتاری</label></div></div></div>' +
+    '<div class="actions"><button class="btn-primary" id="vb-go"><i class="fa-solid fa-gears"></i> صرف کن</button><button class="btn-secondary" id="vb-rnd"><i class="fa-solid fa-shuffle"></i> فعل تصادفی</button><button class="btn-secondary" id="vb-caus"><i class="fa-solid fa-arrow-up-right-dots"></i> سببی</button></div>' +
+    '<div id="vb-out" class="output"></div></div>';
+  refreshVerbList();
+  var go = function () { vbRun($('vb-in').value); };
+  $('vb-go').onclick = go; $('vb-in').addEventListener('keydown', function (e) { if (e.key === 'Enter') go(); });
+  ['vb-neg', 'vb-pas', 'vb-col'].forEach(function (id) { $(id).addEventListener('change', function () { if (VB.v) vbRender(); }); });
+  $('vb-rnd').onclick = function () { var ks = Object.keys(LEX); $('vb-in').value = pick(ks); go(); };
+  $('vb-caus').onclick = function () { if (!VB.v) { go(); } if (!VB.v) return; var c = causativeOf(VB.v); if (!c.ok) { $('vb-out').insertAdjacentHTML('afterbegin', errCard(c.error)); return; } $('vb-in').value = c.value.inf; VB.v = c.value; vbRender(); };
+  $('vb-out').addEventListener('click', function (e) { var b = e.target.closest('[data-save]'); if (b && VB.v) { addUserVerb(VB.v); vbRender(); } var c = e.target.closest('[data-cp]'); if (c) copyText(c.getAttribute('data-cp'), c); });
+}
+function refreshVerbList() { $('vb-list').innerHTML = Object.keys(LEX).sort().map(function (k) { return '<option value="' + k + '">'; }).join(''); }
+function addUserVerb(v) {
+  var fl = (v.trans || '') + (v.glide ? 'g' : '') + (v.stative ? 's' : '') + (v.bare ? 'B' : '');
+  var src = [v.inf, v.past, v.pres, fl].join('|'); STATE.verbs = STATE.verbs.filter(function (s) { return s.split('|')[0] !== v.inf; }); STATE.verbs.push(src);
+  var nv = mkVerb(src); nv.src = 'user'; LEX[nv.inf] = nv; FORM_INDEX = null; saveState(); refreshVerbList();
+}
+function vbRun(s) {
+  var r = resolveVerb(s); if (!r.ok) { VB.v = null; $('vb-out').innerHTML = errCard(r.error); return; }
+  VB.v = r.value; vbRender();
+}
+function vbRender() {
+  var v = VB.v, neg = $('vb-neg').checked, pas = $('vb-pas').checked, col = $('vb-col').checked, out = '';
+  var srcLbl = { lexicon: ['فرهنگ فعل‌ها (دقیق)', 'ok'], user: ['ثبت‌شدهٔ شما', 'ok'], prefix: ['پیشوندی (بر پایهٔ فعل ساده)', 'ok'], compound: ['مرکب', ''], rule: ['استخراج قاعده‌مند', v.conf >= 0.8 ? 'ok' : 'err'] };
+  var sl = srcLbl[v.src] || ['', ''];
+  out += '<h3><i class="fa-solid fa-book"></i> ' + esc(v.inf) + '</h3>';
+  out += chipRow([badge('بن ماضی: ' + (v.prefix || '') + v.past), badge('بن مضارع: ' + (v.prefix || '') + v.pres), badge(v.trans === 't' ? 'گذرا' : v.trans === 'i' ? 'ناگذر' : v.trans === 'b' ? 'گذرا/ناگذر' : 'گذرایی نامشخص'), badge(sl[0], sl[1]), badge('اطمینان ' + toFa(Math.round(v.conf * 100)) + '٪', v.conf >= 0.8 ? 'ok' : 'err')]);
+  if (v.notes && v.notes.length) out += '<ul>' + v.notes.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>';
+  if (v.src === 'rule' && v.conf < 0.8) out += card('این فعل در فرهنگ نیست و بن‌هایش حدس قاعده‌مند است. اگر بن مضارع درست است <button class="mini" data-save="1">ذخیره در منابع</button>؛ در غیر این صورت از تب «منابع» آن را با بن درست ثبت کنید.', 'warn');
+  if (pas && (v.trans === 'i' || isBe(v))) out += card('فعل ناگذر است؛ مجهول ندارد.', 'warn');
+  var rows = col ? TENSES.map(function (T) { var ps = []; for (var pi = 0; pi < 6; pi++) ps.push({ aff: CQ_TENSES.indexOf(T.id) >= 0 ? cq(v, T.id, pi, false) : null, neg: CQ_TENSES.indexOf(T.id) >= 0 ? cq(v, T.id, pi, true) : null }); return { name: T.name, persons: ps, id: T.id }; }) : paradigm(v);
+  var shown = 0;
+  out += '<div class="tbl-wrap"><table class="out-table conj"><thead><tr><th>زمان</th>' + PERSONS.map(function (p) { return '<th>' + p + '</th>'; }).join('') + '</tr></thead><tbody>';
+  rows.forEach(function (r) {
+    var any = false, cells = r.persons.map(function (p) { var f = col ? (neg ? p.neg : p.aff) : (pas ? (neg ? p.negP : p.affP) : (neg ? p.neg : p.aff)); if (f) any = true; return f; });
+    if (col && pas) cells = cells.map(function () { return null; }); shown++;
+    out += '<tr><td class="tn">' + r.name + '</td>' + cells.map(function (f) { return '<td>' + (f ? '<span class="cf" data-cp="' + esc(f) + '" title="برای کپی کلیک کنید">' + esc(f) + '</span>' : '<span class="dash">—</span>') + '</td>'; }).join('') + '</tr>';
+  });
+  out += '</tbody></table></div>';
+  if (col && pas) out += card('صورت گفتاریِ مجهول پشتیبانی نمی‌شود؛ گزینهٔ «گفتاری» را بردارید.', 'warn');
+  var dv = deriveFromVerb(v);
+  out += '<h4>واژه‌های برگرفته از بن‌ها</h4><table class="out-table"><thead><tr><th>نوع</th><th>صورت</th><th>قاعده</th></tr></thead><tbody>' + dv.map(function (d) { return '<tr><td>' + d.name + '</td><td><strong>' + esc(d.form) + '</strong></td><td class="muted">' + esc(d.note) + '</td></tr>'; }).join('') + '</tbody></table>';
+  out += card('<i class="fa-solid fa-circle-info"></i> واژه‌های برگرفته ساختهٔ قاعده‌مندند و ممکن است برخی در زبان رایج نباشند.', '');
+  $('vb-out').innerHTML = out;
+}
+
+/* ============ تحلیل ============ */
+function initAnalyze() {
+  $('p-analyze').innerHTML = head('fa-magnifying-glass-chart', 'تحلیلگر فعل و جمله', 'یک صورت فعلی (ساده، ملموس، مجهول، مرکب، گفتاری) یا یک جمله بدهید؛ موتور معکوس مصدر، زمان، شخص و وجه را برمی‌گرداند و برای جمله‌ها ساختار بندها را نشان می‌دهد.') +
+    '<div class="workbench"><div class="field-group"><label for="an-in">صورت فعلی یا جمله</label><textarea id="an-in" class="field" placeholder="مثلاً: نوشته شده است — یا — من و علی دیروز کتاب را خواندیم"></textarea><div class="hint">چهار واژه یا کمتر ← تحلیل صورت فعلی؛ بیشتر ← تحلیل ساختار جمله.</div></div>' +
+    '<div class="actions"><button class="btn-primary" id="an-go"><i class="fa-solid fa-microscope"></i> تحلیل کن</button><button class="btn-secondary" id="an-s1">نمونه ۱</button><button class="btn-secondary" id="an-s2">نمونه ۲</button></div><div id="an-out" class="output"></div></div>';
+  $('an-go').onclick = anRun; $('an-s1').onclick = function () { $('an-in').value = 'برنمی‌گشتند'; anRun(); }; $('an-s2').onclick = function () { $('an-in').value = 'من و علی دیروز کتاب‌هایی را که خریده بودیم، در خانه خواندیم.'; anRun(); };
+  $('an-out').addEventListener('click', function (e) { var b = e.target.closest('[data-vb]'); if (b) { switchTab('verb'); $('vb-in').value = b.getAttribute('data-vb'); vbRun(b.getAttribute('data-vb')); } });
+}
+function readingHTML(r) {
+  var s = '<div class="reading"><div class="r-main"><strong>' + esc(r.inf) + '</strong> — ' + esc(describeReading(r)) + (r.voice === 'passive' ? ' — <span class="ok-t">مجهول</span>' : '') + '</div>';
+  s += chipRow([badge(r.kind || 'ساده'), badge('اطمینان ' + toFa(Math.round((r.conf || 1) * 100)) + '٪', (r.conf || 1) >= 0.8 ? 'ok' : 'err')]);
+  s += '<button class="mini ghost" data-vb="' + esc(r.inf) + '">صرف کامل ←</button></div>'; return s;
+}
+function anRun() {
+  var t = $('an-in').value.trim(); if (!t) { $('an-out').innerHTML = ''; return; }
+  var ws = wordsOf(t), out = '';
+  if (ws.length <= 4 && !/[.!؟?]/.test(t)) {
+    var r = analyzePhrase(t);
+    out += '<h3><i class="fa-solid fa-microscope"></i> تحلیل صورت فعلی</h3>';
+    out += r.length ? r.map(readingHTML).join('') : card('هیچ صورت فعلی شناخته نشد. اگر فعل در فرهنگ نیست، آن را در «منابع» ثبت کنید.', 'warn');
+  } else {
+    var sents = splitSentences(t);
+    out += '<h3><i class="fa-solid fa-sitemap"></i> ساختار ' + toFa(sents.length) + ' جمله</h3>';
+    sents.forEach(function (s, si) {
+      var toks = s.tokens.map(function (x) { var c = {}; for (var k in x) c[k] = x[k]; return c; });
+      var P = parseClauses(s.text, toks);
+      out += '<div class="sent"><div class="sent-t">' + esc(s.text) + '</div>';
+      P.clauses.forEach(function (c, ci) {
+        out += '<div class="clause"><span class="cl-n">بند ' + toFa(ci + 1) + '</span>' + c.items.map(function (it) { return '<span class="role r-' + (it.role === 'فعل' ? 'v' : it.role === 'نهاد' ? 's' : it.role === 'مفعول' ? 'o' : 'x') + '"><small>' + it.role + '</small>' + esc(it.toks.map(function (x) { return x.x; }).join(' ')) + '</span>'; }).join('') + '</div>';
+        if (c.verb) { var rd = c.verb.toks[0].readings; if (rd && rd.length) out += '<div class="clause-v">فعل «' + esc(c.verb.phrase || c.verb.toks[0].x) + '»: ' + esc(rd[0].inf + ' — ' + describeReading(rd[0])) + '</div>'; }
+      });
+      var ag = agreementFindings(P); ag.forEach(function (f) { out += card('نهاد ' + esc(f.subj) + ' با فعل «' + esc(f.tok.x) + '» مطابقت ندارد؛ پیشنهاد: <strong>' + esc(f.expected) + '</strong>', 'error'); });
+      out += '</div>';
+    });
+    out += card('<i class="fa-solid fa-circle-info"></i> تحلیل ساختاری مبتنی بر قاعده و برچسب‌گذاری سبک است؛ جمله‌های پیچیده یا نقش‌های ظریف ممکن است ساده‌سازی شوند.', '');
+  }
+  $('an-out').innerHTML = out;
+}
+
+/* ============ کارگاه جمله ============ */
+var LAB = { cur: null, hist: [] };
+function initLab() {
+  $('p-lab').innerHTML = head('fa-diagram-project', 'کارگاه ساخت و تبدیل جمله', 'یک بند بسازید و با عملگرهای نحوی (مجهول، پرسشی، منفی، امر، موصولی، تقدیم مفعول، گفتاری…) تبدیلش کنید. هر مرحله ثبت می‌شود و فعل با موتور صرف ساخته می‌شود، نه از روی الگوی ثابت.') +
+    '<div class="workbench"><div class="grid3">' +
+    '<div class="field-group"><label for="lb-s">نهاد</label><input id="lb-s" class="field" value="علی"></div>' +
+    '<div class="field-group"><label for="lb-sp">شخص نهاد</label><select id="lb-sp" class="field">' + persOpts(true) + '</select></div>' +
+    '<div class="field-group"><label for="lb-v">مصدر</label><input id="lb-v" class="field" list="vb-list" value="نوشتن"></div>' +
+    '<div class="field-group"><label for="lb-o">مفعول (اختیاری)</label><input id="lb-o" class="field" value="نامه"></div>' +
+    '<div class="field-group"><label for="lb-d">تعریف مفعول</label><select id="lb-d" class="field"><option value="auto">خودکار</option><option value="def">معرفه (را)</option><option value="indef">نکره (ـی)</option></select></div>' +
+    '<div class="field-group"><label for="lb-a">قید/متمم (اختیاری)</label><input id="lb-a" class="field" value="دیروز"></div>' +
+    '<div class="field-group"><label for="lb-t">زمان</label><select id="lb-t" class="field">' + tenseOpts('pastSimple') + '</select></div>' +
+    '<div class="field-group"><label>&nbsp;</label><label class="chk"><input type="checkbox" id="lb-n"> منفی</label></div></div>' +
+    '<div class="actions"><button class="btn-primary" id="lb-go"><i class="fa-solid fa-hammer"></i> بساز</button><button class="btn-secondary" id="lb-undo"><i class="fa-solid fa-rotate-left"></i> یک مرحله بازگشت</button></div>' +
+    '<div id="lb-cur" class="bayt-card" style="display:none"></div>' +
+    '<div id="lb-ops" class="ops"></div><div id="lb-out" class="output"></div></div>';
+  $('lb-go').onclick = labBuild; $('lb-undo').onclick = function () { if (LAB.hist.length) { LAB.cur = LAB.hist.pop(); labShow(); } };
+  $('lb-ops').innerHTML = Object.keys(TRANSFORMS).map(function (k) { return '<button class="transform-btn" data-op="' + k + '">' + TRANSFORMS[k].label + '</button>'; }).join('') + '<select id="lb-tt" class="field sm" title="تغییر زمان">' + tenseOpts('') + '</select>';
+  $('lb-ops').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-op]'); if (!b || !LAB.cur) return;
+    var r = applyTransform(LAB.cur, b.getAttribute('data-op')); if (!r.ok) { $('lb-out').insertAdjacentHTML('afterbegin', errCard(r.error)); return; }
+    LAB.hist.push(LAB.cur); LAB.cur = r.value; labShow();
+  });
+  $('lb-tt').addEventListener('change', function () { if (!LAB.cur) return; var r = setTense(LAB.cur, $('lb-tt').value); if (!r.ok) { $('lb-out').insertAdjacentHTML('afterbegin', errCard(r.error)); return; } LAB.hist.push(LAB.cur); LAB.cur = r.value; labShow(); });
+}
+function labBuild() {
+  var c = newClause({ subject: $('lb-s').value, subjPI: $('lb-sp').value, verb: $('lb-v').value, object: $('lb-o').value, def: $('lb-d').value, adv: $('lb-a').value, tense: $('lb-t').value, neg: $('lb-n').checked });
+  if (!c.ok) { $('lb-out').innerHTML = errCard(c.error); $('lb-cur').style.display = 'none'; return; }
+  var l = linearize(c.value); if (!l.ok) { $('lb-out').innerHTML = errCard(l.error); return; }
+  c.value.trail = [{ op: 'BASE', label: 'جملهٔ پایه', desc: 'ساخت از اجزا', out: l.value }]; LAB.cur = c.value; LAB.hist = []; labShow();
+}
+function labShow() {
+  var l = linearize(LAB.cur); $('lb-cur').style.display = 'block'; $('lb-cur').innerHTML = '<span class="mesra">' + esc(l.ok ? l.value : '—') + '</span>';
+  $('lb-out').innerHTML = '<h3><i class="fa-solid fa-route"></i> مراحل</h3><div class="steps">' + LAB.cur.trail.map(function (s, i) { return '<div class="step-row"><span class="sn">' + toFa(i + 1) + '</span><div><strong>' + esc(s.label) + '</strong><div class="muted">' + esc(s.desc) + '</div><div class="s-out">' + esc(s.out) + '</div></div></div>'; }).join('') + '</div>' + '<div class="actions"><button class="btn-secondary" id="lb-cp"><i class="fa-solid fa-copy"></i> کپی جمله</button></div>';
+  $('lb-cp').onclick = function () { copyText(l.value, $('lb-cp')); };
+}
+
+/* ============ واژه‌ورز ============ */
+function initWords() {
+  $('p-words').innerHTML = head('fa-cubes', 'واژه‌ورز', 'از یک واژه همهٔ صورت‌های دستوری‌اش را بسازید: جمع، اضافه، نکره، ضمیر متصل، تفضیلی، و واژه‌سازی با وندها. قواعد املایی (ه←گ، میانجی «ی»، نیم‌فاصله) خودکار اعمال می‌شوند.') +
+    '<div class="workbench"><h4 class="sec">صرف واژه (اسم/صفت)</h4><div class="grid2"><div class="field-group"><label for="wd-in">واژه</label><input id="wd-in" class="field" placeholder="مثلاً: کتاب، خانه، معلم، دانا" autocomplete="off"></div><div class="field-group"><label for="wd-an">جانداری برای جمع</label><select id="wd-an" class="field"><option value="auto">تشخیص خودکار</option><option value="yes">جاندار</option><option value="no">بی‌جان</option></select></div></div>' +
+    '<div class="actions"><button class="btn-primary" id="wd-go"><i class="fa-solid fa-wand-magic-sparkles"></i> بساز</button></div><div id="wd-out" class="output"></div>' +
+    '<h4 class="sec">واژه‌سازی با وند</h4><div class="grid3"><div class="field-group"><label for="df-b">پایه</label><input id="df-b" class="field" placeholder="مثلاً: دانش، زنده، بچه"></div><div class="field-group"><label for="df-a">وند</label><select id="df-a" class="field">' + AFFIXES.map(function (a) { return '<option value="' + a.id + '">' + (a.kind === 'p' ? 'پیشوند ' : 'پسوند ') + a.name + ' — ' + a.desc + '</option>'; }).join('') + '</select></div><div class="field-group"><label>&nbsp;</label><button class="btn-secondary" id="df-go" style="width:100%">ساخت</button></div></div><div id="df-out" class="output"></div>' +
+    '<h4 class="sec">سازندهٔ گروه اسمی</h4><div class="grid3"><div class="field-group"><label for="np-h">هسته</label><input id="np-h" class="field" value="کتاب"></div><div class="field-group"><label for="np-a">صفت‌ها (با «،» جدا)</label><input id="np-a" class="field" value="جالب، تازه"></div><div class="field-group"><label for="np-g">مضاف‌الیه‌ها (با «،»)</label><input id="np-g" class="field" placeholder="مثلاً: علی"></div>' +
+    '<div class="field-group"><label for="np-d">تعیین‌کننده</label><select id="np-d" class="field"><option value="">—</option><option>این</option><option>آن</option><option>همین</option><option>هر</option><option>همهٔ</option></select></div><div class="field-group"><label for="np-n">عدد</label><input id="np-n" class="field" placeholder="مثلاً: سه"></div><div class="field-group"><label for="np-c">ضمیر متصل</label><select id="np-c" class="field"><option value="">—</option>' + ['م', 'ت', 'ش', 'مان', 'تان', 'شان'].map(function (x, i) { return '<option value="' + i + '">ـ' + x + '</option>'; }).join('') + '</select></div></div>' +
+    '<div class="opt-row"><label class="chk"><input type="checkbox" id="np-p"> جمع</label><label class="chk"><input type="checkbox" id="np-i"> نکره</label></div><div class="actions"><button class="btn-secondary" id="np-go">بساز</button></div><div id="np-out" class="output"></div></div>';
+  var go = function () {
+    var w = $('wd-in').value, o = '';
+    var p = pluralForms(w, { animacy: $('wd-an').value });
+    if (!p.ok) { $('wd-out').innerHTML = errCard(p.error); return; }
+    o += '<h3><i class="fa-solid fa-layer-group"></i> جمع</h3><table class="out-table"><thead><tr><th>صورت</th><th>نوع</th><th>توضیح</th></tr></thead><tbody>' + p.value.forms.map(function (f) { return '<tr><td><strong>' + esc(f.form) + '</strong> ' + (f.rec ? badge('پیشنهادی', 'ok') : '') + '</td><td>' + esc(f.kind) + '</td><td class="muted">' + esc(f.note) + '</td></tr>'; }).join('') + '</tbody></table>';
+    var ez = ezafeForms(w).value, ind = indefiniteForms(w).value, cp = comparativeForms(w).value, ps = possessiveForms(w).value;
+    o += '<h3><i class="fa-solid fa-link"></i> اضافه، نکره، تفضیلی</h3><table class="out-table"><tbody>' +
+      '<tr><td>اضافه</td><td><strong>' + esc(ez.display) + '</strong>' + (ez.alt ? ' یا ' + esc(ez.alt) : '') + '</td><td class="muted">' + esc(ez.note) + '</td></tr>' +
+      '<tr><td>نکره</td><td><strong>' + esc(ind.form || '—') + '</strong> | ' + esc(ind.withYek) + '</td><td class="muted">' + esc(ind.note) + '</td></tr>' +
+      '<tr><td>تفضیلی / عالی</td><td><strong>' + esc(cp.comp) + '</strong> | <strong>' + esc(cp.sup) + '</strong></td><td class="muted">' + esc(cp.note) + '</td></tr></tbody></table>';
+    o += '<h4>ضمیر متصل ملکی</h4>' + chipRow(ps.map(function (x) { return badge(x.who + ': ' + x.form); }));
+    $('wd-out').innerHTML = o;
+  };
+  $('wd-go').onclick = go; $('wd-in').addEventListener('keydown', function (e) { if (e.key === 'Enter') go(); });
+  $('df-go').onclick = function () {
+    var r = deriveWord($('df-b').value, $('df-a').value); if (!r.ok) { $('df-out').innerHTML = errCard(r.error); return; }
+    $('df-out').innerHTML = card('<strong style="font-size:1.2rem">' + esc(r.value.form) + '</strong><div class="muted">' + esc(r.value.rule) + ' — نقش: ' + esc(r.value.affix.out) + '</div><div class="muted">' + esc(r.value.note) + '</div>', 'ok');
+  };
+  $('np-go').onclick = function () {
+    var sp = function (x) { return x.split(/[،,]/).map(function (s) { return s.trim(); }).filter(Boolean); };
+    var r = buildNP({ head: $('np-h').value, adjs: sp($('np-a').value), gens: sp($('np-g').value), det: $('np-d').value, num: $('np-n').value, plural: $('np-p').checked, indef: $('np-i').checked, clitic: $('np-c').value });
+    if (!r.ok) { $('np-out').innerHTML = errCard(r.error); return; }
+    $('np-out').innerHTML = card('<div class="muted">نوشتار</div><strong style="font-size:1.15rem">' + esc(r.value.written) + '</strong><div class="muted" style="margin-top:.5rem">با کسرهٔ اضافه</div><strong style="font-size:1.15rem">' + esc(r.value.display) + '</strong>' + (r.value.steps.length ? '<div class="muted">' + esc(r.value.steps.join(' · ')) + '</div>' : ''), 'ok');
+  };
+}
+
+/* ============ اعداد ============ */
+function initNumbers() {
+  $('p-numbers').innerHTML = head('fa-hashtag', 'موتور اعداد', 'تبدیل عدد به حروف (تا ۱۸ رقم، اعشار و منفی)، ترتیبی، جداسازی ارقام، و بازگرداندن حروف به عدد. هر ورودی (فارسی، عربی، لاتین) پذیرفته می‌شود.') +
+    '<div class="workbench"><div class="grid2"><div class="field-group"><label for="nm-in">عدد</label><input id="nm-in" class="field" inputmode="decimal" placeholder="مثلاً: ۱۲۳۴۵۶۷٫۸۹" autocomplete="off"></div><div class="field-group"><label for="nm-u">واحد</label><select id="nm-u" class="field"><option value="">بدون واحد</option><option>تومان</option><option>ریال</option><option>متر</option><option>کیلوگرم</option><option>نفر</option></select></div></div>' +
+    '<div class="actions"><button class="btn-primary" id="nm-go">تبدیل</button></div><div id="nm-out" class="output"></div>' +
+    '<h4 class="sec">از حروف به عدد</h4><div class="field-group"><input id="nw-in" class="field" placeholder="مثلاً: دو هزار و پانصد و سی و سه"></div><div class="actions"><button class="btn-secondary" id="nw-go">به عدد</button></div><div id="nw-out" class="output"></div></div>';
+  var go = function () {
+    var s = $('nm-in').value.trim(), u = $('nm-u').value, o = '';
+    var w = numberToWords(s); if (!w.ok) { $('nm-out').innerHTML = errCard(w.error); return; }
+    var clean = toLatin(s).replace(/[\s,٬]/g, '').replace(/٫/g, '.');
+    var ip = clean.replace('-', '').split('.')[0];
+    o += '<div class="result-card ok"><div class="muted">به حروف</div><strong style="font-size:1.15rem">' + esc(w.value + (u ? ' ' + u : '')) + '</strong> <button class="mini ghost" data-cp="' + esc(w.value + (u ? ' ' + u : '')) + '">کپی</button></div>';
+    var rows = [['ارقام فارسی', toFa(clean)], ['ارقام جداشده', toFa(groupDigits(ip)) + (clean.indexOf('.') >= 0 ? '٫' + toFa(clean.split('.')[1]) : '')]];
+    if (/^\d+$/.test(clean)) { var od = ordinalWords(clean); if (od.ok) rows.push(['ترتیبی', od.value + (od.alt ? ' (یا ' + od.alt + ')' : '')]); rows.push(['عدد صفتی', w.value + ' ' + (u || 'تا')]); }
+    o += '<table class="out-table"><tbody>' + rows.map(function (r) { return '<tr><td>' + r[0] + '</td><td><strong>' + esc(r[1]) + '</strong></td></tr>'; }).join('') + '</tbody></table>';
+    $('nm-out').innerHTML = o;
+  };
+  $('nm-go').onclick = go; $('nm-in').addEventListener('keydown', function (e) { if (e.key === 'Enter') go(); });
+  $('nm-out').addEventListener('click', function (e) { var c = e.target.closest('[data-cp]'); if (c) copyText(c.getAttribute('data-cp'), c); });
+  $('nw-go').onclick = function () { var r = parseNumberWords($('nw-in').value); $('nw-out').innerHTML = r.ok ? card('<strong style="font-size:1.3rem">' + toFa(groupDigits(String(r.value))) + '</strong> <span class="muted">(' + String(r.value) + ')</span>', 'ok') : errCard(r.error); };
+}
+
+/* ============ عروض و قافیه ============ */
+var PR = { lines: [] };
+function initProsody() {
+  $('p-prosody').innerHTML = head('fa-music', 'تقطیع و قافیه', 'هر مصراع به هجاهای کوتاه (u) و بلند (−) تقطیع و با ' + toFa(AROOZ_METERS.length) + ' وزن مرسوم با «فاصلهٔ وزن‌دار» سنجیده می‌شود (کوتاه‌شدن مصوت پایانی، «و»ی اختیاری، آزادی هجای نخست و پایانی لحاظ می‌گردد). از آن‌جا که فارسی مصوت‌های کوتاه را نمی‌نویسد، تقطیع خودکار تقریبی است؛ هر واژه را می‌توانید خودتان تصحیح کنید.') +
+    '<div class="workbench"><div class="field-group"><label for="pr-in">شعر (هر مصراع در یک سطر)</label><textarea id="pr-in" class="field" style="min-height:120px" placeholder="ای ساقی گلرخ بده آن جام صبوحی"></textarea></div>' +
+    '<div class="actions"><button class="btn-primary" id="pr-go"><i class="fa-solid fa-scissors"></i> تقطیع کن</button><button class="btn-secondary" id="pr-s">نمونه</button></div><div id="pr-out" class="output"></div>' +
+    '<details class="ref"><summary>جدول وزن‌های پشتیبانی‌شده</summary><table class="meter-table"><thead><tr><th>وزن</th><th>ارکان</th><th>الگو</th></tr></thead><tbody>' + AROOZ_METERS.map(function (m) { return '<tr><td>' + m.name + '</td><td>' + m.feet + '</td><td class="rhythm">' + m.feet.split(' ').map(FEETS).join(' ') + '</td></tr>'; }).join('') + '</tbody></table></details></div>';
+  $('pr-go').onclick = prRun; $('pr-s').onclick = function () { $('pr-in').value = 'بنام خداوند جان و خرد\nکزین برتر اندیشه برنگذرد'; prRun(); };
+  $('pr-out').addEventListener('click', function (e) { var b = e.target.closest('[data-w]'); if (!b) return; var w = b.getAttribute('data-w'), cur = b.getAttribute('data-p'); var n = prompt('الگوی هجایی «' + w + '» را با u (کوتاه) و - (بلند) وارد کنید.\nخالی = بازگشت به حالت خودکار', cur); if (n === null) return; n = n.replace(/[^u\-]/g, ''); var k = wkey(w); if (!n) delete STATE.pron[k]; else STATE.pron[k] = n.replace(/u/g, 'S').replace(/-/g, 'L'); PT.res.pron = STATE.pron; saveState(); prRun(); });
+}
+function prRun() {
+  var lines = $('pr-in').value.split('\n').map(function (l) { return l.trim(); }).filter(Boolean); if (!lines.length) { $('pr-out').innerHTML = ''; return; }
+  var out = '', rhyme = analyzeRhyme(lines), votes = {};
+  lines.forEach(function (l, i) {
+    var s = scanLine(l); if (!s) return; var mm = matchMeter(s.syl);
+    out += '<div class="line-card"><div class="line-t"><span class="ln">' + toFa(i + 1) + '</span>' + esc(l) + ' <span class="rh">' + rhyme[i] + '</span></div>';
+    out += '<div class="syllable-line">' + s.words.map(function (w) { return '<button class="syl-w' + (w.conj ? ' conj' : '') + '" data-w="' + esc(w.w) + '" data-p="' + w.p + '" title="برای تصحیح کلیک کنید"><span class="w">' + esc(w.w) + '</span><span class="p">' + w.p.split('').map(function (c) { return c === 'u' ? '˘' : '−'; }).join(' ') + '</span></button>'; }).join('') + '</div>';
+    out += '<div class="rhythm pat">' + s.pat.split('').map(function (c) { return c === 'u' ? '˘' : '−'; }).join(' ') + ' <span class="muted">(' + toFa(s.count) + ' هجا)</span></div>';
+    if (mm.length) { out += '<table class="meter-table"><tbody>' + mm.slice(0, 3).map(function (m, k) { return '<tr class="' + (k === 0 && m.score >= 0.85 ? 'match' : '') + '"><td>' + esc(m.meter.name) + '</td><td class="muted">' + esc(m.meter.feet) + '</td><td>' + toFa(Math.round(m.score * 100)) + '٪</td></tr>'; }).join('') + '</tbody></table>'; if (mm[0].score >= 0.78) votes[mm[0].meter.name] = (votes[mm[0].meter.name] || 0) + 1; }
+    out += '</div>';
+  });
+  var vk = Object.keys(votes).sort(function (a, b) { return votes[b] - votes[a]; });
+  var sum = '<h3><i class="fa-solid fa-chart-simple"></i> جمع‌بندی</h3>' + chipRow([vk.length ? badge('وزن غالب: ' + vk[0], 'ok') : badge('وزن قطعی یافت نشد', 'err'), badge('طرح قافیه: ' + rhyme.join('')), badge('قالب: ' + classifyForm(rhyme))]);
+  $('pr-out').innerHTML = sum + out + card('<i class="fa-solid fa-circle-info"></i> بر روی هر واژه کلیک کنید تا الگوی هجایی‌اش را اصلاح کنید؛ اصلاحات ذخیره می‌شود و در همهٔ تقطیع‌ها اعمال می‌گردد.', '');
+}
+
+/* ============ آرایه و سبک ============ */
+function initRhetoric() {
+  $('p-rhetoric').innerHTML = head('fa-feather-pointed', 'آرایه‌یاب و تحلیل سبک', 'آمار متن، خوانایی و شناسایی الگومحور آرایه‌ها: تشبیه (با ادات)، جناس، سجع، تضاد، تکرار، پرسش بلاغی. تشخیص‌ها پیشنهادی‌اند و داوری نهایی با شماست.') +
+    '<div class="workbench"><div class="field-group"><label for="rh-in">متن</label><textarea id="rh-in" class="field" style="min-height:150px" placeholder="مثلاً: عشق چون دریاست، دل مانند چراغ است. روز و شب، شب و روز."></textarea></div><div class="actions"><button class="btn-primary" id="rh-go"><i class="fa-solid fa-chart-pie"></i> تحلیل کن</button><button class="btn-secondary" id="rh-s">نمونه</button></div><div id="rh-out" class="output"></div></div>';
+  $('rh-s').onclick = function () { $('rh-in').value = 'عشق چون دریاست، دل مانند چراغ است. روز و شب، شب و روز در پی یکدیگرند. آیا کسی هست که از غم رهایی یابد؟ زندگی مثل رود می‌گذرد، زندگی مثل باد.'; rhRun(); };
+  $('rh-go').onclick = rhRun;
+}
+function rhRun() {
+  var t = $('rh-in').value; if (!t.trim()) { $('rh-out').innerHTML = ''; return; }
+  var st = textStats(t), dv = detectDevices(t);
+  var read = st.avgSentLen <= 12 ? ['ساده و روان', 'ok'] : st.avgSentLen <= 22 ? ['متوسط', ''] : ['دشوار (جمله‌های بلند)', 'err'];
+  var out = '<h3><i class="fa-solid fa-gauge"></i> آمار و خوانایی</h3><div class="stat-grid">' + [[st.words, 'واژه'], [st.sentences, 'جمله'], [st.avgSentLen.toFixed(1), 'میانگین واژه در جمله'], [st.avgWordLen.toFixed(1), 'میانگین طول واژه'], [Math.round(st.ttr * 100) + '٪', 'تنوع واژگانی']].map(function (x) { return '<div class="stat-card"><span class="stat-num">' + toFa(String(x[0])) + '</span><div class="stat-label">' + x[1] + '</div></div>'; }).join('') + '</div>' + chipRow([badge('خوانایی: ' + read[0], read[1])]);
+  out += '<h3><i class="fa-solid fa-wand-sparkles"></i> آرایه‌های یافت‌شده (' + toFa(dv.length) + ')</h3>';
+  if (!dv.length) out += card('الگوی آرایه‌ای شناسایی نشد.', '');
+  else { var by = {}; dv.forEach(function (d) { (by[d.type] = by[d.type] || []).push(d); }); Object.keys(by).forEach(function (k) { out += '<h4>' + k + ' <small class="muted">(' + toFa(by[k].length) + ')</small></h4>' + by[k].map(function (d) { return '<div class="rhetoric-version"><span class="label">' + esc(d.sub || '') + '</span><div class="text">' + esc(d.note) + '</div></div>'; }).join(''); }); }
+  $('rh-out').innerHTML = out;
+}
+
+/* ============ تمرین ============ */
+var PRACTICE = { mode: 'conj', q: null, answered: false };
+var SUBJ_POOL = [['من', 0], ['تو', 1], ['او', 2], ['ما', 3], ['شما', 4], ['آن‌ها', 5], ['علی', 2], ['مریم', 2], ['دانش‌آموزان', 5], ['مادرم', 2], ['من و تو', 3]];
+var OBJ_POOL = ['کتاب', 'نامه', 'گزارش', 'پیام', 'هدیه', 'درس', 'غذا', 'مقاله'];
+var TRANS_VERBS = ['خواندن', 'نوشتن', 'دیدن', 'خریدن', 'فروختن', 'آوردن', 'گرفتن', 'شنیدن', 'ساختن', 'فرستادن', 'پذیرفتن', 'پختن', 'شستن', 'بردن', 'دادن'];
+function scoreOf(m) { return STATE.score[m] || (STATE.score[m] = { ok: 0, tot: 0, streak: 0, best: 0 }); }
+function initPractice() {
+  $('p-practice').innerHTML = head('fa-dumbbell', 'مربی تمرین', 'تمرین‌ها از روی موتور تولید و تصحیح می‌شوند، نه از بانک سؤال؛ بنابراین بی‌پایان‌اند و همیشه پاسخ درست محاسبه می‌شود. پیشرفت شما ذخیره می‌شود.') +
+    '<div class="workbench"><div class="modes" id="pc-modes">' + [['conj', 'صرف فعل'], ['id', 'شناخت زمان'], ['fix', 'یافتن و اصلاح خطا'], ['num', 'عدد به حروف'], ['tr', 'تبدیل جمله']].map(function (m) { return '<button class="mode" data-m="' + m[0] + '">' + m[1] + '</button>'; }).join('') + '</div><div id="pc-score" class="badges"></div><div id="pc-q"></div></div>';
+  $('pc-modes').addEventListener('click', function (e) { var b = e.target.closest('.mode'); if (b) { PRACTICE.mode = b.getAttribute('data-m'); pcNext(); } });
+  pcNext();
+}
+function pcRenderScore() {
+  var s = scoreOf(PRACTICE.mode);
+  $('pc-score').innerHTML = badge('درست: ' + toFa(s.ok) + ' از ' + toFa(s.tot), 'ok') + badge('پیاپی: ' + toFa(s.streak)) + badge('بهترین: ' + toFa(s.best)) + '<button class="mini ghost" id="pc-reset">صفر کردن</button>';
+  var rb = $('pc-reset'); if (rb) rb.onclick = function () { STATE.score[PRACTICE.mode] = { ok: 0, tot: 0, streak: 0, best: 0 }; saveState(); pcRenderScore(); };
+  Array.prototype.forEach.call(document.querySelectorAll('.mode'), function (b) { b.classList.toggle('active', b.getAttribute('data-m') === PRACTICE.mode); });
+}
+function normAns(s) { return canon(String(s)).replace(/[‌]/g, ' ').replace(/\s+/g, ' ').trim(); }
+function genConj() {
+  var ks = Object.keys(LEX).filter(function (k) { return !LEX[k].stative || true; }); var v;
+  var tn = pick(['pastSimple', 'pastImperfect', 'presentPerfect', 'presentIndicative', 'presentSubjunctive', 'future', 'pastPerfect', 'imperative']);
+  for (var tries = 0; tries < 40; tries++) {
+    v = LEX[pick(ks)]; var pi = tn === 'imperative' ? pick([1, 4]) : Math.floor(Math.random() * 6), neg = Math.random() < 0.3, ans = conj(v, tn, pi, neg);
+    if (ans) return { v: v, t: tn, pi: pi, neg: neg, ans: ans };
+  }
+  return null;
+}
+function pcNext() {
+  PRACTICE.answered = false; pcRenderScore(); var m = PRACTICE.mode, box = $('pc-q'), q;
+  if (m === 'conj') {
+    q = genConj(); PRACTICE.q = q;
+    box.innerHTML = '<div class="q-card"><div class="q-t">این صورت را بنویسید:</div><div class="q-spec">' + badge('مصدر: ' + q.v.inf) + badge(tenseName(q.t)) + badge(persons6()[q.pi] + ' (' + PERSONS[q.pi] + ')') + badge(q.neg ? 'منفی' : 'مثبت', q.neg ? 'err' : 'ok') + '</div><input id="pc-a" class="field" placeholder="پاسخ…" autocomplete="off"><div class="actions"><button class="btn-primary" id="pc-ck">بررسی</button><button class="btn-secondary" id="pc-sk">رد کردن</button></div><div id="pc-fb"></div></div>';
+  } else if (m === 'id') {
+    var g = genConj(), reg = Math.random() < 0.3; if (!g) return; var form = g.ans;
+    var all = [{ t: g.t, pi: g.pi, neg: g.neg }]; var pool = ['pastSimple', 'pastImperfect', 'presentPerfect', 'presentIndicative', 'presentSubjunctive', 'future', 'pastPerfect'];
+    while (all.length < 4) { var o = { t: pick(pool), pi: Math.floor(Math.random() * 6), neg: g.neg }; if (!all.some(function (a) { return a.t === o.t && a.pi === o.pi; })) all.push(o); }
+    all = shuffle(all); q = { form: form, inf: g.v.inf, right: all.findIndex(function (a) { return a.t === g.t && a.pi === g.pi; }), opts: all }; PRACTICE.q = q;
+    box.innerHTML = '<div class="q-card"><div class="q-t">صورت فعلی «<strong style="font-size:1.3rem">' + esc(form) + '</strong>» (مصدر: ' + esc(g.v.inf) + ') چیست؟</div><div class="options">' + all.map(function (a, i) { return '<button class="option" data-i="' + i + '">' + tenseName(a.t) + ' — ' + PERSONS[a.pi] + (a.neg ? ' (منفی)' : '') + '</button>'; }).join('') + '</div><div id="pc-fb"></div></div>';
+  } else if (m === 'fix') {
+    var c = genSentence(); var kinds = ['agree', 'mi', 'ha', 'arab'], tried = 0, bad = null, kind; while (tried++ < 12 && !bad) { kind = pick(kinds); bad = corrupt(c, kind); }
+    if (!bad) { return pcNext(); } q = { good: c.text, bad: bad, kind: kind }; PRACTICE.q = q;
+    box.innerHTML = '<div class="q-card"><div class="q-t">این جمله خطا دارد؛ آن را درست بنویسید:</div><textarea id="pc-a" class="field" style="min-height:64px">' + esc(bad) + '</textarea><div class="actions"><button class="btn-primary" id="pc-ck">بررسی</button><button class="btn-secondary" id="pc-hint">راهنمایی</button><button class="btn-secondary" id="pc-sk">رد کردن</button></div><div id="pc-fb"></div></div>';
+    $('pc-hint').onclick = function () { $('pc-fb').innerHTML = card('نوع خطا: ' + ({ agree: 'مطابقت نهاد و فعل', mi: 'نیم‌فاصلهٔ «می»', ha: 'نیم‌فاصلهٔ «ها»', arab: 'نویسهٔ عربی' })[kind], 'warn'); };
+  } else if (m === 'num') {
+    var mag = pick([2, 3, 3, 4, 5, 6, 7]), n = Math.floor(Math.random() * Math.pow(10, mag)) + 1; if (Math.random() < 0.3) n = n - (n % 100); if (n < 1) n = 7; q = { n: n, ans: numberToWords(n).value }; PRACTICE.q = q;
+    box.innerHTML = '<div class="q-card"><div class="q-t">این عدد را با حروف بنویسید:</div><div class="q-spec"><strong style="font-size:1.6rem">' + toFa(groupDigits(String(n))) + '</strong></div><input id="pc-a" class="field" autocomplete="off"><div class="actions"><button class="btn-primary" id="pc-ck">بررسی</button><button class="btn-secondary" id="pc-sk">رد کردن</button></div><div id="pc-fb"></div></div>';
+  } else if (m === 'tr') {
+    var c2 = genClause(), op = pick(['PASSIVE', 'NEGATE', 'QUESTION', 'TOPIC', 'RELATIVE']), r = applyTransform(c2.value, op); if (!r.ok) return pcNext();
+    q = { base: linearize(c2.value).value, op: op, ans: linearize(r.value).value }; PRACTICE.q = q;
+    box.innerHTML = '<div class="q-card"><div class="q-t">جملهٔ زیر را به صورت «<strong>' + TRANSFORMS[op].label + '</strong>» بازنویسی کنید:</div><div class="bayt-card"><span class="mesra">' + esc(q.base) + '</span></div><input id="pc-a" class="field" autocomplete="off"><div class="actions"><button class="btn-primary" id="pc-ck">بررسی</button><button class="btn-secondary" id="pc-sk">رد کردن</button></div><div id="pc-fb"></div></div>';
+  }
+  var ck = $('pc-ck'); if (ck) ck.onclick = pcCheck; var sk = $('pc-sk'); if (sk) sk.onclick = function () { pcFinish(false, q); }; var inp = $('pc-a'); if (inp && inp.tagName === 'INPUT') inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') pcCheck(); });
+  Array.prototype.forEach.call(document.querySelectorAll('#pc-q .option'), function (b) { b.onclick = function () { pcCheck(+b.getAttribute('data-i')); }; });
+  if (inp) inp.focus();
+}
+function genClause() {
+  for (var i = 0; i < 30; i++) {
+    var s = pick(SUBJ_POOL), c = newClause({ subject: s[0], subjPI: s[1], verb: pick(TRANS_VERBS), object: pick(OBJ_POOL), def: 'def', tense: pick(['pastSimple', 'presentIndicative', 'presentPerfect', 'future', 'pastImperfect']), neg: false });
+    if (c.ok && linearize(c.value).ok) return c;
+  }
+}
+function genSentence() { var c = genClause(); return { clause: c.value, text: linearize(c.value).value }; }
+function corrupt(c, kind) {
+  var t = c.text, cl = c.clause;
+  if (kind === 'agree') { var wrong = (cl.subjPI + 1 + Math.floor(Math.random() * 5)) % 6; if (wrong === cl.subjPI) return null; var vt = conj(cl.verb, cl.tense, wrong, false); var right = conj(cl.verb, cl.tense, cl.subjPI, false); if (!vt || vt === right) return null; var idx = t.lastIndexOf(right.split(' ')[0]); if (idx < 0) return null; var rest = right; if (t.slice(-1 - rest.length, -1) !== rest) return null; return t.slice(0, t.length - 1 - rest.length) + vt + '.'; }
+  if (kind === 'mi') { if (t.indexOf('می' + ZW) < 0) return null; return t.replace('می' + ZW, 'می'); }
+  if (kind === 'ha') return null;
+  if (kind === 'arab') { if (t.indexOf('ی') < 0 && t.indexOf('ک') < 0) return null; return t.replace('ی', 'ي'); }
+  return null;
+}
+function pcCheck(choice) {
+  if (PRACTICE.answered) return; var m = PRACTICE.mode, q = PRACTICE.q, ok = false, extra = '';
+  if (m === 'id') { ok = choice === q.right; PRACTICE.answered = true; Array.prototype.forEach.call(document.querySelectorAll('#pc-q .option'), function (b, i) { b.disabled = true; if (i === q.right) b.classList.add('correct'); else if (i === choice) b.classList.add('wrong'); }); }
+  else { var a = $('pc-a').value; if (m === 'fix') ok = a.trim() === q.good; else ok = normAns(a) === normAns(q.ans); if (m === 'conj' && ok && stripZ(a.trim()) === a.trim() && q.ans.indexOf(ZW) >= 0) extra = '<div class="muted">نکته: در نوشتار درست، نیم‌فاصله لازم است: ' + esc(q.ans) + '</div>'; if (m === 'conj' && !ok && normAns(stripZ(a)) === normAns(stripZ(q.ans))) { ok = true; extra = '<div class="muted">فاصله/نیم‌فاصله را رعایت کنید: <strong>' + esc(q.ans) + '</strong></div>'; } }
+  pcFinish(ok, q, extra);
+}
+function pcFinish(ok, q, extra) {
+  PRACTICE.answered = true; var m = PRACTICE.mode, s = scoreOf(m); s.tot++; if (ok) { s.ok++; s.streak++; if (s.streak > s.best) s.best = s.streak; } else s.streak = 0; saveState();
+  var ans = m === 'conj' ? q.ans : m === 'fix' ? q.good : m === 'num' ? q.ans : m === 'tr' ? q.ans : (tenseName(q.opts[q.right].t) + ' — ' + PERSONS[q.opts[q.right].pi]);
+  $('pc-fb').innerHTML = card((ok ? '<strong>درست است ✓</strong>' : '<strong>پاسخ درست:</strong> ' + esc(ans)) + (extra || '') + '<div class="actions"><button class="btn-primary" id="pc-nx">بعدی ←</button></div>', ok ? 'ok' : 'error');
+  $('pc-nx').onclick = pcNext; $('pc-nx').focus(); pcRenderScore();
+}
+
+/* ============ منابع ============ */
+function initResources() {
+  $('p-resources').innerHTML = head('fa-database', 'منابع قابل‌گسترش', 'موتور بر قاعده بنا شده و منابع فقط استثناها و دادهٔ کمکی‌اند. هر چه اینجا اضافه کنید روی همهٔ ابزارها اثر می‌گذارد و در مرورگر شما ذخیره می‌شود.') +
+    '<div class="workbench"><div id="rs-stats" class="stat-grid"></div>' +
+    '<h4 class="sec">فعل بی‌قاعده / جدید</h4><div class="grid4"><div class="field-group"><label for="rv-i">مصدر</label><input id="rv-i" class="field" placeholder="خوابیدن"></div><div class="field-group"><label for="rv-p">بن ماضی</label><input id="rv-p" class="field" placeholder="خوابید"></div><div class="field-group"><label for="rv-r">بن مضارع</label><input id="rv-r" class="field" placeholder="خواب"></div><div class="field-group"><label for="rv-t">گذرایی</label><select id="rv-t" class="field"><option value="t">گذرا</option><option value="i">ناگذر</option><option value="b">هر دو</option></select></div></div><div class="actions"><button class="btn-primary" id="rv-add">افزودن فعل</button></div><div id="rv-list" class="badges"></div>' +
+    '<h4 class="sec">استثنای جمع</h4><div class="grid3"><div class="field-group"><label for="rp-w">واژه</label><input id="rp-w" class="field" placeholder="کتاب"></div><div class="field-group"><label for="rp-p">جمع درست</label><input id="rp-p" class="field" placeholder="کتب"></div><div class="field-group"><label>&nbsp;</label><button class="btn-secondary" id="rp-add" style="width:100%">افزودن</button></div></div><div id="rp-list" class="badges"></div>' +
+    '<h4 class="sec">املای پرخطا</h4><div class="grid3"><div class="field-group"><label for="rs-w">نادرست</label><input id="rs-w" class="field"></div><div class="field-group"><label for="rs-r">درست</label><input id="rs-r" class="field"></div><div class="field-group"><label>&nbsp;</label><button class="btn-secondary" id="rs-add" style="width:100%">افزودن</button></div></div><div id="rs-list" class="badges"></div>' +
+    '<h4 class="sec">واژه‌های نادیده‌گرفته‌شده و تقطیع‌های سفارشی</h4><div id="ig-list" class="badges"></div>' +
+    '<h4 class="sec">پشتیبان</h4><div class="actions"><button class="btn-secondary" id="rs-exp"><i class="fa-solid fa-download"></i> خروجی JSON</button><label class="btn-secondary" style="cursor:pointer"><i class="fa-solid fa-upload"></i> ورود JSON<input type="file" id="rs-imp" accept=".json,application/json" hidden></label><button class="btn-secondary" id="rs-clr" style="color:var(--c-err);border-color:rgba(248,113,113,.4)"><i class="fa-solid fa-trash"></i> پاک‌سازی همه</button></div><div id="rs-msg"></div></div>';
+  $('rv-add').onclick = function () {
+    var i = canon($('rv-i').value).trim(), p = canon($('rv-p').value).trim(), r = canon($('rv-r').value).trim(); if (!/ن$/.test(i) || !p || !r) { $('rs-msg').innerHTML = errCard({ message: 'مصدر باید با «ن» تمام شود و هر سه بخش لازم است.' }); return; }
+    if (i.indexOf(' ') >= 0) { $('rs-msg').innerHTML = errCard({ message: 'فقط مصدر ساده ثبت می‌شود؛ مرکب‌ها خودکار ساخته می‌شوند.' }); return; }
+    addUserVerb({ inf: i, past: p, pres: r, trans: $('rv-t').value, glide: false, stative: false, bare: false }); $('rs-msg').innerHTML = card('«' + esc(i) + '» ثبت شد.', 'ok'); rsRefresh(); $('rv-i').value = $('rv-p').value = $('rv-r').value = '';
+  };
+  $('rp-add').onclick = function () { var w = canon($('rp-w').value).trim(), p = $('rp-p').value.trim(); if (!w || !p) return; STATE.plurals[w] = p; PT.res.plurals = STATE.plurals; saveState(); rsRefresh(); $('rp-w').value = $('rp-p').value = ''; };
+  $('rs-add').onclick = function () { var w = $('rs-w').value.trim(), r = $('rs-r').value.trim(); if (!w || !r) return; STATE.spell.push([w, r]); PT.packs.spellMap[wkey(w)] = r; saveState(); rsRefresh(); $('rs-w').value = $('rs-r').value = ''; };
+  $('p-resources').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-del]'); if (!b) return; var t = b.getAttribute('data-del'), k = b.getAttribute('data-k');
+    if (t === 'verb') { STATE.verbs = STATE.verbs.filter(function (s) { return s.split('|')[0] !== k; }); var base = null; delete LEX[k]; LEX_SRC.forEach(function (s) { if (s.split('|')[0] === k) { var v = mkVerb(s); LEX[k] = v; } }); FORM_INDEX = null; refreshVerbList(); }
+    else if (t === 'plural') delete STATE.plurals[k]; else if (t === 'ign') delete STATE.ignore[k]; else if (t === 'pron') delete STATE.pron[k]; else if (t === 'spell') { STATE.spell = STATE.spell.filter(function (p) { return p[0] !== k; }); delete PT.packs.spellMap[wkey(k)]; }
+    PT.res.plurals = STATE.plurals; PT.res.ignore = STATE.ignore; PT.res.pron = STATE.pron; saveState(); rsRefresh();
+  });
+  $('rs-exp').onclick = function () { var blob = new Blob([JSON.stringify(STATE, null, 2)], { type: 'application/json' }), a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'persian-engine-resources.json'; a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000); };
+  $('rs-imp').onchange = function (e) { var f = e.target.files[0]; if (!f) return; var rd = new FileReader(); rd.onload = function () { try { var d = JSON.parse(rd.result); if (typeof d !== 'object') throw 0; ['verbs', 'spell', 'antonyms'].forEach(function (k) { if (Array.isArray(d[k])) STATE[k] = STATE[k].concat(d[k]); }); ['plurals', 'ignore', 'pron'].forEach(function (k) { if (d[k] && typeof d[k] === 'object') for (var x in d[k]) STATE[k][x] = d[k][x]; }); applyState(); saveState(); refreshVerbList(); rsRefresh(); $('rs-msg').innerHTML = card('ورود با موفقیت انجام شد.', 'ok'); } catch (err) { $('rs-msg').innerHTML = errCard({ message: 'فایل معتبر نیست.' }); } }; rd.readAsText(f); };
+  $('rs-clr').onclick = function () { if (!confirm('همهٔ منابع و پیشرفت تمرین پاک شود؟')) return; try { localStorage.removeItem(STORE_KEY); } catch (e) { } location.reload(); };
+  rsRefresh();
+}
+function rsRefresh() {
+  var chips = function (obj, t, fmt) { return obj.length ? obj.map(function (x) { return '<span class="badge">' + esc(fmt(x)) + ' <button class="x" data-del="' + t + '" data-k="' + esc(x[0]) + '" aria-label="حذف">×</button></span>'; }).join('') : '<span class="muted">موردی ثبت نشده.</span>'; };
+  $('rv-list').innerHTML = chips(STATE.verbs.map(function (s) { return s.split('|'); }), 'verb', function (a) { return a[0] + ' (' + a[1] + '/' + a[2] + ')'; });
+  $('rp-list').innerHTML = chips(Object.keys(STATE.plurals).map(function (k) { return [k, STATE.plurals[k]]; }), 'plural', function (a) { return a[0] + ' ← ' + a[1]; });
+  $('rs-list').innerHTML = chips(STATE.spell, 'spell', function (a) { return a[0] + ' ← ' + a[1]; });
+  $('ig-list').innerHTML = chips(Object.keys(STATE.ignore).map(function (k) { return [k]; }), 'ign', function (a) { return 'نادیده: ' + a[0]; }) + Object.keys(STATE.pron).map(function (k) { return '<span class="badge">' + esc(k) + ': ' + STATE.pron[k].replace(/S/g, '˘').replace(/L/g, '−') + ' <button class="x" data-del="pron" data-k="' + esc(k) + '">×</button></span>'; }).join('');
+  $('rs-stats').innerHTML = [[Object.keys(LEX).length, 'فعل در فرهنگ'], [RULES.length, 'قاعدهٔ ویرایش'], [AFFIXES.length, 'وند'], [AROOZ_METERS.length, 'وزن عروضی'], [TENSES.length, 'زمان']].map(function (x) { return '<div class="stat-card"><span class="stat-num">' + toFa(x[0]) + '</span><div class="stat-label">' + x[1] + '</div></div>'; }).join('');
+}
+
+/* ============ راهنما و خودآزمون ============ */
+var SELFTESTS = [
+  ['صرف: برمی‌گردم', function () { return conj(resolveVerb('برگشتن').value, 'presentIndicative', 0, false) === 'برمی‌گردم'; }],
+  ['صرف: بیایید', function () { return conj(resolveVerb('آمدن').value, 'imperative', 4, false) === 'بیایید'; }],
+  ['صرف: نیامد', function () { return conj(resolveVerb('آمدن').value, 'pastSimple', 2, true) === 'نیامد'; }],
+  ['صرف: دوست دارم', function () { return conj(resolveVerb('دوست داشتن').value, 'presentIndicative', 0, false) === 'دوست دارم'; }],
+  ['مجهول: نوشته شده است', function () { return conj(resolveVerb('نوشتن').value, 'presentPerfect', 2, false, 'passive') === 'نوشته شده است'; }],
+  ['سببی: ترساندن', function () { return causativeOf(resolveVerb('ترسیدن').value).value.inf === 'ترساندن'; }],
+  ['فعل ناشناخته با قاعده: خرامیدن', function () { return conj(resolveVerb('خرامیدن').value, 'presentIndicative', 0, false) === 'می‌خرامم'; }],
+  ['گفتاری: می‌خوام', function () { return cq(resolveVerb('خواستن').value, 'presentIndicative', 0, false) === 'می‌خوام'; }],
+  ['تحلیل معکوس: می‌روم', function () { return analyzePhrase('می‌روم')[0].inf === 'رفتن'; }],
+  ['تحلیل مجهول: نوشته می‌شود', function () { var r = analyzePhrase('نوشته می‌شود')[0]; return r.voice === 'passive' && r.inf === 'نوشتن'; }],
+  ['عدد: ۱۲۰۵', function () { return numberToWords(1205).value === 'هزار و دویست و پنج'; }],
+  ['عدد ترتیبی: سی‌ام', function () { return ordinalWords(30).value === 'سی‌ام'; }],
+  ['عدد معکوس', function () { return parseNumberWords('دو هزار و پانصد و سی و سه').value === 2533; }],
+  ['جمع: خانه‌ها / خانگان', function () { var f = pluralForms('خانه').value.forms; return f[0].form === 'خانه‌ها' && f[1].form === 'خانگان'; }],
+  ['وندسازی: زندگی', function () { return deriveWord('زنده', 's-y').value.form === 'زندگی'; }],
+  ['ویرایش: می‌روم', function () { var t = 'او میرود'; return applyFixes(t, runRules(t, {}), true).text === 'او می‌رود'; }],
+  ['ویرایش: مطابقت', function () { return runRules('من رفتیم', {}).some(function (i) { return i.rule === 'verb-agree' && i.r === 'رفتم'; }); }],
+  ['تبدیل: مجهول', function () { var c = newClause({ subject: 'علی', verb: 'نوشتن', object: 'نامه', tense: 'pastSimple' }).value; return linearize(applyTransform(c, 'PASSIVE').value).value === 'نامه توسط علی نوشته شد.'; }]
+];
+function initAbout() {
+  $('p-about').innerHTML = head('fa-circle-info', 'راهنما و معماری', 'این ابزار موتور زبانی است، نه فهرست واژه: هر خروجی از قاعده محاسبه می‌شود و فهرست‌ها فقط برای استثناهاست.') +
+    '<div class="about-block"><span class="lead">چه چیزی تغییر کرد؟</span>نسخهٔ پیشین با فهرست کوچکی از واژه‌ها کار می‌کرد و بیرون از آن‌ها ناکارا بود. اکنون «واژه» ورودی است و «فرایند» منطق: متن ← توکن ← برچسب ← قواعد ← موقعیت دقیق خطا ← اصلاح. فعل از بن‌ها ساخته می‌شود (نه از جدول)، پیشوندی/مرکب/سببی/مجهول/گفتاری قاعده‌مندند و تحلیل معکوس از همان موتور نمایه می‌شود.</div>' +
+    '<div class="about-block"><span class="lead">محدودیت‌ها (صادقانه)</span>• افعال بی‌قاعده‌ای که در فرهنگ نیستند حدس قاعده‌مند می‌خورند و با درصد اطمینان نشان داده می‌شوند؛ در «منابع» می‌توانید ثبتشان کنید.<br>• تقطیع عروضی تقریبی است چون مصوت‌های کوتاه نوشته نمی‌شوند؛ واژه‌ها را می‌توان دستی تصحیح کرد.<br>• نحو و آرایه‌یاب الگومحور و سبک‌اند و جای داوری انسانی را نمی‌گیرند.<br>• ویرایشگر معنا را نمی‌فهمد؛ فقط ساختار و رسم‌الخط را می‌سنجد.</div>' +
+    '<div class="about-block"><span class="lead">خودآزمون موتور</span><button class="btn-secondary" id="st-run"><i class="fa-solid fa-vial"></i> اجرای ' + toFa(SELFTESTS.length) + ' آزمون</button><div id="st-out"></div></div>';
+  $('st-run').onclick = function () {
+    var ok = 0, rows = SELFTESTS.map(function (t) { var r = false; try { r = !!t[1](); } catch (e) { r = false; } if (r) ok++; return '<tr><td>' + (r ? '<span class="ok-t">✓</span>' : '<span class="err-t">✗</span>') + '</td><td>' + esc(t[0]) + '</td></tr>'; }).join('');
+    $('st-out').innerHTML = card('<strong>' + toFa(ok) + ' از ' + toFa(SELFTESTS.length) + '</strong> آزمون موفق', ok === SELFTESTS.length ? 'ok' : 'error') + '<table class="out-table"><tbody>' + rows + '</tbody></table>';
+  };
+}
+
+/* ============ راه‌اندازی ============ */
+function boot() {
+  buildShell();
+  TABS.forEach(function (t) { var d = document.createElement('section'); d.className = 'panel'; d.id = 'p-' + t[0]; $('panels').appendChild(d); });
+  initEditor(); initVerb(); initAnalyze(); initLab(); initWords(); initNumbers(); initProsody(); initRhetoric(); initPractice(); initResources(); initAbout();
+  var h = (location.hash || '').replace('#', ''); switchTab(TABS.some(function (t) { return t[0] === h; }) ? h : 'editor');
+  edRun();
+}
+document.addEventListener('DOMContentLoaded', boot);
+
+
+})();
+</script>
+</body>
+</html>
