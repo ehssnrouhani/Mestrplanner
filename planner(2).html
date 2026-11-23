@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>برنامه‌ریز چندبعدی | افق‌های زمانی و اولویت‌بندی مباحث | مستر پلنر</title>
+<script src="assets/gate/gate.js"></script>
+<meta name="description" content="برنامه‌ریز چندبعدی مستر پلنر: میزکار جدولی مباحث، افق‌های زمانی، حالت‌های مطالعه، اولویت‌بندی خودکار، ظرفیت زمانی، برنامه‌های اجباری و خروجی متنی.">
+<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/planner.html">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"برنامه‌ریز چندبعدی مستر پلنر","url":"https://ehssnrouhani.github.io/Mestrplanner/planner.html","applicationCategory":"EducationalApplication","operatingSystem":"Web Browser","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"IRR"},"inLanguage":"fa-IR","description":"برنامه‌ریز چندبعدی با افق‌های زمانی، اولویت‌بندی خودکار مباحث و تخصیص زمان بر اساس ظرفیت.","author":{"@type":"Person","name":"احسان روحانی راوری"},"publisher":{"@type":"Organization","name":"مستر پلنر","url":"https://ehssnrouhani.github.io/Mestrplanner/"}}
+</script>
+<style>
+:root{--bg:#0f172a;--panel:#1e293b;--border:#334155;--border-strong:#475569;--text:#f8fafc;--muted:#94a3b8;--primary:#e8971f;--success:#34d399;--success-soft:rgba(16,185,129,.2);--warning:#fbbf24;--warning-soft:rgba(245,158,11,.2);--danger:#f87171;--danger-soft:rgba(239,68,68,.2);--purple:#c4b5fd;--purple-soft:rgba(139,92,246,.25);--header-bg:#0b1120;--solid:#162033}
+*{box-sizing:border-box}
+body{margin:0;font-family:Vazirmatn,Tahoma,sans-serif;background:var(--bg);color:var(--text);font-size:13px;color-scheme:dark}
+header.app-header{background:var(--panel);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+header.app-header h1{margin:0;font-size:19px}
+header.app-header p{margin:4px 0 0;font-size:12px;color:var(--muted)}
+header.app-header a.back{color:var(--primary);text-decoration:none;font-weight:700;font-size:13px}
+.header-actions{display:flex;gap:8px;flex-wrap:wrap}
+button,.btn{font-family:inherit;font-size:13px;padding:7px 14px;border-radius:8px;border:1px solid var(--border-strong);background:var(--header-bg);color:var(--text);cursor:pointer;transition:all .15s}
+button:hover{border-color:var(--primary)}
+button.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+button.danger{color:var(--danger);border-color:var(--danger)}
+button.danger:hover{background:var(--danger-soft)}
+button.small{padding:3px 8px;font-size:11px}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+nav.tabs{display:flex;gap:4px;padding:0 24px;background:var(--panel);border-bottom:1px solid var(--border);overflow-x:auto;position:sticky;top:0;z-index:50}
+nav.tabs button{border:none;border-bottom:2px solid transparent;border-radius:0;background:transparent;padding:12px 16px;color:var(--muted);white-space:nowrap}
+nav.tabs button.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:700}
+main{padding:16px 24px;max-width:1500px;margin:0 auto}
+.sheet{display:none}.sheet.active{display:block}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px}
+.panel-title{font-size:14px;font-weight:700;margin:0 0 12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.subtitle{font-size:12px;font-weight:400;color:var(--muted)}
+.table-wrap{overflow:auto;max-height:72vh;border:1px solid var(--border);border-radius:8px}
+table.grid{border-collapse:collapse;font-size:12px;width:100%;white-space:nowrap}
+table.grid th,table.grid td{border:1px solid var(--border);padding:4px 6px;text-align:center}
+table.grid thead th{background:var(--header-bg);position:sticky;top:0;z-index:10;font-weight:600}
+table.grid thead tr:nth-child(2) th{top:29px}
+table.grid tfoot td{background:var(--header-bg);font-weight:600;position:sticky;bottom:0;z-index:5}
+table.grid input{width:100%;border:none;background:transparent;text-align:center;font-family:inherit;font-size:12px;padding:2px;color:var(--text)}
+table.grid input:focus{outline:2px solid var(--primary);border-radius:4px;background:var(--header-bg)}
+table.grid input[type=number]{-moz-appearance:textfield}
+table.grid input[type=number]::-webkit-outer-spin-button,table.grid input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.num-cell{min-width:58px}.txt-cell{min-width:110px}
+.col-horizon{background:rgba(59,130,246,.10)}.col-mode{background:rgba(16,185,129,.10)}.col-mandatory{background:rgba(232,151,31,.13)}.col-computed{background:rgba(139,92,246,.14);font-weight:600}
+.sticky-col{position:sticky;right:0;background:var(--solid)!important;z-index:2}
+thead .sticky-col{z-index:12}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700}
+.badge-ok{background:var(--success-soft);color:var(--success)}.badge-warn{background:var(--warning-soft);color:var(--warning)}.badge-err{background:var(--danger-soft);color:var(--danger)}.badge-priority{background:var(--purple-soft);color:var(--purple)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.info-card{background:var(--header-bg);border:1px solid var(--border);border-radius:8px;padding:12px}
+.info-card label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px}
+.info-card input{width:100%;padding:6px 8px;border:1px solid var(--border-strong);border-radius:6px;font-family:inherit;font-size:12px;background:var(--bg);color:var(--text)}
+.hint{font-size:10px;color:var(--muted);margin-top:4px}
+.output-box{background:#020617;color:#e2e8f0;font-family:'Courier New',monospace;font-size:12px;padding:16px;border-radius:8px;white-space:pre-wrap;max-height:600px;overflow:auto;line-height:1.85}
+.render-area{background:var(--header-bg);border:1px dashed var(--border-strong);border-radius:8px;padding:16px;min-height:200px}
+.timeline-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.timeline-label{min-width:160px;font-size:12px;color:var(--muted);text-align:right}
+.timeline-track{flex:1;height:26px;background:var(--border);border-radius:4px;position:relative;overflow:hidden}
+.timeline-block{position:absolute;height:100%;font-size:10px;color:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;font-size:11px;color:var(--muted)}
+.legend span::before{content:'';display:inline-block;width:11px;height:11px;border-radius:2px;margin-left:4px;vertical-align:middle;background:var(--c)}
+.stat-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.stat-card{background:var(--header-bg);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center}
+.stat-card .value{font-size:22px;font-weight:800;color:var(--primary)}.stat-card .label{font-size:11px;color:var(--muted);margin-top:4px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#020617;border:1px solid var(--primary);color:#fff;padding:10px 20px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .3s;z-index:1000}
+.toast.show{opacity:1}
+.mode-weights{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.mode-weight-row{display:flex;align-items:center;gap:8px;background:var(--header-bg);border:1px solid var(--border);border-radius:8px;padding:8px 12px}
+.swatch{width:12px;height:12px;border-radius:3px}
+.mode-weight-row label{flex:1;font-size:12px}
+.mode-weight-row input{width:70px;padding:4px 6px;border:1px solid var(--border-strong);border-radius:6px;text-align:center;background:var(--bg);color:var(--text)}
+.mandatory-row{display:grid;grid-template-columns:1.4fr 1fr 1fr 2fr auto;gap:10px;align-items:center;padding:10px;background:var(--header-bg);border:1px solid var(--border);border-radius:8px;margin-bottom:8px}
+.mandatory-row>input{width:100%;padding:6px 8px;border:1px solid var(--border-strong);border-radius:6px;font-family:inherit;font-size:12px;background:var(--bg);color:var(--text)}
+.days{display:flex;gap:4px;flex-wrap:wrap}
+.days label{display:flex;align-items:center;gap:2px;font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:3px 6px;cursor:pointer}
+.legend-note{font-size:11.5px;color:var(--muted);line-height:1.9;margin-top:8px;padding:10px;background:var(--header-bg);border-radius:8px;border:1px solid var(--border)}
+code{background:#020617;padding:1px 5px;border-radius:4px;direction:ltr;display:inline-block}
+@media(max-width:768px){main{padding:12px}header.app-header{padding:12px}.info-grid{grid-template-columns:1fr}.mandatory-row{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.plan-card{background:var(--header-bg);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px}
+.plan-head{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.plan-head input,.sel{padding:5px 8px;border:1px solid var(--border-strong);border-radius:6px;background:var(--bg);color:var(--text);font-family:inherit;font-size:12px}
+.plan-head label{font-size:11px;color:var(--muted);display:flex;gap:4px;align-items:center}
+.bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden}.bar>div{height:100%}
+.chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
+.chart-grid svg,#chartArea svg{width:100%;height:auto;display:block;border-radius:8px}
+@media print{header.app-header,nav.tabs,.no-print,.toolbar{display:none!important}body{background:#fff;color:#000}.panel{border-color:#999}}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div>
+    <a class="back" href="index.html">← مستر پلنر</a>
+    <h1>برنامه‌ریز چندبعدی</h1>
+    <p>میزکار جدول‌محور • افق‌های زمانی • حالت‌های فعالیت • کنترل چندعاملی • خروجی متنی. داده‌ها فقط در مرورگر خودت ذخیره می‌شوند.</p>
+  </div>
+  <div class="header-actions">
+    <button onclick="saveState(true)">💾 ذخیره</button>
+    <button onclick="exportJSON()">⬇ خروجی JSON</button>
+    <button onclick="document.getElementById('importFile').click()">⬆ بارگذاری JSON</button>
+    <button class="danger" onclick="resetState()">↺ بازنشانی</button>
+  </div>
+</header>
+<input type="file" id="importFile" accept=".json" hidden>
+
+<nav class="tabs" id="tabs">
+  <button data-sheet="workbench" class="active">میزکار</button>
+  <button data-sheet="dimensions">ابعاد و ضرایب</button>
+  <button data-sheet="capacity">ظرفیت زمانی</button>
+  <button data-sheet="mandatory">ثابت‌های اجباری</button>
+  <button data-sheet="render">رندر</button>
+  <button data-sheet="textout">خروجی متنی</button>
+  <button data-sheet="report">گزارش</button>
+  <button data-sheet="models">مدل‌های برنامه‌ریزی</button>
+  <button data-sheet="plans">برنامه‌ریزی تعاملی</button>
+  <button data-sheet="charts">نمودارها و گزارش‌گیری</button>
+</nav>
+
+<main>
+  <section class="sheet active" id="sheet-workbench">
+    <div class="panel">
+      <div class="panel-title">
+        <span>میزکار اصلی <span class="subtitle">— هر ردیف یک مبحث واحد درسی</span></span>
+        <div class="toolbar">
+          <button class="primary small" onclick="addTopic()">+ افزودن مبحث</button>
+          <button class="small" onclick="runPlanner()">⚙ محاسبه اولویت‌ها و توزیع زمان</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="grid" id="mainTable">
+          <thead>
+            <tr>
+              <th class="sticky-col" rowspan="2">#</th>
+              <th colspan="9">مشخصات مبحث</th>
+              <th colspan="5" class="col-horizon">افق‌های زمانی (دقیقه)</th>
+              <th colspan="7" class="col-mode">حالت‌های فعالیت (دقیقه)</th>
+              <th colspan="5" class="col-mandatory">۵ ثابت غیردرسی (دقیقه تداخل)</th>
+              <th colspan="5" class="col-computed">محاسبات</th>
+            </tr>
+            <tr>
+              <th>درس</th><th>مبحث</th><th>پیش‌نیاز</th><th>مهلت</th><th>اهمیت</th><th>سختی</th><th>وزن آزمون</th><th>تسلط</th><th>هدف</th>
+              <th>۲۴ ساعته</th><th>هفتگی</th><th>ماهانه</th><th>۳ ماهه</th><th>۶ ماهه</th>
+              <th>مطالعه اجمالی</th><th>مطالعه عمیق</th><th>تمرین عمیق</th><th>تمرین زمان‌دار</th><th>مرور</th><th>مطالعه امتحانی</th><th>مطالعه آزمونی</th>
+              <th>ثابت ۱</th><th>ثابت ۲</th><th>ثابت ۳</th><th>ثابت ۴</th><th>ثابت ۵</th>
+              <th>جمع حالت‌ها</th><th>جمع افق‌ها</th><th>وضعیت</th><th>امتیاز اولویت</th><th>ضریب ترکیبی</th>
+            </tr>
+          </thead>
+          <tbody id="mainTbody"></tbody>
+          <tfoot id="mainTfoot"></tfoot>
+        </table>
+      </div>
+      <div class="legend-note">
+        <b>راهنما:</b> جمع حالت‌ها باید با جمع افق‌ها برابر باشد (وضعیت تطابق). امتیاز اولویت = (جمع وزنی عوامل) × دروازه پیش‌نیاز × ضریب حالت. ستون‌های «ثابت غیردرسی» دقیقه‌های تداخل با برنامه‌های اجباری را نشان می‌دهند. دکمهٔ «محاسبه» جمع افق‌های هر مبحث را بر اساس اولویت و ظرفیت ۲۴ ساعته تنظیم می‌کند و حالت‌ها را طوری می‌چیند که با جمع افق‌ها برابر شوند.
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet" id="sheet-dimensions">
+    <div class="panel"><div class="panel-title">ضرایب عوامل کنترلی</div><div class="info-grid" id="weightGrid"></div>
+      <div class="legend-note">فرمول پایه: <code>base = Σ wᵢ · factorᵢ</code> سپس <code>P = base × gate × modeFactor</code></div></div>
+    <div class="panel"><div class="panel-title">ضرایب حالت‌های فعالیت</div><div class="mode-weights" id="modeWeightGrid"></div></div>
+    <div class="panel"><div class="panel-title">فرمول‌های محاسبه</div>
+      <div class="legend-note" style="line-height:2.2">
+        <div><b>امتیاز اولویت:</b> <code>P = (w_I·I + w_D·D + w_E·E + w_M·(1−mastery)·5 + w_U·urgency·5) × gate × modeFactor</code></div>
+        <div><b>دروازه پیش‌نیاز (gate):</b> در صورت عدم آمادگی = ۰٫۶، در غیر این صورت = ۱</div>
+        <div><b>ضریب حالت:</b> <code>1 + 0.3 × Σ(modeMinutes·modeWeight) / Σ(modeMinutes)</code></div>
+        <div><b>ضریب ترکیبی:</b> <code>∏(1 + wᵢ·valueᵢ)</code></div>
+        <div><b>urgency:</b> بر اساس فاصلهٔ تا مهلت (۰ تا ۱؛ مهلت‌های بیش از ۱۸۰ روز دیگر صفر)</div>
+      </div></div>
+  </section>
+
+  <section class="sheet" id="sheet-capacity">
+    <div class="panel"><div class="panel-title">ظرفیت زمانی هر افق (دقیقه)</div><div class="info-grid" id="capacityGrid"></div>
+      <div class="legend-note">مجموع زمان تخصیص‌یافتهٔ هر افق نباید از ظرفیت آن بیشتر شود.</div></div>
+    <div class="panel"><div class="panel-title">مصرف ظرفیت</div><div id="capacityUsage"></div></div>
+  </section>
+
+  <section class="sheet" id="sheet-mandatory">
+    <div class="panel">
+      <div class="panel-title"><span>۵ برنامهٔ اجباری خارج از مطالعه</span><button class="small primary" onclick="saveState(true)">💾 ذخیره</button></div>
+      <div id="mandatoryList"></div>
+      <div class="legend-note">این برنامه‌ها قید سخت‌اند: زمان مطالعه باید طوری چیده شود که با این بلوک‌ها تداخل نداشته باشد.</div>
+    </div>
+  </section>
+
+  <section class="sheet" id="sheet-render">
+    <div class="panel"><div class="panel-title"><span>رندر گرافیکی توزیع زمان</span><button class="small primary" onclick="renderVisual()">⟳ رندر</button></div>
+      <div class="render-area" id="renderArea"></div></div>
+    <div class="panel"><div class="panel-title">نمای ۲۴ ساعته</div><div class="render-area" id="dayRenderArea"></div></div>
+  </section>
+
+  <section class="sheet" id="sheet-textout">
+    <div class="panel">
+      <div class="panel-title"><span>خروجی متنی</span>
+        <div class="toolbar"><button class="small primary" onclick="generateText()">⟳ تولید متن</button><button class="small" onclick="copyText()">📋 کپی</button><button class="small" onclick="downloadText()">⬇ دانلود</button></div></div>
+      <div class="output-box" id="textOutput">برای تولید خروجی متنی کلیک کنید...</div>
+    </div>
+  </section>
+
+  <section class="sheet" id="sheet-report">
+    <div class="panel"><div class="panel-title">آمار کلی</div><div class="stat-cards" id="statCards"></div></div>
+    <div class="panel"><div class="panel-title">هشدارها و اعتبارسنجی</div><div id="warningsList"></div></div>
+    <div class="panel"><div class="panel-title">گزارش رتبه‌بندی مباحث</div>
+      <div class="table-wrap" style="max-height:400px"><table class="grid" id="rankTable">
+        <thead><tr><th>رتبه</th><th>درس</th><th>مبحث</th><th>امتیاز</th><th>جمع زمان</th><th>وضعیت</th></tr></thead><tbody></tbody></table></div></div>
+  </section>
+  <section class="sheet" id="sheet-models">
+    <div class="panel"><div class="panel-title"><span>مدل‌های برنامه‌ریزی <span class="subtitle">— مقایسه و اعمال روی توزیع ۲۴ ساعته</span></span>
+      <div class="toolbar"><select class="sel" id="modelSel" onchange="state.model=this.value;saveState();renderModels()"></select><button class="primary small" onclick="applyModel()">⚙ اعمال مدل</button></div></div>
+      <div class="hint" id="modelDesc"></div>
+      <div class="table-wrap" style="margin-top:10px"><table class="grid" id="modelTable"></table></div>
+      <div class="legend-note">اعداد ستون هر مدل «رتبه» است. همبستگی رتبه‌ای (اسپیرمن) نشان می‌دهد هر مدل چقدر با مدل پایه هم‌نظر است؛ مقدار پایین یعنی آن مدل مباحث را متفاوت اولویت‌بندی می‌کند.</div></div>
+    <div class="panel"><div class="panel-title">برنامه‌ریزی عقب‌گرد (نیاز روزانه تا مهلت)</div><div id="backwardArea"></div></div>
+    <div class="panel"><div class="panel-title">مرور فاصله‌دار (لایتنر)</div><div id="leitnerArea"></div></div>
+    <div class="panel"><div class="panel-title">بلوک‌بندی پومودورو (۲۵+۵)</div><div id="pomoArea"></div></div>
+  </section>
+
+  <section class="sheet" id="sheet-plans">
+    <div class="panel"><div class="panel-title"><span>برنامه‌ریزی تعاملی <span class="subtitle">— پیشبرد هم‌زمان چند برنامه با ظرفیت مشترک</span></span>
+      <div class="toolbar"><button class="primary small" onclick="newPlan('custom')">+ برنامهٔ خالی</button><button class="small" onclick="newPlan('mock')">+ آزمون‌های آزمایشی</button><button class="small" onclick="newPlan('final')">+ امتحان نهایی</button></div></div>
+      <datalist id="subjList"></datalist><div id="planArea"></div></div>
+    <div class="panel"><div class="panel-title"><span>برنامهٔ امروز (ادغام برنامه‌ها)</span>
+      <select class="sel" id="strategySel" onchange="state.strategy=this.value;saveState();renderPlansDerived()"><option value="weighted">سهم اولویت × فوریت</option><option value="edf">نزدیک‌ترین مهلت</option><option value="equal">تقسیم مساوی</option></select></div>
+      <div id="agendaArea"></div></div>
+    <div class="panel"><div class="panel-title">نقشهٔ بار ۱۴ روز آینده (دقیقه)</div><div class="table-wrap" style="max-height:none" id="heatArea"></div>
+      <div class="legend-note">سلول قرمز یعنی بار ترکیبی برنامه‌ها در آن روز از ظرفیت ۲۴ ساعته بیشتر است؛ وظیفهٔ عقب‌افتاده به امروز منتقل می‌شود.</div></div>
+  </section>
+
+  <section class="sheet" id="sheet-charts">
+    <div class="panel"><div class="panel-title"><span>نمودارساز</span>
+      <div class="toolbar no-print"><select class="sel" id="chDs"></select><select class="sel" id="chType" onchange="renderCharts()"></select>
+        <button class="small" onclick="chartExport('svg')">⬇ SVG</button><button class="small" onclick="chartExport('png')">⬇ PNG</button><button class="small" onclick="chartExport('csv')">⬇ CSV</button><button class="small primary" onclick="window.print()">🖨 چاپ گزارش</button></div></div>
+      <div id="chartArea"></div></div>
+    <div class="panel"><div class="panel-title">داشبورد گزارش</div><div class="chart-grid" id="dashArea"></div></div>
+    <div class="panel no-print"><div class="panel-title">ثبت مطالعهٔ انجام‌شده (برای نمودارهای روزانه)</div>
+      <div class="toolbar"><input class="sel" type="date" id="lgDate"><input class="sel" id="lgSub" list="subjList" placeholder="درس"><input class="sel" type="number" id="lgMin" min="5" step="5" value="30" style="width:90px"><button class="primary small" onclick="addLog()">+ ثبت</button></div>
+      <div id="logList" style="margin-top:10px"></div></div>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const MODES=[
+ {key:'survey',name:'مطالعه اجمالی',color:'#60a5fa',weight:0.8},
+ {key:'deepStudy',name:'مطالعه عمیق',color:'#2563eb',weight:1.2},
+ {key:'deepPractice',name:'تمرین عمیق',color:'#16a34a',weight:1.2},
+ {key:'timedPractice',name:'تمرین زمان‌دار',color:'#059669',weight:1.0},
+ {key:'review',name:'مرور',color:'#d97706',weight:0.9},
+ {key:'examStudy',name:'مطالعه امتحانی',color:'#dc2626',weight:1.3},
+ {key:'testStudy',name:'مطالعه آزمونی',color:'#7c3aed',weight:1.1}];
+const HORIZONS=[
+ {key:'h24',name:'۲۴ ساعته',capacity:480},{key:'weekly',name:'هفتگی',capacity:2400},{key:'monthly',name:'ماهانه',capacity:9600},
+ {key:'q3',name:'۳ ماهه',capacity:28800},{key:'h6',name:'۶ ماهه',capacity:57600}];
+const MANDATORY_KEYS=['m1','m2','m3','m4','m5'];
+const FACTORS=[
+ {key:'importance',name:'اهمیت',def:0.30,hint:'۱ تا ۵'},{key:'difficulty',name:'سختی',def:0.20,hint:'۱ تا ۵'},
+ {key:'examWeight',name:'وزن آزمون',def:0.25,hint:'۱ تا ۵'},{key:'mastery',name:'شکاف تسلط',def:0.15,hint:'۰ تا ۱'},
+ {key:'urgency',name:'فوریت',def:0.10,hint:'۰ تا ۱'}];
+const DAY_NAMES=['ش','ی','د','س','چ','پ','ج'];
+
+const inDays=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
+function mkTopic(subject,name,prereq,deadline,imp,diff,exam,mast,target,modes,horizons){
+  const mandatory={};MANDATORY_KEYS.forEach(k=>mandatory[k]=0);
+  return{subject,name,prereq,deadline,importance:imp,difficulty:diff,examWeight:exam,mastery:mast,target,modes:{...modes},horizons:{...horizons},mandatory};
+}
+function defaultState(){
+  return{
+    weights:Object.fromEntries(FACTORS.map(f=>[f.key,f.def])),
+    modeWeights:Object.fromEntries(MODES.map(m=>[m.key,m.weight])),
+    capacities:Object.fromEntries(HORIZONS.map(h=>[h.key,h.capacity])),
+    mandatory:MANDATORY_KEYS.map((k,i)=>({key:k,name:'برنامه ثابت '+(i+1),start:'18:00',end:'19:00',days:[1,2,3,4,5]})),
+    topics:[
+      mkTopic('ریاضی','مشتق','حد و پیوستگی',inDays(14),5,4,5,0.4,180,{survey:20,deepStudy:80,deepPractice:60,timedPractice:30,review:20,examStudy:30,testStudy:20},{h24:40,weekly:180,monthly:200,q3:100,h6:60}),
+      mkTopic('ریاضی','انتگرال','مشتق',inDays(21),4,5,4,0.2,200,{survey:15,deepStudy:90,deepPractice:70,timedPractice:40,review:25,examStudy:30,testStudy:20},{h24:30,weekly:200,monthly:220,q3:80,h6:40}),
+      mkTopic('فیزیک','حرکت‌شناسی','—',inDays(9),5,3,4,0.5,150,{survey:20,deepStudy:60,deepPractice:50,timedPractice:30,review:15,examStudy:20,testStudy:15},{h24:50,weekly:150,monthly:150,q3:60,h6:30}),
+      mkTopic('شیمی','استوکیومتری','—',inDays(28),4,4,4,0.3,160,{survey:15,deepStudy:70,deepPractice:60,timedPractice:25,review:20,examStudy:25,testStudy:15},{h24:30,weekly:170,monthly:180,q3:70,h6:30}),
+      mkTopic('زیست','ژنتیک','—',inDays(35),5,5,4,0.15,220,{survey:20,deepStudy:100,deepPractice:80,timedPractice:45,review:30,examStudy:35,testStudy:25},{h24:20,weekly:230,monthly:250,q3:90,h6:50}),
+      mkTopic('ادبیات','آرایه‌ها','—',inDays(18),3,3,3,0.6,120,{survey:15,deepStudy:50,deepPractice:30,timedPractice:15,review:15,examStudy:15,testStudy:10},{h24:20,weekly:120,monthly:120,q3:50,h6:20}),
+    ]};
+}
+
+/* ───── ذخیره ───── */
+const KEY='mp_planner_v1',OLD_KEY='planner_state_v1';
+function validState(p){return p&&p.weights&&Array.isArray(p.topics)&&p.modeWeights&&p.capacities&&Array.isArray(p.mandatory)}
+function normalize(p){
+  const d=defaultState();
+  p.topics.forEach(t=>{t.modes={...Object.fromEntries(MODES.map(m=>[m.key,0])),...(t.modes||{})};t.horizons={...Object.fromEntries(HORIZONS.map(h=>[h.key,0])),...(t.horizons||{})};t.mandatory={...Object.fromEntries(MANDATORY_KEYS.map(k=>[k,0])),...(t.mandatory||{})}});
+  p.weights={...d.weights,...p.weights};p.modeWeights={...d.modeWeights,...p.modeWeights};p.capacities={...d.capacities,...p.capacities};
+  p.mandatory.forEach(m=>{if(!Array.isArray(m.days))m.days=[]});
+  ensureExtras(p);return p;
+}
+function loadState(){
+  try{const s=localStorage.getItem(KEY)||localStorage.getItem(OLD_KEY);if(!s)return null;const p=JSON.parse(s);return validState(p)?normalize(p):null}catch(e){return null}
+}
+let state=loadState()||defaultState();ensureExtras(state);
+function saveState(show=false){try{localStorage.setItem(KEY,JSON.stringify(state));if(show)toast('✓ ذخیره شد')}catch(e){toast('خطا در ذخیره')}}
+function resetState(){if(!confirm('همهٔ داده‌ها به حالت پیش‌فرض بازگردند؟'))return;state=defaultState();ensureExtras(state);saveState();renderAll();toast('↺ بازنشانی شد')}
+function exportJSON(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.download='planner-export.json';a.click()}
+document.getElementById('importFile').onchange=e=>{
+  const f=e.target.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{const p=JSON.parse(r.result);if(!validState(p))throw 0;if(!confirm('داده‌های فعلی با فایل جایگزین شود؟'))return;state=normalize(p);saveState();renderAll();toast('✓ بارگذاری شد')}catch(x){toast('فایل معتبر نیست')}};
+  r.readAsText(f);e.target.value='';
+};
+let toastTimer;
+function toast(m){const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2200)}
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+/* ───── محاسبات ───── */
+const sumObj=o=>Object.values(o).reduce((a,b)=>a+(Number(b)||0),0);
+function urgencyOf(d){if(!d)return 0;const days=(new Date(d)-new Date())/86400000;if(days<0)return 1;if(days>180)return 0;return 1-days/180}
+function prereqSatisfied(t){
+  if(!t.prereq||t.prereq.trim()===''||t.prereq==='—')return true;
+  const p=state.topics.find(x=>x.name===t.prereq);
+  return !!p&&(p.mastery||0)>=0.6;
+}
+function computePriority(t){
+  const w=state.weights,u=urgencyOf(t.deadline);
+  const base=w.importance*(+t.importance||0)+w.difficulty*(+t.difficulty||0)+w.examWeight*(+t.examWeight||0)+w.mastery*(1-(+t.mastery||0))*5+w.urgency*u*5;
+  const gate=prereqSatisfied(t)?1:0.6,tot=sumObj(t.modes);
+  let mf=1;
+  if(tot>0){let ws=0;for(const k in t.modes)ws+=(+t.modes[k]||0)*(state.modeWeights[k]??1);mf=1+0.3*(ws/tot)}
+  return base*gate*mf;
+}
+function computeComposite(t){
+  return[1+(+t.importance||0)*0.10,1+(+t.difficulty||0)*0.10,1+(+t.examWeight||0)*0.10,1+(1-(+t.mastery||0))*0.50,1+urgencyOf(t.deadline)*0.30].reduce((a,b)=>a*b,1);
+}
+
+/* ───── جدول اصلی ───── */
+function renderMainTable(){
+  const tb=document.getElementById('mainTbody');tb.innerHTML='';
+  state.topics.forEach((t,i)=>{
+    const tr=document.createElement('tr');tr.dataset.row=i;
+    const num=(sec,key,val,min,max,step)=>`<td class="${sec==='horizons'?'col-horizon':sec==='modes'?'col-mode':sec==='mandatory'?'col-mandatory':''}"><input type="number" class="num-cell" ${min!==undefined?`min="${min}"`:''} ${max!==undefined?`max="${max}"`:''} step="${step}" data-section="${sec}" data-key="${key}" value="${val}"></td>`;
+    let h=`<td class="sticky-col">${i+1} <button class="small danger" style="padding:0 5px;margin-right:4px" aria-label="حذف مبحث" onclick="deleteTopic(${i})">✕</button></td>`;
+    h+=`<td><input class="txt-cell" data-section="base" data-key="subject" value="${esc(t.subject)}"></td>`;
+    h+=`<td><input class="txt-cell" data-section="base" data-key="name" value="${esc(t.name)}"></td>`;
+    h+=`<td><input class="txt-cell" style="min-width:80px" data-section="base" data-key="prereq" value="${esc(t.prereq||'')}"></td>`;
+    h+=`<td><input type="date" style="min-width:110px" data-section="base" data-key="deadline" value="${esc(t.deadline||'')}"></td>`;
+    ['importance','difficulty','examWeight'].forEach(k=>h+=num('base',k,t[k],1,5,1));
+    h+=num('base','mastery',t.mastery,0,1,0.05)+num('base','target',t.target||0,0,undefined,5);
+    HORIZONS.forEach(x=>h+=num('horizons',x.key,t.horizons[x.key]||0,0,undefined,5));
+    MODES.forEach(m=>h+=num('modes',m.key,t.modes[m.key]||0,0,undefined,5));
+    MANDATORY_KEYS.forEach(k=>h+=num('mandatory',k,t.mandatory[k]||0,0,undefined,5));
+    h+=['modeSum','horSum','status','priority','composite'].map(k=>`<td class="col-computed" data-computed="${k}"></td>`).join('');
+    tr.innerHTML=h;tb.appendChild(tr);updateRowComputed(i);
+  });
+  renderFooter();
+}
+function renderFooter(){
+  const tf=document.getElementById('mainTfoot');if(!state.topics.length){tf.innerHTML='';return}
+  const mt={},ht={},kt={};MODES.forEach(m=>mt[m.key]=0);HORIZONS.forEach(x=>ht[x.key]=0);MANDATORY_KEYS.forEach(k=>kt[k]=0);
+  state.topics.forEach(t=>{MODES.forEach(m=>mt[m.key]+=+t.modes[m.key]||0);HORIZONS.forEach(x=>ht[x.key]+=+t.horizons[x.key]||0);MANDATORY_KEYS.forEach(k=>kt[k]+=+t.mandatory[k]||0)});
+  tf.innerHTML='<tr><td class="sticky-col">Σ</td><td colspan="9" style="text-align:right;padding-right:8px">جمع کل ستون‌ها ←</td>'+
+   HORIZONS.map(x=>`<td class="col-horizon">${ht[x.key]}</td>`).join('')+MODES.map(m=>`<td class="col-mode">${mt[m.key]}</td>`).join('')+
+   MANDATORY_KEYS.map(k=>`<td class="col-mandatory">${kt[k]}</td>`).join('')+`<td class="col-computed">${sumObj(mt)}</td><td class="col-computed">${sumObj(ht)}</td><td class="col-computed">—</td><td class="col-computed">—</td><td class="col-computed">—</td></tr>`;
+}
+function updateRowComputed(i){
+  const tr=document.querySelector(`tr[data-row="${i}"]`);if(!tr)return;
+  const t=state.topics[i],ms=sumObj(t.modes),hs=sumObj(t.horizons);
+  const set=(k,v)=>{const c=tr.querySelector(`[data-computed="${k}"]`);if(c)c.innerHTML=v};
+  set('modeSum',ms);set('horSum',hs);
+  set('status',ms===hs?'<span class="badge badge-ok">تطابق</span>':'<span class="badge badge-warn">ناهمخوان</span>');
+  set('priority',computePriority(t).toFixed(2));set('composite',computeComposite(t).toFixed(3));
+}
+document.addEventListener('input',e=>{
+  const inp=e.target;if(!inp.matches('input[data-section]'))return;
+  const tr=inp.closest('tr[data-row]');if(!tr)return;
+  const i=+tr.dataset.row,sec=inp.dataset.section,key=inp.dataset.key;let v;
+  if(inp.type==='number'){v=parseFloat(inp.value);if(isNaN(v))v=0;if(v<0)v=0;if(key==='mastery')v=Math.min(1,v);if(['importance','difficulty','examWeight'].includes(key))v=Math.min(5,v)}
+  else v=inp.value;
+  if(sec==='base')state.topics[i][key]=v;else state.topics[i][sec][key]=v;
+  updateRowComputed(i);renderFooter();saveState();
+});
+function addTopic(){
+  state.topics.push(mkTopic('درس جدید','مبحث جدید','','',3,3,3,0,120,Object.fromEntries(MODES.map(m=>[m.key,0])),Object.fromEntries(HORIZONS.map(h=>[h.key,0]))));
+  saveState();renderAll();toast('✓ مبحث افزوده شد');
+}
+function deleteTopic(i){if(!confirm('این مبحث حذف شود؟'))return;state.topics.splice(i,1);saveState();renderAll()}
+
+/* ───── ضرایب و ظرفیت ───── */
+function renderDimensions(){
+  document.getElementById('weightGrid').innerHTML=FACTORS.map(f=>`<div class="info-card"><label>${f.name} <span class="hint">(${f.hint})</span></label>
+   <input type="number" min="0" max="1" step="0.05" value="${state.weights[f.key]}" oninput="state.weights['${f.key}']=Math.max(0,Math.min(1,parseFloat(this.value)||0));saveState();updateAllPriorities()"></div>`).join('');
+  document.getElementById('modeWeightGrid').innerHTML=MODES.map(m=>`<div class="mode-weight-row"><span class="swatch" style="background:${m.color}"></span><label>${m.name}</label>
+   <input type="number" min="0" max="2" step="0.1" value="${state.modeWeights[m.key]??m.weight}" oninput="state.modeWeights['${m.key}']=Math.max(0,parseFloat(this.value)||0);saveState();updateAllPriorities()"></div>`).join('');
+}
+const updateAllPriorities=()=>state.topics.forEach((_,i)=>updateRowComputed(i));
+function renderCapacity(){
+  document.getElementById('capacityGrid').innerHTML=HORIZONS.map(h=>`<div class="info-card"><label>${h.name}</label>
+   <input type="number" min="0" step="10" value="${state.capacities[h.key]}" oninput="state.capacities['${h.key}']=Math.max(0,parseFloat(this.value)||0);saveState();renderCapacityUsage()"><div class="hint">ظرفیت (دقیقه)</div></div>`).join('');
+  renderCapacityUsage();
+}
+function renderCapacityUsage(){
+  const tot={};HORIZONS.forEach(h=>tot[h.key]=0);state.topics.forEach(t=>HORIZONS.forEach(h=>tot[h.key]+=+t.horizons[h.key]||0));
+  let html='<div class="table-wrap" style="max-height:none"><table class="grid"><thead><tr><th>افق</th><th>مصرف</th><th>ظرفیت</th><th>باقیمانده</th><th>وضعیت</th></tr></thead><tbody>';
+  HORIZONS.forEach(h=>{
+    const used=tot[h.key],cap=state.capacities[h.key]||0,rem=cap-used,pct=cap>0?used/cap*100:0;
+    const b=rem<0?'<span class="badge badge-err">سرریز</span>':pct>85?'<span class="badge badge-warn">نزدیک سقف</span>':'<span class="badge badge-ok">سالم</span>';
+    html+=`<tr><td>${h.name}</td><td>${used}</td><td>${cap}</td><td>${rem}</td><td>${b}</td></tr>`;
+  });
+  document.getElementById('capacityUsage').innerHTML=html+'</tbody></table></div>';
+}
+
+/* ───── ثابت‌های اجباری ───── */
+function renderMandatory(){
+  document.getElementById('mandatoryList').innerHTML=state.mandatory.map((m,i)=>`<div class="mandatory-row">
+   <input value="${esc(m.name)}" placeholder="نام برنامه" aria-label="نام برنامه" oninput="state.mandatory[${i}].name=this.value;saveState()">
+   <input type="time" value="${m.start||''}" aria-label="شروع" oninput="state.mandatory[${i}].start=this.value;saveState()">
+   <input type="time" value="${m.end||''}" aria-label="پایان" oninput="state.mandatory[${i}].end=this.value;saveState()">
+   <div class="days">${DAY_NAMES.map((d,di)=>`<label><input type="checkbox" ${m.days.includes(di)?'checked':''} onchange="toggleDay(${i},${di},this.checked)"> ${d}</label>`).join('')}</div>
+   <span class="badge badge-warn">${m.days.length} روز</span></div>`).join('');
+}
+function toggleDay(i,di,on){const m=state.mandatory[i];if(on){if(!m.days.includes(di))m.days.push(di)}else m.days=m.days.filter(d=>d!==di);saveState();renderMandatory()}
+
+/* ───── رندر گرافیکی ───── */
+function renderVisual(){
+  const area=document.getElementById('renderArea');
+  if(!state.topics.length){area.innerHTML='<p style="color:var(--muted)">مبحثی وجود ندارد.</p>';return}
+  let h='<div style="margin-bottom:16px;font-size:12px;color:var(--muted)">توزیع زمان هر مبحث بر اساس حالت‌های فعالیت (دقیقه)</div>';
+  state.topics.forEach(t=>{
+    const total=sumObj(t.modes);
+    h+=`<div class="timeline-row"><div class="timeline-label">${esc(t.subject)} — ${esc(t.name)}</div><div class="timeline-track">`;
+    if(total>0){let cum=0;MODES.forEach(m=>{const v=+t.modes[m.key]||0;if(v<=0)return;const p=v/total*100;h+=`<div class="timeline-block" title="${m.name}: ${v} دقیقه" style="right:${cum}%;width:${p}%;background:${m.color}">${p>10?m.name.slice(0,8):''}</div>`;cum+=p})}
+    else h+='<div style="text-align:center;line-height:26px;color:var(--muted);font-size:11px">بدون تخصیص</div>';
+    h+='</div></div>';
+  });
+  area.innerHTML=h+'<div class="legend">'+MODES.map(m=>`<span style="--c:${m.color}">${m.name}</span>`).join('')+'</div>';
+  renderDayVisual();
+}
+function renderDayVisual(){
+  const area=document.getElementById('dayRenderArea'),TM=1440;
+  if(!state.topics.length){area.innerHTML='';return}
+  const tot=state.topics.reduce((s,t)=>s+(+t.horizons.h24||0),0),colors=['#3b82f6','#10b981','#f59e0b','#ef4444','#8b5cf6','#ec4899','#06b6d4','#84cc16'];
+  let h=`<div style="margin-bottom:8px;font-size:12px;color:var(--muted)">مجموع تخصیص ۲۴ ساعته: ${tot} دقیقه از ${TM}</div><div class="timeline-row"><div class="timeline-label">جمع کل روز</div><div class="timeline-track">`;
+  let cum=0;state.topics.forEach((t,i)=>{const v=+t.horizons.h24||0;if(v<=0)return;const p=v/TM*100;h+=`<div class="timeline-block" title="${esc(t.subject)} - ${esc(t.name)}: ${v} دقیقه" style="right:${cum}%;width:${p}%;background:${colors[i%colors.length]}">${p>6?esc(t.name):''}</div>`;cum+=p});
+  h+='</div></div><div style="margin-top:16px;font-size:12px;color:var(--muted)">بلوک‌های اجباری روی محور روز</div>';
+  state.mandatory.forEach(m=>{
+    if(!m.start||!m.end)return;
+    const[sh,sm]=m.start.split(':').map(Number),[eh,em]=m.end.split(':').map(Number),s=sh*60+sm,e=eh*60+em;if(e<=s)return;
+    h+=`<div class="timeline-row"><div class="timeline-label">${esc(m.name)}</div><div class="timeline-track"><div class="timeline-block" style="right:${s/TM*100}%;width:${(e-s)/TM*100}%;background:#d97706" title="${esc(m.name)} ${m.start}-${m.end}">${m.start}-${m.end}</div></div></div>`;
+  });
+  area.innerHTML=h;
+}
+
+/* ───── خروجی متنی ───── */
+let lastText='';
+function generateText(){
+  const L=[],bar='══════════════════════════════════════════════════';
+  L.push(bar,'   گزارش برنامه‌ریزی چندبعدی','   تاریخ تولید: '+new Date().toLocaleString('fa-IR'),bar,'');
+  const total=state.topics.reduce((s,t)=>s+sumObj(t.modes),0);
+  L.push(`تعداد مباحث: ${state.topics.length}`,`مجموع زمان تخصیص‌یافته: ${total} دقیقه (${(total/60).toFixed(1)} ساعت)`,'');
+  const ranked=state.topics.map(t=>({t,p:computePriority(t)})).sort((a,b)=>b.p-a.p);
+  L.push('── رتبه‌بندی مباحث بر اساس اولویت ──');
+  ranked.forEach((r,i)=>L.push(`${String(i+1).padStart(2)}. [${r.p.toFixed(2)}] ${r.t.subject} — ${r.t.name}`));
+  L.push('','── جزئیات هر مبحث ──');
+  state.topics.forEach((t,i)=>{
+    const ms=sumObj(t.modes),hs=sumObj(t.horizons);
+    L.push('',`▸ مبحث ${i+1}: ${t.subject} — ${t.name}`,`   پیش‌نیاز: ${t.prereq||'—'}  |  مهلت: ${t.deadline||'—'}`,
+     `   اهمیت: ${t.importance}  سختی: ${t.difficulty}  وزن آزمون: ${t.examWeight}  تسلط: ${t.mastery}`,
+     `   امتیاز اولویت: ${computePriority(t).toFixed(2)}   ضریب ترکیبی: ${computeComposite(t).toFixed(3)}`,'   ── توزیع حالت‌ها ──');
+    MODES.forEach(m=>{const v=+t.modes[m.key]||0;if(v>0)L.push(`     • ${m.name}: ${v} دقیقه`)});
+    L.push('   ── توزیع افق‌ها ──');
+    HORIZONS.forEach(h=>{const v=+t.horizons[h.key]||0;if(v>0)L.push(`     • ${h.name}: ${v} دقیقه`)});
+    const mand=MANDATORY_KEYS.reduce((s,k)=>s+(+t.mandatory[k]||0),0);if(mand>0)L.push(`   تداخل با ثابت‌های اجباری: ${mand} دقیقه`);
+    L.push(`   جمع حالت‌ها: ${ms}  |  جمع افق‌ها: ${hs}  |  ${ms===hs?'✓ تطابق':'✗ ناهمخوان'}`);
+  });
+  L.push('','── ۵ برنامهٔ اجباری غیردرسی ──');
+  state.mandatory.forEach((m,i)=>L.push(`${i+1}. ${m.name}  |  ${m.start||'—'} تا ${m.end||'—'}  |  روزها: ${m.days.map(d=>DAY_NAMES[d]).join('، ')||'—'}`));
+  L.push('');
+  planText(L);
+  const w=computeWarnings();
+  if(w.length){L.push('── هشدارها ──');w.forEach(x=>L.push('   ⚠ '+x))}else L.push('✓ هیچ هشداری وجود ندارد.');
+  L.push('',bar);
+  lastText=L.join('\n');document.getElementById('textOutput').textContent=lastText;toast('✓ خروجی متنی تولید شد');
+}
+function copyText(){if(!lastText)return toast('ابتدا خروجی را تولید کنید');navigator.clipboard.writeText(lastText).then(()=>toast('📋 کپی شد'),()=>toast('کپی نشد'))}
+function downloadText(){if(!lastText)return toast('ابتدا خروجی را تولید کنید');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([lastText],{type:'text/plain;charset=utf-8'}));a.download='planner-report.txt';a.click()}
+
+/* ───── گزارش ───── */
+function computeWarnings(){
+  const w=[];
+  state.topics.forEach(t=>{
+    const ms=sumObj(t.modes),hs=sumObj(t.horizons);
+    if(ms!==hs)w.push(`مبحث «${t.name}»: ناهمخوانی جمع حالت‌ها (${ms}) و افق‌ها (${hs})`);
+    if(!prereqSatisfied(t))w.push(`مبحث «${t.name}»: پیش‌نیاز (${t.prereq}) با تسلط کافی وجود ندارد`);
+    if(t.deadline){const d=(new Date(t.deadline)-new Date())/86400000;if(d<0)w.push(`مبحث «${t.name}»: مهلت گذشته است`);else if(d<7)w.push(`مبحث «${t.name}»: مهلت کمتر از یک هفته`)}
+    if(ms===0)w.push(`مبحث «${t.name}»: هیچ زمانی تخصیص نیافته`);
+  });
+  HORIZONS.forEach(h=>{const u=state.topics.reduce((s,t)=>s+(+t.horizons[h.key]||0),0),c=state.capacities[h.key]||0;if(u>c)w.push(`افق «${h.name}»: مصرف (${u}) از ظرفیت (${c}) بیشتر است`)});
+  planWarnings(w);return w;
+}
+function renderReport(){
+  const total=state.topics.reduce((s,t)=>s+sumObj(t.modes),0),n=state.topics.length;
+  const avg=n?state.topics.reduce((s,t)=>s+computePriority(t),0)/n:0,ok=state.topics.filter(t=>sumObj(t.modes)===sumObj(t.horizons)).length,w=computeWarnings();
+  document.getElementById('statCards').innerHTML=[[n,'تعداد مباحث'],[total,'جمع دقیقهٔ تخصیص‌یافته'],[(total/60).toFixed(1),'جمع ساعت'],[avg.toFixed(2),'میانگین اولویت'],[`${ok}/${n}`,'تطابق افق/حالت'],[w.length,'هشدارها']].map(([v,l])=>`<div class="stat-card"><div class="value">${v}</div><div class="label">${l}</div></div>`).join('');
+  document.getElementById('warningsList').innerHTML=w.length?'<ul style="margin:0;padding-right:20px;line-height:2">'+w.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>':'<span class="badge badge-ok">✓ بدون هشدار</span>';
+  document.querySelector('#rankTable tbody').innerHTML=state.topics.map(t=>({t,p:computePriority(t)})).sort((a,b)=>b.p-a.p).map((r,i)=>{
+    const ms=sumObj(r.t.modes);
+    return`<tr><td>${i+1}</td><td>${esc(r.t.subject)}</td><td>${esc(r.t.name)}</td><td><span class="badge badge-priority">${r.p.toFixed(2)}</span></td><td>${ms}</td><td>${ms===sumObj(r.t.horizons)?'<span class="badge badge-ok">تطابق</span>':'<span class="badge badge-warn">ناهمخوان</span>'}</td></tr>`;
+  }).join('');
+}
+
+/* ───── برنامه‌ریز (اصلاح‌شده با گرد کردن تجمعی) ───── */
+function runPlanner(){
+  if(!state.topics.length)return toast('مبحثی وجود ندارد');
+  if(!confirm('زمان ۲۴ ساعتهٔ همهٔ مباحث و حالت‌های فعالیت بر اساس اولویت دوباره محاسبه شود؟ مقادیر فعلی جایگزین می‌شوند.'))return;
+  const cap=state.capacities.h24||480,pr=state.topics.map(computePriority),sp=pr.reduce((a,b)=>a+b,0)||1;
+  const mw=MODES.map(m=>({key:m.key,w:state.modeWeights[m.key]??m.weight})),sw=mw.reduce((a,b)=>a+b.w,0)||1;
+  const big=mw.reduce((a,b)=>b.w>a.w?b:a).key;
+  state.topics.forEach((t,i)=>{
+    t.horizons.h24=Math.round(pr[i]/sp*cap/5)*5;
+    const total=sumObj(t.horizons);
+    MODES.forEach(m=>{t.modes[m.key]=0});
+    if(total===0)return;
+    // گرد کردن تجمعی: توزیع بر اساس وزن، ولی همیشه جمع دقیقاً برابر total
+    let running=0,cumW=0;
+    mw.forEach(x=>{
+      cumW+=x.w;
+      const target=Math.round((cumW/sw)*total/5)*5;
+      const v=Math.max(0,target-running);
+      t.modes[x.key]=v;
+      running+=v;
+    });
+    // اصلاح نهایی: هر اختلاف باقیمانده به حالت با بزرگ‌ترین وزن
+    const fs=sumObj(t.modes);
+    if(fs!==total)t.modes[big]=Math.max(0,t.modes[big]+(total-fs));
+  });
+  saveState();renderAll();toast('⚙ برنامه توزیع شد؛ جمع حالت‌ها با جمع افق‌ها برابر شد');
+}
+
+/* ───── ناوبری ───── */
+document.getElementById('tabs').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-sheet]');if(!b)return;
+  document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  document.querySelectorAll('.sheet').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sheet-'+b.dataset.sheet).classList.add('active');
+  const s=b.dataset.sheet;
+  if(s==='render')renderVisual();if(s==='report')renderReport();if(s==='textout')generateText();if(s==='capacity')renderCapacityUsage();if(s==='models')renderModels();if(s==='plans')renderPlans();if(s==='charts')renderCharts();
+});
+
+/* ───── v2: مدل‌ها، برنامه‌ریزی تعاملی، نمودارها ───── */
+function uid(){return Math.random().toString(36).slice(2,9)}
+function ensureExtras(p){
+  if(!Array.isArray(p.plans))p.plans=[];if(!Array.isArray(p.logs))p.logs=[];
+  if(!p.model)p.model='weighted';if(!p.strategy)p.strategy='weighted';
+  p.plans.forEach(q=>{if(!q.id)q.id=uid();if(!Array.isArray(q.tasks))q.tasks=[];q.tasks.forEach(t=>{if(!t.id)t.id=uid()})});
+  return p;
+}
+const PAL=['#3b82f6','#10b981','#f59e0b','#ef4444','#8b5cf6','#ec4899','#06b6d4','#84cc16'];
+const today=()=>{const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10)};
+const addD=(iso,n)=>{const d=new Date(iso+'T00:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)};
+const dayDiff=(a,b)=>Math.round((Date.parse(b+'T00:00:00Z')-Date.parse(a+'T00:00:00Z'))/864e5);
+const daysLeft=t=>t.deadline?Math.max(1,(new Date(t.deadline)-new Date())/864e5):90;
+function allocate(sc,cap){
+  const s=sc.reduce((a,b)=>a+b,0)||1,u=Math.floor((cap||0)/5),q=sc.map(v=>v/s*u),b=q.map(Math.floor);
+  const r=u-b.reduce((a,c)=>a+c,0);
+  q.map((v,i)=>[v-b[i],i]).sort((x,y)=>y[0]-x[0]).slice(0,Math.max(0,r)).forEach(([,i])=>b[i]++);
+  return b.map(x=>x*5);
+}
+function redistModes(t){
+  const mw=MODES.map(m=>({key:m.key,w:state.modeWeights[m.key]??m.weight})),sw=mw.reduce((a,b)=>a+b.w,0)||1;
+  const big=mw.reduce((a,b)=>b.w>a.w?b:a).key,total=sumObj(t.horizons);
+  MODES.forEach(m=>{t.modes[m.key]=0});if(total===0)return;
+  let run=0,cw=0;mw.forEach(x=>{cw+=x.w;const v=Math.max(0,Math.round(cw/sw*total/5)*5-run);t.modes[x.key]=v;run+=v});
+  const fs=sumObj(t.modes);if(fs!==total)t.modes[big]=Math.max(0,t.modes[big]+(total-fs));
+}
+const kids=n=>{const seen=new Set();const walk=x=>state.topics.forEach(y=>{if(y.prereq===x&&!seen.has(y.name)){seen.add(y.name);walk(y.name)}});walk(n);return seen.size};
+const MODELS=[
+ {key:'weighted',name:'وزنی چندعاملی (پایه)',desc:'مدل اصلی میزکار: ترکیب وزنی اهمیت، سختی، وزن آزمون، شکاف تسلط و فوریت.',f:t=>computePriority(t)},
+ {key:'edf',name:'نزدیک‌ترین مهلت (EDF)',desc:'مهلت نزدیک‌تر، سهم بیشتر؛ مناسب هفتهٔ آخر پیش از آزمون.',f:t=>1/daysLeft(t)},
+ {key:'eisen',name:'ماتریس آیزنهاور',desc:'فوری × مهم: چهار ربع تصمیم؛ مباحث فوریِ مهم اول.',f:t=>{const u=urgencyOf(t.deadline);return(u>=.5?2:0)+(t.importance>=4?1:0)+u*.5+t.importance*.05+.01}},
+ {key:'wsjf',name:'WSJF (ارزش به حجم)',desc:'(اهمیت + وزن آزمون + فوریت) ÷ ساعت هدف؛ کارهای کوچک و ارزشمند جلو می‌افتند.',f:t=>(+t.importance+ +t.examWeight+urgencyOf(t.deadline)*5)/Math.max(1,(+t.target||60)/60)},
+ {key:'pareto',name:'پارتو ۸۰/۲۰',desc:'بیشترین بازده امتیاز به ازای هر دقیقه مطالعه.',f:t=>t.examWeight*t.importance*(1-t.mastery+.05)/Math.max(.5,(+t.target||60)/60)},
+ {key:'weak',name:'ضعیف‌ترین‌ها اول',desc:'مجذور شکاف تسلط × وزن آزمون؛ ترمیم نقاط ضعف.',f:t=>Math.pow(1-t.mastery,2)*t.examWeight+.01},
+ {key:'cpm',name:'مسیر بحرانی (پیش‌نیاز)',desc:'مباحثی که پیش‌نیازِ تعداد بیشتری از مباحث‌اند جلو می‌افتند.',f:t=>kids(t.name)*2+10/daysLeft(t)+.01},
+ {key:'back',name:'برنامه‌ریزی عقب‌گرد',desc:'نیاز باقی‌مانده (هدف × شکاف تسلط) ÷ روزهای مانده تا مهلت.',f:t=>(+t.target||0)*(1-t.mastery)/daysLeft(t)+.01},
+ {key:'inter',name:'تناوبی (Interleaving)',desc:'تقسیم مساوی میان همهٔ مباحث؛ مناسب جلوگیری از فراموشی.',f:()=>1}];
+function renderModels(){
+  const sel=document.getElementById('modelSel');if(!sel)return;
+  sel.innerHTML=MODELS.map(m=>`<option value="${m.key}" ${m.key===state.model?'selected':''}>${m.name}</option>`).join('');
+  const T=state.topics,cap=state.capacities.h24||0,n=T.length;
+  const sc=MODELS.map(m=>T.map(t=>+m.f(t)||0)),rk=sc.map(a=>a.map(v=>a.filter(x=>x>v).length+1));
+  const cur=Math.max(0,MODELS.findIndex(m=>m.key===state.model)),al=allocate(sc[cur],cap);
+  document.getElementById('modelDesc').textContent=MODELS[cur].desc;
+  const corr=r=>n<2?1:1-6*r.reduce((s,x,i)=>s+(x-rk[0][i])**2,0)/(n*(n*n-1));
+  document.getElementById('modelTable').innerHTML='<thead><tr><th>مبحث</th><th>۲۴ساعته فعلی</th><th>پیشنهاد مدل انتخابی</th>'+MODELS.map(m=>`<th>${m.name}</th>`).join('')+'</tr></thead><tbody>'+
+    T.map((t,i)=>`<tr><td>${esc(t.subject)} — ${esc(t.name)}</td><td>${+t.horizons.h24||0}</td><td><span class="badge badge-priority">${al[i]}</span></td>${rk.map(r=>`<td>${r[i]}</td>`).join('')}</tr>`).join('')+
+    '</tbody><tfoot><tr><td colspan="3">همبستگی با مدل پایه</td>'+rk.map(r=>`<td>${corr(r).toFixed(2)}</td>`).join('')+'</tr></tfoot>';
+  const need=T.map(t=>({t,need:(+t.target||0)*(1-t.mastery),d:daysLeft(t)})),pd=need.map(x=>x.need/x.d),tp=pd.reduce((a,b)=>a+b,0);
+  document.getElementById('backwardArea').innerHTML='<div class="table-wrap" style="max-height:none"><table class="grid"><thead><tr><th>مبحث</th><th>نیاز (دقیقه)</th><th>روز مانده</th><th>نیاز روزانه</th></tr></thead><tbody>'+
+    need.map((x,i)=>`<tr><td>${esc(x.t.name)}</td><td>${Math.round(x.need)}</td><td>${Math.ceil(x.d)}</td><td>${pd[i].toFixed(1)}</td></tr>`).join('')+
+    `</tbody><tfoot><tr><td colspan="3">جمع نیاز روزانه در برابر ظرفیت ${cap}</td><td>${tp.toFixed(0)} ${tp>cap?'<span class="badge badge-err">غیرممکن</span>':'<span class="badge badge-ok">شدنی</span>'}</td></tr></tfoot></table></div>`;
+  const INT=[1,2,4,8,16,32];
+  document.getElementById('leitnerArea').innerHTML='<div class="table-wrap" style="max-height:none"><table class="grid"><thead><tr><th>مبحث</th><th>جعبه</th><th>مرور ۱</th><th>مرور ۲</th><th>مرور ۳</th></tr></thead><tbody>'+
+    T.map(t=>{const b=Math.min(5,Math.floor(t.mastery*6));let c=0,td=today();const ds=[0,1,2].map(k=>{c+=INT[Math.min(5,b+k)];return addD(td,c)});return`<tr><td>${esc(t.name)}</td><td>${b+1}</td>${ds.map(d=>`<td>${d}</td>`).join('')}</tr>`}).join('')+'</tbody></table></div>';
+  document.getElementById('pomoArea').innerHTML='<div class="table-wrap" style="max-height:none"><table class="grid"><thead><tr><th>مبحث</th><th>دقیقهٔ ۲۴ساعته</th><th>تعداد پومودورو</th><th>زمان تمرکز</th><th>زمان کل با استراحت</th></tr></thead><tbody>'+
+    T.map(t=>{const m=+t.horizons.h24||0,p=Math.ceil(m/25),lg=Math.floor(Math.max(0,p-1)/4),tot=p*25+5*Math.max(0,p-1-lg)+15*lg;return`<tr><td>${esc(t.name)}</td><td>${m}</td><td>${p}</td><td>${p*25}</td><td>${tot}</td></tr>`}).join('')+'</tbody></table></div>';
+}
+function applyModel(){
+  const m=MODELS.find(x=>x.key===document.getElementById('modelSel').value);if(!m||!state.topics.length)return;
+  if(!confirm('زمان ۲۴ ساعتهٔ همهٔ مباحث بر اساس مدل «'+m.name+'» جایگزین شود؟'))return;
+  const al=allocate(state.topics.map(t=>+m.f(t)||0),state.capacities.h24||0);
+  state.topics.forEach((t,i)=>{t.horizons.h24=al[i];redistModes(t)});
+  state.model=m.key;saveState();renderAll();toast('✓ مدل اعمال شد');
+}
+
+/* برنامه‌ریزی تعاملی */
+function planStats(p){
+  const tot=p.tasks.reduce((s,t)=>s+(+t.min||0),0),done=p.tasks.filter(t=>t.done).reduce((s,t)=>s+(+t.min||0),0),rem=tot-done;
+  const d=p.end?Math.max(1,dayDiff(today(),p.end)+1):14;
+  return{tot,done,rem,d,pct:tot?Math.round(done/tot*100):0,req:rem/d};
+}
+function demandOf(p,d){
+  return p.tasks.filter(t=>!t.done).reduce((s,t)=>{let x=t.date||p.end||today();if(x<today())x=today();return x===d?s+(+t.min||0):s},0);
+}
+function demandMatrix(){
+  const td=today(),days=Array.from({length:14},(_,k)=>addD(td,k)),rows=state.plans.map(p=>days.map(d=>demandOf(p,d)));
+  return{days,rows,tot:days.map((_,k)=>rows.reduce((s,r)=>s+r[k],0))};
+}
+function newPlan(kind){
+  const td=today(),p={id:uid(),name:'برنامهٔ جدید',color:PAL[state.plans.length%PAL.length],start:td,end:addD(td,30),share:3,tasks:[],open:true};
+  const T=(title,subject,min,date)=>p.tasks.push({id:uid(),title,subject,min,date,done:false});
+  if(kind==='mock'){p.name='آزمون‌های آزمایشی';p.end=addD(td,28);for(let w=0;w<4;w++){const b=addD(td,w*7);T('آزمون آزمایشی جامع','آزمون',180,b);T('تحلیل کارنامه','آزمون',90,addD(b,1));T('رفع اشکال نکته‌های ضعف','آزمون',60,addD(b,2))}}
+  else if(kind==='final'){p.name='امتحانات نهایی';const n=state.topics.length||1;state.topics.forEach((t,i)=>T('جمع‌بندی '+t.name,t.subject,Math.max(30,Math.round((+t.target||60)/2/5)*5),addD(td,Math.floor(i*27/n))))}
+  state.plans.push(p);saveState();renderAll();toast('✓ برنامه افزوده شد');
+}
+function delPlan(i){if(!confirm('این برنامه حذف شود؟'))return;const p=state.plans[i],ids=new Set(p.tasks.map(t=>t.id));state.logs=state.logs.filter(l=>!ids.has(l.tid));state.plans.splice(i,1);saveState();renderAll()}
+function addTask(i){const p=state.plans[i];p.tasks.push({id:uid(),title:'وظیفهٔ جدید',subject:'',min:30,date:today(),done:false});p.open=true;saveState();renderAll()}
+function delTask(i,j){const t=state.plans[i].tasks[j];state.logs=state.logs.filter(l=>l.tid!==t.id);state.plans[i].tasks.splice(j,1);saveState();renderAll()}
+function setDone(i,j,on){
+  const p=state.plans[i],t=p.tasks[j];t.done=on;state.logs=state.logs.filter(l=>l.tid!==t.id);
+  if(on)state.logs.push({id:uid(),tid:t.id,date:today(),subject:t.subject||p.name,min:+t.min||0,plan:p.name});
+  saveState();renderAll();
+}
+function planChanged(){saveState();renderPlansDerived()}
+function buildAgenda(){
+  const td=today(),dow=(new Date().getDay()+1)%7;
+  const mand=state.mandatory.reduce((s,m)=>{if(!m.days.includes(dow)||!m.start||!m.end)return s;const[a,b]=m.start.split(':').map(Number),[c,d]=m.end.split(':').map(Number);return s+Math.max(0,c*60+d-a*60-b)},0);
+  const avail=Math.max(0,Math.min(state.capacities.h24||0,1440-mand));
+  const act=state.plans.map((p,pi)=>({p,pi,pend:p.tasks.map((t,ti)=>({t,ti})).filter(x=>!x.t.done).sort((a,b)=>(a.t.date||'9')<(b.t.date||'9')?-1:1)})).filter(x=>x.pend.length&&(!x.p.start||x.p.start<=td));
+  const w=act.map(x=>{const s=planStats(x.p);return state.strategy==='edf'?1/s.d:state.strategy==='equal'?1:x.p.share*(1+(1-Math.min(1,s.d/30)))});
+  const al=allocate(w,avail),rows=[];let unused=0;
+  act.forEach((x,k)=>{let b=al[k];for(const q of x.pend){if(b<=0)break;const c=Math.min(b,+q.t.min||0);if(c>0)rows.push({pi:x.pi,ti:q.ti,plan:x.p,title:q.t.title,min:c});b-=c}unused+=b});
+  return{avail,mand,rows,unused};
+}
+function renderPlansDerived(){
+  state.plans.forEach((p,i)=>{const s=planStats(p),e=document.getElementById('ps'+i),b=document.getElementById('pb'+i);
+    if(e)e.textContent=`${s.pct}٪ انجام‌شده · باقی‌مانده ${s.rem} دقیقه · ${s.d} روز مانده · نیاز روزانه ≈ ${Math.ceil(s.req)} دقیقه`;if(b)b.style.width=s.pct+'%'});
+  const sg=document.getElementById('strategySel');if(sg)sg.value=state.strategy;
+  const ag=buildAgenda();
+  document.getElementById('agendaArea').innerHTML=`<div class="hint">ظرفیت قابل‌استفادهٔ امروز: ${ag.avail} دقیقه (تداخل ثابت‌های امروز: ${ag.mand} دقیقه)${ag.unused?` · ${ag.unused} دقیقه بدون وظیفهٔ مناسب ماند`:''}</div>`+
+    (ag.rows.length?'<div class="table-wrap" style="max-height:none"><table class="grid"><thead><tr><th>برنامه</th><th>وظیفه</th><th>دقیقه</th><th>انجام</th></tr></thead><tbody>'+
+    ag.rows.map(r=>`<tr><td><span class="swatch" style="display:inline-block;background:${r.plan.color}"></span> ${esc(r.plan.name)}</td><td>${esc(r.title)}</td><td>${r.min}</td><td><button class="small" onclick="setDone(${r.pi},${r.ti},true)">✓</button></td></tr>`).join('')+'</tbody></table></div>':'<div class="hint">وظیفهٔ باز برای امروز وجود ندارد.</div>');
+  const dm=demandMatrix(),cap=state.capacities.h24||1;
+  document.getElementById('heatArea').innerHTML=state.plans.length?'<table class="grid"><thead><tr><th>برنامه</th>'+dm.days.map(d=>`<th>${d.slice(5)}</th>`).join('')+'</tr></thead><tbody>'+
+    state.plans.map((p,i)=>`<tr><td>${esc(p.name)}</td>${dm.rows[i].map(v=>`<td style="background:rgba(232,151,31,${Math.min(.85,v/cap)})">${v||''}</td>`).join('')}</tr>`).join('')+
+    '</tbody><tfoot><tr><td>جمع</td>'+dm.tot.map(v=>`<td style="${v>cap?'background:var(--danger-soft);color:var(--danger)':''}">${v||''}</td>`).join('')+'</tr></tfoot></table>':'<div class="hint" style="padding:10px">برنامه‌ای تعریف نشده است.</div>';
+}
+function renderPlans(){
+  const A=document.getElementById('planArea');if(!A)return;
+  document.getElementById('subjList').innerHTML=[...new Set(state.topics.map(t=>t.subject))].map(x=>`<option value="${esc(x)}">`).join('');
+  A.innerHTML=state.plans.length?state.plans.map((p,i)=>{const s=planStats(p);return`<div class="plan-card" style="border-right:4px solid ${p.color}">
+   <div class="plan-head"><input value="${esc(p.name)}" aria-label="نام برنامه" onchange="state.plans[${i}].name=this.value;planChanged()">
+    <label>شروع <input type="date" value="${esc(p.start||'')}" onchange="state.plans[${i}].start=this.value;planChanged()"></label>
+    <label>پایان <input type="date" value="${esc(p.end||'')}" onchange="state.plans[${i}].end=this.value;planChanged()"></label>
+    <label>اولویت <input type="number" min="1" max="5" style="width:56px" value="${p.share}" onchange="state.plans[${i}].share=Math.max(1,Math.min(5,+this.value||1));planChanged()"></label>
+    <button class="small danger" aria-label="حذف برنامه" onclick="delPlan(${i})">✕</button></div>
+   <div class="bar"><div id="pb${i}" style="width:${s.pct}%;background:${p.color}"></div></div><div class="hint" id="ps${i}"></div>
+   <details ${p.open?'open':''} ontoggle="state.plans[${i}].open=this.open"><summary>وظایف (${p.tasks.length})</summary>
+    <div class="table-wrap" style="max-height:none;margin-top:8px"><table class="grid"><thead><tr><th>✓</th><th>عنوان</th><th>درس</th><th>دقیقه</th><th>تاریخ</th><th></th></tr></thead><tbody>${p.tasks.map((t,j)=>`<tr>
+     <td><input type="checkbox" ${t.done?'checked':''} onchange="setDone(${i},${j},this.checked)"></td>
+     <td><input class="txt-cell" value="${esc(t.title)}" onchange="state.plans[${i}].tasks[${j}].title=this.value;planChanged()"></td>
+     <td><input class="txt-cell" list="subjList" value="${esc(t.subject||'')}" onchange="state.plans[${i}].tasks[${j}].subject=this.value;planChanged()"></td>
+     <td><input type="number" class="num-cell" min="5" step="5" value="${+t.min||0}" onchange="state.plans[${i}].tasks[${j}].min=Math.max(0,+this.value||0);planChanged()"></td>
+     <td><input type="date" value="${esc(t.date||'')}" onchange="state.plans[${i}].tasks[${j}].date=this.value;planChanged()"></td>
+     <td><button class="small danger" onclick="delTask(${i},${j})">✕</button></td></tr>`).join('')}</tbody></table></div>
+    <button class="small" style="margin-top:8px" onclick="addTask(${i})">+ وظیفه</button></details></div>`}).join(''):'<div class="hint">برنامه‌ای نیست. از دکمه‌های بالا یک برنامه یا قالب بسازید؛ برنامه‌ها ظرفیت روزانه را میان خود تقسیم می‌کنند.</div>';
+  renderPlansDerived();
+}
+function planWarnings(w){
+  const cap=state.capacities.h24||0,dm=demandMatrix();
+  state.plans.forEach(p=>{const s=planStats(p);if(s.rem>0&&p.end&&p.end<today())w.push(`برنامهٔ «${p.name}»: مهلت گذشته و ${s.rem} دقیقه باقی است`)});
+  const over=dm.tot.filter(v=>v>cap).length;if(over)w.push(`بار ترکیبی برنامه‌ها در ${over} روز از ۱۴ روز آینده از ظرفیت ۲۴ ساعته بیشتر است`);
+}
+function planText(L){
+  if(!state.plans.length)return;
+  L.push('','── برنامه‌های هم‌زمان ──');
+  state.plans.forEach((p,i)=>{const s=planStats(p);L.push(`${i+1}. ${p.name} | ${p.start||'—'} تا ${p.end||'—'} | ${s.pct}٪ | باقی‌مانده ${s.rem} دقیقه | نیاز روزانه ≈ ${Math.ceil(s.req)}`)});
+  L.push('');
+}
+
+/* نمودارها */
+function chartSVG(type,d){
+  const L=d.labels||[],S=d.series||[];if(!L.length||!S.length)return'';
+  const W=640,H=340,P={l:46,r:16,t:24,b:58},iw=W-P.l-P.r,ih=H-P.t-P.b,n=L.length,f=v=>Math.round(v*100)/100;
+  const cl=(d.colors&&d.colors.length)?d.colors:PAL,sc=i=>S[i].color||PAL[i%PAL.length];
+  const T=(x,y,t,a,c)=>`<text x="${f(x)}" y="${f(y)}" text-anchor="${a||'middle'}" fill="${c||'#94a3b8'}">${esc(t)}</text>`;
+  let o=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" font-family="Vazirmatn,Tahoma,sans-serif" font-size="10" style="direction:ltr"><rect width="${W}" height="${H}" fill="#0b1120"/>`;
+  if(d.title)o+=T(W/2,14,d.title,'middle','#f8fafc');
+  const leg=it=>it.map(([nm,c],i)=>`<rect x="${P.l+i*118}" y="${H-14}" width="9" height="9" fill="${c}"/>`+T(P.l+i*118+13,H-6,String(nm).slice(0,16),'start')).join('');
+  if(type==='pie'||type==='donut'){
+    const v=S[0].values.map(x=>Math.max(0,+x||0)),tot=v.reduce((a,b)=>a+b,0);if(!tot)return'';
+    const cx=190,cy=180,r=125,ri=type==='donut'?68:0,p=(R,a)=>[cx+R*Math.cos(a),cy+R*Math.sin(a)].map(f).join(' ');let a0=-Math.PI/2;
+    v.forEach((x,i)=>{if(x<=0)return;const a1=a0+Math.min(x/tot,.9999)*2*Math.PI,lg=a1-a0>Math.PI?1:0;
+      o+=`<path d="M ${p(r,a0)} A ${r} ${r} 0 ${lg} 1 ${p(r,a1)} ${ri?`L ${p(ri,a1)} A ${ri} ${ri} 0 ${lg} 0 ${p(ri,a0)} Z`:`L ${cx} ${cy} Z`}" fill="${cl[i%cl.length]}" stroke="#0b1120"/>`;a0=a1});
+    L.forEach((l,i)=>{o+=`<rect x="360" y="${50+i*18}" width="9" height="9" fill="${cl[i%cl.length]}"/>`+T(374,58+i*18,`${String(l).slice(0,22)} (${Math.round(v[i]/tot*100)}٪)`,'start')});
+    return o+'</svg>';
+  }
+  if(type==='radar'){
+    const cx=W/2,cy=H/2+6,R=112,mx=Math.max(1e-9,...S.flatMap(s=>s.values.map(Number))),pt=(k,v)=>{const a=-Math.PI/2+k/n*2*Math.PI;return[cx+R*v*Math.cos(a),cy+R*v*Math.sin(a)].map(f).join(',')};
+    [.25,.5,.75,1].forEach(g=>o+=`<polygon points="${L.map((_,k)=>pt(k,g)).join(' ')}" fill="none" stroke="#334155"/>`);
+    L.forEach((l,k)=>{o+=`<line x1="${cx}" y1="${cy}" x2="${pt(k,1).split(',')[0]}" y2="${pt(k,1).split(',')[1]}" stroke="#334155"/>`;const q=pt(k,1.14).split(',');o+=T(q[0],q[1],String(l).slice(0,12))});
+    S.forEach((s,i)=>o+=`<polygon points="${s.values.map((v,k)=>pt(k,(+v||0)/mx)).join(' ')}" fill="${sc(i)}" fill-opacity=".25" stroke="${sc(i)}" stroke-width="2"/>`);
+    return o+leg(S.map((s,i)=>[s.name,sc(i)]))+'</svg>';
+  }
+  if(type==='scatter'){
+    const X=S[0].values.map(Number),Y=(S[1]||S[0]).values.map(Number),mx=Math.max(1e-9,...X),my=Math.max(1e-9,...Y);
+    for(let t=0;t<=4;t++){const gy=P.t+ih-t/4*ih,gx=P.l+t/4*iw;o+=`<line x1="${P.l}" x2="${W-P.r}" y1="${gy}" y2="${gy}" stroke="#334155"/>`+T(P.l-4,gy+3,f(my*t/4),'end')+T(gx,H-P.b+12,f(mx*t/4))}
+    X.forEach((x,k)=>{const px=P.l+x/mx*iw,py=P.t+ih-Y[k]/my*ih;o+=`<circle cx="${f(px)}" cy="${f(py)}" r="5" fill="${PAL[k%PAL.length]}" fill-opacity=".85"/>`+T(px,py-8,String(L[k]).slice(0,10))});
+    return o+T(W/2,H-6,S[0].name+' (افقی) — '+(S[1]||S[0]).name+' (عمودی)')+'</svg>';
+  }
+  const stk=type==='stacked',all=stk?L.map((_,j)=>S.reduce((a,s)=>a+(+s.values[j]||0),0)):S.flatMap(s=>s.values.map(v=>+v||0)),mx=Math.max(1e-9,...all),y=v=>P.t+ih-v/mx*ih,bw=iw/n;
+  for(let t=0;t<=4;t++){const v=mx*t/4;o+=`<line x1="${P.l}" x2="${W-P.r}" y1="${f(y(v))}" y2="${f(y(v))}" stroke="#334155"/>`+T(P.l-4,y(v)+3,f(v),'end')}
+  L.forEach((l,j)=>o+=T(P.l+bw*(j+.5),H-P.b+12,String(l).slice(0,10)));
+  if(type==='bar')S.forEach((s,i)=>{const gw=bw*.8/S.length;s.values.forEach((v,j)=>{const h=(+v||0)/mx*ih;o+=`<rect x="${f(P.l+bw*j+bw*.1+i*gw)}" y="${f(P.t+ih-h)}" width="${f(gw*.92)}" height="${f(h)}" fill="${sc(i)}"/>`})});
+  else if(stk){const acc=L.map(()=>0);S.forEach((s,i)=>s.values.forEach((v,j)=>{const h=(+v||0)/mx*ih;o+=`<rect x="${f(P.l+bw*j+bw*.15)}" y="${f(P.t+ih-acc[j]/mx*ih-h)}" width="${f(bw*.7)}" height="${f(h)}" fill="${sc(i)}"/>`;acc[j]+=+v||0}))}
+  else S.forEach((s,i)=>{const pts=s.values.map((v,j)=>[P.l+bw*(j+.5),y(+v||0)]),ln=pts.map(q=>q.map(f).join(',')).join(' ');
+    if(type==='area')o+=`<polygon points="${f(pts[0][0])},${P.t+ih} ${ln} ${f(pts[pts.length-1][0])},${P.t+ih}" fill="${sc(i)}" fill-opacity=".25"/>`;
+    o+=`<polyline points="${ln}" fill="none" stroke="${sc(i)}" stroke-width="2"/>`+pts.map(q=>`<circle cx="${f(q[0])}" cy="${f(q[1])}" r="3" fill="${sc(i)}"/>`).join('')});
+  return o+leg(S.map((s,i)=>[s.name,sc(i)]))+'</svg>';
+}
+const CHART_TYPES=[['bar','ستونی'],['stacked','ستونی انباشته'],['line','خطی'],['area','ناحیه‌ای'],['pie','دایره‌ای'],['donut','دونات'],['radar','راداری'],['scatter','پراکندگی']];
+const grpSum=(arr,kf,vf)=>{const m={};arr.forEach(x=>{const k=kf(x)||'—';m[k]=(m[k]||0)+vf(x)});return{labels:Object.keys(m),values:Object.values(m)}};
+const DATASETS={
+ prio:{name:'امتیاز اولویت مباحث',t:'bar',fn:()=>({labels:state.topics.map(t=>t.name),series:[{name:'اولویت',values:state.topics.map(t=>+computePriority(t).toFixed(2))}]})},
+ modes:{name:'زمان به تفکیک حالت فعالیت',t:'donut',fn:()=>({labels:MODES.map(m=>m.name),colors:MODES.map(m=>m.color),series:[{name:'دقیقه',values:MODES.map(m=>state.topics.reduce((s,t)=>s+(+t.modes[m.key]||0),0))}]})},
+ modesByTopic:{name:'حالت‌های فعالیت هر مبحث',t:'stacked',fn:()=>({labels:state.topics.map(t=>t.name),series:MODES.map(m=>({name:m.name,color:m.color,values:state.topics.map(t=>+t.modes[m.key]||0)}))})},
+ horizon:{name:'مصرف و ظرفیت افق‌ها',t:'bar',fn:()=>({labels:HORIZONS.map(h=>h.name),series:[{name:'مصرف',values:HORIZONS.map(h=>state.topics.reduce((s,t)=>s+(+t.horizons[h.key]||0),0))},{name:'ظرفیت',values:HORIZONS.map(h=>state.capacities[h.key]||0)}]})},
+ subject:{name:'سهم هر درس از زمان',t:'pie',fn:()=>{const g=grpSum(state.topics,t=>t.subject,t=>sumObj(t.modes));return{labels:g.labels,series:[{name:'دقیقه',values:g.values}]}}},
+ mastery:{name:'تسلط و وزن آزمون هر درس',t:'radar',fn:()=>{const L=[...new Set(state.topics.map(t=>t.subject))],av=k=>L.map(s=>{const a=state.topics.filter(t=>t.subject===s);return a.reduce((x,t)=>x+(+t[k]||0),0)/a.length});return{labels:L,series:[{name:'تسلط (٪)',values:av('mastery').map(v=>v*100)},{name:'وزن آزمون (٪)',values:av('examWeight').map(v=>v*20)}]}}},
+ scatter:{name:'تسلط در برابر اولویت',t:'scatter',fn:()=>({labels:state.topics.map(t=>t.name),series:[{name:'تسلط',values:state.topics.map(t=>+t.mastery||0)},{name:'اولویت',values:state.topics.map(t=>+computePriority(t).toFixed(2))}]})},
+ plans:{name:'پیشرفت برنامه‌های هم‌زمان',t:'stacked',fn:()=>({labels:state.plans.map(p=>p.name),series:[{name:'انجام‌شده',color:'#10b981',values:state.plans.map(p=>planStats(p).done)},{name:'باقی‌مانده',color:'#f59e0b',values:state.plans.map(p=>planStats(p).rem)}]})},
+ demand:{name:'بار ترکیبی ۱۴ روز آینده در برابر ظرفیت',t:'line',fn:()=>{const dm=demandMatrix();return{labels:dm.days.map(d=>d.slice(5)),series:[{name:'بار',values:dm.tot},{name:'ظرفیت',color:'#ef4444',values:dm.days.map(()=>state.capacities.h24||0)}]}}},
+ logDay:{name:'مطالعهٔ ثبت‌شده در ۱۴ روز اخیر',t:'bar',fn:()=>{const td=today(),days=Array.from({length:14},(_,k)=>addD(td,k-13));return{labels:days.map(d=>d.slice(5)),series:[{name:'دقیقه',values:days.map(d=>state.logs.filter(l=>l.date===d).reduce((s,l)=>s+(+l.min||0),0))}]}}},
+ logSubject:{name:'سهم دروس از مطالعهٔ ثبت‌شده',t:'donut',fn:()=>{const g=grpSum(state.logs,l=>l.subject,l=>+l.min||0);return{labels:g.labels,series:[{name:'دقیقه',values:g.values}]}}}
+};
+let lastChart=null;
+function renderCharts(){
+  const ds=document.getElementById('chDs');if(!ds)return;
+  const ty=document.getElementById('chType');
+  if(!ds.options.length){
+    ds.innerHTML=Object.entries(DATASETS).map(([k,v])=>`<option value="${k}">${v.name}</option>`).join('');
+    if(!DATASETS[ds.value])ds.value='prio';
+    ty.innerHTML=CHART_TYPES.map(([k,n])=>`<option value="${k}">${n}</option>`).join('');
+    ds.onchange=()=>{ty.value=DATASETS[ds.value].t;renderCharts()};ty.value=DATASETS[ds.value].t;
+    document.getElementById('lgDate').value=today();
+  }
+  const D=DATASETS[ds.value],d=D.fn();d.title=D.name;const svg=chartSVG(ty.value,d);lastChart={svg,d};
+  document.getElementById('chartArea').innerHTML=svg||'<p class="hint">داده‌ای برای این نمودار وجود ندارد.</p>';
+  document.getElementById('dashArea').innerHTML=[['prio','bar'],['modes','donut'],['horizon','bar'],['demand','line']].map(([k,t])=>{const x=DATASETS[k].fn();x.title=DATASETS[k].name;return chartSVG(t,x)||''}).join('');
+  const lg=state.logs.slice(-10).reverse();
+  document.getElementById('logList').innerHTML=lg.length?'<table class="grid"><thead><tr><th>تاریخ</th><th>درس</th><th>دقیقه</th><th>برنامه</th><th></th></tr></thead><tbody>'+lg.map(l=>`<tr><td>${esc(l.date)}</td><td>${esc(l.subject)}</td><td>${+l.min||0}</td><td>${esc(l.plan||'—')}</td><td><button class="small danger" onclick="delLog('${l.id}')">✕</button></td></tr>`).join('')+'</tbody></table>':'<div class="hint">هنوز مطالعه‌ای ثبت نشده است.</div>';
+}
+function addLog(){
+  const d=document.getElementById('lgDate').value||today(),sub=document.getElementById('lgSub').value.trim(),m=+document.getElementById('lgMin').value;
+  if(!sub||!(m>0))return toast('درس و دقیقه را وارد کنید');
+  state.logs.push({id:uid(),date:d,subject:sub,min:m,plan:''});saveState();renderCharts();toast('✓ ثبت شد');
+}
+function delLog(id){state.logs=state.logs.filter(l=>l.id!==id);saveState();renderCharts()}
+function dlBlob(b,name){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+function chartExport(kind){
+  if(!lastChart||!lastChart.svg)return toast('نموداری برای خروجی نیست');
+  if(kind==='svg')return dlBlob(new Blob([lastChart.svg],{type:'image/svg+xml'}),'chart.svg');
+  if(kind==='csv'){const d=lastChart.d,q=v=>'"'+String(v).replace(/"/g,'""')+'"';
+    const rows=[['',...d.series.map(s=>s.name)].map(q).join(',')].concat(d.labels.map((l,i)=>[l,...d.series.map(s=>s.values[i])].map(q).join(',')));
+    return dlBlob(new Blob(['\ufeff'+rows.join('\n')],{type:'text/csv;charset=utf-8'}),'chart.csv')}
+  const img=new Image(),u=URL.createObjectURL(new Blob([lastChart.svg],{type:'image/svg+xml;charset=utf-8'}));
+  img.onload=()=>{const c=document.createElement('canvas');c.width=1280;c.height=680;c.getContext('2d').drawImage(img,0,0,1280,680);URL.revokeObjectURL(u);c.toBlob(b=>b?dlBlob(b,'chart.png'):toast('خروجی PNG ممکن نشد'))};
+  img.onerror=()=>toast('خروجی PNG ممکن نشد');img.src=u;
+}
+function renderAll(){renderMainTable();renderDimensions();renderCapacity();renderMandatory();renderReport();renderVisual();renderModels();renderPlans();renderCharts()}
+renderAll();
+</script>
+</body>
+</html>
