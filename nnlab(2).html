@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>آزمایشگاه شبکه عصبی — مستر پلنر</title>
+<meta name="description" content="آزمایشگاه تعاملی شبکه عصبی مستر پلنر: در چهار ایستگاه بازی‌محور، با دستِ خودت یک نورون تنظیم می‌کنی، به یک شبکه یاد می‌دهی تصمیم بگیرد، معلمِ شبکه می‌شوی و راز یادماندن را کشف می‌کنی — بدون هیچ پیش‌نیاز فنی.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800;900&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ====== TOKENS ====== */
+:root{
+  --bg:#07080C; --s1:#12151D; --s2:#181D27; --s3:#1F2530;
+  --line:rgba(212,175,55,.18); --line2:rgba(255,255,255,.07);
+  --ink:#F3EFE4; --mut:#9AA3B2; --dim:#67707F;
+  --gold:#D4AF37; --champ:#F3E5AB; --cyan:#22D3EE; --blue:#60A5FA; --red:#F87171;
+  --r:16px; --rl:24px;
+  --font:'Vazirmatn',system-ui,-apple-system,sans-serif;
+  --latin:'Outfit',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-padding-top:84px}
+@media (prefers-reduced-motion: no-preference){html{scroll-behavior:smooth}}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-weight:400;line-height:1.9;font-size:16.5px;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(212,175,55,.35)}
+a{color:inherit;text-decoration:none}
+img,canvas{display:block;max-width:100%}
+button{font-family:var(--font);cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.latin{font-family:var(--latin);letter-spacing:-.02em;direction:ltr}
+
+/* ====== TOPBAR ====== */
+#topbar{position:sticky;top:0;z-index:50;background:rgba(7,8,12,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line2)}
+#topbar .in{max-width:1080px;margin:0 auto;padding:0 20px;height:62px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:baseline;gap:10px;font-weight:900;font-size:19px}
+.brand b{color:var(--gold)}
+.brand .sub{font-size:11.5px;color:var(--mut);font-weight:400;border-inline-start:1px solid var(--line2);padding-inline-start:10px}
+#nav{display:flex;gap:8px;align-items:center}
+#nav a{font-size:14px;color:var(--mut);padding:8px 14px;border-radius:999px;border:1px solid transparent;transition:.3s ease}
+#nav a:hover{color:var(--champ);border-color:var(--line)}
+#nav a.ghostb{border-color:var(--line);color:var(--champ)}
+#navBtn{display:none;background:none;border:1px solid var(--line2);border-radius:10px;width:40px;height:40px;color:var(--champ);font-size:18px}
+@media(max-width:760px){
+  #navBtn{display:block}
+  #nav{position:absolute;top:62px;inset-inline:0;background:var(--s1);border-bottom:1px solid var(--line2);flex-direction:column;align-items:stretch;padding:12px 20px 18px;display:none}
+  #nav.open{display:flex}
+  #nav a{padding:12px 16px}
+  .brand .sub{display:none}
+}
+
+/* ====== HERO ====== */
+#hero{position:relative;min-height:86vh;display:flex;align-items:center;overflow:hidden}
+#pulseCanvas{position:absolute;inset:0;width:100%;height:100%}
+.hero-veil{position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 4%,rgba(7,8,12,.45) 45%,rgba(7,8,12,.55))}
+.hero-in{position:relative;z-index:2;max-width:1080px;margin:0 auto;padding:110px 20px 90px;width:100%}
+.kicker{color:var(--gold);font-weight:700;font-size:13.5px;margin-bottom:14px}
+.kicker .latin{color:var(--dim);font-size:11px;margin-inline-start:10px}
+h1{font-weight:900;font-size:clamp(2.1rem,5.6vw,3.7rem);line-height:1.45;letter-spacing:0;max-width:19ch}
+h1 em{font-style:normal;color:var(--champ)}
+.lead{color:var(--mut);max-width:62ch;margin:18px 0 30px;font-size:17px}
+.roadmap{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:34px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border:1px solid var(--line2);border-radius:999px;font-size:13.5px;color:var(--mut);transition:.3s ease;background:rgba(18,21,29,.6)}
+.chip:hover{border-color:var(--line);color:var(--champ)}
+.chip .tick{width:18px;height:18px;border-radius:50%;border:1px solid var(--dim);display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#07080C;flex:none}
+.chip.done{border-color:var(--gold);color:var(--champ)}
+.chip.done .tick{background:var(--gold);border-color:var(--gold)}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 26px;border-radius:999px;font-weight:800;font-size:15px;border:1px solid transparent;transition:.3s ease}
+.btn.gold{background:var(--gold);color:#07080C}
+.btn.gold:hover{background:var(--champ)}
+.btn.ghost{border-color:var(--line);color:var(--champ);background:transparent}
+.btn.ghost:hover{border-color:var(--gold)}
+
+/* ====== LAYOUT ====== */
+main{max-width:1080px;margin:0 auto;padding:0 20px}
+section.station{padding:96px 0 8px;scroll-margin-top:84px}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}}
+.st-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+.st-num{color:var(--gold);font-weight:800;font-size:13px;border:1px solid var(--line);border-radius:999px;padding:5px 14px}
+h2{font-weight:900;font-size:clamp(1.55rem,3.4vw,2.15rem);letter-spacing:0}
+.st-badge{margin-inline-start:auto;font-size:12.5px;color:var(--mut);border:1px dashed var(--dim);border-radius:999px;padding:5px 14px;transition:.3s ease}
+.st-badge.done{border-style:solid;border-color:var(--gold);color:var(--gold)}
+.qcard{border-inline-start:3px solid var(--gold);background:var(--s1);border-radius:var(--r);padding:18px 22px;color:var(--champ);font-size:15px;margin:22px 0}
+.qcard b{color:var(--gold)}
+.card{background:var(--s1);border:1px solid var(--line2);border-radius:var(--r);padding:24px}
+.card+.card{margin-top:18px}
+.card h3{font-size:17px;font-weight:800;margin-bottom:10px;color:var(--ink)}
+.card p{color:var(--mut);font-size:14.5px}
+.duo{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:start;margin-top:22px}
+@media(max-width:900px){.duo{grid-template-columns:1fr}}
+.honesty{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--dim);margin-top:16px;line-height:1.8}
+.honesty::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--cyan);flex:none;margin-top:9px}
+
+/* ====== CONTROLS ====== */
+.tabset{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tab{padding:8px 16px;border-radius:999px;border:1px solid var(--line2);background:transparent;color:var(--mut);font-size:13.5px;font-weight:600;transition:.3s ease}
+.tab:hover{color:var(--champ);border-color:var(--line)}
+.tab.sel{border-color:var(--gold);color:var(--gold);background:rgba(212,175,55,.08)}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.srow{display:grid;grid-template-columns:96px 1fr 64px;align-items:center;gap:12px;margin-bottom:14px}
+.srow label{font-size:13.5px;color:var(--mut);font-weight:600}
+.srow output{font-size:14px;color:var(--champ);font-weight:800;text-align:center;direction:ltr}
+input[type=range]{width:100%;accent-color:var(--gold);height:26px}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+.tbl th{color:var(--dim);font-weight:600;font-size:12.5px;padding:9px 8px;border-bottom:1px solid var(--line2);text-align:center}
+.tbl td{padding:10px 8px;border-bottom:1px solid var(--line2);text-align:center;color:var(--mut)}
+.tbl td .lamp{width:11px;height:11px;border-radius:50%;border:1.5px solid var(--dim);display:inline-block;vertical-align:middle;margin-inline-end:8px;transition:.3s ease}
+.tbl td .lamp.on{background:var(--gold);border-color:var(--gold);box-shadow:0 0 10px rgba(212,175,55,.5)}
+.mission{border:1px solid var(--line);border-radius:var(--r);padding:18px 22px;margin-top:18px;background:rgba(212,175,55,.04)}
+.mission h4{color:var(--gold);font-size:14.5px;font-weight:800;margin-bottom:6px}
+.mission p{color:var(--mut);font-size:13.5px}
+.mission.ok{border-color:var(--gold)}
+.mission .mstate{color:var(--dim);font-size:12.5px;margin-top:8px}
+.mission.ok .mstate{color:var(--gold)}
+.bar{height:8px;background:var(--s3);border-radius:999px;overflow:hidden;margin-top:12px}
+.bar .fill{height:100%;width:0;background:var(--gold);border-radius:999px;transition:width .3s ease}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+@media(max-width:520px){.stats{grid-template-columns:repeat(3,1fr)}}
+.stat{background:var(--s2);border:1px solid var(--line2);border-radius:12px;padding:12px 14px;text-align:center}
+.stat .v{font-weight:900;font-size:21px;color:var(--champ);direction:ltr}
+.stat .l{font-size:11.5px;color:var(--dim);margin-top:2px}
+canvas.plot{width:100%;background:#0B0D13;border:1px solid var(--line2);border-radius:var(--r)}
+canvas.sq{aspect-ratio:1/1}
+canvas.h190{height:190px}
+canvas.h140{height:140px}
+.cap{font-size:12px;color:var(--dim);margin-top:8px}
+
+/* ====== STATION 3 ====== */
+.boardwrap{position:relative;width:100%;max-width:380px;margin:0 auto}
+#s3ov{position:absolute;inset:0;pointer-events:none}
+.brushrow{display:flex;gap:10px;margin-bottom:14px}
+.brush{flex:1;padding:11px;border-radius:12px;border:1px solid var(--line2);background:transparent;color:var(--mut);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px;transition:.3s ease}
+.brush .dot{width:12px;height:12px;border-radius:50%}
+.brush[data-b="0"] .dot{background:var(--blue)}
+.brush[data-b="1"] .dot{background:var(--red)}
+.brush.sel{border-color:var(--gold);color:var(--ink);background:rgba(212,175,55,.07)}
+.cnt{display:flex;gap:10px;margin-bottom:14px}
+.cnt .stat{flex:1;direction:rtl}
+#s3cv{touch-action:none;cursor:crosshair;width:100%}
+
+/* ====== STATION 4 ====== */
+.pill-days{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.pday{padding:9px 0;width:56px;text-align:center;border-radius:999px;border:1px solid var(--line2);background:transparent;color:var(--mut);font-weight:700;font-size:14px;transition:.3s ease}
+.pday:hover{border-color:var(--line);color:var(--champ)}
+.pday.sel{border-color:var(--gold);color:#07080C;background:var(--gold)}
+.bigres{display:flex;align-items:baseline;gap:14px;margin-top:18px;flex-wrap:wrap}
+.bigres .num{font-weight:900;font-size:44px;color:var(--champ);direction:ltr}
+.bigres .lbl{color:var(--mut);font-size:14px}
+.bridge{margin-top:18px;border:1px solid var(--line);border-radius:var(--r);padding:20px 24px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:rgba(212,175,55,.05)}
+.bridge p{color:var(--champ);font-size:14.5px;max-width:56ch}
+
+/* ====== FINAL ====== */
+#final{padding:96px 0 40px}
+.lockbox{position:relative;border:1px solid var(--line2);border-radius:var(--rl);background:var(--s1);padding:40px 28px;text-align:center;overflow:hidden}
+.lockbox .lk{font-size:30px;color:var(--dim);display:block;margin-bottom:12px}
+.lockbox h3{font-weight:900;font-size:20px;color:var(--mut)}
+#final.open .lockbox{border-color:var(--gold);background:linear-gradient(180deg,rgba(212,175,55,.07),var(--s1))}
+#final.open .locked{display:none}
+.takes{display:none;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:26px;text-align:start}
+#final.open .takes{display:grid}
+@media(max-width:640px){.takes{grid-template-columns:1fr}}
+.take{background:var(--s2);border:1px solid var(--line2);border-radius:var(--r);padding:18px 20px}
+.take b{color:var(--gold);display:block;font-size:14px;margin-bottom:6px}
+.take span{color:var(--mut);font-size:13.5px}
+
+/* ====== FOOTER / TOAST ====== */
+footer{border-top:1px solid var(--line2);margin-top:80px}
+footer .in{max-width:1080px;margin:0 auto;padding:28px 20px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--dim)}
+footer a{color:var(--mut)}
+footer a:hover{color:var(--champ)}
+#toast{position:fixed;bottom:26px;inset-inline:0;margin:auto;width:max-content;max-width:88vw;background:var(--s2);border:1px solid var(--line);color:var(--champ);padding:12px 22px;border-radius:999px;font-size:14px;font-weight:600;z-index:99;opacity:0;transform:translateY(14px);transition:.35s ease;pointer-events:none;text-align:center}
+#toast.on{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+
+/* ====== DEEP PATH (مسیر عمیق) ====== */
+.dl-intro{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+@media(max-width:700px){.dl-intro{grid-template-columns:1fr}}
+.dl-side{background:var(--s2);border:1px solid var(--line2);border-radius:var(--r);padding:16px 18px}
+.dl-side b{display:block;font-size:14px;margin-bottom:6px;color:var(--gold)}
+.dl-side.m b{color:var(--cyan)}
+.dl-side ul{list-style:none;color:var(--mut);font-size:13.5px;line-height:1.9}
+.dl-side li::before{content:'• ';color:var(--dim)}
+.dl-ledger{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+@media(max-width:700px){.dl-ledger{grid-template-columns:repeat(2,1fr)}}
+.dl-ledger .stat .v{font-size:19px}
+.dl-next{border:1px solid var(--line);background:rgba(212,175,55,.05);border-radius:var(--r);padding:12px 18px;font-size:14px;color:var(--champ);margin-bottom:16px}
+.dl-next b{color:var(--gold)}
+.dl-bar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:14px}
+.dl-bar .tabset{margin:0}
+.tab.done::after{content:' ✓';color:var(--gold)}
+.dl-panel[hidden]{display:none}
+.dl-steps{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.dl-step{padding:6px 14px;border-radius:999px;border:1px solid var(--line2);font-size:12.5px;color:var(--dim);font-weight:600;transition:.3s ease}
+.dl-step.done{color:var(--mut);border-color:var(--line)}
+.dl-step.on{color:#07080C;background:var(--gold);border-color:var(--gold)}
+.dl-explain{background:var(--s2);border:1px solid var(--line2);border-radius:var(--r);padding:14px 18px;font-size:14px;color:var(--mut);min-height:96px;line-height:1.95}
+.dl-explain b{color:var(--champ)}
+.math{display:none;direction:ltr;text-align:left;font-family:var(--latin);font-size:13px;color:var(--cyan);background:#0B0D13;border:1px solid var(--line2);border-radius:12px;padding:10px 14px;margin-top:10px;overflow-x:auto;white-space:pre;line-height:1.7}
+body.dl-deep .math{display:block}
+.dl-pred{margin-top:12px;padding:12px 16px;border:1px dashed var(--line);border-radius:var(--r);font-size:13.5px;color:var(--champ)}
+.dl-pred .btnrow{margin-top:8px}
+.dl-pred .tab.ok{border-color:var(--gold);color:var(--gold)}
+.dl-pred .tab.bad{border-color:var(--red);color:var(--red)}
+.dl-svg{width:100%;height:auto;background:#0B0D13;border:1px solid var(--line2);border-radius:var(--r);direction:ltr}
+.dl-svg text{font-family:var(--latin);fill:#F3EFE4}
+.dl-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--dim);margin-top:8px}
+.dl-legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-inline-end:6px;vertical-align:middle}
+.dl-note{font-size:13px;color:var(--champ);margin-top:10px;min-height:22px}
+.dl-tbl td,.dl-tbl th{font-size:13px}
+select.dl-sel{background:var(--s2);color:var(--ink);border:1px solid var(--line2);border-radius:10px;padding:8px 10px;font-family:var(--font);font-size:13.5px}
+.dl-check{display:flex;gap:8px;align-items:center;font-size:13.5px;color:var(--mut);margin:8px 0}
+.dl-check input{accent-color:var(--gold);width:18px;height:18px}
+.dl-blind{display:none;align-items:center;justify-content:center;text-align:center;height:240px;background:#0B0D13;border:1px dashed var(--dim);border-radius:var(--r);color:var(--mut);font-size:14px;padding:20px}
+</style>
+</head>
+<body>
+
+<!-- ====== TOPBAR ====== -->
+<div id="topbar">
+  <div class="in">
+    <a class="brand" href="index.html">مستر <b>پلنر</b><span class="sub">آزمایشگاه شبکه عصبی</span></a>
+    <button id="navBtn" aria-label="باز و بسته کردن منو" aria-expanded="false">☰</button>
+    <nav id="nav">
+      <a href="index.html">بازگشت به مستر پلنر</a>
+      <a href="#deep">مسیر عمیق</a>
+      <a href="assets/sales/sales.html" class="ghostb">ذهن سیستمی</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ====== HERO ====== -->
+<header id="hero">
+  <canvas id="pulseCanvas" aria-hidden="true"></canvas>
+  <div class="hero-veil"></div>
+  <div class="hero-in">
+    <p class="kicker">آزمایشگاه شبکه عصبی<span class="latin">NEURAL PLAYGROUND · v3</span></p>
+    <h1>ماشینی که از <em>اشتباه‌کردن</em> باهوش‌تر می‌شود</h1>
+    <p class="lead">اینجا هیچ‌چیز حفظ‌کردنی نیست. چهار ایستگاه داری: یک نورون را تنظیم می‌کنی، به یک شبکه یاد می‌دهی درست تصمیم بگیرد، خودت معلمِ یک شبکه می‌شوی، و رازِ یادماندن را کشف می‌کنی. هر ایستگاه یک مأموریت دارد — که کاملش کنی، قدم بعدی معنا پیدا می‌کند. بعد از آن، «مسیر عمیق» منتظر توست: یادگیریِ ماشین را مرحله‌به‌مرحله، با اعدادِ واقعی، و در رقابت با خودِ ماشین دنبال کن.</p>
+    <div class="roadmap" role="list">
+      <a class="chip" data-key="s1" href="#st1" role="listitem"><span class="tick"></span>۱ · یک نورون، یک تصمیم</a>
+      <a class="chip" data-key="s2" href="#st2" role="listitem"><span class="tick"></span>۲ · شبکه یاد می‌گیرد</a>
+      <a class="chip" data-key="s3" href="#st3" role="listitem"><span class="tick"></span>۳ · تو معلمِ شبکه باش</a>
+      <a class="chip" data-key="s4" href="#st4" role="listitem"><span class="tick"></span>۴ · راز یادماندن</a>
+      <a class="chip" href="#deep" role="listitem"><span class="tick"></span>۵ · مسیر عمیق: گام‌به‌گام با ماشین</a>
+      <a class="chip" href="#play" role="listitem"><span class="tick"></span>زمین بازی آزاد</a>
+    </div>
+    <div class="cta">
+      <a class="btn gold" href="#st1">شروع مسیر</a>
+      <a class="btn ghost" href="#play">پرش به زمین بازی</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ====== STATION 1 ====== -->
+<section id="st1" class="station reveal">
+  <div class="st-head"><span class="st-num">ایستگاه ۱</span><h2>یک نورون، یک تصمیم</h2><span class="st-badge" data-key="s1">مأموریت فعال</span></div>
+  <div class="qcard"><b>پیش از شروع بیاندیش:</b> مغز تو میلیاردها سلول دارد که هرکدام با دوستانشان «رأی» می‌گیرند و تصمیم می‌سازند. اگر فقط یک سلول داشته باشی که روشن یا خاموش می‌شود، چه تصمیم‌هایی از دستش برمی‌آید؟</div>
+  <div class="card">
+    <h3>کلیدی با دو ولوم</h3>
+    <p>یک نورون مثل یک کلید برق است با دو ولوم. هر ولوم به یکی از دو ورودی وصل است و می‌گوید «چقدر برایش مهم باشم». اگر جمعِ وزن‌ها از <b style="color:var(--champ)">آستانه</b> بگذرد، کلید روشن می‌شود؛ نگذرد، خاموش می‌ماند. همین و همین — تمام هوش مصنوعی از میلیون‌ها کلیدِ همین‌مدلی ساخته شده.</p>
+  </div>
+  <div class="duo">
+    <div class="card">
+      <h3>میز تنظیم</h3>
+      <div class="srow"><label for="s1w1">ولوم ورودی ۱</label><input type="range" id="s1w1" min="-3" max="3" step="0.1" value="0.3"><output id="s1w1v">0.3</output></div>
+      <div class="srow"><label for="s1w2">ولوم ورودی ۲</label><input type="range" id="s1w2" min="-3" max="3" step="0.1" value="0.3"><output id="s1w2v">0.3</output></div>
+      <div class="srow"><label for="s1T">آستانه</label><input type="range" id="s1T" min="-2" max="3" step="0.1" value="0.3"><output id="s1Tv">0.3</output></div>
+      <p class="cap">جدول کنار دستت، زنده است: با هر حرکتِ ولوم‌ها، تصمیمِ کلید برای هر چهار حالتِ ورودی همان‌جا عوض می‌شود.</p>
+    </div>
+    <div class="card">
+      <h3>جدول تصمیم‌های کلید</h3>
+      <table class="tbl">
+        <thead><tr><th>ورودی ۱</th><th>ورودی ۲</th><th>مجموع وزن‌ها</th><th>کلید</th></tr></thead>
+        <tbody id="s1tb"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="mission" id="s1and">
+    <h4>مأموریت اول — کلید AND</h4>
+    <p>ولوم‌ها و آستانه را طوری تنظیم کن که کلید <b>فقط وقتی هر دو ورودی ۱ باشند</b> روشن شود؛ یعنی در جدول، فقط ردیف آخر روشن باشد.</p>
+    <div class="mstate">هنوز حل نشده — جدول را نگاه کن و ولوم‌ها را بچرخان.</div>
+  </div>
+  <div class="mission" id="s1phase2" hidden>
+    <h4>مأموریت دوم — کلید OR</h4>
+    <p>حالا برعکس: کلید باید وقتی <b>دست‌کم یکی از ورودی‌ها ۱ است</b> روشن شود؛ فقط ردیف «۰ و ۰» خاموش بماند.</p>
+    <div class="mstate">هنوز حل نشده — یک راه: آستانه را پایین بیاور، اما حواست به ردیف ۰ و ۰ باشد.</div>
+  </div>
+  <p class="honesty">صداقت: این شبیه‌سازی، واقعی است — دقیقاً همان حکمِ ریاضیِ یک نورون. فقط این‌جا نورون را با دست تنظیم می‌کنی، در حالی‌که شبکه‌های واقعی وزن‌هایشان را خودشان با خطا خوردن پیدا می‌کنند — درست کاری که در ایستگاه ۲ انجام می‌شود.</p>
+</section>
+
+<!-- ====== STATION 2 ====== -->
+<section id="st2" class="station reveal">
+  <div class="st-head"><span class="st-num">ایستگاه ۲</span><h2>شبکه یاد می‌گیرد</h2><span class="st-badge" data-key="s2">مأموریت فعال</span></div>
+  <div class="qcard"><b>پیش از شروع بیاندیش:</b> یک کلیدِ تنها کجا کم می‌آورد؟ وقتی مرزِ درست، یک خطِ ساده نباشد — مثلاً یک دایره. برای آن، چند کلید باید با هم هم‌فکری کنند.</div>
+  <div class="card">
+    <h3>دو سرزمین، یک شبکه</h3>
+    <p>اینجا یک شبکه‌ی واقعی داری با چند نورونِ میانی که روی نقشه دو سرزمین دارد: آبی و قرمز. «آموزش بده» را بزن و ببین سیم‌های طلا چطور کم‌کم شکلِ مرز را پیدا می‌کنند — و پشتِ نقاط، رنگِ حدسِ شبکه آرام‌آرام درست می‌شود.</p>
+    <div class="tabset" id="st2ds" style="margin-top:14px">
+      <button class="tab sel" data-ds="islands">دو جزیره · آسان</button>
+      <button class="tab" data-ds="circle">حلقه در میان · متوسط</button>
+      <button class="tab" data-ds="corners">چهارگوشه · سخت</button>
+    </div>
+    <div class="duo" style="margin-top:6px">
+      <canvas id="st2scatter" class="plot sq" role="img" aria-label="نقشه نقاط آبی و قرمز همراه حدس شبکه"></canvas>
+      <div>
+        <canvas id="st2wires" class="plot h190" role="img" aria-label="سیم‌های شبکه؛ هرچه سیم ضخیم‌تر، اتصال مهم‌تر"></canvas>
+        <canvas id="st2chart" class="plot h140" style="margin-top:12px" role="img" aria-label="نمودار خطای شبکه در طول آموزش"></canvas>
+        <div class="stats">
+          <div class="stat"><div class="v" id="st2ep">۰</div><div class="l">قدم یادگیری</div></div>
+          <div class="stat"><div class="v" id="st2acc">۰٫۰٪</div><div class="l">درست بودن</div></div>
+          <div class="stat"><div class="v" id="st2wrong">۰</div><div class="l">اشتباه‌ها</div></div>
+        </div>
+        <div class="btnrow">
+          <button class="btn gold" id="st2run">آموزش بده</button>
+          <button class="btn ghost" id="st2reset">از صفر</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mission" id="st2miss">
+    <h4>مأموریت ایستگاه ۲ — دقتِ ۹۸٪</h4>
+    <p>شبکه را تا جایی آموزش بده که دست‌کم ۹۸٪ نقاط را درست حدس بزند. خودِ شبکه هم می‌داند کِی تمام است و می‌ایستد.</p>
+    <div class="bar"><div class="fill" id="st2bar"></div></div>
+    <div class="mstate">اگر دقت گیر کرد و بالا نرفت، «از صفر» را بزن — گاهی شبکه از یک شروعِ بد بلند نمی‌شود؛ این هم خودش درسی است.</div>
+  </div>
+  <p class="honesty">صداقت: این شبکه واقعاً با ریاضیِ یادگیری آموزش می‌بیند — همین حالا، داخل مرورگر تو. فقط کوچک است: ۸ نورونِ میانی، تا با چشمِ خودت ببینی چه اتفاقی می‌افتد.</p>
+</section>
+
+<!-- ====== STATION 3 ====== -->
+<section id="st3" class="station reveal">
+  <div class="st-head"><span class="st-num">ایستگاه ۳</span><h2>تو معلمِ شبکه باش</h2><span class="st-badge" data-key="s3">مأموریت فعال</span></div>
+  <div class="qcard"><b>پیش از شروع بیاندیش:</b> شبکه‌ی قبل، داده‌های آماده داشت. حالا داده از کجا می‌آید؟ از تو. تو نقشه را می‌کشی، شبکه از نقشه‌ی تو یاد می‌گیرد.</div>
+  <div class="card">
+    <h3>تخته‌ی معلم</h3>
+    <p>۱) رنگ قلم را انتخاب کن. ۲) دست‌کم <b style="color:var(--champ)">۱۰ نقطه از هر رنگ</b> بکش — جاهایی که به باور تو سرزمین آبی یا قرمز است. ۳) «آموزش بده» را بزن. بعد از آموزش، هر جای تخته بکش یا لمس کن تا حدسِ لحظه‌ای شبکه را ببینی.</p>
+    <div class="duo" style="margin-top:16px">
+      <div class="boardwrap">
+        <canvas id="s3cv" class="plot sq" role="img" aria-label="تخته‌ی نقاشی برای آموزش شبکه"></canvas>
+        <canvas id="s3ov" aria-hidden="true"></canvas>
+      </div>
+      <div>
+        <div class="brushrow">
+          <button class="brush sel" data-b="0"><span class="dot"></span>قلم آبی</button>
+          <button class="brush" data-b="1"><span class="dot"></span>قلم قرمز</button>
+        </div>
+        <div class="cnt">
+          <div class="stat"><div class="v" id="s3blue">۰</div><div class="l">نقطه آبی (حداقل ۱۰)</div></div>
+          <div class="stat"><div class="v" id="s3red">۰</div><div class="l">نقطه قرمز (حداقل ۱۰)</div></div>
+        </div>
+        <div class="btnrow">
+          <button class="btn ghost" id="s3undo">یک قدم عقب</button>
+          <button class="btn ghost" id="s3clear">از صفر</button>
+        </div>
+        <div class="btnrow">
+          <button class="btn gold" id="s3train">آموزش بده</button>
+        </div>
+        <div class="bar"><div class="fill" id="s3bar"></div></div>
+        <p class="cap" id="s3hint">قبل از آموزش: هر نقطه‌ای که می‌کشی، داده‌ی درسِ شبکه است.</p>
+        <p class="cap" id="s3guess" style="color:var(--champ);min-height:22px"></p>
+      </div>
+    </div>
+  </div>
+  <p class="honesty">صداقت: آموزشِ این شبکه کاملاً واقعی است — همان ریاضی، همان خطا خوردن. فقط «چشمِ» شبکه ۱۶×۱۶ خانه است؛ کم‌سو، اما همین‌قدر که بفهمد آبی کجاست و قرمز کجا.</p>
+</section>
+
+<!-- ====== STATION 4 ====== -->
+<section id="st4" class="station reveal">
+  <div class="st-head"><span class="st-num">ایستگاه ۴</span><h2>راز یادماندن</h2><span class="st-badge" data-key="s4">مأموریت فعال</span></div>
+  <div class="qcard"><b>پیش از شروع بیاندیش:</b> یاد گرفتن تمام نمی‌شود؛ چیزی که یاد گرفته‌ای آرام‌آرام می‌رود — مگر اینکه سرِ وقت به آن سر بزنی. حدس بزن: کدام مرورها روزِ ۳۰ را نجات می‌دهند؟</div>
+  <div class="card">
+    <h3>تخته‌ی حافظه</h3>
+    <p>این تخته شبیه‌سازیِ حافظه است: هر روز کمی از مطلب می‌پرد، و هر مرور، عمرِ آن را <b style="color:var(--champ)">دوبرابر</b> می‌کند. روزهای مرور را خودت انتخاب کن یا از پریست‌ها کمک بگیر. هدف: در روز ۳۰ دست‌کم ۵۰٪ باقی بماند. فقط ۵ مرور داری — مثل دنیای واقعی، وقت محدود است.</p>
+    <div class="tabset" style="margin-top:14px">
+      <button class="tab preset" data-preset="none">بدون مرور</button>
+      <button class="tab preset" data-preset="cram">جم‌کردن: ۱، ۲، ۳</button>
+      <button class="tab preset" data-preset="spaced">فاصله‌دار: ۱، ۳، ۷، ۱۴، ۲۸</button>
+    </div>
+    <div class="pill-days" id="s4days" role="group" aria-label="انتخاب روزهای مرور">
+      <button class="pday" data-day="1" aria-pressed="false">۱</button>
+      <button class="pday" data-day="2" aria-pressed="false">۲</button>
+      <button class="pday" data-day="3" aria-pressed="false">۳</button>
+      <button class="pday" data-day="4" aria-pressed="false">۴</button>
+      <button class="pday" data-day="5" aria-pressed="false">۵</button>
+      <button class="pday" data-day="7" aria-pressed="false">۷</button>
+      <button class="pday" data-day="14" aria-pressed="false">۱۴</button>
+      <button class="pday" data-day="21" aria-pressed="false">۲۱</button>
+      <button class="pday" data-day="28" aria-pressed="false">۲۸</button>
+    </div>
+    <div class="duo" style="margin-top:6px">
+      <canvas id="s4cv" class="plot" style="height:250px" role="img" aria-label="منحنی فراموشی با نقاط مرور"></canvas>
+      <div>
+        <div class="bigres">
+          <div class="num" id="s4r30">۰٪</div>
+          <div class="lbl">از مطلب در روز ۳۰ باقی مانده<br><span id="s4count" style="color:var(--dim);font-size:12.5px">۰ از ۵ مرور</span></div>
+        </div>
+        <div class="bar"><div class="fill" id="s4bar"></div></div>
+        <p class="cap">نقطه‌های طلایی روی منحنی، مرورهای تو هستند؛ نقطه‌ی قرمز یعنی «اینجا تقریباً همه‌چیز رفته بود».</p>
+      </div>
+    </div>
+  </div>
+  <div class="bridge">
+    <p>این فقط یک‌سرِ قصه است. سیستمِ کاملِ مدیریت یادگیری — برنامه‌ریزی، مرورِ سرِ وقت و دفترِ پیشرفت — در <b>ذهن سیستمی</b> منتظر توست.</p>
+    <a class="btn gold" href="assets/sales/sales.html">رفتن به ذهن سیستمی</a>
+  </div>
+  <p class="honesty">صداقت: مدل ساده‌شده است؛ در دنیای واقعی اثرِ هر مرور به این بستگی دارد که چقدر هنوز یادت مانده باشد. اما قانون اصلی همین‌جا هم درست است: مرورِ فاصله‌دار بر جم‌کردن می‌چربد.</p>
+</section>
+
+<!-- ====== DEEP PATH ====== -->
+<section id="deep" class="station reveal">
+  <div class="st-head"><span class="st-num">مسیر عمیق</span><h2>گام‌به‌گام با ماشین</h2><span class="st-badge" id="dlBadge">۰ از ۵</span></div>
+  <div class="qcard"><b>ایده:</b> ماشین‌ها با داده‌ی عظیم یاد می‌گیرند؛ تو با «فرایند». این‌جا هیچ مجموعه‌داده‌ای نیست — هر تکلیف همان لحظه ساخته می‌شود و تو هر مرحله‌ی یادگیری را جداگانه می‌بینی: پیشروی، خطا، شیب، به‌روزرسانی. از یک نورون شروع می‌کنیم و قدم‌به‌قدم تا بیش‌برازش پیش می‌رویم.</div>
+
+  <div class="dl-intro">
+    <div class="dl-side m"><b>ماشین چه دارد؟</b><ul><li>سرعت و دقتِ عددی، بی‌خستگی</li><li>شیبِ دقیقِ محلی (فقط همان نقطه‌ای که ایستاده)</li><li>صدها هزار قدم در ثانیه</li></ul></div>
+    <div class="dl-side"><b>تو چه داری؟</b><ul><li>دیدِ کلی و شهود: «خط باید این‌جا باشد»</li><li>فهمیدنِ «چرا» — نه فقط «چقدر»</li><li>یادگرفتن از چند مثالِ اندک</li></ul></div>
+  </div>
+
+  <div class="dl-ledger" aria-label="دفتر پیشرفت">
+    <div class="stat"><div class="v" id="dlPred">—</div><div class="l">دقتِ پیش‌بینی‌های تو</div></div>
+    <div class="stat"><div class="v" id="dlRace">۰ برد · ۰ باخت</div><div class="l">مسابقه با ماشین</div></div>
+    <div class="stat"><div class="v" id="dlMods">۰ از ۵</div><div class="l">ماژول‌های کامل</div></div>
+    <div class="stat"><div class="v" id="dlLevel">مبتدی</div><div class="l">سطح عمق</div></div>
+  </div>
+  <div class="dl-next" id="dlNext" aria-live="polite"></div>
+
+  <div class="dl-bar">
+    <div class="tabset" id="dlTabs" role="tablist">
+      <button class="tab sel" data-m="1" role="tab">۱ · نورون</button>
+      <button class="tab" data-m="2" role="tab">۲ · منظره‌ی خطا</button>
+      <button class="tab" data-m="3" role="tab">۳ · مسابقه</button>
+      <button class="tab" data-m="4" role="tab">۴ · لایه‌ی پنهان</button>
+      <button class="tab" data-m="5" role="tab">۵ · بیش‌برازش</button>
+    </div>
+    <div class="tabset" id="dlMode" role="group" aria-label="سطح توضیح">
+      <button class="tab sel" data-mode="simple">ساده</button>
+      <button class="tab" data-mode="deep">با ریاضی</button>
+    </div>
+  </div>
+
+  <!-- M1 -->
+  <div class="dl-panel" data-m="1">
+    <div class="card">
+      <h3>ماژول ۱ — یک نورون، یک قدمِ یادگیری</h3>
+      <p>یک نورون خطی می‌خواهد خطی را از میان ۷ نقطه بگذراند. خودت چهار مرحله‌ی هر قدمِ یادگیری را یکی‌یکی جلو ببر. پیش از مرحله‌ی «شیب» حدس بزن w باید چه شود — ماشین این را حساب می‌کند، تو حدس می‌زنی.</p>
+      <div class="dl-steps" id="dlM1steps"><span class="dl-step">① پیشروی</span><span class="dl-step">② خطا</span><span class="dl-step">③ شیب</span><span class="dl-step">④ به‌روزرسانی</span></div>
+      <div class="duo">
+        <div>
+          <canvas id="dlM1fit" class="plot" role="img" aria-label="نقاط و خطِ نورون"></canvas>
+          <canvas id="dlM1loss" class="plot" style="margin-top:12px" role="img" aria-label="نمودار خطا در هر دور"></canvas>
+          <p class="cap">طلایی: حدسِ نورون · قرمز: خطا · خاکستری: بهترین خطِ ممکن</p>
+        </div>
+        <div>
+          <div class="dl-explain" id="dlM1txt" aria-live="polite"></div>
+          <div class="math" id="dlM1math"></div>
+          <div class="dl-pred" id="dlM1pred" hidden>
+            <b>حدس بزن:</b> برای کم‌شدنِ خطا، مقدارِ <b>w</b> باید…
+            <div class="btnrow"><button class="tab dl-pb" data-p="up">بیشتر شود</button><button class="tab dl-pb" data-p="down">کمتر شود</button><button class="tab dl-pb" data-p="keep">تقریباً ثابت</button></div>
+          </div>
+          <div class="srow" style="margin-top:14px"><label for="dlM1lr">سرعت یادگیری η</label><input type="range" id="dlM1lr" min="0.01" max="1" step="0.01" value="0.08"><output id="dlM1lrv">0.08</output></div>
+          <div class="stats"><div class="stat"><div class="v" id="dlM1it">۰</div><div class="l">دور</div></div><div class="stat"><div class="v" id="dlM1l">—</div><div class="l">خطا</div></div><div class="stat"><div class="v" id="dlM1b">—</div><div class="l">بهترینِ ممکن</div></div></div>
+          <div class="btnrow"><button class="btn gold" id="dlM1next">گام بعدی</button><button class="btn ghost" id="dlM1x10">۱۰ دور سریع</button><button class="btn ghost" id="dlM1reset">از صفر</button><button class="btn ghost dl-newtask">تکلیف تازه</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="mission" id="dlM1miss"><h4>مأموریت ۱ — خطا را به نزدیکِ کفِ ممکن برسان</h4><p>آن‌قدر دور بزن تا خطا از بهترینِ ممکن بیش از ۰٫۰۳ بالاتر نباشد. سرعتِ یادگیریِ خیلی بزرگ را هم امتحان کن — چه می‌شود؟</p><div class="mstate">هنوز نه.</div></div>
+  </div>
+
+  <!-- M2 -->
+  <div class="dl-panel" data-m="2" hidden>
+    <div class="card">
+      <h3>ماژول ۲ — منظره‌ی خطا و سه راهِ پایین‌آمدن</h3>
+      <p>هر نقطه‌ی این نقشه یک جفت (w, b) است؛ هرچه روشن‌تر، خطا بیشتر. ستاره، بهترین جفت است. روی نقشه بزن تا نقطه‌ی شروع عوض شود و ببین سه بهینه‌ساز چطور پایین می‌آیند.</p>
+      <div class="tabset" id="dlM2opt" style="margin-top:12px"><button class="tab sel" data-opt="sgd">گرادیان ساده</button><button class="tab" data-opt="mom">مومنتوم</button><button class="tab" data-opt="adam">Adam</button></div>
+      <div class="duo">
+        <div><canvas id="dlM2cv" class="plot" style="touch-action:none;cursor:crosshair" role="img" aria-label="منظره‌ی خطا روی w و b"></canvas><p class="cap">محور افقی w، محور عمودی b. نقطه‌ی شروع را با کلیک یا لمس جابه‌جا کن.</p></div>
+        <div>
+          <div class="dl-explain" id="dlM2txt" aria-live="polite">یک بهینه‌ساز انتخاب کن و «اجرا» را بزن.</div>
+          <div class="math" id="dlM2math"></div>
+          <div class="srow" style="margin-top:14px"><label for="dlM2lr">سرعت η</label><input type="range" id="dlM2lr" min="0.005" max="0.6" step="0.005" value="0.05"><output id="dlM2lrv">0.05</output></div>
+          <div class="stats"><div class="stat"><div class="v" id="dlM2t">۰</div><div class="l">قدم</div></div><div class="stat"><div class="v" id="dlM2l">—</div><div class="l">خطا</div></div><div class="stat"><div class="v" id="dlM2gap">—</div><div class="l">فاصله تا کف</div></div></div>
+          <table class="tbl dl-tbl"><thead><tr><th>بهینه‌ساز</th><th>قدم تا رسیدن</th></tr></thead><tbody id="dlM2tab"></tbody></table>
+          <div class="btnrow"><button class="btn gold" id="dlM2run">اجرا</button><button class="btn ghost" id="dlM2step">یک قدم</button><button class="btn ghost" id="dlM2reset">از نو</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="mission" id="dlM2miss"><h4>مأموریت ۲ — هر سه بهینه‌ساز را به مقصد برسان</h4><p>هرکدام را از نقطه‌ی شروعِ دلخواهت به کفِ دره برسان (فاصله‌ی خطا از کف کمتر از ۰٫۰۱). ببین کدام کم‌قدم‌تر است — و کدام با سرعتِ زیاد منفجر می‌شود.</p><div class="mstate">هنوز نه.</div></div>
+  </div>
+
+  <!-- M3 -->
+  <div class="dl-panel" data-m="3" hidden>
+    <div class="card">
+      <h3>ماژول ۳ — رقابتِ نامتقارن: تو در برابر ماشین</h3>
+      <p>هر دو از (w=۰, b=۰) شروع می‌کنید. تو ولوم‌ها را آزادانه امتحان می‌کنی ولی فقط <b style="color:var(--champ)">۱۰ بار «ثبت»</b> داری؛ ماشین با هر ثبتِ تو یک قدمِ یادگیری برمی‌دارد و فقط شیبِ محلی را می‌بیند. برنده کسی است که زودتر به نزدیکیِ کفِ خطا (کف + ۰٫۰۵) برسد.</p>
+      <div class="duo">
+        <div>
+          <canvas id="dlM3fit" class="plot" role="img" aria-label="خط تو و خط ماشین"></canvas>
+          <div class="dl-blind" id="dlM3blind">داده پنهان است — فقط «عددِ خطا» را داری.<br>ماشین دنیا را همین‌طور می‌بیند.</div>
+          <canvas id="dlM3loss" class="plot" style="margin-top:12px" role="img" aria-label="خطای تو و ماشین در هر ثبت"></canvas>
+          <div class="dl-legend"><span><i style="background:#D4AF37"></i>تو</span><span><i style="background:#22D3EE"></i>ماشین</span></div>
+        </div>
+        <div>
+          <div class="srow"><label for="dlM3w">ولوم w</label><input type="range" id="dlM3w" min="-4" max="4" step="0.1" value="0"><output id="dlM3wv">0.0</output></div>
+          <div class="srow"><label for="dlM3b">ولوم b</label><input type="range" id="dlM3b" min="-4" max="4" step="0.1" value="0"><output id="dlM3bv">0.0</output></div>
+          <div class="stats"><div class="stat"><div class="v" id="dlM3my">—</div><div class="l">خطای تو (زنده)</div></div><div class="stat"><div class="v" id="dlM3mc">—</div><div class="l">خطای ماشین</div></div><div class="stat"><div class="v" id="dlM3mv">۰ از ۱۰</div><div class="l">ثبت‌ها</div></div></div>
+          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center"><label for="dlM3lvl" style="font-size:13.5px;color:var(--mut)">سطح ماشین:</label>
+            <select id="dlM3lvl" class="dl-sel"><option value="slow">کند (گرادیان، η=۰٫۰۳)</option><option value="normal" selected>عادی (گرادیان، η=۰٫۱۲)</option><option value="adam">تیز (Adam)</option></select></div>
+          <label class="dl-check"><input type="checkbox" id="dlM3hint">نمایش راهنمای شیب (برد با راهنما در مأموریت حساب نمی‌شود)</label>
+          <label class="dl-check"><input type="checkbox" id="dlM3blindc">چشم‌بسته: فقط عددِ خطا (مثل ماشین)</label>
+          <div class="dl-note" id="dlM3hn"></div>
+          <div class="dl-explain" id="dlM3txt" aria-live="polite" style="min-height:60px">ولوم‌ها را بچرخان، وقتی راضی بودی «ثبت» را بزن.</div>
+          <div class="btnrow"><button class="btn gold" id="dlM3commit">ثبت حرکت</button><button class="btn ghost" id="dlM3end">پایان زودهنگام</button><button class="btn ghost" id="dlM3reset">مسابقه‌ی تازه</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="mission" id="dlM3miss"><h4>مأموریت ۳ — یک‌بار ماشین را شکست بده (بدون راهنما)</h4><p>اگر دید کلی‌ات کار کند، با یک نگاه خط را جا می‌اندازی و در همان ثبتِ اول می‌بُری. بعد «چشم‌بسته» را روشن کن و ببین ماشین چرا سخت‌تر کار می‌کند.</p><div class="mstate">هنوز نه.</div></div>
+  </div>
+
+  <!-- M4 -->
+  <div class="dl-panel" data-m="4" hidden>
+    <div class="card">
+      <h3>ماژول ۴ — لایه‌ی پنهان و پس‌انتشار، عدد به عدد</h3>
+      <p>شبکه‌ی کوچکِ ۲ ورودی ← چند نورونِ پنهان ← ۱ خروجی، روی یک تکلیف منطقی. هر دور چهار مرحله دارد؛ روی سیم‌ها اعدادِ واقعیِ وزن و شیب را ببین. اول «XOR» را با صفر نورون پنهان امتحان کن، بعد پنهان اضافه کن.</p>
+      <div class="tabset" id="dlM4task" style="margin-top:12px"><button class="tab" data-t="and">AND</button><button class="tab" data-t="or">OR</button><button class="tab sel" data-t="xor">XOR</button></div>
+      <div class="tabset" id="dlM4h"><button class="tab" data-h="0">بدون پنهان</button><button class="tab" data-h="2">۲ پنهان</button><button class="tab sel" data-h="3">۳ پنهان</button></div>
+      <div class="tabset" id="dlM4act"><button class="tab sel" data-a="tanh">tanh</button><button class="tab" data-a="relu">ReLU</button><button class="tab" data-a="sigmoid">sigmoid</button></div>
+      <div class="dl-steps" id="dlM4steps"><span class="dl-step">① پیشروی</span><span class="dl-step">② خطا</span><span class="dl-step">③ پس‌انتشار</span><span class="dl-step">④ به‌روزرسانی</span></div>
+      <div class="duo">
+        <div>
+          <svg id="dlM4svg" class="dl-svg" viewBox="0 0 360 230" role="img" aria-label="نمودار شبکه با وزن‌ها"></svg>
+          <div class="dl-legend"><span><i style="background:#D4AF37"></i>وزن مثبت</span><span><i style="background:#F87171"></i>وزن منفی</span><span><i style="background:#22D3EE"></i>شیب (در مرحله‌ی ۳)</span></div>
+          <div class="tabset" id="dlM4samp" style="margin-top:10px"><button class="tab sel" data-i="0">ورودی ۰،۰</button><button class="tab" data-i="1">۰،۱</button><button class="tab" data-i="2">۱،۰</button><button class="tab" data-i="3">۱،۱</button></div>
+        </div>
+        <div>
+          <div class="dl-explain" id="dlM4txt" aria-live="polite"></div>
+          <div class="math" id="dlM4math"></div>
+          <div class="dl-note" id="dlM4note"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px"><canvas id="dlM4map" class="plot sq" role="img" aria-label="نقشه‌ی تصمیم"></canvas><canvas id="dlM4loss" class="plot" style="height:100%;min-height:140px" role="img" aria-label="خطا"></canvas></div>
+          <div class="srow" style="margin-top:12px"><label for="dlM4lr">سرعت η</label><input type="range" id="dlM4lr" min="0.05" max="3" step="0.05" value="0.8"><output id="dlM4lrv">0.8</output></div>
+          <div class="stats"><div class="stat"><div class="v" id="dlM4ep">۰</div><div class="l">دور</div></div><div class="stat"><div class="v" id="dlM4l">—</div><div class="l">خطای کل</div></div><div class="stat"><div class="v" id="dlM4acc">—</div><div class="l">درست از ۴</div></div></div>
+          <div class="btnrow"><button class="btn gold" id="dlM4next">گام بعدی</button><button class="btn ghost" id="dlM4x100">۱۰۰ دور</button><button class="btn ghost" id="dlM4auto">اجرای خودکار</button><button class="btn ghost" id="dlM4reset">وزن‌های تازه</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="mission" id="dlM4miss"><h4>مأموریت ۴ — XOR را با لایه‌ی پنهان حل کن</h4><p>با دست‌کم ۲ نورونِ پنهان، هر چهار ورودیِ XOR را درست کن. اگر گیر کرد «وزن‌های تازه» را بزن — شروعِ بد هم بخشی از یادگیری است.</p><div class="mstate">هنوز نه.</div></div>
+  </div>
+
+  <!-- M5 -->
+  <div class="dl-panel" data-m="5" hidden>
+    <div class="card">
+      <h3>ماژول ۵ — وقتی شبکه حفظ می‌کند، نه یاد می‌گیرد</h3>
+      <p>۹ نقطه‌ی آموزشی (آبی‌پر) و ۵ نقطه‌ی «امتحان» (توخالی) از یک منحنیِ پنهان با نویز. شبکه فقط آموزشی‌ها را می‌بیند. اگر خطای آموزش پایین برود ولی خطای امتحان بالا بیاید، شبکه حفظ کرده است. اهرم‌ها: اندازه‌ی شبکه، جریمه‌ی وزن‌های بزرگ (L2)، و «برگشت به بهترین قدم».</p>
+      <div class="duo">
+        <div>
+          <canvas id="dlM5fit" class="plot" role="img" aria-label="منحنی شبکه و نقاط"></canvas>
+          <canvas id="dlM5loss" class="plot" style="margin-top:12px" role="img" aria-label="خطای آموزش و امتحان"></canvas>
+          <div class="dl-legend"><span><i style="background:#60A5FA"></i>آموزش</span><span><i style="background:#F87171"></i>امتحان</span><span><i style="background:#22D3EE"></i>منحنیِ شبکه</span></div>
+        </div>
+        <div>
+          <div class="dl-explain" id="dlM5txt" aria-live="polite">«آموزش» را بزن و هم‌زمان دو نمودار را نگاه کن.</div>
+          <div class="math" id="dlM5math">L_total = MSE(train) + λ·Σ w²
+بهترین قدم = دورِ کمینه‌ی L_val  (توقفِ زودهنگام)</div>
+          <div class="srow" style="margin-top:14px"><label for="dlM5h">نورون‌های پنهان</label><input type="range" id="dlM5h" min="2" max="40" step="1" value="24"><output id="dlM5hv">24</output></div>
+          <div class="srow"><label for="dlM5l2">جریمه‌ی L2 (λ)</label><input type="range" id="dlM5l2" min="0" max="0.03" step="0.001" value="0"><output id="dlM5l2v">0.000</output></div>
+          <div class="stats"><div class="stat"><div class="v" id="dlM5ep">۰</div><div class="l">دور</div></div><div class="stat"><div class="v" id="dlM5tr">—</div><div class="l">خطای آموزش</div></div><div class="stat"><div class="v" id="dlM5va">—</div><div class="l">خطای امتحان</div></div></div>
+          <div class="btnrow"><button class="btn gold" id="dlM5run">آموزش</button><button class="btn ghost" id="dlM5best">برگشت به بهترین قدم</button><button class="btn ghost" id="dlM5reset">از صفر</button><button class="btn ghost" id="dlM5new">داده‌ی تازه</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="mission" id="dlM5miss"><h4>مأموریت ۵ — بیش‌برازش را ببین، بعد مهارش کن</h4><p>الف) بگذار شبکه آن‌قدر آموزش ببیند که خطای امتحانش دست‌کم ۱٫۸ برابرِ خطای آموزش شود. ب) سپس با یکی از اهرم‌ها (جریمه، شبکه‌ی کوچک‌تر، برگشت به بهترین قدم) خطای امتحان را دست‌کم ۲۵٪ کمتر از بدترینِ دیده‌شده کن.</p><div class="mstate">هنوز نه.</div></div>
+  </div>
+
+  <p class="honesty">صداقت: همه‌ی اعداد این بخش از شبکه‌هایی می‌آیند که همین لحظه در مرورگرِ تو آموزش می‌بینند؛ هیچ داده‌ی ازپیش‌ساخته یا مدل بیرونی در کار نیست. تکلیف‌ها کوچک‌اند تا هر مرحله دیده شود؛ شبکه‌های واقعی همین مراحل را با میلیون‌ها وزن تکرار می‌کنند.</p>
+</section>
+
+<!-- ====== PLAYGROUND ====== -->
+<section id="play" class="station reveal">
+  <div class="st-head"><span class="st-num">زمین بازی</span><h2>آزاد و بی‌مأموریت</h2></div>
+  <div class="card">
+    <h3>همه‌ی اهرم‌ها دستِ خودت است</h3>
+    <p>داده را عوض کن، تعداد نورون‌ها را کم و زیاد کن، سرعتِ یادگیری را بچرخان و ببین شبکه چه می‌کند. هیچ مأموریتی این‌جا نیست؛ فقط کنجکاوی.</p>
+    <div class="tabset" id="plds" style="margin-top:14px">
+      <button class="tab sel" data-ds="islands">جزیره‌ها</button>
+      <button class="tab" data-ds="circle">حلقه</button>
+      <button class="tab" data-ds="corners">چهارگوشه</button>
+      <button class="tab" data-ds="mess">خوشه‌های درهم</button>
+    </div>
+    <div class="duo" style="margin-top:6px">
+      <canvas id="plscatter" class="plot sq" role="img" aria-label="نقشه زمین بازی"></canvas>
+      <div>
+        <div class="srow"><label for="plr">سرعت یادگیری</label><input type="range" id="plr" min="0.2" max="3" step="0.1" value="1.2"><output id="plrv">1.2</output></div>
+        <div class="tabset">
+          <button class="tab phid sel" data-h="2">۲ نورون میانی</button>
+          <button class="tab phid" data-h="4">۴ نورون</button>
+          <button class="tab phid" data-h="8">۸ نورون</button>
+        </div>
+        <canvas id="plwires" class="plot h190" style="margin-top:6px" role="img" aria-label="سیم‌های زمین بازی"></canvas>
+        <canvas id="plchart" class="plot h140" style="margin-top:12px" role="img" aria-label="نمودار خطای زمین بازی"></canvas>
+        <div class="stats">
+          <div class="stat"><div class="v" id="plep">۰</div><div class="l">قدم یادگیری</div></div>
+          <div class="stat"><div class="v" id="placc">۰٫۰٪</div><div class="l">درست بودن</div></div>
+        </div>
+        <div class="btnrow">
+          <button class="btn gold" id="plrun">آموزش بده</button>
+          <button class="btn ghost" id="plreset">از صفر</button>
+        </div>
+      </div>
+    </div>
+    <p class="honesty">صداقت: اگر داده‌ها درهم‌وشیده باشند، هیچ شبکه‌ای — حتی غول‌پیکرترین — صددرصد درست نمی‌شود. دیدنِ این سقف، خودش یک درس است.</p>
+  </div>
+</section>
+
+<!-- ====== FINAL ====== -->
+<section id="final" class="reveal">
+  <div class="lockbox">
+    <div class="locked">
+      <span class="lk" aria-hidden="true">🔒</span>
+      <h3>جمع‌بندیِ قفل است — چهار مأموریت را کامل کن تا باز شود</h3>
+    </div>
+    <div class="unlocked">
+      <span class="lk" aria-hidden="true" style="color:var(--gold)">🔓</span>
+      <h3 style="color:var(--ink)">چهار مأموریت، چهار حقیقتِ همیشه‌ماندنی</h3>
+      <div class="takes">
+        <div class="take"><b>۱ · تصمیم</b><span>هر تصمیمِ یک نورون، «وزن‌ها × ورودی‌ها» است و یک آستانه. همین.</span></div>
+        <div class="take"><b>۲ · یادگیری</b><span>یادگیری یعنی اندازه‌گرفتنِ خطا و کوچک‌کردنِ آن، قدم‌به‌قدم — نه جادو.</span></div>
+        <div class="take"><b>۳ · معلمی</b><span>معلمِ شبکه، داده‌های توست؛ داده‌ی خوب، شبکه‌ی خوب می‌سازد.</span></div>
+        <div class="take"><b>۴ · یادماندن</b><span>مرورِ فاصله‌دار عمرِ حافظه را دوبرابر می‌کند؛ جم‌کردن فقط وانمود می‌کند.</span></div>
+      </div>
+      <div style="margin-top:22px"><a class="btn gold" href="assets/sales/sales.html">قدم بعدی: ذهن سیستمی</a></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+  <div class="in">
+    <span>آزمایشگاه شبکه عصبی · بخشی از مستر پلنر — ساخته‌شده برای یادگیریِ واقعی، نه حفظ‌کردن.</span>
+    <span><a href="index.html">مستر پلنر</a> · <a href="assets/sales/sales.html">ذهن سیستمی</a> — همه‌چیز داخل همین فایل و مرورگرِ تو اجرا می‌شود.</span>
+  </div>
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<noscript><p style="text-align:center;padding:20px;color:#F3E5AB">برای کارِ آزمایشگاه، جاوااسکریپت مرورگر باید روشن باشد.</p></noscript>
+
+<script>
+'use strict';
+/* ====== HELPERS ====== */
+const $=(s,c=document)=>c.querySelector(s);
+const $$=(s,c=document)=>[...c.querySelectorAll(s)];
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const FAD='۰۱۲۳۴۵۶۷۸۹';
+const fa=s=>String(s).replace(/[0-9]/g,d=>FAD[+d]);
+const fnum=n=>fa(Math.round(n).toLocaleString('en-US')).replace(/,/g,'٬');
+const fdec=(n,f=1)=>fa(n.toFixed(f)).replace('.','٫').replace('-','−');
+const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function fitCanvas(cv,w,h){const d=Math.min(2,window.devicePixelRatio||1);cv.width=Math.round(w*d);cv.height=Math.round(h*d);cv.style.width=w+'px';cv.style.height=h+'px';const g=cv.getContext('2d');g.setTransform(d,0,0,d,0,0);return g;}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;const t=a[i];a[i]=a[j];a[j]=t;}return a;}
+let toastT=0;
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2800);}
+
+/* ====== PROGRESS (localStorage 'nnlab2') ====== */
+let store={s1:0,s2:false,s3:false,s4:false};
+try{store=Object.assign(store,JSON.parse(localStorage.getItem('nnlab2')||'{}'));}catch(e){}
+function save(){try{localStorage.setItem('nnlab2',JSON.stringify(store));}catch(e){}}
+function refreshProgress(){
+  const done={s1:store.s1>=2,s2:!!store.s2,s3:!!store.s3,s4:!!store.s4};
+  $$('.chip[data-key]').forEach(ch=>{const d=done[ch.dataset.key];ch.classList.toggle('done',d);ch.querySelector('.tick').textContent=d?'✓':'';});
+  $$('.st-badge[data-key]').forEach(b=>{const d=done[b.dataset.key];b.classList.toggle('done',d);b.textContent=d?'✓ انجام شد':'مأموریت فعال';});
+  $('#final').classList.toggle('open',done.s1&&done.s2&&done.s3&&done.s4);
+}
+
+/* ====== NAV ====== */
+const nav=$('#nav'),navBtn=$('#navBtn');
+navBtn.addEventListener('click',()=>{const o=nav.classList.toggle('open');navBtn.setAttribute('aria-expanded',o);});
+$$('#nav a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');navBtn.setAttribute('aria-expanded','false');}));
+
+/* ====== HERO — نبض نور ====== */
+(function(){
+  const cv=$('#pulseCanvas');let W,H,g,nodes=[],edges=[],sparks=[];
+  function newSpark(){const e=edges[(Math.random()*edges.length)|0];return e?{e,t:Math.random(),v:0.004+Math.random()*0.010,dir:Math.random()<0.5?1:-1}:null;}
+  function staticDraw(){
+    g.fillStyle='#07080C';g.fillRect(0,0,W,H);
+    g.strokeStyle='rgba(212,175,55,0.10)';g.lineWidth=1;
+    for(const e of edges){g.beginPath();g.moveTo(nodes[e.a].x,nodes[e.a].y);g.lineTo(nodes[e.b].x,nodes[e.b].y);g.stroke();}
+    for(const n of nodes){g.fillStyle='rgba(212,175,55,0.55)';g.beginPath();g.arc(n.x,n.y,1.8,0,7);g.fill();}
+  }
+  function build(){
+    W=cv.clientWidth||innerWidth;H=cv.clientHeight||600;g=fitCanvas(cv,W,H);
+    nodes=[];edges=[];sparks=[];
+    const N=Math.round(clamp(W*H/38000,10,26));
+    for(let i=0;i<N;i++)nodes.push({x:Math.random()*W,y:Math.random()*H});
+    const lim=Math.min(W,H)*0.34;
+    for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){const d=Math.hypot(nodes[i].x-nodes[j].x,nodes[i].y-nodes[j].y);if(d<lim)edges.push({a:i,b:j});}
+    const S=Math.min(edges.length,Math.round(W/26)+6);
+    for(let i=0;i<S;i++)sparks.push(newSpark());
+    if(RM){staticDraw();}
+    else{g.fillStyle='#07080C';g.fillRect(0,0,W,H);}
+  }
+  function frame(){
+    g.fillStyle='rgba(7,8,12,0.16)';g.fillRect(0,0,W,H);
+    g.strokeStyle='rgba(212,175,55,0.05)';g.lineWidth=1;
+    for(const e of edges){g.beginPath();g.moveTo(nodes[e.a].x,nodes[e.a].y);g.lineTo(nodes[e.b].x,nodes[e.b].y);g.stroke();}
+    for(let i=0;i<sparks.length;i++){
+      const s=sparks[i];if(!s)continue;
+      s.t+=s.v*s.dir;
+      if(s.t>1||s.t<0){sparks[i]=newSpark();continue;}
+      const A=nodes[s.e.a],B=nodes[s.e.b];
+      const x=A.x+(B.x-A.x)*s.t,y=A.y+(B.y-A.y)*s.t;
+      const gr=g.createRadialGradient(x,y,0,x,y,9);
+      gr.addColorStop(0,'rgba(243,229,171,0.95)');gr.addColorStop(0.4,'rgba(212,175,55,0.5)');gr.addColorStop(1,'rgba(212,175,55,0)');
+      g.fillStyle=gr;g.beginPath();g.arc(x,y,9,0,7);g.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+  build();
+  if(!RM)requestAnimationFrame(frame);
+  let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(build,220);});
+})();
+
+/* ====== NEURAL ENGINE — موتور کوچک شبکه عصبی (صددرصد بومی) ====== */
+class Net{
+  constructor(sizes){
+    this.sizes=sizes;this.L=sizes.length-1;this.W=[];this.B=[];
+    for(let l=0;l<this.L;l++){
+      const rows=sizes[l+1],cols=sizes[l];
+      const w=new Float64Array(rows*cols);const s=Math.sqrt(2/(rows+cols));
+      for(let i=0;i<w.length;i++)w[i]=(Math.random()*2-1)*s;
+      this.W.push(w);this.B.push(new Float64Array(rows));
+    }
+  }
+  forward(x){
+    let a=x;const acts=[x];
+    for(let l=0;l<this.L;l++){
+      const rows=this.sizes[l+1],cols=this.sizes[l];
+      const out=new Float64Array(rows),w=this.W[l],b=this.B[l];
+      for(let r=0;r<rows;r++){
+        let z=b[r];const off=r*cols;
+        for(let c=0;c<cols;c++)z+=w[off+c]*a[c];
+        out[r]=(l===this.L-1)?1/(1+Math.exp(-z)):Math.tanh(z);
+      }
+      a=out;acts.push(a);
+    }
+    return acts;
+  }
+  predict(x){return this.forward(x)[this.L][0];}
+  trainBatch(batch,lr){
+    const gW=this.W.map(w=>new Float64Array(w.length));
+    const gB=this.B.map(b=>new Float64Array(b.length));
+    let loss=0;
+    for(const s of batch){
+      const acts=this.forward(s.x),out=acts[this.L],y=s.y;
+      let delta=new Float64Array(out.length);
+      const p=clamp(out[0],1e-7,1-1e-7);
+      loss+=-(y*Math.log(p)+(1-y)*Math.log(1-p));
+      delta[0]=p-y;
+      for(let l=this.L-1;l>=0;l--){
+        const aPrev=acts[l],cols=this.sizes[l],w=this.W[l];
+        for(let r=0;r<delta.length;r++){
+          const d=delta[r],off=r*cols;
+          gB[l][r]+=d;
+          for(let c=0;c<cols;c++)gW[l][off+c]+=d*aPrev[c];
+        }
+        if(l>0){
+          const dp=new Float64Array(this.sizes[l]),a=acts[l];
+          for(let c=0;c<this.sizes[l];c++){
+            let sum=0;
+            for(let r=0;r<delta.length;r++)sum+=w[r*cols+c]*delta[r];
+            dp[c]=sum*(1-a[c]*a[c]);
+          }
+          delta=dp;
+        }
+      }
+    }
+    const m=batch.length||1;
+    for(let l=0;l<this.L;l++){
+      const w=this.W[l],b=this.B[l],gw=gW[l],gb=gB[l];
+      for(let i=0;i<w.length;i++)w[i]-=lr*gw[i]/m;
+      for(let i=0;i<b.length;i++)b[i]-=lr*gb[i]/m;
+    }
+    return loss/m;
+  }
+}
+
+/* ====== DATASETS ====== */
+function gauss(){let s=0;for(let i=0;i<4;i++)s+=Math.random();return (s-2)/1.2;}
+function genData(kind,n){
+  n=n||150;const pts=[];const R=(a,b)=>a+Math.random()*(b-a);
+  if(kind==='islands'){
+    for(let i=0;i<n;i++){const l=i%2,cx=l?0.66:0.32,cy=l?0.68:0.3;
+      pts.push({x:clamp(cx+gauss()*0.075,0.02,0.98),y:clamp(cy+gauss()*0.075,0.02,0.98),l});}
+  }else if(kind==='circle'){
+    while(pts.length<n){const x=R(0.03,0.97),y=R(0.03,0.97);const d=Math.hypot(x-0.5,y-0.5);
+      let l;if(d<0.26)l=0;else if(d>0.36)l=1;else continue;pts.push({x,y,l});}
+  }else if(kind==='corners'){
+    for(let i=0;i<n;i++){const x=R(0.04,0.96),y=R(0.04,0.96);pts.push({x,y,l:(x<0.5)===(y<0.5)?1:0});}
+  }else{
+    for(let i=0;i<n;i++){const l=i%2,cx=l?0.56:0.44;
+      pts.push({x:clamp(cx+gauss()*0.115,0.02,0.98),y:clamp(0.5+gauss()*0.115,0.02,0.98),l});}
+  }
+  return pts;
+}
+
+/* ====== RENDERERS ====== */
+function drawScatter(lab){
+  const g=lab.o.gScatter,W=lab.o.wS,H=lab.o.hS;if(!g)return;
+  g.fillStyle='#0B0D13';g.fillRect(0,0,W,H);
+  const G=26,cell=W/G;
+  for(let iy=0;iy<G;iy++)for(let ix=0;ix<G;ix++){
+    const p=lab.net.predict(new Float64Array([(ix+0.5)/G,(iy+0.5)/G]));
+    const a=Math.abs(2*p-1)*0.5;
+    g.fillStyle=p>0.5?('rgba(248,113,113,'+a+')'):('rgba(96,165,250,'+a+')');
+    g.fillRect(ix*cell,iy*H/G,cell+0.5,H/G+0.5);
+  }
+  for(const p of lab.data){
+    g.beginPath();g.arc(p.x*W,p.y*H,4.2,0,7);
+    g.fillStyle=p.l?'#F87171':'#60A5FA';g.fill();
+    g.strokeStyle='rgba(7,8,12,0.55)';g.lineWidth=1;g.stroke();
+  }
+}
+function drawWires(lab){
+  const g=lab.o.gWires,W=lab.o.wW,H=lab.o.hW;if(!g)return;
+  g.fillStyle='#0B0D13';g.fillRect(0,0,W,H);
+  const sizes=lab.net.sizes,cols=[];
+  for(let l=0;l<sizes.length;l++){
+    const x=18+(W-36)*(l/(sizes.length-1)),arr=[],n=sizes[l];
+    const gap=Math.min(26,(H-24)/Math.max(1,n));
+    for(let i=0;i<n;i++)arr.push({x,y:H/2+(i-(n-1)/2)*gap});
+    cols.push(arr);
+  }
+  lab.edges=[];
+  for(let l=0;l<lab.net.L;l++){
+    const rows=sizes[l+1],c2=sizes[l],w=lab.net.W[l];
+    for(let r=0;r<rows;r++)for(let c=0;c<c2;c++)lab.edges.push({a:cols[l][c],b:cols[l+1][r],v:w[r*c2+c]});
+  }
+  for(const e of lab.edges){
+    const m=Math.abs(e.v);
+    g.strokeStyle='rgba(212,175,55,'+clamp(0.12+m*0.35,0.12,0.85)+')';
+    g.lineWidth=clamp(0.5+m*1.6,0.5,4);
+    g.beginPath();g.moveTo(e.a.x,e.a.y);g.lineTo(e.b.x,e.b.y);g.stroke();
+  }
+  for(const col of cols)for(const n of col){
+    g.fillStyle='#07080C';g.beginPath();g.arc(n.x,n.y,5,0,7);g.fill();
+    g.strokeStyle='rgba(212,175,55,0.8)';g.lineWidth=1.2;g.stroke();
+  }
+  lab.sparkEdges=lab.edges.slice().sort((p,q)=>Math.abs(q.v)-Math.abs(p.v)).slice(0,3);
+}
+function drawWireSparks(lab,t){
+  if(RM)return;const g=lab.o.gWires;if(!g)return;
+  const es=lab.sparkEdges||[];
+  es.forEach((e,i)=>{
+    const ph=((t/1400)+i*0.37)%1;
+    const x=e.a.x+(e.b.x-e.a.x)*ph,y=e.a.y+(e.b.y-e.a.y)*ph;
+    const gr=g.createRadialGradient(x,y,0,x,y,7);
+    gr.addColorStop(0,'rgba(243,229,171,0.95)');gr.addColorStop(1,'rgba(212,175,55,0)');
+    g.fillStyle=gr;g.beginPath();g.arc(x,y,7,0,7);g.fill();
+  });
+}
+function drawChart(lab){
+  const g=lab.o.gChart,W=lab.o.wC,H=lab.o.hC;if(!g)return;
+  g.fillStyle='#0B0D13';g.fillRect(0,0,W,H);
+  const h=lab.hist;
+  g.fillStyle='rgba(154,163,178,0.85)';g.font='11px Vazirmatn';g.textAlign='right';
+  g.fillText('خطا (کم‌تر = بهتر)',W-10,16);
+  if(h.length<2){g.textAlign='center';g.fillStyle='rgba(103,112,127,0.9)';g.fillText('هنوز آموزشی ندیده — این‌جا خالی است',W/2,H/2);return;}
+  let mx=-Infinity,mn=Infinity;for(const v of h){if(v>mx)mx=v;if(v<mn)mn=v;}
+  const sp=(mx-mn)||1;
+  g.strokeStyle='#22D3EE';g.lineWidth=1.6;g.beginPath();
+  h.forEach((v,i)=>{
+    const x=6+(W-12)*i/(h.length-1),y=H-8-(H-22)*((v-mn)/sp);
+    if(i)g.lineTo(x,y);else g.moveTo(x,y);
+  });
+  g.stroke();
+}
+
+/* ====== MINI LAB ENGINE ====== */
+const labs=[];
+class MiniLab{
+  constructor(o){this.o=o;this.hidden=o.hidden;this.lr=o.lr;this.kind=o.dataset;this.build();}
+  build(){
+    this.data=genData(this.kind);
+    this.samples=this.data.map(p=>({x:new Float64Array([p.x,p.y]),y:p.l}));
+    this.net=new Net([2,this.hidden,1]);
+    this.epoch=0;this.hist=[];this.evaluate();this.render();this.emit();
+  }
+  setDataset(k){this.kind=k;this.build();}
+  evaluate(){
+    let ok=0,ls=0;
+    for(const s of this.samples){
+      const p=this.net.predict(s.x),pc=clamp(p,1e-7,1-1e-7);
+      if((p>0.5)===(s.y===1))ok++;
+      ls+=-(s.y*Math.log(pc)+(1-s.y)*Math.log(1-pc));
+    }
+    this.acc=ok/this.samples.length;this.loss=ls/this.samples.length;
+  }
+  step(k){
+    const n=this.samples.length,idx=[];
+    for(let i=0;i<n;i++)idx.push(i);
+    for(let e=0;e<k;e++){
+      shuffle(idx);let ls=0,nb=0;
+      for(let i=0;i<n;i+=16){
+        const b=idx.slice(i,i+16).map(j=>this.samples[j]);
+        ls+=this.net.trainBatch(b,this.lr);nb++;
+      }
+      this.epoch++;this.hist.push(ls/nb);
+      if(this.hist.length>600)this.hist.shift();
+    }
+    this.evaluate();this.render();this.emit();
+  }
+  render(){drawScatter(this);}
+  emit(){if(this.o.onUpdate)this.o.onUpdate(this);}
+}
+function sizeLab(lab){
+  const sc=lab.o.elScatter,wi=lab.o.elWires,ch=lab.o.elChart;
+  const w1=Math.max(240,sc.clientWidth),h1=Math.max(240,Math.round(w1));
+  lab.o.gScatter=fitCanvas(sc,w1,h1);lab.o.wS=w1;lab.o.hS=h1;
+  const w2=Math.max(240,wi.clientWidth),h2=Math.max(150,wi.clientHeight);
+  lab.o.gWires=fitCanvas(wi,w2,h2);lab.o.wW=w2;lab.o.hW=h2;
+  const w3=Math.max(240,ch.clientWidth),h3=Math.max(110,ch.clientHeight);
+  lab.o.gChart=fitCanvas(ch,w3,h3);lab.o.wC=w3;lab.o.hC=h3;
+}
+function ticker(t){
+  for(const lab of labs){
+    if(lab.o.gWires){drawWires(lab);drawWireSparks(lab,t);}
+    if(lab.o.gChart)drawChart(lab);
+  }
+  requestAnimationFrame(ticker);
+}
+requestAnimationFrame(ticker);
+
+/* ====== STATION 1 ====== */
+const S1={};
+function s1read(){
+  S1.w1=+$('#s1w1').value;S1.w2=+$('#s1w2').value;S1.T=+$('#s1T').value;
+  $('#s1w1v').textContent=fdec(S1.w1,1);$('#s1w2v').textContent=fdec(S1.w2,1);$('#s1Tv').textContent=fdec(S1.T,1);
+}
+function s1eval(){
+  return [[0,0],[0,1],[1,0],[1,1]].map(p=>({a:p[0],b:p[1],z:S1.w1*p[0]+S1.w2*p[1],fire:S1.w1*p[0]+S1.w2*p[1]>=S1.T}));
+}
+function s1render(){
+  const rows=s1eval(),tb=$('#s1tb');tb.innerHTML='';
+  for(const r of rows){
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td>'+fa(r.a)+'</td><td>'+fa(r.b)+'</td><td>'+fdec(r.z,1)+'</td>'+
+      '<td><span class="lamp '+(r.fire?'on':'')+'"></span>'+(r.fire?'روشن':'خاموش')+'</td>';
+    tb.appendChild(tr);
+  }
+  const f=rows.map(r=>r.fire);
+  if(store.s1<2){
+    const okAND=!f[0]&&!f[1]&&!f[2]&&f[3];
+    $('#s1and').classList.toggle('ok',okAND);
+    $('#s1and .mstate').textContent=okAND?'✓ درست شد — همه‌ی چهار حالت را با جدول چک کن و برو سراغ مأموریت دوم':'هنوز حل نشده — جدول را نگاه کن و ولوم‌ها را بچرخان.';
+    if(okAND&&store.s1<1){store.s1=1;save();refreshProgress();toast('✓ کلید AND ساخته شد — حالا مأموریت دوم باز شد');$('#s1phase2').hidden=false;}
+    if(store.s1>=1){
+      const okOR=f[1]&&f[2]&&f[3]&&!f[0];
+      
+      $('#s1phase2').classList.toggle('ok',okOR);
+      $('#s1phase2 .mstate').textContent=okOR?'✓ عالی — کلید OR هم ساخته شد':'هنوز حل نشده — یک راه: آستانه را پایین بیاور، اما حواست به ردیف ۰ و ۰ باشد.';
+      if(okOR&&store.s1<2){store.s1=2;save();refreshProgress();toast('✓ مأموریت ایستگاه ۱ کامل شد — شبکه‌ی واقعی در ایستگاه ۲ منتظرت است');}
+    }
+  }
+}
+['s1w1','s1w2','s1T'].forEach(id=>$('#'+id).addEventListener('input',()=>{s1read();s1render();}));
+s1read();s1render();
+if(store.s1>=1)$('#s1phase2').hidden=false;
+
+/* ====== STATION 2 ====== */
+const st2={running:false,raf:0};
+function st2ui(lab){
+  $('#st2ep').textContent=fnum(lab.epoch);
+  $('#st2acc').textContent=fdec(lab.acc*100,1)+'٪';
+  $('#st2wrong').textContent=fnum(Math.round((1-lab.acc)*lab.data.length));
+  $('#st2bar').style.width=clamp(lab.acc*100,0,100)+'%';
+  if(lab.acc>=0.98){
+    if(st2.running)st2stop();
+    if(!store.s2){store.s2=true;save();refreshProgress();toast('✓ مأموریت ایستگاه ۲ کامل شد — شبکه‌ات واقعاً یاد گرفت');}
+  }
+}
+function st2start(){if(st2.running)return;st2.running=true;$('#st2run').textContent='توقف';
+  (function loop(){if(!st2.running)return;st2.lab.step(4);if(st2.lab.acc<0.98)st2.raf=requestAnimationFrame(loop);})(); }
+function st2stop(){st2.running=false;$('#st2run').textContent='آموزش بده';cancelAnimationFrame(st2.raf);}
+$('#st2run').addEventListener('click',()=>st2.running?st2stop():st2start());
+$('#st2reset').addEventListener('click',()=>{st2stop();st2.lab.build();});
+$$('#st2ds .tab').forEach(b=>b.addEventListener('click',()=>{
+  st2stop();
+  $$('#st2ds .tab').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');
+  st2.lab.setDataset(b.dataset.ds);
+}));
+
+/* ====== PLAYGROUND ====== */
+const pl={running:false,raf:0};
+function plui(lab){
+  $('#plep').textContent=fnum(lab.epoch);
+  $('#placc').textContent=fdec(lab.acc*100,1)+'٪';
+}
+function plstart(){if(pl.running)return;pl.running=true;$('#plrun').textContent='توقف';
+  (function loop(){if(!pl.running)return;pl.lab.step(4);pl.raf=requestAnimationFrame(loop);})(); }
+function plstop(){pl.running=false;$('#plrun').textContent='آموزش بده';cancelAnimationFrame(pl.raf);}
+$('#plrun').addEventListener('click',()=>pl.running?plstop():plstart());
+$('#plreset').addEventListener('click',()=>{plstop();pl.lab.build();});
+$$('#plds .tab').forEach(b=>b.addEventListener('click',()=>{
+  plstop();
+  $$('#plds .tab').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');
+  pl.lab.setDataset(b.dataset.ds);
+}));
+$$('.phid').forEach(b=>b.addEventListener('click',()=>{
+  plstop();$$('.phid').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');
+  pl.lab.hidden=+b.dataset.h;pl.lab.build();
+}));
+$('#plr').addEventListener('input',e=>{const v=+e.target.value;pl.lab.lr=v;$('#plrv').textContent=fdec(v,1);});
+
+/* init labs after layout */
+function initLabs(){
+  st2.lab=new MiniLab({dataset:'islands',hidden:8,lr:1.5,onUpdate:st2ui,
+    elScatter:$('#st2scatter'),elWires:$('#st2wires'),elChart:$('#st2chart')});
+  pl.lab=new MiniLab({dataset:'islands',hidden:2,lr:1.2,onUpdate:plui,
+    elScatter:$('#plscatter'),elWires:$('#plwires'),elChart:$('#plchart')});
+  sizeLab(st2.lab);sizeLab(pl.lab);
+  st2.lab.render();pl.lab.render();
+  labs.push(st2.lab,pl.lab);
+}
+let rzl;addEventListener('resize',()=>{clearTimeout(rzl);rzl=setTimeout(()=>{labs.forEach(l=>{sizeLab(l);l.render();});},220);});
+
+/* ====== STATION 3 ====== */
+const S3={N:16,px:320,cell:20,dots:[],trained:false,training:false,net:null,eph:[],ephRun:false,brush:0,ephOn:false};
+function s3size(){S3.g=fitCanvas($('#s3cv'),S3.px,S3.px);S3.ge=fitCanvas($('#s3ov'),S3.px,S3.px);}
+function stampVec(cx,cy){
+  const v=new Float64Array(256),R=2.1;
+  for(let r=0;r<16;r++)for(let c=0;c<16;c++){
+    const d=Math.hypot(c+0.5-cx,r+0.5-cy);
+    if(d<R){const t=1-d/R;v[r*16+c]=t*t;}
+  }
+  return v;
+}
+function s3render(){
+  const g=S3.g;if(!g)return;
+  g.fillStyle='#0B0D13';g.fillRect(0,0,S3.px,S3.px);
+  g.strokeStyle='rgba(255,255,255,0.03)';g.lineWidth=1;
+  for(let i=1;i<S3.N;i++){
+    g.beginPath();g.moveTo(i*S3.cell,0);g.lineTo(i*S3.cell,S3.px);g.stroke();
+    g.beginPath();g.moveTo(0,i*S3.cell);g.lineTo(S3.px,i*S3.cell);g.stroke();
+  }
+  if(S3.trained&&S3.net){
+    for(let r=0;r<S3.N;r++)for(let c=0;c<S3.N;c++){
+      const p=S3.net.predict(stampVec(c+0.5,r+0.5));
+      const a=Math.abs(2*p-1)*0.6;
+      g.fillStyle=p>0.5?('rgba(248,113,113,'+a+')'):('rgba(96,165,250,'+a+')');
+      g.fillRect(c*S3.cell,r*S3.cell,S3.cell,S3.cell);
+    }
+  }
+  for(const d of S3.dots){
+    g.beginPath();g.arc(d.cx*S3.cell,d.cy*S3.cell,S3.cell*0.72,0,7);
+    g.globalAlpha=0.92;g.fillStyle=d.l?'#F87171':'#60A5FA';g.fill();g.globalAlpha=1;
+  }
+}
+function s3countUI(){
+  const b=S3.dots.filter(d=>d.l===0).length,r=S3.dots.filter(d=>d.l===1).length;
+  $('#s3blue').textContent=fnum(b);$('#s3red').textContent=fnum(r);
+}
+function s3pos(e){
+  const rect=$('#s3cv').getBoundingClientRect();
+  const x=(e.clientX-rect.left)*(S3.px/rect.width),y=(e.clientY-rect.top)*(S3.px/rect.height);
+  return {cx:clamp(x/S3.cell,0,15.99),cy:clamp(y/S3.cell,0,15.99)};
+}
+function s3pushEph(cx,cy){
+  if(!S3.net)return;
+  const p=S3.net.predict(stampVec(cx,cy));
+  S3.eph.push({cx,cy,p,t:performance.now()});
+  const conf=Math.max(p,1-p);
+  $('#s3guess').textContent='حدس شبکه: احتمالاً '+(p>0.5?'قرمز':'آبی')+' — با '+fdec(conf*100,0)+'٪ اطمینان (اطمینانِ واقعیِ شبکه، نه ساختگی)';
+  if(!S3.ephRun){S3.ephRun=true;requestAnimationFrame(s3ephLoop);}
+}
+function s3ephLoop(){
+  const g=S3.ge,now=performance.now();
+  g.clearRect(0,0,S3.px,S3.px);
+  S3.eph=S3.eph.filter(o=>now-o.t<2600);
+  for(const o of S3.eph){
+    const a=1-(now-o.t)/2600,x=o.cx*S3.cell,y=o.cy*S3.cell;
+    g.globalAlpha=a;
+    g.beginPath();g.arc(x,y,S3.cell*0.72+3,0,7);
+    g.strokeStyle=o.p>0.5?'#F87171':'#60A5FA';g.lineWidth=2;g.stroke();
+    g.fillStyle=o.p>0.5?'rgba(248,113,113,0.25)':'rgba(96,165,250,0.25)';g.fill();
+  }
+  g.globalAlpha=1;
+  if(S3.eph.length)requestAnimationFrame(s3ephLoop);else S3.ephRun=false;
+}
+let lastDot=null;
+function s3draw(e){
+  const p=s3pos(e);
+  if(S3.trained){s3pushEph(p.cx,p.cy);return;}
+  if(lastDot&&Math.hypot(p.cx-lastDot.cx,p.cy-lastDot.cy)<1.15)return;
+  lastDot=p;
+  S3.dots.push({cx:p.cx,cy:p.cy,l:S3.brush});
+  s3render();s3countUI();
+}
+const s3cv=$('#s3cv');
+s3cv.addEventListener('pointerdown',e=>{e.preventDefault();s3cv.setPointerCapture(e.pointerId);lastDot=null;s3draw(e);});
+s3cv.addEventListener('pointermove',e=>{if(e.buttons)s3draw(e);else{const p=s3pos(e);if(S3.trained)s3pushEph(p.cx,p.cy);}});
+$$('.brush').forEach(b=>b.addEventListener('click',()=>{
+  S3.brush=+b.dataset.b;
+  $$('.brush').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');
+}));
+$('#s3undo').addEventListener('click',()=>{
+  if(S3.trained){toast('الان داده اضافه نمی‌شود — شبکه در حال حدس‌زدن است؛ برای معلم‌شدنِ دوباره «از صفر» را بزن');return;}
+  S3.dots.pop();lastDot=null;s3render();s3countUI();
+});
+$('#s3clear').addEventListener('click',()=>{
+  S3.dots=[];S3.trained=false;S3.net=null;lastDot=null;S3.eph=[];
+  $('#s3guess').textContent='';$('#s3bar').style.width='0%';
+  $('#s3hint').textContent='قبل از آموزش: هر نقطه‌ای که می‌کشی، داده‌ی درسِ شبکه است.';
+  s3render();s3countUI();
+});
+$('#s3train').addEventListener('click',()=>{
+  const b=S3.dots.filter(d=>d.l===0).length,r=S3.dots.filter(d=>d.l===1).length;
+  if(b<10||r<10){toast('برای هر رنگ حداقل ۱۰ نقطه لازم است — کم دارد، کمی دیگر بکش');return;}
+  S3.training=true;S3.trained=false;
+  const samples=S3.dots.map(d=>({x:stampVec(d.cx,d.cy),y:d.l}));
+  S3.net=new Net([256,20,1]);
+  const EP=160;let ep=0;
+  const idx=samples.map((_,i)=>i);
+  $('#s3train').disabled=true;
+  $('#s3hint').textContent='شبکه در حال درس‌خواندن از نقاط توست…';
+  (function loop(){
+    shuffle(idx);
+    for(let i=0;i<samples.length;i+=16)S3.net.trainBatch(idx.slice(i,i+16).map(j=>samples[j]),1.0);
+    ep++;$('#s3bar').style.width=(ep/EP*100)+'%';
+    if(ep<EP)requestAnimationFrame(loop);
+    else{
+      S3.training=false;S3.trained=true;$('#s3train').disabled=false;
+      $('#s3hint').textContent='حالا بکش یا لمس کن — نقاط جدید به آموزش اضافه نمی‌شوند؛ شبکه آن‌ها را حدس می‌زند.';
+      s3render();
+      if(!store.s3){store.s3=true;save();refreshProgress();}
+      toast('✓ آموزش تمام شد — شبکه از روی نقشه‌ی تو حدس می‌زند');
+    }
+  })();
+});
+
+/* ====== STATION 4 ====== */
+const S4={days:[],MAX:5};
+function s4simulate(){
+  let h=0.5,a=0;
+  const rev=[...S4.days].sort((x,y)=>x-y);
+  const pts=[],marks=[];
+  const seg=(s,e,hh)=>{const steps=Math.max(2,Math.round((e-s)*4));
+    for(let i=0;i<=steps;i++){const t=s+(e-s)*i/steps;pts.push({t,R:Math.pow(2,-(t-s)/hh)});}};
+  for(const d of rev){
+    const pre=Math.pow(2,-(d-a)/h);
+    seg(a,d,h);a=d;h*=2;
+    marks.push({d,pre});
+  }
+  seg(a,30,h);
+  const R30=Math.pow(2,-(30-a)/h);
+  return {pts,marks,R30};
+}
+function s4draw(sim){
+  const cv=$('#s4cv'),W=Math.max(280,cv.clientWidth),H=Math.max(180,cv.clientHeight);
+  const g=fitCanvas(cv,W,H);
+  const pad={l:16,r:44,t:16,b:30};
+  const X=t=>pad.l+(W-pad.l-pad.r)*t/30;
+  const Y=R=>H-pad.b-(H-pad.t-pad.b)*R;
+  g.fillStyle='#0B0D13';g.fillRect(0,0,W,H);
+  [[1,'۱۰۰٪'],[0.5,'۵۰٪'],[0,'۰']].forEach(v=>{
+    g.strokeStyle='rgba(255,255,255,0.08)';g.lineWidth=1;
+    g.beginPath();g.moveTo(pad.l,Y(v[0]));g.lineTo(W-pad.r,Y(v[0]));g.stroke();
+    g.fillStyle='rgba(154,163,178,0.9)';g.font='11px Vazirmatn';g.textAlign='left';
+    g.fillText(v[1],W-pad.r+6,Y(v[0])+4);
+  });
+  g.fillStyle='rgba(103,112,127,0.9)';g.textAlign='center';
+  [0,10,20,30].forEach(d=>g.fillText(fa(d),X(d),H-8));
+  g.strokeStyle='rgba(212,175,55,0.9)';g.lineWidth=2;g.beginPath();
+  sim.pts.forEach((p,i)=>{const x=X(p.t),y=Y(p.R);if(i)g.lineTo(x,y);else g.moveTo(x,y);});
+  g.stroke();
+  for(const m of sim.marks){
+    g.strokeStyle='rgba(212,175,55,0.4)';g.lineWidth=1;
+    g.beginPath();g.moveTo(X(m.d),Y(1));g.lineTo(X(m.d),Y(0));g.stroke();
+    g.fillStyle='#D4AF37';g.beginPath();g.arc(X(m.d),Y(1),4,0,7);g.fill();
+    if(m.pre<0.35){g.fillStyle='#F87171';g.beginPath();g.arc(X(m.d),Y(m.pre),4,0,7);g.fill();}
+  }
+}
+function s4render(){
+  $$('#s4days .pday').forEach(b=>{
+    const sel=S4.days.includes(+b.dataset.day);
+    b.classList.toggle('sel',sel);b.setAttribute('aria-pressed',sel);
+  });
+  const sim=s4simulate();
+  s4draw(sim);
+  $('#s4r30').textContent=fdec(sim.R30*100,1)+'٪';
+  $('#s4bar').style.width=clamp(sim.R30*100,0,100)+'%';
+  $('#s4count').textContent=fa(S4.days.length)+' از '+fa(S4.MAX)+' مرور';
+  if(sim.R30>=0.5&&!store.s4){store.s4=true;save();refreshProgress();
+    toast('✓ مأموریت ایستگاه ۴ کامل شد — راز را در «ذهن سیستمی» ادامه بده');}
+}
+$$('#s4days .pday').forEach(b=>b.addEventListener('click',()=>{
+  const d=+b.dataset.day,i=S4.days.indexOf(d);
+  if(i>=0)S4.days.splice(i,1);
+  else{
+    if(S4.days.length>=S4.MAX){toast('بیشتر از '+fa(S4.MAX)+' مرور نداری — وقت در دنیای واقعی محدود است');return;}
+    S4.days.push(d);
+  }
+  s4render();
+}));
+$$('.preset').forEach(b=>b.addEventListener('click',()=>{
+  const p=b.dataset.preset;
+  S4.days=p==='none'?[]:(p==='cram'?[1,2,3]:[1,3,7,14,28]);
+  s4render();
+  toast('پریست اعمال شد — منحنی را دنبال کن');
+}));
+
+/* ====== REVEAL ON SCROLL ====== */
+if(!RM&&'IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+  }),{threshold:0.1});
+  $$('.reveal').forEach(el=>io.observe(el));
+}else{$$('.reveal').forEach(el=>el.classList.add('in'));}
+
+/* ====== INIT ====== */
+initLabs();
+s3size();s3render();s3countUI();
+s4render();
+refreshProgress();
+addEventListener('resize',()=>{s3size();s3render();s4render();});
+</script>
+<script>
+(function(){
+'use strict';
+/* ====== DEEP PATH — موتور فرایندمحور (بدون داده‌ی بیرونی) ====== */
+let D={pred:{ok:0,total:0},race:{w:0,l:0},mods:{},deep:false,seed:1};
+try{const s=JSON.parse(localStorage.getItem('nnlab3')||'{}');D=Object.assign(D,s);}catch(e){}
+function dsave(){try{localStorage.setItem('nnlab3',JSON.stringify(D));}catch(e){}}
+const NF=(v,d=2)=>(!isFinite(v)||Math.abs(v)>99999)?'بی‌نهایت!':fdec(v,d);
+const LT=(v,d=3)=>(!isFinite(v)?'inf':v.toFixed(d).replace('-','−'));
+function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(a^(a>>>15),1|a);t=(t+Math.imul(t^(t>>>7),61|t))^t;return((t^(t>>>14))>>>0)/4294967296;};}
+function gaussR(r){return(r()+r()+r()+r()-2)/1.15;}
+
+/* ---------- task: خطِ پنهان با نویز ---------- */
+function mse(t,w,b){let s=0;for(let i=0;i<t.xs.length;i++){const e=w*t.xs[i]+b-t.ys[i];s+=e*e;}return s/t.xs.length;}
+function grad(t,w,b){let dw=0,db=0;const n=t.xs.length;for(let i=0;i<n;i++){const e=w*t.xs[i]+b-t.ys[i];dw+=e*t.xs[i];db+=e;}return{dw:2*dw/n,db:2*db/n};}
+function makeTask(seed){
+  const r=rng(seed*7919+13);
+  let w=Math.round((r()*4-2)*10)/10;if(Math.abs(w)<0.7)w=w<0?-1.2:1.2;
+  const b=Math.round((r()*3-1.5)*10)/10,n=7,xs=[],ys=[];
+  for(let i=0;i<n;i++){const x=-2+4*(i+0.15+r()*0.7)/n;xs.push(x);ys.push(w*x+b+(r()-0.5)*0.6);}
+  const mx=xs.reduce((a,c)=>a+c,0)/n,my=ys.reduce((a,c)=>a+c,0)/n;let sxy=0,sxx=0;
+  for(let i=0;i<n;i++){sxy+=(xs[i]-mx)*(ys[i]-my);sxx+=(xs[i]-mx)**2;}
+  const wo=sxy/sxx,bo=my-wo*mx,t={xs,ys,w0:w,b0:b,wo,bo};t.best=mse(t,wo,bo);return t;
+}
+let TASK=makeTask(D.seed||1);
+const onTask=[];
+
+/* ---------- canvas helpers ---------- */
+function fit2(cv,h){
+  cv.style.width='100%';const w=Math.max(240,cv.clientWidth||300),d=Math.min(2,window.devicePixelRatio||1);
+  cv.width=Math.round(w*d);cv.height=Math.round(h*d);cv.style.height=h+'px';
+  const g=cv.getContext('2d');g.setTransform(d,0,0,d,0,0);return{g,W:w,H:h};
+}
+function drawFit(cv,t,o){
+  const {g,W,H}=fit2(cv,o.h||230),px=14;
+  const X=x=>px+(W-2*px)*(x+2.6)/5.2,Y=y=>H-px-(H-2*px)*(y+7)/14;
+  g.fillStyle='#0B0D13';g.fillRect(0,0,W,H);
+  g.strokeStyle='rgba(255,255,255,0.08)';g.lineWidth=1;
+  g.beginPath();g.moveTo(X(0),0);g.lineTo(X(0),H);g.moveTo(0,Y(0));g.lineTo(W,Y(0));g.stroke();
+  const line=(w,b,c,lw,dash)=>{g.save();g.strokeStyle=c;g.lineWidth=lw;if(dash)g.setLineDash(dash);g.beginPath();g.moveTo(X(-2.6),Y(-2.6*w+b));g.lineTo(X(2.6),Y(2.6*w+b));g.stroke();g.restore();};
+  if(o.best)line(t.wo,t.bo,'rgba(154,163,178,0.55)',1.4,[5,5]);
+  if(o.ghost)line(o.ghost.w,o.ghost.b,'rgba(212,175,55,0.3)',1.6,[3,4]);
+  if(o.resid){g.strokeStyle='rgba(248,113,113,0.85)';g.lineWidth=2;for(let i=0;i<t.xs.length;i++){g.beginPath();g.moveTo(X(t.xs[i]),Y(t.ys[i]));g.lineTo(X(t.xs[i]),Y(o.resid.w*t.xs[i]+o.resid.b));g.stroke();}}
+  for(const l of (o.lines||[]))line(l.w,l.b,l.c,l.lw||2.4);
+  for(let i=0;i<t.xs.length;i++){g.beginPath();g.arc(X(t.xs[i]),Y(t.ys[i]),4.6,0,7);g.fillStyle='#60A5FA';g.fill();g.strokeStyle='rgba(7,8,12,.7)';g.stroke();}
+}
+function drawSeries(cv,series,o){
+  o=o||{};const {g,W,H}=fit2(cv,o.h||140);g.fillStyle='#0B0D13';g.fillRect(0,0,W,H);
+  g.font='11px Vazirmatn';g.textAlign='right';g.fillStyle='rgba(154,163,178,.85)';g.fillText('خطا (مقیاس لگاریتمی)',W-8,15);
+  let mn=Infinity,mx=-Infinity,len=0;
+  for(const s of series){len=Math.max(len,s.v.length);for(const v of s.v){const l=Math.log10(Math.max(v,1e-4));if(l<mn)mn=l;if(l>mx)mx=l;}}
+  if(len<2){g.textAlign='center';g.fillStyle='rgba(103,112,127,.9)';g.fillText('هنوز داده‌ای نیست',W/2,H/2);return;}
+  if(mx-mn<0.5){mx+=.25;mn-=.25;}
+  const X=i=>8+(W-16)*i/(len-1),Y=l=>H-10-(H-30)*((l-mn)/(mx-mn));
+  for(const s of series){g.strokeStyle=s.c;g.lineWidth=1.8;g.beginPath();s.v.forEach((v,i)=>{const x=X(i),y=Y(Math.log10(Math.max(v,1e-4)));i?g.lineTo(x,y):g.moveTo(x,y);});g.stroke();}
+  if(o.mark!=null&&o.mark>=0){g.strokeStyle='rgba(243,229,171,.6)';g.setLineDash([4,4]);g.beginPath();g.moveTo(X(o.mark),18);g.lineTo(X(o.mark),H-6);g.stroke();g.setLineDash([]);}
+}
+function stepsUI(el,ph){[...el.children].forEach((c,i)=>{c.classList.toggle('on',i===ph);c.classList.toggle('done',i<ph);});}
+
+/* ---------- ledger ---------- */
+const MODS=[['1','نورون: یک قدمِ یادگیری'],['2','منظره‌ی خطا و بهینه‌ساز‌ها'],['3','مسابقه با ماشین'],['4','لایه‌ی پنهان و پس‌انتشار'],['5','بیش‌برازش']];
+function ledger(){
+  const p=D.pred,n=MODS.filter(m=>D.mods[m[0]]).length;
+  $('#dlPred').textContent=p.total?fa(p.ok)+' از '+fa(p.total):'—';
+  $('#dlRace').textContent=fa(D.race.w)+' برد · '+fa(D.race.l)+' باخت';
+  $('#dlMods').textContent=fa(n)+' از ۵';$('#dlBadge').textContent=fa(n)+' از ۵';$('#dlBadge').classList.toggle('done',n===5);
+  $('#dlLevel').textContent=n===0?'مبتدی':n<=2?'کاشف':n<=4?'سازنده':'معمار';
+  $$('#dlTabs .tab').forEach(b=>b.classList.toggle('done',!!D.mods[b.dataset.m]));
+  let msg;const nx=MODS.find(m=>!D.mods[m[0]]);
+  if(p.total>=5&&p.ok/p.total<0.5)msg='<b>پیشنهاد:</b> دقتِ حدس‌هایت هنوز پایین است. به ماژول ۱ برگرد و این بار پیش از مرحله‌ی «شیب» با دقت فکر کن: شیبِ مثبت یعنی باید برعکس بروی.';
+  else if(!nx)msg='<b>همه‌ی ماژول‌ها کامل شد.</b> حالا «تکلیف تازه» بزن و ماژول ۳ را با سطح «تیز» و حالت چشم‌بسته امتحان کن؛ یا به زمین بازی برو.';
+  else msg='<b>قدم بعدی:</b> ماژول '+fa(nx[0])+' — '+nx[1]+'.';
+  $('#dlNext').innerHTML=msg;
+}
+function markDone(id,msg){if(D.mods[id])return;D.mods[id]=1;dsave();ledger();toast(msg);}
+
+/* ---------- panels ---------- */
+const MOD={};let curM='1';
+function showM(id){
+  curM=id;
+  $$('#dlTabs .tab').forEach(b=>{const on=b.dataset.m===id;b.classList.toggle('sel',on);b.setAttribute('aria-selected',on);});
+  $$('.dl-panel').forEach(p=>p.hidden=p.dataset.m!==id);
+  const m=MOD[id];if(m){if(!m.ready){m.ready=true;m.init();}m.resize();}
+}
+$$('#dlTabs .tab').forEach(b=>b.addEventListener('click',()=>showM(b.dataset.m)));
+function setMode(deep){D.deep=deep;dsave();document.body.classList.toggle('dl-deep',deep);$$('#dlMode .tab').forEach(b=>b.classList.toggle('sel',(b.dataset.mode==='deep')===deep));}
+$$('#dlMode .tab').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode==='deep')));
+$$('.dl-newtask').forEach(b=>b.addEventListener('click',()=>{D.seed=(D.seed||1)+1;dsave();TASK=makeTask(D.seed);onTask.forEach(f=>f());toast('تکلیف تازه ساخته شد (شماره‌ی '+fa(D.seed)+') — همه‌ی ماژول‌ها با آن هماهنگ شدند');}));
+function mission(id,ok,txt){const el=$('#'+id);el.classList.toggle('ok',ok);if(txt)el.querySelector('.mstate').textContent=txt;}
+
+/* ================= M1 ================= */
+const M1={ph:-1,it:0,w:0,b:0,lr:0.08,hist:[],g:null,pred:null,ghost:null,old:null};
+MOD[1]={init(){
+  $('#dlM1next').addEventListener('click',m1next);
+  $('#dlM1x10').addEventListener('click',()=>{for(let i=0;i<10;i++)m1iter();M1.ph=3;M1.ghost=null;M1.pred=null;M1.g=grad(TASK,M1.w,M1.b);m1render();m1check();});
+  $('#dlM1reset').addEventListener('click',m1reset);
+  $('#dlM1lr').addEventListener('input',e=>{M1.lr=+e.target.value;$('#dlM1lrv').textContent=fdec(M1.lr,2);m1render();});
+  $$('.dl-pb').forEach(b=>b.addEventListener('click',()=>{if(M1.pred)return;M1.pred=b.dataset.p;$$('.dl-pb').forEach(x=>x.disabled=true);b.classList.add('sel');}));
+  onTask.push(m1reset);m1reset();
+},resize(){m1render();}};
+function m1reset(){M1.ph=-1;M1.it=0;M1.w=0;M1.b=0;M1.hist=[mse(TASK,0,0)];M1.g=null;M1.pred=null;M1.ghost=null;m1render();m1check();}
+function m1iter(){const g=grad(TASK,M1.w,M1.b);M1.w=clamp(M1.w-M1.lr*g.dw,-1e3,1e3);M1.b=clamp(M1.b-M1.lr*g.db,-1e3,1e3);M1.it++;M1.hist.push(mse(TASK,M1.w,M1.b));}
+function m1next(){
+  if(M1.ph===3){M1.ph=0;M1.pred=null;M1.ghost=null;}else M1.ph++;
+  if(M1.ph===2)M1.g=grad(TASK,M1.w,M1.b);
+  if(M1.ph===3){
+    M1.old={w:M1.w,b:M1.b};M1.ghost={w:M1.w,b:M1.b};const dw=M1.g.dw;m1iter();
+    if(M1.pred){const step=M1.lr*dw,truth=Math.abs(step)<0.01?'keep':(step<0?'up':'down');const ok=truth===M1.pred;D.pred.total++;if(ok)D.pred.ok++;M1.predRes=ok?'ok':'bad';M1.truth=truth;dsave();ledger();toast(ok?'✓ حدسِ درست':'✗ این بار نه — توضیحِ مرحله‌ی ۳ را بخوان');}else M1.predRes=null;
+  }
+  m1render();m1check();
+}
+function m1check(){
+  const l=M1.hist[M1.hist.length-1],ok=l<=TASK.best+0.03&&M1.it>0;
+  mission('dlM1miss',ok||!!D.mods[1],ok||D.mods[1]?'✓ رسیدی — خطا '+NF(l,3)+' و بهترینِ ممکن '+NF(TASK.best,3):'هنوز نه — خطای فعلی '+NF(l,3)+'، هدف ≤ '+NF(TASK.best+0.03,3));
+  if(ok)markDone(1,'✓ مأموریت ۱ کامل شد — نورونت یاد گرفت');
+}
+function m1render(){
+  const t=TASK,ph=M1.ph,w=M1.w,b=M1.b,l=mse(t,w,b),lr=M1.lr;
+  drawFit($('#dlM1fit'),t,{best:true,lines:[{w,b,c:'#D4AF37'}],resid:ph===1||ph===2?{w,b}:null,ghost:ph===3?M1.ghost:null,h:230});
+  drawSeries($('#dlM1loss'),[{v:M1.hist,c:'#22D3EE'}],{h:130});
+  stepsUI($('#dlM1steps'),ph);
+  $('#dlM1it').textContent=fa(M1.it);$('#dlM1l').textContent=NF(l,3);$('#dlM1b').textContent=NF(t.best,3);
+  $('#dlM1pred').hidden=ph!==1;
+  if(ph!==1){$$('.dl-pb').forEach(x=>{x.disabled=false;x.classList.remove('sel','ok','bad');});}
+  let tx,mt;const g=M1.g;
+  if(ph<0){tx='آماده‌ایم. نورون هنوز هیچ نمی‌داند: w=۰ و b=۰؛ یعنی برای هر ورودی «صفر» حدس می‌زند. «گام بعدی» را بزن تا اولین قدمِ یادگیری را مرحله‌به‌مرحله ببینی.';mt='ŷ = w·x + b';}
+  else if(ph===0){tx='<b>① پیشروی:</b> نورون برای هر نقطه حدس می‌زند: ŷ = w·x + b. خطِ طلایی همین حدس‌هاست (w='+NF(w)+'، b='+NF(b)+').';mt='ŷᵢ = w·xᵢ + b   (w='+LT(w)+', b='+LT(b)+')';}
+  else if(ph===1){tx='<b>② خطا:</b> فاصله‌ی هر نقطه تا خط (خط‌های قرمز) را به توان ۲ می‌رسانیم و میانگین می‌گیریم: خطا = <b>'+NF(l,3)+'</b>. کمترینِ ممکن برای این تکلیف ≈ '+NF(t.best,3)+'.';mt='L = (1/n) Σ (ŷᵢ − yᵢ)²  =  '+LT(l);}
+  else if(ph===2){tx='<b>③ شیب:</b> اگر w را کمی بیشتر کنم خطا '+(g.dw>0?'<b>زیاد</b>':'<b>کم</b>')+' می‌شود (شیب '+NF(g.dw)+')، و اگر b را بیشتر کنم خطا '+(g.db>0?'<b>زیاد</b>':'<b>کم</b>')+' می‌شود (شیب '+NF(g.db)+'). شیبِ مثبت یعنی «این سمت بالاست»؛ پایین‌آمدن یعنی رفتن به سمتِ مخالف.';mt='∂L/∂w = (2/n) Σ (ŷᵢ−yᵢ)·xᵢ = '+LT(g.dw)+'\n∂L/∂b = (2/n) Σ (ŷᵢ−yᵢ)    = '+LT(g.db);}
+  else{const o=M1.old,dl=M1.hist[M1.hist.length-1];tx='<b>④ به‌روزرسانی:</b> هر پارامتر در خلافِ جهتِ شیبش، به‌اندازه‌ی η×شیب جابه‌جا شد: w از '+NF(o.w)+' به '+NF(w)+'، b از '+NF(o.b)+' به '+NF(b)+'. خطا: '+NF(mse(t,o.w,o.b),3)+' ← '+NF(dl,3)+'.'+(dl>mse(t,o.w,o.b)?' <b>خطا بالا رفت!</b> قدم برای این دره زیادی بزرگ بود — η را کم کن.':'')+(M1.predRes?(M1.predRes==='ok'?' ✓ حدس تو درست بود.':' ✗ حدس تو درست نبود: w باید «'+({up:'بیشتر',down:'کمتر',keep:'ثابت'}[M1.truth])+'» می‌شد.'):'');
+    mt='w ← w − η·∂L/∂w = '+LT(o.w)+' − '+LT(lr,2)+'·'+LT(M1.g.dw)+' = '+LT(w)+'\nb ← b − η·∂L/∂b = '+LT(o.b)+' − '+LT(lr,2)+'·'+LT(M1.g.db)+' = '+LT(b);}
+  $('#dlM1txt').innerHTML=tx;$('#dlM1math').textContent=mt;
+}
+
+/* ================= M2 ================= */
+const OPT={sgd:{lr:0.05,name:'گرادیان ساده'},mom:{lr:0.02,name:'مومنتوم'},adam:{lr:0.2,name:'Adam'}};
+const M2={opt:'sgd',lr:0.05,p:[-3,3],trail:[],t:0,m:[0,0],v:[0,0],vel:[0,0],run:false,raf:0,reached:{},off:null,note:''};
+MOD[2]={init(){
+  $$('#dlM2opt .tab').forEach(b=>b.addEventListener('click',()=>{m2stop();M2.opt=b.dataset.opt;M2.lr=OPT[M2.opt].lr;$('#dlM2lr').value=M2.lr;$('#dlM2lrv').textContent=fdec(M2.lr,3);$$('#dlM2opt .tab').forEach(x=>x.classList.toggle('sel',x===b));m2reset();}));
+  $('#dlM2lr').addEventListener('input',e=>{M2.lr=+e.target.value;$('#dlM2lrv').textContent=fdec(M2.lr,3);});
+  $('#dlM2run').addEventListener('click',()=>M2.run?m2stop():m2start());
+  $('#dlM2step').addEventListener('click',()=>{m2stop();m2step();m2render();});
+  $('#dlM2reset').addEventListener('click',()=>{m2stop();m2reset();});
+  const cv=$('#dlM2cv');const setp=e=>{const r=cv.getBoundingClientRect();M2.p=[clamp((e.clientX-r.left)/r.width*8-4,-3.95,3.95),clamp((1-(e.clientY-r.top)/r.height)*8-4,-3.95,3.95)];m2stop();m2reset(true);};
+  cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);setp(e);});
+  cv.addEventListener('pointermove',e=>{if(e.buttons)setp(e);});
+  onTask.push(()=>{M2.off=null;M2.reached={};m2stop();m2reset();});m2reset();
+},resize(){M2.off=null;m2render();}};
+function m2reset(keep){if(!keep)M2.p=[-3,3];M2.trail=[M2.p.slice()];M2.t=0;M2.m=[0,0];M2.v=[0,0];M2.vel=[0,0];M2.note='';m2render();}
+function m2start(){M2.run=true;$('#dlM2run').textContent='توقف';(function loop(){if(!M2.run)return;for(let i=0;i<(RM?8:2);i++){if(!M2.run)break;m2step();}m2render();if(M2.run)M2.raf=requestAnimationFrame(loop);})();}
+function m2stop(){M2.run=false;cancelAnimationFrame(M2.raf);const r=$('#dlM2run');if(r)r.textContent='اجرا';}
+function m2step(){
+  const[w,b]=M2.p,g=grad(TASK,w,b),G=[g.dw,g.db];M2.t++;
+  for(let i=0;i<2;i++){
+    if(M2.opt==='sgd')M2.p[i]-=M2.lr*G[i];
+    else if(M2.opt==='mom'){M2.vel[i]=0.9*M2.vel[i]+G[i];M2.p[i]-=M2.lr*M2.vel[i];}
+    else{M2.m[i]=0.9*M2.m[i]+0.1*G[i];M2.v[i]=0.999*M2.v[i]+0.001*G[i]*G[i];const mh=M2.m[i]/(1-Math.pow(0.9,M2.t)),vh=M2.v[i]/(1-Math.pow(0.999,M2.t));M2.p[i]-=M2.lr*mh/(Math.sqrt(vh)+1e-8);}
+  }
+  M2.trail.push(M2.p.slice());
+  const l=mse(TASK,M2.p[0],M2.p[1]);
+  if(!isFinite(l)||Math.abs(M2.p[0])>60||Math.abs(M2.p[1])>60){M2.run=false;M2.note='<b>واگرا شد!</b> سرعتِ یادگیری برای این بهینه‌ساز زیاد بود؛ هر قدم از دیواره‌ی دره بالاتر می‌پرد. η را کم کن.';M2.p=[clamp(M2.p[0],-60,60),clamp(M2.p[1],-60,60)];return;}
+  if(l-TASK.best<0.01){M2.run=false;if(!M2.reached[M2.opt]||M2.t<M2.reached[M2.opt])M2.reached[M2.opt]=M2.t;M2.note='<b>رسید</b> — '+fa(M2.t)+' قدم.';m2check();}
+  else if(M2.t>=600){M2.run=false;M2.note='۶۰۰ قدم گذشت و نرسید — سرعت یا بهینه‌ساز را عوض کن.';}
+}
+function m2check(){
+  const all=['sgd','mom','adam'].every(k=>M2.reached[k]);
+  mission('dlM2miss',all||!!D.mods[2],all||D.mods[2]?'✓ هر سه رسیدند':'هنوز نه — رسیده‌ها: '+fa(Object.keys(M2.reached).length)+' از ۳');
+  if(all)markDone(2,'✓ مأموریت ۲ کامل شد — سه بهینه‌ساز را شناختی');
+}
+function m2heat(w,h){
+  const N=110,c=document.createElement('canvas');c.width=c.height=N;const g=c.getContext('2d'),im=g.createImageData(N,N);
+  let mxl=0;const L=new Float64Array(N*N);
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){const l=mse(TASK,(x+.5)/N*8-4,4-(y+.5)/N*8);L[y*N+x]=l;if(l>mxl)mxl=l;}
+  const den=Math.log(1+mxl);
+  for(let i=0;i<N*N;i++){
+    const l=L[i],tt=Math.pow(Math.log(1+l)/den,0.8),band=(Math.log(1+l)*7)%1;
+    const k=band<0.07?0.35:0;
+    im.data[i*4]=11+(212-11)*tt+255*k;im.data[i*4+1]=13+(175-13)*tt+255*k;im.data[i*4+2]=19+(55-19)*tt*0.8+255*k;im.data[i*4+3]=255;
+  }
+  g.putImageData(im,0,0);return c;
+}
+function m2render(){
+  const cv=$('#dlM2cv');const W=Math.max(240,cv.clientWidth||320);const {g,H}=fit2(cv,Math.min(W,400));
+  if(!M2.off)M2.off=m2heat();
+  g.imageSmoothingEnabled=true;g.drawImage(M2.off,0,0,W,H);
+  const X=w=>(w+4)/8*W,Y=b=>(1-(b+4)/8)*H;
+  g.strokeStyle='rgba(255,255,255,.2)';g.lineWidth=1;g.beginPath();g.moveTo(X(0),0);g.lineTo(X(0),H);g.moveTo(0,Y(0));g.lineTo(W,Y(0));g.stroke();
+  g.fillStyle='#F3F3F3';g.font='bold 20px Outfit';g.textAlign='center';g.fillText('★',X(TASK.wo),Y(TASK.bo)+7);
+  g.strokeStyle='#22D3EE';g.lineWidth=2;g.beginPath();M2.trail.forEach((p,i)=>{const x=X(p[0]),y=Y(p[1]);i?g.lineTo(x,y):g.moveTo(x,y);});g.stroke();
+  M2.trail.forEach((p,i)=>{if(i%Math.ceil(M2.trail.length/40)===0&&i>0){g.fillStyle='#22D3EE';g.beginPath();g.arc(X(p[0]),Y(p[1]),2.6,0,7);g.fill();}});
+  const s=M2.trail[0];g.fillStyle='#F87171';g.beginPath();g.arc(X(s[0]),Y(s[1]),5.5,0,7);g.fill();
+  const e=M2.trail[M2.trail.length-1];g.strokeStyle='#fff';g.lineWidth=2;g.beginPath();g.arc(X(e[0]),Y(e[1]),5.5,0,7);g.stroke();
+  const l=mse(TASK,M2.p[0],M2.p[1]);
+  $('#dlM2t').textContent=fa(M2.t);$('#dlM2l').textContent=NF(l,3);$('#dlM2gap').textContent=NF(l-TASK.best,3);
+  const exp={sgd:'هر قدم فقط «شیبِ همین‌جا» را می‌بیند و کمی در خلافِ آن می‌رود. در دره‌های باریک زیگزاگ می‌زند.',mom:'مثل توپی که سرعت جمع می‌کند: جهتِ قبلی را هم به خاطر دارد و زیگزاگ را کم می‌کند.',adam:'برای هر پارامتر سرعتِ جداگانه تنظیم می‌کند؛ معمولاً کم‌قدم‌تر و پایدارتر است.'};
+  $('#dlM2txt').innerHTML='<b>'+OPT[M2.opt].name+':</b> '+exp[M2.opt]+(M2.note?'<br>'+M2.note:'');
+  $('#dlM2math').textContent={sgd:'θ ← θ − η·g',mom:'v ← 0.9·v + g\nθ ← θ − η·v',adam:'m ← 0.9m + 0.1g ;  v ← 0.999v + 0.001g²\nθ ← θ − η·m̂ /(√v̂ + ε)'}[M2.opt];
+  $('#dlM2tab').innerHTML=['sgd','mom','adam'].map(k=>'<tr><td>'+OPT[k].name+'</td><td>'+(M2.reached[k]?fa(M2.reached[k]):'—')+'</td></tr>').join('');
+}
+
+/* ================= M3 ================= */
+const M3={w:0,b:0,moves:0,Lh:[],Mh:[],mw:0,mb:0,t:0,m:[0,0],v:[0,0],done:false,hintUsed:false,budget:10};
+MOD[3]={init(){
+  $('#dlM3w').addEventListener('input',e=>{M3.w=+e.target.value;m3render();});
+  $('#dlM3b').addEventListener('input',e=>{M3.b=+e.target.value;m3render();});
+  $('#dlM3commit').addEventListener('click',m3commit);
+  $('#dlM3end').addEventListener('click',()=>{if(M3.moves>0)m3finish();else toast('دست‌کم یک بار «ثبت» کن');});
+  $('#dlM3reset').addEventListener('click',m3reset);
+  $('#dlM3lvl').addEventListener('change',m3reset);
+  ['dlM3hint','dlM3blindc'].forEach(id=>$('#'+id).addEventListener('change',()=>{if(id==='dlM3hint'&&$('#'+id).checked)M3.hintUsed=true;m3render();}));
+  onTask.push(m3reset);m3reset();
+},resize(){m3render();}};
+function m3reset(){Object.assign(M3,{w:0,b:0,moves:0,Lh:[],Mh:[],mw:0,mb:0,t:0,m:[0,0],v:[0,0],done:false,hintUsed:$('#dlM3hint').checked});
+  $('#dlM3w').value=0;$('#dlM3b').value=0;$('#dlM3txt').textContent='ولوم‌ها را بچرخان، وقتی راضی بودی «ثبت» را بزن.';m3render();}
+function m3mstep(){
+  const lv=$('#dlM3lvl').value,g=grad(TASK,M3.mw,M3.mb),G=[g.dw,g.db],P=[M3.mw,M3.mb];M3.t++;
+  for(let i=0;i<2;i++){
+    if(lv==='adam'){M3.m[i]=0.9*M3.m[i]+0.1*G[i];M3.v[i]=0.999*M3.v[i]+0.001*G[i]*G[i];P[i]-=0.3*(M3.m[i]/(1-Math.pow(0.9,M3.t)))/(Math.sqrt(M3.v[i]/(1-Math.pow(0.999,M3.t)))+1e-8);}
+    else P[i]-=(lv==='slow'?0.03:0.12)*G[i];
+  }
+  M3.mw=P[0];M3.mb=P[1];
+}
+function m3commit(){
+  if(M3.done){toast('این مسابقه تمام شده — «مسابقه‌ی تازه» را بزن');return;}
+  M3.moves++;M3.Lh.push(mse(TASK,M3.w,M3.b));m3mstep();M3.Mh.push(mse(TASK,M3.mw,M3.mb));
+  const tg=TASK.best+0.05;
+  if(M3.Lh[M3.Lh.length-1]<=tg||M3.Mh[M3.Mh.length-1]<=tg||M3.moves>=M3.budget)m3finish();else m3render();
+}
+function m3finish(){
+  M3.done=true;const a=M3.Lh[M3.Lh.length-1],c=M3.Mh[M3.Mh.length-1],tg=TASK.best+0.05,la=a<=tg,ma=c<=tg;
+  let res;if(la&&ma)res='draw';else if(la)res='win';else if(ma)res='lose';else res=a<=c?'win':'lose';
+  const assisted=M3.hintUsed;
+  if(res!=='draw'){D.race[res==='win'?'w':'l']++;dsave();}
+  const tgt='هدف: خطا ≤ '+NF(tg,3)+' (کفِ ممکن + ۰٫۰۵). ';
+  $('#dlM3txt').innerHTML=tgt+(res==='win'?'<b>تو بردی!</b> خطای تو '+NF(a,3)+' در برابر '+NF(c,3)+' برای ماشین در ثبتِ '+fa(M3.moves)+'. دیدِ کلی‌ات از یک شیبِ محلی سریع‌تر بود.'+(assisted?' (با راهنما — در مأموریت حساب نمی‌شود.)':''):res==='draw'?'<b>مساوی:</b> هر دو در همین ثبت به هدف رسیدید.':'<b>ماشین برد:</b> '+NF(c,3)+' در برابر '+NF(a,3)+'. ماشین خسته نمی‌شود و هر قدمش دقیق است؛ تو دیدِ کلی داری — این دو مکمل‌اند.');
+  ledger();
+  if(res==='win'&&!assisted)markDone(3,'✓ مأموریت ۳ کامل شد — از ماشین جلو زدی');
+  mission('dlM3miss',!!D.mods[3],D.mods[3]?'✓ انجام شد':'هنوز نه — '+(res==='win'&&assisted?'با راهنما بردی؛ بدون راهنما تکرار کن.':'دوباره امتحان کن.'));
+  m3render();
+}
+function m3render(){
+  const blind=$('#dlM3blindc').checked,t=TASK;
+  const fit=$('#dlM3fit'),bl=$('#dlM3blind');fit.style.display=blind?'none':'block';bl.style.display=blind?'flex':'none';
+  if(!blind)drawFit(fit,t,{lines:[{w:M3.mw,b:M3.mb,c:'#22D3EE',lw:2},{w:M3.w,b:M3.b,c:'#D4AF37'}],best:M3.done,h:240});
+  drawSeries($('#dlM3loss'),[{v:M3.Lh,c:'#D4AF37'},{v:M3.Mh,c:'#22D3EE'}],{h:130});
+  $('#dlM3wv').textContent=fdec(M3.w,1);$('#dlM3bv').textContent=fdec(M3.b,1);
+  $('#dlM3my').textContent=NF(mse(t,M3.w,M3.b),3);
+  $('#dlM3mc').textContent=M3.Mh.length?NF(M3.Mh[M3.Mh.length-1],3):NF(mse(t,0,0),3);
+  $('#dlM3mv').textContent=fa(M3.moves)+' از '+fa(M3.budget);
+  const g=grad(t,M3.w,M3.b);
+  $('#dlM3hn').textContent=$('#dlM3hint').checked?'راهنما: برای کم‌شدن خطا، w را '+(g.dw>0?'کمتر':'بیشتر')+' و b را '+(g.db>0?'کمتر':'بیشتر')+' کن.':'';
+}
+
+/* ================= M4: DNet ================= */
+const ACT={
+  tanh:{f:z=>Math.tanh(z),d:(z,h)=>1-h*h},
+  relu:{f:z=>z>0?z:0.02*z,d:(z,h)=>z>0?1:0.02},
+  sigmoid:{f:z=>1/(1+Math.exp(-z)),d:(z,h)=>h*(1-h)}
+};
+class DNet{
+  constructor(H,act){this.H=H;this.act=act;this.init();}
+  init(){const H=this.H,r=()=>Math.random()*2-1,s=H>0?1.4:0.6;
+    if(H>0){this.W1=Array.from({length:H},()=>[r()*s,r()*s]);this.b1=Array.from({length:H},()=>r()*0.3);this.W2=Array.from({length:H},()=>r()*s);}
+    else this.W2=[r()*s,r()*s];
+    this.b2=0;}
+  fwd(x){
+    const A=ACT[this.act],H=this.H;let z1=null,h=null,feat=x;
+    if(H>0){z1=this.W1.map((w,j)=>w[0]*x[0]+w[1]*x[1]+this.b1[j]);h=z1.map(A.f);feat=h;}
+    let z2=this.b2;for(let j=0;j<feat.length;j++)z2+=this.W2[j]*feat[j];
+    return{z1,h,z2,o:1/(1+Math.exp(-z2))};
+  }
+  grad(S){
+    const A=ACT[this.act],H=this.H,n=S.length;
+    const g={W1:H>0?this.W1.map(()=>[0,0]):null,b1:H>0?this.b1.map(()=>0):null,W2:this.W2.map(()=>0),b2:0,loss:0};
+    for(const s of S){
+      const f=this.fwd(s.x),o=Math.min(Math.max(f.o,1e-9),1-1e-9);
+      g.loss+=-(s.y*Math.log(o)+(1-s.y)*Math.log(1-o));
+      const d2=(f.o-s.y)/n;g.b2+=d2;
+      if(H>0){for(let j=0;j<H;j++){g.W2[j]+=d2*f.h[j];const dz=d2*this.W2[j]*A.d(f.z1[j],f.h[j]);g.W1[j][0]+=dz*s.x[0];g.W1[j][1]+=dz*s.x[1];g.b1[j]+=dz;}}
+      else{g.W2[0]+=d2*s.x[0];g.W2[1]+=d2*s.x[1];}
+    }
+    g.loss/=n;return g;
+  }
+  apply(g,lr){
+    if(this.H>0)for(let j=0;j<this.H;j++){this.W1[j][0]-=lr*g.W1[j][0];this.W1[j][1]-=lr*g.W1[j][1];this.b1[j]-=lr*g.b1[j];}
+    for(let j=0;j<this.W2.length;j++)this.W2[j]-=lr*g.W2[j];this.b2-=lr*g.b2;
+  }
+}
+const SAMP=[[0,0],[0,1],[1,0],[1,1]],TASKS4={and:[0,0,0,1],or:[0,1,1,1],xor:[0,1,1,0]};
+const M4={task:'xor',H:3,act:'tanh',lr:0.8,ph:-1,sel:3,net:null,g:null,ep:0,hist:[],auto:false,raf:0};
+const m4S=()=>SAMP.map((x,i)=>({x,y:TASKS4[M4.task][i]}));
+MOD[4]={init(){
+  $$('#dlM4task .tab').forEach(b=>b.addEventListener('click',()=>{M4.task=b.dataset.t;sel('#dlM4task',b);m4new();}));
+  $$('#dlM4h .tab').forEach(b=>b.addEventListener('click',()=>{M4.H=+b.dataset.h;sel('#dlM4h',b);m4new();}));
+  $$('#dlM4act .tab').forEach(b=>b.addEventListener('click',()=>{M4.act=b.dataset.a;sel('#dlM4act',b);m4new();}));
+  $$('#dlM4samp .tab').forEach(b=>b.addEventListener('click',()=>{M4.sel=+b.dataset.i;sel('#dlM4samp',b);m4render();}));
+  $('#dlM4lr').addEventListener('input',e=>{M4.lr=+e.target.value;$('#dlM4lrv').textContent=fdec(M4.lr,2);});
+  $('#dlM4next').addEventListener('click',()=>{m4stop();m4next();});
+  $('#dlM4x100').addEventListener('click',()=>{m4stop();for(let i=0;i<100;i++)m4epoch();M4.ph=-1;m4render();m4check();});
+  $('#dlM4auto').addEventListener('click',()=>M4.auto?m4stop():m4start());
+  $('#dlM4reset').addEventListener('click',()=>{m4stop();m4new();});
+  M4.sel=3;$$('#dlM4samp .tab').forEach((b,i)=>b.classList.toggle('sel',i===3));
+  m4new();
+},resize(){m4render();}};
+function sel(c,b){$$(c+' .tab').forEach(x=>x.classList.toggle('sel',x===b));}
+function m4new(){m4stop();M4.net=new DNet(M4.H,M4.act);M4.ep=0;M4.ph=-1;M4.g=null;M4.hist=[M4.net.grad(m4S()).loss];m4render();}
+function m4epoch(){const g=M4.net.grad(m4S());M4.net.apply(g,M4.lr);M4.ep++;M4.hist.push(M4.net.grad(m4S()).loss);if(M4.hist.length>800)M4.hist.splice(1,1);}
+function m4next(){
+  if(M4.ph===3)M4.ph=0;else M4.ph++;
+  if(M4.ph===2)M4.g=M4.net.grad(m4S());
+  if(M4.ph===3){m4epoch();}
+  m4render();if(M4.ph===3)m4check();
+}
+function m4start(){M4.auto=true;$('#dlM4auto').textContent='توقف';let n=0;(function loop(){if(!M4.auto)return;for(let i=0;i<15;i++)m4epoch();M4.ph=-1;m4render();const st=m4stats();n++;if((st.ok===4&&st.loss<0.08)||M4.ep>6000){m4stop();m4check();return;}M4.raf=requestAnimationFrame(loop);})();}
+function m4stop(){M4.auto=false;cancelAnimationFrame(M4.raf);const a=$('#dlM4auto');if(a)a.textContent='اجرای خودکار';}
+function m4stats(){const S=m4S();let ok=0;for(const s of S){const o=M4.net.fwd(s.x).o;if((o>0.5)===(s.y===1))ok++;}return{ok,loss:M4.net.grad(S).loss};}
+function m4check(){
+  const st=m4stats();
+  if(M4.task==='xor'&&M4.H>=2&&st.ok===4&&st.loss<0.3)markDone(4,'✓ مأموریت ۴ کامل شد — لایه‌ی پنهان XOR را حل کرد');
+  mission('dlM4miss',!!D.mods[4],D.mods[4]?'✓ انجام شد':'هنوز نه — XOR + دست‌کم ۲ پنهان + هر چهار درست.');
+}
+function m4svg(){
+  const n=M4.net,H=n.H,x=SAMP[M4.sel],ph=M4.ph,fw=ph>=0?n.fwd(x):null,y=TASKS4[M4.task][M4.sel];
+  const IN=[{x:46,y:70},{x:46,y:160}],OUT={x:316,y:115},HID=[];
+  for(let j=0;j<H;j++)HID.push({x:181,y:H===1?115:115+(j-(H-1)/2)*(H>2?62:80)});
+  const E=[];
+  if(H>0){for(let j=0;j<H;j++){for(let k=0;k<2;k++)E.push({a:IN[k],b:HID[j],w:n.W1[j][k],g:M4.g?M4.g.W1[j][k]:null});E.push({a:HID[j],b:OUT,w:n.W2[j],g:M4.g?M4.g.W2[j]:null});}}
+  else for(let k=0;k<2;k++)E.push({a:IN[k],b:OUT,w:n.W2[k],g:M4.g?M4.g.W2[k]:null});
+  let s='';
+  const showG=ph===2;
+  for(const e of E){
+    const col=showG?'#22D3EE':(e.w>=0?'#D4AF37':'#F87171'),mag=showG?Math.min(1,Math.abs(e.g)*6):Math.min(1,Math.abs(e.w)/2.5);
+    s+='<line x1="'+e.a.x+'" y1="'+e.a.y+'" x2="'+e.b.x+'" y2="'+e.b.y+'" stroke="'+col+'" stroke-opacity="'+(0.25+0.7*mag).toFixed(2)+'" stroke-width="'+(1+3*mag).toFixed(1)+'"/>';
+    const t=0.62,lx=e.a.x+(e.b.x-e.a.x)*t,ly=e.a.y+(e.b.y-e.a.y)*t,val=showG?e.g:e.w;
+    s+='<rect x="'+(lx-15)+'" y="'+(ly-8)+'" width="30" height="14" rx="4" fill="#0B0D13" fill-opacity=".85"/><text x="'+lx+'" y="'+(ly+3)+'" font-size="9" text-anchor="middle" fill="'+(showG?'#22D3EE':'#F3EFE4')+'">'+LT(val,2)+'</text>';
+  }
+  const node=(p,lab,fill,sub)=>'<circle cx="'+p.x+'" cy="'+p.y+'" r="17" fill="#07080C" stroke="#D4AF37" stroke-width="1.4"/><circle cx="'+p.x+'" cy="'+p.y+'" r="17" fill="#D4AF37" fill-opacity="'+fill+'"/><text x="'+p.x+'" y="'+(p.y+4)+'" font-size="11" font-weight="700" text-anchor="middle">'+lab+'</text>'+(sub?'<text x="'+p.x+'" y="'+(p.y+31)+'" font-size="8.5" text-anchor="middle" fill="#9AA3B2">'+sub+'</text>':'');
+  IN.forEach((p,k)=>{s+=node(p,x[k],0.15,'x'+(k+1));});
+  HID.forEach((p,j)=>{s+=node(p,fw?LT(fw.h[j],2):'h'+(j+1),fw?Math.min(0.8,Math.abs(fw.h[j])*0.7):0.05,'b='+LT(n.b1[j],1));});
+  s+=node(OUT,fw?LT(fw.o,2):'o',fw?fw.o*0.8:0.05,'b='+LT(n.b2,1)+' · y='+y);
+  return s;
+}
+function m4render(){
+  const n=M4.net,ph=M4.ph;
+  $('#dlM4svg').innerHTML=m4svg();stepsUI($('#dlM4steps'),ph);
+  const S=m4S(),st=m4stats(),x=SAMP[M4.sel],y=S[M4.sel].y,f=n.fwd(x),o=f.o;
+  $('#dlM4ep').textContent=fa(M4.ep);$('#dlM4l').textContent=NF(st.loss,3);$('#dlM4acc').textContent=fa(st.ok);
+  // map
+  const cv=$('#dlM4map'),W=Math.max(120,cv.clientWidth||160);const c=fit2(cv,W),g=c.g,G=22,cell=W/G;
+  g.fillStyle='#0B0D13';g.fillRect(0,0,W,W);
+  for(let iy=0;iy<G;iy++)for(let ix=0;ix<G;ix++){const p=n.fwd([(ix+.5)/G,1-(iy+.5)/G]).o,a=Math.abs(2*p-1)*0.55;g.fillStyle=p>0.5?'rgba(248,113,113,'+a+')':'rgba(96,165,250,'+a+')';g.fillRect(ix*cell,iy*cell,cell+.5,cell+.5);}
+  S.forEach((s,i)=>{g.beginPath();g.arc(8+s.x[0]*(W-16),8+(1-s.x[1])*(W-16),i===M4.sel?7:5,0,7);g.fillStyle=s.y?'#F87171':'#60A5FA';g.fill();g.strokeStyle=i===M4.sel?'#fff':'rgba(7,8,12,.7)';g.lineWidth=i===M4.sel?2:1;g.stroke();});
+  const lc=$('#dlM4loss');drawSeries(lc,[{v:M4.hist,c:'#22D3EE'}],{h:Math.max(120,Math.round(W))});
+  let tx,mt;const sl=-(y*Math.log(Math.max(o,1e-9))+(1-y)*Math.log(Math.max(1-o,1e-9)));
+  const nm='ورودی ('+fa(x[0])+'، '+fa(x[1])+')';
+  if(ph<0)tx='هنوز گامی برنداشته‌ایم. وزن‌ها تصادفی‌اند. «گام بعدی» را بزن تا یک دورِ کامل را مرحله‌به‌مرحله ببینی، یا «۱۰۰ دور» را بزن.';
+  else if(ph===0)tx='<b>① پیشروی:</b> '+nm+' از چپ به راست می‌رود. هر نورون، جمعِ وزن‌دارِ ورودی‌ها + بایاس را می‌گیرد و از تابعِ «'+M4.act+'» می‌گذراند. خروجی: <b>'+NF(o,3)+'</b>.';
+  else if(ph===1)tx='<b>② خطا:</b> خروجی '+NF(o,3)+' است ولی جوابِ درست '+fa(y)+' بود؛ خطای همین نمونه '+NF(sl,3)+'. خطای کلِ شبکه (میانگینِ هر ۴ ورودی): <b>'+NF(st.loss,3)+'</b>.';
+  else if(ph===2)tx='<b>③ پس‌انتشار:</b> خطا از راست به چپ برمی‌گردد و به هر سیم می‌گوید «چقدر مقصر بودی». اعدادِ آبی روی سیم‌ها، شیبِ میانگینِ چهار نمونه‌اند؛ سیمِ ضخیم‌تر = مقصرتر.';
+  else tx='<b>④ به‌روزرسانی:</b> هر وزن در خلافِ شیبش، به‌اندازه‌ی η×شیب جابه‌جا شد؛ یک دور (epoch) تمام شد. وزن‌های تازه را روی سیم‌ها ببین.';
+  mt=ph===0?'z = Σ wᵢ·xᵢ + b ;  h = '+M4.act+'(z) ;  o = σ(Σ w·h + b)':ph===1?'L = −[ y·ln(o) + (1−y)·ln(1−o) ]  (میانگین روی ۴ نمونه)':ph===2?'δ_out = o − y\nδ_hidden = (w_out·δ_out) · act′(z)\n∂L/∂w = δ · (ورودیِ آن سیم)':ph===3?'w ← w − η · ∂L/∂w   (η='+LT(M4.lr,2)+')':'';
+  $('#dlM4txt').innerHTML=tx;$('#dlM4math').textContent=mt;
+  let note='';
+  if(M4.task==='xor'&&M4.H===0&&M4.ep>=300)note='دیدی؟ یک نورونِ تنها فقط می‌تواند یک خط بکشد، و XOR با یک خط جدا نمی‌شود. <b>لایه‌ی پنهان</b> یعنی چند خط + ترکیبشان.';
+  else if(st.ok===4&&st.loss<0.3&&M4.ep>0)note='✓ هر چهار ورودی درست است.';
+  else if(M4.ep>=1500&&st.ok<4&&M4.H>0)note='گیر کرده؟ این هم یک درس است: شروعِ بد. «وزن‌های تازه» را بزن یا η را عوض کن.';
+  $('#dlM4note').innerHTML=note;
+}
+
+/* ================= M5: Reg1 ================= */
+class Reg1{
+  constructor(H){this.H=H;const r=()=>Math.random()*2-1;
+    this.P=[new Float64Array(H).map(()=>r()*1.5),new Float64Array(H).map(()=>r()*0.5),new Float64Array(H).map(()=>r()*0.8),new Float64Array(1)];
+    this.M=this.P.map(p=>new Float64Array(p.length));this.V=this.P.map(p=>new Float64Array(p.length));this.t=0;}
+  out(x){const[W1,b1,W2,b2]=this.P;let o=b2[0];for(let j=0;j<this.H;j++)o+=W2[j]*Math.tanh(W1[j]*x+b1[j]);return o;}
+  loss(xs,ys){let s=0;for(let i=0;i<xs.length;i++){const e=this.out(xs[i])-ys[i];s+=e*e;}return s/xs.length;}
+  grad(xs,ys,l2){
+    const H=this.H,[W1,b1,W2]=this.P,G=this.P.map(p=>new Float64Array(p.length)),n=xs.length;
+    for(let i=0;i<n;i++){
+      const x=xs[i];let o=this.P[3][0];const h=new Float64Array(H);
+      for(let j=0;j<H;j++){h[j]=Math.tanh(W1[j]*x+b1[j]);o+=W2[j]*h[j];}
+      const dO=2*(o-ys[i])/n;G[3][0]+=dO;
+      for(let j=0;j<H;j++){G[2][j]+=dO*h[j];const dh=dO*W2[j]*(1-h[j]*h[j]);G[0][j]+=dh*x;G[1][j]+=dh;}
+    }
+    for(let j=0;j<H;j++){G[0][j]+=2*l2*W1[j];G[2][j]+=2*l2*W2[j];}
+    return G;
+  }
+  adam(G,lr){this.t++;for(let k=0;k<4;k++){const p=this.P[k],m=this.M[k],v=this.V[k];for(let i=0;i<p.length;i++){m[i]=0.9*m[i]+0.1*G[k][i];v[i]=0.999*v[i]+0.001*G[k][i]*G[k][i];p[i]-=lr*(m[i]/(1-Math.pow(0.9,this.t)))/(Math.sqrt(v[i]/(1-Math.pow(0.999,this.t)))+1e-8);}}}
+  snap(){return this.P.map(p=>Float64Array.from(p));}
+  restore(s){this.P=s.map(p=>Float64Array.from(p));}
+}
+const M5={seed:1,H:24,l2:0,net:null,xtr:[],ytr:[],xva:[],yva:[],xs:[],ys:[],tr:[],va:[],best:null,run:false,raf:0,maxVa:0,sawOver:false};
+const f5=x=>Math.sin(1.7*x)+0.25*x;
+MOD[5]={init(){
+  $('#dlM5h').addEventListener('input',e=>{M5.H=+e.target.value;$('#dlM5hv').textContent=fa(M5.H);m5stop();m5net();});
+  $('#dlM5l2').addEventListener('input',e=>{M5.l2=+e.target.value;$('#dlM5l2v').textContent=fdec(M5.l2,3);});
+  $('#dlM5run').addEventListener('click',()=>M5.run?m5stop():m5start());
+  $('#dlM5best').addEventListener('click',()=>{if(!M5.best){toast('هنوز آموزشی نبوده');return;}m5stop();M5.net.restore(M5.best.snap);m5render();m5check();toast('به بهترین قدم برگشتیم — دورِ '+fa(M5.best.ep));});
+  $('#dlM5reset').addEventListener('click',()=>{m5stop();m5net();});
+  $('#dlM5new').addEventListener('click',()=>{m5stop();M5.seed++;m5data();m5net();});
+  m5data();m5net();
+},resize(){m5render();}};
+function m5data(){
+  const r=rng(M5.seed*104729+7),xs=[],ys=[];
+  for(let i=0;i<14;i++){const x=-2+4*(i+0.2+r()*0.6)/14;xs.push(x);ys.push(f5(x)+gaussR(r)*0.3);}
+  M5.xtr=[];M5.ytr=[];M5.xva=[];M5.yva=[];
+  xs.forEach((x,i)=>{if(i%3===1){M5.xva.push(x);M5.yva.push(ys[i]);}else{M5.xtr.push(x);M5.ytr.push(ys[i]);}});
+}
+function m5net(){M5.net=new Reg1(M5.H);M5.tr=[M5.net.loss(M5.xtr,M5.ytr)];M5.va=[M5.net.loss(M5.xva,M5.yva)];M5.best={va:M5.va[0],ep:0,snap:M5.net.snap()};M5.maxVa=M5.va[0];M5.sawOver=false;M5.over=false;$('#dlM5txt').textContent='«آموزش» را بزن و هم‌زمان دو نمودار را نگاه کن.';m5render();}
+function m5start(){M5.run=true;$('#dlM5run').textContent='توقف';(function loop(){if(!M5.run)return;for(let i=0;i<10;i++)m5epoch();m5render();m5check();if(M5.tr.length>4000)m5stop();else M5.raf=requestAnimationFrame(loop);})();}
+function m5stop(){M5.run=false;cancelAnimationFrame(M5.raf);const b=$('#dlM5run');if(b)b.textContent='آموزش';}
+function m5epoch(){
+  const G=M5.net.grad(M5.xtr,M5.ytr,M5.l2);M5.net.adam(G,0.02);
+  const a=M5.net.loss(M5.xtr,M5.ytr),v=M5.net.loss(M5.xva,M5.yva);M5.tr.push(a);M5.va.push(v);
+  if(v<M5.best.va)M5.best={va:v,ep:M5.tr.length-1,snap:M5.net.snap()};
+  if(v>M5.maxVa)M5.maxVa=v;
+}
+function m5check(){
+  const ep=M5.tr.length-1,a=M5.tr[ep],v=M5.va[ep];
+  if(ep>=150&&v>=1.8*a&&!M5.sawOver){M5.sawOver=true;M5.maxVa=v;toast('بیش‌برازش را دیدی: خطای امتحان '+fa(Math.round(v/a))+' برابرِ آموزش است');}
+  if(M5.sawOver&&v>M5.maxVa)M5.maxVa=v;
+  const ok=M5.sawOver&&v<=0.75*M5.maxVa;
+  mission('dlM5miss',ok||!!D.mods[5],ok||D.mods[5]?'✓ هر دو مرحله انجام شد':(M5.sawOver?'مرحله‌ی الف انجام شد؛ حالا خطای امتحان (اکنون '+NF(v,3)+') را به زیر '+NF(0.75*M5.maxVa,3)+' برسان.':'هنوز مرحله‌ی الف: بگذار آموزش ادامه یابد.'));
+  if(ok)markDone(5,'✓ مأموریت ۵ کامل شد — حفظ‌کردن را از یادگرفتن جدا کردی');
+}
+function m5render(){
+  const net=M5.net,ep=M5.tr.length-1,a=M5.tr[ep],v=M5.va[ep];
+  const{g,W,H}=fit2($('#dlM5fit'),240),px=14,X=x=>px+(W-2*px)*(x+2.4)/4.8,Y=y=>H-px-(H-2*px)*(y+3)/6;
+  g.fillStyle='#0B0D13';g.fillRect(0,0,W,H);g.strokeStyle='rgba(255,255,255,.08)';g.beginPath();g.moveTo(X(0),0);g.lineTo(X(0),H);g.moveTo(0,Y(0));g.lineTo(W,Y(0));g.stroke();
+  g.strokeStyle='rgba(154,163,178,.5)';g.setLineDash([5,5]);g.beginPath();for(let i=0;i<=80;i++){const x=-2.4+4.8*i/80;i?g.lineTo(X(x),Y(f5(x))):g.moveTo(X(x),Y(f5(x)));}g.stroke();g.setLineDash([]);
+  g.strokeStyle='#22D3EE';g.lineWidth=2.2;g.beginPath();for(let i=0;i<=120;i++){const x=-2.4+4.8*i/120;i?g.lineTo(X(x),Y(clamp(net.out(x),-3.2,3.2))):g.moveTo(X(x),Y(clamp(net.out(x),-3.2,3.2)));}g.stroke();
+  M5.xtr.forEach((x,i)=>{g.beginPath();g.arc(X(x),Y(M5.ytr[i]),5,0,7);g.fillStyle='#60A5FA';g.fill();});
+  M5.xva.forEach((x,i)=>{g.beginPath();g.arc(X(x),Y(M5.yva[i]),5,0,7);g.strokeStyle='#F87171';g.lineWidth=2;g.stroke();});
+  drawSeries($('#dlM5loss'),[{v:M5.tr,c:'#60A5FA'},{v:M5.va,c:'#F87171'}],{h:140,mark:M5.best.ep>0?M5.best.ep:-1});
+  $('#dlM5ep').textContent=fnum(ep);$('#dlM5tr').textContent=NF(a,3);$('#dlM5va').textContent=NF(v,3);
+  if(ep>=150){
+    const over=v>=1.8*a;
+    $('#dlM5txt').innerHTML=over?'<b>بیش‌برازش:</b> خطای آموزش پایین است ('+NF(a,3)+') ولی روی نقاطِ ندیده '+NF(v,3)+'. شبکه نقاط را «حفظ» کرده و بینِ آن‌ها بی‌راه می‌رود. خطِ چین‌ِ خاکستری، منحنیِ واقعی است. بهترین قدم دورِ '+fa(M5.best.ep)+' بود (خطِ چینِ عمودی).':'خطای آموزش '+NF(a,3)+' و امتحان '+NF(v,3)+'؛ فاصله‌شان هنوز کم است — شبکه دارد «یاد می‌گیرد».';
+  }
+}
+
+/* ====== INIT ====== */
+function hashM(){const m=/^#m([1-5])$/.exec(location.hash);if(m){showM(m[1]);const el=$('#deep');if(el){el.classList.add('in');el.scrollIntoView();}}}
+setMode(!!D.deep);ledger();
+const deepEl=$('#deep');
+let started=false;function boot(){if(started)return;started=true;showM('1');}
+if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){boot();io.disconnect();}},{rootMargin:'300px'});io.observe(deepEl);}else boot();
+addEventListener('hashchange',hashM);if(/^#m[1-5]$/.test(location.hash)){boot();hashM();}
+let rzd;addEventListener('resize',()=>{clearTimeout(rzd);rzd=setTimeout(()=>{if(started){const m=MOD[curM];if(m&&m.ready)m.resize();}},220);});
+window.DLAB={makeTask,mse,grad,DNet,Reg1,M:{M1,M2,M3,M4,M5},TASKS4,SAMP,showM,get D(){return D;},boot};
+})();
+</script>
+</body>
+</html>
