@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>دفترچهٔ روزانه؛ برنامه‌ریز روزانه با تحلیل عادت، نمودار و مشاور | مستر پلنر</title>
+<script src="../gate/gate.js"></script>
+<meta name="description" content="دفترچهٔ روزانهٔ رایگان: چک‌لیست دسته‌بندی‌شده با اولویت و زمان، قالب روتین، پیشرفت وزنی، رکورد روزهای پیاپی، نقشهٔ حرارتی ماه‌های جلالی، ثبت حال و انرژی و خواب، و بینش‌های آماری دربارهٔ عادت‌های شما.">
+<meta name="keywords" content="دفترچه روزانه, برنامه ریزی روزانه, عادت, چک لیست, رکورد روزهای پیاپی, انرژی و خواب, مستر پلنر">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="icon" type="image/jpeg" href="assets/logo/logo.jpg">
+<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/daily-notebook.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ehssnrouhani.github.io/Mestrplanner/daily-notebook.html">
+<meta property="og:title" content="دفترچهٔ روزانه | مستر پلنر">
+<meta property="og:description" content="چک‌لیست روزانه با اولویت، قالب روتین، نقشهٔ حرارتی جلالی و بینش‌های آماری دربارهٔ عادت‌ها.">
+<meta property="og:image" content="https://ehssnrouhani.github.io/Mestrplanner/assets/og-image.jpg">
+<meta property="og:site_name" content="مستر پلنر">
+<meta property="og:locale" content="fa_IR">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"دفترچهٔ روزانه","url":"https://ehssnrouhani.github.io/Mestrplanner/daily-notebook.html","description":"دفترچهٔ روزانه با چک‌لیست اولویت‌دار، قالب روتین و تحلیل عادت‌ها","inLanguage":"fa-IR","applicationCategory":"LifestyleApplication","operatingSystem":"Web","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"IRR"},"author":{"@type":"Person","name":"احسان روحانی راوری"},"isPartOf":{"@type":"WebSite","name":"مستر پلنر","url":"https://ehssnrouhani.github.io/Mestrplanner/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"مستر پلنر","item":"https://ehssnrouhani.github.io/Mestrplanner/"},{"@type":"ListItem","position":2,"name":"دفترچهٔ روزانه","item":"https://ehssnrouhani.github.io/Mestrplanner/daily-notebook.html"}]}</script>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tool-kit.css">
+<style>
+.top{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
+@media(max-width:700px){.top{grid-template-columns:1fr}}
+.dayline{font-size:22px;font-weight:800}
+.ring{position:relative;width:104px;height:104px}.ring svg{width:104px;height:104px;transform:rotate(-90deg)}
+.ring .tx{position:absolute;inset:0;display:grid;place-items:center;text-align:center;line-height:1.2}
+.ring .tx b{font-size:21px;font-family:Consolas,monospace;color:var(--gold2)}.ring .tx span{font-size:10px;color:var(--muted)}
+.scale{display:flex;gap:4px}.scale button{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);font-size:16px;padding:0}
+.scale button.on{border-color:var(--gold);background:var(--gold-soft)}
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+.cat{background:var(--panel);border:1px solid var(--line);border-right:4px solid var(--cc);border-radius:var(--radius);padding:14px 16px}
+.cat header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.cat header h3{font-size:14px;flex:1}.cat header .cnt{font-family:Consolas,monospace;font-size:12px;color:var(--cc);font-weight:700}
+.mini{height:5px;border-radius:3px;background:var(--bg2);overflow:hidden;margin-bottom:8px}.mini>div{height:100%;background:var(--cc);transition:width .3s}
+.task{display:flex;align-items:center;gap:8px;padding:5px 2px;border-radius:8px}
+.task:hover{background:var(--gold-soft)}
+.task input[type=checkbox]{appearance:none;-webkit-appearance:none;width:20px;height:20px;border:2px solid var(--line2);border-radius:50%;position:relative;flex-shrink:0;cursor:pointer;transition:.15s}
+.task input[type=checkbox]:checked{background:var(--cc);border-color:var(--cc)}
+.task input[type=checkbox]:checked::after{content:'✓';position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:12px;font-weight:800}
+.task label{flex:1;cursor:pointer}.task input:checked+label{text-decoration:line-through;color:var(--muted)}
+.task .pri{border:0;background:none;padding:0 2px;font-size:13px;color:var(--line2);letter-spacing:-2px}.task .pri.p2{color:var(--warn)}.task .pri.p3{color:var(--bad)}
+.task .del{border:0;background:none;color:var(--muted);opacity:0;font-size:17px;padding:0 4px}.task:hover .del{opacity:.8}
+.min{font-size:11px;color:var(--muted);font-family:Consolas,monospace}
+.addrow{display:grid;grid-template-columns:1fr 66px 62px 32px;gap:5px;margin-top:6px}
+.addrow input,.addrow select{padding:5px 8px;font-size:12px;border-radius:8px}
+.addrow button{border:0;border-radius:8px;background:var(--cc);color:#fff;font-weight:800;font-size:17px}
+.focus{border-right:4px solid var(--bad)}
+.heat{display:flex;gap:4px;direction:rtl;overflow-x:auto;padding-bottom:6px}
+.hcol{display:grid;grid-template-rows:16px repeat(7,22px);gap:4px;min-width:22px}
+.hcol .ml{font-size:10px;color:var(--muted);white-space:nowrap;direction:rtl;height:16px;overflow:visible}
+.hc{border-radius:5px;background:var(--bg2);border:1px solid var(--line);cursor:pointer}
+.hc.future{opacity:.25;cursor:default}.hc.today{outline:2px solid var(--gold)}
+.wdays{display:grid;grid-template-rows:16px repeat(7,22px);gap:4px;font-size:10px;color:var(--muted)}
+.wdays span{line-height:22px}
+.bars{display:flex;gap:10px;align-items:flex-end;height:150px;padding-top:10px}
+.bars .b{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:11px;color:var(--muted)}
+.bars .b i{display:block;width:100%;max-width:46px;border-radius:7px 7px 0 0;background:linear-gradient(0deg,var(--gold),var(--gold2));min-height:2px}
+.tplrow{display:grid;grid-template-columns:1fr 78px 78px 32px;gap:6px;margin-bottom:6px}
+.tplrow input,.tplrow select{padding:5px 8px;border-radius:8px}
+
+.rf{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}.rf textarea{min-height:64px}
+.ai{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:11px 14px;margin-bottom:8px;cursor:pointer}.ai:hover{border-color:var(--gold)}
+.ai .m{display:flex;gap:10px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:4px}.ai p{margin:2px 0;font-size:13px;white-space:pre-wrap}
+.chs svg{display:block}.lg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:6px}.lg i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-left:5px;vertical-align:middle}
+#rep{display:none}
+@media print{body.prep>*:not(#rep){display:none!important}body.prep #rep{display:block;color:#111;background:#fff;padding:8px;font-family:Vazirmatn,Tahoma,sans-serif}body.prep{background:#fff!important}
+#rep h1{font-size:20px}#rep h2{font-size:15px;margin:16px 0 6px}#rep table{width:100%;border-collapse:collapse}#rep td,#rep th{border:1px solid #bbb;padding:3px 8px;font-size:12px;text-align:right}#rep li{font-size:12px;margin-bottom:3px}}
+</style>
+</head>
+<body>
+<div id="kit-header"></div>
+<div class="wrap">
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="today">امروز</button>
+    <button class="tab-btn" data-tab="week">هفته</button>
+    <button class="tab-btn" data-tab="trend">روند و نقشهٔ حرارتی</button>
+    <button class="tab-btn" data-tab="chart">نمودارها</button>
+    <button class="tab-btn" data-tab="insight">بینش‌ها</button>
+    <button class="tab-btn" data-tab="coach">مشاور</button>
+    <button class="tab-btn" data-tab="arch">بایگانی</button>
+    <button class="tab-btn" data-tab="tpl">قالب روتین</button>
+    <button class="tab-btn" data-tab="data">داده و تنظیمات</button>
+  </nav>
+
+  <section class="tab-panel active" id="tab-today">
+    <div class="hero"><div class="top">
+      <div>
+        <div class="muted" id="greet"></div>
+        <div class="dayline" id="dateTxt"></div>
+        <div class="row no-print" style="margin-top:10px"><button class="btn sm" id="prev">← روز قبل</button><button class="btn sm gold" id="todayBtn">امروز</button><button class="btn sm" id="next">روز بعد →</button>
+          <button class="btn sm ghost" id="carry" title="کارهای انجام‌نشدهٔ روز قبل را به این روز می‌آورد">انتقال کارهای نیمه‌تمام دیروز</button></div>
+      </div>
+      <div class="row" style="gap:18px;flex-wrap:nowrap">
+        <div class="kpi" style="--kc:var(--warn);text-align:center;padding:10px 16px"><div class="l">رکورد پیاپی</div><div class="v" id="streak">۰</div><div class="s" id="best"></div></div>
+        <div class="ring"><svg viewBox="0 0 110 110"><circle cx="55" cy="55" r="46" fill="none" stroke="var(--line)" stroke-width="9"/><circle id="ringF" cx="55" cy="55" r="46" fill="none" stroke="var(--gold2)" stroke-width="9" stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="289" style="transition:stroke-dashoffset .5s"/></svg><div class="tx"><div><b id="ringP">۰٪</b><br><span>پیشرفت وزنی</span></div></div></div>
+      </div>
+    </div></div>
+
+    <div class="grid g3" style="margin-bottom:16px">
+      <div class="card" style="margin:0"><h3 class="ct">حال امروز</h3><div class="scale" id="mood"></div></div>
+      <div class="card" style="margin:0"><h3 class="ct">سطح انرژی</h3><div class="scale" id="energy"></div></div>
+      <div class="card" style="margin:0"><h3 class="ct">خواب دیشب (ساعت)</h3><input type="number" id="sleep" min="0" max="16" step="0.5" placeholder="مثلاً ۷"></div>
+    </div>
+    <div id="coachMini"></div>
+    <div class="grid ga" id="stats" style="margin-bottom:16px"></div>
+    <div id="focus"></div>
+    <div class="cats" id="cats"></div>
+    <div class="card" style="margin-top:16px"><h2>یادداشت‌های امروز</h2><textarea id="notes" placeholder="افکار، ایده‌ها، چیزهایی که نباید فراموش شوند، یک جملهٔ مرور شب…"></textarea></div>
+    <div class="card" style="margin-top:16px"><h2>مرور شب</h2><p class="sub" id="rprompt"></p>
+      <div class="rf"><textarea data-ref="g" placeholder="سه چیزی که برایش سپاسگزارم"></textarea><textarea data-ref="w" placeholder="بزرگ‌ترین برد امروز"></textarea><textarea data-ref="l" placeholder="درسی که امروز گرفتم"></textarea><textarea data-ref="t" placeholder="مهم‌ترین کار فردا"></textarea></div>
+      <div class="row no-print" style="margin-top:10px"><button class="btn sm" id="cpSum">کپی خلاصهٔ امروز</button></div></div>
+  </section>
+
+  <section class="tab-panel" id="tab-week">
+    <div class="card"><h2>هفت روز اخیر</h2><p class="sub">ارتفاع ستون‌ها پیشرفت وزنی هر روز است. روزهای ثبت‌نشده خالی‌اند.</p><div class="bars" id="wbars"></div></div>
+    <div class="grid g2"><div class="card"><h2>خلاصه</h2><div id="wsum"></div></div><div class="card"><h2>تعادل دسته‌ها در این هفته</h2><div id="wcats"></div></div></div>
+  </section>
+
+  <section class="tab-panel" id="tab-trend">
+    <div class="card"><h2>نقشهٔ حرارتی ۱۶ هفتهٔ اخیر</h2><p class="sub">هر خانه یک روز است؛ پررنگ‌تر یعنی پیشرفت بیشتر. روی هر خانه بزنید تا همان روز باز شود. هفته‌ها از شنبه شروع می‌شوند.</p>
+      <div class="row" style="align-items:flex-start;flex-wrap:nowrap"><div class="wdays"><span></span><span>ش</span><span>ی</span><span>د</span><span>س</span><span>چ</span><span>پ</span><span>ج</span></div><div class="heat" id="heat"></div></div>
+      <div class="legend" style="margin-top:10px"><span>کم</span><span id="hleg" class="row" style="gap:3px"></span><span>زیاد</span></div></div>
+    <div class="grid ga" id="trendK"></div>
+  </section>
+
+  <section class="tab-panel" id="tab-chart"><div class="card"><div class="row" style="justify-content:space-between"><div><h2>نمودارهای تحلیلی</h2><p class="sub" style="margin:0">روی نقطه‌ها و ستون‌ها بمانید تا مقدار دقیق دیده شود.</p></div><select id="rng" style="width:auto"><option value="7">۷ روز اخیر</option><option value="30" selected>۳۰ روز اخیر</option><option value="90">۹۰ روز اخیر</option><option value="365">یک سال</option><option value="0">همهٔ دوره</option></select></div></div><div id="chartBox"></div></section>
+  <section class="tab-panel" id="tab-insight"><div id="ins"></div></section>
+  <section class="tab-panel" id="tab-coach"><div id="coachBox"></div></section>
+  <section class="tab-panel" id="tab-arch"><div class="card"><h2>بایگانی و جست‌وجو</h2><p class="sub">در یادداشت‌ها، مرور شب و عنوان کارها جست‌وجو کنید. روی هر روز بزنید تا باز شود.</p><div class="row"><input type="text" id="aq" placeholder="جست‌وجو…" style="flex:1;min-width:180px"><select id="am" style="width:auto"><option value="0">همهٔ حال‌ها</option><option value="1">😞</option><option value="2">😕</option><option value="3">😐</option><option value="4">🙂</option><option value="5">😄</option></select></div></div><div id="archBox"></div></section>
+
+  <section class="tab-panel" id="tab-tpl">
+    <div class="card"><h2>قالب روتین</h2><p class="sub">کارهایی که هر روز به‌طور خودکار در دفترچه می‌آیند. اولویت: ۱ عادی، ۲ مهم، ۳ حیاتی (در بخش «تمرکز امروز» می‌آید). زمان برحسب دقیقه است.</p>
+      <div id="tplBox"></div>
+      <div class="row" style="margin-top:10px"><button class="btn gold" id="tplApply">افزودن کارهای قالب که امروز ندارد</button><button class="btn ghost bad" id="tplReset">بازگشت به قالب پیش‌فرض</button></div></div>
+  </section>
+
+  <section class="tab-panel" id="tab-data">
+    <div class="grid g2">
+      <div class="card"><h2>تنظیمات</h2>
+        <div class="field"><label>آستانهٔ «روز موفق» برای رکورد پیاپی <em id="thrV"></em></label><input type="range" id="thr" min="20" max="100" step="5"><span class="hint">روزی که پیشرفت وزنی‌اش حداقل این مقدار باشد در رکورد پیاپی حساب می‌شود.</span></div></div>
+      <div class="card"><h2>پشتیبان‌گیری</h2><p class="sub">داده فقط در مرورگر همین دستگاه ذخیره می‌شود. برای انتقال یا نگهداری، پشتیبان بگیرید.</p>
+        <div class="row"><button class="btn gold" id="exJson">خروجی JSON</button><button class="btn" id="exCsv">خروجی CSV (اکسل)</button><button class="btn" id="imJson">بارگذاری JSON</button></div>
+        <hr style="border:0;border-top:1px solid var(--line);margin:14px 0">
+        <div class="row"><button class="btn ghost" id="sample">بارگذاری دادهٔ نمونه (۶۰ روز)</button><button class="btn ghost bad" id="wipe">پاک‌کردن همهٔ داده</button></div>
+        <p class="muted" style="margin-top:8px">دادهٔ نمونه فقط برای دیدن امکانات است و داده‌های فعلی شما را جایگزین می‌کند؛ پیش از آن پشتیبان بگیرید.</p></div>
+    </div>
+  </section>
+  <div class="card" style="margin-top:16px"><h2>خروجی‌های حرفه‌ای</h2><p class="sub">گزارش بازهٔ انتخابی را چاپ کنید (ذخیره به‌صورت PDF از پنجرهٔ چاپ) یا به قالب‌های دیگر بگیرید.</p>
+    <div class="row" style="margin-bottom:10px"><select id="rrng" style="width:auto"><option value="7">۷ روز اخیر</option><option value="30" selected>۳۰ روز اخیر</option><option value="90">۹۰ روز اخیر</option><option value="0">همهٔ دوره</option></select>
+    <button class="btn gold" id="prBtn">گزارش چاپی / PDF</button><button class="btn" id="exMd">گزارش Markdown</button><button class="btn" id="exDay">CSV خلاصهٔ روزانه (اکسل)</button><button class="btn" id="imMerge">ادغام JSON با دادهٔ فعلی</button></div>
+    <p class="muted" id="bkInfo"></p></div>
+  <div class="foot">طراحی و مدیریت: احسان روحانی راوری — مستر پلنر</div>
+</div>
+
+<div id="rep"></div>
+<script src="tool-kit.js"></script>
+<script>
+const { $, $$, fa, store, toast, esc, jal, iso, addDays, mean, pearson } = Kit;
+const KEY = 'daily-notebook-v2';
+const CATS = [
+  { id: 'meals', n: 'وعده غذایی', i: '🍎', c: '#f97316', d: ['صبحانه', 'ناهار', 'شام', 'میان‌وعدهٔ سالم', '۸ لیوان آب'] },
+  { id: 'admin', n: 'کارهای اداری', i: '📋', c: '#3b82f6', d: ['بررسی ایمیل', 'مرتب‌سازی فایل‌ها', 'پرداخت قبض'] },
+  { id: 'routine', n: 'نظم روتین', i: '🔄', c: '#14b8a6', d: ['مرتب کردن تخت', 'مسواک صبح', 'دوش', 'آماده کردن فردا'] },
+  { id: 'projects', n: 'پروژه‌های کوچک', i: '💡', c: '#a855f7', d: ['پروژهٔ اصلی', 'قدم کوچک امروز'] },
+  { id: 'others', n: 'مسئولیت در قبال دیگران', i: '🤝', c: '#ec4899', d: ['تماس با خانواده', 'کمک به یک دوست'] },
+  { id: 'income', n: 'کسب درآمد', i: '💰', c: '#10b981', d: ['بررسی سفارش', 'کار فریلنسری'] },
+  { id: 'sport', n: 'ورزش', i: '🏃', c: '#ef4444', d: ['پیاده‌روی', 'تمرین کشش', 'ورزش اصلی'] },
+  { id: 'study', n: 'رسیدگی به موارد درسی', i: '📚', c: '#6366f1', d: ['مرور درس', 'انجام تمرین', 'مطالعه'] }
+];
+const WD = ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه'];
+const wdi = d => (new Date(d).getDay() + 1) % 7; // شنبه = ۰
+const MOODS = ['😞', '😕', '😐', '🙂', '😄'], ENERG = ['🪫', '😴', '⚡', '🔋', '🚀'];
+const catOf = id => CATS.find(c => c.id === id);
+const mkTpl = () => Object.fromEntries(CATS.map(c => [c.id, c.d.map(t => ({ t, p: 2, e: 0 }))]));
+const rid = () => 't' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+
+let S = load(), cur = iso(new Date());
+function load() {
+  const v2 = store.get(KEY, null);
+  if (v2 && v2.days) { v2.tpl = v2.tpl || mkTpl(); v2.set = Object.assign({ thr: 50 }, v2.set); return v2; }
+  const s = { v: 2, tpl: mkTpl(), days: {}, set: { thr: 50 } };
+  const old = store.get('daily-notebook-v1', null); // مهاجرت از نسخهٔ قبل
+  if (old && old.days) Object.entries(old.days).forEach(([k, d]) => {
+    s.days[k] = { tasks: Object.entries(d.cats || {}).flatMap(([c, arr]) => arr.map(t => ({ id: t.id, c, t: t.text, d: t.done ? 1 : 0, p: 2, e: 0 }))), mood: 0, energy: 0, sleep: '', notes: d.notes || '', touched: 1 };
+  });
+  return s;
+}
+const save = () => store.set(KEY, S);
+function virtual() { return { tasks: CATS.flatMap(c => S.tpl[c.id].map((x, i) => ({ id: 'tpl-' + c.id + '-' + i, c: c.id, t: x.t, d: 0, p: x.p, e: x.e }))), mood: 0, energy: 0, sleep: '', notes: '', touched: 0 }; }
+const day = k => S.days[k] || virtual();
+function ensure(k) { if (!S.days[k]) S.days[k] = virtual(); S.days[k].touched = 1; return S.days[k]; }
+function stats(k) {
+  const d = S.days[k] || virtual(); let w = 0, wd = 0, n = 0, nd = 0, pm = 0, dm = 0;
+  d.tasks.forEach(t => { w += t.p; n++; pm += t.e || 0; if (t.d) { wd += t.p; nd++; dm += t.e || 0; } });
+  return { pct: w ? wd / w : 0, n, nd, pm, dm, touched: !!d.touched };
+}
+const ok = k => S.days[k] && S.days[k].touched && stats(k).pct * 100 >= S.set.thr;
+function streaks() {
+  let c = 0, d = new Date(); if (!ok(iso(d))) d = addDays(d, -1);
+  for (let g = 0; g < 900 && ok(iso(d)); g++) { c++; d = addDays(d, -1); }
+  const keys = Object.keys(S.days).filter(k => S.days[k].touched).sort(); let best = 0, run = 0;
+  if (keys.length) for (let x = new Date(keys[0] + 'T12:00:00'), end = new Date(keys[keys.length - 1] + 'T12:00:00'); x <= end; x = addDays(x, 1)) { if (ok(iso(x))) { run++; best = Math.max(best, run); } else run = 0; }
+  return { cur: c, best };
+}
+
+/* ---------- امروز ---------- */
+function renderToday() {
+  const d = day(cur), st = stats(cur), sk = streaks(), h = new Date().getHours(), isToday = cur === iso(new Date());
+  $('#greet').textContent = isToday ? (h < 5 ? 'شب بخیر 🌙' : h < 12 ? 'صبح بخیر ☀️' : h < 17 ? 'ظهر بخیر 🌤' : h < 20 ? 'عصر بخیر 🌇' : 'شب بخیر 🌙') : 'مرور روز';
+  $('#dateTxt').textContent = jal(cur + 'T12:00:00', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  $('#ringF').setAttribute('stroke-dashoffset', 289 * (1 - st.pct)); $('#ringP').textContent = fa(st.pct * 100) + '٪';
+  $('#streak').textContent = fa(sk.cur); $('#best').textContent = 'بهترین: ' + fa(sk.best) + ' روز';
+  $('#stats').innerHTML = [
+    ['انجام‌شده', fa(st.nd) + ' از ' + fa(st.n), 'کار', 'var(--ok)'],
+    ['زمان برنامه‌ریزی‌شده', fa(st.pm), 'دقیقه', 'var(--info)'],
+    ['زمان انجام‌شده', fa(st.dm), 'دقیقه', 'var(--gold2)'],
+    ['وضعیت روز', st.pct * 100 >= S.set.thr ? 'موفق ✓' : 'در جریان', 'آستانه ' + fa(S.set.thr) + '٪', st.pct * 100 >= S.set.thr ? 'var(--ok)' : 'var(--warn)']
+  ].map(k => `<div class="kpi" style="--kc:${k[3]}"><div class="l">${k[0]}</div><div class="v" style="font-size:22px">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');
+  $('#mood').innerHTML = MOODS.map((m, i) => `<button class="${d.mood === i + 1 ? 'on' : ''}" data-mood="${i + 1}">${m}</button>`).join('');
+  $('#energy').innerHTML = ENERG.map((m, i) => `<button class="${d.energy === i + 1 ? 'on' : ''}" data-energy="${i + 1}">${m}</button>`).join('');
+  if (document.activeElement !== $('#sleep')) $('#sleep').value = d.sleep;
+  if (document.activeElement !== $('#notes')) $('#notes').value = d.notes || '';
+
+  const foc = d.tasks.filter(t => t.p === 3);
+  $('#focus').innerHTML = foc.length ? `<div class="card focus"><h2>🎯 تمرکز امروز <span class="muted">(کارهای حیاتی)</span></h2>${foc.map(t => `<div class="task" style="--cc:var(--bad)"><input type="checkbox" data-tid="${t.id}" id="f${t.id}" ${t.d ? 'checked' : ''}><label for="f${t.id}">${esc(t.t)}</label><span class="chip">${esc(catOf(t.c).n)}</span></div>`).join('')}</div>` : '';
+
+  miniAndRef();
+  $('#cats').innerHTML = CATS.map(c => {
+    const ts = d.tasks.filter(t => t.c === c.id), dn = ts.filter(t => t.d).length, pc = ts.length ? dn / ts.length * 100 : 0;
+    return `<div class="cat" style="--cc:${c.c}"><header><span style="font-size:20px">${c.i}</span><h3>${c.n}</h3><span class="cnt">${fa(dn)}/${fa(ts.length)}</span></header><div class="mini"><div style="width:${pc}%"></div></div>
+    ${ts.map(t => `<div class="task"><input type="checkbox" data-tid="${t.id}" id="c${t.id}" ${t.d ? 'checked' : ''}><label for="c${t.id}">${esc(t.t)}</label>${t.e ? `<span class="min">${fa(t.e)}د</span>` : ''}<button class="pri p${t.p}" data-pri="${t.id}" title="اولویت (برای تغییر بزنید)">${'★'.repeat(t.p)}</button><button class="del" data-del="${t.id}" title="حذف">×</button></div>`).join('') || '<div class="muted" style="padding:6px">کاری نیست</div>'}
+    <div class="addrow"><input type="text" placeholder="+ کار جدید…" data-addt="${c.id}"><select data-addp="${c.id}" title="اولویت"><option value="1">★</option><option value="2" selected>★★</option><option value="3">★★★</option></select><input type="number" min="0" step="5" placeholder="دقیقه" data-adde="${c.id}"><button data-add="${c.id}">+</button></div></div>`;
+  }).join('');
+}
+function addTask(cid) {
+  const t = $(`[data-addt="${cid}"]`).value.trim(); if (!t) return;
+  const d = ensure(cur); d.tasks.push({ id: rid(), c: cid, t, d: 0, p: +$(`[data-addp="${cid}"]`).value, e: +$(`[data-adde="${cid}"]`).value || 0 });
+  save(); renderToday(); $(`[data-addt="${cid}"]`)?.focus();
+}
+document.addEventListener('click', e => {
+  const t = e.target;
+  if (t.dataset.mood) { const d = ensure(cur); d.mood = d.mood === +t.dataset.mood ? 0 : +t.dataset.mood; save(); renderToday(); }
+  else if (t.dataset.energy) { const d = ensure(cur); d.energy = d.energy === +t.dataset.energy ? 0 : +t.dataset.energy; save(); renderToday(); }
+  else if (t.dataset.pri) { const x = ensure(cur).tasks.find(z => z.id === t.dataset.pri); x.p = x.p % 3 + 1; save(); renderToday(); }
+  else if (t.dataset.del) { const d = ensure(cur); d.tasks = d.tasks.filter(z => z.id !== t.dataset.del); save(); renderToday(); }
+  else if (t.dataset.add) addTask(t.dataset.add);
+});
+document.addEventListener('change', e => {
+  const t = e.target;
+  if (t.dataset.tid) { const x = ensure(cur).tasks.find(z => z.id === t.dataset.tid); x.d = t.checked ? 1 : 0; save(); renderToday(); }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.dataset.addt) { e.preventDefault(); addTask(e.target.dataset.addt); } });
+let nt; $('#notes').addEventListener('input', e => { ensure(cur).notes = e.target.value; clearTimeout(nt); nt = setTimeout(save, 400); });
+$('#sleep').addEventListener('input', e => { ensure(cur).sleep = e.target.value; clearTimeout(nt); nt = setTimeout(save, 400); });
+const go = n => { cur = iso(addDays(cur + 'T12:00:00', n)); renderToday(); };
+$('#prev').onclick = () => go(-1); $('#next').onclick = () => go(1); $('#todayBtn').onclick = () => { cur = iso(new Date()); renderToday(); };
+$('#carry').onclick = () => {
+  const prev = iso(addDays(cur + 'T12:00:00', -1)), pd = S.days[prev]; if (!pd) { toast('برای روز قبل داده‌ای نیست'); return; }
+  const d = ensure(cur), un = pd.tasks.filter(t => !t.d && !d.tasks.some(x => x.t === t.t && x.c === t.c));
+  un.forEach(t => d.tasks.push({ id: rid(), c: t.c, t: t.t, d: 0, p: t.p, e: t.e })); save(); renderToday(); toast(un.length ? fa(un.length) + ' کار منتقل شد' : 'کار نیمه‌تمام جدیدی نبود');
+};
+
+/* ---------- هفته ---------- */
+function renderWeek() {
+  const days = Array.from({ length: 7 }, (_, i) => iso(addDays(new Date(), i - 6)));
+  $('#wbars').innerHTML = days.map(k => { const s = stats(k); return `<div class="b"><span class="num">${s.touched ? fa(s.pct * 100) + '٪' : ''}</span><i style="height:${s.touched ? s.pct * 100 : 0}%"></i><span>${WD[wdi(k + 'T12:00:00')]}</span></div>`; }).join('');
+  const tk = days.filter(k => S.days[k] && S.days[k].touched), ss = tk.map(k => stats(k));
+  const avg = a => a.length ? fa(mean(a), 1) : '—';
+  const bestK = tk.slice().sort((a, b) => stats(b).pct - stats(a).pct)[0];
+  $('#wsum').innerHTML = tk.length ? `<table class="t"><tr><td>روزهای ثبت‌شده</td><td class="num">${fa(tk.length)} از ۷</td></tr><tr><td>میانگین پیشرفت</td><td class="num">${fa(mean(ss.map(s => s.pct)) * 100)}٪</td></tr>
+    <tr><td>بهترین روز</td><td>${WD[wdi(bestK + 'T12:00:00')]} (${fa(stats(bestK).pct * 100)}٪)</td></tr><tr><td>زمان انجام‌شده</td><td class="num">${fa(ss.reduce((a, s) => a + s.dm, 0))} از ${fa(ss.reduce((a, s) => a + s.pm, 0))} دقیقه</td></tr>
+    <tr><td>میانگین حال</td><td class="num">${avg(tk.map(k => S.days[k].mood).filter(Boolean))} از ۵</td></tr><tr><td>میانگین انرژی</td><td class="num">${avg(tk.map(k => S.days[k].energy).filter(Boolean))} از ۵</td></tr>
+    <tr><td>میانگین خواب</td><td class="num">${avg(tk.map(k => +S.days[k].sleep).filter(Boolean))} ساعت</td></tr></table>` : '<p class="muted">در این هفته هنوز چیزی ثبت نشده. یک کار را تیک بزنید.</p>';
+  const rows = CATS.map(c => { let n = 0, dn = 0; tk.forEach(k => S.days[k].tasks.filter(t => t.c === c.id).forEach(t => { n++; if (t.d) dn++; })); return { c, n, p: n ? dn / n : null }; });
+  $('#wcats').innerHTML = rows.map(r => `<div style="margin-bottom:9px"><div class="row" style="justify-content:space-between"><span>${r.c.i} ${r.c.n}</span><span class="num muted">${r.p === null ? '—' : fa(r.p * 100) + '٪'}</span></div><div class="mini" style="--cc:${r.c.c};height:8px"><div style="width:${(r.p || 0) * 100}%"></div></div></div>`).join('');
+  const w = rows.filter(r => r.p !== null).sort((a, b) => a.p - b.p)[0];
+  if (w && w.n >= 4) $('#wcats').innerHTML += `<div class="note warn"><b>کم‌توجه‌ترین دسته</b>«${w.c.n}» این هفته فقط ${fa(w.p * 100)}٪ انجام شده است.</div>`;
+}
+
+/* ---------- روند ---------- */
+function renderTrend() {
+  const W = 16, today = new Date(), start = addDays(today, -wdi(today) - (W - 1) * 7), todayK = iso(today);
+  let html = '', lastM = '';
+  for (let w = 0; w < W; w++) {
+    const first = addDays(start, w * 7), m = jal(first, { month: 'long' }); let col = `<div class="hcol"><div class="ml">${m !== lastM ? m : ''}</div>`; lastM = m;
+    for (let r = 0; r < 7; r++) {
+      const dt = addDays(first, r), k = iso(dt), fut = k > todayK, s = S.days[k] && S.days[k].touched ? stats(k) : null;
+      const bg = s ? `background:color-mix(in srgb,var(--gold2) ${Math.round(12 + s.pct * 88)}%,var(--bg2))` : '';
+      col += `<div class="hc ${fut ? 'future' : ''} ${k === todayK ? 'today' : ''}" style="${bg}" data-hk="${fut ? '' : k}" title="${jal(dt, { month: 'long', day: 'numeric' })}${s ? ' — ' + fa(s.pct * 100) + '٪' : ''}"></div>`;
+    }
+    html += col + '</div>';
+  }
+  $('#heat').innerHTML = html;
+  $('#hleg').innerHTML = [0, .25, .5, .75, 1].map(p => `<i style="display:inline-block;width:16px;height:16px;border-radius:4px;background:color-mix(in srgb,var(--gold2) ${Math.round(12 + p * 88)}%,var(--bg2))"></i>`).join('');
+  const tk = Object.keys(S.days).filter(k => S.days[k].touched), ss = tk.map(stats), sk = streaks();
+  $('#trendK').innerHTML = [['روزهای ثبت‌شده', fa(tk.length), 'کل', 'var(--info)'], ['میانگین پیشرفت', tk.length ? fa(mean(ss.map(s => s.pct)) * 100) + '٪' : '—', 'همهٔ روزها', 'var(--gold2)'],
+    ['روزهای موفق', fa(tk.filter(ok).length), 'بالاتر از آستانه', 'var(--ok)'], ['رکورد پیاپی', fa(sk.cur), 'بهترین: ' + fa(sk.best), 'var(--warn)']]
+    .map(k => `<div class="kpi" style="--kc:${k[3]}"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');
+}
+$('#heat').addEventListener('click', e => { const k = e.target.dataset.hk; if (k) { cur = k; renderToday(); $('[data-tab=today]').click(); } });
+
+/* ---------- بینش‌ها ---------- */
+function renderInsight() {
+  const rows = Object.keys(S.days).filter(k => S.days[k].touched && S.days[k].tasks.length).sort().map(k => { const d = S.days[k]; return { k, d, s: stats(k), wd: wdi(k + 'T12:00:00') }; });
+  const box = $('#ins');
+  if (rows.length < 7) { box.innerHTML = `<div class="card"><h2>بینش‌ها هنوز آماده نیستند</h2><p class="sub">برای تحلیل آماری حداقل ۷ روز ثبت‌شده لازم است. تاکنون ${fa(rows.length)} روز دارید. حال، انرژی و خواب را هم ثبت کنید تا ارتباط‌ها پیدا شوند. می‌توانید در تب «داده و تنظیمات» دادهٔ نمونه را ببینید.</p></div>`; return; }
+  const lab = r => isNaN(r) ? 'نامشخص' : Math.abs(r) < .2 ? 'ناچیز' : Math.abs(r) < .5 ? 'متوسط' : 'قوی';
+  const pairs = [['انرژی', 'energy', r => r.d.energy], ['حال', 'mood', r => r.d.mood], ['خواب (ساعت)', 'sleep', r => +r.d.sleep || 0]].map(([n, , f]) => {
+    const rr = rows.filter(r => f(r) > 0); const x = rr.map(f), y = rr.map(r => r.s.pct), c = pearson(x, y); return { n, c, m: rr.length };
+  }).filter(p => p.m >= 7 && !isNaN(p.c));
+  let h = `<div class="note info"><b>خوانش درست</b>این‌ها همبستگی‌اند، نه علت و معلول. روز پرانرژی ممکن است چون کار بیشتری انجام شده انرژی بالا ثبت شده باشد. به‌عنوان سرنخ برای آزمایش به آن‌ها نگاه کنید.</div>`;
+  h += `<div class="card"><h2>پیشرفت روزانه در برابر حال، انرژی و خواب</h2>` + (pairs.length ? `<div class="table-wrap"><table class="t"><tr><th>عامل</th><th>ضریب همبستگی (r)</th><th>قدرت</th><th>روزها</th><th>برداشت</th></tr>` + pairs.map(p => `<tr><td>${p.n}</td><td class="num">${fa(p.c, 2)}</td><td>${lab(p.c)}</td><td class="num">${fa(p.m)}</td><td>${Math.abs(p.c) < .2 ? 'رابطهٔ روشنی دیده نمی‌شود' : p.c > 0 ? `هرچه ${p.n} بالاتر، پیشرفت بیشتر` : `هرچه ${p.n} بالاتر، پیشرفت کمتر`}</td></tr>`).join('') + '</table></div>' : '<p class="muted">حال، انرژی یا خواب را در دست‌کم ۷ روز ثبت کنید.</p>') + '</div>';
+  const byW = Array.from({ length: 7 }, (_, i) => { const rr = rows.filter(r => r.wd === i); return { i, n: rr.length, a: rr.length ? mean(rr.map(r => r.s.pct)) : null }; });
+  const okW = byW.filter(x => x.n >= 2);
+  h += `<div class="card"><h2>میانگین پیشرفت به تفکیک روز هفته</h2><div class="bars">${byW.map(x => `<div class="b"><span class="num">${x.a === null ? '' : fa(x.a * 100) + '٪'}</span><i style="height:${(x.a || 0) * 100}%;opacity:${x.n >= 2 ? 1 : .35}"></i><span>${WD[x.i]}</span><span style="font-size:10px">${fa(x.n)} روز</span></div>`).join('')}</div>`;
+  if (okW.length >= 3) { const b = okW.slice().sort((a, c) => c.a - a.a)[0], w = okW.slice().sort((a, c) => a.a - c.a)[0]; h += `<div class="note ok"><b>الگوی هفتگی</b>بهترین روز شما ${WD[b.i]} (${fa(b.a * 100)}٪) و ضعیف‌ترین ${WD[w.i]} (${fa(w.a * 100)}٪) است. کارهای سنگین را به روزهای قوی‌تر ببرید.</div>`; }
+  h += '</div>';
+  const eff = CATS.map(c => {
+    const hi = [], lo = []; rows.filter(r => r.d.energy > 0).forEach(r => { const ts = r.d.tasks.filter(t => t.c === c.id); if (!ts.length) return; (ts.filter(t => t.d).length / ts.length >= .5 ? hi : lo).push(r.d.energy); });
+    return { c, hi, lo, diff: mean(hi) - mean(lo) };
+  }).filter(x => x.hi.length >= 4 && x.lo.length >= 4);
+  if (eff.length) h += `<div class="card"><h2>دسته‌ها و انرژی همان روز</h2><p class="sub">میانگین انرژی در روزهایی که دست‌کم نیمی از کارهای یک دسته انجام شده، در برابر روزهای دیگر (فقط با ۴ روز یا بیشتر در هر گروه).</p><table class="t"><tr><th>دسته</th><th>روز انجام‌شده</th><th>روز انجام‌نشده</th><th>تفاوت</th></tr>${eff.sort((a, b) => b.diff - a.diff).map(x => `<tr><td>${x.c.i} ${x.c.n}</td><td class="num">${fa(mean(x.hi), 1)}</td><td class="num">${fa(mean(x.lo), 1)}</td><td class="num" style="color:${x.diff > 0 ? 'var(--ok)' : 'var(--bad)'}">${x.diff > 0 ? '+' : ''}${fa(x.diff, 1)}</td></tr>`).join('')}</table></div>`;
+  const hardest = CATS.map(c => { let n = 0, d = 0; rows.forEach(r => r.d.tasks.filter(t => t.c === c.id).forEach(t => { n++; if (t.d) d++; })); return { c, n, p: n ? d / n : null }; }).filter(x => x.n >= 10).sort((a, b) => a.p - b.p);
+  if (hardest.length) h += `<div class="card"><h2>دسته‌ای که بیشتر رها می‌شود</h2><div class="note warn"><b>«${hardest[0].c.n}» با ${fa(hardest[0].p * 100)}٪ انجام</b>پایین‌ترین نرخ را دارد. یا کارهایش را کوچک‌تر کنید یا زمان ثابتی برایش بگذارید.</div></div>`;
+  box.innerHTML = h;
+}
+
+/* ---------- قالب ---------- */
+function renderTpl() {
+  $('#tplBox').innerHTML = CATS.map(c => `<div style="margin-bottom:16px"><h3 style="margin-bottom:6px;color:${c.c}">${c.i} ${c.n}</h3>${S.tpl[c.id].map((x, i) => `<div class="tplrow"><input type="text" value="${esc(x.t)}" data-tc="${c.id}" data-ti="${i}" data-k="t"><select data-tc="${c.id}" data-ti="${i}" data-k="p">${[1, 2, 3].map(p => `<option value="${p}" ${x.p === p ? 'selected' : ''}>${'★'.repeat(p)}</option>`).join('')}</select><input type="number" min="0" step="5" value="${x.e || ''}" placeholder="دقیقه" data-tc="${c.id}" data-ti="${i}" data-k="e"><button class="btn sm ghost bad" data-tdel="${c.id}:${i}">×</button></div>`).join('')}<button class="btn sm" data-tadd="${c.id}">+ افزودن</button></div>`).join('');
+}
+$('#tplBox').addEventListener('input', e => { const t = e.target; if (!t.dataset.tc) return; const x = S.tpl[t.dataset.tc][+t.dataset.ti]; x[t.dataset.k] = t.dataset.k === 't' ? t.value : +t.value; save(); });
+$('#tplBox').addEventListener('click', e => { const t = e.target; if (t.dataset.tadd) { S.tpl[t.dataset.tadd].push({ t: 'کار جدید', p: 2, e: 0 }); save(); renderTpl(); } if (t.dataset.tdel) { const [c, i] = t.dataset.tdel.split(':'); S.tpl[c].splice(+i, 1); save(); renderTpl(); } });
+$('#tplApply').onclick = () => { const d = ensure(cur); let n = 0; CATS.forEach(c => S.tpl[c.id].forEach(x => { if (!d.tasks.some(t => t.c === c.id && t.t === x.t)) { d.tasks.push({ id: rid(), c: c.id, t: x.t, d: 0, p: x.p, e: x.e }); n++; } })); save(); renderToday(); toast(fa(n) + ' کار به این روز اضافه شد'); };
+$('#tplReset').onclick = () => { if (confirm('قالب به پیش‌فرض برگردد؟ کارهای روزهای گذشته تغییری نمی‌کنند.')) { S.tpl = mkTpl(); save(); renderTpl(); } };
+
+/* ---------- داده ---------- */
+$('#thr').value = S.set.thr; $('#thrV').textContent = fa(S.set.thr) + '٪';
+$('#thr').oninput = e => { S.set.thr = +e.target.value; $('#thrV').textContent = fa(S.set.thr) + '٪'; save(); renderAll(); };
+$('#exJson').onclick = () => { S.set.lastBackup = Date.now(); save(); $('#bkInfo').textContent = 'آخرین پشتیبان JSON: همین حالا'; Kit.download('daily-notebook-' + iso(new Date()) + '.json', JSON.stringify(S)); toast('پشتیبان ذخیره شد'); };
+$('#exCsv').onclick = () => {
+  const q = v => '"' + String(v).replace(/"/g, '""') + '"', rows = [['تاریخ میلادی', 'تاریخ جلالی', 'دسته', 'کار', 'انجام شد', 'اولویت', 'دقیقه', 'حال', 'انرژی', 'خواب']];
+  Object.keys(S.days).sort().forEach(k => { const d = S.days[k]; if (!d.touched) return; d.tasks.forEach(t => rows.push([k, jal(k + 'T12:00:00', { year: 'numeric', month: '2-digit', day: '2-digit' }), catOf(t.c)?.n || t.c, t.t, t.d ? 1 : 0, t.p, t.e || 0, d.mood || '', d.energy || '', d.sleep || ''])); });
+  Kit.download('daily-notebook.csv', '\ufeff' + rows.map(r => r.map(q).join(',')).join('\n'), 'text/csv'); toast('CSV ذخیره شد');
+};
+$('#imJson').onclick = () => Kit.pickFile('.json', txt => { try { const o = JSON.parse(txt); if (!o.days || typeof o.days !== 'object') throw 0; if (!confirm('دادهٔ فعلی با فایل جایگزین شود؟')) return; S = Object.assign({ tpl: mkTpl(), set: { thr: 50 } }, o); save(); renderAll(); renderTpl(); toast('بارگذاری شد'); } catch (e) { toast('فایل معتبر نیست'); } });
+$('#wipe').onclick = () => { if (confirm('همهٔ داده‌ها پاک شود؟ این کار برگشت‌پذیر نیست.')) { S = { v: 2, tpl: mkTpl(), days: {}, set: { thr: 50 } }; save(); renderAll(); renderTpl(); } };
+$('#sample').onclick = () => {
+  if (!confirm('دادهٔ فعلی با دادهٔ نمونه جایگزین شود؟')) return;
+  let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280; S.days = {};
+  for (let i = 59; i >= 0; i--) {
+    const k = iso(addDays(new Date(), -i)), d = virtual(), en = 1 + Math.floor(rnd() * 5), sl = Math.round((5 + rnd() * 4) * 2) / 2, wdx = wdi(k + 'T12:00:00');
+    const base = .35 + en * .08 + (sl - 6) * .05 + (wdx >= 5 ? -.12 : 0);
+    d.tasks.forEach(t => { const bonus = t.c === 'sport' ? .05 : 0; t.d = rnd() < Kit.clamp(base + bonus + (rnd() - .5) * .25, .05, .97) ? 1 : 0; });
+    d.energy = en; d.sleep = String(sl); d.mood = Kit.clamp(Math.round(en * .6 + rnd() * 2 + .5), 1, 5); d.touched = 1; S.days[k] = d;
+  }
+  save(); renderAll(); toast('دادهٔ نمونه بارگذاری شد');
+};
+
+/* ================= ارتقا: نمودار، مشاور، بایگانی، خروجی ================= */
+const SEV = { bad: 0, warn: 1, info: 2, ok: 3 };
+const TIPS = [
+  ['قانون دو دقیقه', 'کاری که کمتر از دو دقیقه طول می‌کشد را همان لحظه انجام دهید؛ ثبت و پیگیری‌اش گران‌تر از انجامش است.'],
+  ['قورباغه را اول بخورید', 'سخت‌ترین کار مهم را پیش از ایمیل و پیام‌ها انجام دهید؛ بقیهٔ روز سبک‌تر می‌شود.'],
+  ['قانون ۱-۳-۵', 'هر روز یک کار بزرگ، سه کار متوسط و پنج کار کوچک. بیشتر از این معمولاً برنامهٔ خیالی است.'],
+  ['پومودورو', '۲۵ دقیقه تمرکز، ۵ دقیقه استراحت؛ پس از چهار دور یک استراحت بلندتر.'],
+  ['ماتریس آیزنهاور', 'کارها را به «مهم» و «فوری» تقسیم کنید. بیشترین ارزش در کارهای مهمِ غیرفوری است؛ برایشان زمان ثابت بگذارید.'],
+  ['پیوند عادت', 'عادت جدید را به عادتی بچسبانید که همین حالا دارید: «بعد از چای صبح، ۵ دقیقه مرور».'],
+  ['نسخهٔ حداقلی', 'برای روزهای بد، نسخهٔ ۱۰ دقیقه‌ای هر عادت را تعریف کنید؛ زنجیره را نگه می‌دارد.'],
+  ['تخلیهٔ ذهن', 'هرچه در ذهن می‌چرخد را ۵ دقیقه روی کاغذ بریزید؛ ذهن خالی‌تر یعنی خواب بهتر.'],
+  ['طراحی محیط', 'شب قبل لباس ورزش یا کتاب را بیرون بگذارید تا شروع کار کم‌اصطکاک شود.'],
+  ['مرور هفتگی', 'آخر هر هفته ۱۵ دقیقه: چه شد، چه نشد، و سه اولویت هفتهٔ بعد.'],
+  ['هیچ‌وقت دو بار', 'یک روز ازدست‌رفته اتفاق است؛ دو روز پیاپی شروع یک عادت تازه (بد) است.'],
+  ['استراحت فعال', 'بین کارها چند دقیقه راه بروید یا کشش بدهید؛ حرکت کوتاه تمرکز را برمی‌گرداند.']
+];
+const PROMPTS = ['امروز چه چیزی سبب شد لبخند بزنم؟', 'اگر فقط یک کار را انجام می‌دادم، کدام بیشترین فرق را می‌ساخت؟', 'چه چیزی امروز انرژی‌ام را گرفت و چه چیزی داد؟', 'کدام تصمیم امروزم را دوباره می‌گرفتم؟', 'چه کسی را باید قدردانی کنم؟', 'چه چیزی را می‌توانم از فردا ساده‌تر کنم؟', 'چه مهارت کوچکی امروز کمی بهتر شد؟', 'اگر فردا هم مثل امروز باشد، راضی‌ام؟'];
+const CAT_TIPS = {
+  meals: 'وعده‌ها را به ساعت ثابت گره بزنید و غذای فردا را شب قبل آماده کنید.',
+  admin: 'کارهای اداری را در یک بلوک ۳۰ دقیقه‌ای ثابت جمع کنید، نه پراکنده در طول روز.',
+  routine: 'روتین را زنجیره‌وار کنید: هر کار نشانهٔ شروع کار بعدی باشد.',
+  projects: 'پروژه را به قدم‌های ۲۵ دقیقه‌ای بشکنید و قدم بعدی را شب قبل بنویسید.',
+  others: 'یک زمان ثابت هفتگی برای تماس‌ها و کمک به دیگران بگذارید تا فراموش نشوند.',
+  income: 'کار درآمدزا را در اوج انرژی انجام دهید و کارهای کم‌ارزش‌تر را به بعدازظهر ببرید.',
+  sport: 'مدت را کوتاه (۱۰ دقیقه) ولی تکرارپذیر نگه دارید؛ تداوم از شدت مهم‌تر است.',
+  study: 'مرور فاصله‌دار (۱، ۳ و ۷ روز بعد) از مطالعهٔ ممتد مؤثرتر است.'
+};
+const WEEKLY = '\n— مرور هفتگی —\n۱) سه برد این هفته:\n۲) چه چیزی نشد و چرا؟\n۳) چه چیزی را متوقف یا کوچک کنم؟\n۴) سه اولویت هفتهٔ بعد:\n';
+const D = k => S.days[k] && S.days[k].touched ? S.days[k] : null;
+const doy = () => Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 864e5);
+const span = n => {
+  const e = new Date(), a = [];
+  if (!n) { const ks = Object.keys(S.days).filter(D).sort(); if (!ks.length) return a; n = Math.min(400, Math.round((e - new Date(ks[0] + 'T12:00:00')) / 864e5) + 1); }
+  for (let i = n - 1; i >= 0; i--) a.push(iso(addDays(e, -i))); return a;
+};
+const avg = a => a.length ? mean(a) : null;
+const sd = a => { if (a.length < 3) return null; const m = mean(a); return Math.sqrt(mean(a.map(x => (x - m) ** 2))); };
+const pc = v => v == null ? '—' : fa(v * 100) + '٪';
+const wk = k => WD[wdi(k + 'T12:00:00')];
+const jd = (k, o) => jal(k + 'T12:00:00', o || { month: 'long', day: 'numeric' });
+const noteH = a => `<div class="note ${a.t}"><b>${a.h}</b>${a.b}</div>`;
+
+function repData(n) {
+  const rows = span(n).filter(D).map(k => ({ k, d: S.days[k], s: stats(k) })), sum = f => rows.reduce((a, r) => a + f(r), 0);
+  const cats = CATS.map(c => { let t = 0, x = 0; rows.forEach(r => r.d.tasks.forEach(z => { if (z.c === c.id) { t++; if (z.d) x++; } })); return { c, n: t, x, p: t ? x / t : null }; });
+  const col = f => rows.map(f).filter(v => v > 0);
+  return { rows, cats, days: rows.length, dn: sum(r => r.s.nd), tt: sum(r => r.s.n), pm: sum(r => r.s.pm), dm: sum(r => r.s.dm), p: avg(rows.map(r => r.s.pct)), ok: rows.filter(r => ok(r.k)).length,
+    mood: avg(col(r => r.d.mood)), en: avg(col(r => r.d.energy)), sl: avg(col(r => +r.d.sleep || 0)) };
+}
+
+/* ---------- مشاور ---------- */
+function advice() {
+  const A = [], add = (t, h, b) => A.push({ t, h, b }), rows = span(60).filter(D).map(k => ({ k, d: S.days[k], s: stats(k) }));
+  const last = rows.slice(-7), prev = rows.slice(-14, -7), sk = streaks();
+  if (rows.length < 3) { add('info', 'با ثبت شروع کنید', 'سه روز ثبت کافی است تا مشاور الگوی شما را ببیند. کارها را تیک بزنید و حال، انرژی و خواب را هم ثبت کنید.'); return A; }
+  const td = day(iso(new Date())), pm = td.tasks.reduce((a, t) => a + (t.e || 0), 0), crit = td.tasks.filter(t => t.p === 3).length;
+  if (pm > 480) add('warn', 'برنامهٔ امروز سنگین است', `کارهای امروز ${fa(pm / 60, 1)} ساعت زمان می‌خواهند. معمولاً بیش از ۶ تا ۷ ساعت کار هدفمند در روز واقع‌بینانه نیست؛ دو سه کار کم‌اهمیت را به فردا ببرید.`);
+  if (crit > 3) add('warn', 'کارهای حیاتی زیادند', `${fa(crit)} کار حیاتی دارید. وقتی همه‌چیز حیاتی است، چیزی حیاتی نیست؛ حداکثر سه کار را در «تمرکز امروز» نگه دارید.`);
+  else if (!crit) add('info', 'کار حیاتی انتخاب نشده', 'یک کار را با ★★★ علامت بزنید؛ اگر فقط همان انجام شود، امروز را موفق حساب کنید.');
+  const sl = last.map(r => +r.d.sleep).filter(Boolean);
+  if (sl.length >= 3) {
+    const m = mean(sl), v = sd(sl);
+    if (m < 6.5) add('warn', 'کم‌خوابی', `میانگین خواب هفتهٔ اخیرتان ${fa(m, 1)} ساعت است. برای اغلب بزرگسالان ۷ تا ۹ ساعت توصیه می‌شود؛ ۳۰ دقیقه زودتر خوابیدن شروع خوبی است.`);
+    else if (m > 9.5) add('info', 'خواب طولانی', `میانگین خواب ${fa(m, 1)} ساعت است. اگر با این‌همه خواب خسته‌اید، کیفیت خواب و ساعت ثابت بیدارشدن را بررسی کنید.`);
+    if (v > 1.5) add('info', 'خواب نامنظم', `ساعت‌های خوابتان پراکنده است (انحراف معیار ${fa(v, 1)} ساعت). ساعت ثابت بیدارشدن، حتی آخر هفته‌ها، مؤثرترین راه برای بهبود خواب است.`);
+  }
+  const hi = rows.filter(r => +r.d.sleep >= 7), lo = rows.filter(r => +r.d.sleep > 0 && +r.d.sleep < 7);
+  if (hi.length >= 4 && lo.length >= 4) { const df = mean(hi.map(r => r.s.pct)) - mean(lo.map(r => r.s.pct)); if (df > .08) add('info', 'خواب و بازدهی', `در روزهایی که ۷ ساعت یا بیشتر خوابیده‌اید، پیشرفتتان به‌طور میانگین ${fa(df * 100)} درصد بیشتر بوده است (همبستگی، نه الزاماً علت).`); }
+  [['energy', 'انرژی'], ['mood', 'حال']].forEach(([f, n]) => {
+    const a = last.map(r => r.d[f]).filter(Boolean), b = prev.map(r => r.d[f]).filter(Boolean);
+    if (a.length >= 3 && b.length >= 3 && mean(a) - mean(b) <= -.7) add('warn', n + ' رو به کاهش است', `میانگین ${n} این هفته ${fa(mean(a), 1)} است و هفتهٔ قبل ${fa(mean(b), 1)} بود. بار کاری، خواب و استراحت را مرور کنید؛ اگر چند هفته ادامه یافت، با فرد مورد اعتماد یا متخصص صحبت کنید.`);
+  });
+  const p7 = last.length ? avg(last.map(r => r.s.pct)) : null;
+  if (p7 != null) {
+    if (p7 < .4) add('warn', 'بار برنامه از ظرفیت بیشتر است', `میانگین پیشرفت هفتهٔ اخیر ${pc(p7)} است. به‌جای تلاش بیشتر، قالب روتین را سبک کنید: هر دسته را به یک یا دو کار کلیدی برسانید.`);
+    else if (p7 > .9 && last.length >= 5) add('ok', 'آمادهٔ سطح بعدی', `میانگین هفته ${pc(p7)} است. آستانهٔ روز موفق را در تنظیمات بالاتر ببرید یا یک کار چالشی به قالب اضافه کنید.`);
+    else if (p7 >= .7) add('ok', 'عملکرد پایدار', `میانگین ${pc(p7)} در هفتهٔ اخیر عالی است. به‌جای افزودن کار، ثبات را حفظ کنید.`);
+  }
+  const ms = [100, 60, 30, 14, 7, 3].find(x => sk.cur >= x);
+  if (ms) add('ok', `${fa(sk.cur)} روز پیاپی`, `رکورد پیاپی شما ${fa(sk.cur)} روز است${ms >= 14 ? ' و این یعنی عادت دارد شکل می‌گیرد' : ''}. حتی در روز بد، نسخهٔ حداقلی را انجام دهید تا زنجیره نشکند.`);
+  else if (!sk.cur && sk.best >= 3) add('warn', 'بازگشت به مسیر', `بهترین رکوردتان ${fa(sk.best)} روز بود. امروز فقط یک کار حیاتی و یک عادت کوچک را انجام دهید؛ شروع دوباره مهم‌تر از شروع بی‌نقص است.`);
+  const R = repData(60), wc = R.cats.filter(x => x.n >= 10).sort((a, b) => a.p - b.p)[0];
+  if (wc && wc.p < .5) add('warn', `دستهٔ «${wc.c.n}» رها می‌شود`, `فقط ${pc(wc.p)} از کارهای این دسته انجام شده است. ${CAT_TIPS[wc.c.id]}`);
+  const bw = Array.from({ length: 7 }, (_, i) => rows.filter(r => wdi(r.k + 'T12:00:00') === i)).map((a, i) => ({ i, n: a.length, a: a.length ? mean(a.map(r => r.s.pct)) : 0 })).filter(x => x.n >= 3);
+  if (bw.length >= 4) { const w = bw.slice().sort((a, b) => a.a - b.a)[0]; if (R.p - w.a > .12) add('info', `${WD[w.i]} روز ضعیف شماست`, `میانگین پیشرفت ${WD[w.i]}ها ${pc(w.a)} است، کمتر از میانگین کل (${pc(R.p)}). برای آن روز برنامهٔ سبک‌تر بچینید.`); }
+  const nd = rows.slice(-14).filter(r => (r.d.notes || '').trim().length > 3 || (r.d.ref && Object.values(r.d.ref).some(Boolean))).length;
+  if (rows.length >= 7 && nd < 4) add('info', 'مرور شب را عادت کنید', 'در دو هفتهٔ اخیر کم یادداشت نوشته‌اید. یک جمله در «مرور شب» کافی است؛ این کار یادگیری از روزها را چند برابر می‌کند.');
+  const lb = S.set.lastBackup;
+  if (rows.length >= 7 && (!lb || Date.now() - lb > 14 * 864e5)) add('info', 'پشتیبان بگیرید', 'داده‌ها فقط در همین مرورگرند. در تب «داده و تنظیمات» یک پشتیبان JSON بگیرید.');
+  return A.sort((a, b) => SEV[a.t] - SEV[b.t]);
+}
+function renderCoach() {
+  const A = advice(), tp = TIPS[doy() % TIPS.length];
+  $('#coachBox').innerHTML = `<div class="card"><h2>توصیه‌های شخصی</h2><p class="sub">بر پایهٔ ۶۰ روز اخیر شما ساخته می‌شود و با هر ثبت به‌روز می‌شود. این‌ها راهنما هستند، نه تشخیص پزشکی یا روان‌شناختی.</p>${A.map(noteH).join('')}</div>
+  <div class="grid g2"><div class="card"><h2>ایدهٔ امروز</h2><div class="note info"><b>${tp[0]}</b>${tp[1]}</div><h3 class="ct" style="margin-top:14px">الگوی مرور هفتگی</h3><p class="sub">یک الگوی آماده به یادداشت امروز اضافه می‌شود.</p><button class="btn sm gold" id="addWk">افزودن به یادداشت امروز</button></div>
+  <div class="card"><h2>توصیه برای هر دسته</h2>${CATS.map(c => `<p style="margin:0 0 8px"><b style="color:${c.c}">${c.i} ${c.n}:</b> ${CAT_TIPS[c.id]}</p>`).join('')}</div></div>
+  <div class="card"><h2>کتابخانهٔ روش‌ها</h2>${TIPS.map(t => `<p style="margin:0 0 8px"><b>${t[0]}:</b> ${t[1]}</p>`).join('')}</div>`;
+}
+function miniAndRef() {
+  const A = advice().slice(0, 2), tp = TIPS[doy() % TIPS.length], d = day(cur);
+  $('#coachMini').innerHTML = `<div class="card" style="margin-bottom:16px"><h2>💬 مشاور امروز</h2>${A.map(noteH).join('')}<div class="note info"><b>${tp[0]}</b>${tp[1]}</div></div>`;
+  ['g', 'w', 'l', 't'].forEach(k => { const e = $(`[data-ref="${k}"]`); if (document.activeElement !== e) e.value = (d.ref || {})[k] || ''; });
+  $('#rprompt').textContent = 'پرسش امروز: ' + PROMPTS[doy() % PROMPTS.length];
+}
+
+/* ---------- نمودارها ---------- */
+function svgc(o) {
+  const W = 640, H = o.h || 190, pl = 8, pr = 34, pt = 10, pb = 22, n = o.L.length, iw = W - pl - pr, mn = o.min, mx = o.max, bar = o.sets.some(z => z.b), slot = iw / n;
+  const X = i => bar ? W - pr - (i + .5) * slot : n > 1 ? W - pr - i * iw / (n - 1) : W - pr - iw / 2, Y = v => pt + (1 - (Math.min(mx, Math.max(mn, v)) - mn) / (mx - mn)) * (H - pt - pb);
+  let s = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" role="img">`;
+  if (o.band) s += `<rect x="${pl}" y="${Y(o.band[1])}" width="${iw}" height="${Y(o.band[0]) - Y(o.band[1])}" fill="var(--ok)" opacity=".12"/>`;
+  o.ticks.forEach(t => s += `<line x1="${pl}" x2="${W - pr}" y1="${Y(t)}" y2="${Y(t)}" stroke="var(--line)"/><text x="${W - pr + 5}" y="${Y(t) + 3}" font-size="10" fill="var(--muted)">${o.fmt ? o.fmt(t) : fa(t)}</text>`);
+  if (o.hl != null) s += `<line x1="${pl}" x2="${W - pr}" y1="${Y(o.hl)}" y2="${Y(o.hl)}" stroke="var(--warn)" stroke-dasharray="5 4"/>`;
+  const bs = o.sets.filter(z => z.b), f0 = o.fmt || (v => fa(v, 1));
+  o.sets.forEach(z => {
+    if (z.b) {
+      const bw = Math.max(1.5, slot * .7 / bs.length), bi = bs.indexOf(z);
+      z.v.forEach((v, i) => { if (v == null) return; const y = Y(v); s += `<rect x="${X(i) - slot * .35 + bi * bw}" y="${y}" width="${bw}" height="${Y(mn) - y}" rx="2" fill="${z.cf ? z.cf(v) : z.c}"><title>${o.L[i]}: ${(z.f || f0)(v)}</title></rect>`; });
+    } else {
+      let d = '', pen = false;
+      z.v.forEach((v, i) => { if (v == null) { pen = false; return; } d += (pen ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(v).toFixed(1); pen = true; });
+      s += `<path d="${d}" fill="none" stroke="${z.c}" stroke-width="${z.w || 2}" stroke-linejoin="round" stroke-linecap="round" ${z.o ? `opacity="${z.o}"` : ''}/>`;
+      if (z.dots) z.v.forEach((v, i) => { if (v != null) s += `<circle cx="${X(i)}" cy="${Y(v)}" r="3" fill="${z.c}"><title>${o.L[i]}: ${(z.f || f0)(v)}</title></circle>`; });
+    }
+  });
+  if (n > 1) [[0, 'end'], [Math.floor((n - 1) / 2), 'middle'], [n - 1, 'start']].forEach(([i, a]) => s += `<text x="${X(i)}" y="${H - 5}" font-size="10" text-anchor="${a}" fill="var(--muted)">${o.L[i]}</text>`);
+  return s + '</svg>' + `<div class="lg">${o.sets.filter(z => z.n).map(z => `<span><i style="background:${z.c}"></i>${z.n}</span>`).join('')}${o.hl != null ? '<span><i style="background:var(--warn)"></i>آستانهٔ روز موفق</span>' : ''}</div>`;
+}
+function scat(pts) {
+  const W = 640, H = 210, pl = 30, pr = 12, pt = 10, pb = 24, xs = pts.map(p => p.x), mn = Math.floor(Math.min(...xs)), mx = Math.max(mn + 1, Math.ceil(Math.max(...xs)));
+  const X = v => pl + (v - mn) / (mx - mn) * (W - pl - pr), Y = v => pt + (1 - v) * (H - pt - pb);
+  let s = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;direction:ltr">`;
+  [0, .5, 1].forEach(t => s += `<line x1="${pl}" x2="${W - pr}" y1="${Y(t)}" y2="${Y(t)}" stroke="var(--line)"/><text x="2" y="${Y(t) + 3}" font-size="10" fill="var(--muted)">${fa(t * 100)}٪</text>`);
+  for (let x = mn; x <= mx; x++) s += `<text x="${X(x)}" y="${H - 6}" font-size="10" text-anchor="middle" fill="var(--muted)">${fa(x)}</text>`;
+  const mx_ = mean(xs), my = mean(pts.map(p => p.y)), den = xs.reduce((a, x) => a + (x - mx_) ** 2, 0);
+  if (den > 0) { const b = pts.reduce((a, p) => a + (p.x - mx_) * (p.y - my), 0) / den, a0 = my - b * mx_, yy = v => Math.min(1, Math.max(0, a0 + b * v)); s += `<line x1="${X(mn)}" y1="${Y(yy(mn))}" x2="${X(mx)}" y2="${Y(yy(mx))}" stroke="var(--warn)" stroke-width="2" stroke-dasharray="6 4"/>`; }
+  pts.forEach(p => s += `<circle cx="${X(p.x)}" cy="${Y(p.y)}" r="4" fill="var(--gold2)" opacity=".75"><title>${p.k}: ${fa(p.x, 1)} ساعت، ${fa(p.y * 100)}٪</title></circle>`);
+  return s + '</svg><div class="lg"><span>محور افقی: ساعت خواب — محور عمودی: پیشرفت وزنی — خط چین: روند</span></div>';
+}
+function renderChart() {
+  const n = +$('#rng').value, ks = span(n), L = ks.map(k => jd(k, { month: 'short', day: 'numeric' })), R = repData(n), box = $('#chartBox');
+  if (R.days < 2) { box.innerHTML = '<div class="card"><h2>هنوز داده‌ای برای نمودار نیست</h2><p class="sub">دست‌کم ۲ روز ثبت‌شده لازم است. می‌توانید دادهٔ نمونه را از تب «داده و تنظیمات» ببینید.</p></div>'; return; }
+  const pct = ks.map(k => D(k) ? stats(k).pct : null), ma = pct.map((v, i) => { const w = pct.slice(Math.max(0, i - 6), i + 1).filter(x => x != null); return w.length ? mean(w) : null; });
+  const kp = [['روز ثبت‌شده', fa(R.days), 'در بازه', 'var(--info)'], ['میانگین پیشرفت', pc(R.p), 'وزنی', 'var(--gold2)'], ['روز موفق', fa(R.ok), 'از ' + fa(R.days), 'var(--ok)'], ['کار انجام‌شده', fa(R.dn), 'از ' + fa(R.tt), 'var(--warn)'], ['میانگین خواب', R.sl ? fa(R.sl, 1) : '—', 'ساعت', 'var(--info)']]
+    .map(k => `<div class="kpi" style="--kc:${k[3]}"><div class="l">${k[0]}</div><div class="v" style="font-size:22px">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');
+  const card = (t, sub, b) => `<div class="card chs"><h2>${t}</h2>${sub ? `<p class="sub">${sub}</p>` : ''}${b}</div>`;
+  let h = `<div class="grid ga" style="margin-bottom:16px">${kp}</div>`;
+  h += card('روند پیشرفت وزنی', 'خط پررنگ میانگین متحرک ۷ روزه است و روند واقعی را بدون نوسان روزانه نشان می‌دهد.', svgc({ L, min: 0, max: 1, ticks: [0, .25, .5, .75, 1], fmt: v => fa(v * 100) + '٪', hl: S.set.thr / 100, sets: [{ v: pct, c: 'var(--gold)', w: 1.5, o: .55, dots: n <= 30, n: 'هر روز', f: v => fa(v * 100) + '٪' }, { v: ma, c: 'var(--gold2)', w: 3, n: 'میانگین ۷ روزه', f: v => fa(v * 100) + '٪' }] }));
+  const mo = ks.map(k => D(k) && S.days[k].mood || null), en = ks.map(k => D(k) && S.days[k].energy || null);
+  h += card('حال و انرژی', 'مقیاس ۱ تا ۵.', svgc({ L, min: 1, max: 5, ticks: [1, 2, 3, 4, 5], fmt: v => fa(v), sets: [{ v: mo, c: 'var(--info)', dots: true, n: 'حال' }, { v: en, c: 'var(--ok)', dots: true, n: 'انرژی' }] }));
+  const sl = ks.map(k => D(k) && +S.days[k].sleep || null);
+  if (sl.some(Boolean)) h += card('خواب', 'ناحیهٔ سبز بازهٔ ۷ تا ۹ ساعت است؛ ستون‌های خارج از آن زرد می‌شوند.', svgc({ L, min: 0, max: 12, ticks: [0, 3, 6, 9, 12], band: [7, 9], sets: [{ b: 1, v: sl, cf: v => v >= 7 && v <= 9 ? 'var(--ok)' : 'var(--warn)', f: v => fa(v, 1) + ' ساعت' }] }));
+  h += card('تکمیل به تفکیک دسته', '', R.cats.map(r => `<div style="margin-bottom:9px"><div class="row" style="justify-content:space-between"><span>${r.c.i} ${r.c.n}</span><span class="num muted">${r.p == null ? '—' : fa(r.x) + ' از ' + fa(r.n) + ' (' + fa(r.p * 100) + '٪)'}</span></div><div class="mini" style="--cc:${r.c.c};height:8px"><div style="width:${(r.p || 0) * 100}%"></div></div></div>`).join(''));
+  const pts = R.rows.filter(r => +r.d.sleep > 0).map(r => ({ x: +r.d.sleep, y: r.s.pct, k: jd(r.k) }));
+  if (pts.length >= 6) h += card('خواب و پیشرفت', 'هر نقطه یک روز است.', scat(pts));
+  if (ks.length >= 14) {
+    const wks = []; for (let e = ks.length; e > 0; e -= 7) { const w = ks.slice(Math.max(0, e - 7), e).filter(D).map(stats); wks.unshift({ L: jd(ks[Math.max(0, e - 7)], { month: 'short', day: 'numeric' }), pm: w.reduce((a, s) => a + s.pm, 0), dm: w.reduce((a, s) => a + s.dm, 0) }); }
+    const mxm = Math.max(60, ...wks.map(w => w.pm)), top = Math.ceil(mxm / 60) * 60;
+    h += card('زمان هفتگی (دقیقه)', 'برنامه‌ریزی‌شده در برابر انجام‌شده؛ هفته‌ها از قدیم به جدید و با تاریخ شروع.', svgc({ L: wks.map(w => w.L), min: 0, max: top, ticks: [0, top / 2, top], fmt: v => fa(Math.round(v)), sets: [{ b: 1, v: wks.map(w => w.pm), c: 'var(--line2)', n: 'برنامه‌ریزی‌شده' }, { b: 1, v: wks.map(w => w.dm), c: 'var(--gold2)', n: 'انجام‌شده' }] }));
+  }
+  box.innerHTML = h;
+}
+
+/* ---------- بایگانی ---------- */
+function renderArch() {
+  const q = $('#aq').value.trim().toLowerCase(), m = +$('#am').value, has = d => (d.notes || '').trim() || (d.ref && Object.values(d.ref).some(Boolean));
+  const rows = Object.keys(S.days).filter(D).sort().reverse().map(k => ({ k, d: S.days[k] })).filter(({ d }) => {
+    if (m && d.mood !== m) return false;
+    if (!q) return has(d) || d.mood;
+    return [d.notes, ...Object.values(d.ref || {}), ...d.tasks.map(t => t.t)].join(' ').toLowerCase().includes(q);
+  });
+  const RL = { g: 'سپاس', w: 'برد', l: 'درس', t: 'فردا' };
+  $('#archBox').innerHTML = (rows.length ? `<p class="muted" style="margin-bottom:8px">${fa(rows.length)} روز یافت شد${rows.length > 80 ? ' (۸۰ مورد اول)' : ''}</p>` : '<div class="card"><p class="muted">موردی پیدا نشد. یادداشت یا مرور شب بنویسید تا اینجا جمع شوند.</p></div>') +
+    rows.slice(0, 80).map(({ k, d }) => `<div class="ai" data-open="${k}"><div class="m"><b style="color:var(--text,inherit)">${jd(k, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</b><span>${d.mood ? MOODS[d.mood - 1] : ''} ${d.energy ? ENERG[d.energy - 1] : ''}</span><span class="num">${pc(stats(k).pct)}</span></div>${d.notes ? `<p>${esc(d.notes.slice(0, 220))}</p>` : ''}${Object.entries(d.ref || {}).filter(e => e[1]).map(e => `<p><b>${RL[e[0]]}:</b> ${esc(e[1].slice(0, 120))}</p>`).join('')}</div>`).join('');
+}
+
+/* ---------- خروجی‌ها ---------- */
+function repHtml(R) {
+  const f = k => jd(k, { year: 'numeric', month: 'long', day: 'numeric' }), top = advice().filter(a => a.t !== 'ok').slice(0, 5);
+  return `<h1>گزارش دفترچهٔ روزانه</h1><p>${R.days ? f(R.rows[0].k) + ' تا ' + f(R.rows[R.rows.length - 1].k) : 'بدون داده'} — تهیه‌شده در مستر پلنر</p>
+  <h2>خلاصه</h2><table><tr><td>روزهای ثبت‌شده</td><td>${fa(R.days)}</td><td>میانگین پیشرفت</td><td>${pc(R.p)}</td></tr><tr><td>روزهای موفق</td><td>${fa(R.ok)}</td><td>کارهای انجام‌شده</td><td>${fa(R.dn)} از ${fa(R.tt)}</td></tr>
+  <tr><td>زمان انجام‌شده</td><td>${fa(R.dm)} از ${fa(R.pm)} دقیقه</td><td>میانگین حال / انرژی / خواب</td><td>${R.mood ? fa(R.mood, 1) : '—'} / ${R.en ? fa(R.en, 1) : '—'} / ${R.sl ? fa(R.sl, 1) : '—'}</td></tr></table>
+  <h2>دسته‌ها</h2><table><tr><th>دسته</th><th>انجام‌شده</th><th>درصد</th></tr>${R.cats.map(r => `<tr><td>${r.c.n}</td><td>${fa(r.x)} از ${fa(r.n)}</td><td>${pc(r.p)}</td></tr>`).join('')}</table>
+  <h2>روزها</h2><table><tr><th>تاریخ</th><th>روز</th><th>پیشرفت</th><th>کار</th><th>حال</th><th>انرژی</th><th>خواب</th></tr>${R.rows.map(r => `<tr><td>${f(r.k)}</td><td>${wk(r.k)}</td><td>${pc(r.s.pct)}</td><td>${fa(r.s.nd)}/${fa(r.s.n)}</td><td>${r.d.mood || ''}</td><td>${r.d.energy || ''}</td><td>${r.d.sleep || ''}</td></tr>`).join('')}</table>
+  ${top.length ? `<h2>توصیه‌های مشاور</h2><ul>${top.map(a => `<li><b>${a.h}:</b> ${a.b}</li>`).join('')}</ul>` : ''}`;
+}
+const rr = () => repData(+$('#rrng').value);
+$('#prBtn').onclick = () => { $('#rep').innerHTML = repHtml(rr()); document.body.classList.add('prep'); setTimeout(() => window.print(), 60); };
+window.addEventListener('afterprint', () => document.body.classList.remove('prep'));
+$('#exMd').onclick = () => {
+  const R = rr(), f = k => jd(k, { year: 'numeric', month: 'long', day: 'numeric' });
+  let m = `# گزارش دفترچهٔ روزانه\n\n${R.days ? f(R.rows[0].k) + ' تا ' + f(R.rows[R.rows.length - 1].k) : ''}\n\n## خلاصه\n- روزهای ثبت‌شده: ${fa(R.days)}\n- میانگین پیشرفت: ${pc(R.p)}\n- روزهای موفق: ${fa(R.ok)}\n- کارهای انجام‌شده: ${fa(R.dn)} از ${fa(R.tt)}\n- زمان انجام‌شده: ${fa(R.dm)} از ${fa(R.pm)} دقیقه\n\n## دسته‌ها\n| دسته | انجام‌شده | درصد |\n|---|---|---|\n${R.cats.map(r => `| ${r.c.n} | ${fa(r.x)} از ${fa(r.n)} | ${pc(r.p)} |`).join('\n')}\n\n## روزها\n`;
+  R.rows.slice().reverse().forEach(r => { m += `\n### ${f(r.k)} (${wk(r.k)}) — ${pc(r.s.pct)}\n`; const dn = r.d.tasks.filter(t => t.d).map(t => t.t); if (dn.length) m += `- انجام‌شده: ${dn.join('، ')}\n`; if (r.d.notes) m += `- یادداشت: ${r.d.notes.replace(/\n+/g, ' ')}\n`; Object.entries(r.d.ref || {}).filter(e => e[1]).forEach(e => m += `- ${{ g: 'سپاس', w: 'برد', l: 'درس', t: 'فردا' }[e[0]]}: ${e[1]}\n`); });
+  Kit.download('daily-report-' + iso(new Date()) + '.md', m, 'text/markdown'); toast('گزارش Markdown ذخیره شد');
+};
+$('#exDay').onclick = () => {
+  const q = v => '"' + String(v == null ? '' : v).replace(/"/g, '""').replace(/\n/g, ' ') + '"', rows = [['تاریخ میلادی', 'تاریخ جلالی', 'روز هفته', 'پیشرفت وزنی٪', 'انجام‌شده', 'کل کارها', 'دقیقهٔ برنامه', 'دقیقهٔ انجام', 'حال', 'انرژی', 'خواب', 'یادداشت', 'سپاس', 'برد', 'درس', 'کار فردا']];
+  Object.keys(S.days).filter(D).sort().forEach(k => { const d = S.days[k], s = stats(k), r = d.ref || {}; rows.push([k, jal(k + 'T12:00:00', { year: 'numeric', month: '2-digit', day: '2-digit' }), wk(k), Math.round(s.pct * 100), s.nd, s.n, s.pm, s.dm, d.mood || '', d.energy || '', d.sleep || '', d.notes || '', r.g, r.w, r.l, r.t]); });
+  Kit.download('daily-summary.csv', '\ufeff' + rows.map(r => r.map(q).join(',')).join('\n'), 'text/csv'); toast('CSV خلاصه ذخیره شد');
+};
+$('#imMerge').onclick = () => Kit.pickFile('.json', txt => {
+  try {
+    const o = JSON.parse(txt); if (!o.days || typeof o.days !== 'object') throw 0; let a = 0, u = 0; const sc = x => x.tasks.filter(t => t.d).length + (x.notes || '').length / 50;
+    Object.entries(o.days).forEach(([k, d]) => { if (!d || !Array.isArray(d.tasks)) return; const c = S.days[k]; if (!c) { S.days[k] = d; a++; } else if (sc(d) > sc(c)) { S.days[k] = d; u++; } });
+    save(); renderAll(); toast(fa(a) + ' روز اضافه و ' + fa(u) + ' روز به‌روز شد');
+  } catch (e) { toast('فایل معتبر نیست'); }
+});
+$('#bkInfo').textContent = S.set.lastBackup ? 'آخرین پشتیبان JSON: ' + jal(new Date(S.set.lastBackup), { year: 'numeric', month: 'long', day: 'numeric' }) : 'هنوز پشتیبان JSON نگرفته‌اید.';
+$('#cpSum').onclick = () => {
+  const d = day(cur), s = stats(cur), dn = d.tasks.filter(t => t.d).map(t => '✓ ' + t.t), pd = d.tasks.filter(t => !t.d && t.p === 3).map(t => '○ ' + t.t);
+  const txt = `📓 ${jd(cur, { weekday: 'long', month: 'long', day: 'numeric' })}\nپیشرفت: ${fa(s.pct * 100)}٪ (${fa(s.nd)} از ${fa(s.n)} کار)\n${d.mood ? 'حال: ' + MOODS[d.mood - 1] + ' ' : ''}${d.energy ? 'انرژی: ' + ENERG[d.energy - 1] + ' ' : ''}${d.sleep ? 'خواب: ' + fa(d.sleep) + ' ساعت' : ''}\n${dn.join('\n')}${pd.length ? '\nباقی‌ماندهٔ حیاتی:\n' + pd.join('\n') : ''}${d.notes ? '\n\n' + d.notes : ''}`;
+  (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => toast('خلاصه کپی شد'), () => toast('کپی ممکن نشد'));
+};
+let rt; document.addEventListener('input', e => { const k = e.target.dataset.ref; if (!k) return; const d = ensure(cur); d.ref = d.ref || {}; d.ref[k] = e.target.value; clearTimeout(rt); rt = setTimeout(save, 400); });
+document.addEventListener('click', e => {
+  const o = e.target.closest('[data-open]'); if (o) { cur = o.dataset.open; renderToday(); $('[data-tab=today]').click(); }
+  if (e.target.id === 'addWk') { const d = ensure(cur); d.notes = (d.notes || '') + WEEKLY; save(); renderToday(); toast('الگو به یادداشت امروز اضافه شد'); }
+});
+$('#rng').onchange = renderChart; $('#aq').oninput = renderArch; $('#am').onchange = renderArch;
+
+function renderAll() { renderToday(); renderWeek(); renderTrend(); renderInsight(); renderChart(); renderCoach(); renderArch(); }
+Kit.initTheme(); Kit.header('دفترچهٔ روزانه'); Kit.tabs(); renderTpl(); renderAll();
+document.addEventListener('kit-tab', e => { if (e.detail === 'week') renderWeek(); if (e.detail === 'trend') renderTrend(); if (e.detail === 'insight') renderInsight(); if (e.detail === 'chart') renderChart(); if (e.detail === 'coach') renderCoach(); if (e.detail === 'arch') renderArch(); });
+</script>
+</body>
+</html>
