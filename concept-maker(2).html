@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>مفهوم‌ساز | نقشهٔ مفهومی با ابزارهای تفکر | مستر پلنر</title>
+<script src="assets/gate/gate.js"></script>
+<meta name="description" content="مفهوم‌ساز مستر پلنر: نقشهٔ مفهومی با ابزارهای تفکر — بسط، مقایسه، ترکیب، تجزیه و تحلیل، تضادیابی، قیاس، پرسش‌سازی، زنجیرهٔ علّی و رابطهٔ مستقیم و معکوس؛ به‌همراه آزمون بازیابی، قالب‌های آماده و خروجی PNG/SVG." />
+<link rel="canonical" href="https://ehssnrouhani.github.io/Mestrplanner/concept-maker.html" />
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<style>
+*{box-sizing:border-box}
+:root{--bg:#0f172a;--p:#1e293b;--bd:#334155;--tx:#f8fafc;--mu:#94a3b8;--ac:#e8971f}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Vazirmatn,Tahoma,sans-serif;overflow:hidden}
+button,input,textarea,select{font-family:inherit;font-size:14px;color:var(--tx)}
+.top{height:56px;display:flex;align-items:center;gap:6px;padding:0 12px;background:var(--p);border-bottom:1px solid var(--bd)}
+.top h1{font-size:16px;margin:0;font-weight:800;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top a{color:var(--ac);text-decoration:none;font-weight:700;font-size:13px;white-space:nowrap}
+.ib{width:38px;height:38px;border:1px solid var(--bd);background:#0f172a;border-radius:10px;cursor:pointer}
+.ib:hover,.ib.on{border-color:var(--ac);color:var(--ac)}
+.ib:disabled{opacity:.35;cursor:default}
+.hstat{font-size:11px;color:var(--mu);border:1px solid var(--bd);border-radius:999px;padding:4px 10px;white-space:nowrap}
+#app{display:grid;grid-template-columns:350px 1fr;height:calc(100dvh - 56px)}
+#cvw{position:relative;overflow:hidden;background:radial-gradient(#334155 1px,transparent 1px) 0 0/26px 26px}
+#cv{width:100%;height:100%;touch-action:none;display:block;direction:ltr}
+#cv.arm{cursor:crosshair}
+#rh{position:absolute;top:10px;right:50%;transform:translateX(50%);background:rgba(232,151,31,.14);border:1px solid var(--ac);color:#fbbf24;border-radius:999px;padding:5px 14px;font-size:12px;z-index:5;pointer-events:none;white-space:nowrap;max-width:92vw}
+input[type=range]{accent-color:var(--ac)}
+.panel{background:var(--p);border-left:1px solid var(--bd);display:flex;flex-direction:column;min-height:0}
+.tabs{display:flex;border-bottom:1px solid var(--bd);flex-shrink:0}
+.tabs button{flex:1;padding:12px 4px;background:none;border:0;border-bottom:3px solid transparent;color:var(--mu);font-weight:700;cursor:pointer}
+.tabs button.on{color:var(--ac);border-color:var(--ac)}
+#pc{padding:14px;overflow:auto;flex:1}
+.hn{font-size:13px;color:var(--mu);line-height:1.9;margin:0 0 12px}
+.tool{display:grid;grid-template-columns:34px 1fr;column-gap:10px;width:100%;text-align:right;background:#0f172a;border:1.5px solid var(--bd);border-radius:12px;padding:10px 12px;margin-bottom:8px;cursor:pointer}
+.tool i{grid-row:span 2;align-self:center;font-size:20px;color:var(--ac);text-align:center}
+.tool b{font-size:14px}.tool span{font-size:12px;color:var(--mu);line-height:1.6}
+.tool:hover{border-color:var(--ac)}.tool.off{opacity:.5}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 14px}
+.chip{border:1.5px solid var(--c);color:var(--c);background:transparent;border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:700;cursor:pointer}
+.chip.on,.chip:hover{background:var(--c);color:#0f172a}
+.chip.z{opacity:.4}
+h4{margin:14px 0 6px;font-size:13.5px;color:#fbbf24}
+.f{width:100%;background:#0f172a;border:1px solid var(--bd);border-radius:8px;padding:9px 10px;margin-bottom:8px}
+.sw{display:flex;gap:8px;margin-bottom:12px}
+.sw i{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid transparent}
+.sw i.on{border-color:#fff}
+.b{background:#0f172a;border:1px solid var(--bd);border-radius:10px;padding:9px 14px;cursor:pointer;font-weight:700;margin:0 0 8px}
+.b:hover{border-color:var(--ac)}.b.pr{background:var(--ac);border-color:var(--ac);color:#fff}.b.dg{color:#f87171}
+.b.w{width:100%;text-align:right}
+.bar{height:8px;background:#0f172a;border-radius:4px;overflow:hidden;margin:3px 0 10px}.bar i{display:block;height:100%}
+.sg{background:rgba(232,151,31,.1);border-right:4px solid var(--ac);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:13px;line-height:1.8;color:#e2e8f0}
+.stat{display:flex;gap:8px;margin-bottom:12px}.stat div{flex:1;background:#0f172a;border-radius:10px;padding:8px;text-align:center;font-size:12px;color:var(--mu)}.stat b{display:block;font-size:20px;color:var(--tx)}
+#md{position:fixed;inset:0;background:rgba(2,6,23,.75);display:flex;align-items:center;justify-content:center;z-index:50;padding:12px}
+#md[hidden]{display:none}
+.mc{background:var(--p);border:1px solid var(--bd);border-radius:16px;padding:20px;width:100%;max-width:460px;max-height:90dvh;overflow:auto}
+.mc h3{margin:0 0 6px}.mc p{margin:0 0 12px;font-size:13px;color:var(--mu)}
+.mc label{display:block;font-size:13px;font-weight:600;margin-bottom:10px}
+.mc label>*{display:block;width:100%;margin-top:5px;background:#0f172a;border:1px solid var(--bd);border-radius:8px;padding:9px 10px}
+.ac{display:flex;gap:8px}
+#start{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;pointer-events:none}
+#start .mc{pointer-events:auto;text-align:center}
+#toast{position:fixed;bottom:24px;right:50%;transform:translateX(50%);background:#0b1120;border:1px solid var(--ac);border-radius:999px;padding:9px 18px;font-size:13px;z-index:60;max-width:92vw;opacity:0;transition:opacity .25s;pointer-events:none}
+#toast.on{opacity:1}
+#pt{display:none}
+@media(max-width:820px){
+ #app{grid-template-columns:1fr}
+ .panel{position:fixed;bottom:0;left:0;right:0;height:46dvh;border-top:1px solid var(--bd);border-left:0;z-index:20;transition:transform .25s}
+ .panel.min{transform:translateY(calc(100% - 46px))}
+ #pt{display:inline-block}
+ .top h1{font-size:14px}
+ .hstat{display:none}
+ #rh{font-size:11px}
+}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.top{overflow-x:auto;scrollbar-width:none}.top::-webkit-scrollbar{display:none}.top>*{flex-shrink:0}.top h1{flex:1 1 auto;min-width:70px;flex-shrink:1}
+.tabs{overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tabs button{flex:1 0 auto;padding:12px 11px;white-space:nowrap}
+#c3{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;display:block;direction:ltr}
+#c3[hidden],#t3[hidden],#sbw[hidden]{display:none}
+#t3{position:absolute;top:10px;left:10px;display:flex;gap:6px;align-items:center;z-index:6;background:rgba(15,23,42,.82);border:1px solid var(--bd);border-radius:12px;padding:6px;max-width:calc(100% - 20px);flex-wrap:wrap}
+#t3 select{background:#0f172a;border:1px solid var(--bd);border-radius:8px;padding:6px 8px;font-size:12.5px}
+#t3 .ib{width:32px;height:32px;font-size:13px}
+#sbw{position:absolute;bottom:12px;left:12px;z-index:6;display:flex;gap:8px;align-items:center;background:rgba(15,23,42,.9);border:1px solid var(--ac);border-radius:999px;padding:6px 14px}
+#sb{background:none;border:0;outline:0;width:200px;max-width:50vw}#sbc{font-size:12px;color:var(--mu);white-space:nowrap}
+@media(max-width:820px){#t3{top:auto;bottom:calc(46dvh + 8px);left:8px}#sbw{bottom:calc(46dvh + 8px)}}
+#start[hidden]{display:none}
+@media(max-width:820px){#start{inset:0 0 46dvh 0;align-items:flex-start;overflow-y:auto;pointer-events:auto}#start .mc{margin:auto;max-height:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a href="index.html"><i class="fa-solid fa-arrow-right"></i> مستر پلنر</a>
+  <h1>مفهوم‌ساز</h1>
+  <span class="hstat" id="hstat">۰ مفهوم · ۰ پیوند</span>
+  <button class="ib" id="bAdd" title="مفهوم جدید" aria-label="مفهوم جدید"><i class="fa-solid fa-plus"></i></button>
+  <button class="ib" id="bMulti" title="چندانتخابی (برای لمس)" aria-label="چندانتخابی"><i class="fa-solid fa-object-group"></i></button>
+  <button class="ib" id="bUndo" title="بازگشت (Ctrl+Z)" aria-label="بازگشت"><i class="fa-solid fa-rotate-left"></i></button>
+  <button class="ib" id="bRedo" title="جلو (Ctrl+Y)" aria-label="جلو"><i class="fa-solid fa-rotate-right"></i></button>
+  <button class="ib" id="bLay" title="چیدمان خودکار" aria-label="چیدمان خودکار"><i class="fa-solid fa-diagram-project"></i></button>
+  <button class="ib" id="bZi" title="بزرگ‌نمایی" aria-label="بزرگ‌نمایی"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+  <button class="ib" id="bZo" title="کوچک‌نمایی" aria-label="کوچک‌نمایی"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+  <button class="ib" id="bFit" title="نمایش همه" aria-label="نمایش همه"><i class="fa-solid fa-expand"></i></button>
+  <button class="ib" id="bView" title="نمای سه‌بعدی (کلید 3)" aria-label="نمای سه‌بعدی"><i class="fa-solid fa-cube"></i></button>
+  <button class="ib" id="bFocus" title="تمرکز بر همسایگان (کلید F)" aria-label="تمرکز بر همسایگان"><i class="fa-solid fa-bullseye"></i></button>
+  <button class="ib" id="bSearch" title="جست‌وجو (کلید /)" aria-label="جست‌وجو"><i class="fa-solid fa-magnifying-glass"></i></button>
+  <button class="ib" id="bRecall" title="آزمون بازیابی — پنهان‌کردن عنوان‌ها (کلید R)" aria-label="آزمون بازیابی"><i class="fa-solid fa-eye-slash"></i></button>
+  <button class="ib" id="pt" title="پنل" aria-label="پنل"><i class="fa-solid fa-sliders"></i></button>
+</header>
+
+<div id="app">
+  <aside class="panel" id="panel">
+    <div class="tabs">
+      <button data-tab="tools">ابزارها</button>
+      <button data-tab="sel">انتخاب</button>
+      <button data-tab="an">تحلیل</button>
+      <button data-tab="rel">ارتباط</button>
+      <button data-tab="ml">هوش</button>
+      <button data-tab="study">مرور</button>
+      <button data-tab="file">فایل</button>
+    </div>
+    <div id="pc"></div>
+  </aside>
+  <div id="cvw">
+    <svg id="cv" xmlns="http://www.w3.org/2000/svg"></svg>
+    <canvas id="c3" hidden aria-label="نمای سه‌بعدی نقشهٔ مفهومی"></canvas>
+    <div id="t3" hidden><select id="l3" aria-label="چیدمان سه‌بعدی"><option value="force">چیدمان نیرویی</option><option value="layers">لایه‌ای (فاصله از مرکز)</option><option value="flow">جریان: ورودی ← خروجی</option><option value="importance">عمق = اهمیت</option><option value="sphere">کروی</option></select><button class="ib" id="b3r" title="چرخش خودکار" aria-label="چرخش خودکار"><i class="fa-solid fa-rotate"></i></button><button class="ib" id="b3l" title="برچسب مفاهیم" aria-label="برچسب مفاهیم"><i class="fa-solid fa-tag"></i></button><button class="ib" id="b3e" title="برچسب پیوندها" aria-label="برچسب پیوندها"><i class="fa-solid fa-font"></i></button><button class="ib" id="b3m" title="حلقهٔ حافظه" aria-label="حلقهٔ حافظه"><i class="fa-solid fa-brain"></i></button><button class="ib" id="b3c" title="بازنشانی دوربین" aria-label="بازنشانی دوربین"><i class="fa-solid fa-compress"></i></button></div>
+    <div id="sbw" hidden><i class="fa-solid fa-magnifying-glass"></i><input id="sb" placeholder="جست‌وجوی مفهوم یا یادداشت…" aria-label="جست‌وجو"><span id="sbc"></span></div>
+    <div id="rh" hidden>حالت بازیابی: عنوان‌ها پنهان‌اند — روی هر کارت بزن تا یادآوری کنی</div>
+    <div id="start" hidden>
+      <form class="mc" id="sf">
+        <h3>نقشهٔ مفهومی‌ات را شروع کن</h3>
+        <p>مفهوم مرکزی چیست؟ بعد با ابزارهای تفکر آن را گسترش بده.</p>
+        <label>مفهوم مرکزی<input id="sc" placeholder="مثلاً: یادگیری عمیق" required></label>
+        <div class="ac"><button class="b pr">ساخت نقشه</button><button type="button" class="b" id="sd">نقشهٔ نمونه</button></div>
+        <p style="margin:12px 0 0;font-size:12px;color:var(--mu)">یا با یک قالب آماده شروع کن:</p>
+        <div class="ac" style="flex-wrap:wrap;margin-top:6px">
+          <button type="button" class="b" data-tpl0="water"><i class="fa-solid fa-droplet"></i> چرخهٔ آب</button>
+          <button type="button" class="b" data-tpl0="success"><i class="fa-solid fa-seedling"></i> عوامل پیشرفت</button>
+          <button type="button" class="b" data-tpl0="story"><i class="fa-solid fa-book-open"></i> ساختار داستان</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div id="md" hidden></div>
+<div id="toast"></div>
+<input type="file" id="fi" accept=".json" hidden />
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const K={
+ direct:{n:'رابطه مستقیم',c:'#10b981',s:'+'},
+ inverse:{n:'رابطه معکوس',c:'#ef4444',s:'−',d:'7 5'},
+ cause:{n:'علت ← معلول',c:'#f59e0b',a:1},
+ contrast:{n:'تضاد',c:'#ec4899',d:'3 5'},
+ similar:{n:'شباهت',c:'#38bdf8'},
+ part:{n:'جزئی از',c:'#a78bfa',a:1},
+ type:{n:'نوعی از',c:'#6366f1',a:1},
+ example:{n:'مثال برای',c:'#14b8a6',a:1},
+ combine:{n:'ترکیب',c:'#fb923c',a:1},
+ question:{n:'پرسش',c:'#60a5fa',d:'2 5'},
+ analogy:{n:'قیاس',c:'#f472b6',d:'8 4'},
+ link:{n:'ارتباط',c:'#94a3b8'}
+};
+const PAL=['#3b82f6','#10b981','#e8971f','#8b5cf6','#ec4899','#14b8a6','#94a3b8'];
+let S={nodes:[],edges:[],v:{x:0,y:0,k:1},recall:false},sel=new Set(),selE=null,tab='tools',multi=false,arm=null,hist=[],fut=[],uid=1;
+const revealed=new Set();
+const cv=$('#cv'),nd=id=>S.nodes.find(n=>n.id==id);
+
+/* ---------- ذخیره و بازگشت ---------- */
+const cur=()=>JSON.stringify({nodes:S.nodes,edges:S.edges,uid});
+function snap(){hist.push(cur());if(hist.length>60)hist.shift();fut=[]}
+function load(j){const o=JSON.parse(j);S.nodes=o.nodes;S.edges=o.edges;uid=o.uid||S.nodes.length+S.edges.length+9;sel.clear();selE=null;arm=null;revealed.clear();all()}
+function save(){try{localStorage.setItem('mp_concept_v1',JSON.stringify({...S,uid}))}catch(e){}}
+function undo(){if(hist.length){fut.push(cur());load(hist.pop());save()}}
+function redo(){if(fut.length){hist.push(cur());load(fut.pop());save()}}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2800)}
+
+/* ---------- مدل ---------- */
+function addNode(t,x,y,c=0){const n={id:'n'+uid++,t,x,y,c,note:'',imp:3};S.nodes.push(n);return n}
+function addEdge(a,b,k='link',l=''){if(a==b||S.edges.some(e=>e.a==a&&e.b==b&&e.k==k))return;S.edges.push({id:'e'+uid++,a,b,k,l})}
+const lines=s=>(s||'').split('\n').map(x=>x.trim()).filter(Boolean);
+function spawn(src,count,i){
+ const cx=src.reduce((s,n)=>s+n.x,0)/src.length,cy=src.reduce((s,n)=>s+n.y,0)/src.length;
+ const mx=S.nodes.reduce((s,n)=>s+n.x,0)/S.nodes.length,my=S.nodes.reduce((s,n)=>s+n.y,0)/S.nodes.length;
+ let base=Math.hypot(cx-mx,cy-my)<5?-Math.PI/2:Math.atan2(cy-my,cx-mx);
+ const a=base+(i-(count-1)/2)*(count>6?.5:.75),r=210+(count>6?(i%2)*80:0);
+ return[cx+Math.cos(a)*r,cy+Math.sin(a)*r]}
+function mk(src,t,c,i,n){const[x,y]=spawn(src,n,i);return addNode(t,x,y,c)}
+
+/* ---------- ابزارهای تفکر ---------- */
+const Q=[
+ ['اجزا و ویژگی‌هایش چیست؟','part',1,0],['چه انواع یا دسته‌هایی دارد؟','type',1,1],
+ ['مثال‌هایش؟','example',1,2],['چه چیزی باعث آن می‌شود؟ (علت)','cause',1,3],
+ ['چه پیامدی دارد؟ (معلول)','cause',0,4],['کاربرد یا ارتباط با مفهومی دیگر؟','link',0,5]];
+const T=[
+{id:'expand',i:'fa-up-right-and-down-left-from-center',n:'بسط و گسترش',d:'با پرسش‌های راهنما، یک مفهوم را شاخه‌شاخه کن.',need:'1',
+ async run([a]){
+  const v=await ask('بسط «'+a.t+'»',Q.map(q=>({l:q[0],a:1})),'هر خط یک مفهوم. پرسش‌های بی‌جواب نادیده گرفته می‌شوند.');if(!v)return;
+  const items=[];Q.forEach((q,i)=>lines(v[i]).forEach(t=>items.push([q,t])));if(!items.length)return;
+  snap();items.forEach(([q,t],i)=>{const n=mk([a],t,q[3],i,items.length);q[2]?addEdge(n.id,a.id,q[1]):addEdge(a.id,n.id,q[1])})}},
+{id:'analyze',i:'fa-magnifying-glass-chart',n:'تجزیه و تحلیل',d:'مفهوم را به اجزایش بشکن و نقش هر جزء را بنویس.',need:'1',
+ async run([a]){
+  const v=await ask('تجزیه‌ی «'+a.t+'»',[{l:'از چه اجزایی ساخته شده؟',a:1},{l:'نتیجهٔ تحلیل: اجزا چگونه با هم کار می‌کنند؟',a:1,p:'یادداشت روی مفهوم ذخیره می‌شود'}]);if(!v)return;
+  const p=lines(v[0]);if(!p.length&&!v[1])return;snap();
+  p.forEach((t,i)=>{const n=mk([a],t,1,i,p.length);addEdge(n.id,a.id,'part')});
+  if(v[1])a.note=(a.note?a.note+'\n':'')+'تحلیل: '+v[1]}},
+{id:'compare',i:'fa-scale-balanced',n:'مقایسه',d:'دو مفهوم را انتخاب کن؛ شباهت‌ها و تفاوت‌ها را بساز.',need:'2',
+ async run([a,b]){
+  const v=await ask('مقایسهٔ «'+a.t+'» و «'+b.t+'»',[{l:'ملاک مقایسه',p:'مثلاً: نحوهٔ عملکرد'},{l:'شباهت‌ها',a:1},{l:'تفاوت‌های «'+a.t+'»',a:1},{l:'تفاوت‌های «'+b.t+'»',a:1}]);if(!v)return;
+  const s=lines(v[1]),da=lines(v[2]),db=lines(v[3]);snap();
+  addEdge(a.id,b.id,'link','مقایسه'+(v[0]?': '+v[0]:''));
+  s.forEach((t,i)=>{const n=mk([a,b],t,5,i,s.length);addEdge(n.id,a.id,'similar');addEdge(n.id,b.id,'similar')});
+  [[a,da],[b,db]].forEach(([x,l])=>l.forEach((t,i)=>{const n=mk([x],t,2,i,l.length);addEdge(x.id,n.id,'link','ویژگی')}))}},
+{id:'combine',i:'fa-code-merge',n:'ترکیب',d:'دو مفهوم یا بیشتر را انتخاب کن و مفهوم تازه‌ای از آن‌ها بساز.',need:'2+',
+ async run(ns){
+  const v=await ask('ترکیب '+ns.length+' مفهوم',[{l:'مفهوم جدید حاصل از ترکیب',p:'مثلاً: یادگیری فعال'},{l:'چه چیزی از هر کدام گرفته شد؟ (اختیاری)'}]);if(!v||!v[0])return;
+  snap();const n=mk(ns,v[0],3,0,1);ns.forEach(x=>addEdge(x.id,n.id,'combine',v[1]));sel=new Set([n.id])}},
+{id:'contrast',i:'fa-arrows-left-right',n:'تضادیابی',d:'ضد یا متضاد مفهوم را پیدا کن و محور تضاد را بنویس.',need:'1',
+ async run([a]){
+  const v=await ask('تضاد «'+a.t+'»',[{l:'متضاد یا مخالف آن چیست؟',a:1},{l:'محور تضاد: از چه نظر متضادند؟',p:'مثلاً: عمق درک'}]);if(!v)return;
+  const o=lines(v[0]);if(!o.length)return;snap();
+  o.forEach((t,i)=>{const n=mk([a],t,4,i,o.length);addEdge(a.id,n.id,'contrast',v[1])})}},
+{id:'relation',i:'fa-plus-minus',n:'رابطهٔ مستقیم و معکوس',d:'دو مفهوم را انتخاب کن؛ بسنج با افزایش یکی، دیگری چه می‌شود.',need:'2',
+ async run([a,b]){
+  const v=await ask('رابطهٔ «'+a.t+'» با «'+b.t+'»',[{l:'نوع رابطه',s:['مستقیم: هر دو با هم زیاد/کم می‌شوند','معکوس: یکی زیاد شود، دیگری کم می‌شود']},{l:'شرح رابطه',p:'هرچه … بیشتر شود، … '}]);if(!v)return;
+  snap();addEdge(a.id,b.id,v[0]=='1'?'inverse':'direct',v[1])}},
+{id:'chain',i:'fa-link',n:'زنجیرهٔ علّی',d:'توالی «این باعث آن می‌شود» بساز؛ هر گام نتیجهٔ گام قبل است.',need:'1',
+ async run([a]){
+  const v=await ask('زنجیرهٔ علّی از «'+a.t+'»',[{l:'گام‌های بعدی — هر خط یک مفهوم، به‌ترتیب از علت به معلول',a:1,p:'مثلاً:\nتمرین روزانه\nکاهش خطا\nاعتماد به نفس'}]);if(!v)return;
+  const items=lines(v[0]);if(!items.length)return;snap();
+  let prev=a;items.forEach((t,i)=>{const n=addNode(t,a.x-240*(i+1),a.y+(i%2?80:-80),6);addEdge(prev.id,n.id,'cause');prev=n})}},
+{id:'analogy',i:'fa-lightbulb',n:'قیاس',d:'مفهوم دشوار را به چیز آشنا تشبیه کن و وجه شباهت را بنویس.',need:'1',
+ async run([a]){
+  const v=await ask('قیاس برای «'+a.t+'»',[{l:'به چه چیزی شبیه است؟ (هر خط یک قیاس)',a:1,p:'مثلاً:\nحافظهٔ عضله\nحساب بانک'},{l:'وجه شباهت (روی پیوند نوشته می‌شود)',p:'مثلاً: با تمرین قوی می‌شود'}]);if(!v)return;
+  const o=lines(v[0]);if(!o.length)return;snap();
+  o.forEach((t,i)=>{const n=mk([a],t,2,i,o.length);addEdge(a.id,n.id,'analogy',v[1])})}},
+{id:'question',i:'fa-circle-question',n:'پرسش‌سازی',d:'برای مفهوم پرسش‌های راهنما بساز و بعداً به آن‌ها پاسخ بده.',need:'1',
+ async run([a]){
+  const v=await ask('پرسش‌سازی دربارهٔ «'+a.t+'»',[{l:'پرسش‌ها (هر خط یک پرسش؛ با «؟» تمامش کن)',a:1,p:'مثلاً:\nچرا مهم است؟\nچه زمانی کار نمی‌کند؟'},{l:'پاسخ‌های حدسی (اختیاری — در یادداشت مفهوم ذخیره می‌شود)'}]);if(!v)return;
+  const o=lines(v[0]);if(!o.length)return;snap();
+  o.forEach((t,i)=>{const n=mk([a],t,5,i,o.length);addEdge(a.id,n.id,'question')});
+  if(v[1])a.note=(a.note?a.note+'\n':'')+'پاسخ‌های حدسی: '+v[1]}}
+];
+const okSel=t=>t.need=='1'?sel.size==1:t.need=='2'?sel.size==2:sel.size>=2;
+async function runTool(id){
+ const t=T.find(x=>x.id==id);
+ if(!okSel(t))return toast({'1':'برای این ابزار یک مفهوم را انتخاب کن.','2':'برای این ابزار دقیقاً دو مفهوم را انتخاب کن (Shift یا دکمهٔ چندانتخابی).','2+':'برای ترکیب دست‌کم دو مفهوم را انتخاب کن.'}[t.need]);
+ await t.run([...sel].map(nd));save();all();fitIfNeeded()}
+
+/* ---------- پنجرهٔ پرسش ---------- */
+function ask(title,fields,sub=''){return new Promise(res=>{
+ const m=$('#md');
+ m.innerHTML=`<form class="mc"><h3>${esc(title)}</h3><p>${esc(sub)}</p>${fields.map((f,i)=>`<label>${esc(f.l)}${f.s?`<select name="f${i}">${f.s.map((o,j)=>`<option value="${j}">${esc(o)}</option>`).join('')}</select>`:f.a?`<textarea name="f${i}" rows="2" placeholder="${esc(f.p||'هر خط یک مفهوم')}"></textarea>`:`<input name="f${i}" value="${esc(f.v||'')}" placeholder="${esc(f.p||'')}">`}</label>`).join('')}<div class="ac"><button class="b pr">تایید</button><button type="button" class="b" id="mx">انصراف</button></div></form>`;
+ m.hidden=false;const fm=m.firstChild;fm.querySelector('input,textarea,select').focus();
+ const done=v=>{m.hidden=true;m.innerHTML='';res(v)};
+ fm.onsubmit=e=>{e.preventDefault();done(fields.map((_,i)=>fm['f'+i].value.trim()))};
+ $('#mx').onclick=()=>done(null)})}
+
+/* ---------- رسم ---------- */
+function wrap(t){const w=String(t).split(/\s+/),r=[];let c='';w.forEach(x=>{if((c+' '+x).trim().length>16&&c){r.push(c);c=x}else c=(c+' '+x).trim()});if(c)r.push(c);return r.slice(0,3)}
+function dims(n){const l=wrap(n.t);return{l,w:Math.max(84,Math.max(...l.map(x=>x.length))*9.6+30),h:24+l.length*21}}
+function pt(n,tx,ty){const d=dims(n),dx=tx-n.x,dy=ty-n.y;const s=Math.min(dx?(d.w/2+4)/Math.abs(dx):1e9,dy?(d.h/2+4)/Math.abs(dy):1e9);return[n.x+dx*s,n.y+dy*s]}
+function inner(ex){
+ const defs=`<filter id="nsh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.45"/></filter>`+Object.entries(K).filter(([,k])=>k.a).map(([id,k])=>`<marker id="m-${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L10 5L0 10z" fill="${k.c}"/></marker>`).join('');
+ const E=S.edges.map(e=>{const a=nd(e.a),b=nd(e.b);if(!a||!b)return'';const k=K[e.k],p=pt(a,b.x,b.y),q=pt(b,a.x,a.y);
+  const lb=(k.s?k.s+' ':'')+(e.l||(k.s?'':k.n)),mx=(p[0]+q[0])/2,my=(p[1]+q[1])/2,on=!ex&&selE==e.id;
+  return`<g data-e="${e.id}"><line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" stroke="transparent" stroke-width="16"/><line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" stroke="${k.c}" stroke-width="${on?4:2.2}" ${k.d?`stroke-dasharray="${k.d}"`:''} ${k.a?`marker-end="url(#m-${e.k})"`:''}/>`+
+  (lb.trim()?`<rect x="${mx-lb.length*3.6-8}" y="${my-11}" width="${lb.length*7.2+16}" height="22" rx="11" fill="#0f172a" stroke="${k.c}"/><text x="${mx}" y="${my+4.5}" text-anchor="middle" font-size="12" fill="${k.c}" font-weight="700" font-family="Vazirmatn,Tahoma,sans-serif">${esc(lb)}</text>`:'')+'</g>'}).join('');
+ const N=S.nodes.map(n=>{const d=dims(n),c=PAL[n.c%PAL.length],on=!ex&&sel.has(n.id),hid=!ex&&S.recall&&!revealed.has(n.id);
+  return`<g data-n="${n.id}" transform="translate(${n.x} ${n.y})" style="cursor:grab"><title>${hid?'':esc(n.note)}</title><rect x="${-d.w/2}" y="${-d.h/2}" width="${d.w}" height="${d.h}" rx="14" fill="${hid?'transparent':c+'30'}" stroke="${on?'#f5b041':c}" stroke-width="${on?3:(1.7+(((n.imp||3)-3)*0.45))}" ${hid?'stroke-dasharray="6 4"':''} ${on?'filter="url(#nsh)"':''}/>`+
+  d.l.map((x,i)=>`<text y="${(i-(d.l.length-1)/2)*21+5}" text-anchor="middle" font-size="14" font-weight="700" fill="${hid?'transparent':'#f8fafc'}" font-family="Vazirmatn,Tahoma,sans-serif">${esc(x)}</text>`).join('')+
+  (n.note&&!hid?`<circle cx="${d.w/2-6}" cy="${-d.h/2+6}" r="4" fill="#fbbf24"/>`:'')+
+  (!ex&&(n.imp||3)>=4?`<circle cx="${-d.w/2+7}" cy="${-d.h/2+7}" r="7.5" fill="#fbbf24"/><text x="${-d.w/2+7}" y="${-d.h/2+10.5}" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0f172a">${n.imp}</text>`:'')+'</g>'}).join('');
+ return`<defs>${defs}</defs>${E}${N}`}
+function render(){cv.innerHTML=`<g transform="translate(${S.v.x} ${S.v.y}) scale(${S.v.k})">${inner()}</g>`;$('#start').hidden=!!S.nodes.length;$('#bUndo').disabled=!hist.length;$('#bRedo').disabled=!fut.length;cv.classList.toggle('arm',!!arm);$('#bMulti').classList.toggle('on',multi);$('#bRecall').classList.toggle('on',!!S.recall);$('#rh').hidden=!S.recall;const hs=$('#hstat');if(hs)hs.textContent=S.nodes.length+' مفهوم · '+S.edges.length+' پیوند'}
+function fit(){if(!S.nodes.length)return;const r=cv.getBoundingClientRect();let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+ S.nodes.forEach(n=>{const d=dims(n);x0=Math.min(x0,n.x-d.w/2);x1=Math.max(x1,n.x+d.w/2);y0=Math.min(y0,n.y-d.h/2);y1=Math.max(y1,n.y+d.h/2)});
+ const pad=50,k=Math.min(1.2,(r.width-pad*2)/Math.max(x1-x0,1),(r.height-pad*2)/Math.max(y1-y0,1));
+ S.v={k,x:r.width/2-k*(x0+x1)/2,y:r.height/2-k*(y0+y1)/2};render()}
+function fitIfNeeded(){const r=cv.getBoundingClientRect();if(S.nodes.some(n=>{const x=n.x*S.v.k+S.v.x,y=n.y*S.v.k+S.v.y;return x<30||y<30||x>r.width-30||y>r.height-30}))fit()}
+function bounds(){let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;S.nodes.forEach(n=>{const d=dims(n);x0=Math.min(x0,n.x-d.w/2);x1=Math.max(x1,n.x+d.w/2);y0=Math.min(y0,n.y-d.h/2);y1=Math.max(y1,n.y+d.h/2)});return[x0,y0,x1,y1]}
+function layout(){if(!S.nodes.length)return;snap();
+ const adj=id=>S.edges.flatMap(e=>e.a==id?[e.b]:e.b==id?[e.a]:[]),deg=n=>adj(n.id).length,seen=new Set();let ox=0;
+ [...S.nodes].sort((a,b)=>deg(b)-deg(a)).forEach(r=>{if(seen.has(r.id))return;seen.add(r.id);const lv=[[r.id]];
+  for(let i=0;i<lv.length;i++){const nx=[];lv[i].forEach(id=>adj(id).forEach(j=>{if(!seen.has(j)){seen.add(j);nx.push(j)}}));if(nx.length)lv.push(nx)}
+  let pr=0,mr=0;lv.forEach((l,i)=>{const R=i?Math.max(pr+190,l.length*140/6.283):0;pr=R;mr=R;
+   l.forEach((id,j)=>{const a=6.283*j/l.length+i*.6;nd(id).x=ox+R*Math.cos(a);nd(id).y=R*Math.sin(a)})});
+  ox+=mr*2+320});
+ save();fit()}
+
+/* ---------- تعامل ---------- */
+const ptr=new Map();let drag=null,pin=0;
+const w2s=e=>{const r=cv.getBoundingClientRect();return[(e.clientX-r.left-S.v.x)/S.v.k,(e.clientY-r.top-S.v.y)/S.v.k]};
+function zoomAt(cx,cy,f){const r=cv.getBoundingClientRect(),px=cx-r.left,py=cy-r.top,nk=Math.min(2.5,Math.max(.25,S.v.k*f));f=nk/S.v.k;S.v.x=px-(px-S.v.x)*f;S.v.y=py-(py-S.v.y)*f;S.v.k=nk}
+function zoomStep(f){const r=cv.getBoundingClientRect();zoomAt(r.left+r.width/2,r.top+r.height/2,f);render()}
+function connect(from,to,k){snap();addEdge(from,to,k);arm=null;save();all();toast('پیوند ساخته شد — برای نوشتن توضیح، روی آن بزن.')}
+cv.addEventListener('pointerdown',e=>{
+ ptr.set(e.pointerId,{x:e.clientX,y:e.clientY});cv.setPointerCapture(e.pointerId);
+ if(ptr.size==2){drag=null;pin=0;return}
+ const g=e.target.closest('[data-n]'),ed=e.target.closest('[data-e]');
+ if(g){const id=g.dataset.n;
+  if(S.recall&&!revealed.has(id)){revealed.add(id);render()}
+  if(arm){if(id!=arm.from)connect(arm.from,id,arm.k);return}
+  selE=null;if(e.shiftKey||multi)sel.has(id)?sel.delete(id):sel.add(id);else if(!sel.has(id)){sel.clear();sel.add(id)}
+  drag={t:'n',sx:e.clientX,sy:e.clientY,m:0,o:[...sel].map(i=>[i,nd(i).x,nd(i).y])}}
+ else if(ed){selE=ed.dataset.e;sel.clear();tab='sel';drag=null}
+ else{arm=null;if(!multi)sel.clear();selE=null;drag={t:'p',sx:e.clientX,sy:e.clientY,vx:S.v.x,vy:S.v.y}}
+ ui();render()});
+cv.addEventListener('pointermove',e=>{
+ if(!ptr.has(e.pointerId))return;ptr.set(e.pointerId,{x:e.clientX,y:e.clientY});
+ if(ptr.size==2){const[p,q]=[...ptr.values()],d=Math.hypot(p.x-q.x,p.y-q.y);if(pin)zoomAt((p.x+q.x)/2,(p.y+q.y)/2,d/pin);pin=d;render();return}
+ if(!drag)return;const dx=e.clientX-drag.sx,dy=e.clientY-drag.sy;
+ if(drag.t=='p'){S.v.x=drag.vx+dx;S.v.y=drag.vy+dy}
+ else{if(!drag.m&&Math.hypot(dx,dy)>4){snap();drag.m=1}if(drag.m)drag.o.forEach(([i,x,y])=>{nd(i).x=x+dx/S.v.k;nd(i).y=y+dy/S.v.k})}
+ render()});
+const up=e=>{ptr.delete(e.pointerId);pin=0;if(drag&&drag.m)save();if(!ptr.size)drag=null};
+cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+cv.addEventListener('wheel',e=>{e.preventDefault();zoomAt(e.clientX,e.clientY,e.deltaY<0?1.1:.91);render()},{passive:false});
+cv.addEventListener('dblclick',async e=>{
+ const g=e.target.closest('[data-n]');if(g)return editNode(g.dataset.n);
+ if(e.target.closest('[data-e]'))return;
+ const[x,y]=w2s(e),v=await ask('مفهوم جدید',[{l:'عنوان مفهوم'}]);if(v&&v[0]){snap();addNode(v[0],x,y,6);save();all()}});
+async function editNode(id){const n=nd(id),v=await ask('ویرایش مفهوم',[{l:'عنوان',v:n.t}]);if(v&&v[0]){snap();n.t=v[0];save();all()}}
+function del(){if(!sel.size&&!selE)return;snap();
+ if(selE)S.edges=S.edges.filter(e=>e.id!=selE);
+ S.nodes=S.nodes.filter(n=>!sel.has(n.id));S.edges=S.edges.filter(e=>nd(e.a)&&nd(e.b));sel.clear();selE=null;save();all()}
+document.addEventListener('keydown',e=>{
+ if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
+ if(e.key=='Delete'||e.key=='Backspace')del();
+ if(e.ctrlKey&&e.key=='z')undo();if(e.ctrlKey&&e.key=='y')redo();if(e.key=='Escape'){arm=null;sel.clear();selE=null;all()}
+ if((e.key=='r'||e.key=='R')&&!e.ctrlKey&&!e.metaKey){S.recall=!S.recall;if(!S.recall)revealed.clear();save();render();toast(S.recall?'آزمون بازیابی روشن شد':'آزمون بازیابی خاموش شد')}});
+
+/* ---------- پنل ---------- */
+const chips=(cur,attr='data-k')=>`<div class="chips">${Object.entries(K).map(([id,k])=>`<button class="chip ${cur==id?'on':''}" ${attr}="${id}" style="--c:${k.c}">${k.s?k.s+' ':''}${k.n}</button>`).join('')}</div>`;
+function ui(){
+ $$('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab==tab));
+ const P=$('#pc');let h='';
+ if(tab=='tools'){
+  h=`<p class="hn">${sel.size?'انتخاب‌شده: '+sel.size+' مفهوم. ':'ابتدا مفهوم(ها) را روی بوم انتخاب کن. '}هر ابزار، یک شیوهٔ فکر کردن را به چند پرسش ساده تبدیل می‌کند.</p>`+
+  T.map(t=>`<button class="tool ${okSel(t)?'':'off'}" data-t="${t.id}"><i class="fa-solid ${t.i}"></i><b>${t.n}</b><span>${t.d}</span></button>`).join('')+
+  `<p class="hn" style="margin-top:10px">اهمیت هر مفهوم را از تب «انتخاب» تنظیم کن؛ مفاهیم مهم با ستارهٔ طلایی مشخص می‌شوند. برای مرور ذهنی، دکمهٔ چشم در نوار بالا (آزمون بازیابی) را بزن.</p>`+
+  `<h4>راهنمای رنگ پیوندها</h4>`+chips(null,'data-x')}
+ else if(tab=='sel'){
+  if(selE){const e=S.edges.find(x=>x.id==selE);if(e)h=`<h4>نوع پیوند</h4>${chips(e.k)}<h4>توضیح روی پیوند</h4><input class="f" data-f="label" value="${esc(e.l)}" placeholder="مثلاً: هرچه تمرین بیشتر، خطا کمتر"><button class="b w" data-a="swap"><i class="fa-solid fa-right-left"></i> برگرداندن جهت</button><button class="b w dg" data-a="del"><i class="fa-solid fa-trash"></i> حذف پیوند</button>`}
+  else if(sel.size==1){const n=nd([...sel][0]);h=`<h4>عنوان مفهوم</h4><input class="f" data-f="text" value="${esc(n.t)}"><h4>رنگ</h4><div class="sw">${PAL.map((c,i)=>`<i data-col="${i}" class="${n.c==i?'on':''}" style="background:${c}"></i>`).join('')}</div><h4>اهمیت مفهوم (۱ تا ۵)</h4><input type="range" min="1" max="5" step="1" data-f="imp" value="${n.imp||3}" style="width:100%"><p class="hn" style="margin:4px 0 12px">اهمیت ۴ و ۵ = «مفهوم کلیدی»؛ ستارهٔ طلایی روی کارت می‌نشیند و در تحلیل برجسته می‌شود.</p><h4>یادداشت</h4><textarea class="f" rows="3" data-f="note" placeholder="توضیح، مثال یا نکته...">${esc(n.note)}</textarea><h4>اتصال به مفهوم دیگر</h4><p class="hn">نوع رابطه را بزن، سپس مفهوم مقصد را روی بوم بزن.</p>${chips(arm&&arm.k)}<button class="b w dg" data-a="del"><i class="fa-solid fa-trash"></i> حذف مفهوم</button>`}
+  else if(sel.size>1){const a=[...sel].map(nd);h=`<p class="hn">${sel.size} مفهوم انتخاب شده. نوع رابطه را بزن تا از «${esc(a[0].t)}» به «${esc(a[1].t)}» وصل شود.</p>${chips(null)}<button class="b w dg" data-a="del"><i class="fa-solid fa-trash"></i> حذف انتخاب‌شده‌ها</button>`}
+  else h=`<p class="hn">یک مفهوم یا یک پیوند را روی بوم بزن تا اینجا ویرایشش کنی. برای مفهوم تازه، روی بوم دوبار بزن یا + را بزن.</p>`}
+ else if(tab=='an')h=analysis();
+ else h=`<h4>قالب‌های آماده</h4><button class="b w" data-tpl="water"><i class="fa-solid fa-droplet"></i> چرخهٔ آب (علوم)</button><button class="b w" data-tpl="success"><i class="fa-solid fa-seedling"></i> عوامل پیشرفت درسی</button><button class="b w" data-tpl="story"><i class="fa-solid fa-book-open"></i> ساختار داستان (ادبیات)</button><button class="b w" data-a="sample"><i class="fa-solid fa-lightbulb"></i> نقشهٔ نمونهٔ آزاد</button><h4>ذخیره و خروجی</h4><button class="b w" data-a="json"><i class="fa-solid fa-download"></i> ذخیره به‌صورت فایل (JSON)</button><button class="b w" data-a="load"><i class="fa-solid fa-upload"></i> بارگذاری فایل نقشه</button><button class="b w" data-a="png"><i class="fa-solid fa-image"></i> خروجی تصویر (PNG)</button><button class="b w" data-a="svg"><i class="fa-solid fa-bezier-curve"></i> خروجی برداری (SVG)</button><button class="b w" data-a="share"><i class="fa-solid fa-share-nodes"></i> کپی لینک نقشه</button><button class="b w dg" data-a="new"><i class="fa-solid fa-file"></i> نقشهٔ جدید</button><p class="hn">میان‌برها: حذف با Delete · بازگشت Ctrl+Z · جلو Ctrl+Y · پنهان‌کردن عنوان‌ها با کلید R. نقشه به‌طور خودکار در همین مرورگر ذخیره می‌شود.</p>`;
+ P.innerHTML=h}
+function analysis(){
+ const N=S.nodes,E=S.edges;if(!N.length)return'<p class="hn">هنوز نقشه‌ای نساخته‌ای.</p>';
+ const use={};E.forEach(e=>use[e.k]=(use[e.k]||0)+1);
+ const deg={};N.forEach(n=>deg[n.id]=0);E.forEach(e=>{deg[e.a]++;deg[e.b]++});
+ const seen=new Set();let comp=0;N.forEach(n=>{if(seen.has(n.id))return;comp++;const st=[n.id];seen.add(n.id);while(st.length){const x=st.pop();E.forEach(e=>{const y=e.a==x?e.b:e.b==x?e.a:null;if(y&&!seen.has(y)){seen.add(y);st.push(y)}})}});
+ const cross=E.length-N.length+comp,sg=[];
+ const key=N.filter(n=>(n.imp||3)>=4);
+ const iso=N.filter(n=>!deg[n.id]),leaf=N.filter(n=>deg[n.id]==1);
+ iso.slice(0,3).forEach(n=>sg.push(`«${esc(n.t)}» به هیچ مفهومی وصل نیست. آن را به نقشه ربط بده.`));
+ leaf.slice(0,2).forEach(n=>sg.push(`«${esc(n.t)}» فقط یک ارتباط دارد. با ابزار «بسط» یا «تضادیابی» گسترشش بده.`));
+ if(!use.contrast)sg.push('هنوز تضادی نساخته‌ای. ضد یکی از مفاهیم چیست؟');
+ if(!use.direct&&!use.inverse)sg.push('رابطهٔ مستقیم یا معکوس میان دو مفهوم بساز: با افزایش یکی، دیگری چه می‌شود؟');
+ if(!use.cause)sg.push('علت و معلول در نقشه نیست. چه چیزی باعث چه چیزی می‌شود؟');
+ if(!use.question)sg.push('با ابزار «پرسش‌سازی» دربارهٔ مفهوم مرکزی سؤال بساز؛ پرسش، ذهن را فعال می‌کند.');
+ if(!use.analogy&&N.length>3)sg.push('یک «قیاس» بساز: مفهوم تازه را به چیزی آشنا تشبیه کن تا در حافظه بنشیند.');
+ if(N.length>4&&cross<1)sg.push('نقشه درخت‌گونه است. یک پیوند عرضی میان دو شاخهٔ دور از هم، نشانهٔ درک عمیق‌تر است.');
+ const nl=E.filter(e=>['direct','inverse','link'].includes(e.k)&&!e.l).length;if(nl)sg.push(`${nl} پیوند بدون توضیح داری. نوشتن «چرا؟» روی پیوند، درک را محکم‌تر می‌کند.`);
+ if(!sg.length)sg.push('نقشه متنوع و به‌هم‌پیوسته است. حالا با دکمهٔ چشم (آزمون بازیابی) عنوان‌ها را پنهان کن و نقشه را از حفظ توضیح بده.');
+ const mx=Math.max(1,...Object.values(use));
+ return`<div class="stat"><div><b>${N.length}</b>مفهوم</div><div><b>${E.length}</b>پیوند</div><div><b>${Math.max(0,cross)}</b>پیوند عرضی</div><div><b>${key.length}</b>کلیدی</div></div><h4>تنوع روابط</h4>`+
+ Object.entries(K).map(([id,k])=>`<div style="font-size:12.5px;color:${use[id]?'#e2e8f0':'#64748b'}">${k.n} <b>${use[id]||0}</b></div><div class="bar"><i style="width:${(use[id]||0)/mx*100}%;background:${k.c}"></i></div>`).join('')+
+ (key.length?`<h4>مفاهیم کلیدی (اهمیت ۴ و ۵)</h4><div class="chips">${key.map(n=>`<button class="chip on" style="--c:#fbbf24;cursor:default">${esc(n.t)}</button>`).join('')}</div>`:'')+
+ `<h4>پیشنهادها</h4>`+sg.map(s=>`<div class="sg">${s}</div>`).join('')}
+
+$('#pc').addEventListener('click',e=>{
+ const t=e.target.closest('[data-t]'),k=e.target.closest('[data-k]'),a=e.target.closest('[data-a]'),c=e.target.closest('[data-col]'),tp=e.target.closest('[data-tpl]');
+ if(t)runTool(t.dataset.t);
+ if(tp)loadTpl(tp.dataset.tpl);
+ if(c){snap();nd([...sel][0]).c=+c.dataset.col;save();all()}
+ if(k){const kk=k.dataset.k;
+  if(selE){snap();S.edges.find(x=>x.id==selE).k=kk;save();all()}
+  else if(sel.size>=2){const[x,y]=[...sel];connect(x,y,kk);sel=new Set([x,y])}
+  else if(sel.size==1){arm={from:[...sel][0],k:kk};toast('حالا مفهوم مقصد را روی بوم بزن.');if(innerWidth<=820)$('#panel').classList.add('min');all()}}
+ if(a)act(a.dataset.a)});
+$('#pc').addEventListener('change',e=>{const f=e.target.dataset.f;if(!f)return;snap();
+ if(selE){const x=S.edges.find(q=>q.id==selE);if(f=='label')x.l=e.target.value.trim()}
+ else{const n=nd([...sel][0]);if(f=='text'&&e.target.value.trim())n.t=e.target.value.trim();if(f=='note')n.note=e.target.value.trim();if(f=='imp')n.imp=Math.max(1,Math.min(5,+e.target.value||3))}
+ save();render()});
+$$('.tabs button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;if(innerWidth<=820)$('#panel').classList.remove('min');ui()});
+function all(){render();ui()}
+
+/* ---------- فایل، قالب‌ها و اشتراک ---------- */
+function dl(name,blob){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+function shareLink(){
+ const j=JSON.stringify({nodes:S.nodes,edges:S.edges,uid});
+ if(j.length>5500)return toast('نقشه برای لینک بزرگ است؛ از «ذخیرهٔ فایل» استفاده کن');
+ try{
+  const url=location.origin+location.pathname+'#m='+btoa(unescape(encodeURIComponent(j)));
+  if(navigator.clipboard)navigator.clipboard.writeText(url).then(()=>toast('لینک نقشه کپی شد — در پیام بچسبان'),()=>toast('کپی نشد؛ لینک در نوار آدرس هم می‌آید'));
+  else{location.hash='m='+btoa(unescape(encodeURIComponent(j)));toast('لینک در نوار آدرس ساخته شد')}
+ }catch(e){toast('ساخت لینک ناموفق بود')}}
+const TPL={
+ water:{nodes:[['تبخیر',0,-180,2],['متراکم شدن',-220,-60,2],['ابر',-220,80,2],['بارش',0,180,2],['رواناب',200,120,3],['نفوذ در خاک',220,-20,3],['آب زیرزمینی',140,-140,3],['اقیانوس و دریاچه‌ها',-20,40,0]],
+  edges:[['اقیانوس و دریاچه‌ها','تبخیر','cause','گرمای خورشید'],['تبخیر','متراکم شدن','cause'],['متراکم شدن','ابر','cause'],['ابر','بارش','cause'],['بارش','رواناب','cause'],['بارش','نفوذ در خاک','cause'],['نفوذ در خاک','آب زیرزمینی','cause'],['آب زیرزمینی','اقیانوس و دریاچه‌ها','cause','چشمه و رود']]},
+ success:{nodes:[['پیشرفت درسی',0,0,0],['انگیزهٔ درونی',-240,-140,5],['برنامهٔ هفتگی واقع‌بینانه',-240,20,2],['تمرین فعال و آزمون',0,-160,2],['خواب کافی',220,-120,1],['تمرکز در مطالعه',220,20,1],['مرور فاصله‌دار',-80,170,4],['استرس زیاد',240,160,4]],
+  edges:[['انگیزهٔ درونی','برنامهٔ هفتگی واقع‌بینانه','cause'],['برنامهٔ هفتگی واقع‌بینانه','تمرین فعال و آزمون','cause'],['تمرین فعال و آزمون','پیشرفت درسی','direct','هرچه بیشتر، یادگیری عمیق‌تر'],['خواب کافی','تمرکز در مطالعه','direct'],['تمرکز در مطالعه','پیشرفت درسی','direct'],['مرور فاصله‌دار','پیشرفت درسی','direct'],['استرس زیاد','تمرکز در مطالعه','inverse'],['استرس زیاد','خواب کافی','inverse']]},
+ story:{nodes:[['ساختار داستان',0,0,0],['گره‌افکنی',-230,-120,1],['روند رویدادها',-230,60,1],['اوج و بحران',0,180,4],['گره‌گشایی',230,60,2],['پایان‌بندی',230,-120,2],['شخصیت‌ها',0,-170,3],['کشمکش اصلی',0,60,3]],
+  edges:[['گره‌افکنی','روند رویدادها','cause'],['روند رویدادها','اوج و بحران','cause'],['اوج و بحران','گره‌گشایی','cause'],['گره‌گشایی','پایان‌بندی','cause'],['شخصیت‌ها','کشمکش اصلی','cause'],['کشمکش اصلی','اوج و بحران','cause'],['گره‌افکنی','ساختار داستان','part'],['پایان‌بندی','ساختار داستان','part']]}
+};
+function loadTpl(key){
+ const t=TPL[key];if(!t)return;snap();S.nodes=[];S.edges=[];const m={};
+ t.nodes.forEach(([tt,x,y,c])=>m[tt]=addNode(tt,x,y,c).id);
+ t.edges.forEach(([f,tt,k,l])=>addEdge(m[f],m[tt],k,l||''));
+ sel.clear();selE=null;revealed.clear();save();all();fit();toast('قالب بارگذاری شد — با Ctrl+Z می‌توانی برگردی.')}
+function act(a){
+ if(a=='del')del();
+ if(a=='swap'){const e=S.edges.find(x=>x.id==selE);snap();[e.a,e.b]=[e.b,e.a];save();all()}
+ if(a=='json')dl('concept-map.json',new Blob([cur()],{type:'application/json'}));
+ if(a=='load')$('#fi').click();
+ if(a=='sample')sample();
+ if(a=='share')shareLink();
+ if(a=='new'&&confirm('نقشهٔ فعلی پاک شود؟')){snap();S.nodes=[];S.edges=[];sel.clear();selE=null;revealed.clear();save();all()}
+ if(a=='svg'){if(!S.nodes.length)return toast('نقشه خالی است.');
+  const[x0,y0,x1,y1]=bounds(),p=40,w=x1-x0+p*2,h=y1-y0+p*2;
+  dl('concept-map.svg',new Blob([`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${x0-p} ${y0-p} ${w} ${h}"><rect x="${x0-p}" y="${y0-p}" width="${w}" height="${h}" fill="#0f172a"/>${inner(1)}</svg>`],{type:'image/svg+xml;charset=utf-8'}))}
+ if(a=='png'){if(!S.nodes.length)return toast('نقشه خالی است.');
+  const[x0,y0,x1,y1]=bounds(),p=40,w=x1-x0+p*2,h=y1-y0+p*2;
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${w*2}" height="${h*2}" viewBox="${x0-p} ${y0-p} ${w} ${h}"><rect x="${x0-p}" y="${y0-p}" width="${w}" height="${h}" fill="#0f172a"/>${inner(1)}</svg>`;
+  const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=w*2;c.height=h*2;c.getContext('2d').drawImage(im,0,0);c.toBlob(b=>dl('concept-map.png',b))};
+  im.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)}}
+$('#fi').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();
+ r.onload=()=>{try{snap();load(r.result);save();fit();toast('نقشه بارگذاری شد.')}catch(x){toast('فایل معتبر نیست.')}};r.readAsText(f);e.target.value=''};
+function sample(){snap();S.nodes=[];S.edges=[];revealed.clear();const P=[['یادگیری عمیق',0,0,0],['توجه',-300,-120,1],['خستگی ذهنی',-300,140,4],['درک مفهومی',300,-140,1],['حفظ طوطی‌وار',300,150,4],['تکرار فاصله‌دار',0,-260,2],['حافظهٔ بلندمدت',0,260,5]];
+ const m={};P.forEach(([t,x,y,c])=>m[t]=addNode(t,x,y,c).id);
+ addEdge(m['توجه'],m['یادگیری عمیق'],'direct','هرچه توجه بیشتر، یادگیری عمیق‌تر');
+ addEdge(m['خستگی ذهنی'],m['یادگیری عمیق'],'inverse','هرچه خستگی بیشتر، کیفیت کمتر');
+ addEdge(m['درک مفهومی'],m['یادگیری عمیق'],'part');
+ addEdge(m['درک مفهومی'],m['حفظ طوطی‌وار'],'contrast','عمق پردازش');
+ addEdge(m['تکرار فاصله‌دار'],m['حافظهٔ بلندمدت'],'cause');
+ addEdge(m['حافظهٔ بلندمدت'],m['یادگیری عمیق'],'direct');
+ addEdge(m['تکرار فاصله‌دار'],m['درک مفهومی'],'example','تمرین فعال');
+ sel.clear();selE=null;save();all();fit()}
+
+/* ---------- راه‌اندازی ---------- */
+$('#sf').onsubmit=e=>{e.preventDefault();snap();addNode($('#sc').value.trim(),0,0,0);$('#sc').value='';save();sel=new Set([S.nodes[0].id]);tab='tools';all();fit()};
+$('#sd').onclick=sample;
+$$('[data-tpl0]').forEach(b=>b.onclick=()=>loadTpl(b.dataset.tpl0));
+$('#bAdd').onclick=async()=>{const v=await ask('مفهوم جدید',[{l:'عنوان مفهوم'}]);if(v&&v[0]){const r=cv.getBoundingClientRect();snap();const n=addNode(v[0],(r.width/2-S.v.x)/S.v.k+(Math.random()-.5)*80,(r.height/2-S.v.y)/S.v.k+(Math.random()-.5)*80,6);sel=new Set([n.id]);save();all();if(S.nodes.length==1)fit()}};
+$('#bMulti').onclick=()=>{multi=!multi;toast(multi?'چندانتخابی روشن شد.':'چندانتخابی خاموش شد.');render()};
+$('#bUndo').onclick=undo;$('#bRedo').onclick=redo;$('#bLay').onclick=layout;$('#bFit').onclick=fit;
+$('#bZi').onclick=()=>zoomStep(1.25);$('#bZo').onclick=()=>zoomStep(.8);
+$('#bRecall').onclick=()=>{S.recall=!S.recall;if(!S.recall)revealed.clear();save();render();toast(S.recall?'آزمون بازیابی: عنوان‌ها پنهان شد؛ روی کارت‌ها بزن تا یادآوری کنی.':'نمایش عادی عنوان‌ها')};
+$('#pt').onclick=()=>$('#panel').classList.toggle('min');
+addEventListener('resize',render);
+let hashLoaded=false;
+try{
+ const mh=(location.hash||'').match(/^#m=(.+)$/);
+ if(mh){const o=JSON.parse(decodeURIComponent(escape(atob(mh[1]))));
+  if(o&&o.nodes&&o.nodes.length){S=o;uid=o.uid||S.nodes.length+S.edges.length+9;if(!S.v)S.v={x:0,y:0,k:1};hashLoaded=true;history.replaceState(null,'',location.pathname)}}
+}catch(e){}
+if(!hashLoaded){try{const o=JSON.parse(localStorage.getItem('mp_concept_v1')||'null');if(o&&o.nodes){S=o;uid=o.uid||999;if(!S.v)S.v={x:0,y:0,k:1}}}catch(e){}}
+all();if(S.nodes.length)fit();else{const r=cv.getBoundingClientRect();S.v={x:r.width/2,y:r.height/2,k:1}}
+</script>
+<script>
+(function(){
+/* ================= CM2 — الف) هسته: گراف، تحلیل ارتباط، نقش‌ها ================= */
+const MONE=864e5;
+const ndv=id=>S.nodes.find(n=>n.id==id);
+const ttl=id=>{const n=ndv(id);return n?n.t:'؟'};
+function rngm(seed){let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(a^(a>>>15),1|a);t=(t+Math.imul(t^(t>>>7),61|t))^t;return((t^(t>>>14))>>>0)/4294967296}}
+function gr(){const ids=S.nodes.map(n=>n.id),ix=new Map(ids.map((id,i)=>[id,i])),n=ids.length,adj=Array.from({length:n},()=>[]);
+ const E=S.edges.filter(e=>ix.has(e.a)&&ix.has(e.b));
+ E.forEach(e=>{const a=ix.get(e.a),b=ix.get(e.b);adj[a].push({to:b,e});adj[b].push({to:a,e})});
+ const nbs=adj.map((a,i)=>[...new Set(a.map(x=>x.to))].filter(j=>j!==i));
+ return{ids,ix,n,adj,E,nbs}}
+function pagerank(g){const n=g.n;if(!n)return new Float64Array(0);let r=new Float64Array(n).fill(1/n);
+ for(let it=0;it<60;it++){const nr=new Float64Array(n).fill(0.15/n);let sink=0;
+  for(let i=0;i<n;i++){const d=g.nbs[i].length;if(!d){sink+=r[i];continue}for(const j of g.nbs[i])nr[j]+=0.85*r[i]/d}
+  for(let i=0;i<n;i++)nr[i]+=0.85*sink/n;r=nr}
+ return r}
+function betweenness(g){const n=g.n,C=new Float64Array(n);
+ for(let s=0;s<n;s++){const st=[],P=Array.from({length:n},()=>[]),sg=new Float64Array(n),d=new Int32Array(n).fill(-1);sg[s]=1;d[s]=0;const q=[s];
+  for(let qi=0;qi<q.length;qi++){const v=q[qi];st.push(v);for(const w of g.nbs[v]){if(d[w]<0){d[w]=d[v]+1;q.push(w)}if(d[w]===d[v]+1){sg[w]+=sg[v];P[w].push(v)}}}
+  const dl=new Float64Array(n);while(st.length){const w=st.pop();for(const v of P[w])dl[v]+=sg[v]/sg[w]*(1+dl[w]);if(w!==s)C[w]+=dl[w]}}
+ for(let i=0;i<n;i++)C[i]/=2;return C}
+function articulation(g){const n=g.n,disc=new Int32Array(n).fill(-1),low=new Int32Array(n),res=new Set();let t=0;
+ function dfs(u,p){disc[u]=low[u]=t++;let ch=0;for(const v of g.nbs[u]){if(disc[v]<0){ch++;dfs(v,u);low[u]=Math.min(low[u],low[v]);if(p>=0&&low[v]>=disc[u])res.add(u)}else if(v!==p)low[u]=Math.min(low[u],disc[v])}if(p<0&&ch>1)res.add(u)}
+ for(let i=0;i<n;i++)if(disc[i]<0)dfs(i,-1);return res}
+function components(g){const c=new Int32Array(g.n).fill(-1);let k=0;for(let i=0;i<g.n;i++){if(c[i]>=0)continue;const q=[i];c[i]=k;for(let qi=0;qi<q.length;qi++)for(const j of g.nbs[q[qi]])if(c[j]<0){c[j]=k;q.push(j)}k++}return{c,k}}
+/* مسیر کوتاه (بدون جهت) */
+function shortestPath(a,b){const g=gr(),s=g.ix.get(a),t=g.ix.get(b);if(s==null||t==null)return null;
+ const prev=new Map([[s,null]]),q=[s];
+ for(let qi=0;qi<q.length&&!prev.has(t);qi++){const u=q[qi];for(const x of g.adj[u])if(!prev.has(x.to)){prev.set(x.to,{from:u,e:x.e});q.push(x.to)}}
+ if(!prev.has(t))return null;const path=[];let cur=t;while(prev.get(cur)){const p=prev.get(cur);path.unshift({from:g.ids[p.from],to:g.ids[cur],e:p.e});cur=p.from}return path}
+function sentence(e){const A=ttl(e.a),B=ttl(e.b),l=e.l?' ('+e.l+')':'';
+ const m={direct:`«${A}» و «${B}» رابطهٔ مستقیم دارند${l}`,inverse:`«${A}» و «${B}» رابطهٔ معکوس دارند${l}`,cause:`«${A}» باعث «${B}» می‌شود${l}`,contrast:`«${A}» در تضاد با «${B}» است${l}`,similar:`«${A}» به «${B}» شبیه است${l}`,part:`«${A}» جزئی از «${B}» است${l}`,type:`«${A}» نوعی از «${B}» است${l}`,example:`«${A}» مثالی برای «${B}» است${l}`,combine:`«${A}» در ساختن «${B}» نقش دارد${l}`,question:`«${A}» پرسشی دربارهٔ «${B}» است${l}`,analogy:`«${A}» قیاسی برای «${B}» است${l}`,link:`«${A}» با «${B}» مرتبط است${l}`};
+ return m[e.k]||m.link}
+/* حلقه‌های علّی/بازخوردی با قطبیت */
+function signedOut(g){const out=Array.from({length:g.n},()=>[]);
+ g.E.forEach(e=>{const a=g.ix.get(e.a),b=g.ix.get(e.b);
+  if(e.k==='cause')out[a].push({to:b,s:1,e});
+  else if(e.k==='direct'||e.k==='inverse'){const s=e.k==='direct'?1:-1;out[a].push({to:b,s,e});out[b].push({to:a,s,e})}});return out}
+function findLoops(g){const out=signedOut(g),res=[],seen=new Set();let steps=0;
+ for(let s=0;s<g.n&&res.length<40;s++){const path=[s],es=[],used=new Set();
+  (function dfs(u,sg){if(steps++>300000||res.length>=40||path.length>7)return;
+   for(const x of out[u]){if(used.has(x.e.id))continue;
+    if(x.to===s){const ids=[...es,x.e].map(e=>e.id).sort().join('|');if(!seen.has(ids)){seen.add(ids);res.push({nodes:path.map(i=>g.ids[i]),edges:[...es,x.e].map(e=>e.id),sign:sg*x.s})}continue}
+    if(x.to<s||path.includes(x.to))continue;
+    used.add(x.e.id);path.push(x.to);es.push(x.e);dfs(x.to,sg*x.s);path.pop();es.pop();used.delete(x.e.id)}})(s,1)}
+ return res}
+/* شبیه‌ساز اثر: اگر مفهوم افزایش/کاهش یابد */
+function simulateEffect(src,dir){const g=gr(),s=g.ix.get(src);if(s==null)return[];
+ const res=new Map([[s,new Set([dir])]]),dist=new Map([[s,0]]),seen=new Set([s+':'+dir]),q=[[s,dir,0]];
+ for(let qi=0;qi<q.length;qi++){const[u,sg,d]=q[qi];if(d>=6)continue;
+  for(const x of g.adj[u]){const e=x.e;let ok=false,k=1;
+   if(e.k==='direct'||e.k==='inverse'){ok=true;k=e.k==='direct'?1:-1}
+   else if(e.k==='cause'&&g.ix.get(e.a)===u){ok=true;k=1}
+   if(!ok)continue;const ns=sg*k,key=x.to+':'+ns;if(seen.has(key))continue;seen.add(key);
+   if(!res.has(x.to))res.set(x.to,new Set());res.get(x.to).add(ns);if(!dist.has(x.to))dist.set(x.to,d+1);q.push([x.to,ns,d+1])}}
+ return[...res.entries()].filter(([i])=>i!==s).map(([i,set])=>({id:g.ids[i],sign:set.size>1?0:[...set][0],d:dist.get(i)})).sort((a,b)=>a.d-b.d)}
+/* نقش‌های ورودی–فرایند–خروجی–بازخورد */
+function flowEdges(){return S.edges.filter(e=>(e.k==='cause'||e.k==='combine')&&ndv(e.a)&&ndv(e.b))}
+function sccSet(){const N=S.nodes.map(n=>n.id),F=flowEdges(),out=new Map(N.map(i=>[i,[]])),inn=new Map(N.map(i=>[i,[]]));
+ F.forEach(e=>{out.get(e.a).push(e.b);inn.get(e.b).push(e.a)});
+ const vis=new Set(),order=[];
+ N.forEach(u=>{if(!vis.has(u)){(function dfs(x){vis.add(x);out.get(x).forEach(v=>{if(!vis.has(v))dfs(v)});order.push(x)})(u)}});
+ const comp=new Map();let k=0;
+ for(let i=order.length-1;i>=0;i--){const u=order[i];if(comp.has(u))continue;const st=[u];comp.set(u,k);while(st.length){const x=st.pop();inn.get(x).forEach(v=>{if(!comp.has(v)){comp.set(v,k);st.push(v)}})}k++}
+ const cnt={};comp.forEach(c=>cnt[c]=(cnt[c]||0)+1);const fb=new Set();comp.forEach((c,id)=>{if(cnt[c]>1)fb.add(id)});
+ F.forEach(e=>{if(e.a===e.b)fb.add(e.a)});return fb}
+const ROLE={input:{n:'ورودی',c:'#10b981'},process:{n:'فرایند',c:'#e8971f'},output:{n:'خروجی',c:'#38bdf8'},feedback:{n:'بازخورد',c:'#a78bfa'}};
+function roles(){const F=flowEdges(),o={},i={};F.forEach(e=>{o[e.a]=(o[e.a]||0)+1;i[e.b]=(i[e.b]||0)+1});const fb=sccSet(),res={};
+ S.nodes.forEach(n=>{if(n.role&&ROLE[n.role]){res[n.id]=n.role;return}
+  if(fb.has(n.id))res[n.id]='feedback';
+  else if(o[n.id]&&!i[n.id])res[n.id]='input';else if(i[n.id]&&!o[n.id])res[n.id]='output';else if(i[n.id]&&o[n.id])res[n.id]='process'});
+ return res}
+/* بررسی سلامت نقشه */
+function healthCheck(){const out=[],pairs=new Map();
+ S.edges.forEach(e=>{if(!ndv(e.a)||!ndv(e.b))return;const key=[e.a,e.b].sort().join('|');(pairs.get(key)||pairs.set(key,[]).get(key)).push(e)});
+ pairs.forEach(es=>{const ks=es.map(e=>e.k);
+  if(ks.includes('direct')&&ks.includes('inverse'))out.push({t:'تناقض',m:`«${ttl(es[0].a)}» و «${ttl(es[0].b)}» هم رابطهٔ مستقیم دارند و هم معکوس.`,ids:[es[0].a,es[0].b]});
+  if((ks.includes('direct')||ks.includes('inverse')||ks.includes('similar'))&&ks.includes('contrast'))out.push({t:'تناقض',m:`«${ttl(es[0].a)}» و «${ttl(es[0].b)}» هم شباهت/رابطه دارند و هم تضاد؛ محور هر کدام را روشن کن.`,ids:[es[0].a,es[0].b]})});
+ const g=gr(),H=new Map(g.ids.map(id=>[id,[]]));
+ g.E.filter(e=>e.k==='part'||e.k==='type').forEach(e=>H.get(e.a).push(e.b));
+ const col=new Map();let bad=null;(function go(u,st){col.set(u,1);for(const v of H.get(u)){if(col.get(v)===1&&!bad)bad=[v,u];else if(!col.has(v))go(v,st)}col.set(u,2)});
+ g.ids.forEach(u=>{if(!col.has(u)){(function go(x){col.set(x,1);for(const v of H.get(x)){if(col.get(v)===1&&!bad)bad=[v,x];else if(!col.has(v))go(v)}col.set(x,2)})(u)}});
+ if(bad)out.push({t:'سلسله‌مراتب',m:`در پیوندهای «جزئی از/نوعی از» دور وجود دارد (نزدیک «${ttl(bad[0])}»)؛ یک چیز نمی‌تواند جزئی از خودش باشد.`,ids:bad});
+ g.E.forEach(e=>{if(e.a===e.b)out.push({t:'خطا',m:`«${ttl(e.a)}» به خودش وصل شده.`,ids:[e.a]})});
+ const dup=new Map();S.nodes.forEach(n=>{const k=n.t.replace(/\s+/g,' ').trim();(dup.get(k)||dup.set(k,[]).get(k)).push(n.id)});
+ dup.forEach((ids,k)=>{if(ids.length>1)out.push({t:'تکرار',m:`مفهوم «${k}» ${ids.length} بار تعریف شده؛ ادغامشان کن.`,ids})});
+ const un=S.edges.filter(e=>['direct','inverse'].includes(e.k)&&!e.l).length;if(un)out.push({t:'توضیح',m:`${un} رابطهٔ مستقیم/معکوس بدون توضیح داری؛ «چرا؟» را روی پیوند بنویس.`,ids:[]});
+ return out}
+/* ================= CM2 — ب) یادگیری ماشین روی نقشه ================= */
+const sig=x=>1/(1+Math.exp(-x));
+const tri=t=>{const s=' '+t.replace(/[()؟?،,.:؛‌]/g,' ').replace(/\s+/g,' ').trim()+' ',r=new Set();for(let i=0;i<s.length-2;i++)r.add(s.slice(i,i+3));return r};
+function jac(a,b){let i=0;a.forEach(x=>{if(b.has(x))i++});const u=a.size+b.size-i;return u?i/u:0}
+function trainEmb(g,pairs,opt){
+ const n=g.n,d=opt.dim||8,rg=rngm(opt.seed||7),E=Array.from({length:n},()=>Array.from({length:d},()=>(rg()-.5)*0.3)),B=new Float64Array(n);
+ const adjS=Array.from({length:n},()=>new Set());pairs.forEach(([a,b])=>{adjS[a].add(b);adjS[b].add(a)});
+ const losses=[],ep=opt.epochs||200;
+ function epoch(e){const lr=0.12*(1-0.8*e/ep);let L=0;
+  for(const[i,j]of pairs){for(const[x,y]of[[i,j],[j,i]]){
+   let s=B[x]+B[y];for(let k=0;k<d;k++)s+=E[x][k]*E[y][k];const p=sig(s);L+=-Math.log(Math.max(p,1e-9));
+   let gc=p-1;for(let k=0;k<d;k++){const ex=E[x][k],ey=E[y][k];E[x][k]-=lr*(gc*ey+0.002*ex);E[y][k]-=lr*(gc*ex+0.002*ey)}B[x]-=lr*gc;B[y]-=lr*gc;
+   for(let m=0;m<3;m++){let z=(rg()*n)|0,t=0;while((z===x||adjS[x].has(z))&&t++<6)z=(rg()*n)|0;if(z===x||adjS[x].has(z))continue;
+    let s2=B[x]+B[z];for(let k=0;k<d;k++)s2+=E[x][k]*E[z][k];const p2=sig(s2);L+=-Math.log(Math.max(1-p2,1e-9));
+    for(let k=0;k<d;k++){const ex=E[x][k],ez=E[z][k];E[x][k]-=lr*(p2*ez+0.002*ex);E[z][k]-=lr*(p2*ex+0.002*ez)}B[x]-=lr*p2;B[z]-=lr*p2}}}
+  return L/Math.max(1,pairs.length*2)}
+ return{E,B,d,adjS,epoch,ep,losses}}
+function embScore(m,i,j){let s=m.B[i]+m.B[j];for(let k=0;k<m.d;k++)s+=m.E[i][k]*m.E[j][k];return s}
+function pairFeat(g,m,adjS,T,i,j){let aa=0;adjS[i].forEach(z=>{if(adjS[j].has(z))aa+=1/Math.log(2+adjS[z].size)});return[embScore(m,i,j),aa,jac(T[i],T[j])]}
+function aucOf(pos,neg){let w=0;for(const p of pos)for(const q of neg)w+=p>q?1:p===q?.5:0;return w/Math.max(1,pos.length*neg.length)}
+function fitLR(X,y){const d=X[0].length,mu=Array(d).fill(0),sd=Array(d).fill(0);X.forEach(r=>r.forEach((v,k)=>mu[k]+=v/X.length));X.forEach(r=>r.forEach((v,k)=>sd[k]+=(v-mu[k])**2/X.length));for(let k=0;k<d;k++)sd[k]=Math.sqrt(sd[k])||1;
+ const w=Array(d).fill(0);let b=0;for(let it=0;it<300;it++){const gw=Array(d).fill(0);let gb=0;X.forEach((r,i)=>{let z=b;for(let k=0;k<d;k++)z+=w[k]*(r[k]-mu[k])/sd[k];const e=sig(z)-y[i];for(let k=0;k<d;k++)gw[k]+=e*(r[k]-mu[k])/sd[k];gb+=e});for(let k=0;k<d;k++)w[k]-=0.2*(gw[k]/X.length+0.01*w[k]);b-=0.2*gb/X.length}
+ return{w,b,mu,sd}}
+const lrP=(L,f)=>{let z=L.b;for(let k=0;k<f.length;k++)z+=L.w[k]*(f[k]-L.mu[k])/L.sd[k];return sig(z)};
+
+/* مدل نوع پیوند: رگرسیون softmax روی الگوی نوع پیوندهای دو سرِ پیوند */
+function kindModel(g){const KI=Object.keys(K),kc=KI.length,E=g.E.filter(e=>g.ix.get(e.a)!==g.ix.get(e.b));
+ const cnt=Array.from({length:g.n},()=>new Float64Array(kc));E.forEach(e=>{const k=KI.indexOf(e.k);cnt[g.ix.get(e.a)][k]++;cnt[g.ix.get(e.b)][k]++});
+ const feat=(i,j,own)=>{const f=new Float64Array(kc*2+1);let ti=0,tj=0;for(let k=0;k<kc;k++){let a=cnt[i][k],c=cnt[j][k];if(own===k){a--;c--}ti+=a;tj+=c;f[k]=a;f[kc+k]=c}
+  for(let k=0;k<kc;k++){f[k]=ti>0?f[k]/ti:0;f[kc+k]=tj>0?f[kc+k]/tj:0}
+  const s=new Float64Array(kc*2+1);for(let k=0;k<kc;k++){s[k]=f[k]+f[kc+k];s[kc+k]=f[k]*f[kc+k]}s[kc*2]=1;return s};
+ const present=[...new Set(E.map(e=>e.k))];if(E.length<6||present.length<2)return null;
+ const X=E.map(e=>feat(g.ix.get(e.a),g.ix.get(e.b),KI.indexOf(e.k))),y=E.map(e=>KI.indexOf(e.k)),D=kc*2+1;
+ const train=idx=>{const W=Array.from({length:kc},()=>new Float64Array(D));for(let it=0;it<250;it++){const G=Array.from({length:kc},()=>new Float64Array(D));
+   for(const i of idx){const z=W.map(w=>w.reduce((s,v,d)=>s+v*X[i][d],0)),m=Math.max(...z),ex=z.map(v=>Math.exp(v-m)),su=ex.reduce((a,b)=>a+b,0);
+    for(let k=0;k<kc;k++){const err=ex[k]/su-(y[i]===k?1:0);for(let d=0;d<D;d++)G[k][d]+=err*X[i][d]}}
+   for(let k=0;k<kc;k++)for(let d=0;d<D;d++)W[k][d]-=0.5*(G[k][d]/idx.length+0.002*W[k][d])}return W};
+ const pred=(W,x)=>{const z=W.map(w=>w.reduce((s,v,d)=>s+v*x[d],0)),m=Math.max(...z),ex=z.map(v=>Math.exp(v-m)),su=ex.reduce((a,b)=>a+b,0);let b=0;ex.forEach((v,k)=>{if(v>ex[b])b=k});return{k:b,p:ex[b]/su}};
+ const rg=rngm(21),order=E.map((_,i)=>i).sort(()=>rg()-.5),F=5;let ok=0;
+ for(let f=0;f<F;f++){const te=order.filter((_,i)=>i%F===f),tr=order.filter((_,i)=>i%F!==f);if(!tr.length)continue;const W=train(tr);te.forEach(i=>{if(pred(W,X[i]).k===y[i])ok++})}
+ const cntK={};y.forEach(k=>cntK[k]=(cntK[k]||0)+1);const base=Math.max(...Object.values(cntK))/y.length,W=train(order);
+ return{cv:ok/E.length,base,predict:(i,j)=>{const r=pred(W,feat(i,j,-1));return{kind:KI[r.k],conf:r.p}}}}
+const ML={ready:false,running:false,loss:[],auc:null,note:'',preds:[],clusters:null,model:null,rej:new Set(),raf:0};
+function rejKey(a,b){return[a,b].sort().join('|')}
+function mlPrepare(){const g=gr(),T=S.nodes.map(n=>tri(n.t)),pairs=[],seenP=new Set();
+ g.E.forEach(e=>{const a=g.ix.get(e.a),b=g.ix.get(e.b);if(a===b)return;const k=Math.min(a,b)+'_'+Math.max(a,b);if(!seenP.has(k)){seenP.add(k);pairs.push([a,b])}});
+ return{g,T,pairs}}
+function mlHoldout(ctx){const{g,T,pairs}=ctx;if(pairs.length<8)return{auc:null,LR:null,note:'برای راستی‌آزمایی دست‌کم ۸ پیوند لازم است؛ فعلاً با وزن‌های پیش‌فرض کار می‌کنیم.'};
+ const rg=rngm(99),idx=pairs.map((_,i)=>i).sort(()=>rg()-.5),nh=Math.max(2,Math.round(pairs.length*0.25)),hold=idx.slice(0,nh).map(i=>pairs[i]),tr=idx.slice(nh).map(i=>pairs[i]);
+ const m=trainEmb(g,tr,{epochs:150,seed:5});for(let e=0;e<m.ep;e++)m.epoch(e);
+ const full=new Set(pairs.map(([a,b])=>Math.min(a,b)+'_'+Math.max(a,b)));const neg=[];let t=0;while(neg.length<nh*2&&t++<5000){const a=(rg()*g.n)|0,b=(rg()*g.n)|0;if(a===b)continue;if(full.has(Math.min(a,b)+'_'+Math.max(a,b)))continue;neg.push([a,b])}
+ const X=[],y=[];hold.forEach(([a,b])=>{X.push(pairFeat(g,m,m.adjS,T,a,b));y.push(1)});neg.forEach(([a,b])=>{X.push(pairFeat(g,m,m.adjS,T,a,b));y.push(0)});
+ const LR=fitLR(X,y),sc=X.map(r=>lrP(LR,r)),auc=aucOf(sc.filter((_,i)=>y[i]),sc.filter((_,i)=>!y[i]));
+ return{auc,LR,note:'راستی‌آزمایی: '+hold.length+' پیوند پنهان‌شده در برابر '+neg.length+' جفتِ بی‌پیوند.'}}
+function mlFinish(ctx,m,ho){const{g,T}=ctx;ML.model=m;const LR=ho.LR||{w:[0.8,1.2,1],b:-1.2,mu:[0,0,0],sd:[1,1,1]};
+ const KM=kindModel(g);ML.km=KM?{cv:KM.cv,base:KM.base}:null;const preds=[];
+ for(let i=0;i<g.n;i++)for(let j=i+1;j<g.n;j++){if(m.adjS[i].has(j)||ML.rej.has(rejKey(g.ids[i],g.ids[j])))continue;
+  const f=pairFeat(g,m,m.adjS,T,i,j),p=lrP(LR,f);
+  const cn=g.nbs[i].filter(z=>g.nbs[j].includes(z)).slice(0,2).map(z=>S.nodes[z].t),hist={};
+  [i,j].forEach(x=>g.adj[x].forEach(a=>{hist[a.e.k]=(hist[a.e.k]||0)+1}));
+  const best=Object.entries(hist).sort((a,b)=>b[1]-a[1])[0],kp=KM?KM.predict(i,j):null;
+  preds.push({a:g.ids[i],b:g.ids[j],p,cn,txt:f[2],kind:kp?kp.kind:(best?best[0]:'link'),kconf:kp?kp.conf:null})}
+ preds.sort((x,y)=>y.p-x.p);ML.preds=preds.slice(0,8);ML.auc=ho.auc;ML.note=ho.note;
+ /* خوشه‌بندی k-means روی جاسازی‌ها */
+ ML.clusters=null;const n=g.n;if(n>=4){const V=m.E.map(v=>{const nr=Math.hypot(...v)||1;return v.map(x=>x/nr)}),rg=rngm(3);let best=null;
+  for(let k=2;k<=Math.min(6,Math.floor(n/2));k++){const C=[V[(rg()*n)|0].slice()];while(C.length<k){const d2=V.map(v=>Math.min(...C.map(c=>v.reduce((s,x,q)=>s+(x-c[q])**2,0))));const tot=d2.reduce((a,b)=>a+b,0)||1;let r=rg()*tot,pi=0;for(;pi<n-1;pi++){r-=d2[pi];if(r<=0)break}C.push(V[pi].slice())}
+   let asg=new Int32Array(n);for(let it=0;it<20;it++){for(let i=0;i<n;i++){let bd=1e9,bk=0;C.forEach((c,q)=>{const d=V[i].reduce((s,x,z)=>s+(x-c[z])**2,0);if(d<bd){bd=d;bk=q}});asg[i]=bk}
+    C.forEach((c,q)=>{const mem=V.filter((_,i)=>asg[i]===q);if(mem.length)for(let z=0;z<c.length;z++)c[z]=mem.reduce((s,v)=>s+v[z],0)/mem.length})}
+   let sil=0;for(let i=0;i<n;i++){const ds={};for(let j=0;j<n;j++){if(i===j)continue;const d=Math.sqrt(V[i].reduce((s,x,z)=>s+(x-V[j][z])**2,0));(ds[asg[j]]||(ds[asg[j]]=[])).push(d)}
+    const av=q=>ds[q]&&ds[q].length?ds[q].reduce((a,b)=>a+b,0)/ds[q].length:null,a=av(asg[i]);let b=Infinity;for(const q in ds)if(+q!==asg[i]){const x=av(+q);if(x!=null&&x<b)b=x}
+    if(a!=null&&isFinite(b))sil+=(b-a)/Math.max(a,b)}
+   sil/=n;if(!best||sil>best.sil)best={k,asg:Array.from(asg),sil}}
+  if(best){const pr=pagerank(g),groups={};best.asg.forEach((q,i)=>(groups[q]||(groups[q]=[])).push(i));
+   ML.clusters=Object.values(groups).map(ix=>({ids:ix.map(i=>g.ids[i]),name:S.nodes[ix.sort((a,b)=>pr[b]-pr[a])[0]].t})).sort((a,b)=>b.ids.length-a.ids.length);ML.sil=best.sil}}
+ ML.ready=true}
+function mlTrain(onFrame,onDone){cancelAnimationFrame(ML.raf);const ctx=mlPrepare();
+ if(ctx.pairs.length<3){ML.ready=false;ML.running=false;ML.note='برای آموزش مدل دست‌کم ۳ پیوند لازم است.';onDone&&onDone();return}
+ const ho=mlHoldout(ctx),m=trainEmb(ctx.g,ctx.pairs,{epochs:240,seed:7});ML.loss=[];ML.running=true;let e=0;
+ (function loop(){const stepN=RMq?240:12;for(let q=0;q<stepN&&e<m.ep;q++,e++)ML.loss.push(m.epoch(e));onFrame&&onFrame();
+  if(e<m.ep)ML.raf=requestAnimationFrame(loop);else{mlFinish(ctx,m,ho);ML.running=false;onDone&&onDone()}})()}
+const RMq=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* مدل حافظه */
+let memOff=0;const nowDay=()=>Date.now()/MONE+memOff;
+const retOf=(n,day)=>{const m=n.mem;if(!m)return null;return Math.pow(2,-((day==null?nowDay():day)-m.t)/m.s)};
+function reviewNode(n,g){const day=nowDay(),r=retOf(n,day);let m=n.mem;
+ if(!m){n.mem={s:[0.5,1,2,4][g],t:day,n:1,l:g===0?1:0};return}
+ if(g===0){m.s=Math.max(0.5,m.s*0.45);m.l++}else m.s=Math.min(365,m.s*[0,1.5,2.2,3][g]*(1+0.8*(1-r)));
+ m.t=day;m.n++}
+function studyQueue(){const day=nowDay(),pr=pagerank(gr()),idx=new Map(S.nodes.map((n,i)=>[n.id,i]));
+ const due=S.nodes.filter(n=>n.mem&&retOf(n,day)<0.8).sort((a,b)=>retOf(a,day)-retOf(b,day));
+ const nw=S.nodes.filter(n=>!n.mem).sort((a,b)=>((b.imp||3)-(a.imp||3))||(pr[idx.get(b.id)]-pr[idx.get(a.id)]));return{due,nw}}
+function makeCard(n,rg){const g=S.edges.filter(e=>e.a==n.id||e.b==n.id).filter(e=>ndv(e.a)&&ndv(e.b));
+ if(!g.length)return{q:n.note?`«${n.t}» را توضیح بده؛ بعد با یادداشتت مقایسه کن.`:`هرچه دربارهٔ «${n.t}» می‌دانی بگو (تعریف، مثال، ارتباط).`,a:n.note||'یادداشتی ثبت نشده — بعد از مرور، یک یادداشت کوتاه بنویس.'};
+ const e=g[(rg()*g.length)|0],isA=e.a==n.id,k=e.k,N='«'+n.t+'»';
+ const Q={cause:[`${N} چه پیامدی دارد؟`,`چه چیزی باعث ${N} می‌شود؟`],direct:[`${N} با چه مفهومی رابطهٔ مستقیم دارد؟`],inverse:[`${N} با چه مفهومی رابطهٔ معکوس دارد؟`],contrast:[`ضد یا متضاد ${N} چیست؟`],similar:[`${N} به چه چیزی شبیه است؟`],part:[`${N} جزئی از چه چیزی است؟`,`${N} از چه اجزایی ساخته شده؟`],type:[`${N} نوعی از چه چیزی است؟`,`چه انواعی از ${N} داریم؟`],example:[`${N} مثالی برای چه مفهومی است؟`,`برای ${N} چه مثال‌هایی داریم؟`],combine:[`${N} در ساختن چه مفهومی نقش دارد؟`,`${N} از ترکیب چه چیزهایی ساخته می‌شود؟`],analogy:[`${N} را به چه چیزی می‌توان تشبیه کرد؟`],question:[`پرسشِ مرتبط با ${N} چیست؟`],link:[`${N} با چه مفاهیمی ارتباط دارد؟`]}[k]||[`${N} با چه مفاهیمی ارتباط دارد؟`];
+ const sym=['direct','inverse','contrast','similar','analogy','link','question'].includes(k),q=sym||Q.length===1?Q[0]:(isA?Q[0]:Q[1]);
+ const ans=g.filter(x=>x.k===k&&(sym||(x.a==n.id)===isA)).map(x=>{const o=ndv(x.a==n.id?x.b:x.a);return o.t+(x.l?' ('+x.l+')':'')});
+ return{q,a:[...new Set(ans)].join(' ، ')+(n.note?'\nیادداشت: '+n.note:'')}}
+/* ================= CM2 — ج) موتور سه‌بعدی (canvas، بدون کتابخانه) ================= */
+const V3={on:false,yaw:0.7,pitch:0.35,dist:1200,fov:820,pan:[0,0],auto:false,labels:true,elabels:false,memring:false,mode:'force',ctr:[0,0,0],R:300,hit:[],ehit:[],hover:null,tw:null,raf:0};
+const c3=$('#c3');let g3=null;
+let HL={nodes:new Map(),edges:new Set()};
+function hasP3(n){return Array.isArray(n.p3)&&n.p3.length===3}
+function place3dNew(){const rg=rngm(S.nodes.length*31+5);
+ S.nodes.forEach(n=>{if(hasP3(n))return;const nb=[];S.edges.forEach(e=>{const o=e.a==n.id?ndv(e.b):e.b==n.id?ndv(e.a):null;if(o&&hasP3(o))nb.push(o.p3)});
+  if(nb.length){const c=[0,1,2].map(k=>nb.reduce((s,p)=>s+p[k],0)/nb.length);n.p3=c.map(v=>v+(rg()-.5)*230)}
+  else n.p3=[(n.x||0)*0.9+(rg()-.5)*40,(n.y||0)*0.9+(rg()-.5)*40,(rg()-.5)*320]})}
+function layoutTarget(mode){const N=S.nodes,n=N.length,rg=rngm(11),g=gr(),T=N.map(()=>[0,0,0]);
+ if(mode==='force'){const P=N.map((nn,i)=>hasP3(nn)?nn.p3.slice():[(nn.x||0)*0.9,(nn.y||0)*0.9,(rg()-.5)*260]),L=190;
+  for(let it=0;it<280;it++){const cool=1-it/280,F=P.map(()=>[0,0,0]);
+   for(let i=0;i<n;i++)for(let j=i+1;j<n;j++){const dx=P[i][0]-P[j][0],dy=P[i][1]-P[j][1],dz=P[i][2]-P[j][2],d=Math.sqrt(dx*dx+dy*dy+dz*dz+.5),mag=L*L*0.08/d,ux=dx/d,uy=dy/d,uz=dz/d;F[i][0]+=ux*mag;F[i][1]+=uy*mag;F[i][2]+=uz*mag;F[j][0]-=ux*mag;F[j][1]-=uy*mag;F[j][2]-=uz*mag}
+   g.E.forEach(e=>{const i=g.ix.get(e.a),j=g.ix.get(e.b);if(i===j)return;const dx=P[j][0]-P[i][0],dy=P[j][1]-P[i][1],dz=P[j][2]-P[i][2],d=Math.sqrt(dx*dx+dy*dy+dz*dz)+.01,mag=(d-L)*0.3,ux=dx/d,uy=dy/d,uz=dz/d;F[i][0]+=ux*mag;F[i][1]+=uy*mag;F[i][2]+=uz*mag;F[j][0]-=ux*mag;F[j][1]-=uy*mag;F[j][2]-=uz*mag});
+   for(let i=0;i<n;i++){for(let k=0;k<3;k++){F[i][k]-=P[i][k]*0.07;const mx=L*0.5*cool+2;P[i][k]+=Math.max(-mx,Math.min(mx,F[i][k]*0.12))}}}
+  return P}
+ if(mode==='sphere'){const R=Math.max(220,Math.sqrt(n)*95);return N.map((_,i)=>{const y=n>1?1-2*i/(n-1):0,r=Math.sqrt(1-y*y),t=i*2.399963;return[R*r*Math.cos(t),R*y,R*r*Math.sin(t)]})}
+ if(mode==='layers'){const pr=pagerank(g);let root=0;pr.forEach((v,i)=>{if(v>pr[root])root=i});const sel0=[...sel][0];if(sel0!=null&&g.ix.has(sel0))root=g.ix.get(sel0);
+  const d=new Int32Array(n).fill(-1);d[root]=0;const q=[root];for(let qi=0;qi<q.length;qi++)for(const j of g.nbs[q[qi]])if(d[j]<0){d[j]=d[q[qi]]+1;q.push(j)}
+  const mx=Math.max(0,...d);for(let i=0;i<n;i++)if(d[i]<0)d[i]=mx+1;const by={};d.forEach((v,i)=>(by[v]||(by[v]=[])).push(i));
+  Object.entries(by).forEach(([dep,arr])=>{dep=+dep;arr.forEach((i,k)=>{if(dep===0){T[i]=[0,0,0];return}const m=arr.length,y=m>1?1-2*(k+.5)/m:0,r=Math.sqrt(1-y*y),t=k*2.399963+dep;const R=dep*210;T[i]=[R*r*Math.cos(t),R*y*0.8,R*r*Math.sin(t)]})});return T}
+ if(mode==='importance'){return N.map(nn=>[(nn.x||0)*0.85,(nn.y||0)*0.85,((nn.imp||3)-3)*130])}
+ if(mode==='flow'){const F=flowEdges();if(!F.length)return layoutTarget('force');const Fo=new Map(N.map(x=>[x.id,[]])),inn=new Map(N.map(x=>[x.id,0]));F.forEach(e=>{Fo.get(e.a).push(e);inn.set(e.b,inn.get(e.b)+1)});
+  const starts=N.filter(x=>!inn.get(x.id)&&Fo.get(x.id).length).map(x=>x.id);if(!starts.length)starts.push(F[0].a);
+  const col=new Map(),back=new Set(),dfs=u=>{col.set(u,1);for(const e of Fo.get(u)){if(col.get(e.b)===1)back.add(e.id);else if(!col.has(e.b))dfs(e.b)}col.set(u,2)};
+  starts.forEach(u=>{if(!col.has(u))dfs(u)});N.forEach(x=>{if(!col.has(x.id)&&Fo.get(x.id).length)dfs(x.id)});
+  const lev=new Map(starts.map(id=>[id,0]));for(let it=0;it<N.length;it++){let ch=false;F.forEach(e=>{if(back.has(e.id)||!lev.has(e.a))return;const v=lev.get(e.a)+1;if(!lev.has(e.b)||lev.get(e.b)<v){lev.set(e.b,v);ch=true}});if(!ch)break}
+  const mx=Math.max(0,...lev.values());N.forEach(x=>{if(!lev.has(x.id))lev.set(x.id,Math.round(mx/2))});
+  N.forEach(x=>{if(!Fo.get(x.id).length&&inn.get(x.id))lev.set(x.id,mx)});
+  const by={};N.forEach((x,i)=>(by[lev.get(x.id)]||(by[lev.get(x.id)]=[])).push(i));const rol=roles();
+  Object.entries(by).forEach(([l,arr])=>{arr.forEach((i,k)=>{const m=arr.length,a=m>1?k/m*6.283:0,R=m>1?95+m*22:0;T[i]=[(+l-mx/2)*250,R*Math.cos(a),R*Math.sin(a)]})});return T}
+ return T}
+function applyLayout(mode,instant){V3.mode=mode;const T=layoutTarget(mode),from=S.nodes.map(n=>hasP3(n)?n.p3.slice():T[S.nodes.indexOf(n)].slice());
+ const to=T;if(instant||RMq){S.nodes.forEach((n,i)=>n.p3=to[i].slice());fit3();draw3();save();return}
+ const t0=performance.now();V3.tw=()=>{const k=Math.min(1,(performance.now()-t0)/650),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;S.nodes.forEach((n,i)=>n.p3=[0,1,2].map(a=>from[i][a]+(to[i][a]-from[i][a])*e));if(k>=1){V3.tw=null;save();fit3()}};loop3()}
+function fit3(){const P=S.nodes.filter(hasP3).map(n=>n.p3);if(!P.length)return;V3.ctr=[0,1,2].map(k=>(Math.min(...P.map(p=>p[k]))+Math.max(...P.map(p=>p[k])))/2);
+ V3.R=Math.max(160,...P.map(p=>Math.hypot(p[0]-V3.ctr[0],p[1]-V3.ctr[1],p[2]-V3.ctr[2])));const r=c3.getBoundingClientRect(),vis=(innerWidth<=820&&!$('#panel').classList.contains('min'))?innerHeight*0.46:0;V3.pan=[0,-vis/2];const m=Math.min(r.width||600,(r.height||500)-vis);V3.dist=V3.R*(900/m)*1.55+V3.R*0.6}
+function sz3(){const r=c3.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1),w=Math.max(200,Math.round(r.width)),h=Math.max(200,Math.round(r.height));if(c3.width!==w*d||c3.height!==h*d){c3.width=w*d;c3.height=h*d}g3=c3.getContext('2d');g3.setTransform(d,0,0,d,0,0);return[w,h]}
+function proj(p,W,H){let x=p[0]-V3.ctr[0],y=p[1]-V3.ctr[1],z=p[2]-V3.ctr[2];const cy=Math.cos(V3.yaw),sy=Math.sin(V3.yaw),x1=x*cy+z*sy,z1=-x*sy+z*cy,cp=Math.cos(V3.pitch),sp=Math.sin(V3.pitch),y2=y*cp-z1*sp,z2=y*sp+z1*cp,d=Math.max(80,V3.dist+z2),s=V3.fov/d;return{x:W/2+V3.pan[0]+x1*s,y:H/2+V3.pan[1]+y2*s,s,z:z2}}
+function unprojDelta(dx,dy,s){const cy=Math.cos(V3.yaw),sy=Math.sin(V3.yaw),cp=Math.cos(V3.pitch),sp=Math.sin(V3.pitch);let x=dx/s,y=dy/s,z=0;
+ const y1=y*cp-z*sp,z1=y*sp+z*cp;const xr=x*cy-z1*sy,zr=x*sy+z1*cy;return[xr,y1,zr]}
+function roleColor(id,R){const r=R[id];return r?ROLE[r].c:null}
+function dimSet(){return typeof dimmed==='function'?dimmed():null}
+function draw3(){if(!V3.on)return;const[W,H]=sz3(),g=g3;g.clearRect(0,0,W,H);
+ const bg=g.createRadialGradient(W/2,H*0.45,40,W/2,H/2,Math.max(W,H)*0.75);bg.addColorStop(0,'#16213a');bg.addColorStop(1,'#0b1120');g.fillStyle=bg;g.fillRect(0,0,W,H);
+ const R=V3.R;
+ /* کفِ شبکه‌ای */
+ g.lineWidth=1;const fy=V3.ctr[1]+R*1.05,gs=Math.max(60,Math.round(R/4/20)*20);for(let i=-6;i<=6;i++){for(const[a,b]of[[[i*gs,fy,-6*gs],[i*gs,fy,6*gs]],[[-6*gs,fy,i*gs],[6*gs,fy,i*gs]]]){const p=proj([a[0]+V3.ctr[0],a[1],a[2]+V3.ctr[2]],W,H),q=proj([b[0]+V3.ctr[0],b[1],b[2]+V3.ctr[2]],W,H);g.strokeStyle='rgba(148,163,184,'+(i===0?0.22:0.09)+')';g.beginPath();g.moveTo(p.x,p.y);g.lineTo(q.x,q.y);g.stroke()}}
+ const rol=roles(),dm=dimSet(),P=new Map();
+ S.nodes.forEach(n=>{if(hasP3(n))P.set(n.id,proj(n.p3,W,H))});
+ const fog=z=>Math.max(0.25,Math.min(1,1.05-(z+R)/(2.6*R)));
+ const nr=n=>(12+(n.imp||3)*2.6);
+ /* یال‌ها */
+ const items=[];
+ S.edges.forEach(e=>{const a=P.get(e.a),b=P.get(e.b);if(a&&b)items.push({t:'e',e,z:(a.z+b.z)/2,a,b})});
+ S.nodes.forEach(n=>{const p=P.get(n.id);if(p)items.push({t:'n',n,z:p.z,p})});
+ items.sort((u,v)=>v.z-u.z);V3.hit=[];V3.ehit=[];
+ for(const it of items){
+  if(it.t==='e'){const{e,a,b}=it,k=K[e.k],ra=Math.max(7,nr(ndv(e.a))*a.s),rb=Math.max(7,nr(ndv(e.b))*b.s),dx=b.x-a.x,dy=b.y-a.y,L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L;
+   const x1=a.x+ux*ra,y1=a.y+uy*ra,x2=b.x-ux*(rb+(k.a?7:0)),y2=b.y-uy*(rb+(k.a?7:0));
+   V3.ehit.push({id:e.id,ax:x1,ay:y1,bx:x2,by:y2});const hl=HL.edges.has(e.id)||(!d3&&selE==e.id),fd=dm&&(dm.has(e.a)||dm.has(e.b))?0.12:1;g.globalAlpha=Math.min(1,fog(it.z)*fd*(hl?1.3:0.85));
+   g.strokeStyle=k.c;g.lineWidth=(hl?4:2)*Math.min(1.3,Math.max(.6,(a.s+b.s)/2));g.setLineDash(k.d?k.d.split(' ').map(Number):[]);g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.stroke();g.setLineDash([]);
+   if(k.a){const ah=9*Math.max(.7,b.s);g.fillStyle=k.c;g.beginPath();g.moveTo(x2+ux*ah,y2+uy*ah);g.lineTo(x2-uy*ah*.45,y2+ux*ah*.45);g.lineTo(x2+uy*ah*.45,y2-ux*ah*.45);g.closePath();g.fill()}
+   if(V3.elabels&&(e.l||!k.s)){const lb=(k.s?k.s+' ':'')+(e.l||k.n);g.font='700 11px Vazirmatn,Tahoma';g.direction='rtl';g.textAlign='center';const mx=(a.x+b.x)/2,my=(a.y+b.y)/2,w=g.measureText(lb).width+12;g.fillStyle='rgba(15,23,42,.85)';g.beginPath();g.roundRect(mx-w/2,my-9,w,18,9);g.fill();g.fillStyle=k.c;g.fillText(lb,mx,my+4)}
+   g.globalAlpha=1}
+  else{const{n,p}=it,r=Math.max(7,nr(n)*p.s),c=PAL[n.c%PAL.length],isSel=sel.has(n.id),hc=HL.nodes.get(n.id),fd=dm&&dm.has(n.id)?0.18:1;g.globalAlpha=fog(it.z)*fd;
+   g.fillStyle='rgba(0,0,0,.35)';g.beginPath();g.ellipse(p.x+r*.15,p.y+r*1.05,r*.85,r*.28,0,0,7);g.fill();
+   const gd=g.createRadialGradient(p.x-r*.35,p.y-r*.4,r*.1,p.x,p.y,r);gd.addColorStop(0,'#ffffff');gd.addColorStop(.25,c);gd.addColorStop(1,'#0f172a');g.fillStyle=gd;g.beginPath();g.arc(p.x,p.y,r,0,7);g.fill();
+   const rc=roleColor(n.id,rol);g.lineWidth=isSel?3.5:2;g.strokeStyle=hc||(isSel?'#f5b041':(rc||'rgba(248,250,252,.35)'));g.beginPath();g.arc(p.x,p.y,r+(isSel||hc?3:1.5),0,7);g.stroke();
+   if(rc&&!isSel&&!hc){g.fillStyle=rc;g.beginPath();g.arc(p.x+r*.75,p.y-r*.75,Math.max(3.5,r*.22),0,7);g.fill()}
+   if((V3.memring||tab==='study')&&n.mem){const rt=retOf(n);g.lineWidth=3;g.strokeStyle=rt>.8?'#10b981':rt>.5?'#fbbf24':'#ef4444';g.beginPath();g.arc(p.x,p.y,r+7,-Math.PI/2,-Math.PI/2+6.283*Math.max(.03,rt));g.stroke()}
+   if((n.imp||3)>=4){g.fillStyle='#fbbf24';g.font='700 10px Vazirmatn';g.textAlign='center';g.fillText('★',p.x,p.y+4)}
+   if(V3.labels&&(p.s>.16||isSel||V3.hover===n.id)){const lb=n.t.length>22?n.t.slice(0,21)+'…':n.t;g.font='700 '+Math.round(Math.max(11,Math.min(15,13*p.s)))+'px Vazirmatn,Tahoma';g.direction='rtl';g.textAlign='center';const w=g.measureText(lb).width+14;g.fillStyle='rgba(15,23,42,.82)';g.beginPath();g.roundRect(p.x-w/2,p.y+r+5,w,20,10);g.fill();g.fillStyle='#f8fafc';g.fillText(lb,p.x,p.y+r+19)}
+   g.globalAlpha=1;V3.hit.push({id:n.id,x:p.x,y:p.y,r:r+4,z:p.z})}}
+ /* ژیزمو محورها */
+ const o=proj(V3.ctr,W,H),ax=[[[1,0,0],'#ef4444','X'],[[0,1,0],'#10b981','Y'],[[0,0,1],'#38bdf8','Z']],gx=46,gy=H-46;
+ ax.forEach(([v,c,l])=>{const cy=Math.cos(V3.yaw),sy=Math.sin(V3.yaw),cp=Math.cos(V3.pitch),sp=Math.sin(V3.pitch),x1=v[0]*cy+v[2]*sy,z1=-v[0]*sy+v[2]*cy,y2=v[1]*cp-z1*sp;g.strokeStyle=c;g.lineWidth=2;g.beginPath();g.moveTo(gx,gy);g.lineTo(gx+x1*26,gy+y2*26);g.stroke();g.fillStyle=c;g.font='700 10px Outfit,sans-serif';g.textAlign='center';g.fillText(l,gx+x1*34,gy+y2*34+3)});
+ if(!S.nodes.length){g.fillStyle='#94a3b8';g.font='700 15px Vazirmatn';g.textAlign='center';g.fillText('هنوز مفهومی نیست',W/2,H/2)}}
+function loop3(){cancelAnimationFrame(V3.raf);const step=()=>{if(!V3.on)return;if(V3.tw)V3.tw();if(V3.auto&&!RMq)V3.yaw+=0.004;draw3();if(V3.auto||V3.tw)V3.raf=requestAnimationFrame(step);else V3.raf=0};V3.raf=requestAnimationFrame(step)}
+function pick3(x,y){let best=null;for(const h of V3.hit){if(Math.hypot(h.x-x,h.y-y)<=h.r&&(!best||h.z<best.z))best=h}return best}
+const p3=new Map();let d3=null,pin3=0;
+c3.addEventListener("pointerdown",e=>{try{c3.setPointerCapture(e.pointerId)}catch(_){}const r=c3.getBoundingClientRect();p3.set(e.pointerId,{x:e.clientX,y:e.clientY});if(p3.size===2){d3=null;pin3=0;return}
+ const x=e.clientX-r.left,y=e.clientY-r.top,h=pick3(x,y);
+ if(h&&arm){if(h.id!==arm.from)connect(arm.from,h.id,arm.k);return}
+ if(h){const id=h.id;if(e.shiftKey||multi)sel.has(id)?sel.delete(id):sel.add(id);else if(!sel.has(id)){sel.clear();sel.add(id)}selE=null;d3={t:'n',sx:e.clientX,sy:e.clientY,id,m:0,o:[...sel].map(i=>[i,ndv(i).p3.slice()]),s:h?1:1};const hp=P3s(id);d3.s=hp?hp.s:1;ui();draw3()}
+ else if(!h&&pickEdge3(x,y)){const ed=pickEdge3(x,y);selE=ed;sel.clear();tab='sel';d3=null;ui();draw3()}
+ else{if(!multi)sel.clear();selE=null;if(arm)arm=null;d3={t:e.button===2||e.altKey?'pan':'orbit',sx:e.clientX,sy:e.clientY,yaw:V3.yaw,pitch:V3.pitch,pan:V3.pan.slice()};ui();draw3()}});
+function pickEdge3(x,y){let best=null,bd=9;for(const h of V3.ehit){const dx=h.bx-h.ax,dy=h.by-h.ay,L2=dx*dx+dy*dy||1;let t=((x-h.ax)*dx+(y-h.ay)*dy)/L2;t=Math.max(0,Math.min(1,t));const d=Math.hypot(h.ax+t*dx-x,h.ay+t*dy-y);if(d<bd){bd=d;best=h.id}}return best}
+function P3s(id){const[W,H]=[c3.clientWidth,c3.clientHeight];const n=ndv(id);return n&&hasP3(n)?proj(n.p3,W,H):null}
+c3.addEventListener('pointermove',e=>{const r=c3.getBoundingClientRect();
+ if(p3.has(e.pointerId))p3.set(e.pointerId,{x:e.clientX,y:e.clientY});
+ if(p3.size===2){const[a,b]=[...p3.values()],d=Math.hypot(a.x-b.x,a.y-b.y);if(pin3)V3.dist=Math.min(6000,Math.max(180,V3.dist*pin3/d));pin3=d;draw3();return}
+ if(!d3){const h=pick3(e.clientX-r.left,e.clientY-r.top),id=h?h.id:null;if(id!==V3.hover){V3.hover=id;c3.style.cursor=id?'pointer':'grab';if(!V3.raf)draw3()}return}
+ const dx=e.clientX-d3.sx,dy=e.clientY-d3.sy;
+ if(d3.t==='orbit'){V3.yaw=d3.yaw+dx*0.008;V3.pitch=Math.max(-1.45,Math.min(1.45,d3.pitch+dy*0.008))}
+ else if(d3.t==='pan'){V3.pan=[d3.pan[0]+dx,d3.pan[1]+dy]}
+ else{if(!d3.m&&Math.hypot(dx,dy)>4){snap();d3.m=1}if(d3.m){const dv=unprojDelta(dx,dy,d3.s);d3.o.forEach(([i,p])=>{ndv(i).p3=[p[0]+dv[0],p[1]+dv[1],p[2]+dv[2]]})}}
+ draw3()});
+const up3=e=>{p3.delete(e.pointerId);pin3=0;if(d3&&d3.m)save();if(!p3.size)d3=null};
+c3.addEventListener('pointerup',up3);c3.addEventListener('pointercancel',up3);c3.addEventListener('contextmenu',e=>e.preventDefault());
+c3.addEventListener('wheel',e=>{e.preventDefault();V3.dist=Math.min(6000,Math.max(180,V3.dist*(e.deltaY<0?0.9:1.1)));draw3()},{passive:false});
+c3.addEventListener('dblclick',async e=>{const r=c3.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,h=pick3(x,y);if(h)return editNode(h.id);if(pickEdge3(x,y))return;
+ const v=await ask('مفهوم جدید',[{l:'عنوان مفهوم'}]);if(!v||!v[0])return;snap();const s0=V3.fov/V3.dist,dv=unprojDelta(x-(r.width/2+V3.pan[0]),y-(r.height/2+V3.pan[1]),s0),n=addNode(v[0],0,0,6);
+ n.p3=[V3.ctr[0]+dv[0],V3.ctr[1]+dv[1],V3.ctr[2]+dv[2]];n.x=n.p3[0]/0.9;n.y=n.p3[1]/0.9;sel=new Set([n.id]);save();all()});
+/* ================= CM2 — د) پنل‌های تحلیل ارتباط، هوش، مرور ================= */
+const NEWTABS=['rel','ml','study'];
+let SEARCH='',FOCUS=false,FX=null;
+const bdg=(t,c)=>`<span style="display:inline-block;border:1px solid ${c};color:${c};border-radius:999px;padding:1px 9px;font-size:11px;margin-inline-end:6px">${t}</span>`;
+const nbtn=(id,txt)=>`<button class="chip on" style="--c:#94a3b8;margin:2px" data-ma="sel" data-a1="${esc(id)}">${esc(txt==null?ttl(id):txt)}</button>`;
+function dimmed(){const N=S.nodes;let keep=null;
+ if(SEARCH){const q=SEARCH.toLowerCase();keep=new Set(N.filter(n=>(n.t+' '+(n.note||'')).toLowerCase().includes(q)).map(n=>n.id))}
+ else if(FOCUS&&sel.size){keep=new Set(sel);S.edges.forEach(e=>{if(sel.has(e.a))keep.add(e.b);if(sel.has(e.b))keep.add(e.a)})}
+ else if(HL.dim&&HL.nodes.size)keep=new Set(HL.nodes.keys());
+ if(!keep)return null;return new Set(N.filter(n=>!keep.has(n.id)).map(n=>n.id))}
+function applyDim2d(){const dm=dimmed();
+ $$('#cv [data-n]').forEach(g=>{const id=g.dataset.n;g.style.opacity=dm&&dm.has(id)?.18:1;const hc=HL.nodes.get(id),r=g.querySelector('rect');if(hc&&r){r.setAttribute('stroke',hc);r.setAttribute('stroke-width',4)}});
+ $$('#cv [data-e]').forEach(g=>{const e=S.edges.find(x=>x.id==g.dataset.e);if(!e)return;const hl=HL.edges.has(e.id);g.style.opacity=dm&&(dm.has(e.a)||dm.has(e.b))?.1:1;if(hl){g.querySelectorAll('line').forEach((l,i)=>{if(i===1)l.setAttribute('stroke-width',5)})}})}
+function clearHL(){HL={nodes:new Map(),edges:new Set(),dim:false};FX=null}
+/* ---- تحلیل ارتباط ---- */
+function relHtml(){const N=S.nodes,E=S.edges;if(N.length<2)return'<p class="hn">برای تحلیل ارتباط دست‌کم دو مفهوم بساز.</p>';
+ const g=gr(),cc=components(g),dens=g.n>1?2*g.E.length/(g.n*(g.n-1)):0,s2=[...sel];
+ let h=`<p class="hn">اینجا ارتباط‌ها را «می‌خوانیم»: مسیر، حلقه‌های بازخورد، اثر زنجیره‌ای و نقش‌های ورودی–فرایند–خروجی.</p><div class="stat"><div><b>${cc.k}</b>بخش جدا</div><div><b>${(dens*100).toFixed(0)}٪</b>چگالی</div><div><b>${g.n?(2*g.E.length/g.n).toFixed(1):0}</b>میانگین درجه</div></div>`;
+ h+='<h4>مسیر میان دو مفهوم</h4>';
+ if(s2.length===2){const p=shortestPath(s2[0],s2[1]);
+  if(!p)h+='<div class="sg">این دو مفهوم در دو بخشِ جدا از هم هستند؛ بینشان پیوندی بساز.</div>';
+  else{h+=`<div class="sg"><b>${p.length}</b> گام از «${esc(ttl(s2[0]))}» تا «${esc(ttl(s2[1]))}»:</div>`+p.map((s,i)=>`<div style="font-size:12.5px;line-height:1.9;margin:0 0 4px;color:#e2e8f0">${i+1}. ${esc(sentence(s.e))}</div>`).join('')+`<button class="b w" data-ma="hlpath"><i class="fa-solid fa-highlighter"></i> برجسته‌کردن مسیر</button>`;
+   if(p.length>=3)h+='<p class="hn">مسیر بلند یعنی ارتباط مستقیم نیست؛ شاید پیوند عرضی لازم باشد.</p>'}}
+ else h+='<p class="hn">دو مفهوم را انتخاب کن (Shift یا چندانتخابی) تا کوتاه‌ترین مسیر و شرحش را ببینی.</p>';
+ h+='<h4>اگر یک مفهوم تغییر کند…</h4>';
+ if(s2.length===1)h+=`<div class="ac" style="display:flex;gap:8px"><button class="b" data-ma="fx" data-a1="1">«${esc(ttl(s2[0]))}» ↑ زیاد شود</button><button class="b" data-ma="fx" data-a1="-1">↓ کم شود</button></div>`;
+ else h+='<p class="hn">یک مفهوم را انتخاب کن؛ اثر زنجیره‌ایِ افزایش/کاهشش روی بقیه (از روی پیوندهای مستقیم، معکوس و علت‌ومعلول) محاسبه می‌شود.</p>';
+ if(FX){h+=`<div class="sg">اگر «${esc(ttl(FX.src))}» ${FX.dir>0?'زیاد':'کم'} شود:</div>`+(FX.res.length?FX.res.map(r=>`<div style="font-size:12.5px;margin-bottom:3px">${r.sign>0?'<b style="color:#10b981">↑</b>':r.sign<0?'<b style="color:#ef4444">↓</b>':'<b style="color:#fbbf24">↕</b>'} ${nbtn(r.id)} <span style="color:#64748b">گام ${r.d}</span>${r.sign===0?' <span style="color:#fbbf24">اثر دوگانه (دو مسیر مخالف)</span>':''}</div>`).join('')+`<button class="b w" data-ma="clearhl">پاک‌کردن برجسته‌سازی</button>`:'<p class="hn">هیچ مفهومی از مسیرِ رابطه‌های مستقیم/معکوس/علّی به آن نمی‌رسد.</p>')}
+ const loops=findLoops(g);h+='<h4>حلقه‌های بازخورد</h4>';
+ if(!loops.length)h+='<p class="hn">حلقه‌ای نیست. وقتی A روی B و B روی A اثر بگذارد، حلقه (سیستم) ساخته می‌شود.</p>';
+ else h+=loops.slice(0,8).map((l,i)=>`<div class="sg" style="cursor:pointer" data-ma="hlloop" data-a1="${i}">${bdg(l.sign>0?'تقویت‌شونده +':'تعادلی −',l.sign>0?'#10b981':'#38bdf8')}${l.nodes.map(id=>esc(ttl(id))).join(' ← ')} ← ${esc(ttl(l.nodes[0]))}<div style="font-size:11.5px;color:#94a3b8;margin-top:3px">${l.sign>0?'اثر خودش را بزرگ می‌کند (رشد یا سقوط)':'به تعادل می‌رسد (کنترل‌کننده)'}</div></div>`).join('');
+ ROLECACHE=roles();const R=ROLECACHE,gp={input:[],process:[],output:[],feedback:[]};Object.entries(R).forEach(([id,r])=>gp[r].push(id));
+ h+='<h4>مدل ورودی ← فرایند ← خروجی</h4>';
+ if(!flowEdges().length&&!Object.keys(R).length)h+='<p class="hn">پیوندهای «علت ← معلول» و «ترکیب» جهتِ جریان را می‌سازند. با آن‌ها ورودی‌ها و خروجی‌های مدل خودکار پیدا می‌شود؛ در نمای سه‌بعدی، چیدمان «جریان» آن را نشان می‌دهد.</p>';
+ else h+=['input','process','output','feedback'].map(k=>`<div style="margin-bottom:6px"><span style="color:${ROLE[k].c};font-weight:700;font-size:13px">${ROLE[k].n} (${gp[k].length})</span><div>${gp[k].map(id=>nbtn(id)).join('')||'<span class="hn">—</span>'}</div></div>`).join('');
+ const hc=healthCheck();h+='<h4>سلامت نقشه</h4>'+(hc.length?hc.map(x=>`<div class="sg" ${x.ids.length?`style="cursor:pointer" data-ma="selids" data-a1="${x.ids.join(',')}"`:''}>${bdg(x.t,x.t==='تناقض'||x.t==='خطا'?'#ef4444':'#fbbf24')}${esc(x.m)}</div>`).join(''):'<div class="sg">هیچ تناقض یا خطای ساختاری پیدا نشد ✓</div>');
+ const top=[...g.ids.map((id,i)=>({id,d:g.nbs[i].length}))].sort((a,b)=>b.d-a.d).slice(0,14);
+ h+='<h4>ماتریس ارتباط (۱۴ مفهومِ پرارتباط)</h4><div style="overflow:auto"><table style="border-collapse:collapse;font-size:10px"><tr><td></td>'+top.map(t=>`<td style="writing-mode:vertical-rl;padding:2px;color:#94a3b8;max-height:80px">${esc(ttl(t.id).slice(0,10))}</td>`).join('')+'</tr>'
+  +top.map(r=>'<tr><td style="padding:2px 4px;color:#94a3b8;white-space:nowrap">'+esc(ttl(r.id).slice(0,10))+'</td>'+top.map(c=>{const es=S.edges.filter(e=>(e.a==r.id&&e.b==c.id)||(e.a==c.id&&e.b==r.id));const k=es[0]&&K[es[0].k];return`<td data-ma="pair" data-a1="${r.id}" data-a2="${c.id}" title="${k?esc(sentence(es[0])):''}" style="width:16px;height:16px;border:1px solid #1e293b;background:${r.id===c.id?'#1e293b':k?k.c:'#0f172a'};cursor:pointer"></td>`}).join('')+'</tr>').join('')+'</table></div>';
+ return h}
+let ROLECACHE={};
+/* ---- هوش ---- */
+const sigOf=()=>S.nodes.length+':'+S.edges.length+':'+S.edges.map(e=>e.a+e.b+e.k).join('').length;
+function mlHtml(){const N=S.nodes;if(N.length<3)return'<p class="hn">برای مدل‌سازی دست‌کم ۳ مفهوم و ۳ پیوند لازم است.</p>';
+ const g=gr(),pr=pagerank(g),bt=betweenness(g),art=articulation(g);
+ let h=`<p class="hn">یک مدل یادگیری ماشین واقعی روی همین نقشه آموزش می‌بیند (بدون داده‌ی بیرونی): برای هر مفهوم یک بردار می‌آموزد، پیوندهای احتمالاً گم‌شده را پیش‌بینی و مفاهیم را خوشه‌بندی می‌کند.</p><button class="b pr w" data-ma="mltrain" ${ML.running?'disabled':''}><i class="fa-solid fa-brain"></i> ${ML.ready?'آموزش دوباره':'آموزش مدل روی نقشه‌ام'}</button><canvas id="mlc" width="300" height="70" style="width:100%;height:70px;background:#0f172a;border:1px solid var(--bd);border-radius:8px"></canvas><div class="hn" id="mls" style="margin-top:6px">${ML.running?'در حال آموزش…':ML.ready?'':ML.note||''}</div>`;
+ if(ML.ready){const stale=ML.sig!==sigOf();
+  h+=(stale?'<div class="sg">نقشه بعد از آموزش تغییر کرده؛ نتایج قدیمی‌اند. دوباره آموزش بده.</div>':'')+`<div class="sg"><b>کیفیت مدل:</b> ${ML.auc==null?'راستی‌آزمایی نشد':'AUC = '+ML.auc.toFixed(2)+' (۰٫۵ = شانس، ۱ = کامل)'}<br><span style="color:#94a3b8;font-size:12px">${esc(ML.note)}</span>${ML.km?`<br><b>مدل نوع پیوند:</b> دقت ${(ML.km.cv*100).toFixed(0)}٪ در اعتبارسنجی ۵‌بخشی (حدس ثابت: ${(ML.km.base*100).toFixed(0)}٪)${ML.km.cv<=ML.km.base?' — از حدس ثابت بهتر نیست؛ نوع را خودت تأیید کن.':''}`:'<br><span style="color:#94a3b8;font-size:12px">برای مدل نوع پیوند دست‌کم ۶ پیوند از دو نوع لازم است؛ فعلاً نوع از الگوی همسایه‌ها حدس زده می‌شود.</span>'}</div>`;
+  h+='<h4>پیوندهای پیشنهادیِ مدل</h4>'+(ML.preds.length?ML.preds.map(p=>`<div class="sg"><b>${(p.p*100).toFixed(0)}٪</b> ${nbtn(p.a)}↔${nbtn(p.b)}<div style="font-size:11.5px;color:#94a3b8;margin:3px 0">${p.cn.length?'همسایهٔ مشترک: '+esc(p.cn.join('، '))+'. ':''}${p.txt>0.12?'عنوان‌هایشان شبیه است. ':''}نوع پیشنهادی: ${K[p.kind].n}${p.kconf!=null?' ('+(p.kconf*100).toFixed(0)+'٪)':''}</div><button class="b" style="padding:4px 10px;margin:0" data-ma="mladd" data-a1="${p.a}" data-a2="${p.b}" data-a3="${p.kind}">افزودن</button> <button class="b" style="padding:4px 10px;margin:0" data-ma="mlrej" data-a1="${p.a}" data-a2="${p.b}">نه</button></div>`).join(''):'<p class="hn">پیشنهاد تازه‌ای نیست.</p>');
+  if(ML.clusters)h+=`<h4>خوشه‌های مفهومی (${ML.clusters.length}) · شاخص تفکیک ${ML.sil.toFixed(2)}</h4>`+ML.clusters.map((c,i)=>`<div style="margin-bottom:6px"><span style="color:${PAL[i%PAL.length]};font-weight:700;font-size:13px">● حوزهٔ «${esc(c.name)}» (${c.ids.length})</span><div>${c.ids.map(id=>nbtn(id)).join('')}</div></div>`).join('')+'<button class="b w" data-ma="mlcolor"><i class="fa-solid fa-palette"></i> رنگ‌کردن نقشه بر اساس خوشه‌ها</button>'}
+ const rk=g.ids.map((id,i)=>({id,pr:pr[i],bt:bt[i],art:art.has(i)})).sort((a,b)=>b.pr-a.pr);
+ h+='<h4>مفاهیم کلیدی (PageRank)</h4><div>'+rk.slice(0,6).map(r=>nbtn(r.id,ttl(r.id)+' · '+(r.pr*100).toFixed(0)+'٪')).join('')+'</div><h4>مفاهیم پل (حذفشان نقشه را می‌شکند)</h4><div>'+(rk.filter(r=>r.art).map(r=>nbtn(r.id)).join('')||'<span class="hn">پلی نیست — نقشه مقاوم است.</span>')+'</div><h4>رابط‌ترین (میان‌بودگی)</h4><div>'+[...rk].sort((a,b)=>b.bt-a.bt).slice(0,4).filter(r=>r.bt>0).map(r=>nbtn(r.id)).join('')+'</div><button class="b w" data-ma="mlimp" style="margin-top:10px"><i class="fa-solid fa-star"></i> اعمال به‌عنوان «اهمیت» مفاهیم</button>';
+ return h}
+function drawLoss(){const c=$('#mlc');if(!c)return;const x=c.getContext('2d');x.fillStyle='#0f172a';x.fillRect(0,0,300,70);const L=ML.loss;if(L.length<2)return;const mx=Math.max(...L),mn=Math.min(...L);x.strokeStyle='#e8971f';x.lineWidth=1.6;x.beginPath();L.forEach((v,i)=>{const X=4+292*i/(L.length-1),Y=66-58*((v-mn)/((mx-mn)||1));i?x.lineTo(X,Y):x.moveTo(X,Y)});x.stroke();x.fillStyle='#94a3b8';x.font='10px Vazirmatn';x.fillText('خطا '+L[L.length-1].toFixed(3)+' · دور '+L.length,6,12)}
+function startML(){ML.ready=false;ML.sig=sigOf();mlTrain(()=>{drawLoss();const s=$('#mls');if(s)s.textContent='در حال آموزش… دور '+ML.loss.length},()=>{ML.sig=sigOf();if(tab==='ml')ui()})}
+/* ---- مرور (مدل حافظه) ---- */
+const STU={on:false,q:[],i:0,rev:false,log:[],rg:rngm(1)};
+function stuHtml(){const N=S.nodes;if(!N.length)return'<p class="hn">اول نقشه بساز؛ بعد با مدل حافظه مرور می‌کنیم.</p>';
+ const day=nowDay(),Q=studyQueue(),learned=N.filter(n=>n.mem),avg=learned.length?learned.reduce((s,n)=>s+retOf(n,day),0)/learned.length:0;
+ let h=`<p class="hn">مدل حافظه: هر مفهوم یک «نیمه‌عمر» دارد؛ هر مرورِ موفق آن را چند برابر می‌کند و فراموشی را به تعویق می‌اندازد (منحنی فراموشی). پرسش‌ها از خودِ پیوندهای نقشه‌ات ساخته می‌شود.</p><div class="stat"><div><b>${Q.nw.length}</b>تازه</div><div><b>${Q.due.length}</b>موعد مرور</div><div><b>${learned.length?(avg*100).toFixed(0)+'٪':'—'}</b>یادداری</div></div>`;
+ if(!STU.on){h+=`<button class="b pr w" data-ma="stustart" ${Q.due.length+Q.nw.length?'':'disabled'}><i class="fa-solid fa-play"></i> شروع جلسهٔ مرور (${Math.min(10,Q.due.length+Q.nw.length)} کارت)</button>`;
+  h+=`<h4>پیش‌نمایش حافظه پس از <b id="mday">${memOff}</b> روز</h4><input type="range" min="0" max="60" value="${memOff}" data-ma-range="mem" style="width:100%"><p class="hn">حلقهٔ سبز/زرد/قرمز دور هر مفهوم در نمای سه‌بعدی، یادداریِ پیش‌بینی‌شده است. این نوار فقط پیش‌نمایش است.</p>`;
+  h+=learned.length?'<h4>وضعیت مفاهیم</h4>'+[...learned].sort((a,b)=>retOf(a,day)-retOf(b,day)).slice(0,12).map(n=>{const r=retOf(n,day);return`<div style="font-size:12.5px;display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="width:44px;color:${r>.8?'#10b981':r>.5?'#fbbf24':'#ef4444'};font-weight:700">${(r*100).toFixed(0)}٪</span>${nbtn(n.id)}<span style="color:#64748b">نیمه‌عمر ${n.mem.s.toFixed(1)} روز</span></div>`}).join(''):'<p class="hn">هنوز مروری نکرده‌ای.</p>'}
+ else if(STU.i>=STU.q.length){const L=STU.log;h+=`<div class="sg"><b>جلسه تمام شد ✓</b><br>${L.length} کارت · فراموش‌شده ${L.filter(x=>x===0).length} · آسان ${L.filter(x=>x===3).length}.<br>مرورِ بعدی را مدل زمان‌بندی کرد؛ فردا دوباره سر بزن.</div><button class="b w" data-ma="stuend">بازگشت</button>`}
+ else{const n=ndv(STU.q[STU.i]),c=makeCard(n,STU.rg);h+=`<div class="hn">کارت ${STU.i+1} از ${STU.q.length}</div><div class="sg" style="font-size:15px;min-height:60px">${esc(c.q)}</div>`;
+  if(!STU.rev)h+='<button class="b pr w" data-ma="sturev">نشان بده</button>';
+  else h+=`<div class="sg" style="border-color:#10b981;white-space:pre-wrap">${esc(c.a)}</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><button class="b dg" data-ma="stugrade" data-a1="0">فراموش کردم</button><button class="b" data-ma="stugrade" data-a1="1">سخت بود</button><button class="b" data-ma="stugrade" data-a1="2">خوب</button><button class="b pr" data-ma="stugrade" data-a1="3">آسان</button></div>`;
+  h+='<button class="b w" style="margin-top:10px" data-ma="stuend">پایان جلسه</button>'}
+ return h}
+function stuSelect(){if(STU.on&&STU.i<STU.q.length){sel=new Set([STU.q[STU.i]]);selE=null}}
+function renderTab(){const P=$('#pc');P.innerHTML=tab==='rel'?relHtml():tab==='ml'?mlHtml():stuHtml();if(tab==='ml')drawLoss()}
+/* ================= CM2 — ه) ورودی/خروجی، قالب‌ها، اسکلت درس، چسب ================= */
+Object.assign(TPL,{
+ photo:{nodes:[['فتوسنتز',0,0,0],['نور خورشید',-330,-150,5],['آب (H₂O)',-330,0,5],['دی‌اکسید کربن',-330,150,5],['کلروپلاست',0,-220,1],['واکنش‌های نوری',-120,-80,2],['چرخهٔ کالوین',90,100,2],['ATP و NADPH',-90,60,3],['اکسیژن',240,-130,4],['گلوکز',280,60,4]],
+  edges:[['نور خورشید','واکنش‌های نوری','cause','انرژی'],['آب (H₂O)','واکنش‌های نوری','cause','الکترون و H⁺'],['واکنش‌های نوری','اکسیژن','cause','آزاد می‌شود'],['واکنش‌های نوری','ATP و NADPH','cause'],['ATP و NADPH','چرخهٔ کالوین','cause','انرژی و کاهنده'],['دی‌اکسید کربن','چرخهٔ کالوین','cause','ماده'],['چرخهٔ کالوین','گلوکز','cause'],['واکنش‌های نوری','کلروپلاست','part','غشای تیلاکوئید'],['چرخهٔ کالوین','کلروپلاست','part','بخش استروما'],['واکنش‌های نوری','فتوسنتز','part'],['چرخهٔ کالوین','فتوسنتز','part']]},
+ newton:{nodes:[['قانون دوم نیوتن',0,0,0],['نیروی خالص (F)',-260,-110,5],['جرم (m)',-260,100,5],['شتاب (a)',0,-170,2],['تغییر سرعت',240,-110,2],['اینرسی',-20,170,3],['قانون اول',250,100,4],['یکای نیرو (N)',-260,230,6]],
+  edges:[['نیروی خالص (F)','شتاب (a)','direct','هرچه نیرو بیشتر، شتاب بیشتر'],['جرم (m)','شتاب (a)','inverse','هرچه جرم بیشتر، شتاب کمتر'],['شتاب (a)','تغییر سرعت','cause','a = Δv/Δt'],['جرم (m)','اینرسی','link','معیار اینرسی'],['قانون اول','قانون دوم نیوتن','type','حالت خاص F=0'],['شتاب (a)','قانون دوم نیوتن','part','a = F/m'],['نیروی خالص (F)','قانون دوم نیوتن','part'],['جرم (m)','قانون دوم نیوتن','part'],['یکای نیرو (N)','نیروی خالص (F)','link','1N = 1kg·m/s²']]},
+ mashrut:{nodes:[['انقلاب مشروطه (۱۲۸۵)',0,0,0],['استبداد قاجار',-290,-140,4],['نفوذ قدرت‌های خارجی',-290,10,4],['آگاهی روشنفکران و علما',-290,150,5],['فرمان مشروطیت (مرداد ۱۲۸۵)',-40,-180,2],['مجلس اول و قانون اساسی',220,-100,2],['استبداد صغیر (۱۲۸۷)',240,80,4],['فتح تهران (۱۲۸۸)',10,190,3]],
+  edges:[['استبداد قاجار','انقلاب مشروطه (۱۲۸۵)','cause'],['نفوذ قدرت‌های خارجی','انقلاب مشروطه (۱۲۸۵)','cause'],['آگاهی روشنفکران و علما','انقلاب مشروطه (۱۲۸۵)','cause'],['انقلاب مشروطه (۱۲۸۵)','فرمان مشروطیت (مرداد ۱۲۸۵)','cause'],['فرمان مشروطیت (مرداد ۱۲۸۵)','مجلس اول و قانون اساسی','cause'],['مجلس اول و قانون اساسی','استبداد صغیر (۱۲۸۷)','cause','واکنش محمدعلی‌شاه'],['استبداد صغیر (۱۲۸۷)','فتح تهران (۱۲۸۸)','cause','قیام مشروطه‌خواهان'],['استبداد صغیر (۱۲۸۷)','مجلس اول و قانون اساسی','contrast','بمباران مجلس']]},
+ quad:{nodes:[['معادلهٔ درجه دوم ax²+bx+c=0',0,0,0],['مبین Δ = b²−4ac',-260,-100,5],['Δ>0',-300,50,1],['Δ=0',-110,170,1],['Δ<0',130,170,1],['دو ریشهٔ حقیقی متمایز',-330,190,2],['یک ریشهٔ مضاعف',-110,300,2],['بدون ریشهٔ حقیقی',130,300,2],['فرمول ریشه‌ها x=(−b±√Δ)/2a',250,-60,3],['سهمی y=ax²+bx+c',0,-200,4],['رأس سهمی x=−b/2a',240,-210,4]],
+  edges:[['مبین Δ = b²−4ac','معادلهٔ درجه دوم ax²+bx+c=0','part'],['Δ>0','مبین Δ = b²−4ac','type','علامت Δ'],['Δ=0','مبین Δ = b²−4ac','type'],['Δ<0','مبین Δ = b²−4ac','type'],['Δ>0','دو ریشهٔ حقیقی متمایز','cause'],['Δ=0','یک ریشهٔ مضاعف','cause'],['Δ<0','بدون ریشهٔ حقیقی','cause'],['مبین Δ = b²−4ac','فرمول ریشه‌ها x=(−b±√Δ)/2a','link','Δ زیر رادیکال'],['سهمی y=ax²+bx+c','معادلهٔ درجه دوم ax²+bx+c=0','link','ریشه‌ها = برخورد با محور x'],['رأس سهمی x=−b/2a','سهمی y=ax²+bx+c','part']]}});
+const TPLS=[['photo','فتوسنتز (زیست)','fa-leaf'],['newton','قانون دوم نیوتن (فیزیک)','fa-atom'],['mashrut','انقلاب مشروطه (تاریخ)','fa-landmark'],['quad','معادلهٔ درجه دوم (ریاضی)','fa-square-root-variable']];
+const SCAF={
+ sci:{n:'علمی (زیست، فیزیک، شیمی)',it:[['تعریف','link','این مفهوم دقیقاً چیست؟ (یک جمله)','out'],['اجزا و ساختار','part','از چه اجزایی ساخته شده؟','in'],['سازوکار و مراحل','cause','چگونه عمل می‌کند؟ مراحل را به‌ترتیب بنویس.','out'],['عوامل مؤثر','direct','چه چیزهایی آن را زیاد یا کم می‌کنند؟','in'],['قانون یا رابطهٔ کمّی','link','فرمول چیست و هر نماد چه معنایی دارد؟','out'],['مثال‌ها','example','دو مثال از زندگی یا آزمایش.','in'],['کاربرد','link','کجا به کار می‌رود؟','out'],['تصور غلط رایج','contrast','دانش‌آموزان اغلب چه اشتباهی می‌کنند؟','out']]},
+ math:{n:'ریاضی',it:[['تعریف دقیق','link','تعریف رسمی چیست؟','out'],['ویژگی‌ها','part','چه ویژگی‌هایی دارد؟','in'],['قضیه یا قاعده','link','قاعدهٔ اصلی را بنویس.','out'],['ایدهٔ اثبات','cause','چرا درست است؟ ایدهٔ اصلی.','out'],['مثال حل‌شده','example','یک مثال گام‌به‌گام.','in'],['حالت خاص / مثال نقض','contrast','چه زمانی کار نمی‌کند؟','out'],['کاربرد','link','کجا استفاده می‌شود؟','out'],['خطای رایج','contrast','اشتباه معمول در حل چیست؟','out']]},
+ hist:{n:'تاریخ و اجتماعی',it:[['زمان و مکان','link','چه زمانی و کجا؟','out'],['بازیگران اصلی','part','چه کسان یا گروه‌هایی نقش داشتند؟','in'],['علل و زمینه‌ها','cause','چه چیزهایی باعث آن شد؟','in'],['رویدادهای کلیدی','part','مهم‌ترین رویدادها به‌ترتیب زمان.','in'],['پیامدها','cause','چه نتایجی داشت؟','out'],['اهمیت بلندمدت','link','چرا امروز هم مهم است؟','out'],['مقایسه با رویداد مشابه','similar','با چه رویداد دیگری قابل مقایسه است؟','out']]},
+ lit:{n:'ادبیات و زبان',it:[['گوینده / نویسنده و دوره','link','چه کسی و در چه دوره‌ای؟','out'],['موضوع و پیام','link','پیام اصلی چیست؟','out'],['ساختار و قالب','part','قالب و بخش‌های اثر.','in'],['آرایه‌ها و زبان','part','آرایه‌ها و ویژگی‌های زبانی.','in'],['شخصیت‌ها یا تصاویر','part','چه شخصیت‌ها یا تصویرهایی؟','in'],['مفهوم اخلاقی یا عاطفی','link','چه احساس یا آموزه‌ای؟','out'],['پیوند با متن دیگر','analogy','با چه اثر دیگری مرتبط است؟','out']]},
+ gen:{n:'عمومی (هر مفهوم)',it:[['تعریف','link','این مفهوم چیست؟','out'],['ویژگی‌ها','part','چه ویژگی‌هایی دارد؟','in'],['انواع','type','چه انواعی دارد؟','in'],['علل','cause','چه چیزی باعث آن می‌شود؟','in'],['پیامدها','cause','چه نتیجه‌ای دارد؟','out'],['مثال‌ها','example','دو مثال.','in'],['نمونهٔ مخالف','contrast','ضد آن چیست؟','out'],['کاربرد','link','کجا مفید است؟','out']]}};
+async function makeScaffold(type){let topic=[...sel].map(ndv)[0];
+ if(!topic){if(S.nodes.length)return toast('یک مفهوم را انتخاب کن تا اسکلت زیرش ساخته شود.');const v=await ask('موضوع درس',[{l:'عنوان درس یا مفهوم مرکزی'}]);if(!v||!v[0])return;snap();topic=addNode(v[0],0,0,0)}
+ else snap();const sc=SCAF[type],n=sc.it.length;sc.it.forEach(([t,k,q,dir],i)=>{const x=mk([topic],t,i%PAL.length,i,n);x.note=q;dir==='in'?addEdge(x.id,topic.id,k):addEdge(topic.id,x.id,k)});
+ sel=new Set([topic.id]);save();all();fit();if(V3.on){place3dNew()}toast('اسکلت ساخته شد — هر کارت یک پرسش راهنما دارد؛ پاسخ را در یادداشت یا زیرمفهوم‌ها بنویس.')}
+const KMAP={};Object.entries(K).forEach(([id,k])=>{KMAP[id]=id;KMAP[k.n]=id});
+function csvSplit(l){const r=[];let c='',q=false;for(let i=0;i<l.length;i++){const ch=l[i];if(q){if(ch==='"'&&l[i+1]==='"'){c+='"';i++}else if(ch==='"')q=false;else c+=ch}else if(ch==='"')q=true;else if(ch===','||ch==='؛'||ch==='\t'){r.push(c);c=''}else c+=ch}r.push(c);return r.map(x=>x.trim())}
+function importText(text,replace){text=text.replace(/\r/g,'').replace(/^﻿/,'').trim();if(!text)return{err:'متنی وارد نشده.'};
+ if(text[0]==='{'){try{const o=JSON.parse(text);if(o.nodes&&o.edges){snap();load(text);save();fit();return{n:S.nodes.length,e:S.edges.length}}}catch(e){return{err:'JSON معتبر نیست.'}}}
+ snap();if(replace){S.nodes=[];S.edges=[];sel.clear();selE=null}
+ const byT=new Map(S.nodes.map(n=>[n.t,n.id]));let nn=0,ee=0;
+ const get=(t,hint)=>{t=t.trim();if(!t)return null;if(byT.has(t))return byT.get(t);const a=hint?ndv(hint):null,x=a?a.x+(Math.random()-.5)*300:(Math.random()-.5)*500,y=a?a.y+(Math.random()-.5)*300:(Math.random()-.5)*500;const n=addNode(t,x,y,a?a.c:6);byT.set(t,n.id);nn++;return n.id};
+ const lines=text.split('\n').filter(l=>l.trim());const head=csvSplit(lines[0]).map(x=>x.toLowerCase());
+ if(lines.length>1&&lines[0].includes(',')&&(head.includes('from')||head.includes('مبدا')||head.includes('مبدأ'))){
+  lines.slice(1).forEach(l=>{const c=csvSplit(l);if(c.length<2)return;const a=get(c[0]),b=get(c[1]);if(a&&b){addEdge(a,b,KMAP[c[2]]||'link',c[3]||'');ee++}})}
+ else{const st=[];lines.forEach(raw=>{
+   const arrow=raw.match(/^(.*?)\s*(<->|↔|->|→|=>)\s*(.+)$/);
+   if(arrow){let l=arrow[3],lab='',kind=arrow[2]==='<->'||arrow[2]==='↔'?'direct':'cause';const km=l.match(/\[([^\]]+)\]\s*$/);if(km){kind=KMAP[km[1].trim()]||kind;l=l.replace(/\[[^\]]+\]\s*$/,'')}const ci=l.search(/[:：]/);if(ci>=0){lab=l.slice(ci+1).trim();l=l.slice(0,ci)}
+    const a=get(arrow[1]),b=get(l,a);if(a&&b){addEdge(a,b,kind,lab);ee++}return}
+   const m=raw.match(/^(\s*)([-*•#]*)\s*(.*)$/),title=m[3].trim();if(!title)return;
+   let lvl=Math.round(m[1].replace(/\t/g,'    ').length/2);if(m[2].startsWith('#'))lvl=m[2].length-1;
+   lvl=Math.min(lvl,st.length);st.length=lvl;const par=lvl?st[lvl-1]:null,id=get(title,par);
+   if(par&&id&&par!==id){addEdge(id,par,'part');ee++}st[lvl]=id})}
+ if(!nn&&!ee)return{err:'چیزی برای افزودن پیدا نشد.'};
+ save();all();layout();return{n:nn,e:ee}}
+function importDialog(){const m=$('#md');m.innerHTML=`<form class="mc"><h3>ورود از متن</h3><p>سه شکل پذیرفته می‌شود: ۱) فهرست تودرتو (با فاصله، - یا #) ۲) خط‌های «الف -> ب : توضیح [نوع]» ۳) CSV با ستون‌های from,to,kind,label. متن JSON نقشه را هم می‌توانی بچسبانی.</p><textarea id="imt" rows="9" class="f" style="direction:rtl" placeholder="فتوسنتز&#10;  نور&#10;  آب&#10;نور -> گلوکز : انرژی&#10;آب <-> رشد [direct]"></textarea><label style="font-size:13px"><input type="checkbox" id="imr" style="width:auto;display:inline;margin:0 0 0 6px"> جایگزین نقشهٔ فعلی شود</label><div class="ac" style="margin-top:12px"><button class="b pr">افزودن</button><button type="button" class="b" id="imx">انصراف</button></div></form>`;m.hidden=false;$('#imt').focus();
+ $('#imx').onclick=()=>{m.hidden=true;m.innerHTML=''};m.firstChild.onsubmit=ev=>{ev.preventDefault();const r=importText($('#imt').value,$('#imr').checked);if(r.err)return toast(r.err);m.hidden=true;m.innerHTML='';toast(`افزوده شد: ${r.n} مفهوم و ${r.e} پیوند`)}}
+const q$=s=>'"'+String(s==null?'':s).replace(/"/g,'""')+'"';
+function topoRoot(){const g=gr(),pr=pagerank(g);let b=0;pr.forEach((v,i)=>{if(v>pr[b])b=i});return g.ids[b]}
+function mdOutline(){if(!S.nodes.length)return'';const root=topoRoot(),seen=new Set([root]),kids=new Map(S.nodes.map(n=>[n.id,[]])),queue=[root];
+ for(let i=0;i<queue.length;i++){const u=queue[i];S.edges.forEach(e=>{const v=e.a==u?e.b:e.b==u?e.a:null;if(v&&!seen.has(v)&&ndv(v)){seen.add(v);kids.get(u).push({id:v,e});queue.push(v)}})}
+ S.nodes.forEach(n=>{if(!seen.has(n.id)){seen.add(n.id);kids.get(root).push({id:n.id,e:null})}});
+ let o='# '+ttl(root)+'\n\n';const walk=(u,d)=>kids.get(u).forEach(({id,e})=>{const n=ndv(id);o+='  '.repeat(d)+'- '+(e?'['+K[e.k].n+'] ':'')+n.t+(n.note?' — '+n.note.replace(/\n/g,' '):'')+'\n';walk(id,d+1)});walk(root,0);
+ o+='\n## روابط\n\n'+S.edges.filter(e=>ndv(e.a)&&ndv(e.b)).map(e=>'- '+sentence(e).replace(/[«»]/g,'')).join('\n')+'\n';return o}
+function flashCSV(){const rows=['front,back'];S.nodes.forEach(n=>{const c=makeCard(n,rngm(n.id.length*7+n.t.length));rows.push(q$(c.q)+','+q$(c.a.replace(/\nیادداشت:.*/,'')))});S.edges.filter(e=>ndv(e.a)&&ndv(e.b)).forEach(e=>rows.push(q$('رابطهٔ «'+ttl(e.a)+'» با «'+ttl(e.b)+'» چیست؟')+','+q$(K[e.k].n+(e.l?': '+e.l:''))));return rows.join('\n')}
+function reportHTML(){const r=roles(),rows=S.nodes.map(n=>`<tr><td>${esc(n.t)}</td><td>${n.imp||3}</td><td>${esc(r[n.id]?ROLE[r[n.id]].n:'')}</td><td>${esc((n.note||'').replace(/\n/g,' '))}</td></tr>`).join(''),rel=S.edges.filter(e=>ndv(e.a)&&ndv(e.b)).map(e=>'<li>'+esc(sentence(e))+'</li>').join('');
+ return`<!doctype html><html lang="fa" dir="rtl"><meta charset="utf-8"><title>گزارش نقشهٔ مفهومی</title><style>body{font-family:Vazirmatn,Tahoma,sans-serif;max-width:800px;margin:24px auto;padding:0 16px;line-height:1.9}table{border-collapse:collapse;width:100%}td,th{border:1px solid #999;padding:6px 10px;text-align:right;font-size:14px}th{background:#eee}h1{border-bottom:3px solid #e8971f}</style><h1>گزارش نقشهٔ مفهومی: ${esc(ttl(topoRoot()))}</h1><p>${S.nodes.length} مفهوم · ${S.edges.length} پیوند</p><h2>مفاهیم</h2><table><tr><th>مفهوم</th><th>اهمیت</th><th>نقش</th><th>یادداشت</th></tr>${rows}</table><h2>روابط</h2><ol>${rel}</ol><h2>طرح مرور</h2><pre style="white-space:pre-wrap">${esc(mdOutline())}</pre></html>`}
+const dlText=(n,t,m)=>dl(n,new Blob([t],{type:(m||'text/plain')+';charset=utf-8'}));
+function ioHtml(){return`<h4>قالب‌های درسی تازه</h4>${TPLS.map(t=>`<button class="b w" data-tpl="${t[0]}"><i class="fa-solid ${t[2]}"></i> ${t[1]}</button>`).join('')}<h4>ورودی</h4><button class="b w" data-ma="import"><i class="fa-solid fa-file-import"></i> ورود از متن / CSV / فهرست</button><p class="hn">فایل‌های json، csv، txt و md را می‌توانی روی بوم بکشی و رها کنی.</p><h4>خروجی‌های بیشتر</h4><button class="b w" data-ma="expmd"><i class="fa-solid fa-list"></i> طرح درسی (Markdown)</button><button class="b w" data-ma="expcsv"><i class="fa-solid fa-table"></i> جدول پیوندها (CSV)</button><button class="b w" data-ma="expnodes"><i class="fa-solid fa-table-list"></i> جدول مفاهیم (CSV)</button><button class="b w" data-ma="expcards"><i class="fa-solid fa-clone"></i> فلش‌کارت‌های مرور (CSV برای Anki)</button><button class="b w" data-ma="exprep"><i class="fa-solid fa-print"></i> گزارش چاپی (HTML)</button><button class="b w" data-ma="exp3d"><i class="fa-solid fa-cube"></i> تصویر نمای سه‌بعدی (PNG)</button><p class="hn">میان‌برها: ۳ نمای سه‌بعدی · F تمرکز بر همسایگان · / جست‌وجو. موقعیت سه‌بعدی مفاهیم در فایل JSON هم ذخیره می‌شود.</p>`}
+function sceHtml(){return`<h4>اسکلت درس</h4><p class="hn">برای هر نوع درس، پرسش‌های راهنمای استاندارد را به‌صورت زیرمفهوم می‌سازد تا فقط پاسخ‌ها را پر کنی. یک مفهوم را انتخاب کن (یا خالی بگذار تا موضوع را بپرسد).</p><select id="scT" class="f">${Object.entries(SCAF).map(([k,v])=>`<option value="${k}">${v.n}</option>`).join('')}</select><button class="b w" data-ma="scaf"><i class="fa-solid fa-sitemap"></i> ساخت اسکلت درس</button>`}
+function roleHtml(){const n=ndv([...sel][0]);return`<h4>نقش در مدل (ورودی–فرایند–خروجی)</h4><select class="f" data-f2="role"><option value="">خودکار (از جهت پیوندها)</option>${Object.entries(ROLE).map(([k,v])=>`<option value="${k}" ${n.role===k?'selected':''}>${v.n}</option>`).join('')}</select><p class="hn">نقش در نمای سه‌بعدی با نقطهٔ رنگی روی مفهوم دیده می‌شود.</p>${n.mem?`<p class="hn">حافظه: نیمه‌عمر ${n.mem.s.toFixed(1)} روز · ${n.mem.n} مرور</p>`:''}`}
+$('#pc').addEventListener('click',e=>{const b=e.target.closest('[data-ma]');if(!b)return;const a=b.dataset.ma,A1=b.dataset.a1,A2=b.dataset.a2,A3=b.dataset.a3;
+ if(a==='sel'){sel=new Set([A1]);selE=null;render();if(NEWTABS.includes(tab))renderTab();return}
+ if(a==='pair'){if(A1!==A2){const es=S.edges.filter(x=>(x.a==A1&&x.b==A2)||(x.a==A2&&x.b==A1));if(es[0]){selE=es[0].id;sel.clear();tab='sel';all()}else{sel=new Set([A1,A2]);render();renderTab()}}return}
+ if(a==='selids'){sel=new Set(A1.split(',').filter(ndv));render();renderTab();return}
+ if(a==='hlpath'){const p=shortestPath([...sel][0],[...sel][1]);if(p){const s0=[...sel];clearHL();HL.dim=true;p.forEach(s=>{HL.edges.add(s.e.id);HL.nodes.set(s.from,'#fbbf24');HL.nodes.set(s.to,'#fbbf24')});render()}return}
+ if(a==='hlloop'){const l=findLoops(gr())[+A1];if(l){clearHL();HL.dim=true;l.nodes.forEach(id=>HL.nodes.set(id,l.sign>0?'#10b981':'#38bdf8'));l.edges.forEach(id=>HL.edges.add(id));render()}return}
+ if(a==='fx'){const src=[...sel][0],dir=+A1,res=simulateEffect(src,dir);clearHL();FX={src,dir,res};HL.nodes.set(src,'#38bdf8');res.forEach(r=>HL.nodes.set(r.id,r.sign>0?'#10b981':r.sign<0?'#ef4444':'#fbbf24'));render();renderTab();return}
+ if(a==='clearhl'){clearHL();render();renderTab();return}
+ if(a==='mltrain'){startML();renderTab();return}
+ if(a==='mladd'){snap();addEdge(A1,A2,A3);ML.preds=ML.preds.filter(p=>!(p.a===A1&&p.b===A2));save();all();toast('پیوند افزوده شد — توضیحش را روی آن بنویس.');return}
+ if(a==='mlrej'){ML.rej.add(rejKey(A1,A2));ML.preds=ML.preds.filter(p=>!(p.a===A1&&p.b===A2));renderTab();return}
+ if(a==='mlcolor'&&ML.clusters){snap();ML.clusters.forEach((c,i)=>c.ids.forEach(id=>{const n=ndv(id);if(n)n.c=i%PAL.length}));save();all();toast('رنگ‌ها بر اساس خوشه‌ها تنظیم شد (Ctrl+Z برای بازگشت).');return}
+ if(a==='mlimp'){snap();const g=gr(),pr=pagerank(g),o=[...pr.keys()].sort((x,y)=>pr[y]-pr[x]);o.forEach((i,r)=>{const p=r/Math.max(1,o.length-1);S.nodes[i].imp=p<.1?5:p<.25?4:p<.6?3:p<.85?2:1});save();all();toast('اهمیت‌ها از روی PageRank تنظیم شد.');return}
+ if(a==='stustart'){const Q=studyQueue();STU.q=[...Q.due,...Q.nw].slice(0,10).map(n=>n.id);STU.i=0;STU.rev=false;STU.log=[];STU.on=true;STU.rg=rngm(Math.floor(Date.now()/MONE));stuSelect();render();renderTab();return}
+ if(a==='sturev'){STU.rev=true;renderTab();return}
+ if(a==='stugrade'){const n=ndv(STU.q[STU.i]);if(n)reviewNode(n,+A1);STU.log.push(+A1);STU.i++;STU.rev=false;save();stuSelect();render();renderTab();return}
+ if(a==='stuend'){STU.on=false;renderTab();return}
+ if(a==='scaf'){makeScaffold($('#scT').value);return}
+ if(a==='import'){importDialog();return}
+ if(a==='expmd')return dlText('concept-outline.md','﻿'+mdOutline(),'text/markdown');
+ if(a==='expcsv')return dlText('concept-links.csv','﻿'+'from,to,kind,label\n'+S.edges.filter(x=>ndv(x.a)&&ndv(x.b)).map(x=>[ttl(x.a),ttl(x.b),x.k,x.l].map(q$).join(',')).join('\n'),'text/csv');
+ if(a==='expnodes'){const r=roles();return dlText('concept-nodes.csv','﻿'+'title,importance,role,note\n'+S.nodes.map(n=>[n.t,n.imp||3,r[n.id]||'',n.note].map(q$).join(',')).join('\n'),'text/csv')}
+ if(a==='expcards')return dlText('concept-flashcards.csv','﻿'+flashCSV(),'text/csv');
+ if(a==='exprep')return dlText('concept-report.html',reportHTML(),'text/html');
+ if(a==='exp3d'){if(!V3.on){setView(true)}draw3();c3.toBlob(bl=>dl('concept-3d.png',bl));return}});
+$('#pc').addEventListener('input',e=>{const t=e.target;if(t.dataset.maRange==='mem'){memOff=+t.value;const m=$('#mday');if(m)m.textContent=memOff;if(V3.on)draw3()}});
+$('#pc').addEventListener('change',e=>{const t=e.target;if(t.dataset.f2==='role'){const n=ndv([...sel][0]);if(n){snap();if(t.value)n.role=t.value;else delete n.role;save();all()}}
+ if(t.dataset.maRange==='mem'){renderTab()}});
+function setView(on){V3.on=on;cv.style.display=on?'none':'block';c3.hidden=!on;$('#t3').hidden=!on;$('#bView').classList.toggle('on',on);
+ if(on){const first=!S.nodes.some(hasP3);place3dNew();if(first)applyLayout(V3.mode,true);else{fit3();draw3()}loop3()}else{cancelAnimationFrame(V3.raf)}render()}
+$('#bView').onclick=()=>setView(!V3.on);
+$('#bFocus').onclick=()=>{FOCUS=!FOCUS;$('#bFocus').classList.toggle('on',FOCUS);render();toast(FOCUS?'تمرکز: فقط همسایگانِ انتخاب‌شده پررنگ‌اند':'تمرکز خاموش شد')};
+$('#bSearch').onclick=()=>{const w=$('#sbw');w.hidden=!w.hidden;if(!w.hidden)$('#sb').focus();else{$('#sb').value='';SEARCH='';$('#sbc').textContent='';render()}};
+const hitS=n=>(n.t+' '+(n.note||'')).toLowerCase().includes(SEARCH.toLowerCase());
+$('#sb').addEventListener('input',e=>{SEARCH=e.target.value.trim();$('#sbc').textContent=SEARCH?S.nodes.filter(hitS).length+' نتیجه':'';render()});
+$('#sb').addEventListener('keydown',e=>{if(e.key==='Enter'&&SEARCH){const m=S.nodes.find(hitS);if(m){sel=new Set([m.id]);render();ui()}}if(e.key==='Escape')$('#bSearch').click()});
+$('#l3').onchange=e=>applyLayout(e.target.value);
+$('#b3r').onclick=()=>{V3.auto=!V3.auto;$('#b3r').classList.toggle('on',V3.auto);loop3()};
+$('#b3l').onclick=()=>{V3.labels=!V3.labels;$('#b3l').classList.toggle('on',V3.labels);draw3()};
+$('#b3e').onclick=()=>{V3.elabels=!V3.elabels;$('#b3e').classList.toggle('on',V3.elabels);draw3()};
+$('#b3m').onclick=()=>{V3.memring=!V3.memring;$('#b3m').classList.toggle('on',V3.memring);draw3()};
+$('#pt').addEventListener('click',()=>{if(V3.on){fit3();draw3()}});
+$('#b3c').onclick=()=>{V3.yaw=0.7;V3.pitch=0.35;fit3();draw3()};
+$('#b3l').classList.add('on');
+const cw=$('#cvw');cw.addEventListener('dragover',e=>e.preventDefault());
+cw.addEventListener('drop',e=>{e.preventDefault();const f=e.dataTransfer.files&&e.dataTransfer.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const x=importText(String(r.result),false);toast(x.err||`وارد شد: ${x.n} مفهوم، ${x.e} پیوند`)};r.readAsText(f)});
+const _ui=ui,_render=render;
+ui=function(){$$('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab==tab));
+ if(NEWTABS.includes(tab)){renderTab();return}
+ _ui();const P=$('#pc');
+ if(tab==='file')P.insertAdjacentHTML('beforeend',ioHtml());
+ else if(tab==='tools')P.insertAdjacentHTML('beforeend',sceHtml());
+ else if(tab==='sel'&&!selE&&sel.size===1)P.insertAdjacentHTML('beforeend',roleHtml())};
+render=function(){_render();applyDim2d();if(V3.on){place3dNew();draw3()}};
+$$('.tabs button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;if(innerWidth<=820)$('#panel').classList.remove('min');ui()});
+addEventListener('resize',()=>{if(V3.on){fit3();draw3()}});
+document.addEventListener('keydown',e=>{if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.ctrlKey||e.metaKey)return;
+ if(e.key==='3')setView(!V3.on);if(e.key==='f'||e.key==='F')$('#bFocus').click();if(e.key==='/'){e.preventDefault();$('#bSearch').click()}});
+$('#sf').insertAdjacentHTML('beforeend',`<div class="ac" style="flex-wrap:wrap;margin-top:6px">${TPLS.map(t=>`<button type="button" class="b" data-tpl1="${t[0]}"><i class="fa-solid ${t[2]}"></i> ${t[1].split(' (')[0]}</button>`).join('')}<button type="button" class="b" id="siT"><i class="fa-solid fa-file-import"></i> ورود از متن</button></div>`);
+$$('[data-tpl1]').forEach(b=>b.onclick=()=>loadTpl(b.dataset.tpl1));$('#siT').onclick=importDialog;
+render();ui();
+window.CM2={V3,ML,STU,SCAF,gr,pagerank,betweenness,articulation,findLoops,simulateEffect,shortestPath,roles,healthCheck,importText,mdOutline,flashCSV,makeCard,reviewNode,retOf,studyQueue,mlTrain,applyLayout,setView,layoutTarget,pairFeat,trainEmb,fitLR,makeScaffold,startML,setMemOff:v=>{memOff=v},nowDay,loadTpl};
+
+})();
+</script>
+</body>
+</html>
