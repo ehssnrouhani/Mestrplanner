@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>آکادمی ویدئویی | مستر پلنر</title>
+<meta name="description" content="ویدئوهای آموزشی دروس تخصصی کنکور، تکنیک‌های تست‌زنی و حل تمرین.">
+<meta name="author" content="احسان روحانی راوری">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --brand:#1f7a4d; --brand-dark:#0d3524; --brand-soft:#e8f4ec;
+  --accent:#2fbf71; --bg:#f2f6f3; --card:#ffffff;
+  --ink:#16241d; --muted:#5d6f65; --line:#dfe9e2; --warn:#b45309; --danger:#b91c1c;
+  --radius:16px; --shadow:0 10px 30px rgba(13,53,36,.08);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1612;--card:#16221b;--ink:#e6f0ea;--muted:#9bb0a5;--line:#243a2e;--brand-soft:#1b3326;--brand:#3fbf80;--shadow:0 10px 30px rgba(0,0,0,.35)}}
+:root[data-theme="dark"]{--bg:#0e1612;--card:#16221b;--ink:#e6f0ea;--muted:#9bb0a5;--line:#243a2e;--brand-soft:#1b3326;--brand:#3fbf80;--shadow:0 10px 30px rgba(0,0,0,.35)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,Tahoma,sans-serif;font-size:16px;line-height:2}
+a{color:var(--brand);text-decoration:none}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.site-header{background:linear-gradient(135deg,var(--brand-dark),#1f7a4d);color:#fff;padding:14px 18px;position:sticky;top:0;z-index:20;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.bar{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;color:#fff}
+.brand-badge{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.15);font-weight:800;font-size:20px}
+.bar nav{margin-inline-start:auto;display:flex;gap:6px}
+.bar nav a,.bar nav button{color:#fff;font-size:13.5px;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);text-decoration:none;cursor:pointer}
+.bar nav a:hover,.bar nav button:hover{background:rgba(255,255,255,.18)}
+
+main{max-width:1100px;margin:26px auto 40px;padding:0 16px}
+.hero{background:linear-gradient(140deg,var(--brand-dark),#1f7a4d 70%,var(--accent));color:#fff;border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);margin-bottom:20px;text-align:center}
+.hero h1{margin:0 0 10px;font-size:26px}
+.hero p{margin:0;opacity:.92;font-size:15px}
+.stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.stat{background:rgba(255,255,255,.14);border-radius:12px;padding:2px 14px;font-size:13px}
+.stat b{font-size:16px}
+.progress{height:6px;background:rgba(255,255,255,.2);border-radius:9px;margin:12px auto 0;max-width:420px;overflow:hidden}.progress i{display:block;height:100%;background:#fff;width:0;transition:width .4s}
+
+.toolbar{display:grid;grid-template-columns:1fr auto auto;gap:10px;margin-bottom:12px}
+.search{position:relative}.search input{width:100%;font-family:inherit;font-size:14px;padding:10px 40px 10px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+.search i{position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.sel{font-family:inherit;font-size:13.5px;padding:9px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;justify-content:center}
+.filter-btn{font-family:inherit;font-size:13.5px;padding:7px 15px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:.15s}
+.filter-btn:hover{border-color:var(--accent)}
+.filter-btn.active{background:var(--brand-dark);color:#fff;border-color:var(--brand-dark)}
+.filter-btn small{opacity:.65;margin-inline-start:4px}
+.quick{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.chip{font-size:12.5px;border:1px dashed var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:3px 12px;cursor:pointer}.chip.on{background:var(--brand-soft);color:var(--brand);border-style:solid;border-color:var(--accent)}
+.count{text-align:center;color:var(--muted);font-size:12.5px;margin:-8px 0 14px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.video-card{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);transition:transform .2s;display:flex;flex-direction:column;position:relative}
+.video-card:hover{transform:translateY(-4px);border-color:var(--accent)}
+.video-card.seen .thumb-wrap img{filter:saturate(.5) brightness(.85)}
+.thumb-wrap{position:relative;padding-top:56.25%;background:linear-gradient(135deg,#0d3524,#1f7a4d);cursor:pointer;display:block;width:100%;border:0}
+.thumb-wrap img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.ph{position:absolute;inset:0;display:grid;place-items:center;color:rgba(255,255,255,.75);font-size:34px}
+.duration{position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,0.7);color:#fff;font-size:12px;padding:2px 8px;border-radius:6px;direction:ltr}
+.plat{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.65);color:#fff;font-size:11px;padding:1px 9px;border-radius:999px}
+.plat.yt{background:rgba(220,38,38,.9)}.plat.ap{background:rgba(236,72,153,.92)}.plat.vm{background:rgba(14,165,233,.92)}
+.play-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;background:rgba(47,191,113,.9);border-radius:50%;display:grid;place-items:center;color:#fff;font-size:20px;opacity:0;transition:opacity .2s}
+.thumb-wrap:hover .play-icon,.thumb-wrap:focus-visible .play-icon{opacity:1}
+.seen-badge{position:absolute;top:10px;left:10px;background:var(--accent);color:#06210f;font-size:11px;font-weight:700;padding:1px 9px;border-radius:999px}
+.card-act{position:absolute;top:10px;right:auto;left:auto;display:none}
+.video-info{padding:16px;flex-grow:1;display:flex;flex-direction:column}
+.video-tags{display:flex;gap:8px;margin-bottom:10px;align-items:center}
+.tag{font-size:11px;background:var(--brand-soft);color:var(--brand);padding:2px 8px;border-radius:6px;font-weight:600}
+.mini{margin-inline-start:auto;background:none;border:0;color:var(--muted);cursor:pointer;font-size:15px;padding:0 4px}.mini.on{color:#e0a800}
+.video-title{font-size:16px;font-weight:800;color:var(--brand-dark);margin:0 0 8px;line-height:1.6}
+:root[data-theme="dark"] .video-title{color:#bfe8d0}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .video-title{color:#bfe8d0}}
+.video-desc{font-size:13px;color:var(--muted);margin:0 0 15px;flex-grow:1;line-height:1.7}
+mark{background:#fde68a;color:#1a1a1a;border-radius:3px;padding:0 2px}
+
+.satellite-links{border-top:1px dashed var(--line);padding-top:12px;margin-top:auto}
+.satellite-links span{font-size:12px;color:var(--muted);display:block;margin-bottom:6px}
+.satellite-links a{display:inline-block;font-size:12px;background:var(--brand-soft);color:var(--brand-dark);padding:4px 10px;border-radius:6px;margin-left:5px;margin-bottom:5px;transition:0.2s}
+:root[data-theme="dark"] .satellite-links a{color:#bfe8d0}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .satellite-links a{color:#bfe8d0}}
+.satellite-links a:hover{background:var(--brand);color:#fff;text-decoration:none}
+.satellite-links a i{font-size:10px;margin-left:4px}
+
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:1000;display:none;place-items:center;padding:20px;backdrop-filter:blur(5px);overflow:auto}
+.modal.open{display:grid}
+.modal-wrap{width:100%;max-width:920px}
+.modal-content{width:100%;background:#000;border-radius:16px;overflow:hidden;position:relative;box-shadow:0 20px 50px rgba(0,0,0,0.5);aspect-ratio:16/9}
+.modal-content iframe,.modal-content video{width:100%;height:100%;border:none;background:#000}
+.close-btn{position:absolute;top:-40px;right:0;background:none;border:none;color:#fff;font-size:24px;cursor:pointer}
+.mbar{background:var(--card);border-radius:14px;margin-top:12px;padding:12px 16px;border:1px solid var(--line)}
+.mbar h2{margin:0 0 4px;font-size:16px;line-height:1.7}.mbar p{margin:0 0 8px;color:var(--muted);font-size:13px;line-height:1.8}
+.macts{display:flex;gap:8px;flex-wrap:wrap}
+.btn{font-size:12.5px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:4px 14px;cursor:pointer;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.btn:hover{border-color:var(--accent)}.btn.pri{background:var(--brand);color:#fff;border-color:var(--brand)}.btn.on{background:var(--brand-soft);color:var(--brand)}
+.hint{font-size:11.5px;color:var(--warn);margin-top:6px}
+.rel{display:flex;gap:10px;overflow-x:auto;margin-top:10px;padding-bottom:4px}
+.rel button{flex:0 0 150px;text-align:right;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:0;overflow:hidden;cursor:pointer}
+.rel img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:var(--brand-dark)}.rel span{display:block;font-size:11.5px;padding:4px 8px;line-height:1.6}
+
+.state{padding:40px;text-align:center;color:var(--muted);font-size:15px;background:var(--card);border-radius:var(--radius);border:1px dashed var(--line)}
+.skel{height:300px;border-radius:var(--radius);background:linear-gradient(90deg,var(--card) 25%,var(--brand-soft) 50%,var(--card) 75%);background-size:200% 100%;animation:sk 1.3s infinite}
+@keyframes sk{to{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.skel{animation:none}.video-card{transition:none}}
+
+.admin{margin:30px 0 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:4px 16px;box-shadow:var(--shadow)}
+.admin summary{cursor:pointer;font-weight:800;padding:10px 0;color:var(--brand)}
+.admin textarea,.admin input{width:100%;font-family:inherit;font-size:13px;padding:8px 10px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+.admin textarea{min-height:90px;direction:ltr;text-align:left}
+.arow{display:grid;grid-template-columns:96px 1fr;gap:10px;border:1px solid var(--line);border-radius:12px;padding:10px;margin:10px 0}
+.arow img,.arow .ph2{width:96px;aspect-ratio:16/9;object-fit:cover;border-radius:8px;background:var(--brand-dark);display:grid;place-items:center;color:#fff}
+.afields{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}.afields .full{grid-column:1/-1}
+.ainfo{font-size:11.5px;color:var(--muted);grid-column:1/-1;direction:ltr;text-align:left}
+.ainfo.bad{color:var(--danger)}
+.out{margin:10px 0 14px}
+@media(max-width:560px){
+  .bar nav a span,.bar nav button span{display:none}
+  .toolbar{grid-template-columns:1fr 1fr}.search{grid-column:1/-1}
+  .grid{grid-template-columns:1fr}
+  .modal{padding:0;place-items:start}.modal-content{border-radius:0}.modal-wrap{max-width:none}.mbar{border-radius:0;margin-top:0}
+  .close-btn{top:10px;right:10px;background:rgba(0,0,0,0.5);width:36px;height:36px;border-radius:50%;display:grid;place-items:center;z-index:2}
+  .afields{grid-template-columns:1fr}.arow{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="index.html">
+      <span class="brand-badge">م</span>
+      <strong>مستر پلنر</strong>
+    </a>
+    <nav>
+      <button id="themeBtn" type="button" title="حالت روشن/تیره" aria-label="تغییر پوسته"><i class="fa-solid fa-circle-half-stroke"></i></button>
+      <a href="index.html"><i class="fa-solid fa-house"></i> <span>خانه</span></a>
+      <a href="library.html"><i class="fa-solid fa-book-bookmark"></i> <span>کتابخانه</span></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>آکادمی ویدئویی مستر پلنر</h1>
+    <p>تکنیک‌های تست‌زنی، حل تمرین و مفاهیم درسی را به زبان ساده ببینید.</p>
+    <div class="stats" id="stats"></div>
+    <div class="progress" aria-hidden="true"><i id="progBar"></i></div>
+  </section>
+
+  <div class="toolbar">
+    <label class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="q" type="search" placeholder="جستجو در عنوان، توضیح، مبحث یا مقاله… (کلید /)" aria-label="جستجو"></label>
+    <select class="sel" id="gradeSel" aria-label="پایه"><option value="">همهٔ پایه‌ها</option></select>
+    <select class="sel" id="sortSel" aria-label="مرتب‌سازی"><option value="def">ترتیب پیش‌فرض</option><option value="new">جدیدترین</option><option value="title">عنوان</option><option value="dur">کوتاه‌ترین</option><option value="durd">طولانی‌ترین</option></select>
+  </div>
+  <div class="filters" id="filters"></div>
+  <div class="quick" id="quick">
+    <button class="chip" data-k="unseen" type="button">دیده‌نشده</button>
+    <button class="chip" data-k="saved" type="button">★ ذخیره‌شده</button>
+    <button class="chip" data-k="seen" type="button">دیده‌شده</button>
+  </div>
+  <div class="count" id="count"></div>
+
+  <div id="videoGrid" class="grid" aria-live="polite">
+    <div class="skel"></div><div class="skel"></div><div class="skel"></div>
+  </div>
+
+  <details class="admin" id="admin">
+    <summary><i class="fa-solid fa-wand-magic-sparkles"></i> ابزار مدیر: افزودن هوشمند ویدئو (آپارات / یوتیوب / وی‌مئو / فایل)</summary>
+    <p style="font-size:13px;color:var(--muted);margin:0 0 8px">هر لینک را در یک خط بچسبانید (حتی کد iframe، لینک کوتاه، شورتس، لینک با زمان شروع یا شناسهٔ تنها). پلتفرم و شناسه خودکار تشخیص داده می‌شود، تصویر بندانگشتی یوتیوب خودکار ساخته می‌شود و خروجی آمادهٔ <code>videos.json</code> می‌گیرید.</p>
+    <textarea id="aIn" placeholder="https://youtu.be/dQw4w9WgXcQ?t=90&#10;https://www.aparat.com/v/AbC123x&#10;&lt;iframe src=&quot;https://www.aparat.com/video/video/embed/videohash/AbC123x/vt/frame&quot;&gt;&lt;/iframe&gt;"></textarea>
+    <div class="macts" style="margin:8px 0"><button class="btn pri" id="aGo" type="button"><i class="fa-solid fa-bolt"></i> تحلیل لینک‌ها</button><button class="btn" id="aAdd" type="button"><i class="fa-solid fa-plus"></i> افزودن به فهرست (پیش‌نمایش)</button><button class="btn" id="aCopy" type="button"><i class="fa-solid fa-copy"></i> کپی JSON</button><button class="btn" id="aDl" type="button"><i class="fa-solid fa-download"></i> دانلود videos.json</button><button class="btn" id="aBase" type="button" title="خروجی شامل ویدئوهای موجود هم باشد">شامل ویدئوهای فعلی: <b id="aBaseV">بله</b></button></div>
+    <div id="aRows"></div>
+    <textarea id="aOut" class="out" readonly placeholder="خروجی JSON اینجا ساخته می‌شود"></textarea>
+  </details>
+</main>
+
+<div class="modal" id="videoModal" role="dialog" aria-modal="true" aria-label="پخش ویدئو">
+  <div class="modal-wrap">
+    <div class="modal-content">
+      <button class="close-btn" id="closeBtn" aria-label="بستن"><i class="fa-solid fa-xmark"></i></button>
+      <div id="playerContainer" style="width:100%;height:100%"></div>
+    </div>
+    <div class="mbar" id="mbar"></div>
+  </div>
+</div>
+
+<script>
+/* ============ ابزارها ============ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const normFa = s => String(s || '').toLowerCase().replace(/ي/g,'ی').replace(/ك/g,'ک').replace(/[ً-ٟ‌]/g,'').replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+const faNum = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+const safeUrl = u => { try { const x = new URL(u, location.href); return /^(https?:|mailto:)$/.test(x.protocol) ? u : '#'; } catch (e) { return '#'; } };
+const store = {
+  get(k, d) { try { return JSON.parse(localStorage.getItem('mp:videos:' + k)) ?? d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('mp:videos:' + k, JSON.stringify(v)); } catch (e) {} }
+};
+
+/* ============ تشخیص هوشمند لینک ============ */
+function parseTime(t) {
+  if (!t) return 0; t = String(t).trim();
+  if (/^\d+$/.test(t)) return +t;
+  const m = /^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?$/i.exec(t); if (m && (m[1] || m[2] || m[3])) return (+m[1] || 0) * 3600 + (+m[2] || 0) * 60 + (+m[3] || 0);
+  const c = t.split(':').map(Number); if (c.length > 1 && c.every(x => !isNaN(x))) return c.reduce((a, x) => a * 60 + x, 0);
+  return 0;
+}
+function parseVideoUrl(raw) {
+  let s = String(raw || '').trim(); if (!s) return { ok: false, platform: 'none' };
+  const fr = /<iframe[^>]+src=["']([^"']+)["']/i.exec(s); if (fr) s = fr[1];
+  s = s.replace(/^["'\s]+|["'\s]+$/g, '');
+  let m;
+  if ((m = /^(?:yt|youtube)[:\s]+([\w-]{11})$/i.exec(s))) s = 'https://youtu.be/' + m[1];
+  else if ((m = /^(?:ap|aparat)[:\s]+([A-Za-z0-9]{4,14})$/i.exec(s))) s = 'https://www.aparat.com/v/' + m[1];
+  else if (/^[\w-]{11}$/.test(s) && !/^[a-z]+$/.test(s)) s = 'https://youtu.be/' + s;
+  if (!/^[a-z][a-z0-9+.-]*:\/\//i.test(s)) { if (/^\/\//.test(s)) s = 'https:' + s; else if (/^(www\.)?[\w-]+(\.[\w-]+)+\//.test(s)) s = 'https://' + s; }
+  let u; try { u = new URL(s); } catch (e) { return { ok: false, platform: 'unknown', raw: s }; }
+  const h = u.hostname.replace(/^(www|m|music|gaming)\./, '').toLowerCase(), p = u.pathname, q = u.searchParams;
+  const start = parseTime(q.get('t') || q.get('start') || (u.hash.match(/t=([\w:]+)/) || [])[1]);
+  /* یوتیوب */
+  if (/(^|\.)(youtube\.com|youtube-nocookie\.com|youtu\.be)$/.test(h)) {
+    let id = '';
+    if (h === 'youtu.be') id = p.split('/')[1] || '';
+    else if (p === '/watch') id = q.get('v') || '';
+    else if ((m = /^\/(?:embed|shorts|live|v)\/([\w-]{11})(?:\/|$)/.exec(p))) id = m[1];
+    id = (id.match(/^[\w-]{11}$/) || [''])[0];
+    const list = q.get('list') || '';
+    if (id || list) {
+      const base = 'https://www.youtube-nocookie.com/embed/' + (id || 'videoseries');
+      const params = new URLSearchParams({ rel: '0', modestbranding: '1', playsinline: '1' }); if (start) params.set('start', start); if (list) params.set('list', list);
+      return { ok: true, platform: 'youtube', id: id || ('list:' + list), list, start, kind: /\/shorts\//.test(p) ? 'shorts' : (list && !id ? 'playlist' : 'video'),
+        embed: base + '?' + params, watch: id ? 'https://www.youtube.com/watch?v=' + id + (start ? '&t=' + start + 's' : '') : 'https://www.youtube.com/playlist?list=' + list,
+        thumb: id ? 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg' : '', key: 'yt:' + (id || list) };
+    }
+  }
+  /* آپارات */
+  if (/(^|\.)aparat\.(com|cam)$/.test(h)) {
+    let id = ''; if ((m = /\/v\/([A-Za-z0-9]+)\/?$/.exec(p))) id = m[1]; else if ((m = /\/videohash\/([A-Za-z0-9]+)(?:\/|$)/.exec(p))) id = m[1]; else if ((m = /\/embed\/([A-Za-z0-9]+)\/?$/.exec(p))) id = m[1];
+    if (id) return { ok: true, platform: 'aparat', id, start, kind: 'video', embed: 'https://www.aparat.com/video/video/embed/videohash/' + id + '/vt/frame' + (start ? '?t=' + start : ''), watch: 'https://www.aparat.com/v/' + id, thumb: '', key: 'ap:' + id };
+  }
+  /* وی‌مئو */
+  if (/(^|\.)vimeo\.com$/.test(h)) { m = /\/(?:video\/)?(\d{6,12})/.exec(p); if (m) return { ok: true, platform: 'vimeo', id: m[1], start, kind: 'video', embed: 'https://player.vimeo.com/video/' + m[1] + (start ? '#t=' + start + 's' : ''), watch: 'https://vimeo.com/' + m[1], thumb: '', key: 'vm:' + m[1] }; }
+  /* فایل مستقیم */
+  if (/\.(mp4|webm|ogg|m3u8)(\?|$)/i.test(p)) return { ok: true, platform: 'file', id: p.split('/').pop(), start, kind: 'file', embed: u.href, watch: u.href, thumb: '', key: 'fl:' + u.href };
+  return { ok: false, platform: 'unknown', raw: s };
+}
+const PLAT = { youtube: ['یوتیوب', 'yt', 'fa-brands fa-youtube'], aparat: ['آپارات', 'ap', 'fa-solid fa-play'], vimeo: ['وی‌مئو', 'vm', 'fa-brands fa-vimeo-v'], file: ['فایل', '', 'fa-solid fa-film'] };
+function durSec(d) { if (!d) return 0; const c = String(d).trim().split(':').map(x => parseInt(normFa(x), 10)); return c.some(isNaN) ? 0 : c.reduce((a, x) => a * 60 + x, 0); }
+function fmtDur(sec) { sec = Math.round(sec); const h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60), s = sec % 60; return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + String(s).padStart(2, '0'); }
+
+/* ============ داده ============ */
+let videosData = [];
+const state = { subject: 'همه', grade: '', sort: 'def', q: '', quick: '' };
+let watched = new Set(store.get('watched', [])), saved = new Set(store.get('saved', []));
+let currentKey = null, lastFocus = null, shown = [];
+
+function prep(v, i) {
+  const info = parseVideoUrl(v.videoUrl); const o = Object.assign({}, v);
+  o._i = i; o._info = info; o._key = info.ok ? info.key : 'x:' + (v.id || i);
+  o._thumb = (/placeholder\.com|placehold\./i.test(v.thumbnail||'') ? '' : v.thumbnail) || (info.ok ? info.thumb : '') || '';
+  o._sec = durSec(v.duration); o._date = v.date ? Date.parse(v.date) || 0 : 0;
+  o._hay = normFa([v.title, v.desc, v.subject, v.grade, (v.tags || []).join(' '), (v.relatedArticles || []).map(a => a.title).join(' ')].join(' '));
+  return o;
+}
+function load(list) { videosData = (Array.isArray(list) ? list : []).map(prep); injectSchema(); buildFilters(); render(); stats(); openFromHash(); }
+
+fetch('videos.json').then(r => { if (!r.ok) throw 0; return r.json(); }).then(load).catch(() => {
+  $('#videoGrid').innerHTML = '<div class="state" style="grid-column:1/-1">خطا در بارگذاری ویدئوها. فایل <code>videos.json</code> را بررسی کنید.<br><small>با «ابزار مدیر» در پایین صفحه می‌توانید همین حالا لینک‌ها را اضافه و فایل JSON بسازید.</small></div>';
+  $('#stats').innerHTML = '';
+});
+
+function injectSchema() {
+  const old = document.getElementById('ld'); if (old) old.remove();
+  const items = videosData.filter(v => v._info.ok).map((v, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'VideoObject', name: v.title, description: v.desc, thumbnailUrl: v._thumb || undefined, uploadDate: v.date || undefined, duration: v._sec ? 'PT' + Math.floor(v._sec / 60) + 'M' + (v._sec % 60) + 'S' : undefined, contentUrl: v._info.watch, embedUrl: v._info.embed } }));
+  const s = document.createElement('script'); s.type = 'application/ld+json'; s.id = 'ld'; s.text = JSON.stringify({ '@context': 'https://schema.org', '@type': 'ItemList', name: 'آکادمی ویدئویی مستر پلنر', itemListElement: items }); document.head.appendChild(s);
+}
+function stats() {
+  const n = videosData.length, w = videosData.filter(v => watched.has(v._key)).length, tot = videosData.reduce((a, v) => a + v._sec, 0);
+  $('#stats').innerHTML = '<span class="stat"><b>' + faNum(n) + '</b> ویدئو</span>' + (tot ? '<span class="stat"><b>' + faNum(Math.round(tot / 60)) + '</b> دقیقه محتوا</span>' : '') + '<span class="stat"><b>' + faNum(w) + '</b> دیده‌شده</span><span class="stat"><b>' + faNum(saved.size) + '</b> ذخیره‌شده</span>';
+  $('#progBar').style.width = (n ? w / n * 100 : 0) + '%';
+}
+
+/* ============ فیلتر و نمایش ============ */
+function buildFilters() {
+  const subjects = ['همه', ...new Set(videosData.map(v => v.subject).filter(Boolean))], c = $('#filters'); c.innerHTML = '';
+  subjects.forEach(sub => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'filter-btn' + (sub === state.subject ? ' active' : '');
+    const n = sub === 'همه' ? videosData.length : videosData.filter(v => v.subject === sub).length; b.innerHTML = esc(sub) + '<small>' + faNum(n) + '</small>';
+    b.onclick = () => { state.subject = sub; c.querySelectorAll('.filter-btn').forEach(x => x.classList.toggle('active', x === b)); render(); }; c.appendChild(b);
+  });
+  const g = $('#gradeSel'), cur = g.value; g.innerHTML = '<option value="">همهٔ پایه‌ها</option>' + [...new Set(videosData.map(v => v.grade).filter(Boolean))].map(x => '<option>' + esc(x) + '</option>').join(''); g.value = cur;
+}
+function filtered() {
+  const toks = normFa(state.q).split(/\s+/).filter(Boolean);
+  let a = videosData.filter(v => (state.subject === 'همه' || v.subject === state.subject) && (!state.grade || v.grade === state.grade) && toks.every(t => v._hay.includes(t)));
+  if (state.quick === 'unseen') a = a.filter(v => !watched.has(v._key)); else if (state.quick === 'seen') a = a.filter(v => watched.has(v._key)); else if (state.quick === 'saved') a = a.filter(v => saved.has(v._key));
+  const S = state.sort; a = a.slice();
+  if (S === 'new') a.sort((x, y) => (y._date - x._date) || (y._i - x._i)); else if (S === 'title') a.sort((x, y) => String(x.title).localeCompare(String(y.title), 'fa')); else if (S === 'dur') a.sort((x, y) => (x._sec || 9e9) - (y._sec || 9e9)); else if (S === 'durd') a.sort((x, y) => y._sec - x._sec);
+  return a;
+}
+function hl(text) { const e = esc(text); const toks = normFa(state.q).split(/\s+/).filter(t => t.length > 1); if (!toks.length) return e; try { return e.replace(new RegExp('(' + toks.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')', 'gi'), '<mark>$1</mark>'); } catch (x) { return e; } }
+function card(v) {
+  const i = v._info, pl = PLAT[i.platform], seen = watched.has(v._key);
+  const sat = v.relatedArticles && v.relatedArticles.length ? '<div class="satellite-links"><span><i class="fa-solid fa-link"></i> مقالات مرتبط:</span>' + v.relatedArticles.map(a => '<a href="' + esc(safeUrl(a.url)) + '"><i class="fa-solid fa-book-open"></i>' + esc(a.title) + '</a>').join('') + '</div>' : '';
+  return '<article class="video-card' + (seen ? ' seen' : '') + '"><button type="button" class="thumb-wrap" data-open="' + esc(v._key) + '" aria-label="پخش: ' + esc(v.title) + '">' +
+    (v._thumb ? '<img loading="lazy" src="' + esc(v._thumb) + '" alt="" onerror="this.remove()">' : '') + '<span class="ph"><i class="' + (pl ? pl[2] : 'fa-solid fa-film') + '"></i></span>' +
+    (pl ? '<span class="plat ' + pl[1] + '">' + pl[0] + '</span>' : '') + (v.duration ? '<span class="duration">' + esc(v.duration) + '</span>' : '') + (seen ? '<span class="seen-badge">✓ دیده شد</span>' : '') + (!i.ok ? '<span class="seen-badge" style="background:#fde68a">به‌زودی</span>' : '') +
+    '<span class="play-icon"><i class="fa-solid fa-play"></i></span></button><div class="video-info"><div class="video-tags">' + (v.subject ? '<span class="tag">' + esc(v.subject) + '</span>' : '') + (v.grade ? '<span class="tag">' + esc(v.grade) + '</span>' : '') +
+    '<button type="button" class="mini' + (saved.has(v._key) ? ' on' : '') + '" data-save="' + esc(v._key) + '" aria-label="ذخیره" title="ذخیره برای بعد">' + (saved.has(v._key) ? '★' : '☆') + '</button></div><h3 class="video-title">' + hl(v.title) + '</h3><p class="video-desc">' + hl(v.desc || '') + '</p>' + sat + '</div></article>';
+}
+function render() {
+  shown = filtered(); const grid = $('#videoGrid');
+  $('#count').textContent = videosData.length ? faNum(shown.length) + ' ویدئو' + (shown.length !== videosData.length ? ' از ' + faNum(videosData.length) : '') : '';
+  if (!shown.length) { grid.innerHTML = '<div class="state" style="grid-column:1/-1">ویدئویی در این دسته یافت نشد.</div>'; return; }
+  grid.innerHTML = shown.map(card).join('');
+}
+
+/* ============ پخش ============ */
+function byKey(k) { return videosData.find(v => v._key === k); }
+function openVideo(key, fromHash) {
+  const v = byKey(key); if (!v) return; const i = v._info;
+  if (!i.ok) { toast('این ویدئو هنوز منتشر نشده است (لینک واقعی تنظیم نشده).'); return; }
+  lastFocus = document.activeElement; currentKey = key;
+  const cont = $('#playerContainer');
+  const ap = i.embed + (i.platform === 'youtube' ? '&autoplay=1' : '');
+  cont.innerHTML = i.kind === 'file' ? '<video controls autoplay playsinline src="' + esc(i.embed) + '"></video>' : '<iframe title="' + esc(v.title) + '" src="' + esc(ap) + '" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"></iframe>';
+  $('#videoModal').classList.add('open'); document.body.style.overflow = 'hidden';
+  watched.add(key); store.set('watched', [...watched]); stats(); render();
+  if (!fromHash) { try { history.replaceState(null, '', '#v=' + encodeURIComponent(key)); } catch (e) {} }
+  drawBar(v); $('#closeBtn').focus();
+}
+function drawBar(v) {
+  const i = v._info, pl = PLAT[i.platform], list = shown.length ? shown : videosData, idx = list.findIndex(x => x._key === v._key);
+  const rel = videosData.filter(x => x._key !== v._key && x.subject === v.subject).slice(0, 8);
+  $('#mbar').innerHTML = '<h2>' + esc(v.title) + '</h2>' + (v.desc ? '<p>' + esc(v.desc) + '</p>' : '') +
+    '<div class="macts"><button class="btn" data-nav="-1" type="button"' + (idx <= 0 ? ' disabled' : '') + '><i class="fa-solid fa-forward-step fa-flip-horizontal"></i> قبلی</button><button class="btn pri" data-nav="1" type="button"' + (idx < 0 || idx >= list.length - 1 ? ' disabled' : '') + '>بعدی <i class="fa-solid fa-forward-step"></i></button>' +
+    '<a class="btn" target="_blank" rel="noopener" href="' + esc(i.watch) + '"><i class="' + (pl ? pl[2] : 'fa-solid fa-up-right-from-square') + '"></i> باز کردن در ' + (pl ? pl[0] : 'سایت اصلی') + '</a>' +
+    '<button class="btn" data-copy type="button"><i class="fa-solid fa-link"></i> کپی لینک این ویدئو</button><button class="btn" data-share type="button"><i class="fa-solid fa-share-nodes"></i> اشتراک</button><button class="btn' + (saved.has(v._key) ? ' on' : '') + '" data-save="' + esc(v._key) + '" type="button">' + (saved.has(v._key) ? '★ ذخیره شد' : '☆ ذخیره') + '</button></div>' +
+    (i.platform === 'youtube' ? '<div class="hint">اگر یوتیوب در شبکهٔ شما بارگذاری نشد، از «باز کردن» استفاده کنید یا نسخهٔ آپارات را ببینید.</div>' : '') +
+    (rel.length ? '<div class="rel">' + rel.map(r => '<button type="button" data-open="' + esc(r._key) + '">' + (r._thumb ? '<img loading="lazy" src="' + esc(r._thumb) + '" alt="" onerror="this.remove()">' : '<img alt="">') + '<span>' + esc(r.title) + '</span></button>').join('') + '</div>' : '');
+}
+function closeModal() {
+  $('#playerContainer').innerHTML = ''; $('#videoModal').classList.remove('open'); document.body.style.overflow = ''; currentKey = null;
+  try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+  if (lastFocus && lastFocus.focus) lastFocus.focus();
+}
+function openFromHash() { const m = /#v=([^&]+)/.exec(location.hash); if (m) { const k = decodeURIComponent(m[1]); if (byKey(k)) openVideo(k, true); } }
+window.addEventListener('hashchange', () => { if (!/#v=/.test(location.hash) && currentKey) closeModal(); else openFromHash(); });
+function toggleSave(k) { saved.has(k) ? saved.delete(k) : saved.add(k); store.set('saved', [...saved]); stats(); render(); const v = byKey(k); if (v && currentKey === k) drawBar(v); }
+async function copyText(t, msg) { try { await navigator.clipboard.writeText(t); toast(msg || 'کپی شد'); } catch (e) { const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); toast(msg || 'کپی شد'); } catch (x) {} ta.remove(); } }
+function toast(m) { let t = $('#toast'); if (!t) { t = document.createElement('div'); t.id = 'toast'; t.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#0d3524;color:#fff;padding:6px 16px;border-radius:999px;z-index:2000;font-size:13px'; document.body.appendChild(t); } t.textContent = m; t.style.display = 'block'; clearTimeout(t._t); t._t = setTimeout(() => t.style.display = 'none', 1800); }
+
+document.addEventListener('click', e => {
+  const o = e.target.closest('[data-open]'); if (o) { openVideo(o.dataset.open); return; }
+  const sv = e.target.closest('[data-save]'); if (sv) { toggleSave(sv.dataset.save); return; }
+  const nv = e.target.closest('[data-nav]'); if (nv && !nv.disabled) { const list = shown.length ? shown : videosData, i = list.findIndex(x => x._key === currentKey), n = list[i + +nv.dataset.nav]; if (n) openVideo(n._key); return; }
+  if (e.target.closest('[data-copy]')) { copyText(location.origin + location.pathname + '#v=' + encodeURIComponent(currentKey), 'لینک این ویدئو کپی شد'); return; }
+  if (e.target.closest('[data-share]')) { const v = byKey(currentKey), url = location.origin + location.pathname + '#v=' + encodeURIComponent(currentKey); if (navigator.share) navigator.share({ title: v.title, url }).catch(() => {}); else copyText(url, 'لینک کپی شد'); return; }
+  if (e.target === $('#videoModal')) closeModal();
+});
+$('#closeBtn').addEventListener('click', closeModal);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+  else if (e.key === '/' && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) { e.preventDefault(); $('#q').focus(); }
+  else if (currentKey && (e.key === 'ArrowLeft' || e.key === 'ArrowRight') && !/^(INPUT|TEXTAREA|IFRAME|VIDEO)$/.test(document.activeElement.tagName)) { const d = e.key === 'ArrowLeft' ? 1 : -1, list = shown.length ? shown : videosData, i = list.findIndex(x => x._key === currentKey), n = list[i + d]; if (n) openVideo(n._key); }
+  else if (e.key === 'Tab' && currentKey) { const f = [...$('#videoModal').querySelectorAll('button:not([disabled]),a[href],iframe,video')]; if (!f.length) return; const first = f[0], last = f[f.length - 1]; if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); } }
+});
+let _qt; $('#q').addEventListener('input', e => { clearTimeout(_qt); _qt = setTimeout(() => { state.q = e.target.value; render(); }, 120); });
+$('#gradeSel').addEventListener('change', e => { state.grade = e.target.value; render(); });
+$('#sortSel').addEventListener('change', e => { state.sort = e.target.value; render(); });
+$('#quick').addEventListener('click', e => { const c = e.target.closest('.chip'); if (!c) return; const on = !c.classList.contains('on'); document.querySelectorAll('#quick .chip').forEach(x => x.classList.remove('on')); c.classList.toggle('on', on); state.quick = on ? c.dataset.k : ''; render(); });
+$('#themeBtn').addEventListener('click', () => { const r = document.documentElement, cur = r.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'), n = cur === 'dark' ? 'light' : 'dark'; r.dataset.theme = n; store.set('theme', n); });
+{ const t = store.get('theme', null); if (t) document.documentElement.dataset.theme = t; }
+
+/* ============ ابزار مدیر ============ */
+let aItems = [], aBase = true;
+if (/[?&]admin=1/.test(location.search)) $('#admin').open = true;
+function aParse() {
+  const lines = $('#aIn').value.split(/\n+/).map(s => s.trim()).filter(Boolean), seen = new Set(), dup = new Set(videosData.map(v => v._key));
+  const joined = $('#aIn').value; const ifr = joined.match(/<iframe[\s\S]*?<\/iframe>|<iframe[^>]*>/gi); const src = ifr && ifr.length ? ifr.concat(lines.filter(l => !/<\/?iframe/i.test(l))) : lines;
+  aItems = src.map(l => { const i = parseVideoUrl(l); return { raw: l, info: i, title: '', subject: '', grade: '', desc: '', duration: '', dupe: i.ok && (seen.has(i.key) || dup.has(i.key)) , _s: i.ok && seen.add(i.key) }; });
+  aItems.forEach(a => { if (a.info.ok && a.info.platform === 'youtube' && a.info.kind !== 'playlist') oembed(a); });
+  aDraw();
+}
+async function oembed(a) {
+  try { const c = new AbortController(); setTimeout(() => c.abort(), 4000); const r = await fetch('https://www.youtube.com/oembed?format=json&url=' + encodeURIComponent(a.info.watch), { signal: c.signal }); if (!r.ok) return; const j = await r.json(); if (!a.title && j.title) { a.title = j.title; a.auto = true; aDraw(true); } } catch (e) {}
+}
+function aDraw(keep) {
+  const act = document.activeElement && document.activeElement.dataset && document.activeElement.dataset.ai; if (keep && act !== undefined && act !== '') return aOutput();
+  $('#aRows').innerHTML = aItems.map((a, i) => { const x = a.info, pl = PLAT[x.platform];
+    const info = x.ok ? (pl[0] + ' · ' + x.id + (x.start ? ' · شروع ' + fmtDur(x.start) : '') + (x.kind === 'shorts' ? ' · Shorts' : '') + (x.kind === 'playlist' ? ' · پلی‌لیست' : '') + (a.dupe ? ' · ⚠ تکراری' : '')) : 'لینک شناسایی نشد: ' + a.raw.slice(0, 80);
+    return '<div class="arow"><div>' + (x.thumb ? '<img src="' + esc(x.thumb) + '" alt="" onerror="this.style.display=\'none\'">' : '<div class="ph2"><i class="' + (pl ? pl[2] : 'fa-solid fa-triangle-exclamation') + '"></i></div>') + '</div><div class="afields">' +
+      '<input class="full" data-ai="' + i + '" data-f="title" placeholder="عنوان" value="' + esc(a.title) + '"><input data-ai="' + i + '" data-f="subject" placeholder="مبحث/درس" value="' + esc(a.subject) + '"><input data-ai="' + i + '" data-f="grade" placeholder="پایه" value="' + esc(a.grade) + '"><input data-ai="' + i + '" data-f="duration" placeholder="مدت (مثلاً 12:30)" value="' + esc(a.duration) + '"><input data-ai="' + i + '" data-f="thumbnail" placeholder="آدرس تصویر (اختیاری)" value="' + esc(a.thumbnail || '') + '"><input class="full" data-ai="' + i + '" data-f="desc" placeholder="توضیح کوتاه" value="' + esc(a.desc) + '"></div><div class="ainfo' + (x.ok ? '' : ' bad') + '">' + esc(info) + '</div></div>'; }).join('');
+  aOutput();
+}
+function aEntry(a) { const o = { title: a.title || 'بدون عنوان', desc: a.desc || '', subject: a.subject || 'عمومی', grade: a.grade || '', thumbnail: a.thumbnail || a.info.thumb || '', videoUrl: a.info.watch, duration: a.duration || '' }; return o; }
+function aOutput() { const good = aItems.filter(a => a.info.ok && !a.dupe).map(aEntry); const base = aBase ? videosData.map(v => { const o = Object.assign({}, v); Object.keys(o).filter(k => k[0] === '_').forEach(k => delete o[k]); return o; }) : []; $('#aOut').value = JSON.stringify(base.concat(good), null, 2); }
+$('#aRows').addEventListener('input', e => { const t = e.target; if (t.dataset.ai === undefined) return; aItems[+t.dataset.ai][t.dataset.f] = t.value; aOutput(); });
+$('#aGo').addEventListener('click', aParse);
+$('#aIn').addEventListener('paste', () => setTimeout(aParse, 50));
+$('#aAdd').addEventListener('click', () => { const good = aItems.filter(a => a.info.ok && !a.dupe); if (!good.length) { toast('لینک معتبر و جدیدی نیست'); return; } const start = videosData.length; load(videosData.map(v => { const o = Object.assign({}, v); Object.keys(o).filter(k => k[0] === '_').forEach(k => delete o[k]); return o; }).concat(good.map(aEntry))); toast(faNum(good.length) + ' ویدئو به فهرست افزوده شد (فقط پیش‌نمایش)'); aItems = aItems.filter(a => !good.includes(a)); aDraw(); });
+$('#aCopy').addEventListener('click', () => copyText($('#aOut').value, 'JSON کپی شد'));
+$('#aDl').addEventListener('click', () => { const b = new Blob([$('#aOut').value], { type: 'application/json' }), a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'videos.json'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); });
+$('#aBase').addEventListener('click', () => { aBase = !aBase; $('#aBaseV').textContent = aBase ? 'بله' : 'خیر'; aOutput(); });
+window.VideoLab = { parseVideoUrl, durSec, parseTime };
+</script>
+</body>
+</html>
